@@ -8,7 +8,7 @@
 
 ### 2. Pull Request를 통해 참여하는 방법
 
-[PR 템플릿](https://github.com/wtb-kr/wtb-web/blob/main/PULL_REQUEST_TEMPLATE.md)
+[PR 템플릿](https://github.com/wtb-kr/wtb-web/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
 
 #### 1. Fork this repository
 
