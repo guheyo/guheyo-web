@@ -64,7 +64,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-select", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:5.7.3"],\
             ["remark-gfm", "npm:3.0.1"],\
             ["storybook", "npm:7.0.20"],\
-            ["supports-color", "npm:9.4.0"],\
+            ["supports-color", "npm:8.1.1"],\
             ["tailwindcss", "npm:3.3.2"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
@@ -11721,7 +11721,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debug", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.3.4"],\
             ["@types/supports-color", null],\
             ["ms", "npm:2.1.2"],\
-            ["supports-color", "npm:9.4.0"]\
+            ["supports-color", "npm:8.1.1"]\
           ],\
           "packagePeers": [\
             "@types/supports-color",\
@@ -20287,13 +20287,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["has-flag", "npm:4.0.0"]\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["npm:9.4.0", {\
-          "packageLocation": "./.yarn/cache/supports-color-npm-9.4.0-a415f39758-cb8ff8daea.zip/node_modules/supports-color/",\
-          "packageDependencies": [\
-            ["supports-color", "npm:9.4.0"]\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["supports-preserve-symlinks-flag", [\
@@ -21802,7 +21795,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-select", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:5.7.3"],\
             ["remark-gfm", "npm:3.0.1"],\
             ["storybook", "npm:7.0.20"],\
-            ["supports-color", "npm:9.4.0"],\
+            ["supports-color", "npm:8.1.1"],\
             ["tailwindcss", "npm:3.3.2"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
