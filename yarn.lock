@@ -14037,6 +14037,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"supports-color@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "supports-color@npm:9.4.0"
+  checksum: cb8ff8daeaf1db642156f69a9aa545b6c01dd9c4def4f90a49f46cbf24be0c245d392fcf37acd119cd1819b99dad2cc9b7e3260813f64bcfd7f5b18b5a1eefb8
+  languageName: node
+  linkType: hard
+
 "supports-preserve-symlinks-flag@npm:^1.0.0":
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
@@ -15253,10 +15260,12 @@ __metadata:
     "@types/react-dom": 18.2.4
     autoprefixer: 10.4.14
     axios: ^1.4.0
+    debug: ^4.3.4
     eslint: 8.40.0
     eslint-config-next: 13.4.2
     eslint-plugin-storybook: ^0.6.12
     keen-slider: ^6.8.5
+    lodash: ^4.17.21
     moment: ^2.29.4
     next: 13.4.2
     next-auth: ^4.22.1
@@ -15269,6 +15278,7 @@ __metadata:
     react-select: ^5.7.3
     remark-gfm: ^3.0.1
     storybook: 7.0.20
+    supports-color: ^9.4.0
     tailwindcss: ^3.3.2
     typescript: 5.0.4
   languageName: unknown

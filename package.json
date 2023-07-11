@@ -27,6 +27,7 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "keen-slider": "^6.8.5",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "13.4.2",
     "next-auth": "^4.22.1",
@@ -38,6 +39,7 @@
     "react-redux": "^8.0.7",
     "react-select": "^5.7.3",
     "remark-gfm": "^3.0.1",
+    "supports-color": "^9.4.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
@@ -48,6 +50,7 @@
     "@storybook/nextjs": "^7.0.20",
     "@storybook/react": "7.0.20",
     "@storybook/testing-library": "0.0.14-next.2",
+    "debug": "^4.3.4",
     "eslint-plugin-storybook": "^0.6.12",
     "storybook": "7.0.20",
     "tailwindcss": "^3.3.2"
