@@ -51,5 +51,10 @@
     "eslint-plugin-storybook": "^0.6.12",
     "storybook": "7.0.20",
     "tailwindcss": "^3.3.2"
+  },
+  "packageManager": "yarn@3.6.1",
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 3.0.0"
   }
 }
