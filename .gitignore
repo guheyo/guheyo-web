@@ -36,3 +36,12 @@ yarn-error.log*
 next-env.d.ts
 
 *.zip
+
+# not using zero-installs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
