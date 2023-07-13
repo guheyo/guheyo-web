@@ -50,6 +50,7 @@
     "@storybook/nextjs": "^7.0.20",
     "@storybook/react": "7.0.20",
     "@storybook/testing-library": "0.0.14-next.2",
+    "@yarnpkg/sdks": "^3.0.0-rc.48",
     "debug": "^4.3.4",
     "eslint-plugin-storybook": "^0.6.12",
     "storybook": "7.0.20",

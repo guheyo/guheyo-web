@@ -1,7 +1,7 @@
-import _ from "lodash";
 import Posts from "@/app/components/posts/posts"
 import Scrollbar from "@/app/components/base/scrollbar";
 import CategoriesNavbar from "@/app/components/categories/categories-navbar";
+import {JSX} from 'react'
 
 interface Params {
   params: {
@@ -9,7 +9,7 @@ interface Params {
   }
 }
 
-export default async function Page({ params }: Params) {
+export default async function Page({ params }: Params):Promise<JSX.Element> {
   return (
     <div className="flex flex-col">
       <Scrollbar
