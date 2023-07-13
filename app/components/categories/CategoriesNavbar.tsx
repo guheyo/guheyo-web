@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, {memo, useEffect,useCallback} from 'react';
 import _ from 'lodash'
-import TypeSelector from '../posts/type-selector';
+import TypeSelector from '../posts/TypeSelector';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchCategories, setCategoryId } from '@/redux/features/categoriesSlice';
 import ColsSelectButton from '../base/cols-select-button';
 import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
+import {RootState} from '@/redux/store'
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
@@ -16,23 +17,26 @@ const getButtonCSS = (clicked: boolean) => {
   }
 };
 
-export default function CategoriesNavbar({
+const CategoriesNavbar = ({
   guildName
 }: {
   guildName: string
-}) {
-  const categories = useAppSelector(state => state.categoriesSlice.categories);
-  const categoriId = useAppSelector(state => state.categoriesSlice.categoryId);
-  const device = useDeviceDetect();
+}) =>{
+  const categories = useAppSelector((state:RootState) => state.categoriesSlice.categories);
+  const categoryID = useAppSelector((state:RootState) => state.categoriesSlice.categoryId);
+  const device:string = useDeviceDetect();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  useEffect(() : void => {
     dispatch(fetchCategories(guildName));
   }, []);
 
-  const handleOnClick = (id: string) => {
-    dispatch(setCategoryId(id));
-  };
+  const handleOnClick = useCallback((id: string):void => {
+      dispatch(setCategoryId(id));
+    },
+    [],
+  );
+
 
   return (
     <div className='flex flex-row gap-2 md:gap-6 lg:gap-8 items-center'>
@@ -40,13 +44,13 @@ export default function CategoriesNavbar({
         <TypeSelector />
       </div>
       <div className='flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8'>
-        {categories.map((c, i) => (
-          <div key={i} className='flex-none'>
+        {categories.map((category, index) => (
+          <div key={index} className='flex-none'>
             <button
-              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(categoriId === c.id)}`}
-              value={c.id}
-              onClick={() => handleOnClick(c.id)}>
-              <div className="font-bold text-xs md:text-base">{c.name}</div>
+              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(categoryID === category.id)}`}
+              value={category.id}
+              onClick={() => handleOnClick(category.id)}>
+              <div className="font-bold text-xs md:text-base">{category.name}</div>
             </button>
           </div>
         ))}
@@ -63,3 +67,5 @@ export default function CategoriesNavbar({
   );
 
 }
+
+export default memo(CategoriesNavbar);

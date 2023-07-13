@@ -40,7 +40,8 @@
     "react-select": "^5.7.3",
     "remark-gfm": "^3.0.1",
     "supports-color": "8.1.1",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.0.20",

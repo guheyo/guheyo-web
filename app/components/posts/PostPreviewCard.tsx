@@ -8,7 +8,7 @@ import ReadMore from '../base/read-more';
 import UserProfile from '../users/user-profile';
 import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
 import { getPostTitle, getPrice } from '@/app/lib/post';
-import PostDetailCard from './post-detail-card';
+import PostDetailCard from './PostDetailCard';
 import { useState } from 'react';
 import {
   ChatBubbleOvalLeftIcon

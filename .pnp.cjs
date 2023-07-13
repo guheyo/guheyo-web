@@ -72,7 +72,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["storybook", "npm:7.0.20"],\
             ["supports-color", "npm:8.1.1"],\
             ["tailwindcss", "npm:3.3.2"],\
-            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=a1c5e5"]\
+            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=a1c5e5"],\
+            ["zustand", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.3.9"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -22314,7 +22315,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["storybook", "npm:7.0.20"],\
             ["supports-color", "npm:8.1.1"],\
             ["tailwindcss", "npm:3.3.2"],\
-            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=a1c5e5"]\
+            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=a1c5e5"],\
+            ["zustand", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.3.9"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -22419,6 +22421,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/zod-npm-3.21.4-9f570b215c-f185ba8734.zip/node_modules/zod/",\
           "packageDependencies": [\
             ["zod", "npm:3.21.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["zustand", [\
+        ["npm:4.3.9", {\
+          "packageLocation": "./.yarn/cache/zustand-npm-4.3.9-c1730d0244-fc83d65391.zip/node_modules/zustand/",\
+          "packageDependencies": [\
+            ["zustand", "npm:4.3.9"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.3.9", {\
+          "packageLocation": "./.yarn/__virtual__/zustand-virtual-01f2f8af4e/0/cache/zustand-npm-4.3.9-c1730d0244-fc83d65391.zip/node_modules/zustand/",\
+          "packageDependencies": [\
+            ["zustand", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.3.9"],\
+            ["@types/immer", null],\
+            ["@types/react", "npm:18.2.6"],\
+            ["immer", null],\
+            ["react", "npm:18.2.0"],\
+            ["use-sync-external-store", "virtual:89b5163abd04e2ae0f28f70ef7774914f0e64b57d5751074769046fec82451f7bdc1507f8f531ae4a734635c03259f950b5ae6245e3a34c3b6f2a5c724dd0877#npm:1.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/immer",\
+            "@types/react",\
+            "immer",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\

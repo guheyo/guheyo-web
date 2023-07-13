@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useCallback, useRef } from 'react';
-import PostPreviewCard from './post-preview-card';
+import PostPreviewCard from './PostPreviewCard';
 import { Post } from 'prisma';
 import { useAppSelector } from '@/redux/hooks';
 import _ from 'lodash';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts } from '@/app/lib/api/posts';
 import { useInfiniteScroll } from '@/app/hooks/useInfiniteScroll';
-import MockCard from './mock-card';
+import MockCard from './MockCard';
 
 export default function Posts() {
   const categoryId = useAppSelector((state) => state.categoriesSlice.categoryId);

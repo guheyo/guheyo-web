@@ -1,6 +1,6 @@
-import Posts from "@/app/components/posts/posts"
+import Posts from "@/app/components/posts/Posts"
 import Scrollbar from "@/app/components/base/scrollbar";
-import CategoriesNavbar from "@/app/components/categories/categories-navbar";
+import CategoriesNavbar from "@/app/components/categories/CategoriesNavbar";
 import {JSX} from 'react'
 
 interface Params {
