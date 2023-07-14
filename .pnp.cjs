@@ -62,6 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:13.4.2"],\
             ["next-auth", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.22.1"],\
             ["postcss", "npm:8.4.23"],\
+            ["prettier", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-device-detect", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:2.2.3"],\
             ["react-dom", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:18.2.0"],\
@@ -18646,6 +18647,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.8.8"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/prettier-npm-3.0.0-7ffbcce680-6a832876a1.zip/node_modules/prettier/",\
+          "packageDependencies": [\
+            ["prettier", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["pretty-error", [\
@@ -22305,6 +22313,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:13.4.2"],\
             ["next-auth", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:4.22.1"],\
             ["postcss", "npm:8.4.23"],\
+            ["prettier", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-device-detect", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:2.2.3"],\
             ["react-dom", "virtual:70fc9a2b79ab2daa4b03e686f03b1b327ee6bf44e57f2e32bddf89384ecd1c8bb8a02257e4a1360732e6a6e6436a173901bc397814e4c72f763b4a4b5442ac4f#npm:18.2.0"],\

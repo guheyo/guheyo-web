@@ -1,14 +1,11 @@
 import _ from "lodash";
 import { User } from "prisma";
+import { useCallback } from "react";
 
-export default function Username({
-  user
-}: {
-  user: User
-}) {
-  const isBlacklist = () => {
-    return user.roles?.find((r) => r.hexColor === '#000001');
-  };
+const Username = ({ user }: { user: User }) => {
+  const isBlacklist = useCallback(() => {
+    return user.roles?.find(({hexColor}) => hexColor === '#000001');
+  }, [])
 
   if (isBlacklist()) {
     return (
@@ -33,3 +30,5 @@ export default function Username({
     )
   }
 }
+
+export default Username;
