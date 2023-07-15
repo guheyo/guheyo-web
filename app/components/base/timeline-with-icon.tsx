@@ -26,12 +26,12 @@ export default function TimelineWithIcon({
     <div className="max-w-lg">
       <Timeline className="text-sm md:text-base">
         {
-          timelineEvents.map((timelineEvent, i) => (
-            <TimelineItem key={i}>
+          timelineEvents.map((timelineEvent) => (
+            <TimelineItem key={timelineEvent.title}>
               <TimelineConnector />
               <TimelineHeader>                
                 <TimelineIcon color="white">
-                  <Image loading="lazy" className="rounded-full" src={timelineEvent.iconURL} alt={'icon'} width={32} height={32} /> 
+                  <Image loading="lazy" className="rounded-full" src={timelineEvent.iconURL} alt="icon" width={32} height={32} /> 
                 </TimelineIcon>
                 <div className="font-semibold">
                   {timelineEvent.title}

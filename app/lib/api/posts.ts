@@ -1,6 +1,5 @@
-import _ from "lodash";
-import { client } from "../client";
 import { Post } from "prisma";
+import { client } from "../client";
 
 type Posts = {
   posts: Post[]

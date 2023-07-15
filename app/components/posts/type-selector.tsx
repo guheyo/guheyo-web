@@ -2,7 +2,6 @@
 
 import { setPostType } from '@/redux/features/postsSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import _ from 'lodash'
 import React from 'react';
 import Select from 'react-select';
 
@@ -26,7 +25,7 @@ export default function TypeSelector() {
 
   return (
     <Select
-      instanceId={'type-selector'}
+      instanceId="type-selector"
       options={options}
       placeholder="판매"
       onChange={handleChange}

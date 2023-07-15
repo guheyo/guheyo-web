@@ -1,6 +1,5 @@
 'use client';
 
-import _ from 'lodash'
 import { useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -23,21 +22,19 @@ export default function ReadMore({
     return summary;
   };
 
-  const ReadMoreButton = () => {
+  function ReadMoreButton() {
     const lines = text.split('\n');
     if (lines.length > maxLine) {
       return (
         <button
+          type='submit'
           onClick={() => setSummary(!isSummary)}>
           {isSummary ? '... 더보기' : ''}
         </button>
       )
-    } else {
-      return (
-        <></>
-      )
-    }
-  };
+    } 
+    return null;
+  }
 
   return (
     <div>

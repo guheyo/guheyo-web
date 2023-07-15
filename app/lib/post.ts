@@ -11,6 +11,7 @@ export const getPostTitle = (post: Post) => {
     case 'trade': {
       return `${post.title}\n->\n${post.subTitle}`;
     }
+    default: return '';
   }
 };
 
@@ -23,7 +24,8 @@ export const getPrice = (post: Post) => {
       return `${post.price/10000}만원`;
     }
     case 'trade': {
-      return ``;
+      return '';
     }
+    default: return '';
   }
 };

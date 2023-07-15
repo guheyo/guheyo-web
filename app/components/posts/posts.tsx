@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useCallback, useRef } from 'react';
-import PostPreviewCard from './post-preview-card';
 import { Post } from 'prisma';
 import { useAppSelector } from '@/redux/hooks';
-import _ from 'lodash';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts } from '@/app/lib/api/posts';
 import { useInfiniteScroll } from '@/app/hooks/useInfiniteScroll';
+import PostPreviewCard from './post-preview-card';
 import MockCard from './mock-card';
 
 export default function Posts() {
@@ -19,12 +18,9 @@ export default function Posts() {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
     status
   } = useInfiniteQuery(['posts', categoryId, type], {
-    queryFn: async ({ pageParam = '' }) => {
-      return getPosts(categoryId ?? '', type, pageParam);
-    },
+    queryFn: async ({ pageParam = '' }) => getPosts(categoryId ?? '', type, pageParam),
     getNextPageParam: (lastPage, allPages) => lastPage.cursor,
   });
 
@@ -36,15 +32,15 @@ export default function Posts() {
 
   useInfiniteScroll(ref, fetchNext);
 
-  const PostPreviewCards = () => {
-    if (!data) return <></>;
+  function PostPreviewCards() {
+    if (!data) return null;
     return (
       <>
         {
-          data.pages.map((group, i) => (
-            <React.Fragment key={i}>
-              {group.posts.map((post: Post, i) => (
-                <div className='col-span-1' key={i}>
+          data.pages.map((group) => (
+            <React.Fragment key={group.cursor}>
+              {group.posts.map((post: Post) => (
+                <div className='col-span-1' key={post.id}>
                   <PostPreviewCard type={type} post={post} cols={cols} />
                 </div>
               ))}
@@ -53,9 +49,9 @@ export default function Posts() {
         }
       </>
     );
-  };
+  }
 
-  const MockCards = () => {
+  function MockCards() {
     return (
       <>
         {
@@ -70,17 +66,15 @@ export default function Posts() {
   if (status === 'loading') {
     if (type === 'buy') return (
       <div className='flex justify-center'>
-        <div className={`grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start`}>
+        <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
           <MockCards />
         </div>
         <div ref={ref} />
       </div>
     );
     return (
-      <div className={`grid gap-4 md:gap-8 lg:gap-12 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-start`}>
-        {
-          <MockCards />
-        }
+      <div className="grid gap-4 md:gap-8 lg:gap-12 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-start">
+        <MockCards />
       </div>
     );
   }
@@ -90,7 +84,7 @@ export default function Posts() {
 
   if (type === 'buy') return (
     <div className='flex justify-center'>
-      <div className={`grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start`}>
+      <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
         <PostPreviewCards />
       </div>
       <div ref={ref} />

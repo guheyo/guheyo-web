@@ -1,11 +1,11 @@
-import { client } from "../client";
 import { User } from "prisma";
+import { client } from "../client";
 
-type createUserBody = {
+type CreateUserBody = {
   username: string
 }
 
-export async function createUser(user: createUserBody) { 
+export async function createUser(user: CreateUserBody) { 
   const res = await client.post<User>(`/users`, user);
   return res.data;
 };
@@ -20,11 +20,11 @@ export async function getUserBySocailAccount(socialId: string, provider: string)
   return res.data;
 };
 
-type updateUserBody = {
+type UpdateUserBody = {
   username: string
 }
 
-export async function updateUser(id: string, body: updateUserBody) {
+export async function updateUser(id: string, body: UpdateUserBody) {
   const res = await client.patch<User>(`/users/${id}`, body);
   return res.data;
 };

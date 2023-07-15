@@ -1,26 +1,22 @@
-import { Client } from "../lib/client";
-import { Session, SocialAccount } from "prisma";
+import { Session, SocialAccount , User } from "prisma";
 import { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters";
-import { User } from "prisma";
+import _ from "lodash";
 import * as users from "../lib/api/users";
 import * as socialAccounts from "../lib/api/socialAccounts";
 import * as sessions from "../lib/api/sessions";
-import _ from "lodash";
 
-const toAdapterUser = (user: User) => {
-  return {
+const toAdapterUser = (user: User) => ({
     ...user,
     email: '',
     emailVerified: null
-  } as AdapterUser;  
-};
+  } as AdapterUser);
 
 const toAdapterUserOrNull = (user: User) => {
   if (!user) return null;
   return toAdapterUser(user);
 }
 
-export default function Adapter(client: Client): Adapter {
+export default function DatabaseAdapter(): Adapter {
   return {
     async createUser(user) {
       const u = await users.createUser({
@@ -67,7 +63,7 @@ export default function Adapter(client: Client): Adapter {
     },
     async unlinkAccount({ providerAccountId, provider }) {
       await socialAccounts.unlinkAccount({
-        provider: provider,
+        provider,
         socialId: providerAccountId
       });
     },

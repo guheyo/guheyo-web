@@ -24,7 +24,7 @@ export default function ImageCarousel ({
     <Carousel
       loop={false}
       navigation={({ setActiveIndex, activeIndex, length }) => {
-        if (length < 2) return <></>;
+        if (length < 2) return null;
         return (
           <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
             {new Array(length).fill("").map((_, i) => (
@@ -40,7 +40,7 @@ export default function ImageCarousel ({
         );
       }}
       prevArrow={({loop, handlePrev, activeIndex, firstIndex}) => {
-        if (firstIndex) return <></>;
+        if (firstIndex) return null;
         return (
           <IconButton
             variant="text"
@@ -54,7 +54,7 @@ export default function ImageCarousel ({
         )
       }}
       nextArrow={({loop, handleNext, activeIndex, lastIndex}) => {
-        if (lastIndex) return <></>;
+        if (lastIndex) return null;
         return (
           <IconButton
             variant="text"

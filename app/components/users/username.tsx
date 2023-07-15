@@ -6,9 +6,7 @@ export default function Username({
 }: {
   user: User
 }) {
-  const isBlacklist = () => {
-    return user.roles?.find((r) => r.hexColor === '#000001');
-  };
+  const isBlacklist = () => user.roles?.find((r) => r.hexColor === '#000001');
 
   if (isBlacklist()) {
     return (
@@ -21,15 +19,14 @@ export default function Username({
         {user.username}
       </div>
     )
-  } else {
-    return (
-      <div
-        style={{
-          color: _.get(user.roles, '[0].hexColor', '#000000')
-        }}
-      >
-        {user.username}
-      </div>
-    )
-  }
+  } 
+  return (
+    <div
+      style={{
+        color: _.get(user.roles, '[0].hexColor', '#000000')
+      }}
+    >
+      {user.username}
+    </div>
+  )
 }

@@ -1,19 +1,18 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import _ from 'lodash'
-import TypeSelector from '../posts/type-selector';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchCategories, setCategoryId } from '@/redux/features/categoriesSlice';
-import ColsSelectButton from '../base/cols-select-button';
 import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
+import ColsSelectButton from '../base/cols-select-button';
+import TypeSelector from '../posts/type-selector';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
     return `bg-neutral-white hover:bg-gray-200 text-black`
-  } else {
+  } 
     return `bg-black hover:bg-gray-700 text-white`
-  }
+  
 };
 
 export default function CategoriesNavbar({
@@ -40,13 +39,14 @@ export default function CategoriesNavbar({
         <TypeSelector />
       </div>
       <div className='flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8'>
-        {categories.map((c, i) => (
-          <div key={i} className='flex-none'>
+        {categories.map((category) => (
+          <div key={category.id} className='flex-none'>
             <button
-              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(categoriId === c.id)}`}
-              value={c.id}
-              onClick={() => handleOnClick(c.id)}>
-              <div className="font-bold text-xs md:text-base">{c.name}</div>
+              type='submit'
+              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(categoriId === category.id)}`}
+              value={category.id}
+              onClick={() => handleOnClick(category.id)}>
+              <div className="font-bold text-xs md:text-base">{category.name}</div>
             </button>
           </div>
         ))}

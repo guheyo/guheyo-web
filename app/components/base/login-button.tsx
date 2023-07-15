@@ -22,6 +22,7 @@ export default function LoginButton() {
         <MenuList>
           <MenuItem>
             <button
+              type="submit"
               onClick={() => signOut()}
             >
               <div className="flex flex-row gap-1 items-center">
@@ -40,6 +41,7 @@ export default function LoginButton() {
     <div className="inline-flex items-center">
       <div>
         <button
+          type="submit"
           className="bg-black hover:bg-gray-700 text-sm font-bold p-2 rounded text-white"
           onClick={() => signIn('discord')}>
             로그인

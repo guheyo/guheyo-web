@@ -1,6 +1,4 @@
-import Adapter from "@/app/adapters";
-import { client } from "@/app/lib/client";
-import _ from "lodash";
+import DatabaseAdapter from "@/app/adapters";
 import NextAuth, { AuthOptions } from "next-auth"
 import DiscordProvider from "next-auth/providers/discord"
 
@@ -31,7 +29,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  adapter: Adapter(client)
+  adapter: DatabaseAdapter()
 }
 
 const handler = NextAuth(authOptions);

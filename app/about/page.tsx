@@ -1,10 +1,9 @@
-import _ from "lodash";
 import Image from "next/image";
-import Tabs from "../components/base/tabs";
-import Scrollbar from "../components/base/scrollbar";
 import {
   CursorArrowRaysIcon
 } from "@heroicons/react/24/outline";
+import Tabs from "../components/base/tabs";
+import Scrollbar from "../components/base/scrollbar";
 import TimelineWithIcon from "../components/base/timeline-with-icon";
 
 export default async function Page() {
@@ -46,7 +45,7 @@ export default async function Page() {
             <div className="flex items-center justify-center">
               <Image
                 className="rounded"
-                src={'/wtb-logo-square.png'}
+                src="/wtb-logo-square.png"
                 alt="WTB Logo"
                 width={32}
                 height={32}
@@ -114,8 +113,9 @@ export default async function Page() {
           <div id="tech">
             <div className="flex justify-center pb-2">
               <button
+                type="button"
                 disabled
-                className={`max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white`}>
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white">
                 <div className="font-bold">기술 스택</div>
               </button>
             </div>
@@ -145,15 +145,16 @@ export default async function Page() {
           <div id="team">
             <div className="flex flex-row gap-2 items-center justify-center pb-2">
               <button
+                type="button"
                 disabled
-                className={`max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white`}>
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white">
                 <div className="font-bold">팀원</div>
               </button>
             </div>
             <div className="font-medium items-center">
               <a
                 className="flex flex-row gap-1 text-base md:text-lg font-semibold"
-                href={'https://forms.gle/wfcw2aFLaMDv5kNC8'}
+                href="https://forms.gle/wfcw2aFLaMDv5kNC8"
                 target="_blank">
                 지원하기 <CursorArrowRaysIcon width={32} height={32} />
               </a>
