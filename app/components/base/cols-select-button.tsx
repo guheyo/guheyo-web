@@ -15,20 +15,21 @@ export default function ColsSelectButton() {
   if (cols === 1) {
     return (
       <button
+        type="submit"
         className="flex items-center"
         onClick={() => dispatch(setCols(2))}
       >
         <ListBulletIcon width={28} height={28}/>
       </button>
     )
-  } else {
-    return (
-      <button
-        className="flex items-center"
-        onClick={() => dispatch(setCols(1))}
-      >
-        <Bars3Icon width={28} height={28}/>
-      </button>
-    )
   }
+  return (
+    <button
+      type="submit"
+      className="flex items-center"
+      onClick={() => dispatch(setCols(1))}
+    >
+      <Bars3Icon width={28} height={28}/>
+    </button>
+  )
 };

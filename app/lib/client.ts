@@ -1,16 +1,10 @@
 import axios from "axios";
-import _ from "lodash";
 
 export const client = axios.create();
 client.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}:${process.env.NEXT_PUBLIC_API_PORT}/api`;
 client.defaults.headers.post['Content-Type'] = 'application/json';
 client.defaults.headers.get['Cache-Control'] = 'no-store';
-client.defaults.headers.get['Pragma'] = 'no-store';
-client.interceptors.response.use(res => {
-  castExpiresToDate(res.data);
-  return res;
-});
-
+client.defaults.headers.get.Pragma = 'no-store';
 const castExpiresToDate = (body: any) => {
   if (body === null || body === undefined || typeof body !== 'object') {
     return body;
@@ -22,6 +16,10 @@ const castExpiresToDate = (body: any) => {
     } else if (typeof value === 'object') castExpiresToDate(value);
   }
 };
+client.interceptors.response.use(res => {
+  castExpiresToDate(res.data);
+  return res;
+});
 
 export default client;
 

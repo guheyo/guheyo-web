@@ -8,13 +8,13 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { User } from "prisma";
-import UserAvatar from "./user-avatar";
 import _ from "lodash";
+import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
+import UserAvatar from "./user-avatar";
 import Roles from "./roles";
 import SocialJoinDates from "./social-join-dates";
 import DmDialog from "../base/dm-dialog";
 import Username from "./username";
-import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
 
 export default function UserProfile({
   user,
@@ -30,26 +30,26 @@ export default function UserProfile({
   const [openPopover, setOpenPopover] = React.useState(false);
   const device = useDeviceDetect();
   const getDiscordSocialID = () => {
-    const account = _.find(user.socialAccounts, (account) => account.provider === 'discord');
+    const account = _.find(user.socialAccounts, (socialAccount) => socialAccount.provider === 'discord');
     return account?.socialId;
   };
 
   return (
     <Popover open={openPopover} handler={setOpenPopover}>
       <PopoverHandler>
-        <button>
+        <button type="button">
           {
             device === 'mobile' &&
-            <div className={`flex gap-2 items-center font-medium text-xs`}>
-              {displayAvatar ? <UserAvatar user={user} size='xs' /> : <></>}
-              {displayUsername ? <Username user={user} /> : <></>}
+            <div className="flex gap-2 items-center font-medium text-xs">
+              {displayAvatar && <UserAvatar user={user} size='xs' />}
+              {displayUsername && <Username user={user} />}
             </div>
           }
           {
             device === 'browser' &&
-            <div className={`flex gap-2 items-center font-medium text-base`}>
-              {displayAvatar ? <UserAvatar user={user} size='sm' /> : <></>}
-              {displayUsername ? <Username user={user} /> : <></>}
+            <div className="flex gap-2 items-center font-medium text-base">
+              {displayAvatar && <UserAvatar user={user} size='sm' />}
+              {displayUsername && <Username user={user} />}
             </div>
           }
         </button>
@@ -57,7 +57,7 @@ export default function UserProfile({
       <PopoverContent className="max-w-xs z-50">
         <div className="mb-2 flex items-center justify-between gap-4">
           <UserAvatar user={user} size='md' />
-          {displayDM ? <DmDialog url={`https://discord.com/users/${getDiscordSocialID()}`} /> : <></>}
+          {displayDM && <DmDialog url={`https://discord.com/users/${getDiscordSocialID()}`} />}
         </div>
         <Typography
           color="blue-gray"

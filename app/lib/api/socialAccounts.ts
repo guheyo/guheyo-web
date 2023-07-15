@@ -1,5 +1,5 @@
-import { client } from "../client";
 import { SocialAccount } from "prisma";
+import { client } from "../client";
 
 export async function linkAccount(account: SocialAccount) {
   const res = await client.post<SocialAccount>(`/socialAccounts`, account);

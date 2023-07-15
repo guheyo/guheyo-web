@@ -1,10 +1,10 @@
 import './globals.css'
 import { Noto_Sans_KR } from 'next/font/google';
+import Script from 'next/script';
 import { Providers } from './providers';
 import Navbar from './components/base/navbar';
-import Script from 'next/script';
 
-const noto_sans_kr = Noto_Sans_KR({
+const notoSansKr = Noto_Sans_KR({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
@@ -45,7 +45,7 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="1200" />
       </head>
-      <body className={`${noto_sans_kr.className} text-main`}>
+      <body className={`${notoSansKr.className} text-main`}>
         <Providers>
           <div className="fixed top-0 z-50 w-full px-2 py-1 bg-white shadow-sm">
             <Navbar />

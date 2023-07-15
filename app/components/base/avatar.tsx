@@ -11,7 +11,7 @@ export default function Avatar({
 }) {
   return (
     <Image
-      src={ avatarURL ? avatarURL : '/dongwang-gray.svg'}
+      src={ avatarURL || '/dongwang-gray.svg'}
       alt={`${name} avatar`}
       className="dark:invert rounded-full"
       width={32}

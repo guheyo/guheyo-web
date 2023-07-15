@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { client } from "../client";
 import { Category, Guild } from "prisma";
+import { client } from "../client";
 
 export async function getGuildCategories(guildName: string) {
   const res = await client.get<Category[]>(`/guilds/${guildName}/categories`, {
@@ -14,9 +14,7 @@ export async function getGuildCategories(guildName: string) {
 }
 
 function parseCategories(categoriesData: any): Array<Category> {
-  return _.map(categoriesData, (categoryData) => {
-    return _.pick(categoryData, ['id', 'name', 'guildId', 'posts', 'rank']);
-  });
+  return _.map(categoriesData, (categoryData) => _.pick(categoryData, ['id', 'name', 'guildId', 'posts', 'rank']));
 }
 
 export async function getGuilds() {

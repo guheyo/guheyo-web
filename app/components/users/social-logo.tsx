@@ -22,7 +22,6 @@ export default function SocialLogo({
         priority
       />
     )
-  } else {
-    return <></>;
-  }
+  } 
+  return null;
 }

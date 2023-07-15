@@ -1,13 +1,13 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogHeader,
 } from "@material-tailwind/react";
 import { useSession } from "next-auth/react";
-import LoginButton from "./login-button";
 import {
   CursorArrowRaysIcon
 } from "@heroicons/react/24/outline";
+import LoginButton from "./login-button";
 
 export default function DmDialog({
   url,
@@ -26,8 +26,9 @@ export default function DmDialog({
   }
 
   return (
-    <Fragment>
+    <div>
       <button
+        type="submit"
         onClick={handleOpen}
         className="bg-black hover:bg-gray-700 text-sm font-bold p-2 rounded text-white">
         DM
@@ -43,6 +44,6 @@ export default function DmDialog({
           </div>
         </DialogHeader>
       </Dialog>
-    </Fragment>
+    </div>
   );
 }

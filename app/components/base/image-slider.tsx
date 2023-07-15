@@ -31,72 +31,70 @@ export default function ImageSlider ({
     },
   })
 
-  if (_.isUndefined(images) || _.isEmpty(images)) return <></>;
+  if (_.isUndefined(images) || _.isEmpty(images)) return null;
 
   return (
-    <>
-      <div className='relative'>
-        <div ref={sliderRef} className="keen-slider">
-          {_.map(images, (image, i) => (
-            <div key={i} className={`${sizes} flex justify-center items-center`}
-              style={{
-                position: 'relative',
-                objectFit: 'cover'
-              }}
-            >
-              {
-                fill &&
-                <NextImage
-                  className={`keen-slider__slide number-slide${i}`}
-                  src={image.url}
-                  alt="Preview image"
-                  fill={true}
-                  loading='lazy' />
-              }
-              {
-                !fill &&
-                <NextImage
-                  className={`keen-slider__slide number-slide${i}`}
-                  src={image.url}
-                  alt="Preview image"
-                  width={width}
-                  height={height}
-                  loading='lazy' />
-              }
-            </div>
-          ))}
-        </div>
-        {loaded && instanceRef.current && (images.length > 1) && (
-          <>
-            <Arrow
-              left
-              onClick={(e: any) =>
-                e.stopPropagation() || instanceRef.current?.prev()
-              }
-              disabled={currentSlide === 0}
-            />
-            <Arrow
-              onClick={(e: any) =>
-                e.stopPropagation() || instanceRef.current?.next()
-              }
-              disabled={
-                currentSlide ===
-                instanceRef.current.track.details.slides.length - 1
-              }
-            />
-          </>
-        )}
-        <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2'>
-          <div>
+    <div className='relative'>
+      <div ref={sliderRef} className="keen-slider">
+        {_.map(images, (image, i) => (
+          <div key={i} className={`${sizes} flex justify-center items-center`}
+            style={{
+              position: 'relative',
+              objectFit: 'cover'
+            }}
+          >
             {
-              loaded && instanceRef.current && (images.length > 1) && (
-                <Dots instanceRef={instanceRef} currentSlide={currentSlide} />
-              )
+              fill &&
+              <NextImage
+                className={`keen-slider__slide number-slide${i}`}
+                src={image.url}
+                alt="Preview image"
+                fill
+                loading='lazy' />
+            }
+            {
+              !fill &&
+              <NextImage
+                className={`keen-slider__slide number-slide${i}`}
+                src={image.url}
+                alt="Preview image"
+                width={width}
+                height={height}
+                loading='lazy' />
             }
           </div>
+        ))}
+      </div>
+      {loaded && instanceRef.current && (images.length > 1) && (
+        <>
+          <Arrow
+            left
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.prev()
+            }
+            disabled={currentSlide === 0}
+          />
+          <Arrow
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.next()
+            }
+            disabled={
+              currentSlide ===
+              instanceRef.current.track.details.slides.length - 1
+            }
+          />
+        </>
+      )}
+      <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2'>
+        <div>
+          {
+            loaded && instanceRef.current && (images.length > 1) && (
+              <Dots instanceRef={instanceRef} currentSlide={currentSlide} />
+            )
+          }
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -119,18 +117,17 @@ function Arrow(props: Props) {
         <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
       </svg>
     )
-  } else {
-    return (
-      <svg
-        onClick={props.onClick}
-        className={`arrow absolute right-0 top-1/2 w-4 h-4 md:w-6 md:h-6 arrow--right fill-white ${opacity}`}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-      </svg>
-    )
-  }
+  } 
+  return (
+    <svg
+      onClick={props.onClick}
+      className={`arrow absolute right-0 top-1/2 w-4 h-4 md:w-6 md:h-6 arrow--right fill-white ${opacity}`}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+    </svg>
+  )
 }
 
 function Dots({
@@ -141,7 +138,7 @@ function Dots({
   currentSlide: number
 }) {
   const slides = instanceRef.current?.track.details.slides;
-  if (!slides) return <></>;
+  if (!slides) return null;
   return (
     <div>
       {

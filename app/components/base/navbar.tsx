@@ -1,6 +1,5 @@
 'use client';
 
-import _ from 'lodash'
 import Link from 'next/link';
 import LoginButton from './login-button';
 
