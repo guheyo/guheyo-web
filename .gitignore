@@ -36,6 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 *.zip
+.vscode
 
 # not using zero-installs
 .pnp.*
