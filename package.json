@@ -14,6 +14,7 @@
   "author": "keypport",
   "license": "MIT",
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.0.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.29.15",
