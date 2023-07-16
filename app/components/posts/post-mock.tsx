@@ -1,6 +1,6 @@
 'use client';
 
-export default function MockCard({
+export default function PostMock({
   type
 }: {
   type: string

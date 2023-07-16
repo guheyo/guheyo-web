@@ -19,7 +19,7 @@ const options = [
 export default function TypeSelector() {
   const dispatch = useAppDispatch();
   const handleChange = (option: Option | null) => {
-    if (!option) return null;
+    if (!option) return ;
     dispatch(setPostType(option.value));
   }
 

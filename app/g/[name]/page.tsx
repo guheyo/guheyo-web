@@ -1,4 +1,4 @@
-import Posts from "@/app/components/posts/posts"
+import Feed from "@/app/components/posts/feed"
 import Scrollbar from "@/app/components/base/scrollbar";
 import CategoriesNavbar from "@/app/components/categories/categories-navbar";
 
@@ -21,7 +21,7 @@ export default async function Page({ params }: Params) {
         </div>
       </Scrollbar>
       <div className="z-0 pt-16 px-2 pb-12">
-        <Posts/>
+        <Feed />
       </div>
     </div>
   )

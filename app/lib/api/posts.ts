@@ -1,7 +1,7 @@
 import { Post } from "prisma";
 import { client } from "../client";
 
-type Posts = {
+export type Posts = {
   posts: Post[]
   cursor: string
   hasNextPage: boolean

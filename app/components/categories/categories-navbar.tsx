@@ -27,7 +27,7 @@ export default function CategoriesNavbar({
 
   useEffect(() => {
     dispatch(fetchCategories(guildName));
-  }, []);
+  }, [guildName]);
 
   const handleOnClick = (id: string) => {
     dispatch(setCategoryId(id));
@@ -61,5 +61,4 @@ export default function CategoriesNavbar({
       </div>
     </div>
   );
-
 }

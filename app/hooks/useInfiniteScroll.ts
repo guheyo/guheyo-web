@@ -5,7 +5,7 @@ export const useInfiniteScroll = (
   fetchNext: () => void
 ) => {
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current) return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
