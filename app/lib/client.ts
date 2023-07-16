@@ -5,16 +5,28 @@ client.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}:${process.env
 client.defaults.headers.post['Content-Type'] = 'application/json';
 client.defaults.headers.get['Cache-Control'] = 'no-store';
 client.defaults.headers.get.Pragma = 'no-store';
+
 const castExpiresToDate = (body: any) => {
   if (body === null || body === undefined || typeof body !== 'object') {
     return body;
   }
-  for (const key of Object.keys(body)) {
+  let newBody = {};
+  Object.keys(body).map(key => {
     const value = body[key];
     if (key === 'expires') {
-      body[key] = new Date(value);
-    } else if (typeof value === 'object') castExpiresToDate(value);
-  }
+      newBody = {
+        ...newBody,
+        key: new Date(value)
+      };
+    } else {
+      newBody = {
+        ...newBody,
+        key: castExpiresToDate(value)
+      }
+    }
+    return newBody;
+  });
+  return newBody;
 };
 client.interceptors.response.use(res => {
   castExpiresToDate(res.data);

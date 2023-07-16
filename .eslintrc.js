@@ -44,6 +44,7 @@ module.exports = {
         'react/jsx-pascal-case': ERROR,
         'import/prefer-default-export': OFF,
         'no-use-before-define': OFF,
+        '@typescript-eslint/no-use-before-define': ERROR,
         'no-nested-ternary': OFF,
         'no-param-reassign': ["error", { "props": false }],
         'no-unused-vars': OFF,

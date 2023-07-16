@@ -9,7 +9,7 @@ import { useState } from 'react';
 import {
   ChatBubbleOvalLeftIcon
 } from "@heroicons/react/24/outline";
-import PostDetailCard from './post-detail-card';
+import PostDetail from './post-detail';
 import UserProfile from '../users/user-profile';
 import ReadMore from '../base/read-more';
 import Thumbnail from '../base/thumbnail';
@@ -20,7 +20,7 @@ interface Props {
   cols: number
 }
 
-export default function PostPreviewCard({
+export default function PostPreview({
   type,
   post,
   cols
@@ -69,7 +69,7 @@ export default function PostPreviewCard({
                 </div>
               </button>
               <div className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
-                <PostDetailCard post={post} open={open} handleOpen={handleOpen} />
+                <PostDetail post={post} open={open} handleOpen={handleOpen} />
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function PostPreviewCard({
             </div>
           </button>
           <div className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
-            <PostDetailCard post={post} open={open} handleOpen={handleOpen} />
+            <PostDetail post={post} open={open} handleOpen={handleOpen} />
           </div>
         </div>
       }
