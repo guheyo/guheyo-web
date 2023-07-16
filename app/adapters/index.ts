@@ -1,28 +1,29 @@
-import { Session, SocialAccount , User } from "prisma";
-import { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters";
-import _ from "lodash";
-import * as users from "../lib/api/users";
-import * as socialAccounts from "../lib/api/socialAccounts";
-import * as sessions from "../lib/api/sessions";
+import { Session, SocialAccount, User } from 'prisma';
+import { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters';
+import _ from 'lodash';
+import * as users from '../lib/api/users';
+import * as socialAccounts from '../lib/api/socialAccounts';
+import * as sessions from '../lib/api/sessions';
 
-const toAdapterUser = (user: User) => ({
+const toAdapterUser = (user: User) =>
+  ({
     ...user,
     email: '',
-    emailVerified: null
-  } as AdapterUser);
+    emailVerified: null,
+  }) as AdapterUser;
 
 const toAdapterUserOrNull = (user: User) => {
   if (!user) return null;
   return toAdapterUser(user);
-}
+};
 
 export default function DatabaseAdapter(): Adapter {
   return {
     async createUser(user) {
       const u = await users.createUser({
-        username: user.username
+        username: user.username,
       });
-      return toAdapterUser(u,);
+      return toAdapterUser(u);
     },
     async getUser(id) {
       const u = await users.getUser(id);
@@ -38,9 +39,9 @@ export default function DatabaseAdapter(): Adapter {
     async updateUser(user): Promise<AdapterUser> {
       if (!user.username) {
         return user as AdapterUser;
-      };
+      }
       const body = {
-        username: user.username
+        username: user.username,
       };
       const u = await users.updateUser(user.id, body);
       return toAdapterUser(u);
@@ -57,21 +58,21 @@ export default function DatabaseAdapter(): Adapter {
         idToken: account.id_token,
         refreshToken: account.refresh_token,
         sessionState: account.session_state,
-        ... _.pick(account, ['provider', 'scope', 'userId'])
+        ..._.pick(account, ['provider', 'scope', 'userId']),
       } as SocialAccount;
       await socialAccounts.linkAccount(socialAccount);
     },
     async unlinkAccount({ providerAccountId, provider }) {
       await socialAccounts.unlinkAccount({
         provider,
-        socialId: providerAccountId
+        socialId: providerAccountId,
       });
     },
     async createSession({ sessionToken, userId, expires }) {
       const body = {
         sessionToken,
         userId,
-        expires
+        expires,
       };
       const session = await sessions.createSession(body);
       return session as AdapterSession;
@@ -98,5 +99,5 @@ export default function DatabaseAdapter(): Adapter {
     async useVerificationToken({ identifier, token }) {
       return null;
     },
-  }
+  };
 }

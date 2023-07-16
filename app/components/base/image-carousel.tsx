@@ -1,10 +1,7 @@
 'use client';
 
 import { Carousel, IconButton } from '@material-tailwind/react';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
@@ -12,22 +9,22 @@ import NextImage from 'next/image';
 function Navigation({
   setActiveIndex,
   activeIndex,
-  length
+  length,
 }: {
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>,
-  activeIndex: number,
-  length: number
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  activeIndex: number;
+  length: number;
 }) {
   if (length < 2) return null;
   return (
     <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
       {_.range(length).map((index) => (
         <button
-          type='submit'
-          aria-label='indicator'
+          type="submit"
+          aria-label="indicator"
           key={index}
           className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-            activeIndex === index ? "bg-white w-8" : "bg-white/50 w-4"
+            activeIndex === index ? 'bg-white w-8' : 'bg-white/50 w-4'
           }`}
           onClick={() => setActiveIndex(index)}
         />
@@ -40,12 +37,12 @@ function PrevArrow({
   loop,
   handlePrev,
   activeIndex,
-  firstIndex
+  firstIndex,
 }: {
-  loop: boolean,
-  handlePrev: () => void,
-  activeIndex: number,
-  firstIndex: boolean,
+  loop: boolean;
+  handlePrev: () => void;
+  activeIndex: number;
+  firstIndex: boolean;
 }) {
   if (firstIndex) return null;
   return (
@@ -58,19 +55,19 @@ function PrevArrow({
     >
       <ChevronLeftIcon strokeWidth={2} className="w-6 h-6" />
     </IconButton>
-  )
+  );
 }
-  
+
 function NextArrow({
   loop,
   handleNext,
   activeIndex,
-  lastIndex
+  lastIndex,
 }: {
-  loop: boolean,
-  handleNext: () => void,
-  activeIndex: number,
-  lastIndex: boolean
+  loop: boolean;
+  handleNext: () => void;
+  activeIndex: number;
+  lastIndex: boolean;
 }) {
   if (lastIndex) return null;
   return (
@@ -83,19 +80,19 @@ function NextArrow({
     >
       <ChevronRightIcon strokeWidth={2} className="w-6 h-6" />
     </IconButton>
-  )
+  );
 }
 
-export default function ImageCarousel ({
+export default function ImageCarousel({
   images,
   sizes,
   width,
-  height
+  height,
 }: {
-  images: Image[] | undefined,
-  sizes: string,
-  width: number,
-  height: number
+  images: Image[] | undefined;
+  sizes: string;
+  width: number;
+  height: number;
 }) {
   if (!images) return null;
 
@@ -112,14 +109,16 @@ export default function ImageCarousel ({
           className={`${sizes} flex justify-center items-center overflow-hidden`}
           style={{
             position: 'relative',
-            objectFit: 'cover'
-          }}>
+            objectFit: 'cover',
+          }}
+        >
           <NextImage
             src={image.url}
             alt={image.name}
             width={width}
             height={height}
-            loading='lazy' />
+            loading="lazy"
+          />
         </div>
       ))}
     </Carousel>
