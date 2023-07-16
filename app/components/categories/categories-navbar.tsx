@@ -29,7 +29,7 @@ export default function CategoriesNavbar({ guildName }: { guildName: string }) {
 
   useEffect(() => {
     dispatch(fetchCategories(guildName));
-  }, [guildName]);
+  }, [dispatch, guildName]);
 
   const handleOnClick = (id: string) => {
     dispatch(setCategoryId(id));
