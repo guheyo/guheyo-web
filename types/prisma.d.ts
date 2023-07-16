@@ -80,6 +80,7 @@ declare module "prisma" {
   }
   
   interface Image {
+    id: string
     name: string
     url: string
     userId: string
