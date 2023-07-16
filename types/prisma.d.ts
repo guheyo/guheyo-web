@@ -1,11 +1,11 @@
-declare module "prisma" {
+declare module 'prisma' {
   interface Guild {
     id: string
     name: string
     categories?: Category[]
     rank: number
   }
-  
+
   interface Category {
     id: string
     name: string
@@ -13,7 +13,7 @@ declare module "prisma" {
     posts?: Post[]
     rank: number
   }
-  
+
   interface Post {
     id: string
     user: User
@@ -26,7 +26,7 @@ declare module "prisma" {
     tags?: Tag[]
     createdAt: Date
   }
-  
+
   interface PostPreview {
     id: string
     user: User
@@ -39,13 +39,13 @@ declare module "prisma" {
     tags?: Tag[]
     createdAt: Date
   }
-    
+
   interface Tag {
     id: string
     name: string
     posts?: Post[]
   }
-  
+
   interface User {
     id: string
     name?: string | null
@@ -55,7 +55,7 @@ declare module "prisma" {
     bot: boolean
     roles?: Role[]
   }
-  
+
   interface SocialAccount {
     id: string
     provider: string
@@ -78,7 +78,7 @@ declare module "prisma" {
     hexColor: string
     users?: User[]
   }
-  
+
   interface Image {
     name: string
     url: string
@@ -98,5 +98,12 @@ declare module "prisma" {
     identifier: string
     token: string
     expires: Date
+  }
+
+  interface ImageCarouselProps {
+    images: Image[] | undefined
+    sizes: string
+    width: number
+    height: number
   }
 }
