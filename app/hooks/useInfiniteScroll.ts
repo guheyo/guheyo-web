@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 export const useInfiniteScroll = (
   ref: React.RefObject<any>,
-  fetchNext: () => void
+  fetchNext: () => void,
 ) => {
   useEffect(() => {
     if (!ref.current) return undefined;
@@ -10,16 +10,17 @@ export const useInfiniteScroll = (
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if(entry.isIntersecting) {
+          if (entry.isIntersecting) {
             fetchNext();
           }
-        })
-      }, {
+        });
+      },
+      {
         rootMargin: '300px',
-        threshold: 1
-      }
+        threshold: 1,
+      },
     );
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, [ref, fetchNext]);
-}
+};

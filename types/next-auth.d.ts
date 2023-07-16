@@ -1,4 +1,4 @@
-import NextAuth from "next-auth/next"
+import NextAuth from "next-auth/next";
 import { User as PrismaUser } from "prisma";
 
 declare module "next-auth" {
@@ -6,7 +6,7 @@ declare module "next-auth" {
 
   interface Session {
     user?: User,
-    expires: Date
+    expires: Date,
   }
 }
 
@@ -16,6 +16,6 @@ declare module "next-auth/adapters" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    user: string
+    user: string,
   }
 }

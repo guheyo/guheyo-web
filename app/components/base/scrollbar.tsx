@@ -7,16 +7,20 @@ export default function Scrollbar({
   children,
   z,
   negativeTop,
-  top
+  top,
 }: {
-  children: React.ReactNode,
-  z: string,
-  negativeTop: string,
-  top: string
+  children: React.ReactNode;
+  z: string;
+  negativeTop: string;
+  top: string;
 }) {
   const scrollDirection = useScrollDirection();
   return (
-    <div className={`sticky ${z} ${scrollDirection === "down" ? `${negativeTop}` : `${top}`}`}>
+    <div
+      className={`sticky ${z} ${
+        scrollDirection === 'down' ? `${negativeTop}` : `${top}`
+      }`}
+    >
       {children}
     </div>
   );

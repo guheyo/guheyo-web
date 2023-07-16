@@ -1,21 +1,17 @@
-import Feed from "@/app/components/posts/feed"
-import Scrollbar from "@/app/components/base/scrollbar";
-import CategoriesNavbar from "@/app/components/categories/categories-navbar";
+import Feed from '@/app/components/posts/feed';
+import Scrollbar from '@/app/components/base/scrollbar';
+import CategoriesNavbar from '@/app/components/categories/categories-navbar';
 
 interface Params {
   params: {
-    name: string
-  }
+    name: string;
+  };
 }
 
 export default async function Page({ params }: Params) {
   return (
     <div className="flex flex-col">
-      <Scrollbar
-        z='z-40'
-        negativeTop='-top-100'
-        top='top-11'
-      >
+      <Scrollbar z="z-40" negativeTop="-top-100" top="top-11">
         <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-white">
           <CategoriesNavbar guildName={params.name} />
         </div>
@@ -24,5 +20,5 @@ export default async function Page({ params }: Params) {
         <Feed />
       </div>
     </div>
-  )
-};
+  );
+}

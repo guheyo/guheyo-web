@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const client = axios.create();
 client.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}:${process.env.NEXT_PUBLIC_API_PORT}/api`;
@@ -11,24 +11,24 @@ const castExpiresToDate = (body: any) => {
     return body;
   }
   let newBody = {};
-  Object.keys(body).map(key => {
+  Object.keys(body).map((key) => {
     const value = body[key];
     if (key === 'expires') {
       newBody = {
         ...newBody,
-        key: new Date(value)
+        key: new Date(value),
       };
     } else {
       newBody = {
         ...newBody,
-        key: castExpiresToDate(value)
-      }
+        key: castExpiresToDate(value),
+      };
     }
     return newBody;
   });
   return newBody;
 };
-client.interceptors.response.use(res => {
+client.interceptors.response.use((res) => {
   castExpiresToDate(res.data);
   return res;
 });

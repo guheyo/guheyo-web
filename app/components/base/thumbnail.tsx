@@ -7,26 +7,28 @@ export default function Thumbnail({
   image,
   sizes,
   width,
-  height
+  height,
 }: {
-  image: Image,
-  sizes: string,
-  width: number,
-  height: number
+  image: Image;
+  sizes: string;
+  width: number;
+  height: number;
 }) {
- return (
+  return (
     <div
       className={`${sizes} flex overflow-hidden justify-center items-center`}
       style={{
         position: 'relative',
-        objectFit: 'cover'
-      }}>
+        objectFit: 'cover',
+      }}
+    >
       <NextImage
         src={image.url}
         alt={image.name}
         width={width}
         height={height}
-        loading='lazy' />
+        loading="lazy"
+      />
     </div>
   );
 }

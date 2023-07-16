@@ -1,7 +1,7 @@
-import { Post } from "prisma";
+import { Post } from 'prisma';
 
 export const getPostTitle = (post: Post) => {
-  switch(post.type) {
+  switch (post.type) {
     case 'sell': {
       return post.title;
     }
@@ -11,21 +11,23 @@ export const getPostTitle = (post: Post) => {
     case 'trade': {
       return `${post.title}\n->\n${post.subTitle}`;
     }
-    default: return '';
+    default:
+      return '';
   }
 };
 
 export const getPrice = (post: Post) => {
-  switch(post.type) {
+  switch (post.type) {
     case 'sell': {
-      return `${post.price/10000}만원`;
+      return `${post.price / 10000}만원`;
     }
     case 'buy': {
-      return `${post.price/10000}만원`;
+      return `${post.price / 10000}만원`;
     }
     case 'trade': {
       return '';
     }
-    default: return '';
+    default:
+      return '';
   }
 };
