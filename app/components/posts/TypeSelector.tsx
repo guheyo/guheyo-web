@@ -2,8 +2,7 @@
 
 import { setPostType } from '@/redux/features/postsSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import _ from 'lodash'
-import React from 'react';
+import {memo, useCallback} from 'react';
 import Select from 'react-select';
 
 type Option = {
@@ -11,18 +10,21 @@ type Option = {
   label: string,
 }
 
-const options = [
+const options: Option[] = [
   { value: 'sell', label: '판매' },
   { value: 'buy', label: '구매' },
   { value: 'trade', label: '교환' }
 ];
 
-export default function TypeSelector() {
+const TypeSelector = () =>{
   const dispatch = useAppDispatch();
-  const handleChange = (option: Option | null) => {
-    if (!option) return null;
-    dispatch(setPostType(option.value));
-  }
+  const handleChange = useCallback((option: Option | null) : null => {
+      if (!option) return null;
+      dispatch(setPostType(option.value));
+    },
+    [],
+  );
+
 
   return (
     <Select
@@ -33,3 +35,6 @@ export default function TypeSelector() {
     />
   );
 }
+
+
+export default memo(TypeSelector);

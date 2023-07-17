@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import _ from 'lodash'
-import Link from 'next/link';
-import LoginButton from './login-button';
+import Link from 'next/link'
+import LoginButton from './LoginButton'
+import {memo} from 'react'
 
-export default function Navbar() {
+const Navbar = () => {
   return (
     <div className='grid grid-cols-2 items-center h-10'>
       <div className='cols-span-1 justify-self-start'>
-        <Link href="/">
-          WTB.KR
-        </Link>
-      </div>      
+        <Link href='/'>WTB.KR</Link>
+      </div>
       <div className='cols-span-1 justify-self-end'>
         <LoginButton />
       </div>
     </div>
-  );
+  )
 }
+
+export default memo(Navbar)
