@@ -38,4 +38,3 @@ const ReadMore = ({text, maxLine}: Props) => {
 }
 
 export default memo(ReadMore)
-//https://github.com/wtb-kr/wtb-web/tree/feature/rendering
