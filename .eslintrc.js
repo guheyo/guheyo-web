@@ -24,7 +24,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:storybook/recommended',
   ],
-  plugins: ['react', '@typescript-eslint', 'prettier', 'unicorn'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'check-file'],
   rules: {
     'react/react-in-jsx-scope': OFF,
     'react/require-default-props': OFF,
@@ -62,32 +62,21 @@ module.exports = {
         format: null,
       },
     ],
+    'check-file/filename-naming-convention': [
+      ERROR,
+      {
+        '**/*.{jsx,tsx}': 'KEBAB_CASE',
+        '**/*.{js,ts}': 'KEBAB_CASE',
+      },
+      {
+        ignoreMiddleExtensions: true,
+      },
+    ],
+    'check-file/folder-naming-convention': [
+      ERROR,
+      {
+        '*/**/': 'NEXT_JS_APP_ROUTER_CASE',
+      },
+    ],
   },
-  overrides: [
-    {
-      files: ['*.jsx', '*.tsx'],
-      rules: {
-        'unicorn/filename-case': [
-          ERROR,
-          {
-            case: 'kebabCase',
-          },
-        ],
-      },
-    },
-    {
-      files: ['*.js', '*.ts'],
-      rules: {
-        'unicorn/filename-case': [
-          ERROR,
-          {
-            cases: {
-              camelCase: true,
-              kebabCase: true,
-            },
-          },
-        ],
-      },
-    },
-  ],
 };

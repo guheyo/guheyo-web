@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Post } from 'prisma';
 
 interface PostsState {
-  type: string,
-  cols: number,
-  posts: Array<Post>,
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  type: string;
+  cols: number;
+  posts: Array<Post>;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
 } as PostsState;
 
 export const posts = createSlice({
-  name: "posts",
+  name: 'posts',
   initialState,
   reducers: {
     reset: () => initialState,
@@ -30,8 +30,9 @@ export const posts = createSlice({
       state.posts.push(action.payload);
     },
     postUpdated: (state, action: PayloadAction<Post>) => {
-      const { id, title, subTitle, price, content, images, tags } = action.payload;
-      const existingPost = state.posts.find(post => post.id === id);
+      const { id, title, subTitle, price, content, images, tags } =
+        action.payload;
+      const existingPost = state.posts.find((post) => post.id === id);
       if (existingPost) {
         existingPost.title = title;
         existingPost.subTitle = subTitle;
@@ -43,18 +44,12 @@ export const posts = createSlice({
     },
     postDeleted: (state, action: PayloadAction<Post>) => {
       const { id } = action.payload;
-      state.posts = state.posts.filter(post => post.id !== id);
+      state.posts = state.posts.filter((post) => post.id !== id);
     },
   },
-  extraReducers: (builder) => {
-  }
+  extraReducers: (builder) => {},
 });
 
-export const {
-  setPostType,
-  setCols,
-  postAdded,
-  postUpdated,
-  postDeleted
-} = posts.actions;
+export const { setPostType, setCols, postAdded, postUpdated, postDeleted } =
+  posts.actions;
 export default posts.reducer;

@@ -5,7 +5,7 @@ import { Post } from 'prisma';
 import { useAppSelector } from '@/redux/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts, Posts } from '@/app/lib/api/posts';
-import { useInfiniteScroll } from '@/app/hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import PostPreview from './post-preview';
 import PostMock from './post-mock';
 

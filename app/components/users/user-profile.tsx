@@ -9,7 +9,7 @@ import {
 } from '@material-tailwind/react';
 import { User } from 'prisma';
 import _ from 'lodash';
-import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
+import { useDeviceDetect } from '@/app/hooks/use-device-detect';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from './social-join-dates';

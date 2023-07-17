@@ -2,7 +2,7 @@ import { Session, SocialAccount, User } from 'prisma';
 import { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters';
 import _ from 'lodash';
 import * as users from '../lib/api/users';
-import * as socialAccounts from '../lib/api/socialAccounts';
+import * as socialAccounts from '../lib/api/social-accounts';
 import * as sessions from '../lib/api/sessions';
 
 const toAdapterUser = (user: User) =>

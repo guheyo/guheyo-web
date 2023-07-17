@@ -2,7 +2,7 @@
 
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import React from 'react';
-import { setCols } from '@/redux/features/postsSlice';
+import { setCols } from '@/redux/features/posts-slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export default function ColsSelectButton() {
