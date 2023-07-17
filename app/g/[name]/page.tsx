@@ -1,6 +1,6 @@
-import Posts from '@/app/components/posts/Posts'
-import Scrollbar from '@/app/components/base/Scrollbar'
-import CategoriesNavbar from '@/app/components/categories/CategoriesNavbar'
+import Posts from '@/app/components/posts/posts'
+import Scrollbar from '@/app/components/base/scrollbar'
+import CategoriesNavbar from '@/app/components/categories/categories-navbar'
 
 interface Params {
   params: {

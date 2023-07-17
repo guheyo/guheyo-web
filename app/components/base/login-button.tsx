@@ -4,7 +4,7 @@ import {useSession, signIn, signOut} from 'next-auth/react'
 import React, {memo} from 'react'
 import {Menu, MenuHandler, MenuItem, MenuList} from '@material-tailwind/react'
 import {PowerIcon} from '@heroicons/react/24/outline'
-import Avatar from './Avatar'
+import Avatar from './avatar'
 import {Session} from 'next-auth'
 
 const LoginButton = () => {

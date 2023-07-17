@@ -3,12 +3,12 @@
 import {memo, useState} from 'react'
 import {Popover, PopoverHandler, PopoverContent, Typography} from '@material-tailwind/react'
 import {User} from 'prisma'
-import UserAvatar from './UserAvatar'
+import UserAvatar from './user-avatar'
 import _ from 'lodash'
-import Roles from './Roles'
-import SocialJoinDates from './SocialJoinDates'
-import DmDialog from '../base/DmDialog'
-import UserName from './UserName'
+import Roles from './roles'
+import SocialJoinDates from './social-join-dates'
+import DmDialog from '../base/dm-dialog'
+import UserName from './user-name'
 import {useDeviceDetect} from '@/app/hooks/useDeviceDetect'
 
 const UserProfile = ({

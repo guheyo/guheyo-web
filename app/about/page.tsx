@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import Image from 'next/image'
-import Tabs from '../components/base/Tabs'
-import Scrollbar from '../components/base/Scrollbar'
+import Tabs from '../components/base/tabs'
+import Scrollbar from '../components/base/scrollbar'
 import {CursorArrowRaysIcon} from '@heroicons/react/24/outline'
 import TimelineWithIcon from '../components/base/timeline-with-icon'
 

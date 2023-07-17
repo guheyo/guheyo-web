@@ -1,32 +1,28 @@
-'use client';
+'use client'
 
-import { Image } from 'prisma';
-import NextImage from 'next/image';
+import {Image} from 'prisma'
+import NextImage from 'next/image'
+import {memo} from 'react'
 
-export default function Thumbnail({
-  image,
-  sizes,
-  width,
-  height
-}: {
-  image: Image,
-  sizes: string,
-  width: number,
+interface Props {
+  image: Image
+  sizes: string
+  width: number
   height: number
-}) {
- return (
+}
+
+const Thumbnail = ({image, sizes, width, height}: Props) => {
+  return (
     <div
       className={`${sizes} flex overflow-hidden justify-center items-center`}
       style={{
         position: 'relative',
-        objectFit: 'cover'
-      }}>
-      <NextImage
-        src={image.url}
-        alt={image.name}
-        width={width}
-        height={height}
-        loading='lazy' />
+        objectFit: 'cover',
+      }}
+    >
+      <NextImage src={image.url} alt={image.name} width={width} height={height} loading='lazy' />
     </div>
-  );
+  )
 }
+
+export default memo(Thumbnail)

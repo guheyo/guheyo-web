@@ -1,6 +1,21 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
   "extends": [
-    "next/core-web-vitals",
-    "plugin:storybook/recommended"
-  ]
+  "eslint:recommended",
+  "plugin:react/recommended"
+],
+  "rules": {
+  "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/react-in-jsx-scope": "off"
+},
+  "settings": {
+  "react": {
+    "version": "detect"
+  }
+},
+  "env": {
+  "browser": true,
+    "node": true
+}
 }

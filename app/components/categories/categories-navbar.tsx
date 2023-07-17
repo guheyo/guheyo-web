@@ -1,10 +1,10 @@
 'use client'
 
 import React, {memo, useEffect, useCallback} from 'react'
-import TypeSelector from '../posts/TypeSelector'
+import TypeSelector from '../posts/type-selector'
 import {useAppDispatch, useAppSelector} from '@/redux/hooks'
 import {fetchCategories, setCategoryId} from '@/redux/features/categoriesSlice'
-import ColsSelectButton from '../base/ColsSelectButton'
+import ColsSelectButton from '../base/cols-select-button'
 import {useDeviceDetect} from '@/app/hooks/useDeviceDetect'
 import {RootState} from '@/redux/store'
 

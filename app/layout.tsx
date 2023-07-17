@@ -1,7 +1,7 @@
 import './globals.css'
 import {Noto_Sans_KR} from 'next/font/google'
 import {Providers} from './providers'
-import Navbar from './components/base/Navbar'
+import Navbar from './components/base/navbar'
 import Script from 'next/script'
 
 const noto_sans_kr = Noto_Sans_KR({

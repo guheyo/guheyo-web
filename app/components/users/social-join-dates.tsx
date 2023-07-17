@@ -1,13 +1,9 @@
 import moment from 'moment'
 import {SocialAccount} from 'prisma'
-import SocialLogo from './SocialLogo'
+import SocialLogo from './social-logo'
 import {memo} from 'react'
 
-const SocialJoinDates = ({
-  socialAccounts,
-}: {
-  socialAccounts?: SocialAccount[]
-}) => {
+const SocialJoinDates = ({socialAccounts}: {socialAccounts?: SocialAccount[]}) => {
   if (!socialAccounts) return <></>
 
   const getJoinedDate = (socialAccount: SocialAccount) => {
@@ -19,12 +15,7 @@ const SocialJoinDates = ({
       {socialAccounts.map((socialAccount, i) => {
         return (
           <div key={i} className='flex flex-row gap-1'>
-            <SocialLogo
-              provider='discord'
-              color='blue'
-              width={18}
-              height={18}
-            />
+            <SocialLogo provider='discord' color='blue' width={18} height={18} />
             <div>{getJoinedDate(socialAccount)}</div>
           </div>
         )
