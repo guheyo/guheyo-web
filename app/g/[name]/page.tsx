@@ -1,5 +1,5 @@
 import Posts from '@/app/components/posts/Posts'
-import Scrollbar from '@/app/components/base/scrollbar'
+import Scrollbar from '@/app/components/base/Scrollbar'
 import CategoriesNavbar from '@/app/components/categories/CategoriesNavbar'
 
 interface Params {

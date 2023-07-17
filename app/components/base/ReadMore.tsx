@@ -16,10 +16,10 @@ const ReadMore = ({text, maxLine}: Props) => {
     if (!isSummary) return text
     const lines = text.split('\n')
     return lines.splice(0, maxLine).join('\n')
-  }, [isSummary, text])
+  }, [isSummary, text, maxLine])
 
   const ReadMoreButton = () => {
-    const lines = text.split('\n')
+    const lines: string[] = text.split('\n')
     if (lines.length > maxLine) {
       return <button onClick={() => setSummary(!isSummary)}>{isSummary ? '... 더보기' : ''}</button>
     } else {
