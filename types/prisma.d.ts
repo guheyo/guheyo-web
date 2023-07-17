@@ -106,4 +106,9 @@ declare module 'prisma' {
     width: number
     height: number
   }
+
+  interface ImageSliderProps {
+    ImageCarouselProps
+    fill: boolean
+  }
 }

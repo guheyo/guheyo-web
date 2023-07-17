@@ -1,7 +1,7 @@
 import {Fragment, memo, useState, useCallback} from 'react'
 import {Dialog, DialogHeader} from '@material-tailwind/react'
 import {useSession} from 'next-auth/react'
-import LoginButton from './login-button'
+import LoginButton from './LoginButton'
 import {CursorArrowRaysIcon} from '@heroicons/react/24/outline'
 
 const DmDialog = ({url}: {url: string}) => {

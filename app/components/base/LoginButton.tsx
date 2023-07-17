@@ -1,13 +1,14 @@
 'use client'
 
 import {useSession, signIn, signOut} from 'next-auth/react'
-import React from 'react'
+import React, {memo} from 'react'
 import {Menu, MenuHandler, MenuItem, MenuList} from '@material-tailwind/react'
 import {PowerIcon} from '@heroicons/react/24/outline'
 import Avatar from './Avatar'
+import {Session} from 'next-auth'
 
-export default function LoginButton() {
-  const {data: session} = useSession()
+const LoginButton = () => {
+  const {data: session}: Session = useSession()
 
   if (session && session.user) {
     return (
@@ -43,3 +44,5 @@ export default function LoginButton() {
     </div>
   )
 }
+
+export default memo(LoginButton)
