@@ -6,32 +6,33 @@ client.defaults.headers.post['Content-Type'] = 'application/json';
 client.defaults.headers.get['Cache-Control'] = 'no-store';
 client.defaults.headers.get.Pragma = 'no-store';
 
-const castExpiresToDate = (body: any) => {
+interface KeyValue {
+  [key: string]: any;
+}
+
+const EXPIRES = 'expires';
+
+const castExpiresToDate = (body: any): any => {
   if (body === null || body === undefined || typeof body !== 'object') {
     return body;
   }
-  let newBody = {};
+  if (Array.isArray(body)) {
+    return body.map((value) => castExpiresToDate(value));
+  }
+
+  const newBody: KeyValue = {};
   Object.keys(body).map((key) => {
     const value = body[key];
-    if (key === 'expires') {
-      newBody = {
-        ...newBody,
-        key: new Date(value),
-      };
-    } else {
-      newBody = {
-        ...newBody,
-        key: castExpiresToDate(value),
-      };
-    }
+    newBody[key] = key === EXPIRES ? new Date(value) : castExpiresToDate(value);
     return newBody;
   });
   return newBody;
 };
-client.interceptors.response.use((res) => {
-  castExpiresToDate(res.data);
-  return res;
-});
+
+client.interceptors.response.use((res) => ({
+  ...res,
+  data: castExpiresToDate(res.data),
+}));
 
 export default client;
 
