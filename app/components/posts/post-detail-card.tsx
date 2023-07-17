@@ -2,25 +2,21 @@
 
 import {Dialog, DialogHeader} from '@material-tailwind/react'
 import {Post} from 'prisma'
-import {Fragment} from 'react'
+import {Fragment, memo, MouseEventHandler} from 'react'
 import UserProfile from '../users/user-profile'
 import moment from 'moment'
-import {useDeviceDetect} from '@/app/hooks/useDeviceDetect'
 import {getPostTitle, getPrice} from '@/app/lib/post'
 import {ReactMarkdown} from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
 import ImageCarousel from '../base/image-carousel'
 
-export default function PostDetailCard({
-  post,
-  open,
-  handleOpen,
-}: {
+interface Props {
   post: Post
   open: boolean
-  handleOpen: React.MouseEventHandler
-}) {
-  const device = useDeviceDetect()
+  handleOpen: MouseEventHandler
+}
+
+const PostDetailCard = ({post, open, handleOpen}: Props) => {
   const sizes = 'w-full h-full'
 
   return (
@@ -54,3 +50,5 @@ export default function PostDetailCard({
     </Fragment>
   )
 }
+
+export default memo(PostDetailCard)

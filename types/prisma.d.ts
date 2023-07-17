@@ -1,4 +1,6 @@
 declare module 'prisma' {
+  import {FetchNextPageOptions, UseInfiniteQueryResult} from '@tanstack/react-query'
+
   interface Guild {
     id: string
     name: string
@@ -105,10 +107,5 @@ declare module 'prisma' {
     sizes: string
     width: number
     height: number
-  }
-
-  interface ImageSliderProps {
-    ImageCarouselProps
-    fill: boolean
   }
 }

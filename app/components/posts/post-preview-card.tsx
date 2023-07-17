@@ -6,10 +6,9 @@ import moment from 'moment'
 import 'moment/locale/ko'
 import ReadMore from '../base/read-more'
 import UserProfile from '../users/user-profile'
-import {useDeviceDetect} from '@/app/hooks/useDeviceDetect'
 import {getPostTitle, getPrice} from '@/app/lib/post'
 import PostDetailCard from './post-detail-card'
-import {useState} from 'react'
+import {useState, useCallback, memo} from 'react'
 import {ChatBubbleOvalLeftIcon} from '@heroicons/react/24/outline'
 import Thumbnail from '../base/thumbnail'
 
@@ -19,16 +18,15 @@ interface Props {
   cols: number
 }
 
-export default function PostPreviewCard({type, post, cols}: Props) {
-  const device = useDeviceDetect()
-  const sizes =
+const PostPreviewCard = ({type, post, cols}: Props) => {
+  const sizes: string =
     type === 'buy' ? 'w-48 h-36 md:w-96 md:h-72' : cols === 1 ? 'w-96 h-72' : 'w-48 sm:w-72 md:w-96 h-36 md:h-72'
   const thumbnail = _.get(post.images, '[0]')
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
 
-  const handleOpen = () => {
+  const handleOpen = useCallback((): void => {
     setOpen(!open)
-  }
+  }, [open])
 
   if (type === 'buy') {
     return (
@@ -110,3 +108,5 @@ export default function PostPreviewCard({type, post, cols}: Props) {
     </div>
   )
 }
+
+export default memo(PostPreviewCard)
