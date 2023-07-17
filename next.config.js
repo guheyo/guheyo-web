@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    dirs: ['app', 'redux', 'types'],
+  },
   images: {
     remotePatterns: [{
       protocol: 'https',

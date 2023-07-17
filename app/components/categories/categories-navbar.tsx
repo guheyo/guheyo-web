@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   fetchCategories,
   setCategoryId,
-} from '@/redux/features/categoriesSlice';
-import { useDeviceDetect } from '@/app/hooks/useDeviceDetect';
+} from '@/redux/features/categories-slice';
+import { useDeviceDetect } from '@/app/hooks/use-device-detect';
 import ColsSelectButton from '../base/cols-select-button';
 import TypeSelector from '../posts/type-selector';
 

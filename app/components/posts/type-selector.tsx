@@ -1,6 +1,6 @@
 'use client';
 
-import { setPostType } from '@/redux/features/postsSlice';
+import { setPostType } from '@/redux/features/posts-slice';
 import { useAppDispatch } from '@/redux/hooks';
 import React from 'react';
 import Select from 'react-select';
