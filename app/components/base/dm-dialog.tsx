@@ -1,19 +1,10 @@
-import { Fragment, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-} from "@material-tailwind/react";
-import { useSession } from "next-auth/react";
-import LoginButton from "./login-button";
-import {
-  CursorArrowRaysIcon
-} from "@heroicons/react/24/outline";
+import { useState } from 'react';
+import { Dialog, DialogHeader } from '@material-tailwind/react';
+import { useSession } from 'next-auth/react';
+import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import LoginButton from './login-button';
 
-export default function DmDialog({
-  url,
-} : {
-  url: string,
-}) {
+export default function DmDialog({ url }: { url: string }) {
   const [open, setOpen] = useState(false);
   const session = useSession();
 
@@ -23,13 +14,15 @@ export default function DmDialog({
     } else {
       setOpen(!open);
     }
-  }
+  };
 
   return (
-    <Fragment>
+    <div>
       <button
+        type="submit"
         onClick={handleOpen}
-        className="bg-black hover:bg-gray-700 text-sm font-bold p-2 rounded text-white">
+        className="bg-black hover:bg-gray-700 text-sm font-bold p-2 rounded text-white"
+      >
         DM
       </button>
       <Dialog open={open} handler={handleOpen} size="xs">
@@ -39,10 +32,10 @@ export default function DmDialog({
           </div>
           <div className="flex flex-row gap-1 text-lg items-center">
             <LoginButton />
-            <CursorArrowRaysIcon width={32} height={32}/>
+            <CursorArrowRaysIcon width={32} height={32} />
           </div>
         </DialogHeader>
       </Dialog>
-    </Fragment>
+    </div>
   );
 }

@@ -1,21 +1,20 @@
-import NextAuth from "next-auth/next"
-import { User as PrismaUser } from "prisma";
+import { User as PrismaUser } from 'prisma';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface User extends PrismaUser {}
 
   interface Session {
-    user?: User,
-    expires: Date
+    user?: User;
+    expires: Date;
   }
 }
 
-declare module "next-auth/adapters" {
+declare module 'next-auth/adapters' {
   interface AdapterUser extends PrismaUser {}
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT {
-    user: string
+    user: string;
   }
 }

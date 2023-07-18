@@ -1,8 +1,6 @@
-import Adapter from "@/app/adapters";
-import { client } from "@/app/lib/client";
-import _ from "lodash";
-import NextAuth, { AuthOptions } from "next-auth"
-import DiscordProvider from "next-auth/providers/discord"
+import DatabaseAdapter from '@/app/adapters';
+import NextAuth, { AuthOptions } from 'next-auth';
+import DiscordProvider from 'next-auth/providers/discord';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -11,8 +9,8 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
       profile(profile) {
         return profile;
-      }
-    })
+      },
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -21,23 +19,15 @@ export const authOptions: AuthOptions = {
     updateAge: 24 * 60 * 60,
   },
   callbacks: {
-    async session({
-      session,
-      user
-    }) {
+    async session({ session, user }) {
       if (user) {
         session.user = user;
       }
       return session;
     },
   },
-  adapter: Adapter(client)
-}
+  adapter: DatabaseAdapter(),
+};
 
 const handler = NextAuth(authOptions);
-export {
-  handler as GET,
-  handler as POST,
-  handler as PUT,
-  handler as DELETE
-}
+export { handler as GET, handler as POST, handler as PUT, handler as DELETE };

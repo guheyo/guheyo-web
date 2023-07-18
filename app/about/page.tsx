@@ -1,41 +1,41 @@
-import _ from "lodash";
-import Image from "next/image";
-import Tabs from "../components/base/tabs";
-import Scrollbar from "../components/base/scrollbar";
-import {
-  CursorArrowRaysIcon
-} from "@heroicons/react/24/outline";
-import TimelineWithIcon from "../components/base/timeline-with-icon";
+import Image from 'next/image';
+import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import Tabs from '../components/base/tabs';
+import Scrollbar from '../components/base/scrollbar';
+import TimelineWithIcon from '../components/base/timeline-with-icon';
 
 export default async function Page() {
-  const tabs = [{
-    label: '소개',
-    value: 'wtb'
-  }, {
-    label: '기술 스택',
-    value: 'tech'
-  }, {
-    label: '팀원',
-    value: 'team'
-  }];
+  const tabs = [
+    {
+      label: '소개',
+      value: 'wtb',
+    },
+    {
+      label: '기술 스택',
+      value: 'tech',
+    },
+    {
+      label: '팀원',
+      value: 'team',
+    },
+  ];
 
-  const timelineEvents = [{
-    title: '2021년 2월 3일',
-    content: '디스코드 장터 "동물의 왕국"',
-    iconURL: '/dongwang.png'
-  }, {
-    title: '2023년 6월 30일',
-    content: 'WTB.KR 베타 버전 공개',
-    iconURL: '/wtb-logo-square.png'
-  }]
+  const timelineEvents = [
+    {
+      title: '2021년 2월 3일',
+      content: '디스코드 장터 "동물의 왕국"',
+      iconURL: '/dongwang.png',
+    },
+    {
+      title: '2023년 6월 30일',
+      content: 'WTB.KR 베타 버전 공개',
+      iconURL: '/wtb-logo-square.png',
+    },
+  ];
 
   return (
     <div className="flex flex-col">
-      <Scrollbar
-        z='z-40'
-        negativeTop='-top-100'
-        top='top-11'
-      >
+      <Scrollbar z="z-40" negativeTop="-top-100" top="top-11">
         <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-white">
           <Tabs tabs={tabs} />
         </div>
@@ -46,17 +46,16 @@ export default async function Page() {
             <div className="flex items-center justify-center">
               <Image
                 className="rounded"
-                src={'/wtb-logo-square.png'}
+                src="/wtb-logo-square.png"
                 alt="WTB Logo"
                 width={32}
                 height={32}
               />
             </div>
             <div className="flex justify-center">
-              <TimelineWithIcon timelineEvents={timelineEvents}/>
+              <TimelineWithIcon timelineEvents={timelineEvents} />
             </div>
             <div className="flex flex-col gap-2">
-              
               <div className="flex flex-col">
                 <div className="text-base md:text-lg font-semibold">
                   Want to Buy : 좋아하는 것을 구매해요
@@ -92,7 +91,7 @@ export default async function Page() {
                       <li>판매</li>
                       <li>입찰</li>
                       <li>위약금 설정</li>
-                    </ul>                      
+                    </ul>
                     <div className="font-semibold">양도/양수</div>
                     <ul className="list-disc pl-5">
                       <li>표준 계약서</li>
@@ -114,17 +113,15 @@ export default async function Page() {
           <div id="tech">
             <div className="flex justify-center pb-2">
               <button
+                type="button"
                 disabled
-                className={`max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white`}>
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+              >
                 <div className="font-bold">기술 스택</div>
               </button>
             </div>
-            <div className="text-base md:text-lg font-semibold">
-              언어
-            </div>
-            <p>
-            TypeScript
-            </p>
+            <div className="text-base md:text-lg font-semibold">언어</div>
+            <p>TypeScript</p>
             <div className="text-base md:text-lg pt-4 font-semibold">
               프론트엔드
             </div>
@@ -138,23 +135,25 @@ export default async function Page() {
             <div className="text-base md:text-lg pt-4 font-semibold">
               인프라
             </div>
-            <p>
-            AWS Beanstalk, Amplify, RDS, Route 53, S3
-            </p>
+            <p>AWS Beanstalk, Amplify, RDS, Route 53, S3</p>
           </div>
           <div id="team">
             <div className="flex flex-row gap-2 items-center justify-center pb-2">
               <button
+                type="button"
                 disabled
-                className={`max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white`}>
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+              >
                 <div className="font-bold">팀원</div>
               </button>
             </div>
             <div className="font-medium items-center">
               <a
                 className="flex flex-row gap-1 text-base md:text-lg font-semibold"
-                href={'https://forms.gle/wfcw2aFLaMDv5kNC8'}
-                target="_blank">
+                href="https://forms.gle/wfcw2aFLaMDv5kNC8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 지원하기 <CursorArrowRaysIcon width={32} height={32} />
               </a>
             </div>
@@ -162,5 +161,5 @@ export default async function Page() {
         </div>
       </div>
     </div>
-  )
-};
+  );
+}

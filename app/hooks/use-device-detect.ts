@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 
 export const useDeviceDetect = () => {
@@ -14,4 +14,4 @@ export const useDeviceDetect = () => {
     }
   }, []);
   return device;
-}
+};

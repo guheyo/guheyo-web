@@ -1,17 +1,17 @@
 'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Avatar({
   name,
-  avatarURL
+  avatarURL,
 }: {
-  name: string,
-  avatarURL?: string | null
+  name: string;
+  avatarURL?: string | null;
 }) {
   return (
     <Image
-      src={ avatarURL ? avatarURL : '/dongwang-gray.svg'}
+      src={avatarURL || '/dongwang-gray.svg'}
       alt={`${name} avatar`}
       className="dark:invert rounded-full"
       width={32}
@@ -19,4 +19,4 @@ export default function Avatar({
       priority
     />
   );
-};
+}

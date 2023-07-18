@@ -1,42 +1,44 @@
 'use client';
 
-import _ from 'lodash'
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface Props {
-  text: string,
-  maxLine: number,
+  text: string;
+  maxLine: number;
 }
 
-export default function ReadMore({
+function ReadMoreButton({
   text,
-  maxLine
-}: Props) {
-  const [ isSummary, setSummary ] = useState(true);
-  
+  maxLine,
+  isSummary,
+  setSummary,
+}: {
+  text: string;
+  maxLine: number;
+  isSummary: boolean;
+  setSummary: Dispatch<SetStateAction<boolean>>;
+}) {
+  const lines = text.split('\n');
+  if (lines.length > maxLine) {
+    return (
+      <button type="submit" onClick={() => setSummary(!isSummary)}>
+        {isSummary ? '... 더보기' : ''}
+      </button>
+    );
+  }
+  return null;
+}
+
+export default function ReadMore({ text, maxLine }: Props) {
+  const [isSummary, setSummary] = useState(true);
+
   const getSummary = () => {
-    if (!isSummary) return text; 
+    if (!isSummary) return text;
     const lines = text.split('\n');
     const summary = lines.splice(0, maxLine).join('\n');
     return summary;
-  };
-
-  const ReadMoreButton = () => {
-    const lines = text.split('\n');
-    if (lines.length > maxLine) {
-      return (
-        <button
-          onClick={() => setSummary(!isSummary)}>
-          {isSummary ? '... 더보기' : ''}
-        </button>
-      )
-    } else {
-      return (
-        <></>
-      )
-    }
   };
 
   return (
@@ -46,7 +48,12 @@ export default function ReadMore({
           {getSummary()}
         </ReactMarkdown>
       </div>
-      <ReadMoreButton />
+      <ReadMoreButton
+        text={text}
+        maxLine={maxLine}
+        isSummary={isSummary}
+        setSummary={setSummary}
+      />
     </div>
   );
 }
