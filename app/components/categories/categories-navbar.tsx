@@ -7,6 +7,7 @@ import {
   setCategoryId,
 } from '@/redux/features/categories-slice';
 import { useDeviceDetect } from '@/app/hooks/use-device-detect';
+import { useGuildCategories } from '@/app/lib/api/guilds';
 import ColsSelectButton from '../base/cols-select-button';
 import TypeSelector from '../posts/type-selector';
 
@@ -18,9 +19,8 @@ const getButtonCSS = (clicked: boolean) => {
 };
 
 export default function CategoriesNavbar({ guildName }: { guildName: string }) {
-  const categories = useAppSelector(
-    (state) => state.categoriesSlice.categories,
-  );
+  const { data: categories } = useGuildCategories(guildName);
+
   const categoriId = useAppSelector(
     (state) => state.categoriesSlice.categoryId,
   );
@@ -41,7 +41,7 @@ export default function CategoriesNavbar({ guildName }: { guildName: string }) {
         <TypeSelector />
       </div>
       <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <div key={category.id} className="flex-none">
             <button
               type="submit"

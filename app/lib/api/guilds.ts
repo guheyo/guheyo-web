@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import { Category, Guild } from 'prisma';
+import { useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 import { client } from '../client';
 
 function parseCategories(categoriesData: any): Array<Category> {
@@ -28,3 +30,11 @@ export async function getGuilds() {
   });
   return res.data;
 }
+
+export const useGuildCategories = (guildName: string) =>
+  useQuery([guildName], () => client.get(`/guilds/${guildName}/categories`), {
+    select: (data: AxiosResponse<Guild[]>) => parseCategories(data.data),
+  });
+
+export const useGuilds = () =>
+  useQuery(['get-guild'], () => client.get('/guilds'));
