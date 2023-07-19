@@ -14003,6 +14003,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-zustand-devtools@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "simple-zustand-devtools@npm:1.1.0"
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    "@types/react-dom": ">=18.0.0"
+    react: ">=18.0.0"
+    react-dom: ">=18.0.0"
+    zustand: ">=1.0.2"
+  checksum: 4c90fba49e7693d1642253649ce168040f46f5c0e2821951878334d29800065a7cfd5022dce0b0834a326d3a205e8183b198ac7dc4fbf04e85fbb443f58cac82
+  languageName: node
+  linkType: hard
+
 "sisteransi@npm:^1.0.5":
   version: 1.0.5
   resolution: "sisteransi@npm:1.0.5"
@@ -15286,7 +15299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
+"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:
@@ -15740,9 +15753,11 @@ __metadata:
     react-redux: ^8.0.7
     react-select: ^5.7.3
     remark-gfm: ^3.0.1
+    simple-zustand-devtools: ^1.1.0
     storybook: 7.0.20
     tailwindcss: ^3.3.2
     typescript: 5.0.4
+    zustand: ^4.3.9
   languageName: unknown
   linkType: soft
 
@@ -15838,6 +15853,23 @@ __metadata:
   version: 3.21.4
   resolution: "zod@npm:3.21.4"
   checksum: f185ba87342ff16f7a06686767c2b2a7af41110c7edf7c1974095d8db7a73792696bcb4a00853de0d2edeb34a5b2ea6a55871bc864227dace682a0a28de33e1f
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.3.9":
+  version: 4.3.9
+  resolution: "zustand@npm:4.3.9"
+  dependencies:
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: fc83d653913fa537c354ba8b95d3a4fdebe62d2ebd3d9f5aeff2edf062811c0f5af48e02ab4da32b666752fd4f3e78c2b44624e445254f48503595435d4a7d70
   languageName: node
   linkType: hard
 
