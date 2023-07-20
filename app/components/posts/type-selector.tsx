@@ -2,7 +2,7 @@
 
 import { setPostType } from '@/redux/features/posts-slice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { memo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import Select from 'react-select';
 
 type Option = {
@@ -36,4 +36,4 @@ const TypeSelector = () => {
   );
 };
 
-export default memo(TypeSelector);
+export default TypeSelector;

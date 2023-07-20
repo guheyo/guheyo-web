@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import LoginButton from './login-button';
-import { memo } from 'react';
 
 const Navbar = () => {
   return (
@@ -17,4 +16,4 @@ const Navbar = () => {
   );
 };
 
-export default memo(Navbar);
+export default Navbar;

@@ -1,13 +1,21 @@
 import { Role } from 'prisma';
+import { memo } from 'react';
 
-function RoleName({ role }: { role: Role }) {
+interface RoleProps {
+  role: Role;
+}
+interface RolesProps {
+  roles?: Role[];
+}
+
+const RoleName = memo(({ role }: RoleProps) => {
   if (role.hexColor === '#000001') {
     return <div className="bg-black text-white">{role.name}</div>;
   }
   return <div>{role.name}</div>;
-}
+});
 
-export default function Roles({ roles }: { roles?: Role[] }) {
+const Roles = ({ roles }: RolesProps) => {
   if (!roles) return null;
   return (
     <div className="flex flex-wrap justify-start">
@@ -29,4 +37,6 @@ export default function Roles({ roles }: { roles?: Role[] }) {
       })}
     </div>
   );
-}
+};
+
+export default memo(Roles);

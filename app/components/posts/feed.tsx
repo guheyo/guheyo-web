@@ -110,4 +110,4 @@ const Feed = () => {
   );
 };
 
-export default memo(Feed);
+export default Feed;

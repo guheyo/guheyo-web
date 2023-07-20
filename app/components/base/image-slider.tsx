@@ -1,9 +1,4 @@
-import React, {
-  memo,
-  MouseEventHandler,
-  MutableRefObject,
-  useState,
-} from 'react';
+import { memo, MouseEventHandler, MutableRefObject, useState } from 'react';
 import 'keen-slider/keen-slider.min.css';
 import {
   KeenSliderInstance,

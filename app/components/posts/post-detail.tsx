@@ -1,5 +1,6 @@
 'use client';
 
+import { memo, MouseEventHandler } from 'react';
 import { Dialog, DialogHeader } from '@material-tailwind/react';
 import { Post } from 'prisma';
 import moment from 'moment';
@@ -8,7 +9,6 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
-import { memo, MouseEventHandler } from 'react';
 
 interface Props {
   post: Post;

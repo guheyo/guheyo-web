@@ -1,16 +1,13 @@
 import Image from 'next/image';
+import { memo } from 'react';
 
-export default function SocialLogo({
-  provider,
-  color,
-  width,
-  height,
-}: {
+interface Props {
   provider: 'discord';
   color: 'white' | 'black' | 'blue';
   width: number;
   height: number;
-}) {
+}
+const SocialLogo = ({ provider, color, width, height }: Props) => {
   if (provider === 'discord') {
     return (
       <Image
@@ -24,4 +21,6 @@ export default function SocialLogo({
     );
   }
   return null;
-}
+};
+
+export default memo(SocialLogo);

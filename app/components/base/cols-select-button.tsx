@@ -1,7 +1,6 @@
 'use client';
 
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
-import { memo } from 'react';
 import { setCols } from '@/redux/features/posts-slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
@@ -32,4 +31,4 @@ const ColsSelectButton = () => {
   }
 };
 
-export default memo(ColsSelectButton);
+export default ColsSelectButton;
