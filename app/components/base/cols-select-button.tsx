@@ -1,11 +1,11 @@
 'use client';
 
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
-import React from 'react';
+import { memo } from 'react';
 import { setCols } from '@/redux/features/posts-slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-export default function ColsSelectButton() {
+const ColsSelectButton = () => {
   const cols = useAppSelector((state) => state.postsSlice.cols);
   const dispatch = useAppDispatch();
 
@@ -19,14 +19,17 @@ export default function ColsSelectButton() {
         <ListBulletIcon width={28} height={28} />
       </button>
     );
+  } else {
+    return (
+      <button
+        type="submit"
+        className="flex items-center"
+        onClick={() => dispatch(setCols(1))}
+      >
+        <Bars3Icon width={28} height={28} />
+      </button>
+    );
   }
-  return (
-    <button
-      type="submit"
-      className="flex items-center"
-      onClick={() => dispatch(setCols(1))}
-    >
-      <Bars3Icon width={28} height={28} />
-    </button>
-  );
-}
+};
+
+export default memo(ColsSelectButton);

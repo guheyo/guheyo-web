@@ -2,18 +2,16 @@
 
 import { Image } from 'prisma';
 import NextImage from 'next/image';
+import { memo } from 'react';
 
-export default function Thumbnail({
-  image,
-  sizes,
-  width,
-  height,
-}: {
+interface Props {
   image: Image;
   sizes: string;
   width: number;
   height: number;
-}) {
+}
+
+const Thumbnail = ({ image, sizes, width, height }: Props) => {
   return (
     <div
       className={`${sizes} flex overflow-hidden justify-center items-center`}
@@ -31,4 +29,6 @@ export default function Thumbnail({
       />
     </div>
   );
-}
+};
+
+export default memo(Thumbnail);

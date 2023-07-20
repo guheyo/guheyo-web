@@ -9,18 +9,15 @@ import {
   TimelineBody,
 } from '@material-tailwind/react';
 import Image from 'next/image';
+import { memo } from 'react';
 
-type TimelineEvent = {
+interface Props {
   title: string;
   content: string;
   iconURL: string;
-};
+}
 
-export default function TimelineWithIcon({
-  timelineEvents,
-}: {
-  timelineEvents: TimelineEvent[];
-}) {
+const TimelineWithIcon = ({ timelineEvents }: { timelineEvents: Props[] }) => {
   return (
     <div className="max-w-lg">
       <Timeline className="text-sm md:text-base">
@@ -50,4 +47,6 @@ export default function TimelineWithIcon({
       </Timeline>
     </div>
   );
-}
+};
+
+export default memo(TimelineWithIcon);

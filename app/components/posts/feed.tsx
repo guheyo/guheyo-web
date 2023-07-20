@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useRef } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import { Post } from 'prisma';
 import { useAppSelector } from '@/redux/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -9,7 +9,16 @@ import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import PostPreview from './post-preview';
 import PostMock from './post-mock';
 
-function PostMocks({ type }: { type: string }) {
+interface PostMocksProps {
+  type: string;
+}
+
+interface PostPreviewsProps extends PostMocksProps {
+  posts: Posts[] | undefined;
+  cols: number;
+}
+
+const PostMocks = memo(({ type }: PostMocksProps) => {
   return (
     <>
       {Array.from(Array(18).keys()).map((num) => (
@@ -17,17 +26,9 @@ function PostMocks({ type }: { type: string }) {
       ))}
     </>
   );
-}
+});
 
-function PostPreviews({
-  posts,
-  type,
-  cols,
-}: {
-  posts: Posts[] | undefined;
-  type: string;
-  cols: number;
-}) {
+const PostPreviews = memo(({ posts, type, cols }: PostPreviewsProps) => {
   if (!posts) return null;
   return (
     <>
@@ -42,9 +43,9 @@ function PostPreviews({
       ))}
     </>
   );
-}
+});
 
-export default function Feed() {
+const Feed = () => {
   const categoryId = useAppSelector(
     (state) => state.categoriesSlice.categoryId,
   );
@@ -107,4 +108,6 @@ export default function Feed() {
       <div ref={ref} />
     </>
   );
-}
+};
+
+export default memo(Feed);

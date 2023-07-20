@@ -1,20 +1,24 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Dialog, DialogHeader } from '@material-tailwind/react';
 import { useSession } from 'next-auth/react';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import LoginButton from './login-button';
 
-export default function DmDialog({ url }: { url: string }) {
-  const [open, setOpen] = useState(false);
+interface Props {
+  url: string;
+}
+
+const DmDialog = ({ url }: Props) => {
+  const [open, setOpen] = useState<boolean>(false);
   const session = useSession();
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     if (session.data?.user) {
       window.open(url, '_blank');
     } else {
       setOpen(!open);
     }
-  };
+  }, [session, open, url]);
 
   return (
     <div>
@@ -38,4 +42,6 @@ export default function DmDialog({ url }: { url: string }) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default memo(DmDialog);

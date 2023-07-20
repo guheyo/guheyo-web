@@ -1,25 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-const getButtonCSS = (clicked: boolean) => {
-  if (!clicked) {
-    return `bg-neutral-white hover:bg-gray-200 text-black`;
-  }
-  return `bg-black hover:bg-gray-700 text-white`;
-};
-
-type Tab = {
+interface Props {
   label: string;
   value: string;
-};
+}
 
-export default function Tabs({ tabs }: { tabs: Tab[] }) {
+export default function Tabs({ tabs }: { tabs: Props[] }) {
   const [selected, setSelected] = useState(0);
+  const getButtonCSS = useCallback((clicked: boolean): string => {
+    return clicked
+      ? `bg-black hover:bg-gray-700 text-white`
+      : `bg-neutral-white hover:bg-gray-200 text-black`;
+  }, []);
 
-  const handleOnClick = (i: number) => {
+  const handleOnClick = useCallback((i: number): void => {
     setSelected(i);
-  };
+  }, []);
 
   return (
     <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center">

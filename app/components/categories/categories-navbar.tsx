@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   fetchCategories,
@@ -10,14 +10,11 @@ import { useDeviceDetect } from '@/app/hooks/use-device-detect';
 import ColsSelectButton from '../base/cols-select-button';
 import TypeSelector from '../posts/type-selector';
 
-const getButtonCSS = (clicked: boolean) => {
-  if (!clicked) {
-    return `bg-neutral-white hover:bg-gray-200 text-black`;
-  }
-  return `bg-black hover:bg-gray-700 text-white`;
-};
+interface Props {
+  guildName: string;
+}
 
-export default function CategoriesNavbar({ guildName }: { guildName: string }) {
+const CategoriesNavbar = ({ guildName }: Props) => {
   const categories = useAppSelector(
     (state) => state.categoriesSlice.categories,
   );
@@ -26,14 +23,22 @@ export default function CategoriesNavbar({ guildName }: { guildName: string }) {
   );
   const device = useDeviceDetect();
   const dispatch = useAppDispatch();
+  const getButtonCSS = useCallback((clicked: boolean): string => {
+    return clicked
+      ? `bg-black hover:bg-gray-700 text-white`
+      : `bg-neutral-white hover:bg-gray-200 text-black`;
+  }, []);
 
   useEffect(() => {
     dispatch(fetchCategories(guildName));
   }, [dispatch, guildName]);
 
-  const handleOnClick = (id: string) => {
-    dispatch(setCategoryId(id));
-  };
+  const handleOnClick = useCallback(
+    (id: string): void => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch, setCategoryId],
+  );
 
   return (
     <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center">
@@ -67,4 +72,6 @@ export default function CategoriesNavbar({ guildName }: { guildName: string }) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(CategoriesNavbar);

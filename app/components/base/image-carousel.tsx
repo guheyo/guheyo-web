@@ -5,95 +5,96 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
+import { Dispatch, memo, NamedExoticComponent } from 'react';
 
-function Navigation({
-  setActiveIndex,
-  activeIndex,
-  length,
-}: {
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+interface NavigationProps {
+  setActiveIndex: Dispatch<React.SetStateAction<number>>;
   activeIndex: number;
   length: number;
-}) {
-  if (length < 2) return null;
-  return (
-    <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-      {_.range(length).map((index) => (
-        <button
-          type="submit"
-          aria-label="indicator"
-          key={index}
-          className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-            activeIndex === index ? 'bg-white w-8' : 'bg-white/50 w-4'
-          }`}
-          onClick={() => setActiveIndex(index)}
-        />
-      ))}
-    </div>
-  );
 }
 
-function PrevArrow({
-  loop,
-  handlePrev,
-  activeIndex,
-  firstIndex,
-}: {
+interface ArrowProps {
   loop: boolean;
+  activeIndex: number;
+}
+
+interface PrevArrowProps extends ArrowProps {
   handlePrev: () => void;
-  activeIndex: number;
   firstIndex: boolean;
-}) {
-  if (firstIndex) return null;
-  return (
-    <IconButton
-      variant="text"
-      color="white"
-      size="lg"
-      onClick={handlePrev}
-      className="!absolute top-2/4 -translate-y-2/4 left-0 md:left-1"
-    >
-      <ChevronLeftIcon strokeWidth={2} className="w-6 h-6" />
-    </IconButton>
-  );
 }
 
-function NextArrow({
-  loop,
-  handleNext,
-  activeIndex,
-  lastIndex,
-}: {
-  loop: boolean;
+interface NextArrowProps extends ArrowProps {
   handleNext: () => void;
-  activeIndex: number;
   lastIndex: boolean;
-}) {
-  if (lastIndex) return null;
-  return (
-    <IconButton
-      variant="text"
-      color="white"
-      size="lg"
-      onClick={handleNext}
-      className="!absolute top-2/4 -translate-y-2/4 right-0 md:right-1"
-    >
-      <ChevronRightIcon strokeWidth={2} className="w-6 h-6" />
-    </IconButton>
-  );
 }
 
-export default function ImageCarousel({
-  images,
-  sizes,
-  width,
-  height,
-}: {
+interface ImageCarouselProps {
   images: Image[] | undefined;
   sizes: string;
   width: number;
   height: number;
-}) {
+}
+
+const Navigation = memo(
+  ({ setActiveIndex, activeIndex, length }: NavigationProps) => {
+    if (length < 2) return null;
+    return (
+      <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+        {_.range(length).map((index) => (
+          <button
+            type="submit"
+            aria-label="indicator"
+            key={index}
+            className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+              activeIndex === index ? 'bg-white w-8' : 'bg-white/50 w-4'
+            }`}
+            onClick={() => setActiveIndex(index)}
+          />
+        ))}
+      </div>
+    );
+  },
+);
+
+const PrevArrow = memo(
+  ({ loop, handlePrev, activeIndex, firstIndex }: PrevArrowProps) => {
+    if (firstIndex) return null;
+    return (
+      <IconButton
+        variant="text"
+        color="white"
+        size="lg"
+        onClick={handlePrev}
+        className="!absolute top-2/4 -translate-y-2/4 left-0 md:left-1"
+      >
+        <ChevronLeftIcon strokeWidth={2} className="w-6 h-6" />
+      </IconButton>
+    );
+  },
+);
+
+const NextArrow = memo(
+  ({ loop, handleNext, activeIndex, lastIndex }: NextArrowProps) => {
+    if (lastIndex) return null;
+    return (
+      <IconButton
+        variant="text"
+        color="white"
+        size="lg"
+        onClick={handleNext}
+        className="!absolute top-2/4 -translate-y-2/4 right-0 md:right-1"
+      >
+        <ChevronRightIcon strokeWidth={2} className="w-6 h-6" />
+      </IconButton>
+    );
+  },
+);
+const ImageCarousel = ({
+  images,
+  sizes,
+  width,
+  height,
+}: ImageCarouselProps) => {
   if (!images) return null;
 
   return (
@@ -123,4 +124,6 @@ export default function ImageCarousel({
       ))}
     </Carousel>
   );
-}
+};
+
+export default memo(ImageCarousel);

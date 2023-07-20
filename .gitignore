@@ -37,6 +37,7 @@ next-env.d.ts
 
 *.zip
 .vscode
+.idea
 
 # not using zero-installs
 .pnp.*

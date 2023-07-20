@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
-import React from 'react';
+import { memo } from 'react';
 import {
   Menu,
   MenuHandler,
@@ -11,7 +11,7 @@ import {
 import { PowerIcon } from '@heroicons/react/24/outline';
 import Avatar from './avatar';
 
-export default function LoginButton() {
+const LoginButton = () => {
   const { data: session } = useSession();
 
   if (session && session.user) {
@@ -51,4 +51,6 @@ export default function LoginButton() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(LoginButton);

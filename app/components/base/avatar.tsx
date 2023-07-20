@@ -1,14 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { memo } from 'react';
 
-export default function Avatar({
-  name,
-  avatarURL,
-}: {
+interface Props {
   name: string;
   avatarURL?: string | null;
-}) {
+}
+
+const Avatar = ({ name, avatarURL }: Props) => {
   return (
     <Image
       src={avatarURL || '/dongwang-gray.svg'}
@@ -19,4 +19,6 @@ export default function Avatar({
       priority
     />
   );
-}
+};
+
+export default memo(Avatar);

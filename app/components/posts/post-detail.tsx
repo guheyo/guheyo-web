@@ -8,17 +8,16 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
+import { memo, MouseEventHandler } from 'react';
 
-export default function PostDetailCard({
-  post,
-  open,
-  handleOpen,
-}: {
+interface Props {
   post: Post;
   open: boolean;
-  handleOpen: React.MouseEventHandler;
-}) {
-  const sizes = 'w-full h-full';
+  handleOpen: MouseEventHandler;
+}
+
+const PostDetailCard = ({ post, open, handleOpen }: Props) => {
+  const sizes: string = 'w-full h-full';
 
   return (
     <Dialog
@@ -68,4 +67,6 @@ export default function PostDetailCard({
       </DialogHeader>
     </Dialog>
   );
-}
+};
+
+export default memo(PostDetailCard);

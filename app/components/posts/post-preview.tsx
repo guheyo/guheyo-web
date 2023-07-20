@@ -5,7 +5,7 @@ import { Post } from 'prisma';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { getPostTitle, getPrice } from '@/app/lib/post';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import PostDetail from './post-detail';
 import UserProfile from '../users/user-profile';
@@ -18,19 +18,19 @@ interface Props {
   cols: number;
 }
 
-export default function PostPreview({ type, post, cols }: Props) {
-  const sizes =
+const PostPreview = ({ type, post, cols }: Props) => {
+  const sizes: string =
     type === 'buy'
       ? 'w-48 h-36 md:w-96 md:h-72'
       : cols === 1
       ? 'w-96 h-72'
       : 'w-48 sm:w-72 md:w-96 h-36 md:h-72';
   const thumbnail = _.get(post.images, '[0]');
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     setOpen(!open);
-  };
+  }, [open]);
 
   if (type === 'buy') {
     return (
@@ -148,4 +148,6 @@ export default function PostPreview({ type, post, cols }: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(PostPreview);

@@ -2,7 +2,7 @@
 
 import { setPostType } from '@/redux/features/posts-slice';
 import { useAppDispatch } from '@/redux/hooks';
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import Select from 'react-select';
 
 type Option = {
@@ -16,12 +16,15 @@ const options = [
   { value: 'trade', label: '교환' },
 ];
 
-export default function TypeSelector() {
+const TypeSelector = () => {
   const dispatch = useAppDispatch();
-  const handleChange = (option: Option | null) => {
-    if (!option) return;
-    dispatch(setPostType(option.value));
-  };
+  const handleChange = useCallback(
+    (option: Option | null): void => {
+      if (!option) return;
+      dispatch(setPostType(option.value));
+    },
+    [dispatch],
+  );
 
   return (
     <Select
@@ -31,4 +34,6 @@ export default function TypeSelector() {
       onChange={handleChange}
     />
   );
-}
+};
+
+export default memo(TypeSelector);

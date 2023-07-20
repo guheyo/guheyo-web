@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, {
+  memo,
+  MouseEventHandler,
+  MutableRefObject,
+  useState,
+} from 'react';
 import 'keen-slider/keen-slider.min.css';
 import {
   KeenSliderInstance,
@@ -9,15 +14,30 @@ import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
 
-function Arrow({
-  disabled,
-  onClick,
-  left,
-}: {
+interface ArrowProps {
   disabled: boolean;
-  onClick: React.MouseEventHandler;
+  onClick: MouseEventHandler;
   left?: boolean;
-}) {
+}
+
+interface DotProps {
+  instanceRef: MutableRefObject<KeenSliderInstance<
+    {},
+    {},
+    KeenSliderHooks
+  > | null>;
+  currentSlide: number;
+}
+
+interface ImageSliderProps {
+  images: Image[] | undefined;
+  sizes: string;
+  fill: boolean;
+  width?: number;
+  height?: number;
+}
+
+const Arrow = memo(({ disabled, onClick, left }: ArrowProps) => {
   const opacity = disabled ? `opacity-20` : `opacity-100`;
   if (left) {
     return (
@@ -41,19 +61,8 @@ function Arrow({
       <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
     </svg>
   );
-}
-
-function Dots({
-  instanceRef,
-  currentSlide,
-}: {
-  instanceRef: React.MutableRefObject<KeenSliderInstance<
-    {},
-    {},
-    KeenSliderHooks
-  > | null>;
-  currentSlide: number;
-}) {
+});
+const Dots = memo(({ instanceRef, currentSlide }: DotProps) => {
   const slides = instanceRef.current?.track.details.slides;
   if (!slides) return null;
   return (
@@ -72,23 +81,17 @@ function Dots({
       })}
     </div>
   );
-}
+});
 
-export default function ImageSlider({
+const ImageSlider = ({
   images,
   sizes,
   fill,
   width,
   height,
-}: {
-  images: Image[] | undefined;
-  sizes: string;
-  fill: boolean;
-  width?: number;
-  height?: number;
-}) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+}: ImageSliderProps) => {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
@@ -165,4 +168,6 @@ export default function ImageSlider({
       </div>
     </div>
   );
-}
+};
+
+export default memo(ImageSlider);

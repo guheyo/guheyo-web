@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import LoginButton from './login-button';
+import { memo } from 'react';
 
-export default function Navbar() {
+const Navbar = () => {
   return (
     <div className="grid grid-cols-2 items-center h-10">
       <div className="cols-span-1 justify-self-start">
@@ -14,4 +15,6 @@ export default function Navbar() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(Navbar);

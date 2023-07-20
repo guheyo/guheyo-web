@@ -1,19 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { memo, ReactNode } from 'react';
 import { useScrollDirection } from '@/app/hooks/use-scroll-direction';
 
-export default function Scrollbar({
-  children,
-  z,
-  negativeTop,
-  top,
-}: {
-  children: React.ReactNode;
+interface Props {
+  children: ReactNode;
   z: string;
   negativeTop: string;
   top: string;
-}) {
+}
+
+const Scrollbar = ({ children, z, negativeTop, top }: Props) => {
   const scrollDirection = useScrollDirection();
   return (
     <div
@@ -24,4 +21,5 @@ export default function Scrollbar({
       {children}
     </div>
   );
-}
+};
+export default memo(Scrollbar);
