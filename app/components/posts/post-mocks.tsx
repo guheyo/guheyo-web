@@ -1,6 +1,7 @@
 'use client';
 
 import React, { memo } from 'react';
+import PostMock from '@/app/components/posts/post-mock';
 
 interface Props {
   type: string;
@@ -10,13 +11,7 @@ function PostMocks({ type }: Props) {
   return (
     <>
       {Array.from(Array(18).keys()).map((num) => (
-        <div className="flex" key={num}>
-          <div
-            className={`bg-gray-200 ${
-              type === 'buy' ? 'w-[32rem] h-24' : 'w-96 h-72'
-            }`}
-          />
-        </div>
+        <PostMock key={num} type={type} />
       ))}
     </>
   );

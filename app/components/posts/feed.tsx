@@ -1,39 +1,13 @@
 'use client';
 
-import React, { memo, useCallback, useRef } from 'react';
-import { Post } from 'prisma';
+import React, { useCallback, useRef } from 'react';
+
 import PostMocks from '@/app/components/posts/post-mocks';
 import { useAppSelector } from '@/redux/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getPosts, Posts } from '@/app/lib/api/posts';
+import { getPosts } from '@/app/lib/api/posts';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
-import PostPreview from './post-preview';
-
-interface PostMocksProps {
-  type: string;
-}
-
-interface PostPreviewsProps extends PostMocksProps {
-  posts: Posts[] | undefined;
-  cols: number;
-}
-
-const PostPreviews = memo(({ posts, type, cols }: PostPreviewsProps) => {
-  if (!posts) return null;
-  return (
-    <>
-      {posts.map((group) => (
-        <React.Fragment key={group.cursor}>
-          {group.posts.map((post: Post) => (
-            <div className="col-span-1" key={post.id}>
-              <PostPreview type={type} post={post} cols={cols} />
-            </div>
-          ))}
-        </React.Fragment>
-      ))}
-    </>
-  );
-});
+import PostPreviews from '@/app/components/posts/post-previews';
 
 const Feed = () => {
   const categoryId = useAppSelector(
