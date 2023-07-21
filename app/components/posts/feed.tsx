@@ -2,12 +2,12 @@
 
 import React, { memo, useCallback, useRef } from 'react';
 import { Post } from 'prisma';
+import PostMocks from '@/app/components/posts/post-mocks';
 import { useAppSelector } from '@/redux/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts, Posts } from '@/app/lib/api/posts';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import PostPreview from './post-preview';
-import PostMock from './post-mock';
 
 interface PostMocksProps {
   type: string;
@@ -17,16 +17,6 @@ interface PostPreviewsProps extends PostMocksProps {
   posts: Posts[] | undefined;
   cols: number;
 }
-
-const PostMocks = memo(({ type }: PostMocksProps) => {
-  return (
-    <>
-      {Array.from(Array(18).keys()).map((num) => (
-        <PostMock key={num} type={type} />
-      ))}
-    </>
-  );
-});
 
 const PostPreviews = memo(({ posts, type, cols }: PostPreviewsProps) => {
   if (!posts) return null;

@@ -9,7 +9,6 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
-import { memo, MouseEventHandler } from 'react';
 
 interface Props {
   post: Post;
