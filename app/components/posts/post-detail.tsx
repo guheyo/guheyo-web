@@ -1,5 +1,6 @@
 'use client';
 
+import { memo, MouseEventHandler } from 'react';
 import { Dialog, DialogHeader } from '@material-tailwind/react';
 import { Post } from 'prisma';
 import moment from 'moment';

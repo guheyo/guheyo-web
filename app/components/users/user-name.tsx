@@ -1,10 +1,17 @@
 import _ from 'lodash';
 import { User } from 'prisma';
+import { memo, useMemo } from 'react';
 
-export default function Username({ user }: { user: User }) {
-  const isBlacklist = () => user.roles?.find((r) => r.hexColor === '#000001');
+interface Props {
+  user: User;
+}
 
-  if (isBlacklist()) {
+const UserName = ({ user }: Props) => {
+  const isBlacklist = useMemo(
+    () => user.roles?.find((r) => r.hexColor === '#000001'),
+    [user.roles],
+  );
+  if (isBlacklist) {
     return (
       <div
         style={{
@@ -25,4 +32,6 @@ export default function Username({ user }: { user: User }) {
       {user.username}
     </div>
   );
-}
+};
+
+export default memo(UserName);

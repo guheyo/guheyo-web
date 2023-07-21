@@ -5,7 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
-import { Dispatch, memo, NamedExoticComponent } from 'react';
+import { Dispatch, memo } from 'react';
 
 interface NavigationProps {
   setActiveIndex: Dispatch<React.SetStateAction<number>>;

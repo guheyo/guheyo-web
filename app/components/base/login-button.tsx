@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { memo } from 'react';
 import {
   Menu,
   MenuHandler,
@@ -53,4 +52,4 @@ const LoginButton = () => {
   );
 };
 
-export default memo(LoginButton);
+export default LoginButton;

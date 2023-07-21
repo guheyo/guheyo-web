@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { memo, useState } from 'react';
 import {
   Popover,
   PopoverHandler,
@@ -16,18 +16,20 @@ import SocialJoinDates from './social-join-dates';
 import DmDialog from '../base/dm-dialog';
 import Username from './user-name';
 
-export default function UserProfile({
-  user,
-  displayAvatar,
-  displayUsername,
-  displayDM,
-}: {
+interface Props {
   user: User;
   displayAvatar: boolean;
   displayUsername: boolean;
   displayDM: boolean;
-}) {
-  const [openPopover, setOpenPopover] = React.useState(false);
+}
+
+const UserProfile = ({
+  user,
+  displayAvatar,
+  displayUsername,
+  displayDM,
+}: Props) => {
+  const [openPopover, setOpenPopover] = useState<boolean>(false);
   const device = useDeviceDetect();
   const getDiscordSocialID = () => {
     const account = _.find(
@@ -83,4 +85,6 @@ export default function UserProfile({
       </PopoverContent>
     </Popover>
   );
-}
+};
+
+export default memo(UserProfile);

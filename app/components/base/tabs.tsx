@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 interface Props {
   label: string;
   value: string;
 }
 
-export default function Tabs({ tabs }: { tabs: Props[] }) {
+const Tabs = ({ tabs }: { tabs: Props[] }) => {
   const [selected, setSelected] = useState(0);
   const getButtonCSS = useCallback((clicked: boolean): string => {
     return clicked
@@ -38,4 +38,6 @@ export default function Tabs({ tabs }: { tabs: Props[] }) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(Tabs);

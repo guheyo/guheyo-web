@@ -1,6 +1,8 @@
 'use client';
 
-export default function UserMenu() {
+import { memo } from 'react';
+
+const UserMenu = () => {
   // TODO
   // const options = [
   //   { value: 'mypage', label: '내 페이지' },
@@ -9,4 +11,6 @@ export default function UserMenu() {
   // ];
 
   return null;
-}
+};
+
+export default memo(UserMenu);

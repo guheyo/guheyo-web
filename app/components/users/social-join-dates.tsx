@@ -1,15 +1,16 @@
+import { memo } from 'react';
 import moment from 'moment';
 import { SocialAccount } from 'prisma';
 import SocialLogo from './social-logo';
 
-export default function SocialJoinDates({
-  socialAccounts,
-}: {
+interface Props {
   socialAccounts?: SocialAccount[];
-}) {
+}
+
+const SocialJoinDates = ({ socialAccounts }: Props) => {
   if (!socialAccounts) return null;
 
-  const getJoinedDate = (socialAccount: SocialAccount) =>
+  const getJoinedDate = (socialAccount: SocialAccount): string =>
     `${moment(socialAccount.createdAt).format('MMMM Do YYYY')}`;
 
   return (
@@ -22,4 +23,6 @@ export default function SocialJoinDates({
       ))}
     </div>
   );
-}
+};
+
+export default memo(SocialJoinDates);

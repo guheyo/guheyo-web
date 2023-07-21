@@ -1,9 +1,15 @@
 import { User } from 'prisma';
 import { Avatar } from '@material-tailwind/react';
+import { memo } from 'react';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
-export default function UserAvatar({ user, size }: { user: User; size: Size }) {
+interface Props {
+  user: User;
+  size: Size;
+}
+
+const UserAvatar = ({ user, size }: Props) => {
   return (
     <Avatar
       src={user.avatarURL ? user.avatarURL : '/dongwang-gray.svg'}
@@ -11,4 +17,6 @@ export default function UserAvatar({ user, size }: { user: User; size: Size }) {
       size={size}
     />
   );
-}
+};
+
+export default memo(UserAvatar);
