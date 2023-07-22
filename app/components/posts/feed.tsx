@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 import PostMocks from '@/app/components/posts/post-mocks';
 import { useAppSelector } from '@/redux/hooks';

@@ -39,6 +39,10 @@ module.exports = {
     'no-unused-vars': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-unused-vars': [ERROR, { args: 'none' }],
+    'react/function-component-definition': [
+      ERROR,
+      { namedComponents: ['arrow-function', 'function-declaration'] },
+    ],
     '@typescript-eslint/naming-convention': [
       ERROR,
       {
@@ -51,7 +55,7 @@ module.exports = {
       },
       {
         selector: 'variable',
-        format: ['camelCase', 'UPPER_CASE'],
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
       },
       {
         selector: 'function',
