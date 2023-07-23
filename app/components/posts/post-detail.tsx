@@ -37,7 +37,7 @@ export default function PostDetailCard({
               height={1920}
             />
           </div>
-          <div className="flex-none max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
+          <div className="flex-none md:max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
             <div className="p-2 font-medium">
               <div className="flex flex-row gap-2 text-sm md:text-base items-center">
                 <UserProfile
