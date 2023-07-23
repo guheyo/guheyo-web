@@ -25,7 +25,7 @@ export default function PostDetailCard({
       open={open}
       onClose={handleOpen}
       maxWidth="md"
-      className="overflow-scroll no-scrollbar max-w-screen max-h-screen"
+      className="overflow-scroll no-scrollbar max-w-screen max-h-screen backdrop-blur-sm"
     >
       <DialogContent className="p-0">
         <div className="flex flex-col md:flex-row w-full min-h-[32rem]">
