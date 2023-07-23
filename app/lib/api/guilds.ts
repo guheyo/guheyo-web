@@ -34,7 +34,7 @@ export async function getGuilds() {
 
 export const useGuildCategories = (guildName: string) =>
   useQuery(
-    guildKeys.category(guildName).queryKey,
+    guildKeys.categories(guildName).queryKey,
     () => client.get(`/guilds/${guildName}/categories`),
     {
       select: (data: AxiosResponse<Guild[]>) => parseCategories(data.data),
@@ -42,4 +42,4 @@ export const useGuildCategories = (guildName: string) =>
   );
 
 export const useGuilds = () =>
-  useQuery(guildKeys.guild.queryKey, () => client.get('/guilds'));
+  useQuery(guildKeys.all.queryKey, () => client.get('/guilds'));
