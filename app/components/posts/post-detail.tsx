@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, DialogHeader } from '@material-tailwind/react';
+import { Dialog, DialogContent } from '@mui/material';
 import { Post } from 'prisma';
 import moment from 'moment';
 import { getPostTitle, getPrice } from '@/app/lib/post';
@@ -23,11 +23,12 @@ export default function PostDetailCard({
   return (
     <Dialog
       open={open}
-      handler={handleOpen}
-      className="overflow-scroll no-scrollbar max-w-[90vw] max-h-[90vh]"
+      onClose={handleOpen}
+      maxWidth="md"
+      className="overflow-scroll no-scrollbar max-w-screen max-h-screen"
     >
-      <DialogHeader className="p-0">
-        <div className="flex flex-col md:flex-row w-full max-h-full">
+      <DialogContent className="p-0">
+        <div className="flex flex-col md:flex-row w-full min-h-[32rem]">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none">
             <ImageCarousel
               images={post.images}
@@ -65,7 +66,7 @@ export default function PostDetailCard({
             </div>
           </div>
         </div>
-      </DialogHeader>
+      </DialogContent>
     </Dialog>
   );
 }
