@@ -2,6 +2,7 @@ import { Post } from 'prisma';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { client } from '../client';
+import { postKeys } from '../query-key-factory';
 
 export type Posts = {
   posts: Post[];
@@ -10,7 +11,7 @@ export type Posts = {
 };
 
 export const useInfinitePosts = (categoryId: string, type: string) =>
-  useInfiniteQuery(['posts', categoryId, type], {
+  useInfiniteQuery(postKeys.list(categoryId, type).queryKey, {
     queryFn: async ({ pageParam = '' }) => {
       const res = await client.get<Posts>(
         `/categories/${categoryId}/posts?type=${type}&cursor=${pageParam}`,
@@ -22,6 +23,6 @@ export const useInfinitePosts = (categoryId: string, type: string) =>
   });
 
 export const usePost = (id: string) =>
-  useQuery(['posts', id], () => client.get(`/posts/${id}`), {
+  useQuery(postKeys.detail(id).queryKey, () => client.get(`/posts/${id}`), {
     select: (data: AxiosResponse<Post>) => data.data,
   });
