@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+/* eslint-disable import/no-extraneous-dependencies */
+const colors = require('tailwindcss/colors');
 
-const withMT = require("@material-tailwind/react/utils/withMT");
-
-module.exports = withMT({
+module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,11 +19,12 @@ module.exports = withMT({
       },
     },
     container: {
-      center: true
+      center: true,
     },
     colors: {
-      'main': '#292f33'
-    }
+      main: '#292f33',
+      ...colors,
+    },
   },
-  plugins: []
-});
+  plugins: [],
+};
