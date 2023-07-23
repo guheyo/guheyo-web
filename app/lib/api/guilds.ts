@@ -42,4 +42,4 @@ export const useGuildCategories = (guildName: string) =>
   );
 
 export const useGuilds = () =>
-  useQuery(guildKeys.guild().queryKey, () => client.get('/guilds'));
+  useQuery(guildKeys.guild.queryKey, () => client.get('/guilds'));
