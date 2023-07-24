@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Dialog, DialogHeader } from '@material-tailwind/react';
+import React, { useState } from 'react';
+import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import LoginButton from './login-button';
@@ -25,16 +25,20 @@ export default function DmDialog({ url }: { url: string }) {
       >
         DM
       </button>
-      <Dialog open={open} handler={handleOpen} size="xs">
-        <DialogHeader className="flex flex-col justify-center gap-2">
-          <div className="text-lg md:text-2xl">
-            WTB.KR에 오신 걸 환영합니다!
-          </div>
-          <div className="flex flex-row gap-1 text-lg items-center">
-            <LoginButton />
-            <CursorArrowRaysIcon width={32} height={32} />
-          </div>
-        </DialogHeader>
+      <Dialog
+        open={open}
+        onClose={handleOpen}
+        maxWidth="xs"
+        fullWidth
+        className="backdrop-blur-sm"
+      >
+        <DialogTitle className="text-md md:text-xl text-center">
+          WTB.KR에 오신 걸 환영합니다!
+        </DialogTitle>
+        <DialogActions className="flex flex-row gap-1 text-lg items-center justify-center pt-0">
+          <LoginButton />
+          <CursorArrowRaysIcon width={32} height={32} />
+        </DialogActions>
       </Dialog>
     </div>
   );

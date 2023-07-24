@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, DialogHeader } from '@material-tailwind/react';
+import { Dialog, DialogContent } from '@mui/material';
 import { Post } from 'prisma';
 import moment from 'moment';
 import { getPostTitle, getPrice } from '@/app/lib/post';
@@ -23,11 +23,12 @@ export default function PostDetailCard({
   return (
     <Dialog
       open={open}
-      handler={handleOpen}
-      className="overflow-scroll no-scrollbar max-w-[90vw] max-h-[90vh]"
+      onClose={handleOpen}
+      maxWidth="md"
+      className="max-w-screen max-h-screen backdrop-blur-sm"
     >
-      <DialogHeader className="p-0">
-        <div className="flex flex-col md:flex-row w-full max-h-full">
+      <DialogContent className="overflow-scroll no-scrollbar p-0">
+        <div className="flex flex-col md:flex-row w-full min-h-[32rem]">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none">
             <ImageCarousel
               images={post.images}
@@ -36,7 +37,7 @@ export default function PostDetailCard({
               height={1920}
             />
           </div>
-          <div className="flex-none max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
+          <div className="flex-none md:max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
             <div className="p-2 font-medium">
               <div className="flex flex-row gap-2 text-sm md:text-base items-center">
                 <UserProfile
@@ -65,7 +66,7 @@ export default function PostDetailCard({
             </div>
           </div>
         </div>
-      </DialogHeader>
+      </DialogContent>
     </Dialog>
   );
 }
