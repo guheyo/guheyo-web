@@ -1,8 +1,6 @@
 'use client';
 
 import useClickOutside from '@/app/hooks/use-click-outside';
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable react/jsx-props-no-spreading */
 import { Fade, Popper as MUIPopper } from '@mui/material';
 import { PopperProps as MUIPopperProps } from '@mui/material/Popper';
 import { useRef } from 'react';

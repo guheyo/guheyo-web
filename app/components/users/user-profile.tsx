@@ -1,7 +1,5 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable react/jsx-props-no-spreading */
 import { Typography } from '@mui/material';
 import { User } from 'prisma';
 import _ from 'lodash';
