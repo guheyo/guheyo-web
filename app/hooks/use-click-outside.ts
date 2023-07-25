@@ -21,10 +21,8 @@ const useClickOutside = (
   );
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
     };
   }, [handleClickOutside]);
 };
