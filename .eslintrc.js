@@ -29,6 +29,7 @@ module.exports = {
     'react/react-in-jsx-scope': OFF,
     'react/require-default-props': OFF,
     'react/jsx-pascal-case': ERROR,
+    'react/jsx-props-no-spreading': [ERROR, { exceptions: ['Fade'] }],
     'prettier/prettier': ERROR,
     'import/prefer-default-export': OFF,
     'no-nested-ternary': OFF,
@@ -60,6 +61,10 @@ module.exports = {
       {
         selector: 'objectLiteralProperty',
         format: null,
+      },
+      {
+        selector: 'parameter',
+        format: ['camelCase', 'PascalCase'],
       },
     ],
     'check-file/filename-naming-convention': [
