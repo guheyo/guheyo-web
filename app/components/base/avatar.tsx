@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-
+import { Avatar as MuiAvatar } from '@mui/material';
 export default function Avatar({
   name,
   avatarURL,
@@ -10,13 +9,11 @@ export default function Avatar({
   avatarURL?: string | null;
 }) {
   return (
-    <Image
-      src={avatarURL || '/dongwang-gray.svg'}
+    <MuiAvatar
       alt={`${name} avatar`}
-      className="dark:invert rounded-full"
-      width={32}
-      height={32}
-      priority
+      src={avatarURL || '/dongwang-gray.svg'}
+      className="rounded-full w-8 h-8 bg-zinc-200"
+      variant="rounded"
     />
   );
 }
