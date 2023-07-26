@@ -25,6 +25,14 @@ export default function LoginButton() {
     signOut();
   };
 
+  if (session === undefined) {
+    return (
+      <div className="inline-flex items-center w-8 h-8">
+        <div className="w-8 h-8 bg-gray-200 rounded-full" />
+      </div>
+    );
+  }
+
   if (session && session.user) {
     return (
       <div>
