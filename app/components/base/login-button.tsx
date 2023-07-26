@@ -48,12 +48,8 @@ export default function LoginButton() {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           onClose={handleCloseMenu}
-<<<<<<< HEAD
           className="mt-1 pr-3 pl-3 w-[250px] ml-3"
           disableScrollLock
-=======
-          className="mt-1 pr-3 pl-3 w-[250px] ml-4"
->>>>>>> fb847ee1d90e3328bff2baac5a8cc9be3fb2b946
         >
           <MenuItem className="text-sm rounded-md w-[180px] focus:bg-transparent pb-2 pt-2">
             <div className=" focus:bg-gray-100 hover:bg-gray-100 w-full h-[35px] rounded-md ">
