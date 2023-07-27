@@ -14,6 +14,7 @@ const UserName = ({ user }: Props) => {
   if (isBlacklist) {
     return (
       <div
+        className="font-medium"
         style={{
           color: '#bbbbbb',
           backgroundColor: 'black',
@@ -23,10 +24,11 @@ const UserName = ({ user }: Props) => {
       </div>
     );
   }
+
   return (
     <div
       style={{
-        color: _.get(user.roles, '[0].hexColor', '#000000'),
+        color: _.get(user.roles, '[0].hexColor', '#DCDDDE'),
       }}
     >
       {user.username}

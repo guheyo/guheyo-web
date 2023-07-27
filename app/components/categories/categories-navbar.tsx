@@ -24,9 +24,7 @@ const CategoriesNavbar = ({ guildName }: Props) => {
   const device = useDeviceDetect();
   const dispatch = useAppDispatch();
   const getButtonCSS = useCallback((clicked: boolean): string => {
-    return clicked
-      ? `bg-black hover:bg-gray-700 text-white`
-      : `bg-neutral-white hover:bg-gray-200 text-black`;
+    return clicked ? `bg-gray-700 hover:bg-gray-700` : `hover:bg-gray-200`;
   }, []);
 
   useEffect(() => {
@@ -50,13 +48,13 @@ const CategoriesNavbar = ({ guildName }: Props) => {
           <div key={category.id} className="flex-none">
             <button
               type="submit"
-              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
+              className={`max-w-sm rounded p-2 overflow-hidden shadow-sm transition-all bg-subBg ${getButtonCSS(
                 categoriId === category.id,
-              )}`}
+              )} `}
               value={category.id}
               onClick={() => handleOnClick(category.id)}
             >
-              <div className="font-bold text-xs md:text-base">
+              <div className="font-bold text-xs md:text-base text-text">
                 {category.name}
               </div>
             </button>

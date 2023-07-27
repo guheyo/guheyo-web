@@ -16,7 +16,10 @@ function PostPreviews({ posts, type, cols }: Props) {
       {posts.map((group) => (
         <Fragment key={group.cursor}>
           {group.posts.map((post: Post) => (
-            <div className="col-span-1" key={post.id}>
+            <div
+              className="col-span-1 bg-subBg text-highlightText"
+              key={post.id}
+            >
               <PostPreview type={type} post={post} cols={cols} />
             </div>
           ))}

@@ -46,14 +46,14 @@ const PostPreview = ({ type, post, cols }: Props) => {
           </div>
           <div className="flex-1 pr-1 flex flex-row justify-between">
             <div className="flex flex-col">
-              <div className="flex flex-row gap-2 text-sm font-normal items-center">
+              <div className="flex flex-row gap-2 text-sm font-normal items-center ">
                 <UserProfile
                   user={post.user}
                   displayAvatar={false}
                   displayUsername
                   displayDM
                 />
-                <div className="text-[10px] md:text-xs text-gray-600">
+                <div className="text-[10px] md:text-xs text-highlightText">
                   {moment(post.createdAt).fromNow()}
                 </div>
               </div>
@@ -95,7 +95,7 @@ const PostPreview = ({ type, post, cols }: Props) => {
           </div>
         )}
         {!thumbnail && (
-          <div className="flex px-10 md:px-14 text-xs md:text-sm text-base">
+          <div className="flex px-10 md:px-14 md:text-sm text-base">
             <ReadMore text={post.content} maxLine={0} />
           </div>
         )}
@@ -141,7 +141,7 @@ const PostPreview = ({ type, post, cols }: Props) => {
         </div>
       )}
       <div className="flex flex-row gap-1 p-1.5 md:p-4 justify-between items-center">
-        <div className="text-xs md:text-base font-semibold">
+        <div className="text-xs pr-2 md:text-base font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
           {getPostTitle(post)}
         </div>
         <div className="flex-none text-xs md:text-base">{getPrice(post)}</div>

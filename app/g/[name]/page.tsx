@@ -12,7 +12,7 @@ export default async function Page({ params }: Params) {
   return (
     <div className="flex flex-col">
       <Scrollbar z="z-40" negativeTop="-top-100" top="top-11">
-        <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-white">
+        <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-mainBg">
           <CategoriesNavbar guildName={params.name} />
         </div>
       </Scrollbar>

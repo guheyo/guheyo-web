@@ -6,7 +6,7 @@ export default function GuildLayout({
   return (
     <div className="flex">
       <div className="flex-1" />
-      <div className="max-w-7xl">{children}</div>
+      <div className="max-w-7xl mx-auto w-full">{children}</div>
       <div className="flex-1" />
     </div>
   );
