@@ -5,13 +5,9 @@ import LoginButton from './login-button';
 
 export default function Navbar() {
   return (
-    <div className="grid grid-cols-2 items-center h-10">
-      <div className="cols-span-1 justify-self-start">
-        <Link href="/">WTB.KR</Link>
-      </div>
-      <div className="cols-span-1 justify-self-end">
-        <LoginButton />
-      </div>
-    </div>
+    <header className="sticky top-0 z-10 w-full px-2 py-1 bg-white shadow-sm flex items-center justify-between">
+      <Link href="/">WTB.KR</Link>
+      <LoginButton />
+    </header>
   );
 }
