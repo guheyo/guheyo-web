@@ -40,6 +40,10 @@ declare module 'prisma' {
     createdAt: Date;
   }
 
+  interface Auction extends Post {
+    lastBid: number;
+  }
+
   interface Tag {
     id: string;
     name: string;
