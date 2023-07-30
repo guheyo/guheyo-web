@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(220, 221, 222);
+  color: rgb(var(--foreground-rgb));
 }
 
 .line-break {
