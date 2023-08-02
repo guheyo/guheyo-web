@@ -29,7 +29,10 @@ module.exports = {
     'react/react-in-jsx-scope': OFF,
     'react/require-default-props': OFF,
     'react/jsx-pascal-case': ERROR,
-    'react/jsx-props-no-spreading': [ERROR, { exceptions: ['Fade'] }],
+    'react/jsx-props-no-spreading': [
+      ERROR,
+      { exceptions: ['Fade', 'CategoriesNavbar'] },
+    ],
     'prettier/prettier': ERROR,
     'import/prefer-default-export': OFF,
     'no-nested-ternary': OFF,
@@ -40,14 +43,6 @@ module.exports = {
     'no-unused-vars': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-unused-vars': [ERROR, { args: 'none' }],
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: false,
-        optionalDependencies: false,
-        peerDependencies: false,
-      },
-    ],
     '@typescript-eslint/naming-convention': [
       ERROR,
       {
@@ -91,6 +86,5 @@ module.exports = {
         '*/**/': 'NEXT_JS_APP_ROUTER_CASE',
       },
     ],
-    'react/jsx-props-no-spreading': OFF,
   },
 };
