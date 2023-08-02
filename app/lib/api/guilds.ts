@@ -1,3 +1,5 @@
+'use client';
+
 import _ from 'lodash';
 import { Category, Guild } from 'prisma';
 import { useQuery } from '@tanstack/react-query';
@@ -38,6 +40,7 @@ export const useGuildCategories = (guildName: string) =>
     () => client.get(`/guilds/${guildName}/categories`),
     {
       select: (data: AxiosResponse<Guild[]>) => parseCategories(data.data),
+      cacheTime: Infinity,
     },
   );
 

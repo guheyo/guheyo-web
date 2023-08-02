@@ -1,3 +1,5 @@
+'use client';
+
 import { Post } from 'prisma';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
