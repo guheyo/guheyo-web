@@ -1,14 +1,17 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   Timeline,
-  TimelineItem,
   TimelineConnector,
-  TimelineHeader,
-  TimelineIcon,
-  TimelineBody,
-} from '@material-tailwind/react';
-import Image from 'next/image';
+  TimelineContent,
+  TimelineSeparator,
+} from '@mui/lab';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
+
+import Avatar from './avatar';
 
 type TimelineEvent = {
   title: string;
@@ -22,29 +25,31 @@ export default function TimelineWithIcon({
   timelineEvents: TimelineEvent[];
 }) {
   return (
-    <div className="max-w-lg">
-      <Timeline className="text-sm md:text-base">
-        {timelineEvents.map((timelineEvent) => (
-          <TimelineItem key={timelineEvent.title}>
-            <TimelineConnector />
-            <TimelineHeader>
-              <TimelineIcon color="white">
-                <Image
-                  loading="lazy"
-                  className="rounded-full"
-                  src={timelineEvent.iconURL}
-                  alt="icon"
-                  width={32}
-                  height={32}
-                />
-              </TimelineIcon>
-              <div className="font-semibold">{timelineEvent.title}</div>
-            </TimelineHeader>
-            <TimelineBody className="pb-8">
-              <div className="font-normal text-gray-600">
+    <div className="max-w-lg pl-12">
+      <Timeline
+        className="text-sm md:text-base"
+        sx={{
+          [`& .${timelineItemClasses.root}:before`]: {
+            flex: 0,
+            padding: 0,
+          },
+        }}
+      >
+        {timelineEvents.map((timelineEvent, index) => (
+          <TimelineItem key={timelineEvent.title + index.toString()}>
+            <TimelineSeparator>
+              <Avatar
+                name={timelineEvent.title}
+                avatarURL={timelineEvent.iconURL}
+              />
+              <TimelineConnector className="mt-2 mb-2 h-[60px] bg-slate-300" />
+            </TimelineSeparator>
+            <TimelineContent className="ml-2">
+              <div className="font-mono">{timelineEvent.title}</div>
+              <div className="font-mono text-gray-500 pt-4">
                 {timelineEvent.content}
               </div>
-            </TimelineBody>
+            </TimelineContent>
           </TimelineItem>
         ))}
       </Timeline>
