@@ -29,10 +29,6 @@ module.exports = {
     'react/react-in-jsx-scope': OFF,
     'react/require-default-props': OFF,
     'react/jsx-pascal-case': ERROR,
-    'react/jsx-props-no-spreading': [
-      ERROR,
-      { exceptions: ['Fade', 'CategoriesNavbar'] },
-    ],
     'prettier/prettier': ERROR,
     'import/prefer-default-export': OFF,
     'no-nested-ternary': OFF,
@@ -87,5 +83,6 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': OFF,
+    'import/no-extraneous-dependencies': OFF,
   },
 };

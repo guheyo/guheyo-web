@@ -1,13 +1,8 @@
 'use client';
 
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
-import Select from 'react-select';
-
-type Option = {
-  value: string;
-  label: string;
-};
+import React, { useEffect, useMemo } from 'react';
 
 const options = [
   { value: 'sell', label: '판매' },
@@ -20,10 +15,17 @@ export default function TypeSelector() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleChange = (option: Option | null) => {
-    if (!option || searchParams.get('type') === option.value) return;
-    router.push(`${pathname}?type=${option.value}`);
+  const handleChange = (e: SelectChangeEvent) => {
+    const { value } = e.target;
+    router.push(`${pathname}?type=${value}`);
   };
+
+  const selectedValue = useMemo(
+    () =>
+      options.find((o) => o.value === searchParams.get('type') ?? 'sell')!
+        .value,
+    [searchParams],
+  );
 
   useEffect(() => {
     if (!searchParams.has('type')) {
@@ -33,10 +35,19 @@ export default function TypeSelector() {
 
   return (
     <Select
-      instanceId="type-selector"
-      options={options}
+      id="type-selector"
       placeholder="판매"
+      value={selectedValue}
       onChange={handleChange}
-    />
+      inputProps={{
+        className: 'py-2',
+      }}
+    >
+      {options.map(({ value, label }) => (
+        <MenuItem key={value} value={value}>
+          {label}
+        </MenuItem>
+      ))}
+    </Select>
   );
 }

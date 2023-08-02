@@ -41,7 +41,6 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",
     "react-redux": "^8.0.7",
-    "react-select": "^5.7.3",
     "remark-gfm": "^3.0.1",
     "typescript": "5.0.4",
     "zustand": "^4.3.9"
