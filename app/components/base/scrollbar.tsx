@@ -3,22 +3,12 @@
 import React from 'react';
 import { useScrollDirection } from '@/app/hooks/use-scroll-direction';
 
-export default function Scrollbar({
-  children,
-  z,
-  negativeTop,
-  top,
-}: {
-  children: React.ReactNode;
-  z: string;
-  negativeTop: string;
-  top: string;
-}) {
+export default function Scrollbar({ children }: { children: React.ReactNode }) {
   const scrollDirection = useScrollDirection();
   return (
     <div
-      className={`sticky ${z} ${
-        scrollDirection === 'down' ? `${negativeTop}` : `${top}`
+      className={`sticky bg-inherit z-40 ${
+        scrollDirection === 'up' ? `top-14` : `top-unset`
       }`}
     >
       {children}
