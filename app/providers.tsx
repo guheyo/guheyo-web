@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { ReduxProviders } from '@/redux/provider';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, createTheme } from '@mui/material';
+import { ReduxProviders } from '@/redux/provider';
 
 /**
  * MUI preflight Disable

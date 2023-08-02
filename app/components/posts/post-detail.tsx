@@ -3,9 +3,9 @@
 import { Dialog, DialogContent } from '@mui/material';
 import { Post } from 'prisma';
 import moment from 'moment';
-import { getPostTitle, getPrice } from '@/app/lib/post';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
+import { getPostTitle, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
 

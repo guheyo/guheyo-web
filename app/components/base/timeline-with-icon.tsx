@@ -1,16 +1,12 @@
 'use client';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   Timeline,
   TimelineConnector,
   TimelineContent,
   TimelineSeparator,
 } from '@mui/lab';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
-
 import Avatar from './avatar';
 
 type TimelineEvent = {

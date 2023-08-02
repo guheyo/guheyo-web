@@ -2,8 +2,8 @@
 
 import React, { useCallback, useRef } from 'react';
 import { Post } from 'prisma';
-import { useAppSelector } from '@/redux/hooks';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useAppSelector } from '@/redux/hooks';
 import { getPosts, Posts } from '@/app/lib/api/posts';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import PostPreview from './post-preview';

@@ -1,10 +1,10 @@
-import { getGuilds } from '@/app/lib/api/guilds';
 import {
   createSlice,
   createAsyncThunk,
   SerializedError,
 } from '@reduxjs/toolkit';
 import { Guild } from 'prisma';
+import { getGuilds } from '@/app/lib/api/guilds';
 
 export const fetchGuilds = createAsyncThunk('guilds/fetchGuilds', async () => {
   const guilds = await getGuilds();
