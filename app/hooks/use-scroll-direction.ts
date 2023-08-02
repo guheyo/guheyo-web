@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useScrollDirection = () => {
-  const [scrollDirection, setScrollDirection] = useState('up');
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up');
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -11,7 +11,7 @@ export const useScrollDirection = () => {
       const direction = scrollY > lastScrollY ? 'down' : 'up';
       if (
         direction !== scrollDirection &&
-        (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
+        (scrollY - lastScrollY > 1 || scrollY - lastScrollY < -1)
       ) {
         setScrollDirection(direction);
       }
