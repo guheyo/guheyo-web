@@ -1,8 +1,7 @@
 'use client';
 
-import { setPostType } from '@/redux/features/posts-slice';
-import { useAppDispatch } from '@/redux/hooks';
-import React from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
 import Select from 'react-select';
 
 type Option = {
@@ -17,11 +16,20 @@ const options = [
 ];
 
 export default function TypeSelector() {
-  const dispatch = useAppDispatch();
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const handleChange = (option: Option | null) => {
-    if (!option) return;
-    dispatch(setPostType(option.value));
+    if (!option || searchParams.get('type') === option.value) return;
+    router.push(`${pathname}?type=${option.value}`);
   };
+
+  useEffect(() => {
+    if (!searchParams.has('type')) {
+      router.replace(`${pathname}?type=sell`);
+    }
+  }, [pathname, router, searchParams]);
 
   return (
     <Select
