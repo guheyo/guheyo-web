@@ -7,7 +7,7 @@ import {
 export const guildKeys = createQueryKeys('guilds', {
   all: null,
   categories: (guildName: string) => ({
-    queryKey: [guildName, 'categories'],
+    queryKey: [guildName],
   }),
 });
 
