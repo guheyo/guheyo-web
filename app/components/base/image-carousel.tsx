@@ -1,10 +1,15 @@
 'use client';
 
-import { Carousel, IconButton } from '@material-tailwind/react';
+import React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
+import { IconButton } from '@mui/material';
+import { Carousel } from '@material-tailwind/react';
+
+// 추후 적용 사항 임시 주석처리
+// import Carousel from 'react-material-ui-carousel';
 
 function Navigation({
   setActiveIndex,
@@ -47,11 +52,8 @@ function PrevArrow({
   if (firstIndex) return null;
   return (
     <IconButton
-      variant="text"
-      color="white"
-      size="lg"
       onClick={handlePrev}
-      className="!absolute top-2/4 -translate-y-2/4 left-0 md:left-1"
+      className="!absolute top-2/4 -translate-y-2/4 left-0 md:left-1 text-white"
     >
       <ChevronLeftIcon strokeWidth={2} className="w-6 h-6" />
     </IconButton>
@@ -72,11 +74,8 @@ function NextArrow({
   if (lastIndex) return null;
   return (
     <IconButton
-      variant="text"
-      color="white"
-      size="lg"
       onClick={handleNext}
-      className="!absolute top-2/4 -translate-y-2/4 right-0 md:right-1"
+      className="!absolute top-2/4 -translate-y-2/4 right-0 md:right-1 text-white"
     >
       <ChevronRightIcon strokeWidth={2} className="w-6 h-6" />
     </IconButton>
@@ -97,6 +96,33 @@ export default function ImageCarousel({
   if (!images) return null;
 
   return (
+    // 추후 적용 사항 임시 주석처리
+    // <Carousel
+    //   // className={`w-[${width}px]`}
+    //   fullHeightHover
+    //   swipe
+    //   autoPlay={false}
+    //   className="w-[520px]"
+    // >
+    //   {_.map(images, (image, i) => (
+    //     <div
+    //       key={i}
+    //       className={`${sizes} flex justify-center items-center overflow-hidden`}
+    //       style={{
+    //         position: 'relative',
+    //         objectFit: 'cover',
+    //       }}
+    //     >
+    //       <NextImage
+    //         src={image.url}
+    //         alt={image.name}
+    //         width={width}
+    //         height={height}
+    //         loading="lazy"
+    //       />
+    //     </div>
+    //   ))}
+    // </Carousel>
     <Carousel
       loop={false}
       navigation={Navigation}
