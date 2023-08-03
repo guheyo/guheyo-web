@@ -49,6 +49,33 @@ export default function ImageCarousel({
   if (!images) return null;
 
   return (
+    // 추후 적용 사항 임시 주석처리
+    // <Carousel
+    //   // className={`w-[${width}px]`}
+    //   fullHeightHover
+    //   swipe
+    //   autoPlay={false}
+    //   className="w-[520px]"
+    // >
+    //   {_.map(images, (image, i) => (
+    //     <div
+    //       key={i}
+    //       className={`${sizes} flex justify-center items-center overflow-hidden`}
+    //       style={{
+    //         position: 'relative',
+    //         objectFit: 'cover',
+    //       }}
+    //     >
+    //       <NextImage
+    //         src={image.url}
+    //         alt={image.name}
+    //         width={width}
+    //         height={height}
+    //         loading="lazy"
+    //       />
+    //     </div>
+    //   ))}
+    // </Carousel>
     <Carousel
       fullHeightHover={false}
       swipe
