@@ -3,7 +3,7 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import React, { useState } from 'react';
 import { PowerIcon } from '@heroicons/react/24/outline';
-import { Menu, MenuItem, MenuList, MenuProps } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import Avatar from './avatar';
 
 export default function LoginButton() {
@@ -36,12 +36,15 @@ export default function LoginButton() {
   if (session && session.user) {
     return (
       <div>
-        <div className="inline-flex items-center" onClick={handleOpenMenu}>
+        <IconButton
+          className="inline-flex items-center"
+          onClick={handleOpenMenu}
+        >
           <Avatar
             name={session.user.username}
             avatarURL={session.user.avatarURL}
           />
-        </div>
+        </IconButton>
         <Menu
           open={menuOpen}
           anchorEl={anchorEl}

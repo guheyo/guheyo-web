@@ -52,9 +52,7 @@ export default async function Page() {
                 height={32}
               />
             </div>
-            <div className="flex justify-center">
-              <TimelineWithIcon timelineEvents={timelineEvents} />
-            </div>
+            <TimelineWithIcon timelineEvents={timelineEvents} />
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
                 <div className="text-base md:text-lg font-semibold">

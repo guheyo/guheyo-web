@@ -1,4 +1,3 @@
-import { getGuildCategories } from '@/app/lib/api/guilds';
 import {
   createSlice,
   createAsyncThunk,
@@ -7,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { Category } from 'prisma';
+import { getGuildCategories } from '@/app/lib/api/guilds';
 
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
