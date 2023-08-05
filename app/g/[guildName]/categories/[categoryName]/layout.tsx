@@ -1,7 +1,7 @@
 'use client';
 
-import CategoriesNavbar from '@/app/components/categories/categories-navbar';
 import { ReactNode } from 'react';
+import CategoriesNavbar from '@/app/components/categories/categories-navbar';
 import { CategoryPageProps } from './page';
 
 interface Props extends CategoryPageProps {
