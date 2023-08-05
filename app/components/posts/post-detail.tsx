@@ -25,7 +25,7 @@ export default function PostDetailCard({
       open={open}
       onClose={handleOpen}
       // maxWidth="lg"
-      className="max-w-screen max-h-screen z-60 top-[48px]"
+      className="max-w-screen max-h-screen z-60 top-[50px]"
       slotProps={{
         backdrop: {
           sx: {
