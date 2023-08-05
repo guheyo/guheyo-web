@@ -26,9 +26,14 @@ export default function PostDetailCard({
       onClose={handleOpen}
       maxWidth="md"
       className="max-w-screen max-h-screen backdrop-blur-sm"
+      PaperProps={{
+        sx: {
+          overflow: 'unset',
+        },
+      }}
     >
-      <DialogContent className="overflow-scroll no-scrollbar p-0">
-        <div className="flex flex-col md:flex-row w-full min-h-[32rem]">
+      <DialogContent className="no-scrollbar p-0">
+        <div className="flex flex-col md:flex-row w-full h-full min-h-[32rem] md:h-[550px]">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none">
             <ImageCarousel
               images={post.images}
@@ -37,28 +42,30 @@ export default function PostDetailCard({
               height={1920}
             />
           </div>
-          <div className="flex-none md:max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
-            <div className="p-2 font-medium">
-              <div className="flex flex-row gap-2 text-sm md:text-base items-center">
-                <UserProfile
-                  user={post.user}
-                  displayAvatar
-                  displayUsername
-                  displayDM
-                />
-                <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-                  {moment(post.createdAt).fromNow()}
+          <div className="flex-none max-h-[250px] md:max-h-[550px] h-[250px] sm:h-full md:max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
+            <div className="p-2 font-medium h-full">
+              <div className="border-b-[1px]">
+                <div className="flex flex-row gap-2 text-sm md:text-base items-center">
+                  <UserProfile
+                    user={post.user}
+                    displayAvatar
+                    displayUsername
+                    displayDM
+                  />
+                  <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
+                    {moment(post.createdAt).fromNow()}
+                  </div>
+                </div>
+                <div className="p-2 flex flex-row gap-2 justify-between items-center">
+                  <div className="text-sm md:text-base font-semibold">
+                    {getPostTitle(post)}
+                  </div>
+                  <div className="flex-none text-sm md:text-base justify-self-end">
+                    {getPrice(post)}
+                  </div>
                 </div>
               </div>
-              <div className="p-2 flex flex-row gap-2 justify-between items-center">
-                <div className="text-sm md:text-base font-semibold">
-                  {getPostTitle(post)}
-                </div>
-                <div className="flex-none text-sm md:text-base justify-self-end">
-                  {getPrice(post)}
-                </div>
-              </div>
-              <div className="p-2 pt-4 text-sm md:text-base">
+              <div className="p-2 pt-4 text-sm md:text-base overflow-y-scroll md:h-[85%] h-[70%] ">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {post.content}
                 </ReactMarkdown>
