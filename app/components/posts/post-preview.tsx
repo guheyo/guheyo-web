@@ -95,7 +95,7 @@ export default function PostPreview({ type, post, cols }: Props) {
           </div>
         )}
         {!thumbnail && (
-          <div className="flex px-10 md:px-14 text-xs md:text-sm text-base">
+          <div className="flex px-10 md:px-14 md:text-sm text-base">
             <ReadMore text={post.content} maxLine={0} />
           </div>
         )}

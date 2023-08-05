@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useCallback, useRef } from 'react';
 import { Post } from 'prisma';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useAppSelector } from '@/redux/hooks';
-import { getPosts, Posts } from '@/app/lib/api/posts';
+import React, { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
-import PostPreview from './post-preview';
+import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
 import PostMock from './post-mock';
+import PostPreview from './post-preview';
 
 function PostMocks({ type }: { type: string }) {
   return (
@@ -44,31 +43,21 @@ function PostPreviews({
   );
 }
 
-export default function Feed() {
-  const categoryId = useAppSelector(
-    (state) => state.categoriesSlice.categoryId,
-  );
-  const type = useAppSelector((state) => state.postsSlice.type);
-  const cols = useAppSelector((state) => state.postsSlice.cols);
+interface Props {
+  categoryId: string;
+}
+export default function Feed({ categoryId }: Props) {
+  const searchParams = useSearchParams();
 
-  const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
-    ['posts', categoryId, type],
-    {
-      queryFn: async ({ pageParam = '' }) =>
-        getPosts(categoryId ?? '', type, pageParam),
-      getNextPageParam: (lastPage, allPages) => lastPage.cursor,
-    },
-  );
+  const type = searchParams.get('type') ?? 'sell';
+
+  const { data, hasNextPage, fetchNextPage, isError, isLoading } =
+    useInfinitePosts(categoryId, type);
 
   const ref = useRef<HTMLDivElement>(null);
-  const fetchNext = useCallback(() => {
-    if (!hasNextPage) return;
-    fetchNextPage();
-  }, [hasNextPage, fetchNextPage]);
+  useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
-  useInfiniteScroll(ref, fetchNext);
-
-  if (status === 'loading') {
+  if (isLoading) {
     if (type === 'buy')
       return (
         <div className="flex justify-center">
@@ -84,13 +73,13 @@ export default function Feed() {
       </div>
     );
   }
-  if (status === 'error') return <p>Error ...</p>;
+  if (isError) return <p>Error ...</p>;
 
   if (type === 'buy')
     return (
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
-          <PostPreviews posts={data.pages} type={type} cols={cols} />
+          <PostPreviews posts={data?.pages} type={type} cols={1} />
         </div>
         <div ref={ref} />
       </div>
@@ -99,10 +88,10 @@ export default function Feed() {
     <>
       <div
         className={`grid gap-4 md:gap-8 lg:gap-12 ${
-          cols === 1 ? 'grid-cols-1' : 'grid-cols-2'
+          true ? 'grid-cols-1' : 'grid-cols-2'
         } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
       >
-        <PostPreviews posts={data.pages} type={type} cols={cols} />
+        <PostPreviews posts={data?.pages} type={type} cols={1} />
       </div>
       <div ref={ref} />
     </>

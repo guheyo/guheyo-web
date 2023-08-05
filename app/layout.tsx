@@ -46,9 +46,7 @@ export default function RootLayout({
       </head>
       <body className={`${notoSansKr.className} text-main`}>
         <Providers>
-          <div className="fixed top-0 z-50 w-full px-2 py-1 bg-white shadow-sm">
-            <Navbar />
-          </div>
+          <Navbar />
           {children}
         </Providers>
       </body>
