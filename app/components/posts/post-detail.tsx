@@ -49,7 +49,7 @@ export default function PostDetailCard({
     >
       <DialogContent className="no-scrollbar p-0 h-full md:pr-10 md:pl-10">
         <div className="md:flex md:flex-row w-full h-full min-h-[32rem] justify-center">
-          <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%] md:pr-[3.334%] md:h-full h-[320px]">
+          <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%] md:pr-[3.334%] md:h-[520px] h-[320px]">
             <ImageCarousel
               images={post.images}
               sizes={sizes}
