@@ -40,6 +40,14 @@ module.exports = {
     'no-unused-vars': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-unused-vars': [ERROR, { args: 'none' }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
     '@typescript-eslint/naming-convention': [
       ERROR,
       {
