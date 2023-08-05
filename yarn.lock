@@ -5182,18 +5182,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query-devtools@npm:^4.29.15":
-  version: 4.32.1
-  resolution: "@tanstack/react-query-devtools@npm:4.32.1"
+"@tanstack/react-query-devtools@npm:^4.29.25":
+  version: 4.32.6
+  resolution: "@tanstack/react-query-devtools@npm:4.32.6"
   dependencies:
     "@tanstack/match-sorter-utils": ^8.7.0
     superjson: ^1.10.0
     use-sync-external-store: ^1.2.0
   peerDependencies:
-    "@tanstack/react-query": 4.32.1
+    "@tanstack/react-query": ^4.32.6
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: a0a48ccce6cdcd8b9d043a49781b0c7a061e1f806edb41a8f5188291e6fd1745af7ea09f64f68c527f75771425e0de131f8fd6093549ee8664470540f1cb1de0
+  checksum: 5a0686dfa06834acb657922e621174863bc7bfd6f63336041a422e590ada8ab71ea9e88dd69fa587ea5d11fc8d7745478af5e7da339dae86bef86172f571c6ba
   languageName: node
   linkType: hard
 
@@ -16524,7 +16524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
+"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:
