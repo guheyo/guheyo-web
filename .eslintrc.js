@@ -86,5 +86,6 @@ module.exports = {
         '*/**/': 'NEXT_JS_APP_ROUTER_CASE',
       },
     ],
+    'react/jsx-props-no-spreading': OFF,
   },
 };
