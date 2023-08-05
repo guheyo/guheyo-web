@@ -1,6 +1,6 @@
-import DatabaseAdapter from '@/app/adapters';
 import NextAuth, { AuthOptions } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
+import DatabaseAdapter from '@/app/adapters';
 
 export const authOptions: AuthOptions = {
   providers: [

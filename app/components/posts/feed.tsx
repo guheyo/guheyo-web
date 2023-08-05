@@ -1,10 +1,10 @@
 'use client';
 
-import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
-import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
 import { Post } from 'prisma';
 import React, { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
+import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
 import PostMock from './post-mock';
 import PostPreview from './post-preview';
 

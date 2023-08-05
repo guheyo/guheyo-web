@@ -3,8 +3,8 @@
 import { Typography } from '@mui/material';
 import { User } from 'prisma';
 import _ from 'lodash';
-import { useDeviceDetect } from '@/app/hooks/use-device-detect';
 import { useState } from 'react';
+import { useDeviceDetect } from '@/app/hooks/use-device-detect';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from './social-join-dates';

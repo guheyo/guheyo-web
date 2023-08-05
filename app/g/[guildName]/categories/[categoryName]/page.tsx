@@ -1,8 +1,8 @@
 'use client';
 
+import { useMemo } from 'react';
 import Feed from '@/app/components/posts/feed';
 import { useGuildCategories } from '@/app/lib/api/guilds';
-import { useMemo } from 'react';
 
 export interface CategoryPageProps {
   params: {
