@@ -24,17 +24,32 @@ export default function PostDetailCard({
     <Dialog
       open={open}
       onClose={handleOpen}
-      maxWidth="md"
-      className="max-w-screen max-h-screen backdrop-blur-sm"
+      // maxWidth="lg"
+      className="max-w-screen max-h-screen z-60 top-[48px]"
+      slotProps={{
+        backdrop: {
+          sx: {
+            background: 'none',
+            top: '50px',
+          },
+        },
+      }}
       PaperProps={{
         sx: {
           overflow: 'unset',
+          margin: 0,
+          height: '100%',
+          width: '100%',
+          maxHeight: '100%',
+          maxWidth: '80rem',
+          boxShadow: '0',
+          borderRadius: '0',
         },
       }}
     >
-      <DialogContent className="no-scrollbar p-0">
-        <div className="flex flex-col md:flex-row w-full h-full min-h-[32rem] md:h-[550px]">
-          <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none">
+      <DialogContent className="no-scrollbar p-0 h-full md:pr-10 md:pl-10">
+        <div className="md:flex md:flex-row w-full h-full min-h-[32rem] justify-center">
+          <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%] md:pr-[3.334%] md:h-full h-[320px]">
             <ImageCarousel
               images={post.images}
               sizes={sizes}
@@ -42,8 +57,8 @@ export default function PostDetailCard({
               height={1920}
             />
           </div>
-          <div className="flex-none max-h-[250px] md:max-h-[550px] h-[250px] sm:h-full md:max-w-xs lg:max-w-sm border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break">
-            <div className="p-2 font-medium h-full">
+          <div className="flex-none  h-full  border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%]">
+            <div className="p-2 font-medium h-full pl-0 pr-0">
               <div className="border-b-[1px]">
                 <div className="flex flex-row gap-2 text-sm md:text-base items-center">
                   <UserProfile

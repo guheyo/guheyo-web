@@ -1,38 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
 import Carousel from 'react-material-ui-carousel';
 
 // indicator 변경 시 사용 가능하므로 임시 주석
-// function Navigation({
-//   setActiveIndex,
-//   activeIndex,
-//   length,
-// }: {
-//   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-//   activeIndex: number;
-//   length: number;
-// }) {
-//   if (length < 2) return null;
-//   return (
-//     <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-//       {_.range(length).map((index) => (
-//         <button
-//           type="submit"
-//           aria-label="indicator"
-//           key={index}
-//           className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-//             activeIndex === index ? 'bg-white w-8' : 'bg-white/50 w-4'
-//           }`}
-//           onClick={() => setActiveIndex(index)}
-//         />
-//       ))}
-//     </div>
-//   );
-// }
+function Navigation({
+  setActiveIndex,
+  activeIndex,
+  length,
+}: {
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  activeIndex: number;
+  length: number;
+}) {
+  if (length < 2) return null;
+  return (
+    <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+      {_.range(length).map((index) => (
+        <div
+          aria-label="indicator"
+          key={index}
+          className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+            activeIndex === index ? 'bg-gray-200 w-8' : 'bg-gray-300 w-4'
+          }`}
+          // onClick={() => setActiveIndex(index)}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function ImageCarousel({
   images,
@@ -45,29 +44,42 @@ export default function ImageCarousel({
   width: number;
   height: number;
 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   if (!images) return null;
 
   return (
     <Carousel
-      fullHeightHover
+      fullHeightHover={false}
       swipe
       autoPlay={false}
       navButtonsAlwaysVisible
       indicatorContainerProps={{
-        style: {
-          margin: '0px',
-          paddingBottom: '10px',
-          borderTop: '1px solid rgb(243 244 246)',
-        },
+        className: 'absolute top-[300px] md:top-[510px] m-0 pb-[10px] z-2',
+      }}
+      IndicatorIcon={
+        <Navigation
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          length={images.length}
+        />
+      }
+      navButtonsWrapperProps={{
+        className: 'absolute md:top-[220px] top-[120px]',
       }}
       animation="slide"
       cycleNavigation={false}
-      className="lg:w-[520px] md:w-[380px] full h-full"
+      className="full h-full"
+      onChange={(index) => {
+        if (index !== undefined || index) {
+          setActiveIndex(index);
+        }
+      }}
     >
       {_.map(images, (image, i) => (
         <div
           key={i}
-          className={`${sizes} flex justify-center items-center overflow-hidden h-[320px] md:h-[520px]`}
+          className="flex justify-center items-center overflow-hidden h-[320px] md:h-[520px] "
           style={{
             position: 'relative',
             objectFit: 'cover',
@@ -76,8 +88,8 @@ export default function ImageCarousel({
           <NextImage
             src={image.url}
             alt={image.name}
-            width={width}
-            height={width}
+            width={768}
+            height={768}
             loading="lazy"
           />
         </div>
