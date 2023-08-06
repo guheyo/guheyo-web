@@ -1,11 +1,12 @@
 'use client';
 
-import { Carousel, IconButton } from '@material-tailwind/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
+import Carousel from 'react-material-ui-carousel';
 
+// indicator 변경 시 사용 가능하므로 임시 주석
 function Navigation({
   setActiveIndex,
   activeIndex,
@@ -19,67 +20,16 @@ function Navigation({
   return (
     <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
       {_.range(length).map((index) => (
-        <button
-          type="submit"
+        <div
           aria-label="indicator"
           key={index}
           className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-            activeIndex === index ? 'bg-white w-8' : 'bg-white/50 w-4'
+            activeIndex === index ? 'bg-gray-200 w-8' : 'bg-gray-300 w-4'
           }`}
-          onClick={() => setActiveIndex(index)}
+          // onClick={() => setActiveIndex(index)}
         />
       ))}
     </div>
-  );
-}
-
-function PrevArrow({
-  loop,
-  handlePrev,
-  activeIndex,
-  firstIndex,
-}: {
-  loop: boolean;
-  handlePrev: () => void;
-  activeIndex: number;
-  firstIndex: boolean;
-}) {
-  if (firstIndex) return null;
-  return (
-    <IconButton
-      variant="text"
-      color="white"
-      size="lg"
-      onClick={handlePrev}
-      className="!absolute top-2/4 -translate-y-2/4 left-0 md:left-1"
-    >
-      <ChevronLeftIcon strokeWidth={2} className="w-6 h-6" />
-    </IconButton>
-  );
-}
-
-function NextArrow({
-  loop,
-  handleNext,
-  activeIndex,
-  lastIndex,
-}: {
-  loop: boolean;
-  handleNext: () => void;
-  activeIndex: number;
-  lastIndex: boolean;
-}) {
-  if (lastIndex) return null;
-  return (
-    <IconButton
-      variant="text"
-      color="white"
-      size="lg"
-      onClick={handleNext}
-      className="!absolute top-2/4 -translate-y-2/4 right-0 md:right-1"
-    >
-      <ChevronRightIcon strokeWidth={2} className="w-6 h-6" />
-    </IconButton>
   );
 }
 
@@ -94,19 +44,69 @@ export default function ImageCarousel({
   width: number;
   height: number;
 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   if (!images) return null;
 
   return (
+    // 추후 적용 사항 임시 주석처리
+    // <Carousel
+    //   // className={`w-[${width}px]`}
+    //   fullHeightHover
+    //   swipe
+    //   autoPlay={false}
+    //   className="w-[520px]"
+    // >
+    //   {_.map(images, (image, i) => (
+    //     <div
+    //       key={i}
+    //       className={`${sizes} flex justify-center items-center overflow-hidden`}
+    //       style={{
+    //         position: 'relative',
+    //         objectFit: 'cover',
+    //       }}
+    //     >
+    //       <NextImage
+    //         src={image.url}
+    //         alt={image.name}
+    //         width={width}
+    //         height={height}
+    //         loading="lazy"
+    //       />
+    //     </div>
+    //   ))}
+    // </Carousel>
     <Carousel
-      loop={false}
-      navigation={Navigation}
-      prevArrow={PrevArrow}
-      nextArrow={NextArrow}
+      fullHeightHover={false}
+      swipe
+      autoPlay={false}
+      navButtonsAlwaysVisible
+      indicatorContainerProps={{
+        className: 'absolute top-[300px] md:top-[510px] m-0 pb-[10px] z-2',
+      }}
+      IndicatorIcon={
+        <Navigation
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          length={images.length}
+        />
+      }
+      navButtonsWrapperProps={{
+        className: 'absolute md:top-[220px] top-[120px]',
+      }}
+      animation="slide"
+      cycleNavigation={false}
+      className="full h-full"
+      onChange={(index) => {
+        if (index !== undefined || index) {
+          setActiveIndex(index);
+        }
+      }}
     >
       {_.map(images, (image, i) => (
         <div
           key={i}
-          className={`${sizes} flex justify-center items-center overflow-hidden`}
+          className="flex justify-center items-center overflow-hidden h-[320px] md:h-[520px] "
           style={{
             position: 'relative',
             objectFit: 'cover',
@@ -115,8 +115,8 @@ export default function ImageCarousel({
           <NextImage
             src={image.url}
             alt={image.name}
-            width={width}
-            height={height}
+            width={768}
+            height={768}
             loading="lazy"
           />
         </div>
