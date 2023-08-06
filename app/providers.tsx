@@ -3,7 +3,11 @@
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider, createTheme } from '@mui/material';
+import {
+  StyledEngineProvider,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReduxProviders } from '@/redux/provider';
 
@@ -43,13 +47,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <ReduxProviders>
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider>{children}</SessionProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </ReduxProviders>
-    </ThemeProvider>
+    <ReduxProviders>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          </StyledEngineProvider>
+        </SessionProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ReduxProviders>
   );
 }
