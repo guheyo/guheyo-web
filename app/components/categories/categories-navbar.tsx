@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useGuildCategories } from '@/app/lib/api/guilds';
+import { useSearchParams } from 'next/navigation';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
@@ -22,6 +23,8 @@ interface Props {
 
 export default function CategoriesNavbar({ guildName, categoryName }: Props) {
   const { data: categories } = useGuildCategories(guildName);
+  const searchParams = useSearchParams();
+
   const activeCategory = useMemo(
     () => categories?.find((c) => c.name === categoryName),
     [categories, categoryName],
@@ -41,7 +44,9 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
                 categoryName === activeCategory?.name,
               )}`}
               passHref
-              href={`/g/${guildName}/categories/${category.name}`}
+              href={`/g/${guildName}/categories/${
+                category.name
+              }?${searchParams.toString()}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
