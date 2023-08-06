@@ -2,8 +2,8 @@
 
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import React from 'react';
-import { useColSize } from '@/store/use-col-size';
 import { shallow } from 'zustand/shallow';
+import { useColSize } from '@/store/use-col-size';
 
 export default function ColsSelectButton() {
   const [colSize, handleClick] = useColSize(
