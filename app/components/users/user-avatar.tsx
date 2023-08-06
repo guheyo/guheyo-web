@@ -25,8 +25,7 @@ export default function UserAvatar({ user, size }: { user: User; size: Size }) {
         width: avatarSize,
         height: avatarSize,
       }}
-      className="rounded-full bg-zinc-200"
-      variant="rounded"
+      className="bg-zinc-200"
     />
   );
 }

@@ -1,10 +1,11 @@
 'use client';
 
-import { Dialog, DialogContent } from '@mui/material';
+import { Dialog, DialogContent, IconButton } from '@mui/material';
 import { Post } from 'prisma';
 import moment from 'moment';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
@@ -25,12 +26,15 @@ export default function PostDetailCard({
       open={open}
       onClose={handleOpen}
       // maxWidth="lg"
-      className="max-w-screen max-h-screen z-60 top-[50px]"
+      sx={{
+        top: '58px',
+      }}
+      className="max-w-screen max-h-screen z-60"
       slotProps={{
         backdrop: {
           sx: {
             background: 'none',
-            top: '50px',
+            top: '58px',
           },
         },
       }}
@@ -47,7 +51,18 @@ export default function PostDetailCard({
         },
       }}
     >
-      <DialogContent className="no-scrollbar p-0 h-full md:pr-10 md:pl-10">
+      <DialogContent
+        className="no-scrollbar p-0 h-full md:pr-10 md:pl-10"
+        sx={{
+          padding: '0px 0px',
+        }}
+      >
+        <div className="flex justify-end">
+          <IconButton onClick={handleOpen}>
+            <XMarkIcon className="w-6 md:w-8" />
+          </IconButton>
+        </div>
+
         <div className="md:flex md:flex-row w-full h-full min-h-[32rem] justify-center">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%] md:pr-[3.334%] md:h-[520px] h-[320px]">
             <ImageCarousel
@@ -57,7 +72,7 @@ export default function PostDetailCard({
               height={1920}
             />
           </div>
-          <div className="flex-none  h-full  border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%]">
+          <div className="flex-none  h-full  border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%] pr-5 pl-5">
             <div className="p-2 font-medium h-full pl-0 pr-0">
               <div className="border-b-[1px]">
                 <div className="flex flex-row gap-2 text-sm md:text-base items-center">
