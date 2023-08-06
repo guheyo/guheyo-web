@@ -23,7 +23,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: `/g/${process.env.NEXT_PUBLIC_DEFAULT_GUILD_NAME}`,
+        destination: `/g/${process.env.NEXT_PUBLIC_DEFAULT_GUILD_NAME}/categories/${process.env.NEXT_PUBLIC_DEFAULT_MARKET_CATEGORY}`,
         permanent: true,
       },
     ];
