@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
-import { useGuildCategories } from '@/app/lib/api/guilds';
 import { useSearchParams } from 'next/navigation';
+import { useGuildCategories } from '@/app/lib/api/guilds';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
@@ -13,7 +13,7 @@ const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
     return `bg-neutral-white hover:bg-gray-200 text-black`;
   }
-  return `bg-black hover:bg-gray-700 text-white`;
+  return `bg-black text-neutral-white hover:bg-gray-700 text-white`;
 };
 
 interface Props {
@@ -26,7 +26,7 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
   const searchParams = useSearchParams();
 
   const activeCategory = useMemo(
-    () => categories?.find((c) => c.name === categoryName),
+    () => categories?.find((c) => encodeURIComponent(c.name) === categoryName),
     [categories, categoryName],
   );
 
@@ -41,10 +41,10 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
             <Link
               key={category.id}
               className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
-                categoryName === activeCategory?.name,
+                category.id === activeCategory?.id,
               )}`}
               passHref
-              href={`/g/${guildName}/categories/${
+              href={`/${guildName}/market/${
                 category.name
               }?${searchParams.toString()}`}
             >
