@@ -22,6 +22,7 @@ export default function Thumbnail({
         alt={image.name}
         fill
         style={{ objectFit: 'cover' }}
+        sizes="50vw"
       />
     </div>
   );
