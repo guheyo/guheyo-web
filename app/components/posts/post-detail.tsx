@@ -95,7 +95,7 @@ export default function PostDetailCard({
                   </div>
                 </div>
               </div>
-              <div className="p-2 pt-4 text-sm md:text-base overflow-y-scroll md:h-[85%] h-[70%] ">
+              <div className="p-2 pt-4 text-sm md:text-base overflow-y-scroll md:h-[85%] h-[70%] no-scrollbar">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {post.content}
                 </ReactMarkdown>
