@@ -2,31 +2,22 @@
 
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import React from 'react';
-import { setCols } from '@/redux/features/posts-slice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useColSize } from '@/store/use-col-size';
+import { shallow } from 'zustand/shallow';
 
 export default function ColsSelectButton() {
-  const cols = useAppSelector((state) => state.postsSlice.cols);
-  const dispatch = useAppDispatch();
+  const [colSize, handleClick] = useColSize(
+    (state) => [state.colSize, state.toggleColSize],
+    shallow,
+  );
 
-  if (cols === 1) {
-    return (
-      <button
-        type="submit"
-        className="flex items-center"
-        onClick={() => dispatch(setCols(2))}
-      >
-        <ListBulletIcon width={28} height={28} />
-      </button>
-    );
-  }
   return (
-    <button
-      type="submit"
-      className="flex items-center"
-      onClick={() => dispatch(setCols(1))}
-    >
-      <Bars3Icon width={28} height={28} />
+    <button type="submit" className="flex items-center" onClick={handleClick}>
+      {colSize === 1 ? (
+        <ListBulletIcon width={28} height={28} />
+      ) : (
+        <Bars3Icon width={28} height={28} />
+      )}
     </button>
   );
 }

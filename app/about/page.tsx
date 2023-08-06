@@ -35,7 +35,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col">
-      <Scrollbar z="z-40" negativeTop="-top-100" top="top-11">
+      <Scrollbar>
         <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-white">
           <Tabs tabs={tabs} />
         </div>
@@ -123,7 +123,7 @@ export default async function Page() {
             <div className="text-base md:text-lg pt-4 font-semibold">
               프론트엔드
             </div>
-            <p>Next.js, React, React Query, Redux</p>
+            <p>Next.js, React, React Query, Zustand</p>
             <p>Tailwind CSS, Material Tailwind, heroicons</p>
             <div className="text-base md:text-lg pt-4 font-semibold">
               백엔드
