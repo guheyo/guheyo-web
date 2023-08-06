@@ -22,8 +22,8 @@ export default function TypeSelector() {
 
   const selectedValue = useMemo(
     () =>
-      options.find((o) => o.value === searchParams.get('type') ?? 'sell')!
-        .value,
+      options.find((o) => o.value === searchParams.get('type') ?? 'sell')
+        ?.value ?? 'sell',
     [searchParams],
   );
 
