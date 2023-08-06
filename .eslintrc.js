@@ -90,5 +90,6 @@ module.exports = {
     ],
     'react/jsx-props-no-spreading': OFF,
     'import/no-extraneous-dependencies': OFF,
+    'no-bitwise': OFF,
   },
 };

@@ -74,12 +74,7 @@ export default function PostPreview({ type, post, cols }: Props) {
                 onClick={() => handleOpen()}
                 className="group"
               >
-                <Thumbnail
-                  image={thumbnail}
-                  sizes={sizes}
-                  width={384}
-                  height={288}
-                />
+                <Thumbnail image={thumbnail} sizes={sizes} />
                 <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
                   <ChatBubbleOvalLeftIcon
                     color="white"
@@ -121,12 +116,7 @@ export default function PostPreview({ type, post, cols }: Props) {
       {thumbnail && (
         <div className="flex relative">
           <button type="submit" onClick={() => handleOpen()} className="group">
-            <Thumbnail
-              image={thumbnail}
-              sizes={sizes}
-              width={384}
-              height={288}
-            />
+            <Thumbnail image={thumbnail} sizes={sizes} />
             <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"
