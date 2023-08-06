@@ -23,15 +23,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: `/g/${process.env.NEXT_PUBLIC_DEFAULT_GUILD_NAME}/categories/${process.env.NEXT_PUBLIC_DEFAULT_MARKET_CATEGORY}`,
-        permanent: true,
-      },
-    ];
-  },
   async rewrites() {
     return [
       {
