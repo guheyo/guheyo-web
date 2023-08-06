@@ -9,7 +9,6 @@ import {
   createTheme,
 } from '@mui/material';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReduxProviders } from '@/redux/provider';
 
 /**
  * MUI preflight Disable
@@ -47,15 +46,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ReduxProviders>
-      <QueryClientProvider client={queryClient}>
-        <SessionProvider>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          </StyledEngineProvider>
-        </SessionProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ReduxProviders>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </StyledEngineProvider>
+      </SessionProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

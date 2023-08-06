@@ -13,27 +13,6 @@ function parseCategories(categoriesData: any): Array<Category> {
   );
 }
 
-export async function getGuildCategories(guildName: string) {
-  const res = await client.get<Category[]>(`/guilds/${guildName}/categories`, {
-    headers: {
-      'Cache-Control': 'force-cache',
-      Pragma: 'force-cache',
-    },
-  });
-  const categories = parseCategories(res.data);
-  return categories;
-}
-
-export async function getGuilds() {
-  const res = await client.get<Guild[]>(`/guilds`, {
-    headers: {
-      'Cache-Control': 'force-cache',
-      Pragma: 'force-cache',
-    },
-  });
-  return res.data;
-}
-
 export const useGuildCategories = (guildName: string) =>
   useQuery(
     guildKeys.categories(guildName).queryKey,
