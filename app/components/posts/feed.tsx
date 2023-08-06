@@ -81,7 +81,7 @@ export default function Feed({ categoryId }: Props) {
     return (
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
-          <PostPreviews posts={data?.pages} type={type} cols={1} />
+          <PostPreviews posts={data?.pages} type={type} cols={colSize} />
         </div>
         <div ref={ref} />
       </div>
@@ -93,7 +93,7 @@ export default function Feed({ categoryId }: Props) {
           colSize === 1 ? 'grid-cols-1' : 'grid-cols-2'
         } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
       >
-        <PostPreviews posts={data?.pages} type={type} cols={1} />
+        <PostPreviews posts={data?.pages} type={type} cols={colSize} />
       </div>
       <div ref={ref} />
     </>
