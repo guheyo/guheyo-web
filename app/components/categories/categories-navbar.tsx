@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
-import { useGuildCategories } from '@/app/lib/api/guilds';
 import { useSearchParams } from 'next/navigation';
+import { useGuildCategories } from '@/app/lib/api/guilds';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
@@ -44,7 +44,7 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
                 categoryName === activeCategory?.name,
               )}`}
               passHref
-              href={`/g/${guildName}/categories/${
+              href={`/${guildName}/market/${
                 category.name
               }?${searchParams.toString()}`}
             >
