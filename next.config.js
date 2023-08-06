@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    dirs: ['app', 'redux', 'types'],
+    dirs: ['app', 'store', 'types'],
   },
   images: {
     remotePatterns: [
