@@ -31,6 +31,12 @@ module.exports = {
     'react/jsx-pascal-case': ERROR,
     'prettier/prettier': ERROR,
     'import/prefer-default-export': OFF,
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
     'no-nested-ternary': OFF,
     'no-ternary': OFF,
     'no-unneeded-ternary': WARNING,
