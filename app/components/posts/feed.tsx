@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
+import { useColSize } from '@/store/use-col-size';
 import PostMock from './post-mock';
 import PostPreview from './post-preview';
 
@@ -48,6 +49,7 @@ interface Props {
 }
 export default function Feed({ categoryId }: Props) {
   const searchParams = useSearchParams();
+  const colSize = useColSize((state) => state.colSize);
 
   const type = searchParams.get('type') ?? 'sell';
 
@@ -88,7 +90,7 @@ export default function Feed({ categoryId }: Props) {
     <>
       <div
         className={`grid gap-4 md:gap-8 lg:gap-12 ${
-          true ? 'grid-cols-1' : 'grid-cols-2'
+          colSize === 1 ? 'grid-cols-1' : 'grid-cols-2'
         } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
       >
         <PostPreviews posts={data?.pages} type={type} cols={1} />
