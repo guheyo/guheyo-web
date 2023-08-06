@@ -15,6 +15,7 @@ function CategoryPage({
   params: { guildName, categoryName },
 }: CategoryPageProps) {
   const { data: categories, isLoading } = useGuildCategories(guildName);
+
   const currentCategory = useMemo(
     () => categories?.find((c) => encodeURIComponent(c.name) === categoryName),
     [categories, categoryName],
