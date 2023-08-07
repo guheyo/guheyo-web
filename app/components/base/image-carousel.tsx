@@ -116,8 +116,8 @@ export default function ImageCarousel({
           <NextImage
             src={image.url}
             alt={image.name}
-            width={768}
-            height={768}
+            width={width}
+            height={height}
             loading="lazy"
           />
         </div>
