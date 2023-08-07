@@ -51,7 +51,7 @@ export default function PostDetailCard({
       }}
     >
       <DialogContent
-        className="p-0 overflow-auto md:overflow-hidden"
+        className="p-0 overflow-hidden"
         sx={{
           padding: '0px 0px',
         }}
@@ -94,7 +94,7 @@ export default function PostDetailCard({
                   </div>
                 </div>
               </div>
-              <div className="p-2 pt-4 text-sm md:text-base md:h-[30rem] overflow-y-auto">
+              <div className="p-2 pt-4 text-sm md:text-base h-96 overflow-y-auto">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {post.content}
                 </ReactMarkdown>
