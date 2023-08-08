@@ -83,9 +83,6 @@ export default function PostPreview({ type, post, cols }: Props) {
                   />
                 </div>
               </button>
-              <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
-                <PostDetail post={post} open={open} handleOpen={handleOpen} />
-              </div>
             </div>
           </div>
         )}
@@ -94,6 +91,9 @@ export default function PostPreview({ type, post, cols }: Props) {
             <ReadMore text={post.content} maxLine={0} />
           </div>
         )}
+        <div>
+          <PostDetail post={post} open={open} handleOpen={handleOpen} />
+        </div>
       </div>
     );
   }
@@ -125,9 +125,6 @@ export default function PostPreview({ type, post, cols }: Props) {
               />
             </div>
           </button>
-          <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
-            <PostDetail post={post} open={open} handleOpen={handleOpen} />
-          </div>
         </div>
       )}
       <div className="flex flex-row gap-1 p-1.5 md:p-4 justify-between items-center">
@@ -135,6 +132,9 @@ export default function PostPreview({ type, post, cols }: Props) {
           {getPostTitle(post)}
         </div>
         <div className="flex-none text-xs md:text-base">{getPrice(post)}</div>
+      </div>
+      <div>
+        <PostDetail post={post} open={open} handleOpen={handleOpen} />
       </div>
     </div>
   );
