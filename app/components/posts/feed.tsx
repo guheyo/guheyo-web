@@ -34,7 +34,7 @@ function PostPreviews({
       {posts.map((group) => (
         <React.Fragment key={group.cursor}>
           {group.posts.map((post: Post) => (
-            <div className="col-span-1" key={post.id}>
+            <div className="col-span-1 p-1" key={post.id}>
               <PostPreview type={type} post={post} cols={cols} />
             </div>
           ))}

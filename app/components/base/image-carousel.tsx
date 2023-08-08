@@ -78,7 +78,7 @@ export default function ImageCarousel({
     // </Carousel>
     <Carousel
       fullHeightHover={false}
-      swipe
+      swipe={false}
       autoPlay={false}
       navButtonsAlwaysVisible
       indicatorContainerProps={{
@@ -95,6 +95,7 @@ export default function ImageCarousel({
         className: 'absolute md:top-[220px] top-[120px]',
       }}
       animation="slide"
+      duration={200}
       cycleNavigation={false}
       className="full h-full"
       onChange={(index) => {
@@ -115,8 +116,8 @@ export default function ImageCarousel({
           <NextImage
             src={image.url}
             alt={image.name}
-            width={768}
-            height={768}
+            width={width}
+            height={height}
             loading="lazy"
           />
         </div>
