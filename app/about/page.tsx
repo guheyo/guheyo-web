@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import Tabs from '../components/base/tabs';
 import Scrollbar from '../components/base/scrollbar';
 import TimelineWithIcon from '../components/base/timeline-with-icon';
@@ -8,14 +6,14 @@ export default async function Page() {
   const tabs = [
     {
       label: '소개',
-      value: 'wtb',
+      value: 'guheyo',
     },
     {
       label: '기술 스택',
       value: 'tech',
     },
     {
-      label: '팀원',
+      label: '팀',
       value: 'team',
     },
   ];
@@ -28,8 +26,8 @@ export default async function Page() {
     },
     {
       title: '2023년 6월 30일',
-      content: 'WTB.KR 베타 버전 공개',
-      iconURL: '/wtb-logo-square.png',
+      content: 'guheyo 베타 버전 공개',
+      iconURL: '/guheyo-logo.svg',
     },
   ];
 
@@ -42,70 +40,29 @@ export default async function Page() {
       </Scrollbar>
       <div className="z-0 pt-16 px-4 mb-24 text-sm md:text-base">
         <div className="flex flex-col max-w-2xl gap-8 md:gap-8">
-          <div id="wtb" className="flex flex-col gap-4">
+          <div id="guheyo" className="flex flex-col gap-4">
             <div className="flex items-center justify-center">
-              <Image
-                className="rounded"
-                src="/wtb-logo-square.png"
-                alt="WTB Logo"
-                width={32}
-                height={32}
-              />
+              <button
+                type="button"
+                disabled
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+              >
+                <div className="font-bold">소개</div>
+              </button>
             </div>
             <TimelineWithIcon timelineEvents={timelineEvents} />
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col">
-                <div className="text-base md:text-lg font-semibold">
-                  Want to Buy : 좋아하는 것을 구매해요
-                </div>
-                <div>
-                  <div>커스텀 키보드를 좋아하는 사람들과 거래해요</div>
-                  <div>커스텀 키보드 전문가들과 거래해요</div>
-                </div>
+            <div>
+              <div className="text-base md:text-lg font-semibold">
+                프로젝트 소개
               </div>
-              <div className="flex flex-col">
-                <div className="text-base md:text-lg font-semibold">
-                  White to Black : 모던한 흑백 디자인을 추구해요
-                </div>
-                <div>
-                  <div>단순하게 만들어요</div>
-                  <div>편하게 머물 수 있는 공간을 만들어요</div>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="text-base md:text-lg font-semibold">
-                  What to Build : 이런 걸 개발해요
-                </div>
-                <div>
-                  <div className="flex flex-col">
-                    <div className=" font-semibold">거래</div>
-                    <ul className="list-disc pl-5">
-                      <li>판매</li>
-                      <li>구매</li>
-                      <li>교환</li>
-                    </ul>
-                    <div className="font-semibold">경매</div>
-                    <ul className="list-disc pl-5">
-                      <li>판매</li>
-                      <li>입찰</li>
-                      <li>위약금 설정</li>
-                    </ul>
-                    <div className="font-semibold">양도/양수</div>
-                    <ul className="list-disc pl-5">
-                      <li>표준 계약서</li>
-                      <li>계약금 설정</li>
-                    </ul>
-                    <div className="font-semibold">공통</div>
-                    <ul className="list-disc pl-5">
-                      <li>본인 인증</li>
-                      <li>알림</li>
-                      <li>활동 기록</li>
-                      <li>거래 내역</li>
-                      <li>송장 트랙킹</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <a
+                className="text-blue-500"
+                href="https://github.com/guheyo/guheyo-server/wiki"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                guheyo 위키
+              </a>
             </div>
           </div>
           <div id="tech">
@@ -124,11 +81,11 @@ export default async function Page() {
               프론트엔드
             </div>
             <p>Next.js, React, React Query, Zustand</p>
-            <p>Tailwind CSS, Material Tailwind, heroicons</p>
+            <p>Tailwind CSS, MUI</p>
             <div className="text-base md:text-lg pt-4 font-semibold">
               백엔드
             </div>
-            <p>Node.js, Express, PostgreSQL</p>
+            <p>Node.js, NestJS, PostgreSQL</p>
             <p>Prisma, discord.js</p>
             <div className="text-base md:text-lg pt-4 font-semibold">
               인프라
@@ -142,17 +99,18 @@ export default async function Page() {
                 disabled
                 className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
               >
-                <div className="font-bold">팀원</div>
+                <div className="font-bold">팀</div>
               </button>
             </div>
-            <div className="font-medium items-center">
+            <div>
+              <div className="text-base md:text-lg font-semibold">팀</div>
               <a
-                className="flex flex-row gap-1 text-base md:text-lg font-semibold"
-                href="https://forms.gle/wfcw2aFLaMDv5kNC8"
+                className="text-blue-500"
+                href="https://github.com/orgs/guheyo/people"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                지원하기 <CursorArrowRaysIcon width={32} height={32} />
+                Github 팀
               </a>
             </div>
           </div>
