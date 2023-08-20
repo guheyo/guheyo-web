@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, IconButton } from '@mui/material';
 import { Post } from 'prisma';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -82,7 +82,7 @@ export default function PostDetailCard({
                     displayDM
                   />
                   <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-                    {moment(post.createdAt).fromNow()}
+                    {dayjs(post.createdAt).fromNow()}
                   </div>
                 </div>
                 <div className="p-2 flex flex-row gap-2 justify-between items-center">
