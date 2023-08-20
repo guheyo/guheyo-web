@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { SocialAccount } from 'prisma';
 import SocialLogo from './social-logo';
 
@@ -10,7 +10,7 @@ export default function SocialJoinDates({
   if (!socialAccounts) return null;
 
   const getJoinedDate = (socialAccount: SocialAccount) =>
-    `${moment(socialAccount.createdAt).format('MMMM Do YYYY')}`;
+    `${dayjs(socialAccount.createdAt).format('MMMM Do YYYY')}`;
 
   return (
     <div className="flex flex-col justify-start">
