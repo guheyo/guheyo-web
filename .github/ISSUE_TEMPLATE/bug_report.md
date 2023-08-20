@@ -6,7 +6,7 @@ labels: 'bug'
 
 ---
 
-wtb-web version:
+guheyo-web version:
 
 ## 버그 재현 절차
 

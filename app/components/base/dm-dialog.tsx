@@ -33,7 +33,7 @@ export default function DmDialog({ url }: { url: string }) {
         className="backdrop-blur-sm"
       >
         <DialogTitle className="text-md md:text-xl text-center">
-          WTB.KR에 오신 걸 환영합니다!
+          guheyo에 오신 걸 환영합니다!
         </DialogTitle>
         <DialogActions className="flex flex-row gap-1 text-lg items-center justify-center pt-0">
           <LoginButton />
