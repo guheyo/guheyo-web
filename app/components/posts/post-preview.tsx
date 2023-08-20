@@ -2,8 +2,7 @@
 
 import _ from 'lodash';
 import { Post } from 'prisma';
-import moment from 'moment';
-import 'moment/locale/ko';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getPrice } from '@/app/lib/post';
@@ -54,7 +53,7 @@ export default function PostPreview({ type, post, cols }: Props) {
                   displayDM
                 />
                 <div className="text-[10px] md:text-xs text-gray-600">
-                  {moment(post.createdAt).fromNow()}
+                  {dayjs(post.createdAt).fromNow()}
                 </div>
               </div>
               <div className="text-xs md:text-base font-semibold">
@@ -109,7 +108,7 @@ export default function PostPreview({ type, post, cols }: Props) {
             displayDM
           />
           <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-            {moment(post.createdAt).fromNow()}
+            {dayjs(post.createdAt).fromNow()}
           </div>
         </div>
       </div>

@@ -9,6 +9,13 @@ import {
   createTheme,
 } from '@mui/material';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ko';
+
+// dayjs config
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 /**
  * MUI preflight Disable
