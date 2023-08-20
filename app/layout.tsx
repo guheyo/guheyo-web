@@ -12,8 +12,8 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata = {
-  title: 'WTB.KR',
-  description: '우리들의 커스텀 키보드 장터',
+  title: '구해요',
+  description: '같은 취미를 공유하는 멤버들과 거래해요',
 };
 
 export default function RootLayout({
@@ -34,15 +34,15 @@ export default function RootLayout({
             gtag('config', 'G-TWPX7X0128');
           `}
         </Script>
-        <link rel="icon" href="/wtb-logo.ico" sizes="any" />
+        <link rel="icon" href="/guheyo-logo.ico" sizes="any" />
         <meta
           property="og:image"
-          content="https://wtb-kr.s3.ap-northeast-2.amazonaws.com/meta/wtb-logo-square.png"
+          content="https://guheyo.s3.ap-northeast-2.amazonaws.com/meta/guheyo-logo.png"
         />
-        <meta property="og:alt" content="WTB.KR Logo" />
+        <meta property="og:alt" content="guheyo Logo" />
         <meta property="og:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="1200" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
       </head>
       <body className={`${notoSansKr.className} text-main`}>
         <Providers>

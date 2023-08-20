@@ -10,4 +10,4 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "wtb-kr/frontend"
+      - "guheyo/frontend"

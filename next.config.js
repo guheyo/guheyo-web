@@ -11,11 +11,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'wtb-kr.s3.ap-northeast-2.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'wtb-kr-dev.s3.ap-northeast-2.amazonaws.com',
+        hostname: '*.ap-northeast-2.amazonaws.com',
       },
     ],
     minimumCacheTTL: 24 * 60 * 60,

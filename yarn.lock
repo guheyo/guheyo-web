@@ -10159,6 +10159,69 @@ __metadata:
   languageName: node
   linkType: hard
 
+"guheyo-web@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "guheyo-web@workspace:."
+  dependencies:
+    "@emotion/react": ^11.11.1
+    "@emotion/styled": ^11.11.0
+    "@heroicons/react": ^2.0.18
+    "@lukemorales/query-key-factory": ^1.3.2
+    "@mui/lab": ^5.0.0-alpha.138
+    "@mui/material": ^5.14.1
+    "@next/eslint-plugin-next": 13.4.8
+    "@storybook/addon-essentials": 7.0.20
+    "@storybook/addon-interactions": 7.0.20
+    "@storybook/addon-links": 7.0.20
+    "@storybook/blocks": 7.0.20
+    "@storybook/nextjs": ^7.0.20
+    "@storybook/react": 7.0.20
+    "@storybook/testing-library": 0.0.14-next.2
+    "@tanstack/react-query": ^4.29.15
+    "@tanstack/react-query-devtools": ^4.29.25
+    "@types/lodash": ^4.14.195
+    "@types/node": 20.1.4
+    "@types/react": 18.2.6
+    "@types/react-dom": 18.2.4
+    "@types/react-slick": ^0.23.10
+    "@typescript-eslint/eslint-plugin": ^6.0.0
+    "@typescript-eslint/parser": ^6.0.0
+    autoprefixer: 10.4.14
+    axios: ^1.4.0
+    eslint: ^8.45.0
+    eslint-config-airbnb: ^19.0.4
+    eslint-config-airbnb-typescript: ^17.1.0
+    eslint-config-next: 13.4.8
+    eslint-config-prettier: ^8.8.0
+    eslint-plugin-check-file: ^2.5.0
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-jsx-a11y: ^6.7.1
+    eslint-plugin-prettier: ^5.0.0
+    eslint-plugin-react: ^7.32.2
+    eslint-plugin-react-hooks: ^4.5.0
+    eslint-plugin-storybook: ^0.6.12
+    keen-slider: ^6.8.5
+    lodash: ^4.17.21
+    moment: ^2.29.4
+    next: 13.4.2
+    next-auth: ^4.22.1
+    postcss: 8.4.23
+    prettier: ^3.0.0
+    react: 18.2.0
+    react-device-detect: ^2.2.3
+    react-dom: 18.2.0
+    react-markdown: ^8.0.7
+    react-material-ui-carousel: ^3.4.2
+    remark-gfm: ^3.0.1
+    sharp: ^0.32.4
+    simple-zustand-devtools: ^1.1.0
+    storybook: 7.0.20
+    tailwindcss: ^3.3.2
+    typescript: 5.0.4
+    zustand: ^4.3.9
+  languageName: unknown
+  linkType: soft
+
 "gunzip-maybe@npm:^1.4.2":
   version: 1.4.2
   resolution: "gunzip-maybe@npm:1.4.2"
@@ -16954,69 +17017,6 @@ __metadata:
   checksum: 53e991bbf928faf5dc6efac9b8eb9ab6497c69feeb94f963d648b7a3530a720b19ec2e0ec037344257e05a4f35bd9ad04d9de6f289615ffb133282031b18c61c
   languageName: node
   linkType: hard
-
-"wtb-web@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "wtb-web@workspace:."
-  dependencies:
-    "@emotion/react": ^11.11.1
-    "@emotion/styled": ^11.11.0
-    "@heroicons/react": ^2.0.18
-    "@lukemorales/query-key-factory": ^1.3.2
-    "@mui/lab": ^5.0.0-alpha.138
-    "@mui/material": ^5.14.1
-    "@next/eslint-plugin-next": 13.4.8
-    "@storybook/addon-essentials": 7.0.20
-    "@storybook/addon-interactions": 7.0.20
-    "@storybook/addon-links": 7.0.20
-    "@storybook/blocks": 7.0.20
-    "@storybook/nextjs": ^7.0.20
-    "@storybook/react": 7.0.20
-    "@storybook/testing-library": 0.0.14-next.2
-    "@tanstack/react-query": ^4.29.15
-    "@tanstack/react-query-devtools": ^4.29.25
-    "@types/lodash": ^4.14.195
-    "@types/node": 20.1.4
-    "@types/react": 18.2.6
-    "@types/react-dom": 18.2.4
-    "@types/react-slick": ^0.23.10
-    "@typescript-eslint/eslint-plugin": ^6.0.0
-    "@typescript-eslint/parser": ^6.0.0
-    autoprefixer: 10.4.14
-    axios: ^1.4.0
-    eslint: ^8.45.0
-    eslint-config-airbnb: ^19.0.4
-    eslint-config-airbnb-typescript: ^17.1.0
-    eslint-config-next: 13.4.8
-    eslint-config-prettier: ^8.8.0
-    eslint-plugin-check-file: ^2.5.0
-    eslint-plugin-import: ^2.27.5
-    eslint-plugin-jsx-a11y: ^6.7.1
-    eslint-plugin-prettier: ^5.0.0
-    eslint-plugin-react: ^7.32.2
-    eslint-plugin-react-hooks: ^4.5.0
-    eslint-plugin-storybook: ^0.6.12
-    keen-slider: ^6.8.5
-    lodash: ^4.17.21
-    moment: ^2.29.4
-    next: 13.4.2
-    next-auth: ^4.22.1
-    postcss: 8.4.23
-    prettier: ^3.0.0
-    react: 18.2.0
-    react-device-detect: ^2.2.3
-    react-dom: 18.2.0
-    react-markdown: ^8.0.7
-    react-material-ui-carousel: ^3.4.2
-    remark-gfm: ^3.0.1
-    sharp: ^0.32.4
-    simple-zustand-devtools: ^1.1.0
-    storybook: 7.0.20
-    tailwindcss: ^3.3.2
-    typescript: 5.0.4
-    zustand: ^4.3.9
-  languageName: unknown
-  linkType: soft
 
 "xtend@npm:^4.0.2, xtend@npm:~4.0.1":
   version: 4.0.2
