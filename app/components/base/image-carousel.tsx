@@ -10,12 +10,21 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { KeenSliderHooks, KeenSliderInstance } from 'keen-slider';
 
-export interface CarouselArrowProps {
+interface CarouselArrowProps {
   disabled: boolean;
   left?: boolean;
   onClick: (e: any) => void;
 }
 
+interface NavigationProps {
+  activeIndex: number;
+  length: number;
+  instanceRef: React.MutableRefObject<KeenSliderInstance<
+    {},
+    {},
+    KeenSliderHooks
+  > | null>;
+}
 function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
   return (
     <IconButton
@@ -43,19 +52,7 @@ function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
   );
 }
 
-function Navigation({
-  activeIndex,
-  length,
-  instanceRef,
-}: {
-  activeIndex: number;
-  length: number;
-  instanceRef: React.MutableRefObject<KeenSliderInstance<
-    {},
-    {},
-    KeenSliderHooks
-  > | null>;
-}) {
+function Navigation({ activeIndex, length, instanceRef }: NavigationProps) {
   if (length < 2) return null;
   return (
     <div className="flex justify-center gap-2 z-50 mt-4 mb-4">
