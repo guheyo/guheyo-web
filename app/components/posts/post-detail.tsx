@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
-import ImageCarousel from '../base/image-carousel';
+import ImageSlider from '../base/image-slider';
 
 export default function PostDetailCard({
   post,
@@ -64,7 +64,7 @@ export default function PostDetailCard({
 
         <div className="md:flex md:flex-row justify-center">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%]">
-            <ImageCarousel
+            <ImageSlider
               images={post.images}
               sizes={sizes}
               width={760}
