@@ -9,6 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { KeenSliderHooks, KeenSliderInstance } from 'keen-slider';
+import Link from 'next/link';
 
 interface CarouselArrowProps {
   disabled: boolean;
@@ -102,24 +103,26 @@ export default function ImageSlider({
       <div className="relative">
         <div ref={sliderRef} className="keen-slider h-[320px] md:h-[520px]">
           {_.map(images, (image, i) => (
-            <div
-              key={i}
-              // className="flex justify-center items-center overflow-hidden h-[320px] md:h-[520px] "
-              className="keen-slider__slide"
-              style={{
-                position: 'relative',
-                // objectFit: 'cover',
-              }}
-            >
-              <NextImage
-                src={image.url}
-                alt={image.name}
-                width={width}
-                height={height}
-                // fill
-                loading="lazy"
-              />
-            </div>
+            <Link key={image.id + i} href={image.url} target="_blank">
+              <div
+                key={i}
+                // className="flex justify-center items-center overflow-hidden h-[320px] md:h-[520px] "
+                className="keen-slider__slide"
+                style={{
+                  position: 'relative',
+                  // objectFit: 'cover',
+                }}
+              >
+                <NextImage
+                  src={image.url}
+                  alt={image.name}
+                  width={width}
+                  height={height}
+                  // fill
+                  loading="lazy"
+                />
+              </div>
+            </Link>
           ))}
         </div>
         {loaded && instanceRef.current && images && images.length > 1 && (
