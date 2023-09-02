@@ -53,6 +53,21 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
               </span>
             </Link>
           ))}
+          {/* dummy */}
+          {['경매', '경매일정'].map((category, index) => (
+            <Link
+              key={category}
+              className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
+                category === activeCategory?.name,
+              )}`}
+              passHref
+              href={`/${guildName}/auction?${
+                index === 0 ? 'type=auction' : 'type=schedule'
+              }`}
+            >
+              <span className="font-bold text-xs md:text-base">{category}</span>
+            </Link>
+          ))}
         </div>
         <div className="flex-none">
           {isMobile && (
