@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import CategoriesNavbar from '@/app/components/categories/categories-navbar';
-import { CategoryPageProps } from '../market/[categoryName]/page';
+import { CategoryPageProps } from '../../market/[categoryName]/page';
 
 interface Props extends CategoryPageProps {
   children: ReactNode;

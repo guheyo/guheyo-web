@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useSearchParams } from 'next/navigation';
+import { Category } from 'prisma';
 import { useGuildCategories } from '@/app/lib/api/guilds';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
@@ -24,11 +25,31 @@ interface Props {
 export default function CategoriesNavbar({ guildName, categoryName }: Props) {
   const { data: categories } = useGuildCategories(guildName);
   const searchParams = useSearchParams();
+  const [dummy, setDummy] = useState<Category[]>([]);
 
   const activeCategory = useMemo(
-    () => categories?.find((c) => encodeURIComponent(c.name) === categoryName),
-    [categories, categoryName],
+    () =>
+      categories
+        ?.concat(dummy)
+        ?.find((c) => encodeURIComponent(c.name) === categoryName),
+    [categories, categoryName, dummy],
   );
+
+  useEffect(() => {
+    function dummyMaker() {
+      const dummyCategoies: Category[] = [];
+      ['경매', '경매일정'].forEach((category, index) => {
+        dummyCategoies.push({
+          guildId: `dummyGuildId${index}`,
+          id: `dummyCategoryId${index}`,
+          name: category,
+          rank: 4 + index,
+        });
+      });
+      setDummy(dummyCategoies);
+    }
+    dummyMaker();
+  }, []);
 
   return (
     <Scrollbar>
@@ -54,18 +75,18 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
             </Link>
           ))}
           {/* dummy */}
-          {['경매', '경매일정'].map((category, index) => (
+          {dummy.map((category: Category, index: number) => (
             <Link
-              key={category}
+              key={category.id}
               className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
-                category === activeCategory?.name,
+                category.name === activeCategory?.name,
               )}`}
               passHref
-              href={`/${guildName}/auction?${
-                index === 0 ? 'type=auction' : 'type=schedule'
-              }`}
+              href={`/${guildName}/auction/${category.name}`}
             >
-              <span className="font-bold text-xs md:text-base">{category}</span>
+              <span className="font-bold text-xs md:text-base">
+                {category.name}
+              </span>
             </Link>
           ))}
         </div>
