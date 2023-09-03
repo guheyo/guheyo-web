@@ -58,31 +58,16 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
           <TypeSelector />
         </div>
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
-          {categories?.map((category) => (
+          {categories?.concat(dummy).map((category, index) => (
             <Link
               key={category.id}
               className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
                 category.id === activeCategory?.id,
               )}`}
               passHref
-              href={`/${guildName}/market/${
+              href={`/${guildName}/${index < 5 ? 'market' : 'auction'}/${
                 category.name
               }?${searchParams.toString()}`}
-            >
-              <span className="font-bold text-xs md:text-base">
-                {category.name}
-              </span>
-            </Link>
-          ))}
-          {/* dummy */}
-          {dummy.map((category: Category, index: number) => (
-            <Link
-              key={category.id}
-              className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
-                category.name === activeCategory?.name,
-              )}`}
-              passHref
-              href={`/${guildName}/auction/${category.name}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
