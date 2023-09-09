@@ -51,6 +51,14 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
     dummyMaker();
   }, []);
 
+  // dummy params 백엔드 api 업데이트 시 삭제
+  function searchParamsToString(index: number) {
+    const params = searchParams.toString();
+    if (index === 5) return 'type=auction';
+    if (index === 6) return 'type=auction-schedule';
+    return params;
+  }
+
   return (
     <Scrollbar>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 border-b-[1px] mb-10 md:mb-6">
@@ -67,7 +75,7 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
               passHref
               href={`/${guildName}/${index < 5 ? 'market' : 'auction'}/${
                 category.name
-              }?${searchParams.toString()}`}
+              }?${searchParamsToString(index)}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
