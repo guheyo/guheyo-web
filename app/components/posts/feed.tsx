@@ -8,6 +8,7 @@ import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
 import { useColSize } from '@/store/use-col-size';
 import PostMock from './post-mock';
 import PostPreview from './post-preview';
+import dummy from '../../../sample/auctionData.json';
 
 function PostMocks({ type }: { type: string }) {
   return (
@@ -60,7 +61,7 @@ export default function Feed({ categoryId }: Props) {
   useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
   if (isLoading) {
-    if (type === 'buy' || type === 'auction')
+    if (type === 'buy')
       return (
         <div className="flex justify-center">
           <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
@@ -77,7 +78,7 @@ export default function Feed({ categoryId }: Props) {
   }
   if (isError) return <p>Error ...</p>;
 
-  if (type === 'buy' || type === 'auction')
+  if (type === 'buy')
     return (
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
@@ -85,6 +86,23 @@ export default function Feed({ categoryId }: Props) {
         </div>
         <div ref={ref} />
       </div>
+    );
+  if (type === 'auction-schedule')
+    return (
+      <>
+        <div
+          className={`grid gap-4 md:gap-8 lg:gap-12 ${
+            colSize === 1 ? 'grid-cols-1' : 'grid-cols-2'
+          } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
+        >
+          <PostPreviews
+            posts={dummy?.pages as unknown as Posts[]}
+            type={type}
+            cols={colSize}
+          />
+        </div>
+        <div ref={ref} />
+      </>
     );
   return (
     <>

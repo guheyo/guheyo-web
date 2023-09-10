@@ -20,7 +20,7 @@ interface Props {
 
 export default function PostPreview({ type, post, cols }: Props) {
   const sizes =
-    type === 'buy' || type === 'auction'
+    type === 'buy'
       ? 'w-48 h-36 md:w-96 md:h-72'
       : cols === 1
       ? 'w-96 h-72'
