@@ -20,7 +20,7 @@ interface Props {
 
 export default function PostPreview({ type, post, cols }: Props) {
   const sizes =
-    type === 'buy'
+    type === 'buy' || type === 'auction-schedule'
       ? 'w-48 h-36 md:w-96 md:h-72'
       : cols === 1
       ? 'w-96 h-72'
@@ -32,13 +32,13 @@ export default function PostPreview({ type, post, cols }: Props) {
     setOpen(!open);
   };
 
-  if (type === 'buy') {
+  if (type === 'buy' || type === 'auction-schedule') {
     return (
       <div className="flex flex-col overflow-hidden shadow line-break max-w-lg">
         <div className="flex gap-3 font-medium items-center p-1 md:p-2">
           <div className="flex-none">
             <UserProfile
-              user={post.user}
+              user={post.user ?? post.auctionPost?.user}
               displayAvatar
               displayUsername={false}
               displayDM
@@ -48,13 +48,15 @@ export default function PostPreview({ type, post, cols }: Props) {
             <div className="flex flex-col">
               <div className="flex flex-row gap-2 text-sm font-normal items-center">
                 <UserProfile
-                  user={post.user}
+                  user={post.user ?? post.auctionPost?.user}
                   displayAvatar={false}
                   displayUsername
                   displayDM
                 />
                 <div className="text-[10px] md:text-xs text-gray-600">
-                  {moment(post.createdAt).fromNow()}
+                  {moment(
+                    post.createdAt ?? post.auctionPost?.createdAt,
+                  ).fromNow()}
                 </div>
               </div>
               <div className="text-xs md:text-base font-semibold">
@@ -62,7 +64,16 @@ export default function PostPreview({ type, post, cols }: Props) {
               </div>
             </div>
             <div className="flex-none text-xs md:text-base">
-              {getPrice(post)}
+              {type === 'buy' ? (
+                getPrice(post)
+              ) : (
+                <p className="text-[12px] md:text-xs">
+                  경매시작 : &nbsp;
+                  {moment(post.auctionPost?.auctionStartDate).format(
+                    'YYYY월 MM월 DD일',
+                  )}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -88,7 +99,10 @@ export default function PostPreview({ type, post, cols }: Props) {
         )}
         {!thumbnail && (
           <div className="flex px-10 md:px-14 md:text-sm text-base">
-            <ReadMore text={post.content} maxLine={0} />
+            <ReadMore
+              text={post.content ?? post.auctionPost?.content}
+              maxLine={0}
+            />
           </div>
         )}
         <div>
