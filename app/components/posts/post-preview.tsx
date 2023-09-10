@@ -28,8 +28,6 @@ export default function PostPreview({ type, post, cols }: Props) {
   const thumbnail = _.get(post.images, '[0]');
   const [open, setOpen] = useState(false);
 
-  console.log(type, post, cols, sizes);
-
   const handleOpen = () => {
     setOpen(!open);
   };
