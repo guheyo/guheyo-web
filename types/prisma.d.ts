@@ -21,7 +21,7 @@ declare module 'prisma' {
     title: string;
     subTitle?: string;
     price: number;
-    auctionPost?: AuctionPost[];
+    auctionPost?: AuctionPost;
     content: string;
     images?: Image[];
     tags?: Tag[];
@@ -102,5 +102,7 @@ declare module 'prisma' {
     expires: Date;
   }
 
-  interface AuctionPost extends Post {}
+  interface AuctionPost extends Post {
+    auctionStartDate: string;
+  }
 }

@@ -92,7 +92,7 @@ export default function Feed({ categoryId }: Props) {
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
           <PostPreviews
-            posts={dummy?.pages as unknown as Posts[]}
+            posts={dummy.pages as unknown as Posts[]}
             type={type}
             cols={colSize}
           />

@@ -38,7 +38,7 @@ export default function PostPreview({ type, post, cols }: Props) {
         <div className="flex gap-3 font-medium items-center p-1 md:p-2">
           <div className="flex-none">
             <UserProfile
-              user={post.user}
+              user={post.user ?? post.auctionPost?.user}
               displayAvatar
               displayUsername={false}
               displayDM
@@ -48,21 +48,29 @@ export default function PostPreview({ type, post, cols }: Props) {
             <div className="flex flex-col">
               <div className="flex flex-row gap-2 text-sm font-normal items-center">
                 <UserProfile
-                  user={post.user}
+                  user={post.user ?? post.auctionPost?.user}
                   displayAvatar={false}
                   displayUsername
                   displayDM
                 />
                 <div className="text-[10px] md:text-xs text-gray-600">
-                  {moment(post.createdAt).fromNow()}
+                  {moment(
+                    post.createdAt ?? post.auctionPost?.createdAt,
+                  ).fromNow()}
                 </div>
               </div>
               <div className="text-xs md:text-base font-semibold">
-                {getPostTitle(post)}
+                {type === 'buy'
+                  ? getPostTitle(post)
+                  : getPostTitle(post?.auctionPost as Post)}
               </div>
             </div>
             <div className="flex-none text-xs md:text-base">
-              {getPrice(post)}
+              {type === 'buy'
+                ? getPrice(post)
+                : `경매시작 : ${moment(
+                    post.auctionPost?.auctionStartDate,
+                  ).format('YYYY월 MM월 DD일')}`}
             </div>
           </div>
         </div>
@@ -88,7 +96,10 @@ export default function PostPreview({ type, post, cols }: Props) {
         )}
         {!thumbnail && (
           <div className="flex px-10 md:px-14 md:text-sm text-base">
-            <ReadMore text={post.content} maxLine={0} />
+            <ReadMore
+              text={post.content ?? post.auctionPost?.content}
+              maxLine={0}
+            />
           </div>
         )}
         <div>
