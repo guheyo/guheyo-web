@@ -11,6 +11,9 @@ export const getPostTitle = (post: Post) => {
     case 'trade': {
       return `${post.title}\n->\n${post.subTitle}`;
     }
+    case 'auction-schedule': {
+      return post.auctionPost?.title;
+    }
     default:
       return '';
   }

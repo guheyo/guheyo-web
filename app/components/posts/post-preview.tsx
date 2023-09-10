@@ -60,17 +60,20 @@ export default function PostPreview({ type, post, cols }: Props) {
                 </div>
               </div>
               <div className="text-xs md:text-base font-semibold">
-                {type === 'buy'
-                  ? getPostTitle(post)
-                  : getPostTitle(post?.auctionPost as Post)}
+                {getPostTitle(post)}
               </div>
             </div>
             <div className="flex-none text-xs md:text-base">
-              {type === 'buy'
-                ? getPrice(post)
-                : `경매시작 : ${moment(
-                    post.auctionPost?.auctionStartDate,
-                  ).format('YYYY월 MM월 DD일')}`}
+              {type === 'buy' ? (
+                getPrice(post)
+              ) : (
+                <p className="text-[12px] md:text-xs">
+                  경매시작 : &nbsp;
+                  {moment(post.auctionPost?.auctionStartDate).format(
+                    'YYYY월 MM월 DD일',
+                  )}
+                </p>
+              )}
             </div>
           </div>
         </div>
