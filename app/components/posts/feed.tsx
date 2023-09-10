@@ -89,12 +89,8 @@ export default function Feed({ categoryId }: Props) {
     );
   if (type === 'auction-schedule')
     return (
-      <>
-        <div
-          className={`grid gap-4 md:gap-8 lg:gap-12 ${
-            colSize === 1 ? 'grid-cols-1' : 'grid-cols-2'
-          } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
-        >
+      <div className="flex justify-center">
+        <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
           <PostPreviews
             posts={dummy?.pages as unknown as Posts[]}
             type={type}
@@ -102,7 +98,7 @@ export default function Feed({ categoryId }: Props) {
           />
         </div>
         <div ref={ref} />
-      </>
+      </div>
     );
   return (
     <>

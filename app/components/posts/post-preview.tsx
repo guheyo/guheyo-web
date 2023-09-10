@@ -20,7 +20,7 @@ interface Props {
 
 export default function PostPreview({ type, post, cols }: Props) {
   const sizes =
-    type === 'buy'
+    type === 'buy' || type === 'auction-schedule'
       ? 'w-48 h-36 md:w-96 md:h-72'
       : cols === 1
       ? 'w-96 h-72'
@@ -28,11 +28,13 @@ export default function PostPreview({ type, post, cols }: Props) {
   const thumbnail = _.get(post.images, '[0]');
   const [open, setOpen] = useState(false);
 
+  console.log(type, post, cols, sizes);
+
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  if (type === 'buy') {
+  if (type === 'buy' || type === 'auction-schedule') {
     return (
       <div className="flex flex-col overflow-hidden shadow line-break max-w-lg">
         <div className="flex gap-3 font-medium items-center p-1 md:p-2">
