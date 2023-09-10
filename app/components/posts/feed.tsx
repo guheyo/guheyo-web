@@ -60,7 +60,7 @@ export default function Feed({ categoryId }: Props) {
   useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
   if (isLoading) {
-    if (type === 'buy')
+    if (type === 'buy' || type === 'auction')
       return (
         <div className="flex justify-center">
           <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
@@ -77,7 +77,7 @@ export default function Feed({ categoryId }: Props) {
   }
   if (isError) return <p>Error ...</p>;
 
-  if (type === 'buy')
+  if (type === 'buy' || type === 'auction')
     return (
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
