@@ -9,6 +9,7 @@ import { useColSize } from '@/store/use-col-size';
 import PostMock from './post-mock';
 import PostPreview from './post-preview';
 import dummy from '../../../sample/auctionData.json';
+import auctionPost from '../../../sample/auctionPost.json';
 
 function PostMocks({ type }: { type: string }) {
   return (
@@ -91,12 +92,15 @@ export default function Feed({ categoryId }: Props) {
     return (
       <div className="flex justify-center">
         <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
-          <PostPreviews posts={data?.pages} type={type} cols={colSize} />
+          <PostPreviews
+            posts={auctionPost.pages as unknown as Posts[]}
+            type={type}
+            cols={colSize}
+          />
         </div>
         <div ref={ref} />
       </div>
     );
-
   if (type === 'auction-schedule')
     return (
       <div className="flex justify-center">
