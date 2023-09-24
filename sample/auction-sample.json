@@ -1,0 +1,156 @@
+{
+  "pages": [
+    {
+      "posts": [
+        {
+          "auctionPost": {
+            "id": "202c0a1e-a264-48dd-a501-db51da6957a4",
+            "createdAt": "2023-07-17T16:41:46.091Z",
+            "updateedAt": "2023-07-17T21:23:47.132Z",
+            "deleted": false,
+            "messageId": "1130539856024584273",
+            "type": "sell",
+            "title": "키컬트 no.2 Powdered white/black B-stock 65",
+            "subTitle": null,
+            "price": 1800000,
+            "nego": false,
+            "content": "사용 2시간 미만\n키캡 미포함\n3294 구흑 스위치 포함\n\nTgr Jane V2 ME (blue with silver plate) - 107\n핫스왑 기판\n솔더링 기판\nPc보강판\n스위치 제외\n키캡 제외",
+            "published": false,
+            "closed": false,
+            "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+            "categoryId": "7f54bdc5-0fe3-4a80-88b4-e3875a821a7f",
+            "user": {
+              "id": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+              "createdAt": "2023-07-10T09:10:10.576Z",
+              "updatedAt": "2023-07-10T09:10:10.576Z",
+              "deleted": false,
+              "name": null,
+              "username": "gongzah",
+              "avatarURL": "https://wtb-kr-dev.s3.ap-northeast-2.amazonaws.com/users/2640d2c6-0b11-4f1d-9539-bd9752301e9b/bGX1KjhGM8nugbD4Lqqdv.webp",
+              "bot": false,
+              "socialAccounts": [
+                {
+                  "id": "eb6d0bf7-c472-407f-90fd-4bf9893da06d",
+                  "createdAt": "2018-04-20T12:34:31.141Z",
+                  "updatedAt": "2023-07-10T09:10:10.576Z",
+                  "deleted": false,
+                  "provider": "discord",
+                  "socialId": "436867258976043019",
+                  "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+                  "refreshToken": null,
+                  "accessToken": null,
+                  "expiresAt": null,
+                  "tokenType": null,
+                  "scope": null,
+                  "idToken": null,
+                  "sessionState": null
+                }
+              ],
+              "roles": [
+                {
+                  "id": "1056646803803623484",
+                  "createdAt": "2023-07-10T09:08:11.420Z",
+                  "updateedAt": "2023-07-10T09:08:11.420Z",
+                  "deleted": false,
+                  "name": "키보드",
+                  "rank": 25,
+                  "hexColor": "#000000"
+                },
+                {
+                  "id": "1056646816764002314",
+                  "createdAt": "2023-07-10T09:08:11.420Z",
+                  "updateedAt": "2023-07-10T09:08:11.420Z",
+                  "deleted": false,
+                  "name": "아티산",
+                  "rank": 26,
+                  "hexColor": "#000000"
+                },
+                {
+                  "id": "1056642180653006918",
+                  "createdAt": "2023-07-10T09:08:11.420Z",
+                  "updateedAt": "2023-07-10T09:08:11.420Z",
+                  "deleted": false,
+                  "name": "KR",
+                  "rank": 28,
+                  "hexColor": "#000000"
+                },
+                {
+                  "id": "806383744151584779",
+                  "createdAt": "2023-07-10T09:08:11.419Z",
+                  "updateedAt": "2023-07-10T09:08:11.419Z",
+                  "deleted": false,
+                  "name": "소모품",
+                  "rank": 24,
+                  "hexColor": "#000000"
+                }
+              ]
+            }
+          },
+          "auctionStartDate": "2023-06-25T14:12:16.091Z"
+        },
+        {
+          "auctionPost": {
+            "id": "91e7cd11-6732-406d-a28e-adb0dc4f7f34",
+            "createdAt": "2023-07-17T16:29:44.120Z",
+            "updateedAt": "2023-07-17T21:23:47.415Z",
+            "deleted": false,
+            "messageId": "1130539856024584273",
+            "type": "sell",
+            "title": "다른 상품",
+            "subTitle": null,
+            "price": 1200000,
+            "nego": true,
+            "content": "상품 내용",
+            "published": false,
+            "closed": false,
+            "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+            "categoryId": "7f54bdc5-0fe3-4a80-88b4-e3875a821a7f",
+            "user": {
+              "id": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+              "createdAt": "2023-07-10T09:10:10.576Z",
+              "updatedAt": "2023-07-10T09:10:10.576Z",
+              "deleted": false,
+              "name": null,
+              "username": "gongzah",
+              "avatarURL": "https://wtb-kr-dev.s3.ap-northeast-2.amazonaws.com/users/2640d2c6-0b11-4f1d-9539-bd9752301e9b/bGX1KjhGM8nugbD4Lqqdv.webp",
+              "bot": false,
+              "socialAccounts": [
+                {
+                  "id": "eb6d0bf7-c472-407f-90fd-4bf9893da06d",
+                  "createdAt": "2018-04-20T12:34:31.141Z",
+                  "updatedAt": "2023-07-10T09:10:10.576Z",
+                  "deleted": false,
+                  "provider": "discord",
+                  "socialId": "436867258976043019",
+                  "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+                  "refreshToken": null,
+                  "accessToken": null,
+                  "expiresAt": null,
+                  "tokenType": null,
+                  "scope": null,
+                  "idToken": null,
+                  "sessionState": null
+                }
+              ],
+              "roles": [
+                {
+                  "id": "1056646803803623484",
+                  "createdAt": "2023-07-10T09:08:11.420Z",
+                  "updateedAt": "2023-07-10T09:08:11.420Z",
+                  "deleted": false,
+                  "name": "키보드",
+                  "rank": 25,
+                  "hexColor": "#000000"
+                }
+              ]
+            }
+          },
+          "auctionStartDate": "2023-06-25T14:12:16.091Z"
+        }
+      ],
+      "cursor": "19843bad-c11c-489e-85ed-2aecb6289c2a",
+      "hasNextPage": true
+    }
+  ],
+  "pageParams": [null]
+}

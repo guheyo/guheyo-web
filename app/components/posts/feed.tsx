@@ -57,6 +57,8 @@ export default function Feed({ categoryId }: Props) {
   const { data, hasNextPage, fetchNextPage, isError, isLoading } =
     useInfinitePosts(categoryId, type);
 
+  console.log(JSON.stringify(data));
+
   const ref = useRef<HTMLDivElement>(null);
   useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
@@ -87,6 +89,16 @@ export default function Feed({ categoryId }: Props) {
         <div ref={ref} />
       </div>
     );
+  if (type === 'auction')
+    return (
+      <div className="flex justify-center">
+        <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
+          <PostPreviews posts={data?.pages} type={type} cols={colSize} />
+        </div>
+        <div ref={ref} />
+      </div>
+    );
+
   if (type === 'auction-schedule')
     return (
       <div className="flex justify-center">
