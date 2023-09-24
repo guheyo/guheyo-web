@@ -57,8 +57,6 @@ export default function Feed({ categoryId }: Props) {
   const { data, hasNextPage, fetchNextPage, isError, isLoading } =
     useInfinitePosts(categoryId, type);
 
-  console.log(JSON.stringify(data));
-
   const ref = useRef<HTMLDivElement>(null);
   useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
