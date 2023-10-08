@@ -104,5 +104,8 @@ declare module 'prisma' {
 
   interface AuctionPost extends Post {
     auctionStartDate: string;
+    auctionEndDate: string;
+    lastBidAmount: number;
+    lastBidAt: string;
   }
 }

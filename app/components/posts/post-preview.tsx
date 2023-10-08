@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { getPostTitle, getPrice } from '@/app/lib/post';
+import { getPostTitle, getPrice, getAuctionDate } from '@/app/lib/post';
 import PostDetail from './post-detail';
 import UserProfile from '../users/user-profile';
 import ReadMore from '../base/read-more';
@@ -71,10 +71,7 @@ export default function PostPreview({ type, post, cols }: Props) {
                 getPrice(post)
               ) : (
                 <p className="text-[12px] md:text-xs">
-                  경매시작 : &nbsp;
-                  {moment(post.auctionPost?.auctionStartDate).format(
-                    'YYYY월 MM월 DD일',
-                  )}
+                  경매시작 : &nbsp; {getAuctionDate(post.auctionPost!)}
                 </p>
               )}
             </div>
@@ -126,8 +123,8 @@ export default function PostPreview({ type, post, cols }: Props) {
               displayUsername
               displayDM
             />
-            <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-              {moment(post.auctionPost!.createdAt).fromNow()}
+            <div className="justify-self-end text-[10px] md:text-xs text-gray-600 w-full bg-">
+              {getAuctionDate(post.auctionPost!)}
             </div>
           </div>
         </div>
@@ -149,12 +146,15 @@ export default function PostPreview({ type, post, cols }: Props) {
             </button>
           </div>
         )}
-        <div className="flex flex-row gap-1 p-1.5 md:p-4 justify-between items-center">
+        <div className="flex flex-col gap-2 p-1.5 md:p-4 justify-between items-center">
           <div className="text-xs md:text-base font-semibold">
             {getPostTitle(post)}
           </div>
-          <div className="flex-none text-xs md:text-base">
-            {getPrice(post.auctionPost!)}
+          <div className="flex flex-row gap-2 text-sm w-full justify-end items-center">
+            <span className="text-[#ABA]">
+              {moment(post.auctionPost?.lastBidAt).format('DD일 A HH시 mm분')}
+            </span>
+            <span>마지막 입찰: {getPrice(post)}</span>
           </div>
         </div>
         <div>
