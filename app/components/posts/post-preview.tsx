@@ -25,7 +25,10 @@ export default function PostPreview({ type, post, cols }: Props) {
       : cols === 1
       ? 'w-96 h-72'
       : 'w-48 sm:w-72 md:w-96 h-36 md:h-72';
-  const thumbnail = _.get(post.images, '[0]');
+  const thumbnail =
+    type !== 'auction'
+      ? _.get(post.images, '[0]')
+      : _.get(post.auctionPost?.images, '[0]');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -107,6 +110,59 @@ export default function PostPreview({ type, post, cols }: Props) {
         )}
         <div>
           <PostDetail post={post} open={open} handleOpen={handleOpen} />
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'auction') {
+    return (
+      <div className="flex flex-col overflow-hidden shadow line-break">
+        <div className="flex p-1 md:p-2 font-medium">
+          <div className="flex flex-row gap-2 items-center">
+            <UserProfile
+              user={post.auctionPost!.user}
+              displayAvatar
+              displayUsername
+              displayDM
+            />
+            <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
+              {moment(post.auctionPost!.createdAt).fromNow()}
+            </div>
+          </div>
+        </div>
+        {thumbnail && (
+          <div className="flex relative">
+            <button
+              type="submit"
+              onClick={() => handleOpen()}
+              className="group"
+            >
+              <Thumbnail image={thumbnail} sizes={sizes} />
+              <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
+                <ChatBubbleOvalLeftIcon
+                  color="white"
+                  fill="white"
+                  className="opacity-0 group-hover:opacity-100 w-8 h-8 md:w-9 md:h-9"
+                />
+              </div>
+            </button>
+          </div>
+        )}
+        <div className="flex flex-row gap-1 p-1.5 md:p-4 justify-between items-center">
+          <div className="text-xs md:text-base font-semibold">
+            {getPostTitle(post)}
+          </div>
+          <div className="flex-none text-xs md:text-base">
+            {getPrice(post.auctionPost!)}
+          </div>
+        </div>
+        <div>
+          <PostDetail
+            post={post.auctionPost!}
+            open={open}
+            handleOpen={handleOpen}
+          />
         </div>
       </div>
     );

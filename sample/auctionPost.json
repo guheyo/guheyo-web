@@ -36,9 +36,52 @@
             "type": "auction",
             "title": "키컬트 no.2 Powdered white/black B-stock 65",
             "subTitle": null,
+            "images": [
+              {
+                "id": "1bb8e14d-896b-4a88-bec2-71c2b7363111",
+                "createdAt": "2023-07-17T21:23:47.444Z",
+                "updateedAt": "2023-07-17T21:23:47.444Z",
+                "deleted": false,
+                "name": "IMG_2804.jpg",
+                "size": 373762,
+                "url": "https://wtb-kr-dev.s3.ap-northeast-2.amazonaws.com/posts/202c0a1e-a264-48dd-a501-db51da6957a4/kuqio99zMPXz0g5Rk7XkK.jpeg",
+                "height": 4032,
+                "width": 3024,
+                "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+                "postId": "202c0a1e-a264-48dd-a501-db51da6957a4"
+              },
+              {
+                "id": "1c26a923-37ea-4ae4-9ff9-65a4ad7feb4e",
+                "createdAt": "2023-07-17T21:23:47.604Z",
+                "updateedAt": "2023-07-17T21:23:47.604Z",
+                "deleted": false,
+                "name": "IMG_2782.jpg",
+                "size": 369027,
+                "url": "https://wtb-kr-dev.s3.ap-northeast-2.amazonaws.com/posts/202c0a1e-a264-48dd-a501-db51da6957a4/EK3T4PsoFilu1H9kHcO3e.jpeg",
+                "height": 2286,
+                "width": 3005,
+                "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+                "postId": "202c0a1e-a264-48dd-a501-db51da6957a4"
+              }
+            ],
             "price": 1800000,
             "content": "사용 2시간 미만...",
-            "published": false
+            "published": false,
+            "user": {
+              "id": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+              "createdAt": "2023-07-10T09:10:10.576Z",
+              "updatedAt": "2023-07-10T09:10:10.576Z",
+              "socialAccounts": [
+                {
+                  "id": "eb6d0bf7-c472-407f-90fd-4bf9893da06d",
+                  "createdAt": "2018-04-20T12:34:31.141Z",
+                  "updatedAt": "2023-07-10T09:10:10.576Z",
+                  "provider": "discord",
+                  "socialId": "436867258976043019",
+                  "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b"
+                }
+              ]
+            }
           },
           "auctionStartDate": "2023-06-25T14:12:16.091Z"
         }

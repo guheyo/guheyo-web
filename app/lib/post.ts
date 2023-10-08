@@ -14,6 +14,9 @@ export const getPostTitle = (post: Post) => {
     case 'auction-schedule': {
       return post.auctionPost?.title;
     }
+    case 'auction': {
+      return post.auctionPost?.title;
+    }
     default:
       return '';
   }
