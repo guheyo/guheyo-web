@@ -2,6 +2,10 @@
 
 import { BidState } from 'prisma';
 
-export default function AuctionBid(bidState: BidState[]) {
+interface AuctionBidProps {
+  bidState: BidState[];
+}
+
+export default function AuctionBid({ bidState }: AuctionBidProps) {
   return <div>hello world</div>;
 }

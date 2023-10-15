@@ -8,6 +8,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getAuctionDate, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
+import AuctionBid from './auction-bid';
 
 export default function AuctionDetailCard({
   post,
@@ -98,6 +99,7 @@ export default function AuctionDetailCard({
                 {getPostTitle(post)}
               </div>
             </div>
+            <AuctionBid bidState={auctionPost.bidState} />
           </div>
         </div>
       </DialogContent>
