@@ -73,8 +73,30 @@
             "published": false,
             "bidState": [
               {
-                "id": "1",
+                "id": "2",
                 "bidAmount": 300000,
+                "bidAt": "2023-07-17T21:23:56.024Z",
+                "isCanceled": false,
+                "bidder": {
+                  "id": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
+                  "createdAt": "2023-07-10T09:10:10.576Z",
+                  "username": "테스트 유저",
+                  "updatedAt": "2023-07-10T09:10:10.576Z",
+                  "socialAccounts": [
+                    {
+                      "id": "eb6d0bf7-c472-407f-90fd-4bf9893da06d",
+                      "createdAt": "2018-04-20T12:34:31.141Z",
+                      "updatedAt": "2023-07-10T09:10:10.576Z",
+                      "provider": "discord",
+                      "socialId": "436867258976043019",
+                      "userId": "2640d2c6-0b11-4f1d-9539-bd9752301e9b"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "1",
+                "bidAmount": 270000,
                 "bidAt": "2023-07-17T21:23:56.024Z",
                 "isCanceled": false,
                 "bidder": {

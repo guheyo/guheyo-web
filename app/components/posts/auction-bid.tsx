@@ -17,7 +17,7 @@ export default function AuctionBid({ auctionPost }: AuctionBidProps) {
   const auctionPeriodFormat = 'YYYY년 M월 D일 A h:mm';
 
   return (
-    <div className="flex flex-col justify-end items-end w-full h-[90%]">
+    <div className="flex flex-col justify-end items-end w-full h-[90%] gap-2">
       {bidStates.map((bidState) => (
         <div
           key={bidState.id}
