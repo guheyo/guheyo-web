@@ -116,14 +116,14 @@ export default function PostPreview({ type, post, cols }: Props) {
     return (
       <div className="flex flex-col overflow-hidden shadow line-break">
         <div className="flex p-1 md:p-2 font-medium">
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row gap-2 items-center w-full justify-between">
             <UserProfile
               user={post.auctionPost!.user}
               displayAvatar
               displayUsername
               displayDM
             />
-            <div className="justify-self-end text-[10px] md:text-xs text-gray-600 w-full bg-">
+            <div className="text-[10px] md:text-xs text-gray-600">
               {getAuctionDate(post.auctionPost!)}
             </div>
           </div>

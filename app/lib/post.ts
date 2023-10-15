@@ -56,7 +56,7 @@ export const getAuctionDate = (auctionPost: AuctionPost) => {
   if (now.isAfter(auctionEnd)) return '경매종료';
   if (auctionPost.type === 'auction') {
     const duration = moment.duration(auctionEnd.diff(now));
-    return `${duration.days()}일 ${duration.hours()}시간`;
+    return `남은 경매 기간: ${duration.days()}일 ${duration.hours()}시간`;
   }
 
   return '';
