@@ -74,6 +74,7 @@
             "user": {
               "id": "2640d2c6-0b11-4f1d-9539-bd9752301e9b",
               "createdAt": "2023-07-10T09:10:10.576Z",
+              "username": "테스트 유저",
               "updatedAt": "2023-07-10T09:10:10.576Z",
               "socialAccounts": [
                 {

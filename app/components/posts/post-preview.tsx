@@ -159,11 +159,7 @@ export default function PostPreview({ type, post, cols }: Props) {
           </div>
         </div>
         <div>
-          <AuctionDetail
-            auctionPost={post.auctionPost!}
-            open={open}
-            handleOpen={handleOpen}
-          />
+          <AuctionDetail post={post} open={open} handleOpen={handleOpen} />
         </div>
       </div>
     );

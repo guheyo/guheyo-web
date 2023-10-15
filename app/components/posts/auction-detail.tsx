@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, DialogContent, IconButton } from '@mui/material';
-import { AuctionPost } from 'prisma';
+import { Post } from 'prisma';
 import moment from 'moment';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -11,15 +11,17 @@ import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
 
 export default function AuctionDetailCard({
-  auctionPost,
+  post,
   open,
   handleOpen,
 }: {
-  auctionPost: AuctionPost;
+  post: Post;
   open: boolean;
   handleOpen: React.MouseEventHandler;
 }) {
   const sizes = 'w-full h-full';
+
+  const auctionPost = post.auctionPost!;
 
   return (
     <Dialog
@@ -63,40 +65,42 @@ export default function AuctionDetailCard({
         </div>
         <div className="md:flex md:flex-row justify-center">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%]">
-            <ImageCarousel
-              images={auctionPost.images}
-              sizes={sizes}
-              width={760}
-              height={760}
-            />
+            <div className="flex flex-col justify-center">
+              <div className="flex flex-row gap-2 text-sm md:text-base items-center py-2">
+                <UserProfile
+                  user={auctionPost.user}
+                  displayAvatar
+                  displayUsername
+                  displayDM
+                />
+                <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
+                  {moment(auctionPost.createdAt).fromNow()}
+                </div>
+              </div>
+              <ImageCarousel
+                images={auctionPost.images}
+                sizes={sizes}
+                width={760}
+                height={760}
+              />
+              <div className="py-5 p-3 text-sm md:text-base overflow-y-auto md:h-[30rem]">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {auctionPost.content}
+                </ReactMarkdown>
+              </div>
+            </div>
           </div>
           <div className="flex-none border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%] pr-5 pl-5">
             <div className="p-2 font-medium pl-0 pr-0">
               <div className="border-b-[1px]">
-                <div className="flex flex-row gap-2 text-sm md:text-base items-center">
-                  <UserProfile
-                    user={auctionPost.user}
-                    displayAvatar
-                    displayUsername
-                    displayDM
-                  />
-                  <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-                    {moment(auctionPost.createdAt).fromNow()}
-                  </div>
-                </div>
                 <div className="p-2 flex flex-row gap-2 justify-between items-center">
                   <div className="text-sm md:text-base font-semibold">
-                    {getPostTitle(auctionPost)}
+                    {getPostTitle(post)}
                   </div>
                   <div className="flex-none text-sm md:text-base justify-self-end">
-                    {getPrice(auctionPost)}
+                    {getPrice(post)}
                   </div>
                 </div>
-              </div>
-              <div className="p-2 pt-4 text-sm md:text-base md:h-[30rem] overflow-y-auto">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {auctionPost.content}
-                </ReactMarkdown>
               </div>
             </div>
           </div>
