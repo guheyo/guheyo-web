@@ -94,12 +94,8 @@ export default function AuctionDetailCard({
           </div>
           <div className="flex-none border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%] pr-5 pl-5">
             <div className="p-2 font-medium pl-0 pr-0">
-              <div className="border-b-[1px] w-full">
-                <div className="p-2 flex flex-row gap-2 justify-between items-center">
-                  <div className="text-sm md:text-base font-semibold">
-                    {getPostTitle(post)}
-                  </div>
-                </div>
+              <div className="border-b-[1px] w-full p-2 pb-3 text-sm md:text-base font-semibold">
+                {getPostTitle(post)}
               </div>
             </div>
           </div>

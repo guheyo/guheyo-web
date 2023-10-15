@@ -107,5 +107,14 @@ declare module 'prisma' {
     auctionEndDate: string;
     lastBidAmount: number;
     lastBidAt: string;
+    bidState: BidState[];
+  }
+
+  interface BidState {
+    id: string;
+    bidAmount: number;
+    bidAt: string;
+    isCancelled: boolean;
+    bidder: User;
   }
 }
