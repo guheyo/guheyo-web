@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, DialogContent, IconButton } from '@mui/material';
-import { Post } from 'prisma';
+import { AuctionPost } from 'prisma';
 import moment from 'moment';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -10,12 +10,12 @@ import { getPostTitle, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
 import ImageCarousel from '../base/image-carousel';
 
-export default function PostDetailCard({
-  post,
+export default function AuctionDetailCard({
+  auctionPost,
   open,
   handleOpen,
 }: {
-  post: Post;
+  auctionPost: AuctionPost;
   open: boolean;
   handleOpen: React.MouseEventHandler;
 }) {
@@ -64,7 +64,7 @@ export default function PostDetailCard({
         <div className="md:flex md:flex-row justify-center">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%]">
             <ImageCarousel
-              images={post.images}
+              images={auctionPost.images}
               sizes={sizes}
               width={760}
               height={760}
@@ -75,27 +75,27 @@ export default function PostDetailCard({
               <div className="border-b-[1px]">
                 <div className="flex flex-row gap-2 text-sm md:text-base items-center">
                   <UserProfile
-                    user={post.user}
+                    user={auctionPost.user}
                     displayAvatar
                     displayUsername
                     displayDM
                   />
                   <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
-                    {moment(post.createdAt).fromNow()}
+                    {moment(auctionPost.createdAt).fromNow()}
                   </div>
                 </div>
                 <div className="p-2 flex flex-row gap-2 justify-between items-center">
                   <div className="text-sm md:text-base font-semibold">
-                    {getPostTitle(post)}
+                    {getPostTitle(auctionPost)}
                   </div>
                   <div className="flex-none text-sm md:text-base justify-self-end">
-                    {getPrice(post)}
+                    {getPrice(auctionPost)}
                   </div>
                 </div>
               </div>
               <div className="p-2 pt-4 text-sm md:text-base md:h-[30rem] overflow-y-auto">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {post.content}
+                  {auctionPost.content}
                 </ReactMarkdown>
               </div>
             </div>

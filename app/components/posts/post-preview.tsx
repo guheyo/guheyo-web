@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getPrice, getAuctionDate } from '@/app/lib/post';
 import PostDetail from './post-detail';
+import AuctionDetail from './auction-detail';
 import UserProfile from '../users/user-profile';
 import ReadMore from '../base/read-more';
 import Thumbnail from '../base/thumbnail';
@@ -158,8 +159,8 @@ export default function PostPreview({ type, post, cols }: Props) {
           </div>
         </div>
         <div>
-          <PostDetail
-            post={post.auctionPost!}
+          <AuctionDetail
+            auctionPost={post.auctionPost!}
             open={open}
             handleOpen={handleOpen}
           />
