@@ -99,7 +99,7 @@ export default function AuctionDetailCard({
                 {getPostTitle(post)}
               </div>
             </div>
-            <AuctionBid bidState={auctionPost.bidState} />
+            <AuctionBid bidStates={auctionPost.bidState} />
           </div>
         </div>
       </DialogContent>
