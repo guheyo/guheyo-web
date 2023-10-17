@@ -5,11 +5,16 @@ import _ from 'lodash';
 import { Image } from 'prisma';
 import NextImage from 'next/image';
 import { IconButton } from '@mui/material';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { KeenSliderHooks, KeenSliderInstance } from 'keen-slider';
 import Link from 'next/link';
+import { isMobile } from 'react-device-detect';
 
 interface CarouselArrowProps {
   disabled: boolean;
@@ -26,6 +31,25 @@ interface NavigationProps {
     KeenSliderHooks
   > | null>;
 }
+
+interface ZoomIconProps {
+  targetImage: Image;
+}
+
+function ZoomIcon({ targetImage }: ZoomIconProps) {
+  return (
+    <Link key={targetImage.id} href={targetImage.url} target="_blank">
+      <IconButton
+        className={`absolute ${
+          isMobile ? 'bottom-[5px] right-[5px]' : 'bottom-[10px] right-[10px]'
+        } bg-gray-500 bg-opacity-10`}
+      >
+        <MagnifyingGlassIcon className="w-[20px] text-gray-200" />
+      </IconButton>
+    </Link>
+  );
+}
+
 function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
   return (
     <IconButton
@@ -33,20 +57,19 @@ function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
         disabled && 'hidden'
       } ${left ? 'left-[5px]' : 'left-[auto] right-[5px]'}`}
       disabled={disabled}
+      onClick={onClick}
     >
       {left ? (
         <ChevronLeftIcon
           height={30}
           width={30}
           className="text-gray-200 stroke-[1.5]"
-          onClick={onClick}
         />
       ) : (
         <ChevronRightIcon
           height={30}
           width={30}
           className="text-gray-200 stroke-[1.5]"
-          onClick={onClick}
         />
       )}
     </IconButton>
@@ -56,8 +79,8 @@ function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
 function Navigation({ activeIndex, length, instanceRef }: NavigationProps) {
   if (length < 2) return null;
   return (
-    <div className="flex justify-center gap-2 z-50 mt-4 mb-4">
-      {/* <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2"> */}
+    // <div className="flex justify-center gap-2 z-50 mt-4 mb-4">
+    <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
       {_.range(length).map((index) => (
         <div
           role="presentation"
@@ -81,7 +104,7 @@ export default function ImageSlider({
   width,
   height,
 }: {
-  images: Image[] | undefined;
+  images: Image[];
   sizes: string;
   width: number;
   height: number;
@@ -99,53 +122,47 @@ export default function ImageSlider({
   });
 
   return (
-    <>
-      <div className="relative">
-        <div ref={sliderRef} className="keen-slider h-[320px] md:h-[520px]">
-          {_.map(images, (image, i) => (
-            <Link key={image.id + i} href={image.url} target="_blank">
-              <div
-                key={i}
-                // className="flex justify-center items-center overflow-hidden h-[320px] md:h-[520px] "
-                className="keen-slider__slide"
-                style={{
-                  position: 'relative',
-                  // objectFit: 'cover',
-                }}
-              >
-                <NextImage
-                  src={image.url}
-                  alt={image.name}
-                  width={width}
-                  height={height}
-                  // fill
-                  loading="lazy"
-                />
-              </div>
-            </Link>
-          ))}
-        </div>
-        {loaded && instanceRef.current && images && images.length > 1 && (
-          <div>
-            <Arrow
-              left
-              onClick={(e: any) =>
-                e.stopPropagation() || instanceRef.current?.prev()
-              }
-              disabled={activeIndex === 0}
+    <div className="relative">
+      <div ref={sliderRef} className="keen-slider h-[320px] md:h-[520px]">
+        {_.map(images, (image, i) => (
+          <div
+            key={i}
+            className="keen-slider__slide"
+            style={{
+              position: 'relative',
+            }}
+          >
+            <NextImage
+              src={image.url}
+              alt={image.name}
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="50vw"
             />
-            <Arrow
-              onClick={(e: any) =>
-                e.stopPropagation() || instanceRef.current?.next()
-              }
-              disabled={
-                activeIndex ===
-                instanceRef.current.track.details.slides.length - 1
-              }
-            />
+            <ZoomIcon targetImage={images[activeIndex]} />
           </div>
-        )}
+        ))}
       </div>
+      {loaded && instanceRef.current && images && images.length > 1 && (
+        <div>
+          <Arrow
+            left
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.prev()
+            }
+            disabled={activeIndex === 0}
+          />
+          <Arrow
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.next()
+            }
+            disabled={
+              activeIndex ===
+              instanceRef.current.track.details.slides.length - 1
+            }
+          />
+        </div>
+      )}
       {loaded && instanceRef.current && images && (
         <Navigation
           activeIndex={activeIndex}
@@ -153,6 +170,6 @@ export default function ImageSlider({
           instanceRef={instanceRef}
         />
       )}
-    </>
+    </div>
   );
 }

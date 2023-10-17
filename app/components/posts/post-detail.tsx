@@ -110,8 +110,7 @@ export default function PostDetailCard({
                   <div className="text-[18px] font-normal">
                     {getPostTitle(post)}
                   </div>
-                  <div className="flex md:text-base justify-self-end  mt-[16px] items-center justify-between mb-[16px]">
-                    <span className="text-[12px] text-gray-600">거래가</span>
+                  <div className="flex md:text-base justify-self-end  mt-[4px] items-center mb-[16px]">
                     <span className="text-[18px] font-bold">
                       {convertPrice(getPrice(post))}
                     </span>
