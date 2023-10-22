@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getPostTitle, getPrice } from '@/app/lib/post';
 import UserProfile from '../users/user-profile';
-import ImageCarousel from '../base/image-carousel';
+import ImageSlider from '../base/image-slider';
 
 export default function PostDetailCard({
   post,
@@ -20,6 +20,27 @@ export default function PostDetailCard({
   handleOpen: React.MouseEventHandler;
 }) {
   const sizes = 'w-full h-full';
+
+  const convertPrice = (price: string): string => {
+    const numReg = /(\d+)/;
+    const matchReg = price.match(numReg);
+
+    if (!matchReg) {
+      return 'invalid ipt';
+    }
+    const amount = parseInt(matchReg[0], 10);
+
+    if (price.includes('천원')) {
+      return `${new Intl.NumberFormat('ko-KR').format(amount)}원`;
+    }
+    if (price.includes('만원')) {
+      return `${new Intl.NumberFormat('ko-KR').format(amount * 10000)}원`;
+    }
+    if (price.includes('백만원')) {
+      return `${new Intl.NumberFormat('ko-KR').format(amount * 1000000)}원`;
+    }
+    return `${new Intl.NumberFormat('ko-KR').format(amount)}원`;
+  };
 
   return (
     <Dialog
@@ -64,17 +85,17 @@ export default function PostDetailCard({
 
         <div className="md:flex md:flex-row justify-center">
           <div className="rounded-tl-md rounded-bl-none rounded-tr-md md:rounded-tl-md md:rounded-bl-md md:rounded-tr-none md:w-[50%]">
-            <ImageCarousel
+            <ImageSlider
               images={post.images}
               sizes={sizes}
               width={760}
               height={760}
             />
           </div>
-          <div className="flex-none border-t-2 md:border-t-0 border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%] pr-5 pl-5">
+          <div className="flex-none  border-l-0 md:border-l-2 border-gray-100 line-break md:w-[50%] md:pl-[3.334%] pr-5 pl-5">
             <div className="p-2 font-medium pl-0 pr-0">
               <div className="border-b-[1px]">
-                <div className="flex flex-row gap-2 text-sm md:text-base items-center">
+                <div className="flex flex-row gap-2 text-sm md:text-base items-center pl-2">
                   <UserProfile
                     user={post.user}
                     displayAvatar
@@ -85,12 +106,14 @@ export default function PostDetailCard({
                     {dayjs(post.createdAt).fromNow()}
                   </div>
                 </div>
-                <div className="p-2 flex flex-row gap-2 justify-between items-center">
-                  <div className="text-sm md:text-base font-semibold">
+                <div className="p-2 flex flex-col gap-2 mt-1">
+                  <div className="text-[18px] font-normal">
                     {getPostTitle(post)}
                   </div>
-                  <div className="flex-none text-sm md:text-base justify-self-end">
-                    {getPrice(post)}
+                  <div className="flex md:text-base justify-self-end  mt-[4px] items-center mb-[16px]">
+                    <span className="text-[18px] font-bold">
+                      {convertPrice(getPrice(post))}
+                    </span>
                   </div>
                 </div>
               </div>
