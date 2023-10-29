@@ -82,10 +82,11 @@ export default function AuctionBid({ auctionPost }: AuctionBidProps) {
           value={bidAmount === 0 ? '' : bidAmount}
           onChange={handleUpdateBidAmount}
           type="text"
+          inputMode="numeric"
         />
         <button
           type="button"
-          className="w-1/3 h-full border rounded-md bg-black hover:opacity-90 text-white"
+          className="w-1/3 h-full border rounded-md bg-black hover:opacity-90 text-white font-bold"
         >
           입찰하기
         </button>
