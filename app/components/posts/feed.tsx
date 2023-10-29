@@ -2,6 +2,7 @@
 
 import { Post } from 'prisma';
 import React, { useRef } from 'react';
+import Router from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
@@ -10,6 +11,7 @@ import PostMock from './post-mock';
 import PostPreview from './post-preview';
 import dummy from '../../../sample/auctionData.json';
 import auctionPost from '../../../sample/auctionPost.json';
+import FloatingButton from './floating-button';
 
 function PostMocks({ type }: { type: string }) {
   return (
@@ -98,6 +100,7 @@ export default function Feed({ categoryId }: Props) {
             cols={colSize}
           />
         </div>
+        <FloatingButton handleClick={() => Router.push('/auction/create')} />
         <div ref={ref} />
       </div>
     );
