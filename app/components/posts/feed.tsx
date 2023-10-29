@@ -2,7 +2,6 @@
 
 import { Post } from 'prisma';
 import React, { useRef } from 'react';
-import Router from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
 import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
@@ -101,9 +100,7 @@ export default function Feed({ categoryId }: Props) {
             cols={colSize}
           />
         </div>
-        <FloatingButton
-          handleClick={() => Router.push(`/auction/경매/create`)}
-        />
+        <FloatingButton />
         <div ref={ref} />
       </div>
     );
