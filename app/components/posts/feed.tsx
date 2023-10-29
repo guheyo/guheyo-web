@@ -12,6 +12,7 @@ import PostPreview from './post-preview';
 import dummy from '../../../sample/auctionData.json';
 import auctionPost from '../../../sample/auctionPost.json';
 import FloatingButton from './floating-button';
+import AuctionCreate from './auction-create';
 
 function PostMocks({ type }: { type: string }) {
   return (
@@ -100,8 +101,16 @@ export default function Feed({ categoryId }: Props) {
             cols={colSize}
           />
         </div>
-        <FloatingButton handleClick={() => Router.push('/auction/create')} />
+        <FloatingButton
+          handleClick={() => Router.push(`/auction/경매/create`)}
+        />
         <div ref={ref} />
+      </div>
+    );
+  if (type === 'auction-create')
+    return (
+      <div className="flex justify-center">
+        <AuctionCreate />
       </div>
     );
   if (type === 'auction-schedule')

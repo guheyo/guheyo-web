@@ -8,6 +8,7 @@ import { CategoryPageProps } from '../../market/[categoryName]/page';
 const categories = [
   { id: 'auction', name: '경매' },
   { id: 'auction-schedule', name: '경매일정' },
+  { id: 'auction-create', name: '경매등록' },
 ];
 
 function AuctionPage({
