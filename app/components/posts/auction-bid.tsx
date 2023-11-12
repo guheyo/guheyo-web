@@ -17,7 +17,7 @@ export default function AuctionBid({ auctionPost }: AuctionBidProps) {
   }
 
   const handleUpdateBidAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d*$/.test(e.target.value)) return;
+    if (!/^[0-9,]*$/.test(e.target.value)) return;
     setBidAmount(Number(e.target.value.replace(/,/g, '')));
   };
 
@@ -79,7 +79,7 @@ export default function AuctionBid({ auctionPost }: AuctionBidProps) {
         shadow-sm
         "
           placeholder="입찰 금액을 입력해주세요."
-          value={bidAmount === 0 ? '' : bidAmount}
+          value={bidAmount === 0 ? '' : bidAmount.toLocaleString()}
           onChange={handleUpdateBidAmount}
           type="text"
           inputMode="numeric"
