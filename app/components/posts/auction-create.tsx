@@ -41,7 +41,7 @@ export default function AuctionCreate() {
   };
 
   return (
-    <div className="p-3 w-[80%] h-full">
+    <div className="w-[90%] h-full">
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} className="flex items-center gap-4 w-full">
@@ -73,10 +73,8 @@ export default function AuctionCreate() {
                   <Image
                     src={url}
                     alt={`preview-${index}`}
-                    layout="responsive"
                     width={96}
                     height={96}
-                    objectFit="cover"
                   />
                   <IconButton
                     className="absolute top-1 right-1 bg-opacity-70 rounded-full bg-red-500 w-5 h-5"
@@ -159,7 +157,7 @@ export default function AuctionCreate() {
               variant="outlined"
               className="rounded bg-black text-white transition ease-in-out duration-300 w-full
               hover:text-black hover:border hover:border-black 
-              border
+              border h-12
               "
               type="submit"
             >
@@ -169,7 +167,9 @@ export default function AuctionCreate() {
           <Grid item xs={12} sm={6}>
             <Button
               variant="outlined"
-              className="rounded border-black text-black hover:bg-black hover:text-white transition ease-in-out duration-300 w-full"
+              className="rounded border-black text-black hover:bg-black hover:text-white transition ease-in-out duration-300 w-full
+              h-12
+              "
               type="button"
               onClick={() => Router.back()}
             >
