@@ -3,7 +3,7 @@
 import { Fade, Popper as MUIPopper } from '@mui/material';
 import { PopperProps as MUIPopperProps } from '@mui/material/Popper';
 import { useRef } from 'react';
-import useClickOutside from '@/app/hooks/use-click-outside';
+import useClickOutside from '@/hooks/use-click-outside';
 
 interface PopperProps extends MUIPopperProps {
   handler: () => void;

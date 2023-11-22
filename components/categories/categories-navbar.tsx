@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useSearchParams } from 'next/navigation';
-import { useGuildCategories } from '@/app/lib/api/guilds';
+import { useGuildCategories } from '@/lib/api/guilds';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';

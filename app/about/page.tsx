@@ -1,6 +1,6 @@
-import Tabs from '../components/base/tabs';
-import Scrollbar from '../components/base/scrollbar';
-import TimelineWithIcon from '../components/base/timeline-with-icon';
+import Tabs from '@/components/base/tabs';
+import Scrollbar from '@/components/base/scrollbar';
+import TimelineWithIcon from '@/components/base/timeline-with-icon';
 
 export default async function Page() {
   const tabs = [

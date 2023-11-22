@@ -5,7 +5,7 @@ import { Post } from 'prisma';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { getPostTitle, getPrice } from '@/app/lib/post';
+import { getPostTitle, getPrice } from '@/lib/post';
 import PostDetail from './post-detail';
 import UserProfile from '../users/user-profile';
 import ReadMore from '../base/read-more';

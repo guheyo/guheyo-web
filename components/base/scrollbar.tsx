@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useScrollDirection } from '@/app/hooks/use-scroll-direction';
+import { useScrollDirection } from '@/hooks/use-scroll-direction';
 
 export default function Scrollbar({ children }: { children: React.ReactNode }) {
   const scrollDirection = useScrollDirection();

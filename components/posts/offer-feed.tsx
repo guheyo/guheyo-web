@@ -3,21 +3,11 @@
 import { Post } from 'prisma';
 import React, { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll';
-import { Posts, useInfinitePosts } from '@/app/lib/api/posts';
+import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useColSize } from '@/store/use-col-size';
-import PostMock from './post-mock';
+import { Posts, useInfinitePosts } from '@/lib/api/posts';
+import { PostMocks } from './post-mock';
 import PostPreview from './post-preview';
-
-function PostMocks({ type }: { type: string }) {
-  return (
-    <>
-      {Array.from(Array(18).keys()).map((num) => (
-        <PostMock key={num} type={type} />
-      ))}
-    </>
-  );
-}
 
 function PostPreviews({
   posts,
@@ -60,15 +50,6 @@ export default function Feed({ categoryId }: Props) {
   useInfiniteScroll(ref, fetchNextPage, hasNextPage);
 
   if (isLoading) {
-    if (type === 'buy')
-      return (
-        <div className="flex justify-center">
-          <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
-            <PostMocks type={type} />
-          </div>
-          <div ref={ref} />
-        </div>
-      );
     return (
       <div className="grid gap-4 md:gap-8 lg:gap-12 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-start">
         <PostMocks type={type} />
@@ -77,15 +58,6 @@ export default function Feed({ categoryId }: Props) {
   }
   if (isError) return <p>Error ...</p>;
 
-  if (type === 'buy')
-    return (
-      <div className="flex justify-center">
-        <div className="grid gap-2 max-w-lg md:gap-2 lg:gap-2 grid-cols-1 items-start">
-          <PostPreviews posts={data?.pages} type={type} cols={colSize} />
-        </div>
-        <div ref={ref} />
-      </div>
-    );
   return (
     <>
       <div

@@ -1,8 +1,8 @@
 import './globals.css';
 import { Noto_Sans_KR } from 'next/font/google';
 import Script from 'next/script';
+import Navbar from '@/components/base/navbar';
 import { Providers } from './providers';
-import Navbar from './components/base/navbar';
 
 const notoSansKr = Noto_Sans_KR({
   weight: '400',

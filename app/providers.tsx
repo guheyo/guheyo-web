@@ -12,7 +12,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
-import { ApolloWrapper } from './lib/apollo/apollo-provider';
+import { ApolloWrapper } from '@/lib/apollo/apollo-provider';
 
 // dayjs config
 dayjs.extend(relativeTime);

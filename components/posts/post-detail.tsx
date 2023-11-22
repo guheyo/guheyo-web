@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { getPostTitle, getPrice } from '@/app/lib/post';
+import { getPostTitle, getPrice } from '@/lib/post';
 import UserProfile from '../users/user-profile';
 import ImageSlider from '../base/image-slider';
 
