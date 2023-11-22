@@ -2,8 +2,8 @@
 
 import { useQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import { redirect } from 'next/navigation';
-import _ from 'lodash';
 import { FIND_GUILDS } from '@/lib/graphql/guild';
+import { PaginatedGuildsResponse } from '@/lib/graphql/graphql';
 
 export interface CategoryPageProps {
   params: {
@@ -13,21 +13,24 @@ export interface CategoryPageProps {
 }
 
 function Page() {
-  const { loading, error, data } = useQuery(FIND_GUILDS, {
-    variables: {
-      take: 10,
-      skip: 0,
+  const { loading, error, data } = useQuery<PaginatedGuildsResponse>(
+    FIND_GUILDS,
+    {
+      variables: {
+        take: 10,
+        skip: 0,
+      },
     },
-  });
+  );
 
   if (loading) return <div>loading</div>;
   if (error) return <div>Error</div>;
 
-  const guild = _.get(data, 'findGuilds.edges[0].node');
-  const defaultCategoryId = _.get(guild, 'productCategories[0].id');
+  const guild = data?.edges[0].node;
+  const defaultCategoryId = guild?.productCategories[0].id;
 
   return redirect(
-    `${guild.name}/market/offers?categoryId=${defaultCategoryId}`,
+    `${guild?.name}/market/offers?categoryId=${defaultCategoryId}`,
   );
 }
 
