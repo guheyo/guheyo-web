@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
-import { isMobile } from 'react-device-detect';
 import { useSearchParams } from 'next/navigation';
-import { useGuildCategories } from '@/lib/api/guilds';
+import { isMobile } from 'react-device-detect';
+import { useReactiveVar } from '@apollo/client';
+import { selectedGuildVar } from '@/lib/apollo/cache';
 import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
@@ -17,18 +17,21 @@ const getButtonCSS = (clicked: boolean) => {
 };
 
 interface Props {
-  guildName: string;
-  categoryName: string;
+  type: 'offers' | 'demands' | 'swaps';
 }
 
-export default function CategoriesNavbar({ guildName, categoryName }: Props) {
-  const { data: categories } = useGuildCategories(guildName);
+export default function CategoriesNavbar({ type }: Props) {
   const searchParams = useSearchParams();
 
-  const activeCategory = useMemo(
-    () => categories?.find((c) => encodeURIComponent(c.name) === categoryName),
-    [categories, categoryName],
-  );
+  const guild = useReactiveVar(selectedGuildVar);
+  if (!guild) return <>null</>;
+
+  const selectedCategoryId = searchParams.get('categoryId');
+  const categories =
+    guild?.productCategories.map((category) => ({
+      id: category.id,
+      name: category.name,
+    })) || [];
 
   return (
     <Scrollbar>
@@ -41,12 +44,10 @@ export default function CategoriesNavbar({ guildName, categoryName }: Props) {
             <Link
               key={category.id}
               className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
-                category.id === activeCategory?.id,
+                category.id === selectedCategoryId,
               )}`}
               passHref
-              href={`/${guildName}/market/${
-                category.name
-              }?${searchParams.toString()}`}
+              href={`/${guild.name}/market/${type}?categoryId=${category.id}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
