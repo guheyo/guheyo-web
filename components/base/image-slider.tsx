@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { Image } from 'prisma';
 import NextImage from 'next/image';
 import { IconButton } from '@mui/material';
 import {
@@ -15,6 +14,7 @@ import 'keen-slider/keen-slider.min.css';
 import { KeenSliderHooks, KeenSliderInstance } from 'keen-slider';
 import Link from 'next/link';
 import { isMobile } from 'react-device-detect';
+import { UserImageResponse } from '@/generated/graphql';
 
 interface CarouselArrowProps {
   disabled: boolean;
@@ -33,7 +33,7 @@ interface NavigationProps {
 }
 
 interface ZoomIconProps {
-  targetImage: Image;
+  targetImage: UserImageResponse;
 }
 
 function ZoomIcon({ targetImage }: ZoomIconProps) {
@@ -104,7 +104,7 @@ export default function ImageSlider({
   width,
   height,
 }: {
-  images: Image[];
+  images: UserImageResponse[];
   sizes: string;
   width: number;
   height: number;
