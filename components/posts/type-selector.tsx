@@ -2,36 +2,35 @@
 
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 const options = [
-  { value: 'sell', label: '판매' },
-  { value: 'buy', label: '구매' },
-  { value: 'trade', label: '교환' },
+  { value: 'offers', label: '판매' },
+  { value: 'demands', label: '구매' },
+  { value: 'swaps', label: '교환' },
 ];
 
 export default function TypeSelector() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const selectedCategoryId = searchParams.get('categoryId');
+  const type = pathname.split('/').at(-1);
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
-    router.push(`${pathname}?type=${value}`);
+    router.push(
+      `${pathname
+        .split('/')
+        .slice(0, -1)
+        .join('/')}/${value}?categoryId=${selectedCategoryId}`,
+    );
   };
 
   const selectedValue = useMemo(
-    () =>
-      options.find((o) => o.value === searchParams.get('type') ?? 'sell')
-        ?.value ?? 'sell',
-    [searchParams],
+    () => options.find((o) => o.value === type ?? 'offers')?.value ?? 'offers',
+    [type],
   );
-
-  useEffect(() => {
-    if (!searchParams.has('type')) {
-      router.replace(`${pathname}?type=sell`);
-    }
-  }, [pathname, router, searchParams]);
 
   return (
     <Select
