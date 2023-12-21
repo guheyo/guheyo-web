@@ -1,0 +1,34 @@
+query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGuilds(cursor: $cursor, skip: $skip, take: $take) {
+    edges {
+      node {
+        id
+        name
+        description
+        icon
+        position
+        roles {
+          id
+          name
+          position
+          hexColor
+          guildId
+        }
+        productCategories {
+          id
+          name
+          position
+        }
+        postCategories {
+          id
+          name
+          description
+          position
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+    }
+  }
+}
