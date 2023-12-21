@@ -1,0 +1,79 @@
+query findOffers(
+  $productCategoryId: ID!
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findOffers(
+    productCategoryId: $productCategoryId
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        id
+        createdAt
+        updatedAt
+        name
+        description
+        price
+        priceCurrency
+        businessFunction
+        status
+        source
+        images {
+          id
+          createdAt
+          updatedAt
+          name
+          url
+          contentType
+          description
+          height
+          width
+          position
+          type
+          refId
+          userId
+          source
+        }
+        guildId
+        productCategoryId
+        seller {
+          id
+          createdAt
+          username
+          avatarURL
+          bot
+          members {
+            id
+            createdAt
+            userId
+            guildId
+            roles {
+              id
+              name
+              position
+              hexColor
+              guildId
+            }
+          }
+          socialAccounts {
+            id
+            createdAt
+            provider
+            socialId
+            userId
+          }
+        }
+        brandId
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

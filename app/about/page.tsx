@@ -1,6 +1,6 @@
-import Tabs from '../components/base/tabs';
-import Scrollbar from '../components/base/scrollbar';
-import TimelineWithIcon from '../components/base/timeline-with-icon';
+import Tabs from '@/components/base/tabs';
+import Scrollbar from '@/components/base/scrollbar';
+import TimelineWithIcon from '@/components/base/timeline-with-icon';
 
 export default async function Page() {
   const tabs = [
@@ -27,7 +27,7 @@ export default async function Page() {
     {
       title: '2023년 6월 30일',
       content: 'guheyo 베타 버전 공개',
-      iconURL: '/guheyo-logo.svg',
+      iconURL: '/star.svg',
     },
   ];
 

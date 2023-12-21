@@ -43,6 +43,7 @@ module.exports = {
     'no-param-reassign': [ERROR, { props: false }],
     'no-use-before-define': OFF,
     'no-unused-vars': OFF,
+    'no-underscore-dangle': OFF,
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-unused-vars': [ERROR, { args: 'none' }],
     '@typescript-eslint/naming-convention': [
@@ -68,8 +69,13 @@ module.exports = {
         format: null,
       },
       {
+        selector: 'property',
+        format: null,
+      },
+      {
         selector: 'parameter',
         format: ['camelCase', 'PascalCase'],
+        leadingUnderscore: 'allow',
       },
     ],
     'check-file/filename-naming-convention': [
@@ -89,7 +95,6 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': OFF,
-    'import/no-extraneous-dependencies': OFF,
     'no-bitwise': OFF,
   },
 };

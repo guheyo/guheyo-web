@@ -9,13 +9,17 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate": "graphql-codegen --config graphql.config.yml"
   },
   "author": "keypport",
   "license": "BUSL-1.1",
   "dependencies": {
+    "@apollo/client": "^3.8.6",
+    "@apollo/experimental-nextjs-app-support": "^0.4.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@heroicons/react": "^2.0.18",
     "@lukemorales/query-key-factory": "^1.3.2",
     "@mui/lab": "^5.0.0-alpha.138",
@@ -30,6 +34,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
+    "graphql": "^16.8.1",
     "keen-slider": "^6.8.5",
     "lodash": "^4.17.21",
     "next": "13.4.2",
@@ -46,6 +51,9 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@next/eslint-plugin-next": "13.4.8",
     "@storybook/addon-essentials": "7.0.20",
     "@storybook/addon-interactions": "7.0.20",
@@ -68,6 +76,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.6.12",
+    "graphql-codegen-apollo-next-ssr": "^1.7.4",
     "prettier": "^3.0.0",
     "simple-zustand-devtools": "^1.1.0",
     "storybook": "7.0.20",
