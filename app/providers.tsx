@@ -48,11 +48,6 @@ const queryClient = new QueryClient({
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  // zustand devtools
-  if (process.env.NODE_ENV === 'development') {
-    // mountStoreDevtool('Store', useStore);
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
