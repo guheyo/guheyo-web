@@ -1,5 +1,5 @@
-import { User } from 'prisma';
 import { Avatar as MuiAvatar } from '@mui/material';
+import { AuthorResponse } from '@/generated/graphql';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
@@ -14,7 +14,13 @@ const convertAvatarSize = (avatarSize: Size): string => {
   return '24px';
 };
 
-export default function UserAvatar({ user, size }: { user: User; size: Size }) {
+export default function UserAvatar({
+  user,
+  size,
+}: {
+  user: AuthorResponse;
+  size: Size;
+}) {
   const avatarSize = convertAvatarSize(size);
 
   return (

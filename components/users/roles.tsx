@@ -1,13 +1,13 @@
-import { Role } from 'prisma';
+import { RoleResponse } from '@/generated/graphql';
 
-function RoleName({ role }: { role: Role }) {
+function RoleName({ role }: { role: RoleResponse }) {
   if (role.hexColor === '#000001') {
     return <div className="bg-black text-white">{role.name}</div>;
   }
   return <div>{role.name}</div>;
 }
 
-export default function Roles({ roles }: { roles?: Role[] }) {
+export default function Roles({ roles }: { roles?: RoleResponse[] }) {
   if (!roles) return null;
   return (
     <div className="flex flex-wrap justify-start">

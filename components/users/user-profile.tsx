@@ -1,10 +1,10 @@
 'use client';
 
 import { Typography } from '@mui/material';
-import { User } from 'prisma';
 import _ from 'lodash';
 import { useState } from 'react';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { AuthorResponse } from '@/generated/graphql';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from './social-join-dates';
@@ -18,7 +18,7 @@ export default function UserProfile({
   displayUsername,
   displayDM,
 }: {
-  user: User;
+  user: AuthorResponse;
   displayAvatar: boolean;
   displayUsername: boolean;
   displayDM: boolean;
@@ -87,7 +87,9 @@ export default function UserProfile({
             </div>
             <div className="mt-1">
               <div className="font-semibold">역할</div>
-              <Roles roles={user.roles} />
+              {user.members.map((member) => (
+                <Roles key={member.id} roles={member.roles} />
+              ))}
             </div>
           </Typography>
         </div>
