@@ -1,0 +1,34 @@
+query findMyUserBySocialAccount(
+  $provider: String!
+  $socialId: String!
+){
+  findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
+    id
+    createdAt
+    username
+    avatarURL
+    bot
+    socialAccounts {
+      refreshToken
+      accessToken
+      expiresAt
+      tokenType
+      scope
+      idToken
+      sessionState
+    }
+    members {
+      id
+      createdAt
+      userId
+      guildId
+      roles {
+        id
+        name
+        position
+        hexColor
+        guildId
+      }
+    }
+  }
+}

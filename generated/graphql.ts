@@ -1,4 +1,5 @@
-/* eslint-disable */
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -6,6 +7,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -13,7 +15,6 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: { input: any; output: any; }
 };
 
@@ -52,6 +53,17 @@ export type AuctionResponseEdge = {
   __typename?: 'AuctionResponseEdge';
   cursor: Scalars['String']['output'];
   node: AuctionResponse;
+};
+
+export type AuthorResponse = {
+  __typename?: 'AuthorResponse';
+  avatarURL?: Maybe<Scalars['String']['output']>;
+  bot: Scalars['Boolean']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  members: Array<MemberWithRolesResponse>;
+  socialAccounts: Array<SocialAccountWithoutAuthResponse>;
+  username: Scalars['String']['output'];
 };
 
 export type BidResponse = {
@@ -494,8 +506,8 @@ export type MyUserResponse = {
   bot: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  members?: Maybe<Array<MemberWithRolesResponse>>;
-  socialAccounts?: Maybe<Array<SocialAccountResponse>>;
+  members: Array<MemberWithRolesResponse>;
+  socialAccounts: Array<SocialAccountResponse>;
   username: Scalars['String']['output'];
 };
 
@@ -512,8 +524,7 @@ export type OfferResponse = {
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
-  seller: UserWithMembersResponse;
-  sellerId: Scalars['ID']['output'];
+  seller: AuthorResponse;
   source: Scalars['String']['output'];
   status: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -590,6 +601,7 @@ export type Query = {
   findDemandById?: Maybe<DemandResponse>;
   findDemands: PaginatedDemandsResponse;
   findGuildById?: Maybe<GuildResponse>;
+  findGuildByName?: Maybe<GuildResponse>;
   findGuilds: PaginatedGuildsResponse;
   findMemberByUserAndGuild?: Maybe<MemberWithRolesResponse>;
   findMyUserById?: Maybe<MyUserResponse>;
@@ -637,6 +649,11 @@ export type QueryFindGuildByIdArgs = {
 };
 
 
+export type QueryFindGuildByNameArgs = {
+  name: Scalars['String']['input'];
+};
+
+
 export type QueryFindGuildsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
@@ -657,7 +674,7 @@ export type QueryFindMyUserByIdArgs = {
 
 export type QueryFindMyUserBySocialAccountArgs = {
   provider: Scalars['String']['input'];
-  socialId: Scalars['ID']['input'];
+  socialId: Scalars['String']['input'];
 };
 
 
@@ -736,6 +753,15 @@ export type SocialAccountResponse = {
   sessionState?: Maybe<Scalars['String']['output']>;
   socialId: Scalars['String']['output'];
   tokenType?: Maybe<Scalars['String']['output']>;
+  userId: Scalars['String']['output'];
+};
+
+export type SocialAccountWithoutAuthResponse = {
+  __typename?: 'SocialAccountWithoutAuthResponse';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  provider: Scalars['String']['output'];
+  socialId: Scalars['String']['output'];
   userId: Scalars['String']['output'];
 };
 
@@ -886,12 +912,281 @@ export type UserResponseEdge = {
   node: UserResponse;
 };
 
-export type UserWithMembersResponse = {
-  __typename?: 'UserWithMembersResponse';
-  avatarURL?: Maybe<Scalars['String']['output']>;
-  bot: Scalars['Boolean']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  members?: Maybe<Array<MemberWithRolesResponse>>;
-  username: Scalars['String']['output'];
-};
+export type FindGuildsQueryVariables = Exact<{
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindGuildsQuery = { __typename?: 'Query', findGuilds: { __typename?: 'PaginatedGuildsResponse', edges: Array<{ __typename?: 'GuildResponseEdge', node: { __typename?: 'GuildResponse', id: string, name: string, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, description?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
+
+export type FindOffersQueryVariables = Exact<{
+  productCategoryId: Scalars['ID']['input'];
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }>, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindMyUserBySocialAccountQueryVariables = Exact<{
+  provider: Scalars['String']['input'];
+  socialId: Scalars['String']['input'];
+}>;
+
+
+export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+
+
+export const FindGuildsDocument = gql`
+    query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGuilds(cursor: $cursor, skip: $skip, take: $take) {
+    edges {
+      node {
+        id
+        name
+        description
+        icon
+        position
+        roles {
+          id
+          name
+          position
+          hexColor
+          guildId
+        }
+        productCategories {
+          id
+          name
+          position
+        }
+        postCategories {
+          id
+          name
+          description
+          position
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindGuildsQuery__
+ *
+ * To run a query within a React component, call `useFindGuildsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindGuildsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindGuildsQuery({
+ *   variables: {
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindGuildsQuery(baseOptions: Apollo.QueryHookOptions<FindGuildsQuery, FindGuildsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindGuildsQuery, FindGuildsQueryVariables>(FindGuildsDocument, options);
+      }
+export function useFindGuildsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindGuildsQuery, FindGuildsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindGuildsQuery, FindGuildsQueryVariables>(FindGuildsDocument, options);
+        }
+export function useFindGuildsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindGuildsQuery, FindGuildsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindGuildsQuery, FindGuildsQueryVariables>(FindGuildsDocument, options);
+        }
+export type FindGuildsQueryHookResult = ReturnType<typeof useFindGuildsQuery>;
+export type FindGuildsLazyQueryHookResult = ReturnType<typeof useFindGuildsLazyQuery>;
+export type FindGuildsSuspenseQueryHookResult = ReturnType<typeof useFindGuildsSuspenseQuery>;
+export type FindGuildsQueryResult = Apollo.QueryResult<FindGuildsQuery, FindGuildsQueryVariables>;
+export const FindOffersDocument = gql`
+    query findOffers($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
+  findOffers(
+    productCategoryId: $productCategoryId
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        id
+        createdAt
+        updatedAt
+        name
+        description
+        price
+        priceCurrency
+        businessFunction
+        status
+        source
+        images {
+          id
+          createdAt
+          updatedAt
+          name
+          url
+          contentType
+          description
+          height
+          width
+          position
+          type
+          refId
+          userId
+          source
+        }
+        guildId
+        productCategoryId
+        seller {
+          id
+          createdAt
+          username
+          avatarURL
+          bot
+          members {
+            id
+            createdAt
+            userId
+            guildId
+            roles {
+              id
+              name
+              position
+              hexColor
+              guildId
+            }
+          }
+          socialAccounts {
+            id
+            createdAt
+            provider
+            socialId
+            userId
+          }
+        }
+        brandId
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindOffersQuery__
+ *
+ * To run a query within a React component, call `useFindOffersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindOffersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindOffersQuery({
+ *   variables: {
+ *      productCategoryId: // value for 'productCategoryId'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindOffersQuery(baseOptions: Apollo.QueryHookOptions<FindOffersQuery, FindOffersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindOffersQuery, FindOffersQueryVariables>(FindOffersDocument, options);
+      }
+export function useFindOffersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindOffersQuery, FindOffersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindOffersQuery, FindOffersQueryVariables>(FindOffersDocument, options);
+        }
+export function useFindOffersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindOffersQuery, FindOffersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindOffersQuery, FindOffersQueryVariables>(FindOffersDocument, options);
+        }
+export type FindOffersQueryHookResult = ReturnType<typeof useFindOffersQuery>;
+export type FindOffersLazyQueryHookResult = ReturnType<typeof useFindOffersLazyQuery>;
+export type FindOffersSuspenseQueryHookResult = ReturnType<typeof useFindOffersSuspenseQuery>;
+export type FindOffersQueryResult = Apollo.QueryResult<FindOffersQuery, FindOffersQueryVariables>;
+export const FindMyUserBySocialAccountDocument = gql`
+    query findMyUserBySocialAccount($provider: String!, $socialId: String!) {
+  findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
+    id
+    createdAt
+    username
+    avatarURL
+    bot
+    socialAccounts {
+      refreshToken
+      accessToken
+      expiresAt
+      tokenType
+      scope
+      idToken
+      sessionState
+    }
+    members {
+      id
+      createdAt
+      userId
+      guildId
+      roles {
+        id
+        name
+        position
+        hexColor
+        guildId
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindMyUserBySocialAccountQuery__
+ *
+ * To run a query within a React component, call `useFindMyUserBySocialAccountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMyUserBySocialAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMyUserBySocialAccountQuery({
+ *   variables: {
+ *      provider: // value for 'provider'
+ *      socialId: // value for 'socialId'
+ *   },
+ * });
+ */
+export function useFindMyUserBySocialAccountQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
+      }
+export function useFindMyUserBySocialAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
+        }
+export function useFindMyUserBySocialAccountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
+        }
+export type FindMyUserBySocialAccountQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountQuery>;
+export type FindMyUserBySocialAccountLazyQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountLazyQuery>;
+export type FindMyUserBySocialAccountSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountSuspenseQuery>;
+export type FindMyUserBySocialAccountQueryResult = Apollo.QueryResult<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>;
