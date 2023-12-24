@@ -1,10 +1,8 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useReactiveVar } from '@apollo/client';
 import { useFindOffersQuery } from '@/generated/graphql';
 import OfferPreview from '@/components/offers/offer-preview';
-import { selectedColsVar } from '@/lib/apollo/cache';
 import CategoriesNavbar from '@/components/categories/categories-navbar';
 
 export interface OffersPageProps {
@@ -17,7 +15,6 @@ export interface OffersPageProps {
 function OffersPage({ params: { guildName } }: OffersPageProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
-  const selectedCols = useReactiveVar(selectedColsVar);
 
   const { loading, error, data, fetchMore } = useFindOffersQuery({
     variables: {
@@ -58,18 +55,14 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
   };
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-0 md:gap-4">
       <div>
         <CategoriesNavbar type="offers" />
       </div>
-      <div
-        className={`grid gap-4 md:gap-8 lg:gap-12 ${
-          selectedCols === 1 ? 'grid-cols-1' : 'grid-cols-2'
-        } grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start`}
-      >
+      <div className="grid gap-x-2 gap-y-12 lg:gap-y-14 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {edges.map((edge) => (
           <div className="col-span-1 p-1" key={edge.node.id}>
-            <OfferPreview offer={edge.node} cols={3} />
+            <OfferPreview offer={edge.node} />
           </div>
         ))}
       </div>

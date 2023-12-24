@@ -17,11 +17,13 @@ export default function UserProfile({
   displayAvatar,
   displayUsername,
   displayDM,
+  mode,
 }: {
   user: AuthorResponse;
   displayAvatar: boolean;
   displayUsername: boolean;
   displayDM: boolean;
+  mode: 'light' | 'standard';
 }) {
   const device = useDeviceDetect();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -49,13 +51,13 @@ export default function UserProfile({
         {device === 'mobile' && (
           <div className="flex gap-2 items-center font-medium text-xs">
             {displayAvatar && <UserAvatar user={user} size="xs" />}
-            {displayUsername && <Username user={user} />}
+            {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
         {device === 'browser' && (
           <div className="flex gap-2 items-center font-medium text-base">
-            {displayAvatar && <UserAvatar user={user} size="sm" />}
-            {displayUsername && <Username user={user} />}
+            {displayAvatar && <UserAvatar user={user} size="xs" />}
+            {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
       </button>

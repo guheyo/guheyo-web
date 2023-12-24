@@ -28,6 +28,8 @@ function makeClient() {
   });
 }
 
+export const client = makeClient();
+
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
   return (
     <ApolloNextAppProvider makeClient={makeClient}>
