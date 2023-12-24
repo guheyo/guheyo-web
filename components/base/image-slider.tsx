@@ -123,7 +123,10 @@ export default function ImageSlider({
 
   return (
     <div className="relative">
-      <div ref={sliderRef} className="keen-slider h-[320px] md:h-[520px]">
+      <div
+        ref={sliderRef}
+        className="keen-slider h-[320px] md:h-[520px] rounded-none md:rounded-md"
+      >
         {_.map(images, (image, i) => (
           <div
             key={i}
