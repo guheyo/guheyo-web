@@ -80,6 +80,7 @@ export default function OfferDetail({
                     displayAvatar
                     displayUsername
                     displayDM
+                    mode="standard"
                   />
                   <div className="justify-self-end text-[10px] md:text-xs text-gray-600">
                     {dayjs(offer.createdAt).fromNow()}
