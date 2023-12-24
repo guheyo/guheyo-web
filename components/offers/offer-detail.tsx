@@ -72,35 +72,33 @@ export default function OfferDetail({
               height={760}
             />
           </div>
-          <div className="flex-none line-break md:w-[50%]">
-            <div className="py-2 font-medium">
-              <div className="flex flex-row gap-2 text-sm md:text-base items-center pl-2">
-                <UserProfile
-                  user={offer.seller}
-                  displayAvatar
-                  displayUsername
-                  displayDM
-                  mode="standard"
-                />
-                <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
-                  {dayjs(offer.createdAt).fromNow()}
-                </div>
+          <div className="flex-none line-break md:w-[50%] px-4 py-4 md:py-0">
+            <div className="flex flex-row gap-2 text-sm md:text-base items-center">
+              <UserProfile
+                user={offer.seller}
+                displayAvatar
+                displayUsername
+                displayDM
+                mode="standard"
+              />
+              <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
+                {dayjs(offer.createdAt).fromNow()}
               </div>
-              <div className="p-2 flex flex-col gap-2 mt-1">
-                <div className="text-[18px] font-normal">{offer.name}</div>
-                <div className="flex md:text-base justify-self-end mt-[4px] items-center mb-[16px]">
-                  <span className="text-[18px] font-bold">
-                    {getPrice(offer.price)}
-                  </span>
-                </div>
+            </div>
+            <div className="flex flex-col gap-2 md:gap-6 mt-4 md:mt-6">
+              <div className="text-sm md:text-base font-normal">
+                {offer.name}
               </div>
-              <div className="p-2 pt-4 text-sm md:text-base md:h-[30rem] overflow-y-auto">
-                {offer.description && (
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {offer.description}
-                  </ReactMarkdown>
-                )}
+              <div className="flex text-sm md:text-base justify-self-end mt-[4px] items-center mb-[12px] font-semibold">
+                {getPrice(offer.price)}
               </div>
+            </div>
+            <div className="pt-4 text-xs md:text-base md:h-[30rem] overflow-y-auto">
+              {offer.description && (
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {offer.description}
+                </ReactMarkdown>
+              )}
             </div>
           </div>
         </div>
