@@ -25,6 +25,14 @@ module.exports = {
     },
     colors: {
       main: '#292f33',
+      'light-star': '#D65C95',
+      star: '#CB337B',
+      'light-white': '#f2f3ed',
+      'light-gray': '#8c8f96',
+      'light-dark': '#323338', // post
+      'semi-dark': '#2c2d30', // middlebar
+      dark: '#292a2e', // background
+      'deep-dark': '#1e1f22', // sidebar
       ...colors,
     },
   },
