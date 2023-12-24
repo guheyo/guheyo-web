@@ -54,7 +54,7 @@ export default function OfferPreview({ offer }: Props) {
         <div className="flex-none text-xs md:text-xs font-semibold">
           {getPrice(offer.price)}
         </div>
-        <div className="text-[10px] md:text-xs text-gray-600">
+        <div className="text-[10px] md:text-xs text-gray-400">
           {dayjs(offer.createdAt).fromNow()}
         </div>
       </div>

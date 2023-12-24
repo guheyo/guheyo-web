@@ -41,7 +41,7 @@ export default function RootLayout({
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
       </head>
-      <body className={`${notoSansKr.className} text-main`}>
+      <body className={`${notoSansKr.className} text-light-white bg-dark`}>
         <Providers>
           <Navbar />
           {children}
