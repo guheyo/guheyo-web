@@ -21,7 +21,7 @@ export default function Username({ user }: { user: AuthorResponse }) {
   return (
     <div
       style={{
-        color: _.get(user.members, '[0].roles[0].hexColor', '#000000'),
+        color: _.get(user.members, '[0].roles[0].hexColor', '#f2f3ed'),
       }}
     >
       {user.username}
