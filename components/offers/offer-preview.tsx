@@ -42,7 +42,6 @@ export default function OfferPreview({ offer }: Props) {
         <div className="text-xs md:text-sm font-medium py-2 text-light-white">
           {offer.name}
         </div>
-
         <div className="flex flex-row justify-between items-center py-2">
           <div className="flex-none text-xs md:text-sm font-semibold">
             {getPrice(offer.price)}

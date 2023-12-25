@@ -20,7 +20,7 @@ export default function OfferDetail({
   open: boolean;
   handleOpen: React.MouseEventHandler;
 }) {
-  const sizes = 'w-full h-full';
+  const sizes = 'h-[360px] md:h-[524px]';
 
   return (
     <Dialog
@@ -42,39 +42,27 @@ export default function OfferDetail({
         sx: {
           overflow: 'unset',
           margin: 0,
-          height: '100%',
           width: '100%',
-
-          maxHeight: '100%',
           maxWidth: '64rem',
-          // maxWidth: '56rem',
+          height: '100%',
+          maxHeight: '100%',
           boxShadow: '0',
           borderRadius: '0',
         },
       }}
     >
-      <DialogContent
-        className="p-0 overflow-auto md:overflow-hidden bg-dark text-light-white"
-        sx={{
-          padding: '0px 0px',
-        }}
-      >
+      <DialogContent className="p-0 overflow-auto md:overflow-hidden bg-dark text-light-white">
         <div className="flex justify-end">
           <IconButton onClick={handleOpen}>
             <XMarkIcon className="w-6 md:w-8" color="white" />
           </IconButton>
         </div>
 
-        <div className="md:flex md:flex-row justify-center gap-12">
-          <div className="md:w-[50%]">
-            <ImageSlider
-              images={offer.images}
-              sizes={sizes}
-              width={760}
-              height={760}
-            />
+        <div className="flex flex-col md:flex-row gap-2 md:gap-12">
+          <div className="w-full md:w-[50%]">
+            <ImageSlider images={offer.images} sizes={sizes} />
           </div>
-          <div className="flex-none line-break md:w-[50%] px-4 py-4 md:py-0">
+          <div className="flex-none line-break w-full md:w-[50%] px-4 py-4 md:py-0">
             <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center">
               <UserProfile
                 user={offer.seller}
@@ -95,7 +83,7 @@ export default function OfferDetail({
                 {getPrice(offer.price)}
               </div>
             </div>
-            <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto">
+            <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto pb-20">
               {offer.description && (
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {offer.description}

@@ -100,13 +100,9 @@ function Navigation({ activeIndex, length, instanceRef }: NavigationProps) {
 export default function ImageSlider({
   images,
   sizes,
-  width,
-  height,
 }: {
   images: UserImageResponse[];
   sizes: string;
-  width: number;
-  height: number;
 }) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -124,22 +120,15 @@ export default function ImageSlider({
     <div className="relative">
       <div
         ref={sliderRef}
-        className="keen-slider h-[320px] md:h-[520px] rounded-none md:rounded-md"
+        className={`keen-slider ${sizes} rounded-none md:rounded-md`}
       >
         {_.map(images, (image, i) => (
-          <div
-            key={i}
-            className="keen-slider__slide"
-            style={{
-              position: 'relative',
-            }}
-          >
+          <div key={i} className={`keen-slider__slide number-slide${i + 1}`}>
             <NextImage
               src={image.url}
               alt={image.name}
               fill
               style={{ objectFit: 'cover' }}
-              sizes="50vw"
             />
             <ZoomIcon targetImage={images[activeIndex]} />
           </div>
