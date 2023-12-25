@@ -39,7 +39,7 @@ export default function OfferPreview({ offer }: Props) {
       )}
 
       <div className="w-1/2 md:w-full px-4 md:px-2">
-        <div className="text-xs md:text-sm font-medium py-2 text-light-white">
+        <div className="text-xs md:text-sm font-medium py-2 text-light-200">
           {offer.name}
         </div>
         <div className="flex flex-row justify-between items-center py-2">
