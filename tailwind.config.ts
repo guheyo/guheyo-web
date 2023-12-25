@@ -31,11 +31,12 @@ module.exports = {
       'star-600': '#C43176',
       'star-700': '#B42D6C',
       'light-200': '#f2f3ed',
-      'dark-200': '#7f838e', // gray text
-      'dark-500': '#323338', // post
-      'dark-600': '#2c2d30', // middlebar
-      'dark-700': '#292a2e', // background
-      'dark-800': '#1e1f22', // sidebar
+      'dark-200': '#7f838e', // icon-gray
+      'dark-400': '#404146', // clicked-post
+      'dark-500': '#323338', // channel-bg
+      'dark-600': '#2c2d30', // category-bg
+      'dark-700': '#292a2e', // forum-bg
+      'dark-800': '#1e1f22', // leftbar-bg
       ...colors,
     },
   },

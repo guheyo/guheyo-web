@@ -27,13 +27,13 @@ export default function OfferDetail({
       open={open}
       onClose={handleOpen}
       sx={{
-        top: isMobile ? '0px' : '90px',
+        top: isMobile ? '0px' : '56px',
       }}
       className="max-w-screen z-50"
       slotProps={{
         backdrop: {
           sx: {
-            background: '#292a2e',
+            background: '#323338',
             top: '56px',
           },
         },
@@ -44,25 +44,27 @@ export default function OfferDetail({
           margin: 0,
           width: '100%',
           maxWidth: '64rem',
-          height: '100%',
+          height: isMobile ? '100%' : '96%',
           maxHeight: '100%',
           boxShadow: '0',
           borderRadius: '0',
+          background: '#323338',
         },
       }}
     >
-      <DialogContent className="p-0 overflow-auto md:overflow-hidden bg-dark-500 text-light-200">
+      <DialogContent className="p-0 overflow-auto md:overflow-hidden bg-dark-400 text-light-200 rounded-lg">
         <div className="flex justify-end">
           <IconButton onClick={handleOpen}>
-            <XMarkIcon className="w-6 md:w-8" color="white" />
+            <XMarkIcon className="w-6 md:w-9 text-dark-200 hover:text-light-200 bg-dark-400 rounded-lg" />
           </IconButton>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-2 md:gap-12">
-          <div className="w-full md:w-[50%]">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-14 justify-center">
+          <div className="w-full md:w-[45%]">
             <ImageSlider images={offer.images} sizes={sizes} />
           </div>
-          <div className="flex-none line-break w-full md:w-[50%] px-4 py-4 md:py-0">
+
+          <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
             <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center">
               <UserProfile
                 user={offer.seller}
