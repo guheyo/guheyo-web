@@ -59,7 +59,7 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
       <div>
         <CategoriesNavbar type="offers" />
       </div>
-      <div className="grid gap-x-4 md:gap-x-6 gap-y-12 lg:gap-y-14 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid gap-x-4 md:gap-x-6 gap-y-6 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
         {edges.map((edge) => (
           <div className="col-span-1" key={edge.node.id}>
             <OfferPreview offer={edge.node} />

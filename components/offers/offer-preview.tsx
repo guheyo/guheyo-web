@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
 import { OfferResponse } from '@/generated/graphql';
-import UserProfile from '../users/user-profile';
 import OfferDetail from './offer-detail';
 import Thumbnail from '../base/thumbnail';
 
@@ -23,9 +22,9 @@ export default function OfferPreview({ offer }: Props) {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden line-break">
+    <div className="flex flex-row md:flex-col overflow-hidden line-break gap-1">
       {thumbnail && (
-        <div className="flex relative">
+        <div className="flex relative w-1/2 md:w-fit">
           <button type="submit" onClick={() => handleOpen()} className="group">
             <Thumbnail image={thumbnail} />
             <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
@@ -39,27 +38,22 @@ export default function OfferPreview({ offer }: Props) {
         </div>
       )}
 
-      <div className="flex flex-row items-center py-2 gap-2 h-12">
-        <UserProfile
-          user={offer.seller}
-          displayAvatar
-          displayUsername
-          displayDM
-          mode="light"
-        />
-        <div className="text-xs md:text-sm font-semibold">{offer.name}</div>
-      </div>
+      <div className="w-1/2 md:w-full px-4 md:px-2">
+        <div className="text-xs md:text-sm font-medium py-2 text-light-white">
+          {offer.name}
+        </div>
 
-      <div className="flex flex-row justify-between items-center pl-8">
-        <div className="flex-none text-xs md:text-xs font-semibold">
-          {getPrice(offer.price)}
+        <div className="flex flex-row justify-between items-center py-2">
+          <div className="flex-none text-xs md:text-sm font-semibold">
+            {getPrice(offer.price)}
+          </div>
+          <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
+            {dayjs(offer.createdAt).fromNow()}
+          </div>
         </div>
-        <div className="text-[10px] md:text-xs text-gray-400">
-          {dayjs(offer.createdAt).fromNow()}
+        <div>
+          <OfferDetail offer={offer} open={open} handleOpen={handleOpen} />
         </div>
-      </div>
-      <div>
-        <OfferDetail offer={offer} open={open} handleOpen={handleOpen} />
       </div>
     </div>
   );

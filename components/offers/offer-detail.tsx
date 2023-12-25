@@ -44,8 +44,10 @@ export default function OfferDetail({
           margin: 0,
           height: '100%',
           width: '100%',
+
           maxHeight: '100%',
           maxWidth: '64rem',
+          // maxWidth: '56rem',
           boxShadow: '0',
           borderRadius: '0',
         },
@@ -73,7 +75,7 @@ export default function OfferDetail({
             />
           </div>
           <div className="flex-none line-break md:w-[50%] px-4 py-4 md:py-0">
-            <div className="flex flex-row gap-2 text-sm md:text-base items-center">
+            <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center">
               <UserProfile
                 user={offer.seller}
                 displayAvatar
@@ -85,15 +87,15 @@ export default function OfferDetail({
                 {dayjs(offer.createdAt).fromNow()}
               </div>
             </div>
-            <div className="flex flex-col gap-2 md:gap-6 mt-4 md:mt-6">
-              <div className="text-sm md:text-base font-normal">
+            <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
+              <div className="text-lg md:text-xl font-semibold">
                 {offer.name}
               </div>
-              <div className="flex text-sm md:text-base justify-self-end mt-[4px] items-center mb-[12px] font-semibold">
+              <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
                 {getPrice(offer.price)}
               </div>
             </div>
-            <div className="pt-4 text-xs md:text-base md:h-[30rem] overflow-y-auto">
+            <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto">
               {offer.description && (
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {offer.description}

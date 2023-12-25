@@ -2,10 +2,8 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { isMobile } from 'react-device-detect';
 import { useReactiveVar } from '@apollo/client';
 import { selectedGuildVar } from '@/lib/apollo/cache';
-import ColsSelectButton from '../base/cols-select-button';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
 
@@ -54,13 +52,6 @@ export default function CategoriesNavbar({ type }: Props) {
               </span>
             </Link>
           ))}
-        </div>
-        <div className="flex-none">
-          {isMobile && (
-            <div className="flex-none">
-              <ColsSelectButton />
-            </div>
-          )}
         </div>
       </div>
     </Scrollbar>

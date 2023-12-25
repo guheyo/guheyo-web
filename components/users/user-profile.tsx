@@ -49,14 +49,19 @@ export default function UserProfile({
     <>
       <button type="button" onClick={handlePopoverOpen}>
         {device === 'mobile' && (
-          <div className="flex gap-2 items-center font-medium text-xs">
-            {displayAvatar && <UserAvatar user={user} size="xs" />}
+          <div className="flex gap-2 items-center font-medium text-base">
+            {mode === 'light' && displayAvatar && (
+              <UserAvatar user={user} size="xs" />
+            )}
+            {mode === 'standard' && displayAvatar && (
+              <UserAvatar user={user} size="sm" />
+            )}
             {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
         {device === 'browser' && (
-          <div className="flex gap-2 items-center font-medium text-base">
-            {displayAvatar && <UserAvatar user={user} size="xs" />}
+          <div className="flex gap-3 items-center font-medium text-lg">
+            {displayAvatar && <UserAvatar user={user} size="sm" />}
             {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
