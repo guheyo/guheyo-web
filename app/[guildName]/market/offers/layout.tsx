@@ -6,7 +6,7 @@ interface Props extends OffersPageProps {
 }
 
 function OffersLayout({ params, children }: Props) {
-  return <div className="pb-4 md:pb-6 px-2 bg-white">{children}</div>;
+  return <div className="pb-4 md:pb-6 px-2">{children}</div>;
 }
 
 export default OffersLayout;

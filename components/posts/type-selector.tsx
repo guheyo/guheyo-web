@@ -41,6 +41,10 @@ export default function TypeSelector() {
       inputProps={{
         className: 'py-2',
       }}
+      sx={{
+        color: '#f2f3ed',
+        fontWeight: 'bold',
+      }}
     >
       {options.map(({ value, label }) => (
         <MenuItem key={value} value={value}>
