@@ -1,5 +1,6 @@
 import { Session, SocialAccount, User } from 'prisma';
 import { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters';
+import { v4 as uuid4 } from 'uuid';
 import _ from 'lodash';
 import * as users from '@/lib/api/users';
 import * as socialAccounts from '@/lib/api/social-accounts';
@@ -20,9 +21,12 @@ const toAdapterUserOrNull = (user: User) => {
 export default function DatabaseAdapter(): Adapter {
   return {
     async createUser(user) {
-      const u = await users.createUser({
+      const id = uuid4();
+      await users.createUser({
+        id,
         username: user.username,
       });
+      const u = await users.getUser(id);
       return toAdapterUser(u);
     },
     async getUser(id) {
@@ -33,17 +37,25 @@ export default function DatabaseAdapter(): Adapter {
       return null;
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      const u = await users.getUserBySocailAccount(providerAccountId, provider);
-      return toAdapterUserOrNull(u);
+      try {
+        const u = await users.getUserBySocailAccount(
+          providerAccountId,
+          provider,
+        );
+        return toAdapterUserOrNull(u);
+      } catch (e) {
+        return null;
+      }
     },
     async updateUser(user): Promise<AdapterUser> {
       if (!user.username) {
         return user as AdapterUser;
       }
-      const body = {
+      await users.updateUser({
+        id: user.id,
         username: user.username,
-      };
-      const u = await users.updateUser(user.id, body);
+      });
+      const u = await users.getUser(user.id);
       return toAdapterUser(u);
     },
     async deleteUser(userId) {

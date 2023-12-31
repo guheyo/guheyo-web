@@ -77,7 +77,7 @@ export default function LoginButton() {
       <div>
         <button
           type="submit"
-          className="bg-star hover:bg-light-star text-sm font-bold p-2 rounded text-light-white"
+          className="bg-star-500 hover:bg-star-400 text-sm font-bold p-2 rounded text-light-200"
           onClick={() => signIn('discord')}
         >
           로그인

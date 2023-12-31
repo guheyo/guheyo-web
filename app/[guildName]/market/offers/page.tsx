@@ -67,7 +67,7 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
         ))}
       </div>
       <button
-        className="text-xs md:text-sm text-light-white p-4"
+        className="text-xs md:text-sm text-light-200 p-4"
         type="button"
         onClick={() => onFetchMore()}
       >
