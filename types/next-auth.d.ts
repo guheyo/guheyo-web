@@ -1,7 +1,7 @@
-import { User as PrismaUser } from 'prisma';
+import { MyUserResponse } from '@/generated/graphql';
 
 declare module 'next-auth' {
-  interface User extends PrismaUser {}
+  interface User extends MyUserResponse {}
 
   interface Session {
     user?: User;
@@ -10,7 +10,7 @@ declare module 'next-auth' {
 }
 
 declare module 'next-auth/adapters' {
-  interface AdapterUser extends PrismaUser {}
+  interface AdapterUser extends MyUserResponse {}
 }
 
 declare module 'next-auth/jwt' {
