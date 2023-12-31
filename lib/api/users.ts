@@ -1,40 +1,61 @@
-import { User } from 'prisma';
-import { client } from '../client';
-
-type CreateUserBody = {
-  username: string;
-};
-
-export async function createUser(user: CreateUserBody) {
-  const res = await client.post<User>(`/users`, user);
-  return res.data;
-}
+import { client } from '@/lib/apollo/client';
+import {
+  CreateUserDocument,
+  CreateUserInput,
+  DeleteUserDocument,
+  FindMyUserByIdDocument,
+  FindMyUserBySocialAccountDocument,
+  UpdateUserDocument,
+  UpdateUserInput,
+} from '@/generated/graphql';
 
 export async function getUser(id: string) {
-  const res = await client.get<User>(`/users/${id}`);
-  return res.data;
+  const data = await client.query({
+    query: FindMyUserByIdDocument,
+    variables: {
+      id,
+    },
+  });
+  return data.data?.findMyUserById;
 }
 
 export async function getUserBySocailAccount(
   socialId: string,
   provider: string,
 ) {
-  const res = await client.get<User>(
-    `/users?socialId=${socialId}&provider=${provider}`,
-  );
-  return res.data;
+  const data = await client.query({
+    query: FindMyUserBySocialAccountDocument,
+    variables: {
+      provider,
+      socialId,
+    },
+  });
+  return data.data?.findMyUserBySocialAccount;
 }
 
-type UpdateUserBody = {
-  username: string;
-};
+export async function createUser(input: CreateUserInput) {
+  await client.mutate({
+    mutation: CreateUserDocument,
+    variables: {
+      input,
+    },
+  });
+}
 
-export async function updateUser(id: string, body: UpdateUserBody) {
-  const res = await client.patch<User>(`/users/${id}`, body);
-  return res.data;
+export async function updateUser(input: UpdateUserInput) {
+  await client.mutate({
+    mutation: UpdateUserDocument,
+    variables: {
+      input,
+    },
+  });
 }
 
 export async function deleteUser(id: string) {
-  const res = await client.delete<User>(`/users/${id}`);
-  return res.data;
+  await client.mutate({
+    mutation: DeleteUserDocument,
+    variables: {
+      id,
+    },
+  });
 }
