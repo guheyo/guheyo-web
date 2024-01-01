@@ -1009,6 +1009,8 @@ export type DeleteSessionMutationVariables = Exact<{
 
 export type DeleteSessionMutation = { __typename?: 'Mutation', deleteSession: string };
 
+export type SessionFragment = { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string };
+
 export type FindSessionQueryVariables = Exact<{
   sessionToken: Scalars['String']['input'];
 }>;
@@ -1082,6 +1084,13 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
+export const SessionFragmentDoc = gql`
+    fragment session on SessionResponse {
+  sessionToken
+  expires
+  userId
+}
+    `;
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
   refreshToken
@@ -1408,12 +1417,10 @@ export type DeleteSessionMutationOptions = Apollo.BaseMutationOptions<DeleteSess
 export const FindSessionDocument = gql`
     query findSession($sessionToken: String!) {
   findSession(sessionToken: $sessionToken) {
-    sessionToken
-    expires
-    userId
+    ...session
   }
 }
-    `;
+    ${SessionFragmentDoc}`;
 
 /**
  * __useFindSessionQuery__

@@ -16,12 +16,16 @@ mutation deleteSession(
   deleteSession(sessionToken: $sessionToken)
 }
 
+fragment session on SessionResponse {
+  sessionToken
+  expires
+  userId
+}
+
 query findSession(
   $sessionToken: String!
 ) {
   findSession(sessionToken: $sessionToken) {
-    sessionToken
-    expires
-    userId
+    ...session
   }
 }
