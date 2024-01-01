@@ -1,9 +1,17 @@
-import { SocialAccount } from 'prisma';
-import { client } from '../client';
+import {
+  CreateSocialAccountDocument,
+  CreateSocialAccountInput,
+  DeleteSocialAccountByProviderDocument,
+} from '@/generated/graphql';
+import { client } from '@/lib/apollo/client';
 
-export async function linkAccount(account: SocialAccount) {
-  const res = await client.post<SocialAccount>(`/socialAccounts`, account);
-  return res.data;
+export async function linkAccount(input: CreateSocialAccountInput) {
+  await client.mutate({
+    mutation: CreateSocialAccountDocument,
+    variables: {
+      input,
+    },
+  });
 }
 
 export async function unlinkAccount({
@@ -13,8 +21,11 @@ export async function unlinkAccount({
   provider: string;
   socialId: string;
 }) {
-  const res = await client.delete<SocialAccount>(
-    `/socialAccounts?provider=${provider}&socialId=${socialId}`,
-  );
-  return res.data;
+  await client.mutate({
+    mutation: DeleteSocialAccountByProviderDocument,
+    variables: {
+      provider,
+      socialId,
+    },
+  });
 }

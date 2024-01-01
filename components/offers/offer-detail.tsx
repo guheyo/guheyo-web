@@ -84,16 +84,6 @@ export default function OfferDetail({
               <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
                 {getPrice(offer.price)}
               </div>
-              <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
-                {getPrice(offer.price)}
-              </div>
-            </div>
-            <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto pb-20">
-              {offer.description && (
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {offer.description}
-                </ReactMarkdown>
-              )}
             </div>
             <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto pb-20">
               {offer.description && (
