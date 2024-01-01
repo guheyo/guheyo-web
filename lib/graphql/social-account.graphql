@@ -1,3 +1,13 @@
+fragment socialAccount on SocialAccountResponse {
+  refreshToken
+  accessToken
+  expiresAt
+  tokenType
+  scope
+  idToken
+  sessionState
+}
+
 mutation createSocialAccount(
   $input: CreateSocialAccountInput!
 ) {

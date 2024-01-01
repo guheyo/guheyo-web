@@ -1,34 +1,40 @@
+fragment role on RoleResponse {
+  id
+  name
+  position
+  hexColor
+  guildId
+}
+
+fragment member on MemberWithRolesResponse {
+  id
+  createdAt
+  userId
+  guildId
+  roles {
+    ...role
+  }
+}
+
+fragment myUser on MyUserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccount
+  }
+  members {
+    ...member
+  }
+}
+
 query findMyUserById(
   $id: String!
 ) {
   findMyUserById(id: $id) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
 
@@ -37,33 +43,7 @@ query findMyUserBySocialAccount(
   $socialId: String!
 ) {
   findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
 
@@ -71,33 +51,7 @@ query findMyUserBySession(
   $sessionToken: String!
 ) {
   findMyUserBySession(sessionToken: $sessionToken) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
 

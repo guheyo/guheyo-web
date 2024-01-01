@@ -1016,6 +1016,8 @@ export type FindSessionQueryVariables = Exact<{
 
 export type FindSessionQuery = { __typename?: 'Query', findSession: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } };
 
+export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
+
 export type CreateSocialAccountMutationVariables = Exact<{
   input: CreateSocialAccountInput;
 }>;
@@ -1030,6 +1032,12 @@ export type DeleteSocialAccountByProviderMutationVariables = Exact<{
 
 
 export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
+
+export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string };
+
+export type MemberFragment = { __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> };
+
+export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
 export type FindMyUserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1074,7 +1082,53 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
-
+export const SocialAccountFragmentDoc = gql`
+    fragment socialAccount on SocialAccountResponse {
+  refreshToken
+  accessToken
+  expiresAt
+  tokenType
+  scope
+  idToken
+  sessionState
+}
+    `;
+export const RoleFragmentDoc = gql`
+    fragment role on RoleResponse {
+  id
+  name
+  position
+  hexColor
+  guildId
+}
+    `;
+export const MemberFragmentDoc = gql`
+    fragment member on MemberWithRolesResponse {
+  id
+  createdAt
+  userId
+  guildId
+  roles {
+    ...role
+  }
+}
+    ${RoleFragmentDoc}`;
+export const MyUserFragmentDoc = gql`
+    fragment myUser on MyUserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccount
+  }
+  members {
+    ...member
+  }
+}
+    ${SocialAccountFragmentDoc}
+${MemberFragmentDoc}`;
 export const FindGuildsDocument = gql`
     query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGuilds(cursor: $cursor, skip: $skip, take: $take) {
@@ -1459,36 +1513,10 @@ export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOp
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: String!) {
   findMyUserById(id: $id) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
-    `;
+    ${MyUserFragmentDoc}`;
 
 /**
  * __useFindMyUserByIdQuery__
@@ -1525,36 +1553,10 @@ export type FindMyUserByIdQueryResult = Apollo.QueryResult<FindMyUserByIdQuery, 
 export const FindMyUserBySocialAccountDocument = gql`
     query findMyUserBySocialAccount($provider: String!, $socialId: String!) {
   findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
-    `;
+    ${MyUserFragmentDoc}`;
 
 /**
  * __useFindMyUserBySocialAccountQuery__
@@ -1592,36 +1594,10 @@ export type FindMyUserBySocialAccountQueryResult = Apollo.QueryResult<FindMyUser
 export const FindMyUserBySessionDocument = gql`
     query findMyUserBySession($sessionToken: String!) {
   findMyUserBySession(sessionToken: $sessionToken) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
-    `;
+    ${MyUserFragmentDoc}`;
 
 /**
  * __useFindMyUserBySessionQuery__
