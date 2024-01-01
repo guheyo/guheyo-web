@@ -67,6 +67,40 @@ query findMyUserBySocialAccount(
   }
 }
 
+query findMyUserBySession(
+  $sessionToken: String!
+) {
+  findMyUserBySession(sessionToken: $sessionToken) {
+    id
+    createdAt
+    username
+    avatarURL
+    bot
+    socialAccounts {
+      refreshToken
+      accessToken
+      expiresAt
+      tokenType
+      scope
+      idToken
+      sessionState
+    }
+    members {
+      id
+      createdAt
+      userId
+      guildId
+      roles {
+        id
+        name
+        position
+        hexColor
+        guildId
+      }
+    }
+  }
+}
+
 mutation createUser(
   $input: CreateUserInput!
 ) {
