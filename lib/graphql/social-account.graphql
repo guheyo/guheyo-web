@@ -1,0 +1,12 @@
+mutation createSocialAccount(
+  $input: CreateSocialAccountInput!
+) {
+  createSocialAccount(input: $input)
+}
+
+mutation deleteSocialAccountByProvider(
+  $provider: String!
+  $socialId: String!
+) {
+  deleteSocialAccountByProvider(provider: $provider, socialId: $socialId)
+}

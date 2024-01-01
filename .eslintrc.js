@@ -51,6 +51,10 @@ module.exports = {
       {
         selector: 'default',
         format: ['camelCase'],
+      },
+      {
+        selector: 'import',
+        format: ['camelCase', 'PascalCase'],
         leadingUnderscore: 'allow',
       },
       {

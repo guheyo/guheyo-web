@@ -303,6 +303,7 @@ export type Mutation = {
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
   deleteSocialAccount: Scalars['String']['output'];
+  deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
   deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
@@ -428,6 +429,12 @@ export type MutationDeleteRoleArgs = {
 
 export type MutationDeleteSocialAccountArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteSocialAccountByProviderArgs = {
+  provider: Scalars['String']['input'];
+  socialId: Scalars['String']['input'];
 };
 
 
@@ -931,6 +938,21 @@ export type FindOffersQueryVariables = Exact<{
 
 export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }>, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
+export type CreateSocialAccountMutationVariables = Exact<{
+  input: CreateSocialAccountInput;
+}>;
+
+
+export type CreateSocialAccountMutation = { __typename?: 'Mutation', createSocialAccount: string };
+
+export type DeleteSocialAccountByProviderMutationVariables = Exact<{
+  provider: Scalars['String']['input'];
+  socialId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
+
 export type FindMyUserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -1151,6 +1173,69 @@ export type FindOffersQueryHookResult = ReturnType<typeof useFindOffersQuery>;
 export type FindOffersLazyQueryHookResult = ReturnType<typeof useFindOffersLazyQuery>;
 export type FindOffersSuspenseQueryHookResult = ReturnType<typeof useFindOffersSuspenseQuery>;
 export type FindOffersQueryResult = Apollo.QueryResult<FindOffersQuery, FindOffersQueryVariables>;
+export const CreateSocialAccountDocument = gql`
+    mutation createSocialAccount($input: CreateSocialAccountInput!) {
+  createSocialAccount(input: $input)
+}
+    `;
+export type CreateSocialAccountMutationFn = Apollo.MutationFunction<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>;
+
+/**
+ * __useCreateSocialAccountMutation__
+ *
+ * To run a mutation, you first call `useCreateSocialAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSocialAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSocialAccountMutation, { data, loading, error }] = useCreateSocialAccountMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSocialAccountMutation(baseOptions?: Apollo.MutationHookOptions<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>(CreateSocialAccountDocument, options);
+      }
+export type CreateSocialAccountMutationHookResult = ReturnType<typeof useCreateSocialAccountMutation>;
+export type CreateSocialAccountMutationResult = Apollo.MutationResult<CreateSocialAccountMutation>;
+export type CreateSocialAccountMutationOptions = Apollo.BaseMutationOptions<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>;
+export const DeleteSocialAccountByProviderDocument = gql`
+    mutation deleteSocialAccountByProvider($provider: String!, $socialId: String!) {
+  deleteSocialAccountByProvider(provider: $provider, socialId: $socialId)
+}
+    `;
+export type DeleteSocialAccountByProviderMutationFn = Apollo.MutationFunction<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
+
+/**
+ * __useDeleteSocialAccountByProviderMutation__
+ *
+ * To run a mutation, you first call `useDeleteSocialAccountByProviderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSocialAccountByProviderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSocialAccountByProviderMutation, { data, loading, error }] = useDeleteSocialAccountByProviderMutation({
+ *   variables: {
+ *      provider: // value for 'provider'
+ *      socialId: // value for 'socialId'
+ *   },
+ * });
+ */
+export function useDeleteSocialAccountByProviderMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>(DeleteSocialAccountByProviderDocument, options);
+      }
+export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof useDeleteSocialAccountByProviderMutation>;
+export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
+export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: String!) {
   findMyUserById(id: $id) {
