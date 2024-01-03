@@ -173,7 +173,7 @@ export type CreateSessionInput = {
   expires: Scalars['DateTime']['input'];
   id: Scalars['ID']['input'];
   sessionToken: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 export type CreateSocialAccountInput = {
@@ -895,9 +895,9 @@ export type UpdateRoleInput = {
 };
 
 export type UpdateSessionInput = {
-  expires: Scalars['DateTime']['input'];
+  expires?: InputMaybe<Scalars['DateTime']['input']>;
   sessionToken: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSocialAccountInput = {
