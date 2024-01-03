@@ -11,3 +11,5 @@ generates:
     config:
       withResultType: true
       withHooks: true
+    scalars:
+      DateTime: Date
