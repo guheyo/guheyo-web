@@ -15,6 +15,9 @@ export const authOptions: AuthOptions = {
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID!,
       clientSecret: process.env.NAVER_CLIENT_SECRET!,
+      profile(profile) {
+        return profile;
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

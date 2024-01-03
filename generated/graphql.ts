@@ -169,6 +169,13 @@ export type CreateRoleInput = {
   position?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type CreateSessionInput = {
+  expires: Scalars['DateTime']['input'];
+  id: Scalars['ID']['input'];
+  sessionToken: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+};
+
 export type CreateSocialAccountInput = {
   accessToken?: InputMaybe<Scalars['String']['input']>;
   expiresAt?: InputMaybe<Scalars['Int']['input']>;
@@ -292,6 +299,7 @@ export type Mutation = {
   createMember: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
+  createSession: Scalars['String']['output'];
   createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
   createUser: Scalars['String']['output'];
@@ -302,6 +310,7 @@ export type Mutation = {
   deleteMember: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
+  deleteSession: Scalars['String']['output'];
   deleteSocialAccount: Scalars['String']['output'];
   deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
@@ -314,6 +323,7 @@ export type Mutation = {
   updateMember: Scalars['String']['output'];
   updateOffer: Scalars['String']['output'];
   updateRole: Scalars['String']['output'];
+  updateSession: Scalars['String']['output'];
   updateSocialAccount: Scalars['String']['output'];
   updateSwap: Scalars['String']['output'];
   updateUser: Scalars['String']['output'];
@@ -376,6 +386,11 @@ export type MutationCreateRoleArgs = {
 };
 
 
+export type MutationCreateSessionArgs = {
+  input: CreateSessionInput;
+};
+
+
 export type MutationCreateSocialAccountArgs = {
   input: CreateSocialAccountInput;
 };
@@ -424,6 +439,11 @@ export type MutationDeleteOfferArgs = {
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteSessionArgs = {
+  sessionToken: Scalars['String']['input'];
 };
 
 
@@ -485,6 +505,11 @@ export type MutationUpdateOfferArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
+};
+
+
+export type MutationUpdateSessionArgs = {
+  input: UpdateSessionInput;
 };
 
 
@@ -612,10 +637,12 @@ export type Query = {
   findGuilds: PaginatedGuildsResponse;
   findMemberByUserAndGuild?: Maybe<MemberWithRolesResponse>;
   findMyUserById?: Maybe<MyUserResponse>;
+  findMyUserBySession?: Maybe<MyUserResponse>;
   findMyUserBySocialAccount?: Maybe<MyUserResponse>;
   findOfferById: OfferResponse;
   findOffers: PaginatedOffersResponse;
   findRoleById?: Maybe<RoleResponse>;
+  findSession: SessionResponse;
   findSwapById?: Maybe<SwapResponse>;
   findSwaps: PaginatedSwapsResponse;
   findUserImageById?: Maybe<UserImageResponse>;
@@ -679,6 +706,11 @@ export type QueryFindMyUserByIdArgs = {
 };
 
 
+export type QueryFindMyUserBySessionArgs = {
+  sessionToken: Scalars['String']['input'];
+};
+
+
 export type QueryFindMyUserBySocialAccountArgs = {
   provider: Scalars['String']['input'];
   socialId: Scalars['String']['input'];
@@ -700,6 +732,11 @@ export type QueryFindOffersArgs = {
 
 export type QueryFindRoleByIdArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryFindSessionArgs = {
+  sessionToken: Scalars['String']['input'];
 };
 
 
@@ -745,6 +782,13 @@ export type RoleResponse = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   position?: Maybe<Scalars['Int']['output']>;
+};
+
+export type SessionResponse = {
+  __typename?: 'SessionResponse';
+  expires: Scalars['DateTime']['output'];
+  sessionToken: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export type SocialAccountResponse = {
@@ -850,6 +894,12 @@ export type UpdateRoleInput = {
   position?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type UpdateSessionInput = {
+  expires?: InputMaybe<Scalars['DateTime']['input']>;
+  sessionToken: Scalars['String']['input'];
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type UpdateSocialAccountInput = {
   accessToken?: InputMaybe<Scalars['String']['input']>;
   expiresAt?: InputMaybe<Scalars['Int']['input']>;
@@ -938,6 +988,38 @@ export type FindOffersQueryVariables = Exact<{
 
 export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }>, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
+export type CreateSessionMutationVariables = Exact<{
+  input: CreateSessionInput;
+}>;
+
+
+export type CreateSessionMutation = { __typename?: 'Mutation', createSession: string };
+
+export type UpdateSessionMutationVariables = Exact<{
+  input: UpdateSessionInput;
+}>;
+
+
+export type UpdateSessionMutation = { __typename?: 'Mutation', updateSession: string };
+
+export type DeleteSessionMutationVariables = Exact<{
+  sessionToken: Scalars['String']['input'];
+}>;
+
+
+export type DeleteSessionMutation = { __typename?: 'Mutation', deleteSession: string };
+
+export type SessionFragment = { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string };
+
+export type FindSessionQueryVariables = Exact<{
+  sessionToken: Scalars['String']['input'];
+}>;
+
+
+export type FindSessionQuery = { __typename?: 'Query', findSession: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } };
+
+export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
+
 export type CreateSocialAccountMutationVariables = Exact<{
   input: CreateSocialAccountInput;
 }>;
@@ -953,6 +1035,12 @@ export type DeleteSocialAccountByProviderMutationVariables = Exact<{
 
 export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
 
+export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string };
+
+export type MemberFragment = { __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> };
+
+export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
+
 export type FindMyUserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -967,6 +1055,13 @@ export type FindMyUserBySocialAccountQueryVariables = Exact<{
 
 
 export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+
+export type FindMyUserBySessionQueryVariables = Exact<{
+  sessionToken: Scalars['String']['input'];
+}>;
+
+
+export type FindMyUserBySessionQuery = { __typename?: 'Query', findMyUserBySession?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
@@ -989,7 +1084,60 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
-
+export const SessionFragmentDoc = gql`
+    fragment session on SessionResponse {
+  sessionToken
+  expires
+  userId
+}
+    `;
+export const SocialAccountFragmentDoc = gql`
+    fragment socialAccount on SocialAccountResponse {
+  refreshToken
+  accessToken
+  expiresAt
+  tokenType
+  scope
+  idToken
+  sessionState
+}
+    `;
+export const RoleFragmentDoc = gql`
+    fragment role on RoleResponse {
+  id
+  name
+  position
+  hexColor
+  guildId
+}
+    `;
+export const MemberFragmentDoc = gql`
+    fragment member on MemberWithRolesResponse {
+  id
+  createdAt
+  userId
+  guildId
+  roles {
+    ...role
+  }
+}
+    ${RoleFragmentDoc}`;
+export const MyUserFragmentDoc = gql`
+    fragment myUser on MyUserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccount
+  }
+  members {
+    ...member
+  }
+}
+    ${SocialAccountFragmentDoc}
+${MemberFragmentDoc}`;
 export const FindGuildsDocument = gql`
     query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGuilds(cursor: $cursor, skip: $skip, take: $take) {
@@ -1173,6 +1321,139 @@ export type FindOffersQueryHookResult = ReturnType<typeof useFindOffersQuery>;
 export type FindOffersLazyQueryHookResult = ReturnType<typeof useFindOffersLazyQuery>;
 export type FindOffersSuspenseQueryHookResult = ReturnType<typeof useFindOffersSuspenseQuery>;
 export type FindOffersQueryResult = Apollo.QueryResult<FindOffersQuery, FindOffersQueryVariables>;
+export const CreateSessionDocument = gql`
+    mutation createSession($input: CreateSessionInput!) {
+  createSession(input: $input)
+}
+    `;
+export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
+
+/**
+ * __useCreateSessionMutation__
+ *
+ * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
+      }
+export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
+export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
+export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;
+export const UpdateSessionDocument = gql`
+    mutation updateSession($input: UpdateSessionInput!) {
+  updateSession(input: $input)
+}
+    `;
+export type UpdateSessionMutationFn = Apollo.MutationFunction<UpdateSessionMutation, UpdateSessionMutationVariables>;
+
+/**
+ * __useUpdateSessionMutation__
+ *
+ * To run a mutation, you first call `useUpdateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSessionMutation, { data, loading, error }] = useUpdateSessionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateSessionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSessionMutation, UpdateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSessionMutation, UpdateSessionMutationVariables>(UpdateSessionDocument, options);
+      }
+export type UpdateSessionMutationHookResult = ReturnType<typeof useUpdateSessionMutation>;
+export type UpdateSessionMutationResult = Apollo.MutationResult<UpdateSessionMutation>;
+export type UpdateSessionMutationOptions = Apollo.BaseMutationOptions<UpdateSessionMutation, UpdateSessionMutationVariables>;
+export const DeleteSessionDocument = gql`
+    mutation deleteSession($sessionToken: String!) {
+  deleteSession(sessionToken: $sessionToken)
+}
+    `;
+export type DeleteSessionMutationFn = Apollo.MutationFunction<DeleteSessionMutation, DeleteSessionMutationVariables>;
+
+/**
+ * __useDeleteSessionMutation__
+ *
+ * To run a mutation, you first call `useDeleteSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSessionMutation, { data, loading, error }] = useDeleteSessionMutation({
+ *   variables: {
+ *      sessionToken: // value for 'sessionToken'
+ *   },
+ * });
+ */
+export function useDeleteSessionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSessionMutation, DeleteSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSessionMutation, DeleteSessionMutationVariables>(DeleteSessionDocument, options);
+      }
+export type DeleteSessionMutationHookResult = ReturnType<typeof useDeleteSessionMutation>;
+export type DeleteSessionMutationResult = Apollo.MutationResult<DeleteSessionMutation>;
+export type DeleteSessionMutationOptions = Apollo.BaseMutationOptions<DeleteSessionMutation, DeleteSessionMutationVariables>;
+export const FindSessionDocument = gql`
+    query findSession($sessionToken: String!) {
+  findSession(sessionToken: $sessionToken) {
+    ...session
+  }
+}
+    ${SessionFragmentDoc}`;
+
+/**
+ * __useFindSessionQuery__
+ *
+ * To run a query within a React component, call `useFindSessionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSessionQuery({
+ *   variables: {
+ *      sessionToken: // value for 'sessionToken'
+ *   },
+ * });
+ */
+export function useFindSessionQuery(baseOptions: Apollo.QueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
+      }
+export function useFindSessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
+        }
+export function useFindSessionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
+        }
+export type FindSessionQueryHookResult = ReturnType<typeof useFindSessionQuery>;
+export type FindSessionLazyQueryHookResult = ReturnType<typeof useFindSessionLazyQuery>;
+export type FindSessionSuspenseQueryHookResult = ReturnType<typeof useFindSessionSuspenseQuery>;
+export type FindSessionQueryResult = Apollo.QueryResult<FindSessionQuery, FindSessionQueryVariables>;
 export const CreateSocialAccountDocument = gql`
     mutation createSocialAccount($input: CreateSocialAccountInput!) {
   createSocialAccount(input: $input)
@@ -1239,36 +1520,10 @@ export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOp
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: String!) {
   findMyUserById(id: $id) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
-    `;
+    ${MyUserFragmentDoc}`;
 
 /**
  * __useFindMyUserByIdQuery__
@@ -1305,36 +1560,10 @@ export type FindMyUserByIdQueryResult = Apollo.QueryResult<FindMyUserByIdQuery, 
 export const FindMyUserBySocialAccountDocument = gql`
     query findMyUserBySocialAccount($provider: String!, $socialId: String!) {
   findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
-    id
-    createdAt
-    username
-    avatarURL
-    bot
-    socialAccounts {
-      refreshToken
-      accessToken
-      expiresAt
-      tokenType
-      scope
-      idToken
-      sessionState
-    }
-    members {
-      id
-      createdAt
-      userId
-      guildId
-      roles {
-        id
-        name
-        position
-        hexColor
-        guildId
-      }
-    }
+    ...myUser
   }
 }
-    `;
+    ${MyUserFragmentDoc}`;
 
 /**
  * __useFindMyUserBySocialAccountQuery__
@@ -1369,6 +1598,46 @@ export type FindMyUserBySocialAccountQueryHookResult = ReturnType<typeof useFind
 export type FindMyUserBySocialAccountLazyQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountLazyQuery>;
 export type FindMyUserBySocialAccountSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountSuspenseQuery>;
 export type FindMyUserBySocialAccountQueryResult = Apollo.QueryResult<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>;
+export const FindMyUserBySessionDocument = gql`
+    query findMyUserBySession($sessionToken: String!) {
+  findMyUserBySession(sessionToken: $sessionToken) {
+    ...myUser
+  }
+}
+    ${MyUserFragmentDoc}`;
+
+/**
+ * __useFindMyUserBySessionQuery__
+ *
+ * To run a query within a React component, call `useFindMyUserBySessionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMyUserBySessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMyUserBySessionQuery({
+ *   variables: {
+ *      sessionToken: // value for 'sessionToken'
+ *   },
+ * });
+ */
+export function useFindMyUserBySessionQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+      }
+export function useFindMyUserBySessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+        }
+export function useFindMyUserBySessionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+        }
+export type FindMyUserBySessionQueryHookResult = ReturnType<typeof useFindMyUserBySessionQuery>;
+export type FindMyUserBySessionLazyQueryHookResult = ReturnType<typeof useFindMyUserBySessionLazyQuery>;
+export type FindMyUserBySessionSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySessionSuspenseQuery>;
+export type FindMyUserBySessionQueryResult = Apollo.QueryResult<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
   createUser(input: $input)

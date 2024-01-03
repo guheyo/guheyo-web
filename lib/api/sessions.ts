@@ -1,37 +1,54 @@
-import { User, Session } from 'prisma';
-import { client } from '../client';
+import {
+  CreateSessionDocument,
+  CreateSessionInput,
+  DeleteSessionDocument,
+  FindSessionDocument,
+  SessionResponse,
+  UpdateSessionDocument,
+  UpdateSessionInput,
+} from '@/generated/graphql';
+import { AdapterSession } from 'next-auth/adapters';
+import { client } from '../apollo/client';
 
-type CreateSessionBody = {
-  sessionToken: string;
-  userId: string;
-  expires: Date;
-};
-
-export async function createSession(body: CreateSessionBody) {
-  const res = await client.post<Session>('/sessions', body);
-  return res.data;
+export async function findSession(
+  sessionToken: string,
+): Promise<AdapterSession | null> {
+  const data = await client.query({
+    query: FindSessionDocument,
+    variables: {
+      sessionToken,
+    },
+  });
+  const session: SessionResponse = data.data?.findSession;
+  return {
+    ...session,
+    expires: new Date(session.expires),
+  };
 }
 
-type SessionAndUser = {
-  session: Session;
-  user: User;
-};
-
-export async function getSessionAndUser(sessionToken: string) {
-  const res = await client.get<SessionAndUser>(
-    `/sessions?sessionToken=${sessionToken}`,
-  );
-  return res.data;
+export async function createSession(input: CreateSessionInput) {
+  await client.mutate({
+    mutation: CreateSessionDocument,
+    variables: {
+      input,
+    },
+  });
 }
 
-export async function updateSession(session: Session) {
-  const res = await client.patch<Session>(`/sessions`, session);
-  return res.data;
+export async function updateSession(input: UpdateSessionInput) {
+  await client.mutate({
+    mutation: UpdateSessionDocument,
+    variables: {
+      input,
+    },
+  });
 }
 
 export async function deleteSession(sessionToken: string) {
-  const res = await client.delete<Session>(
-    `/sessions?sessionToken=${sessionToken}`,
-  );
-  return res.data;
+  await client.mutate({
+    mutation: DeleteSessionDocument,
+    variables: {
+      sessionToken,
+    },
+  });
 }
