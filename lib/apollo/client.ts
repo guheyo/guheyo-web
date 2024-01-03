@@ -1,4 +1,5 @@
-import { ApolloClient, HttpLink } from '@apollo/client';
+import { HttpLink } from '@apollo/client';
+import { NextSSRApolloClient } from '@apollo/experimental-nextjs-app-support/ssr';
 import { cache } from './cache';
 
 export function makeClient() {
@@ -6,7 +7,7 @@ export function makeClient() {
     uri: `${process.env.NEXT_PUBLIC_GRAPHQL_BASE_URL}:${process.env.NEXT_PUBLIC_GRAPHQL_PORT}/graphql`,
   });
 
-  return new ApolloClient({
+  return new NextSSRApolloClient({
     cache,
     link,
   });
