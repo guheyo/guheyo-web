@@ -42,7 +42,7 @@ export type AuctionResponse = {
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
-  seller: UserResponse;
+  seller: AuthorResponse;
   sellerId: Scalars['ID']['output'];
   source: Scalars['String']['output'];
   status: Scalars['String']['output'];
@@ -69,7 +69,7 @@ export type AuthorResponse = {
 export type BidResponse = {
   __typename?: 'BidResponse';
   auctionId: Scalars['ID']['output'];
-  bidder: UserResponse;
+  bidder: AuthorResponse;
   canceledAt: Scalars['DateTime']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
@@ -225,6 +225,8 @@ export type CreateUserImageInput = {
 export type CreateUserInput = {
   avatarURL?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
   username: Scalars['String']['input'];
 };
 
@@ -232,7 +234,7 @@ export type DemandResponse = {
   __typename?: 'DemandResponse';
   brandId?: Maybe<Scalars['String']['output']>;
   businessFunction: Scalars['String']['output'];
-  buyer: UserResponse;
+  buyer: AuthorResponse;
   buyerId: Scalars['ID']['output'];
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
@@ -539,6 +541,8 @@ export type MyUserResponse = {
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   members: Array<MemberWithRolesResponse>;
+  name: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
   socialAccounts: Array<SocialAccountResponse>;
   username: Scalars['String']['output'];
 };
@@ -831,7 +835,7 @@ export type SwapResponse = {
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
-  proposer: UserResponse;
+  proposer: AuthorResponse;
   proposerId: Scalars['ID']['output'];
   source: Scalars['String']['output'];
   status: Scalars['String']['output'];
@@ -933,6 +937,8 @@ export type UpdateUserImageInput = {
 export type UpdateUserInput = {
   avatarURL?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -986,7 +992,7 @@ export type FindOffersQueryVariables = Exact<{
 }>;
 
 
-export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }>, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -1018,7 +1024,9 @@ export type FindSessionQueryVariables = Exact<{
 
 export type FindSessionQuery = { __typename?: 'Query', findSession: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } };
 
-export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
+export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
+
+export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
 
 export type CreateSocialAccountMutationVariables = Exact<{
   input: CreateSocialAccountInput;
@@ -1035,18 +1043,24 @@ export type DeleteSocialAccountByProviderMutationVariables = Exact<{
 
 export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
 
+export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
+
 export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string };
 
 export type MemberFragment = { __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> };
 
-export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
+export type UserFragment = { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean };
+
+export type SellerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
+
+export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name: string, phoneNumber: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
 export type FindMyUserByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type FindMyUserByIdQuery = { __typename?: 'Query', findMyUserById?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+export type FindMyUserByIdQuery = { __typename?: 'Query', findMyUserById?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name: string, phoneNumber: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
 
 export type FindMyUserBySocialAccountQueryVariables = Exact<{
   provider: Scalars['String']['input'];
@@ -1054,14 +1068,14 @@ export type FindMyUserBySocialAccountQueryVariables = Exact<{
 }>;
 
 
-export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name: string, phoneNumber: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
 
 export type FindMyUserBySessionQueryVariables = Exact<{
   sessionToken: Scalars['String']['input'];
 }>;
 
 
-export type FindMyUserBySessionQuery = { __typename?: 'Query', findMyUserBySession?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+export type FindMyUserBySessionQuery = { __typename?: 'Query', findMyUserBySession?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name: string, phoneNumber: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
@@ -1091,15 +1105,40 @@ export const SessionFragmentDoc = gql`
   userId
 }
     `;
-export const SocialAccountFragmentDoc = gql`
-    fragment socialAccount on SocialAccountResponse {
-  refreshToken
-  accessToken
-  expiresAt
-  tokenType
-  scope
-  idToken
-  sessionState
+export const ImageFragmentDoc = gql`
+    fragment image on UserImageResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  url
+  contentType
+  description
+  height
+  width
+  position
+  type
+  refId
+  userId
+  source
+}
+    `;
+export const UserFragmentDoc = gql`
+    fragment user on UserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+}
+    `;
+export const SocialAccountWithoutAuthFragmentDoc = gql`
+    fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
+  id
+  createdAt
+  provider
+  socialId
+  userId
 }
     `;
 export const RoleFragmentDoc = gql`
@@ -1122,11 +1161,45 @@ export const MemberFragmentDoc = gql`
   }
 }
     ${RoleFragmentDoc}`;
+export const SellerFragmentDoc = gql`
+    fragment seller on AuthorResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccountWithoutAuth
+  }
+  members {
+    ...member
+  }
+}
+    ${SocialAccountWithoutAuthFragmentDoc}
+${MemberFragmentDoc}`;
+export const SocialAccountFragmentDoc = gql`
+    fragment socialAccount on SocialAccountResponse {
+  id
+  createdAt
+  provider
+  socialId
+  userId
+  refreshToken
+  accessToken
+  expiresAt
+  tokenType
+  scope
+  idToken
+  sessionState
+}
+    `;
 export const MyUserFragmentDoc = gql`
     fragment myUser on MyUserResponse {
   id
   createdAt
   username
+  name
+  phoneNumber
   avatarURL
   bot
   socialAccounts {
@@ -1230,49 +1303,12 @@ export const FindOffersDocument = gql`
         status
         source
         images {
-          id
-          createdAt
-          updatedAt
-          name
-          url
-          contentType
-          description
-          height
-          width
-          position
-          type
-          refId
-          userId
-          source
+          ...image
         }
         guildId
         productCategoryId
         seller {
-          id
-          createdAt
-          username
-          avatarURL
-          bot
-          members {
-            id
-            createdAt
-            userId
-            guildId
-            roles {
-              id
-              name
-              position
-              hexColor
-              guildId
-            }
-          }
-          socialAccounts {
-            id
-            createdAt
-            provider
-            socialId
-            userId
-          }
+          ...seller
         }
         brandId
       }
@@ -1284,7 +1320,8 @@ export const FindOffersDocument = gql`
     }
   }
 }
-    `;
+    ${ImageFragmentDoc}
+${SellerFragmentDoc}`;
 
 /**
  * __useFindOffersQuery__

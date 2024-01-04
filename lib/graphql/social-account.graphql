@@ -1,4 +1,17 @@
+fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
+  id
+  createdAt
+  provider
+  socialId
+  userId
+}
+
 fragment socialAccount on SocialAccountResponse {
+  id
+  createdAt
+  provider
+  socialId
+  userId
   refreshToken
   accessToken
   expiresAt
