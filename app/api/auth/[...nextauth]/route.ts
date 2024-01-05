@@ -42,6 +42,12 @@ export const authOptions: AuthOptions = {
     },
   },
   adapter: DatabaseAdapter(),
+  theme: {
+    colorScheme: 'light',
+    brandColor: '#CB337B',
+    logo: `${process.env.NEXTAUTH_URL}/star.svg`,
+    buttonText: '#CB337B',
+  },
 };
 
 const handler = NextAuth(authOptions);
