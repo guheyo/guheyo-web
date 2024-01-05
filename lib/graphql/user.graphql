@@ -16,10 +16,34 @@ fragment member on MemberWithRolesResponse {
   }
 }
 
+fragment user on UserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+}
+
+fragment seller on AuthorResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccountWithoutAuth
+  }
+  members {
+    ...member
+  }
+}
+
 fragment myUser on MyUserResponse {
   id
   createdAt
   username
+  name
+  phoneNumber
   avatarURL
   bot
   socialAccounts {

@@ -1,0 +1,16 @@
+fragment image on UserImageResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  url
+  contentType
+  description
+  height
+  width
+  position
+  type
+  refId
+  userId
+  source
+}
