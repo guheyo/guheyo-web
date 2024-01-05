@@ -2,6 +2,8 @@ import NextAuth, { AuthOptions } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 import NaverProvider from 'next-auth/providers/naver';
 import DatabaseAdapter from '@/app/adapters';
+import { nanoid } from 'nanoid';
+import { AdapterUser } from 'next-auth/adapters';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -16,7 +18,12 @@ export const authOptions: AuthOptions = {
       clientId: process.env.NAVER_CLIENT_ID!,
       clientSecret: process.env.NAVER_CLIENT_SECRET!,
       profile(profile) {
-        return profile.response;
+        return {
+          id: profile.response?.id,
+          username: `N-${nanoid()}`,
+          name: profile.response?.name,
+          phoneNumber: profile.response?.mobile_e164,
+        } as AdapterUser;
       },
     }),
   ],
