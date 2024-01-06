@@ -32,8 +32,8 @@ export default function CategoriesNavbar({ type }: Props) {
     })) || [];
 
   return (
-    <Scrollbar>
-      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-10 md:mb-6">
+    <Scrollbar upPosition="top-14">
+      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-10 md:mb-6 bg-dark-500">
         <div className="flex-none text-xs md:text-base bg-dark-200 rounded">
           <TypeSelector />
         </div>
