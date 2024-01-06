@@ -3,6 +3,8 @@
 import { useSearchParams } from 'next/navigation';
 import { useFindOffersQuery } from '@/generated/graphql';
 import OfferPreview from '@/components/offers/offer-preview';
+import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
+import { useRef } from 'react';
 
 export interface OffersPageProps {
   params: {
@@ -19,39 +21,43 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
     variables: {
       productCategoryId: categoryId!,
       take: 12,
-      skip: 1,
+      skip: 0,
     },
   });
+
+  const ref = useRef<HTMLDivElement>(null);
+  useInfiniteScroll(
+    ref,
+    () =>
+      fetchMore({
+        variables: {
+          productCategoryId: categoryId,
+          cursor: data?.findOffers.pageInfo.endCursor,
+          take: 12,
+          skip: 1,
+        },
+        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousQueryResult;
+          return {
+            findOffers: {
+              __typename: previousQueryResult.findOffers.__typename,
+              edges: [
+                ...previousQueryResult.findOffers.edges,
+                ...fetchMoreResult.findOffers.edges,
+              ],
+              pageInfo: fetchMoreResult.findOffers.pageInfo,
+            },
+          };
+        },
+      }),
+    data?.findOffers.pageInfo.hasNextPage,
+  );
 
   if (loading) return <div>loading</div>;
   if (error) return <div>Error</div>;
   if (!data?.findOffers) return <div>null</div>;
 
-  const { edges, pageInfo } = data.findOffers;
-
-  const onFetchMore = () => {
-    fetchMore({
-      variables: {
-        productCategoryId: categoryId,
-        cursor: pageInfo.endCursor,
-        take: 12,
-        skip: 1,
-      },
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousQueryResult;
-        return {
-          findOffers: {
-            __typename: previousQueryResult.findOffers.__typename,
-            edges: [
-              ...previousQueryResult.findOffers.edges,
-              ...fetchMoreResult.findOffers.edges,
-            ],
-            pageInfo: fetchMoreResult.findOffers.pageInfo,
-          },
-        };
-      },
-    });
-  };
+  const { edges } = data.findOffers;
 
   return (
     <div className="grid gap-0 md:gap-4">
@@ -62,13 +68,7 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
           </div>
         ))}
       </div>
-      <button
-        className="text-xs md:text-sm text-light-200 p-4"
-        type="button"
-        onClick={() => onFetchMore()}
-      >
-        더보기
-      </button>
+      <div ref={ref} />
     </div>
   );
 }
