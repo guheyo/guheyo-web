@@ -1214,6 +1214,7 @@ export const BuyerFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
+
 export const ProposerFragmentDoc = gql`
     fragment proposer on AuthorResponse {
   id
@@ -1230,6 +1231,7 @@ export const ProposerFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
+
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
   id
