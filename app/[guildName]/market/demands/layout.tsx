@@ -9,7 +9,7 @@ interface Props extends DemandsPageProps {
 function DemandsLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar type="demands" />
+      <CategoriesNavbar guildName={params.guildName} type="demands" />
       {children}
     </div>
   );

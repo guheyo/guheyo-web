@@ -9,7 +9,7 @@ interface Props extends OffersPageProps {
 function OffersLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar type="offers" />
+      <CategoriesNavbar guildName={params.guildName} type="offers" />
       {children}
     </div>
   );
