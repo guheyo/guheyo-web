@@ -982,6 +982,8 @@ export type FindDemandsQueryVariables = Exact<{
 
 export type FindDemandsQuery = { __typename?: 'Query', findDemands: { __typename?: 'PaginatedDemandsResponse', edges: Array<{ __typename?: 'DemandResponseEdge', cursor: string, node: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
+export type GuildFragment = { __typename?: 'GuildResponse', id: string, name: string, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, description?: string | null, position?: number | null }> };
+
 export type FindGuildsQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
@@ -990,6 +992,13 @@ export type FindGuildsQueryVariables = Exact<{
 
 
 export type FindGuildsQuery = { __typename?: 'Query', findGuilds: { __typename?: 'PaginatedGuildsResponse', edges: Array<{ __typename?: 'GuildResponseEdge', node: { __typename?: 'GuildResponse', id: string, name: string, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, description?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
+
+export type FindGuildByNameQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type FindGuildByNameQuery = { __typename?: 'Query', findGuildByName?: { __typename?: 'GuildResponse', id: string, name: string, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, description?: string | null, position?: number | null }> } | null };
 
 export type FindOffersQueryVariables = Exact<{
   productCategoryId: Scalars['ID']['input'];
@@ -1119,6 +1128,33 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
+export const GuildFragmentDoc = gql`
+    fragment guild on GuildResponse {
+  id
+  name
+  description
+  icon
+  position
+  roles {
+    id
+    name
+    position
+    hexColor
+    guildId
+  }
+  productCategories {
+    id
+    name
+    position
+  }
+  postCategories {
+    id
+    name
+    description
+    position
+  }
+}
+    `;
 export const SessionFragmentDoc = gql`
     fragment session on SessionResponse {
   sessionToken
@@ -1214,7 +1250,6 @@ export const BuyerFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
-
 export const ProposerFragmentDoc = gql`
     fragment proposer on AuthorResponse {
   id
@@ -1231,7 +1266,6 @@ export const ProposerFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
-
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
   id
@@ -1347,29 +1381,7 @@ export const FindGuildsDocument = gql`
   findGuilds(cursor: $cursor, skip: $skip, take: $take) {
     edges {
       node {
-        id
-        name
-        description
-        icon
-        position
-        roles {
-          id
-          name
-          position
-          hexColor
-          guildId
-        }
-        productCategories {
-          id
-          name
-          position
-        }
-        postCategories {
-          id
-          name
-          description
-          position
-        }
+        ...guild
       }
     }
     pageInfo {
@@ -1377,7 +1389,7 @@ export const FindGuildsDocument = gql`
     }
   }
 }
-    `;
+    ${GuildFragmentDoc}`;
 
 /**
  * __useFindGuildsQuery__
@@ -1413,6 +1425,46 @@ export type FindGuildsQueryHookResult = ReturnType<typeof useFindGuildsQuery>;
 export type FindGuildsLazyQueryHookResult = ReturnType<typeof useFindGuildsLazyQuery>;
 export type FindGuildsSuspenseQueryHookResult = ReturnType<typeof useFindGuildsSuspenseQuery>;
 export type FindGuildsQueryResult = Apollo.QueryResult<FindGuildsQuery, FindGuildsQueryVariables>;
+export const FindGuildByNameDocument = gql`
+    query FindGuildByName($name: String!) {
+  findGuildByName(name: $name) {
+    ...guild
+  }
+}
+    ${GuildFragmentDoc}`;
+
+/**
+ * __useFindGuildByNameQuery__
+ *
+ * To run a query within a React component, call `useFindGuildByNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindGuildByNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindGuildByNameQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useFindGuildByNameQuery(baseOptions: Apollo.QueryHookOptions<FindGuildByNameQuery, FindGuildByNameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindGuildByNameQuery, FindGuildByNameQueryVariables>(FindGuildByNameDocument, options);
+      }
+export function useFindGuildByNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindGuildByNameQuery, FindGuildByNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindGuildByNameQuery, FindGuildByNameQueryVariables>(FindGuildByNameDocument, options);
+        }
+export function useFindGuildByNameSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindGuildByNameQuery, FindGuildByNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindGuildByNameQuery, FindGuildByNameQueryVariables>(FindGuildByNameDocument, options);
+        }
+export type FindGuildByNameQueryHookResult = ReturnType<typeof useFindGuildByNameQuery>;
+export type FindGuildByNameLazyQueryHookResult = ReturnType<typeof useFindGuildByNameLazyQuery>;
+export type FindGuildByNameSuspenseQueryHookResult = ReturnType<typeof useFindGuildByNameSuspenseQuery>;
+export type FindGuildByNameQueryResult = Apollo.QueryResult<FindGuildByNameQuery, FindGuildByNameQueryVariables>;
 export const FindOffersDocument = gql`
     query findOffers($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
   findOffers(

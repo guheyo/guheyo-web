@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useReactiveVar } from '@apollo/client';
-import { selectedGuildVar } from '@/lib/apollo/cache';
+import { redirect, useSearchParams } from 'next/navigation';
+import { useFindGuildByNameQuery } from '@/generated/graphql';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
 
@@ -14,22 +13,34 @@ const getButtonCSS = (clicked: boolean) => {
   return `bg-dark-200 text-light-200`;
 };
 
-interface Props {
+export interface ProductCategoriesProps {
+  guildName: string;
   type: 'offers' | 'demands' | 'swaps';
 }
 
-export default function CategoriesNavbar({ type }: Props) {
+export default function CategoriesNavbar({
+  guildName,
+  type,
+}: ProductCategoriesProps) {
   const searchParams = useSearchParams();
+  const { loading, error, data } = useFindGuildByNameQuery({
+    variables: {
+      name: guildName,
+    },
+  });
 
-  const guild = useReactiveVar(selectedGuildVar);
-  if (!guild) return <>null</>;
+  if (loading) return <div>loading</div>;
+  if (error) return <div>error</div>;
+  if (!data?.findGuildByName) return <div>null</div>;
 
+  const categories = data.findGuildByName.productCategories;
   const selectedCategoryId = searchParams.get('categoryId');
-  const categories =
-    guild?.productCategories.map((category) => ({
-      id: category.id,
-      name: category.name,
-    })) || [];
+  const defaultCategoryId = categories[0].id;
+
+  if (!selectedCategoryId)
+    return redirect(
+      `${guildName}/market/${type}?categoryId=${defaultCategoryId}`,
+    );
 
   return (
     <Scrollbar upPosition="top-16">
@@ -45,7 +56,7 @@ export default function CategoriesNavbar({ type }: Props) {
                 category.id === selectedCategoryId,
               )}`}
               passHref
-              href={`/${guild.name}/market/${type}?categoryId=${category.id}`}
+              href={`/${guildName}/market/${type}?categoryId=${category.id}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
