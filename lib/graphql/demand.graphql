@@ -1,0 +1,42 @@
+query findDemands(
+  $productCategoryId: ID!
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findDemands(
+    productCategoryId: $productCategoryId
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        id
+        createdAt
+        updatedAt
+        name
+        description
+        price
+        priceCurrency
+        businessFunction
+        status
+        source
+        images {
+          ...image
+        }
+        guildId
+        productCategoryId
+        buyer {
+          ...buyer
+        }
+        brandId
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

@@ -1,23 +1,23 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useFindOffersQuery } from '@/generated/graphql';
-import OfferPreview from '@/components/offers/offer-preview';
+import { useFindDemandsQuery } from '@/generated/graphql';
+import DemandPreview from '@/components/demands/demand-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 
-export interface OffersPageProps {
+export interface DemandsPageProps {
   params: {
     guildName: string;
     categoryId: string;
   };
 }
 
-function OffersPage({ params: { guildName } }: OffersPageProps) {
+function DemandsPage({ params: { guildName } }: DemandsPageProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
 
-  const { loading, error, data, fetchMore } = useFindOffersQuery({
+  const { loading, error, data, fetchMore } = useFindDemandsQuery({
     variables: {
       productCategoryId: categoryId!,
       take: 12,
@@ -32,39 +32,39 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
       fetchMore({
         variables: {
           productCategoryId: categoryId,
-          cursor: data?.findOffers.pageInfo.endCursor,
+          cursor: data?.findDemands.pageInfo.endCursor,
           take: 12,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findOffers: {
-              __typename: previousQueryResult.findOffers.__typename,
+            findDemands: {
+              __typename: previousQueryResult.findDemands.__typename,
               edges: [
-                ...previousQueryResult.findOffers.edges,
-                ...fetchMoreResult.findOffers.edges,
+                ...previousQueryResult.findDemands.edges,
+                ...fetchMoreResult.findDemands.edges,
               ],
-              pageInfo: fetchMoreResult.findOffers.pageInfo,
+              pageInfo: fetchMoreResult.findDemands.pageInfo,
             },
           };
         },
       }),
-    data?.findOffers.pageInfo.hasNextPage,
+    data?.findDemands.pageInfo.hasNextPage,
   );
 
   if (loading) return <div>loading</div>;
   if (error) return <div>Error</div>;
-  if (!data?.findOffers) return <div>null</div>;
+  if (!data?.findDemands) return <div>null</div>;
 
-  const { edges } = data.findOffers;
+  const { edges } = data.findDemands;
 
   return (
     <div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid gap-1 grid-cols-1">
         {edges.map((edge) => (
           <div className="col-span-1" key={edge.node.id}>
-            <OfferPreview offer={edge.node} />
+            <DemandPreview demand={edge.node} />
           </div>
         ))}
       </div>
@@ -73,4 +73,4 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
   );
 }
 
-export default OffersPage;
+export default DemandsPage;

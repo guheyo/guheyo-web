@@ -22,15 +22,15 @@ export default function OfferPreview({ offer }: Props) {
   };
 
   return (
-    <div className="flex flex-row md:flex-col overflow-hidden line-break gap-1">
-      {thumbnail && (
-        <div className="flex relative w-1/2 md:w-fit">
-          <button
-            type="submit"
-            aria-label="offer-detail"
-            onClick={() => handleOpen()}
-            className="group"
-          >
+    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
+      <button
+        type="submit"
+        aria-label="offer-detail"
+        onClick={() => handleOpen()}
+        className="flex flex-row w-full md:flex-col text-start"
+      >
+        {thumbnail && (
+          <div className="flex relative w-1/2 md:w-fit">
             <Thumbnail image={thumbnail} />
             <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
@@ -39,25 +39,24 @@ export default function OfferPreview({ offer }: Props) {
                 className="opacity-0 group-hover:opacity-100 w-8 h-8 md:w-9 md:h-9"
               />
             </div>
-          </button>
-        </div>
-      )}
-
-      <div className="w-1/2 md:w-full px-4 md:px-2">
-        <div className="text-xs md:text-sm font-medium py-2 text-light-200 h-fit md:h-12">
-          {offer.name}
-        </div>
-        <div className="flex flex-row justify-between items-center py-2">
-          <div className="flex-none text-xs md:text-sm font-semibold">
-            {getPrice(offer.price)}
           </div>
-          <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-            {dayjs(offer.createdAt).fromNow()}
+        )}
+        <div className="w-1/2 md:w-full px-4 md:px-2">
+          <div className="text-xs md:text-sm font-medium py-2 text-light-200 h-fit md:h-12">
+            {offer.name}
+          </div>
+          <div className="flex flex-row justify-between items-center py-2">
+            <div className="flex-none text-sm md:text-base font-semibold">
+              {getPrice(offer.price)}
+            </div>
+            <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
+              {dayjs(offer.createdAt).fromNow()}
+            </div>
           </div>
         </div>
-        <div>
-          <OfferDetail offer={offer} open={open} handleOpen={handleOpen} />
-        </div>
+      </button>
+      <div>
+        <OfferDetail offer={offer} open={open} handleOpen={handleOpen} />
       </div>
     </div>
   );

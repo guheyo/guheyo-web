@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
 import CategoriesNavbar from '@/components/categories/categories-navbar';
-import { OffersPageProps } from './page';
+import { DemandsPageProps } from './page';
 
-interface Props extends OffersPageProps {
+interface Props extends DemandsPageProps {
   children: ReactNode;
 }
 
-function OffersLayout({ params, children }: Props) {
+function DemandsLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar type="offers" />
+      <CategoriesNavbar type="demands" />
       {children}
     </div>
   );
 }
 
-export default OffersLayout;
+export default DemandsLayout;
