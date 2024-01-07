@@ -52,6 +52,20 @@ fragment buyer on AuthorResponse {
   }
 }
 
+fragment proposer on AuthorResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccountWithoutAuth
+  }
+  members {
+    ...member
+  }
+}
+
 fragment myUser on MyUserResponse {
   id
   createdAt
