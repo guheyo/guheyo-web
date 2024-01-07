@@ -61,7 +61,7 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
 
   return (
     <div>
-      <div className="grid gap-x-4 md:gap-x-6 gap-y-6 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
         {edges.map((edge) => (
           <div className="col-span-1" key={edge.node.id}>
             <OfferPreview offer={edge.node} />

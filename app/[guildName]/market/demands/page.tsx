@@ -61,7 +61,7 @@ function DemandsPage({ params: { guildName } }: DemandsPageProps) {
 
   return (
     <div>
-      <div className="grid gap-4 grid-cols-1">
+      <div className="grid gap-1 grid-cols-1">
         {edges.map((edge) => (
           <div className="col-span-1" key={edge.node.id}>
             <DemandPreview demand={edge.node} />

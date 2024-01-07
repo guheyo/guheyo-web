@@ -18,7 +18,7 @@ export default function DemandPreview({ demand }: Props) {
   };
 
   return (
-    <div className="w-full overflow-hidden line-break gap-1 bg-dark-400 p-3 rounded-lg">
+    <div className="w-full overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
       <button
         type="submit"
         aria-label="demand-detail"
