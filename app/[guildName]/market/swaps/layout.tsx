@@ -9,7 +9,7 @@ interface Props extends SwapsPageProps {
 function SwapsLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar type="swaps" />
+      <CategoriesNavbar guildName={params.guildName} type="swaps" />
       {children}
     </div>
   );

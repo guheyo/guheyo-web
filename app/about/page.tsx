@@ -33,8 +33,8 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col">
-      <Scrollbar>
-        <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-white">
+      <Scrollbar upPosition="top-0">
+        <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-dark-500">
           <Tabs tabs={tabs} />
         </div>
       </Scrollbar>
