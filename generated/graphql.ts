@@ -1050,6 +1050,16 @@ export type DeleteSocialAccountByProviderMutationVariables = Exact<{
 
 export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
 
+export type FindSwapsQueryVariables = Exact<{
+  productCategoryId: Scalars['ID']['input'];
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindSwapsQuery = { __typename?: 'Query', findSwaps: { __typename?: 'PaginatedSwapsResponse', edges: Array<{ __typename?: 'SwapResponseEdge', cursor: string, node: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
 
 export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string };
@@ -1061,6 +1071,8 @@ export type UserFragment = { __typename?: 'UserResponse', id: string, createdAt:
 export type SellerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
 export type BuyerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
+
+export type ProposerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
 export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
@@ -1188,6 +1200,22 @@ export const SellerFragmentDoc = gql`
 ${MemberFragmentDoc}`;
 export const BuyerFragmentDoc = gql`
     fragment buyer on AuthorResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccountWithoutAuth
+  }
+  members {
+    ...member
+  }
+}
+    ${SocialAccountWithoutAuthFragmentDoc}
+${MemberFragmentDoc}`;
+export const ProposerFragmentDoc = gql`
+    fragment proposer on AuthorResponse {
   id
   createdAt
   username
@@ -1655,6 +1683,84 @@ export function useDeleteSocialAccountByProviderMutation(baseOptions?: Apollo.Mu
 export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof useDeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
+export const FindSwapsDocument = gql`
+    query findSwaps($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
+  findSwaps(
+    productCategoryId: $productCategoryId
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        id
+        createdAt
+        updatedAt
+        name0
+        name1
+        description0
+        description1
+        price
+        priceCurrency
+        businessFunction
+        status
+        source
+        images {
+          ...image
+        }
+        guildId
+        productCategoryId
+        proposer {
+          ...proposer
+        }
+        brandId
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${ImageFragmentDoc}
+${ProposerFragmentDoc}`;
+
+/**
+ * __useFindSwapsQuery__
+ *
+ * To run a query within a React component, call `useFindSwapsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSwapsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSwapsQuery({
+ *   variables: {
+ *      productCategoryId: // value for 'productCategoryId'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindSwapsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+      }
+export function useFindSwapsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+        }
+export function useFindSwapsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+        }
+export type FindSwapsQueryHookResult = ReturnType<typeof useFindSwapsQuery>;
+export type FindSwapsLazyQueryHookResult = ReturnType<typeof useFindSwapsLazyQuery>;
+export type FindSwapsSuspenseQueryHookResult = ReturnType<typeof useFindSwapsSuspenseQuery>;
+export type FindSwapsQueryResult = Apollo.QueryResult<FindSwapsQuery, FindSwapsQueryVariables>;
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: String!) {
   findMyUserById(id: $id) {

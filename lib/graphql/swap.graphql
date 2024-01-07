@@ -1,0 +1,44 @@
+query findSwaps(
+  $productCategoryId: ID!
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findSwaps(
+    productCategoryId: $productCategoryId
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        id
+        createdAt
+        updatedAt
+        name0
+        name1
+        description0
+        description1
+        price
+        priceCurrency
+        businessFunction
+        status
+        source
+        images {
+          ...image
+        }
+        guildId
+        productCategoryId
+        proposer {
+          ...proposer
+        }
+        brandId
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
