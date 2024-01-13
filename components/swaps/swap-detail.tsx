@@ -30,7 +30,7 @@ export default function SwapDetail({
       sx={{
         top: isMobile ? '0px' : '56px',
       }}
-      className="max-w-screen z-50"
+      className="max-w-screen"
       slotProps={{
         backdrop: {
           sx: {

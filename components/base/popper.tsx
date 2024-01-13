@@ -19,7 +19,6 @@ export default function Popper({
   children,
 }: PopperProps) {
   const popperRef = useRef(null);
-
   useClickOutside(popperRef, handler);
 
   return (
@@ -29,6 +28,9 @@ export default function Popper({
       anchorEl={anchorEl}
       placement={placement}
       transition
+      sx={{
+        zIndex: 1300,
+      }}
     >
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={delay}>

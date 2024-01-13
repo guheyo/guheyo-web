@@ -31,9 +31,9 @@ export default function SwapPreview({ swap }: Props) {
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
-          <div className="flex relative w-1/2 md:w-fit">
+          <div className="flex relative w-[38.5%] md:w-fit">
             <Thumbnail image={thumbnail} />
-            <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"
                 fill="white"
@@ -42,7 +42,7 @@ export default function SwapPreview({ swap }: Props) {
             </div>
           </div>
         )}
-        <div className="w-1/2 md:w-full px-4 md:px-2">
+        <div className="w-[61.5%] md:w-full px-4 md:px-2">
           <div className="text-xs md:text-sm font-medium py-2 text-light-200 h-fit md:h-12">
             <SwapName name0={swap.name0} name1={swap.name1} />
           </div>

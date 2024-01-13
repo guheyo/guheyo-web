@@ -31,6 +31,7 @@ export default function UserProfile({
   const handlePopoverOpen = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
   const handlePopoverClose = () => {
@@ -71,7 +72,7 @@ export default function UserProfile({
         anchorEl={anchorEl}
         handler={handlePopoverClose}
       >
-        <div className="max-w-xs z-50 bg-white p-4 border rounded-lg drop-shadow-lg">
+        <div className="max-w-xs bg-light-200 p-4 rounded-lg">
           <div className="mb-2 flex items-center justify-between gap-4">
             <UserAvatar user={user} size="md" />
             {displayDM && (
