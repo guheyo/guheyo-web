@@ -9,9 +9,9 @@ import TypeSelector from '../posts/type-selector';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
-    return `bg-deep-dark hover:bg-light-dark text-light-gray hover:text-light-white`;
+    return `bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-light-200`;
   }
-  return `bg-light-gray text-light-white`;
+  return `bg-dark-200 text-light-200`;
 };
 
 interface Props {
@@ -34,7 +34,7 @@ export default function CategoriesNavbar({ type }: Props) {
   return (
     <Scrollbar>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-10 md:mb-6">
-        <div className="flex-none text-xs md:text-base bg-light-gray rounded">
+        <div className="flex-none text-xs md:text-base bg-dark-200 rounded">
           <TypeSelector />
         </div>
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">

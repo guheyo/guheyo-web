@@ -25,14 +25,18 @@ module.exports = {
     },
     colors: {
       main: '#292f33',
-      'light-star': '#D65C95',
-      star: '#CB337B',
-      'light-white': '#f2f3ed',
-      'light-gray': '#8c8f96',
-      'light-dark': '#323338', // post
-      'semi-dark': '#2c2d30', // middlebar
-      dark: '#292a2e', // background
-      'deep-dark': '#1e1f22', // sidebar
+      'star-300': '#D65C95',
+      'star-400': '#D24B8A',
+      'star-500': '#CB337B',
+      'star-600': '#C43176',
+      'star-700': '#B42D6C',
+      'light-200': '#f2f3ed',
+      'dark-200': '#7f838e', // icon-gray
+      'dark-400': '#404146', // clicked-post
+      'dark-500': '#323338', // channel-bg
+      'dark-600': '#2c2d30', // category-bg
+      'dark-700': '#292a2e', // forum-bg
+      'dark-800': '#1e1f22', // leftbar-bg
       ...colors,
     },
   },

@@ -931,6 +931,13 @@ export type FindOffersQueryVariables = Exact<{
 
 export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }>, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
+export type FindMyUserByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindMyUserByIdQuery = { __typename?: 'Query', findMyUserById?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+
 export type FindMyUserBySocialAccountQueryVariables = Exact<{
   provider: Scalars['String']['input'];
   socialId: Scalars['String']['input'];
@@ -938,6 +945,27 @@ export type FindMyUserBySocialAccountQueryVariables = Exact<{
 
 
 export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+
+export type CreateUserMutationVariables = Exact<{
+  input: CreateUserInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: string };
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: string };
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
 
 export const FindGuildsDocument = gql`
@@ -1123,6 +1151,72 @@ export type FindOffersQueryHookResult = ReturnType<typeof useFindOffersQuery>;
 export type FindOffersLazyQueryHookResult = ReturnType<typeof useFindOffersLazyQuery>;
 export type FindOffersSuspenseQueryHookResult = ReturnType<typeof useFindOffersSuspenseQuery>;
 export type FindOffersQueryResult = Apollo.QueryResult<FindOffersQuery, FindOffersQueryVariables>;
+export const FindMyUserByIdDocument = gql`
+    query findMyUserById($id: String!) {
+  findMyUserById(id: $id) {
+    id
+    createdAt
+    username
+    avatarURL
+    bot
+    socialAccounts {
+      refreshToken
+      accessToken
+      expiresAt
+      tokenType
+      scope
+      idToken
+      sessionState
+    }
+    members {
+      id
+      createdAt
+      userId
+      guildId
+      roles {
+        id
+        name
+        position
+        hexColor
+        guildId
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindMyUserByIdQuery__
+ *
+ * To run a query within a React component, call `useFindMyUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMyUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMyUserByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindMyUserByIdQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>(FindMyUserByIdDocument, options);
+      }
+export function useFindMyUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>(FindMyUserByIdDocument, options);
+        }
+export function useFindMyUserByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>(FindMyUserByIdDocument, options);
+        }
+export type FindMyUserByIdQueryHookResult = ReturnType<typeof useFindMyUserByIdQuery>;
+export type FindMyUserByIdLazyQueryHookResult = ReturnType<typeof useFindMyUserByIdLazyQuery>;
+export type FindMyUserByIdSuspenseQueryHookResult = ReturnType<typeof useFindMyUserByIdSuspenseQuery>;
+export type FindMyUserByIdQueryResult = Apollo.QueryResult<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>;
 export const FindMyUserBySocialAccountDocument = gql`
     query findMyUserBySocialAccount($provider: String!, $socialId: String!) {
   findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
@@ -1190,3 +1284,96 @@ export type FindMyUserBySocialAccountQueryHookResult = ReturnType<typeof useFind
 export type FindMyUserBySocialAccountLazyQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountLazyQuery>;
 export type FindMyUserBySocialAccountSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountSuspenseQuery>;
 export type FindMyUserBySocialAccountQueryResult = Apollo.QueryResult<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>;
+export const CreateUserDocument = gql`
+    mutation createUser($input: CreateUserInput!) {
+  createUser(input: $input)
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation updateUser($input: UpdateUserInput!) {
+  updateUser(input: $input)
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const DeleteUserDocument = gql`
+    mutation deleteUser($id: String!) {
+  deleteUser(id: $id)
+}
+    `;
+export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+
+/**
+ * __useDeleteUserMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
+      }
+export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
