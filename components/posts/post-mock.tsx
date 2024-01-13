@@ -1,25 +1,14 @@
 'use client';
 
-export function PostMock({ type }: { type: string }) {
-  if (type === 'buy') {
-    return (
-      <div className="flex">
-        <div className="bg-gray-200 w-[32rem] h-24" />
-      </div>
-    );
-  }
-  return (
-    <div className="flex">
-      <div className="bg-gray-200 w-96 h-72" />
-    </div>
-  );
+export function PostMock({ height }: { height: number }) {
+  return <div className={`col-span-1 bg-dark-400 h-${height} rounded-lg`} />;
 }
 
-export function PostMocks({ type }: { type: string }) {
+export function PostMocks({ height }: { height: number }) {
   return (
     <>
-      {Array.from(Array(18).keys()).map((num) => (
-        <PostMock key={num} type={type} />
+      {Array.from(Array(12).keys()).map((num) => (
+        <PostMock key={num} height={height} />
       ))}
     </>
   );
