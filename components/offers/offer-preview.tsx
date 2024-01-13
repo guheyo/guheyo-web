@@ -30,7 +30,7 @@ export default function OfferPreview({ offer }: Props) {
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
-          <div className="flex relative w-1/2 md:w-fit">
+          <div className="flex relative w-[38.5%] md:w-fit">
             <Thumbnail image={thumbnail} />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
@@ -41,11 +41,11 @@ export default function OfferPreview({ offer }: Props) {
             </div>
           </div>
         )}
-        <div className="w-1/2 md:w-full px-4 md:px-2">
-          <div className="text-xs md:text-sm font-medium py-2 text-light-200 h-fit md:h-12">
+        <div className="w-[61.5%] md:w-full px-4 md:px-2">
+          <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
             {offer.name}
           </div>
-          <div className="flex flex-row justify-between items-center py-2">
+          <div className="flex flex-row justify-between items-center py-3">
             <div className="flex-none text-sm md:text-base font-semibold">
               {getPrice(offer.price)}
             </div>
