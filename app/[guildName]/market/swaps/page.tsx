@@ -5,6 +5,7 @@ import { useFindSwapsQuery } from '@/generated/graphql';
 import SwapPreview from '@/components/swaps/swap-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
+import { PostMocks } from '@/components/posts/post-mock';
 
 export interface SwapsPageProps {
   params: {
@@ -53,23 +54,21 @@ function SwapsPage({ params: { guildName } }: SwapsPageProps) {
     data?.findSwaps.pageInfo.hasNextPage,
   );
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <PostMocks height={72} />;
   if (error) return <div>Error</div>;
   if (!data?.findSwaps) return <div>null</div>;
 
   const { edges } = data.findSwaps;
 
   return (
-    <div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
-        {edges.map((edge) => (
-          <div className="col-span-1" key={edge.node.id}>
-            <SwapPreview swap={edge.node} />
-          </div>
-        ))}
-      </div>
+    <>
+      {edges.map((edge) => (
+        <div className="col-span-1" key={edge.node.id}>
+          <SwapPreview swap={edge.node} />
+        </div>
+      ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }
 
