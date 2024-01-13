@@ -5,7 +5,7 @@ import { useFindSwapsQuery } from '@/generated/graphql';
 import SwapPreview from '@/components/swaps/swap-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
-import { PostMocks } from '@/components/posts/post-mock';
+import { Mocks } from '@/components/mock/mock';
 
 export interface SwapsPageProps {
   params: {
@@ -54,7 +54,7 @@ function SwapsPage({ params: { guildName } }: SwapsPageProps) {
     data?.findSwaps.pageInfo.hasNextPage,
   );
 
-  if (loading) return <PostMocks height={72} />;
+  if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (error) return <div>Error</div>;
   if (!data?.findSwaps) return <div>null</div>;
 

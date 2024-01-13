@@ -5,7 +5,7 @@ import { useFindOffersQuery } from '@/generated/graphql';
 import OfferPreview from '@/components/offers/offer-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
-import { PostMocks } from '@/components/posts/post-mock';
+import { Mocks } from '@/components/mock/mock';
 
 export interface OffersPageProps {
   params: {
@@ -54,7 +54,7 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
     data?.findOffers.pageInfo.hasNextPage,
   );
 
-  if (loading) return <PostMocks height={72} />;
+  if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (error) return <div>Error</div>;
   if (!data?.findOffers) return <div>null</div>;
 
