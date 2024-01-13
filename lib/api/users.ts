@@ -41,7 +41,7 @@ export async function findUserBySession(sessionToken: string) {
       sessionToken,
     },
   });
-  return data.data?.FindMyUserBySessionDocument;
+  return data.data?.findMyUserBySession;
 }
 
 export async function createUser(input: CreateUserInput) {

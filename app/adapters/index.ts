@@ -1,6 +1,7 @@
 import { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters';
 import { v4 as uuid4 } from 'uuid';
 import _ from 'lodash';
+import { nanoid } from 'nanoid';
 import * as users from '@/lib/api/users';
 import * as socialAccounts from '@/lib/api/social-accounts';
 import * as sessions from '@/lib/api/sessions';
@@ -24,7 +25,9 @@ export default function DatabaseAdapter(): Adapter {
       const id = uuid4();
       await users.createUser({
         id,
-        username: user.username,
+        username: user.username || nanoid(),
+        name: user.name,
+        phoneNumber: user.phoneNumber,
       });
       const u = await users.findUser(id);
       return toAdapterUser(u);

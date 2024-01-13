@@ -7110,24 +7110,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
 "axios@npm:^1.6.0":
   version: 1.6.1
   resolution: "axios@npm:1.6.1"
-=======
-"axios@npm:^1.4.0":
-  version: 1.6.3
-  resolution: "axios@npm:1.6.3"
->>>>>>> dea1975 (feat: change axios to graphql in users (#58))
   dependencies:
     follow-redirects: ^1.15.0
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-<<<<<<< HEAD
   checksum: 573f03f59b7487d54551b16f5e155d1d130ad4864ed32d1da93d522b78a57123b34e3bde37f822a65ee297e79f1db840f9ad6514addff50d3cbf5caeed39e8dc
-=======
-  checksum: 07ef3bb83fc2dacc1ae2c97f2bbd04ef7701f5655f9037789d79ee78b698ffa50eaa8465c2017d4d3e9ce7d94cb779f730acaab32ce9036d0a4933c1e89df4da
->>>>>>> dea1975 (feat: change axios to graphql in users (#58))
   languageName: node
   linkType: hard
 
@@ -11020,9 +11010,16 @@ __metadata:
     graphql-codegen-apollo-next-ssr: ^1.7.4
     keen-slider: ^6.8.5
     lodash: ^4.17.21
+<<<<<<< HEAD
     next: 13.5.1
     next-auth: ^4.24.5
     postcss: 8.4.31
+=======
+    nanoid: ^5.0.4
+    next: 13.4.2
+    next-auth: ^4.22.1
+    postcss: 8.4.23
+>>>>>>> 2f922bf (feat: add naver login (#61))
     prettier: ^3.0.0
     react: 18.2.0
     react-device-detect: ^2.2.3
@@ -13684,6 +13681,15 @@ __metadata:
   bin:
     nanoid: bin/nanoid.cjs
   checksum: d36c427e530713e4ac6567d488b489a36582ef89da1d6d4e3b87eded11eb10d7042a877958c6f104929809b2ab0bafa17652b076cdf84324aa75b30b722204f2
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "nanoid@npm:5.0.4"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: cf09cca3774f3147100948f7478f75f4c9ee97a4af65c328dd9abbd83b12f8bb35cf9f89a21c330f3b759d667a4cd0140ed84aa5fdd522c61e0d341aeaa7fb6f
   languageName: node
   linkType: hard
 

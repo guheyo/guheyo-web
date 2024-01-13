@@ -3,7 +3,6 @@ import {
   CreateSessionInput,
   DeleteSessionDocument,
   FindSessionDocument,
-  SessionResponse,
   UpdateSessionDocument,
   UpdateSessionInput,
 } from '@/generated/graphql';
@@ -19,7 +18,7 @@ export async function findSession(
       sessionToken,
     },
   });
-  const session: SessionResponse = data.data?.findSession;
+  const session: AdapterSession = data.data?.findSession;
   return {
     ...session,
     expires: new Date(session.expires),
