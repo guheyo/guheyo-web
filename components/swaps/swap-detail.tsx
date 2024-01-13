@@ -16,17 +16,19 @@ export default function SwapDetail({
   swap,
   open,
   handleOpen,
+  handleClose,
 }: {
   swap: SwapResponse;
   open: boolean;
   handleOpen: React.MouseEventHandler;
+  handleClose: React.MouseEventHandler;
 }) {
   const sizes = 'h-[360px] md:h-[524px]';
 
   return (
     <Dialog
       open={open}
-      onClose={handleOpen}
+      onClose={handleClose}
       sx={{
         top: isMobile ? '0px' : '56px',
       }}

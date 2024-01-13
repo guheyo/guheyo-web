@@ -2,6 +2,7 @@
 
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getPrice } from '@/lib/formatter';
 import { DemandResponse } from '@/generated/graphql';
 import DemandDetail from './demand-detail';
@@ -11,10 +12,17 @@ interface Props {
 }
 
 export default function DemandPreview({ demand }: Props) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
+    window.history.pushState({}, ``, `/demands/${demand.id}`);
+  };
+
+  const handleClose = () => {
+    setOpen(!open);
+    router.back();
   };
 
   return (
@@ -40,7 +48,12 @@ export default function DemandPreview({ demand }: Props) {
         </div>
       </button>
       <div>
-        <DemandDetail demand={demand} open={open} handleOpen={handleOpen} />
+        <DemandDetail
+          demand={demand}
+          open={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
       </div>
     </div>
   );

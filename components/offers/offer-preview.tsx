@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
 import { OfferResponse } from '@/generated/graphql';
@@ -14,11 +15,18 @@ interface Props {
 }
 
 export default function OfferPreview({ offer }: Props) {
+  const router = useRouter();
   const thumbnail = _.get(offer.images, '[0]');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
+    window.history.pushState({}, '', `/offers/${offer.id}`);
+  };
+
+  const handleClose = () => {
+    setOpen(!open);
+    router.back();
   };
 
   return (
@@ -56,7 +64,12 @@ export default function OfferPreview({ offer }: Props) {
         </div>
       </button>
       <div>
-        <OfferDetail offer={offer} open={open} handleOpen={handleOpen} />
+        <OfferDetail
+          offer={offer}
+          open={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
       </div>
     </div>
   );
