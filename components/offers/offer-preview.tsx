@@ -32,7 +32,7 @@ export default function OfferPreview({ offer }: Props) {
         {thumbnail && (
           <div className="flex relative w-1/2 md:w-fit">
             <Thumbnail image={thumbnail} />
-            <div className="absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"
                 fill="white"

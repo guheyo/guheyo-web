@@ -79,7 +79,7 @@ function Arrow({ disabled, onClick, left }: CarouselArrowProps) {
 function Navigation({ activeIndex, length, instanceRef }: NavigationProps) {
   if (length < 2) return null;
   return (
-    <div className="absolute bottom-2 md:bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+    <div className="absolute bottom-2 md:bottom-4 left-2/4 flex -translate-x-2/4 gap-2">
       {_.range(length).map((index) => (
         <div
           role="presentation"

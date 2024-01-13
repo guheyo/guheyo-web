@@ -29,7 +29,7 @@ export default function DemandDetail({
       sx={{
         top: isMobile ? '0px' : '56px',
       }}
-      className="max-w-screen z-50"
+      className="max-w-screen"
       slotProps={{
         backdrop: {
           sx: {
@@ -58,6 +58,7 @@ export default function DemandDetail({
             <XMarkIcon className="w-6 md:w-9 text-dark-200 hover:text-light-200 bg-dark-400 rounded-lg" />
           </IconButton>
         </div>
+
         {demand.images.length > 0 ? (
           <div className="flex flex-col md:flex-row gap-2 md:gap-14 justify-center">
             <div className="w-full md:w-[45%]">
