@@ -5,6 +5,7 @@ import { redirect, useSearchParams } from 'next/navigation';
 import { useFindGuildByNameQuery } from '@/generated/graphql';
 import Scrollbar from '../base/scrollbar';
 import TypeSelector from '../posts/type-selector';
+import { Mocks } from '../mock/mock';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
@@ -29,7 +30,12 @@ export default function CategoriesNavbar({
     },
   });
 
-  if (loading) return <div>loading</div>;
+  if (loading)
+    return (
+      <div className="grid gap-2 md:gap-6 lg:gap-8 md:px-0 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        <Mocks length={2} height={10} color="bg-dark-700" />
+      </div>
+    );
   if (error) return <div>error</div>;
   if (!data?.findGuildByName) return <div>null</div>;
 
