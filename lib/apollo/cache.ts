@@ -2,27 +2,36 @@ import { makeVar } from '@apollo/client';
 import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
 import { GuildResponse } from '@/generated/graphql';
 
-export const selectedGuildVar = makeVar<GuildResponse | null>(null);
+export type Deal = 'offers' | 'demands' | ' swaps';
 
 export interface Category {
   name: string;
   id: string;
 }
 
-export const selectedColsVar = makeVar<number>(1);
+export const guildVar = makeVar<GuildResponse | null>(null);
+
+export const dealVar = makeVar<Deal>('offers');
+
+export const colsVar = makeVar<number>(1);
 
 export const cache = new NextSSRInMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        selectedGuild: {
+        guild: {
           read() {
-            return selectedGuildVar();
+            return guildVar();
           },
         },
-        selectedCols: {
+        deal: {
           read() {
-            return selectedColsVar();
+            return dealVar();
+          },
+        },
+        cols: {
+          read() {
+            return colsVar();
           },
         },
       },
