@@ -7,8 +7,9 @@ import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
 import { OfferResponse } from '@/generated/graphql';
-import OfferDetail from './offer-detail';
 import Thumbnail from '../base/thumbnail';
+import PostDialog from '../posts/post-dialog';
+import OfferDetail from './offer-detail';
 
 interface Props {
   offer: OfferResponse;
@@ -64,12 +65,13 @@ export default function OfferPreview({ offer }: Props) {
         </div>
       </button>
       <div>
-        <OfferDetail
-          offer={offer}
+        <PostDialog
           open={open}
           handleOpen={handleOpen}
           handleClose={handleClose}
-        />
+        >
+          <OfferDetail offer={offer} />
+        </PostDialog>
       </div>
     </div>
   );
