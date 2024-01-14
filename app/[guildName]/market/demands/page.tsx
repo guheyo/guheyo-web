@@ -6,6 +6,7 @@ import DemandPreview from '@/components/demands/demand-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
+import { dealVar } from '@/lib/apollo/cache';
 
 export interface DemandsPageProps {
   params: {
@@ -17,6 +18,7 @@ export interface DemandsPageProps {
 function DemandsPage({ params: { guildName } }: DemandsPageProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
+  dealVar('demands');
 
   const { loading, error, data, fetchMore } = useFindDemandsQuery({
     variables: {

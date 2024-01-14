@@ -6,6 +6,7 @@ import OfferPreview from '@/components/offers/offer-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
+import { dealVar } from '@/lib/apollo/cache';
 
 export interface OffersPageProps {
   params: {
@@ -17,6 +18,7 @@ export interface OffersPageProps {
 function OffersPage({ params: { guildName } }: OffersPageProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
+  dealVar('offers');
 
   const { loading, error, data, fetchMore } = useFindOffersQuery({
     variables: {

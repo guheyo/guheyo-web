@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { useFindGuildsQuery } from '@/generated/graphql';
-import { selectedGuildVar } from '@/lib/apollo/cache';
+import { guildVar } from '@/lib/apollo/cache';
 
 function Page() {
   const { loading, error, data } = useFindGuildsQuery({
@@ -16,7 +16,7 @@ function Page() {
 
   const guild = data?.findGuilds.edges[0].node;
   const defaultCategoryId = guild?.productCategories[0].id;
-  selectedGuildVar(guild);
+  guildVar(guild);
 
   return redirect(
     `${guild?.name}/market/offers?categoryId=${defaultCategoryId}`,
