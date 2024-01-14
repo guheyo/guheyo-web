@@ -83,7 +83,7 @@ fragment myUser on MyUserResponse {
 }
 
 query findMyUserById(
-  $id: String!
+  $id: ID!
 ) {
   findMyUserById(id: $id) {
     ...myUser
@@ -119,6 +119,6 @@ mutation updateUser(
   updateUser(input: $input)
 }
 
-mutation deleteUser($id: String!) {
+mutation deleteUser($id: ID!) {
   deleteUser(id: $id)
 }

@@ -11,7 +11,7 @@ function Page() {
       skip: 0,
     },
   });
-  if (loading) return <div>loading</div>;
+  if (loading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
 
   const guild = data?.findGuilds.edges[0].node;

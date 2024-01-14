@@ -5,6 +5,7 @@ import { useFindDemandsQuery } from '@/generated/graphql';
 import DemandPreview from '@/components/demands/demand-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
+import { Mocks } from '@/components/mock/mock';
 
 export interface DemandsPageProps {
   params: {
@@ -53,23 +54,21 @@ function DemandsPage({ params: { guildName } }: DemandsPageProps) {
     data?.findDemands.pageInfo.hasNextPage,
   );
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
   if (error) return <div>Error</div>;
   if (!data?.findDemands) return <div>null</div>;
 
   const { edges } = data.findDemands;
 
   return (
-    <div>
-      <div className="grid gap-1 grid-cols-1">
-        {edges.map((edge) => (
-          <div className="col-span-1" key={edge.node.id}>
-            <DemandPreview demand={edge.node} />
-          </div>
-        ))}
-      </div>
+    <>
+      {edges.map((edge) => (
+        <div className="col-span-1" key={edge.node.id}>
+          <DemandPreview demand={edge.node} />
+        </div>
+      ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }
 

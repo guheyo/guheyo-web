@@ -5,6 +5,7 @@ import { useFindOffersQuery } from '@/generated/graphql';
 import OfferPreview from '@/components/offers/offer-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
+import { Mocks } from '@/components/mock/mock';
 
 export interface OffersPageProps {
   params: {
@@ -53,23 +54,21 @@ function OffersPage({ params: { guildName } }: OffersPageProps) {
     data?.findOffers.pageInfo.hasNextPage,
   );
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (error) return <div>Error</div>;
   if (!data?.findOffers) return <div>null</div>;
 
   const { edges } = data.findOffers;
 
   return (
-    <div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
-        {edges.map((edge) => (
-          <div className="col-span-1" key={edge.node.id}>
-            <OfferPreview offer={edge.node} />
-          </div>
-        ))}
-      </div>
+    <>
+      {edges.map((edge) => (
+        <div className="col-span-1" key={edge.node.id}>
+          <OfferPreview offer={edge.node} />
+        </div>
+      ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }
 

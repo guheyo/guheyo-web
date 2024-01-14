@@ -1,3 +1,27 @@
+fragment swap on SwapResponse {
+  id
+  createdAt
+  updatedAt
+  name0
+  name1
+  description0
+  description1
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  images {
+    ...image
+  }
+  guildId
+  productCategoryId
+  proposer {
+    ...proposer
+  }
+  brandId
+}
+
 query findSwaps(
   $productCategoryId: ID!
   $cursor: ID
@@ -12,27 +36,7 @@ query findSwaps(
   ) {
     edges {
       node {
-        id
-        createdAt
-        updatedAt
-        name0
-        name1
-        description0
-        description1
-        price
-        priceCurrency
-        businessFunction
-        status
-        source
-        images {
-          ...image
-        }
-        guildId
-        productCategoryId
-        proposer {
-          ...proposer
-        }
-        brandId
+        ...swap
       }
       cursor
     }
@@ -40,5 +44,15 @@ query findSwaps(
       endCursor
       hasNextPage
     }
+  }
+}
+
+query findSwapById(
+  $id: ID!
+) {
+  findSwapById(
+    id: $id
+  ) {
+    ...swap
   }
 }

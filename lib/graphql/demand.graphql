@@ -1,3 +1,25 @@
+fragment demand on DemandResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  description
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  images {
+    ...image
+  }
+  guildId
+  productCategoryId
+  buyer {
+    ...buyer
+  }
+  brandId
+}
+
 query findDemands(
   $productCategoryId: ID!
   $cursor: ID
@@ -12,25 +34,7 @@ query findDemands(
   ) {
     edges {
       node {
-        id
-        createdAt
-        updatedAt
-        name
-        description
-        price
-        priceCurrency
-        businessFunction
-        status
-        source
-        images {
-          ...image
-        }
-        guildId
-        productCategoryId
-        buyer {
-          ...buyer
-        }
-        brandId
+        ...demand
       }
       cursor
     }
@@ -38,5 +42,15 @@ query findDemands(
       endCursor
       hasNextPage
     }
+  }
+}
+
+query findDemandById(
+  $id: ID!
+) {
+  findDemandById(
+    id: $id
+  ) {
+    ...demand
   }
 }

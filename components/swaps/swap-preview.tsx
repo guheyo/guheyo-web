@@ -3,23 +3,32 @@
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
 import { SwapResponse } from '@/generated/graphql';
 import SwapDetail from './swap-detail';
 import Thumbnail from '../base/thumbnail';
 import SwapName from './swap-name';
+import PostDialog from '../posts/post-dialog';
 
 interface Props {
   swap: SwapResponse;
 }
 
 export default function SwapPreview({ swap }: Props) {
+  const router = useRouter();
   const thumbnail = _.get(swap.images, '[0]');
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
+    window.history.pushState({}, ``, `/swaps/${swap.id}`);
+  };
+
+  const handleClose = () => {
+    setOpen(!open);
+    router.back();
   };
 
   return (
@@ -57,7 +66,13 @@ export default function SwapPreview({ swap }: Props) {
         </div>
       </button>
       <div>
-        <SwapDetail swap={swap} open={open} handleOpen={handleOpen} />
+        <PostDialog
+          open={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        >
+          <SwapDetail swap={swap} />
+        </PostDialog>
       </div>
     </div>
   );
