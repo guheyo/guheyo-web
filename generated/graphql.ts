@@ -720,7 +720,7 @@ export type QueryFindMyUserBySocialAccountArgs = {
 
 
 export type QueryFindOfferByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1000,6 +1000,8 @@ export type FindGuildByNameQueryVariables = Exact<{
 
 export type FindGuildByNameQuery = { __typename?: 'Query', findGuildByName?: { __typename?: 'GuildResponse', id: string, name: string, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, description?: string | null, position?: number | null }> } | null };
 
+export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } };
+
 export type FindOffersQueryVariables = Exact<{
   productCategoryId: Scalars['ID']['input'];
   cursor?: InputMaybe<Scalars['ID']['input']>;
@@ -1009,6 +1011,13 @@ export type FindOffersQueryVariables = Exact<{
 
 
 export type FindOffersQuery = { __typename?: 'Query', findOffers: { __typename?: 'PaginatedOffersResponse', edges: Array<{ __typename?: 'OfferResponseEdge', cursor: string, node: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindOfferByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindOfferByIdQuery = { __typename?: 'Query', findOfferById: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -1155,13 +1164,6 @@ export const GuildFragmentDoc = gql`
   }
 }
     `;
-export const SessionFragmentDoc = gql`
-    fragment session on SessionResponse {
-  sessionToken
-  expires
-  userId
-}
-    `;
 export const ImageFragmentDoc = gql`
     fragment image on UserImageResponse {
   id
@@ -1178,15 +1180,6 @@ export const ImageFragmentDoc = gql`
   refId
   userId
   source
-}
-    `;
-export const UserFragmentDoc = gql`
-    fragment user on UserResponse {
-  id
-  createdAt
-  username
-  avatarURL
-  bot
 }
     `;
 export const SocialAccountWithoutAuthFragmentDoc = gql`
@@ -1234,6 +1227,46 @@ export const SellerFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
+export const OfferFragmentDoc = gql`
+    fragment offer on OfferResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  description
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  images {
+    ...image
+  }
+  guildId
+  productCategoryId
+  seller {
+    ...seller
+  }
+  brandId
+}
+    ${ImageFragmentDoc}
+${SellerFragmentDoc}`;
+export const SessionFragmentDoc = gql`
+    fragment session on SessionResponse {
+  sessionToken
+  expires
+  userId
+}
+    `;
+export const UserFragmentDoc = gql`
+    fragment user on UserResponse {
+  id
+  createdAt
+  username
+  avatarURL
+  bot
+}
+    `;
 export const BuyerFragmentDoc = gql`
     fragment buyer on AuthorResponse {
   id
@@ -1475,25 +1508,7 @@ export const FindOffersDocument = gql`
   ) {
     edges {
       node {
-        id
-        createdAt
-        updatedAt
-        name
-        description
-        price
-        priceCurrency
-        businessFunction
-        status
-        source
-        images {
-          ...image
-        }
-        guildId
-        productCategoryId
-        seller {
-          ...seller
-        }
-        brandId
+        ...offer
       }
       cursor
     }
@@ -1503,8 +1518,7 @@ export const FindOffersDocument = gql`
     }
   }
 }
-    ${ImageFragmentDoc}
-${SellerFragmentDoc}`;
+    ${OfferFragmentDoc}`;
 
 /**
  * __useFindOffersQuery__
@@ -1541,6 +1555,46 @@ export type FindOffersQueryHookResult = ReturnType<typeof useFindOffersQuery>;
 export type FindOffersLazyQueryHookResult = ReturnType<typeof useFindOffersLazyQuery>;
 export type FindOffersSuspenseQueryHookResult = ReturnType<typeof useFindOffersSuspenseQuery>;
 export type FindOffersQueryResult = Apollo.QueryResult<FindOffersQuery, FindOffersQueryVariables>;
+export const FindOfferByIdDocument = gql`
+    query findOfferById($id: ID!) {
+  findOfferById(id: $id) {
+    ...offer
+  }
+}
+    ${OfferFragmentDoc}`;
+
+/**
+ * __useFindOfferByIdQuery__
+ *
+ * To run a query within a React component, call `useFindOfferByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindOfferByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindOfferByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindOfferByIdQuery(baseOptions: Apollo.QueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
+      }
+export function useFindOfferByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
+        }
+export function useFindOfferByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
+        }
+export type FindOfferByIdQueryHookResult = ReturnType<typeof useFindOfferByIdQuery>;
+export type FindOfferByIdLazyQueryHookResult = ReturnType<typeof useFindOfferByIdLazyQuery>;
+export type FindOfferByIdSuspenseQueryHookResult = ReturnType<typeof useFindOfferByIdSuspenseQuery>;
+export type FindOfferByIdQueryResult = Apollo.QueryResult<FindOfferByIdQuery, FindOfferByIdQueryVariables>;
 export const CreateSessionDocument = gql`
     mutation createSession($input: CreateSessionInput!) {
   createSession(input: $input)
