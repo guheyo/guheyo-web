@@ -412,17 +412,17 @@ export type MutationCreateUserImageArgs = {
 
 
 export type MutationDeleteAuctionArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteDemandArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteGuildArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -433,12 +433,12 @@ export type MutationDeleteMemberArgs = {
 
 
 export type MutationDeleteOfferArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteRoleArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -448,7 +448,7 @@ export type MutationDeleteSessionArgs = {
 
 
 export type MutationDeleteSocialAccountArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -459,17 +459,17 @@ export type MutationDeleteSocialAccountByProviderArgs = {
 
 
 export type MutationDeleteSwapArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteUserArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteUserImageArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -655,7 +655,7 @@ export type Query = {
 
 
 export type QueryFindAuctionByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -668,7 +668,7 @@ export type QueryFindAuctionsArgs = {
 
 
 export type QueryFindDemandByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -681,7 +681,7 @@ export type QueryFindDemandsArgs = {
 
 
 export type QueryFindGuildByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -704,7 +704,7 @@ export type QueryFindMemberByUserAndGuildArgs = {
 
 
 export type QueryFindMyUserByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -733,7 +733,7 @@ export type QueryFindOffersArgs = {
 
 
 export type QueryFindRoleByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -743,7 +743,7 @@ export type QueryFindSessionArgs = {
 
 
 export type QueryFindSwapByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -756,7 +756,7 @@ export type QueryFindSwapsArgs = {
 
 
 export type QueryFindUserImageByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -774,7 +774,7 @@ export type QueryFindUsersArgs = {
 
 
 export type QueryGetSocialAccountsByUserIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 export type RoleResponse = {
@@ -1095,7 +1095,7 @@ export type ProposerFragment = { __typename?: 'AuthorResponse', id: string, crea
 export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> };
 
 export type FindMyUserByIdQueryVariables = Exact<{
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 }>;
 
 
@@ -1131,7 +1131,7 @@ export type UpdateUserMutationVariables = Exact<{
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: string };
 
 export type DeleteUserMutationVariables = Exact<{
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 }>;
 
 
@@ -1870,7 +1870,7 @@ export type FindSwapsLazyQueryHookResult = ReturnType<typeof useFindSwapsLazyQue
 export type FindSwapsSuspenseQueryHookResult = ReturnType<typeof useFindSwapsSuspenseQuery>;
 export type FindSwapsQueryResult = Apollo.QueryResult<FindSwapsQuery, FindSwapsQueryVariables>;
 export const FindMyUserByIdDocument = gql`
-    query findMyUserById($id: String!) {
+    query findMyUserById($id: ID!) {
   findMyUserById(id: $id) {
     ...myUser
   }
@@ -2053,7 +2053,7 @@ export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutati
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const DeleteUserDocument = gql`
-    mutation deleteUser($id: String!) {
+    mutation deleteUser($id: ID!) {
   deleteUser(id: $id)
 }
     `;
