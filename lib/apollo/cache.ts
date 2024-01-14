@@ -2,7 +2,7 @@ import { makeVar } from '@apollo/client';
 import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
 import { GuildResponse } from '@/generated/graphql';
 
-export type Deal = 'offers' | 'demands' | ' swaps';
+export type Deal = 'offers' | 'demands' | 'swaps';
 
 export interface Category {
   name: string;

@@ -6,6 +6,7 @@ import SwapPreview from '@/components/swaps/swap-preview';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
+import { dealVar } from '@/lib/apollo/cache';
 
 export interface SwapsPageProps {
   params: {
@@ -17,6 +18,7 @@ export interface SwapsPageProps {
 function SwapsPage({ params: { guildName } }: SwapsPageProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
+  dealVar('swaps');
 
   const { loading, error, data, fetchMore } = useFindSwapsQuery({
     variables: {

@@ -1,8 +1,10 @@
 'use client';
 
+import { Deal, dealVar } from '@/lib/apollo/cache';
+import { useReactiveVar } from '@apollo/client';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 const options = [
   { value: 'offers', label: '판매' },
@@ -10,15 +12,16 @@ const options = [
   { value: 'swaps', label: '교환' },
 ];
 
-export default function TypeSelector() {
+export default function DealSelector() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategoryId = searchParams.get('categoryId');
-  const type = pathname.split('/').at(-1);
+  const deal = useReactiveVar(dealVar);
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
+    dealVar(value as Deal);
     router.push(
       `${pathname
         .split('/')
@@ -27,16 +30,11 @@ export default function TypeSelector() {
     );
   };
 
-  const selectedValue = useMemo(
-    () => options.find((o) => o.value === type ?? 'offers')?.value ?? 'offers',
-    [type],
-  );
-
   return (
     <Select
       id="type-selector"
       placeholder="판매"
-      value={selectedValue}
+      value={deal}
       onChange={handleChange}
       inputProps={{
         className: 'py-2',
