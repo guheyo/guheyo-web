@@ -10,6 +10,7 @@ import { SwapResponse } from '@/generated/graphql';
 import SwapDetail from './swap-detail';
 import Thumbnail from '../base/thumbnail';
 import SwapName from './swap-name';
+import PostDialog from '../posts/post-dialog';
 
 interface Props {
   swap: SwapResponse;
@@ -65,12 +66,13 @@ export default function SwapPreview({ swap }: Props) {
         </div>
       </button>
       <div>
-        <SwapDetail
-          swap={swap}
+        <PostDialog
           open={open}
           handleOpen={handleOpen}
           handleClose={handleClose}
-        />
+        >
+          <SwapDetail swap={swap} />
+        </PostDialog>
       </div>
     </div>
   );

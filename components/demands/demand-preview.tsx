@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getPrice } from '@/lib/formatter';
 import { DemandResponse } from '@/generated/graphql';
 import DemandDetail from './demand-detail';
+import PostDialog from '../posts/post-dialog';
 
 interface Props {
   demand: DemandResponse;
@@ -48,12 +49,13 @@ export default function DemandPreview({ demand }: Props) {
         </div>
       </button>
       <div>
-        <DemandDetail
-          demand={demand}
+        <PostDialog
           open={open}
           handleOpen={handleOpen}
           handleClose={handleClose}
-        />
+        >
+          <DemandDetail demand={demand} />
+        </PostDialog>
       </div>
     </div>
   );

@@ -7,12 +7,13 @@ import { OfferResponse } from '@/generated/graphql';
 import { getPrice } from '@/lib/formatter';
 import UserProfile from '../users/user-profile';
 import ImageSlider from '../base/image-slider';
+import PostDetail from '../posts/post-detail';
 
 export default function OfferDetail({ offer }: { offer: OfferResponse }) {
   const sizes = 'h-[360px] md:h-[524px]';
 
   return (
-    <div className="flex flex-col md:flex-row gap-2 md:gap-14 justify-center py-0 md:py-6 h-screen md:h-max overflow-auto md:overflow-hidden bg-dark-400 text-light-200 rounded-none md:rounded-lg">
+    <PostDetail>
       <div className="w-full md:w-[45%]">
         <ImageSlider images={offer.images} sizes={sizes} />
       </div>
@@ -44,6 +45,6 @@ export default function OfferDetail({ offer }: { offer: OfferResponse }) {
           )}
         </div>
       </div>
-    </div>
+    </PostDetail>
   );
 }
