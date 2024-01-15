@@ -31,7 +31,7 @@ export default function OfferPreview({ offer }: Props) {
   };
 
   return (
-    <div className="overflow-hidden line-break bg-dark-400 p-3 mx-2 md:mx-0 rounded-lg">
+    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
       <button
         type="submit"
         aria-label="offer-detail"
