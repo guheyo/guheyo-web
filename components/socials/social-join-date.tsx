@@ -1,6 +1,9 @@
 import dayjs from 'dayjs';
+import {
+  SocialAccountResponse,
+  SocialAccountWithoutAuthResponse,
+} from '@/generated/graphql';
 import SocialLogo from './social-logo';
-import { SocialAccountResponse, SocialAccountWithoutAuthResponse } from '@/generated/graphql';
 
 export default function SocialJoinDate({
   socialAccount,
@@ -11,12 +14,17 @@ export default function SocialJoinDate({
 }) {
   if (!socialAccount) return null;
 
-  const getJoinedDate = (socialAccount: SocialAccountResponse | SocialAccountWithoutAuthResponse) =>
-    `${dayjs(socialAccount.createdAt).format('MMMM Do YYYY')}`;
+  const getJoinedDate = (
+    account: SocialAccountResponse | SocialAccountWithoutAuthResponse,
+  ) => `${dayjs(account.createdAt).format('MMMM Do YYYY')}`;
 
   return (
     <div key={socialAccount.id} className="flex flex-row gap-1 items-center">
-      <SocialLogo provider={socialAccount.provider} width={logoSize} height={logoSize} />
+      <SocialLogo
+        provider={socialAccount.provider}
+        width={logoSize}
+        height={logoSize}
+      />
       <div>{getJoinedDate(socialAccount)}</div>
     </div>
   );

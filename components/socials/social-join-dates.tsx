@@ -1,4 +1,7 @@
-import { SocialAccountResponse, SocialAccountWithoutAuthResponse } from '@/generated/graphql';
+import {
+  SocialAccountResponse,
+  SocialAccountWithoutAuthResponse,
+} from '@/generated/graphql';
 import SocialJoinDate from './social-join-date';
 
 export default function SocialJoinDates({
@@ -6,14 +9,18 @@ export default function SocialJoinDates({
   logoSize,
 }: {
   socialAccounts?: SocialAccountResponse[] | SocialAccountWithoutAuthResponse[];
-  logoSize: number,
+  logoSize: number;
 }) {
   if (!socialAccounts) return null;
 
   return (
     <div className="flex flex-col justify-start">
       {socialAccounts.map((socialAccount) => (
-        <SocialJoinDate socialAccount={socialAccount} logoSize={logoSize}/>
+        <SocialJoinDate
+          key={socialAccount.id}
+          socialAccount={socialAccount}
+          logoSize={logoSize}
+        />
       ))}
     </div>
   );

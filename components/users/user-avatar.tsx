@@ -1,5 +1,4 @@
 import { Avatar as MuiAvatar } from '@mui/material';
-import { AuthorResponse } from '@/generated/graphql';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
