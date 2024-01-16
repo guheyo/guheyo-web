@@ -641,6 +641,7 @@ export type Query = {
   findMyUserById?: Maybe<MyUserResponse>;
   findMyUserBySession?: Maybe<MyUserResponse>;
   findMyUserBySocialAccount?: Maybe<MyUserResponse>;
+  findMyUserByUsername?: Maybe<MyUserResponse>;
   findOfferById: OfferResponse;
   findOffers: PaginatedOffersResponse;
   findRoleById?: Maybe<RoleResponse>;
@@ -716,6 +717,11 @@ export type QueryFindMyUserBySessionArgs = {
 export type QueryFindMyUserBySocialAccountArgs = {
   provider: Scalars['String']['input'];
   socialId: Scalars['String']['input'];
+};
+
+
+export type QueryFindMyUserByUsernameArgs = {
+  username: Scalars['ID']['input'];
 };
 
 
@@ -1133,6 +1139,13 @@ export type FindMyUserBySessionQueryVariables = Exact<{
 
 
 export type FindMyUserBySessionQuery = { __typename?: 'Query', findMyUserBySession?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
+
+export type FindMyUserByUsernameQueryVariables = Exact<{
+  username: Scalars['ID']['input'];
+}>;
+
+
+export type FindMyUserByUsernameQuery = { __typename?: 'Query', findMyUserByUsername?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } | null };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput;
@@ -2098,6 +2111,46 @@ export type FindMyUserBySessionQueryHookResult = ReturnType<typeof useFindMyUser
 export type FindMyUserBySessionLazyQueryHookResult = ReturnType<typeof useFindMyUserBySessionLazyQuery>;
 export type FindMyUserBySessionSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySessionSuspenseQuery>;
 export type FindMyUserBySessionQueryResult = Apollo.QueryResult<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>;
+export const FindMyUserByUsernameDocument = gql`
+    query findMyUserByUsername($username: ID!) {
+  findMyUserByUsername(username: $username) {
+    ...myUser
+  }
+}
+    ${MyUserFragmentDoc}`;
+
+/**
+ * __useFindMyUserByUsernameQuery__
+ *
+ * To run a query within a React component, call `useFindMyUserByUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMyUserByUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMyUserByUsernameQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFindMyUserByUsernameQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>(FindMyUserByUsernameDocument, options);
+      }
+export function useFindMyUserByUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>(FindMyUserByUsernameDocument, options);
+        }
+export function useFindMyUserByUsernameSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>(FindMyUserByUsernameDocument, options);
+        }
+export type FindMyUserByUsernameQueryHookResult = ReturnType<typeof useFindMyUserByUsernameQuery>;
+export type FindMyUserByUsernameLazyQueryHookResult = ReturnType<typeof useFindMyUserByUsernameLazyQuery>;
+export type FindMyUserByUsernameSuspenseQueryHookResult = ReturnType<typeof useFindMyUserByUsernameSuspenseQuery>;
+export type FindMyUserByUsernameQueryResult = Apollo.QueryResult<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: CreateUserInput!) {
   createUser(input: $input)

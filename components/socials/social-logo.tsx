@@ -2,19 +2,29 @@ import Image from 'next/image';
 
 export default function SocialLogo({
   provider,
-  color,
   width,
   height,
 }: {
-  provider: 'discord';
-  color: 'white' | 'black' | 'blue';
+  provider: string;
   width: number;
   height: number;
 }) {
   if (provider === 'discord') {
     return (
       <Image
-        src={`/discord-mark-${color}.svg`}
+        src="/discord-mark-blue.svg"
+        alt={`${provider} logo`}
+        className="dark:invert rounded-full"
+        width={width}
+        height={height}
+        priority
+      />
+    );
+  }
+  if (provider === 'naver') {
+    return (
+      <Image
+        src="/naver.jpg"
         alt={`${provider} logo`}
         className="dark:invert rounded-full"
         width={width}

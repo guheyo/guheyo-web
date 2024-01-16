@@ -25,7 +25,7 @@ export default function DatabaseAdapter(): Adapter {
       const id = uuid4();
       await users.createUser({
         id,
-        username: user.username || nanoid(),
+        username: user.username || `N-${nanoid()}`,
         name: user.name,
         phoneNumber: user.phoneNumber,
       });

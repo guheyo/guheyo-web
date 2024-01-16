@@ -107,6 +107,14 @@ query findMyUserBySession(
   }
 }
 
+query findMyUserByUsername(
+  $username: ID!
+) {
+  findMyUserByUsername(username: $username) {
+    ...myUser
+  }
+}
+
 mutation createUser(
   $input: CreateUserInput!
 ) {

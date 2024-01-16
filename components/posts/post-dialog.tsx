@@ -21,14 +21,14 @@ export default function PostDialog({
       open={open}
       onClose={handleClose}
       sx={{
-        top: isMobile ? '0px' : '56px',
+        top: 0,
       }}
-      className="max-w-screen"
+      className="max-w-full"
       slotProps={{
         backdrop: {
           sx: {
             background: '#323338',
-            top: '56px',
+            top: '48px',
           },
         },
       }}
@@ -38,11 +38,10 @@ export default function PostDialog({
           margin: 0,
           width: '100%',
           maxWidth: '64rem',
-          height: isMobile ? '100%' : '96%',
+          height: isMobile ? '100%' : '80%',
           maxHeight: '100%',
           boxShadow: '0',
-          borderRadius: '0',
-          background: '#323338',
+          background: 'none',
         },
       }}
     >

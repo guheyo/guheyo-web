@@ -13,7 +13,7 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata = {
   title: '구해요',
-  description: '하드코어 취미 장터 구해요',
+  description: '커스텀 키보드 장터 구해요',
 };
 
 export default function RootLayout({
@@ -35,7 +35,7 @@ export default function RootLayout({
           `}
         </Script>
         <link rel="icon" href="/star.ico" sizes="any" />
-        <meta property="og:image" content="star-bg-white.png" />
+        <meta property="og:image" content="star-logo.png" />
         <meta property="og:alt" content="guheyo Logo" />
         <meta property="og:type" content="image/png" />
         <meta property="og:image:width" content="400" />
