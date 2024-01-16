@@ -45,7 +45,7 @@ export default function CategoriesNavbar({
 
   if (!selectedCategoryId)
     return redirect(
-      `${guildName}/market/${deal}?categoryId=${defaultCategoryId}`,
+      `/g/${guildName}/market/${deal}?categoryId=${defaultCategoryId}`,
     );
 
   return (
@@ -62,7 +62,7 @@ export default function CategoriesNavbar({
                 category.id === selectedCategoryId,
               )}`}
               passHref
-              href={`/${guildName}/market/${deal}?categoryId=${category.id}`}
+              href={`/g/${guildName}/market/${deal}?categoryId=${category.id}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
