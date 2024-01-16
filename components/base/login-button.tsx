@@ -2,9 +2,11 @@
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 import React, { useState } from 'react';
-import { PowerIcon } from '@heroicons/react/24/outline';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import Avatar from './avatar';
+import Link from 'next/link';
 
 export default function LoginButton() {
   const { data: session } = useSession();
@@ -51,18 +53,26 @@ export default function LoginButton() {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           onClose={handleCloseMenu}
-          className="mt-1 pr-3 pl-3 w-[250px] ml-3"
-          disableScrollLock
+          className="mt-1 pr-3 pl-3"
         >
-          <MenuItem className="text-sm rounded-md w-[180px] focus:bg-transparent pb-2 pt-2">
-            <div className=" focus:bg-gray-100 hover:bg-gray-100 w-full h-[35px] rounded-md ">
+          <MenuItem>
+              <Link href={`/user/${session.user.username}`} onClick={handleCloseMenu}>
+                <div className="focus:bg-gray-100 hover:bg-gray-100">
+                  <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
+                    <SentimentSatisfiedAltIcon />
+                    프로필
+                  </div>
+                </div>
+              </Link>
+          </MenuItem>
+          <MenuItem>
+            <div className="focus:bg-gray-100 hover:bg-gray-100">
               <button
                 type="submit"
                 onClick={handleSignOut}
-                className="w-full p-1"
               >
                 <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
-                  <PowerIcon width={18} height={18} />
+                  <LogoutIcon />
                   <span>로그아웃</span>
                 </div>
               </button>
