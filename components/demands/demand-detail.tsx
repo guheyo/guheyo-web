@@ -52,7 +52,7 @@ export default function DemandDetail({ demand }: { demand: DemandResponse }) {
 
   return (
     <PostDetail>
-      <div className="flex-none line-break w-full md:w-[90%] h-full px-4 md:px-0 py-4 md:py-0">
+      <div className="flex-none line-break w-full md:w-[90%] h-screen px-4 md:px-0 py-4 md:py-0">
         <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center">
           <UserProfile
             user={demand.buyer}
