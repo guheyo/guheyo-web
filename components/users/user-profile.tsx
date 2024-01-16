@@ -52,17 +52,31 @@ export default function UserProfile({
         {device === 'mobile' && (
           <div className="flex gap-2 items-center font-medium text-base">
             {mode === 'light' && displayAvatar && (
-              <UserAvatar username={user.username} avatarURL={user.avatarURL || undefined} size="xs" />
+              <UserAvatar
+                username={user.username}
+                avatarURL={user.avatarURL || undefined}
+                size="xs"
+              />
             )}
             {mode === 'standard' && displayAvatar && (
-              <UserAvatar username={user.username} avatarURL={user.avatarURL || undefined} size="sm" />
+              <UserAvatar
+                username={user.username}
+                avatarURL={user.avatarURL || undefined}
+                size="sm"
+              />
             )}
             {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
         {device === 'browser' && (
           <div className="flex gap-3 items-center font-medium text-lg">
-            {displayAvatar && <UserAvatar username={user.username} avatarURL={user.avatarURL || undefined} size="sm" />}
+            {displayAvatar && (
+              <UserAvatar
+                username={user.username}
+                avatarURL={user.avatarURL || undefined}
+                size="sm"
+              />
+            )}
             {mode === 'standard' && displayUsername && <Username user={user} />}
           </div>
         )}
@@ -74,7 +88,11 @@ export default function UserProfile({
       >
         <div className="max-w-xs bg-light-200 p-4 rounded-lg">
           <div className="mb-2 flex items-center justify-between gap-4">
-            <UserAvatar username={user.username} avatarURL={user.avatarURL || undefined} size="md" />
+            <UserAvatar
+              username={user.username}
+              avatarURL={user.avatarURL || undefined}
+              size="md"
+            />
             {displayDM && (
               <DmDialog
                 url={`https://discord.com/users/${getDiscordSocialID()}`}
@@ -91,7 +109,10 @@ export default function UserProfile({
           <Typography variant="caption" color="gray" className="font-normal">
             <div>
               <div className="font-semibold">가입시기</div>
-              <SocialJoinDates socialAccounts={user.socialAccounts} logoSize={18} />
+              <SocialJoinDates
+                socialAccounts={user.socialAccounts}
+                logoSize={18}
+              />
             </div>
             <div className="mt-1">
               <div className="font-semibold">역할</div>

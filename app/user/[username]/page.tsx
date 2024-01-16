@@ -1,7 +1,7 @@
 'use client';
 
-import MyUserProfile from "@/components/users/my-user-profile";
-import { useFindMyUserByUsernameQuery } from "@/generated/graphql";
+import MyUserProfile from '@/components/users/my-user-profile';
+import { useFindMyUserByUsernameQuery } from '@/generated/graphql';
 
 function Page({
   params: { username },

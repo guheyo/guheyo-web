@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import Avatar from './avatar';
 import Link from 'next/link';
+import Avatar from './avatar';
 
 export default function LoginButton() {
   const { data: session } = useSession();
@@ -56,21 +56,21 @@ export default function LoginButton() {
           className="mt-1 pr-3 pl-3"
         >
           <MenuItem>
-              <Link href={`/user/${session.user.username}`} onClick={handleCloseMenu}>
-                <div className="focus:bg-gray-100 hover:bg-gray-100">
-                  <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
-                    <SentimentSatisfiedAltIcon />
-                    프로필
-                  </div>
+            <Link
+              href={`/user/${session.user.username}`}
+              onClick={handleCloseMenu}
+            >
+              <div className="focus:bg-gray-100 hover:bg-gray-100">
+                <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
+                  <SentimentSatisfiedAltIcon />
+                  프로필
                 </div>
-              </Link>
+              </div>
+            </Link>
           </MenuItem>
           <MenuItem>
             <div className="focus:bg-gray-100 hover:bg-gray-100">
-              <button
-                type="submit"
-                onClick={handleSignOut}
-              >
+              <button type="submit" onClick={handleSignOut}>
                 <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
                   <LogoutIcon />
                   <span>로그아웃</span>
