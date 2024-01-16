@@ -15,18 +15,20 @@ const convertAvatarSize = (avatarSize: Size): string => {
 };
 
 export default function UserAvatar({
-  user,
+  username,
+  avatarURL,
   size,
 }: {
-  user: AuthorResponse;
+  username: string;
+  avatarURL?: string;
   size: Size;
 }) {
   const avatarSize = convertAvatarSize(size);
 
   return (
     <MuiAvatar
-      alt={`${user.username} avatar`}
-      src={user.avatarURL || '/dongwang-gray.svg'}
+      alt={`${username} avatar`}
+      src={avatarURL || '/dongwang-gray.svg'}
       sx={{
         width: avatarSize,
         height: avatarSize,
