@@ -3,9 +3,9 @@
 import { MyUserResponse } from '@/generated/graphql';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
-import PhoneNumber from '../icon-text/phone-number';
-import Name from '../icon-text/name';
-import Role from '../icon-text/role';
+import PhoneNumber from './phone-number';
+import Name from './name';
+import Role from './role';
 
 export default function MyUserProfile({ user }: { user: MyUserResponse }) {
   return (

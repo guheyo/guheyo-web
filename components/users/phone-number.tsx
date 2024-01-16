@@ -1,7 +1,7 @@
 'use client';
 
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import IconText from './icon-text';
+import IconText from '../icon-text/icon-text';
 
 export default function PhoneNumber({ phoneNumber }: { phoneNumber?: string }) {
   if (!phoneNumber)

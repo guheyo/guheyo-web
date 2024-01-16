@@ -1,7 +1,7 @@
 'use client';
 
 import StarsIcon from '@mui/icons-material/Stars';
-import IconText from './icon-text';
+import IconText from '../icon-text/icon-text';
 
 export default function Role() {
   return (

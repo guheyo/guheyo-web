@@ -1,7 +1,7 @@
 'use client';
 
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import IconText from './icon-text';
+import IconText from '../icon-text/icon-text';
 
 export default function Name({ name }: { name?: string }) {
   if (!name)
