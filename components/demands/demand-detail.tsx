@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { DemandResponse } from '@/generated/graphql';
-import { getPrice } from '@/lib/formatter';
+import { getPrice, truncateName } from '@/lib/formatter';
 import UserProfile from '../users/user-profile';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
@@ -33,7 +33,7 @@ export default function DemandDetail({ demand }: { demand: DemandResponse }) {
           </div>
           <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
             <div className="text-lg md:text-xl font-semibold">
-              {demand.name}
+              {truncateName(demand.name, 45)}
             </div>
             <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
               {getPrice(demand.price)}

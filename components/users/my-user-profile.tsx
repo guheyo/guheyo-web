@@ -19,7 +19,6 @@ export default function MyUserProfile({ user }: { user: MyUserResponse }) {
         <span className="font-semibold">{user.username}</span>
       </div>
       <div className="grid gap-4 p-2">
-        <div className="grid gap-2">{user.name}</div>
         <Name name={user.name || undefined} />
         <PhoneNumber phoneNumber={user.phoneNumber || undefined} />
         <div className="grid gap-2">
