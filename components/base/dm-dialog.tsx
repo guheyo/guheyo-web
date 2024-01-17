@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import LoginButton from './login-button';
 
 export default function DmDialog({ url }: { url: string }) {
@@ -21,7 +20,7 @@ export default function DmDialog({ url }: { url: string }) {
       <button
         type="submit"
         onClick={handleOpen}
-        className="bg-black hover:bg-gray-700 text-sm font-bold p-2 rounded text-white"
+        className="bg-eye-500 hover:bg-eye-400 text-sm font-bold p-2 rounded text-white"
       >
         DM
       </button>
@@ -33,11 +32,10 @@ export default function DmDialog({ url }: { url: string }) {
         className="backdrop-blur-sm"
       >
         <DialogTitle className="text-md md:text-xl text-center">
-          guheyo에 오신 걸 환영합니다!
+          디스코드 아이디로 로그인 해주세요
         </DialogTitle>
         <DialogActions className="flex flex-row gap-1 text-lg items-center justify-center pt-0">
           <LoginButton />
-          <CursorArrowRaysIcon width={32} height={32} />
         </DialogActions>
       </Dialog>
     </div>
