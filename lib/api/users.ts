@@ -20,10 +20,13 @@ export async function findUser(id: string) {
   return data.data?.findMyUserById;
 }
 
-export async function findUserBySocailAccount(
-  socialId: string,
-  provider: string,
-) {
+export async function findUserBySocailAccount({
+  provider,
+  socialId,
+}: {
+  provider: string;
+  socialId: string;
+}) {
   const data = await client.query({
     query: FindMyUserBySocialAccountDocument,
     variables: {
