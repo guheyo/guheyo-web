@@ -19,7 +19,7 @@ function Page() {
   guildVar(guild);
 
   return redirect(
-    `${guild?.name}/market/offers?categoryId=${defaultCategoryId}`,
+    `g/${guild?.name}/market/offers?categoryId=${defaultCategoryId}`,
   );
 }
 

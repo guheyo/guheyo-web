@@ -4,6 +4,7 @@ import NaverProvider from 'next-auth/providers/naver';
 import DatabaseAdapter from '@/app/adapters';
 import { nanoid } from 'nanoid';
 import { AdapterUser } from 'next-auth/adapters';
+import { updateUser } from '@/lib/api/users';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -25,6 +26,11 @@ export const authOptions: AuthOptions = {
           phoneNumber: profile.response?.mobile_e164,
         } as AdapterUser;
       },
+      style: {
+        logo: `${process.env.NEXTAUTH_URL}/naver.jpg`,
+        bg: '#06c755',
+        text: '#ffffff',
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -41,11 +47,22 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
+  events: {
+    async linkAccount(message) {
+      if (message.account.provider === 'naver') {
+        await updateUser({
+          id: message.user.id,
+          name: message.profile.name,
+          phoneNumber: message.profile.phoneNumber,
+        });
+      }
+    },
+  },
   adapter: DatabaseAdapter(),
   theme: {
     colorScheme: 'light',
     brandColor: '#CB337B',
-    logo: `${process.env.NEXTAUTH_URL}/star.svg`,
+    logo: `${process.env.NEXTAUTH_URL}/star-bg-purple-rounded.ico`,
     buttonText: '#CB337B',
   },
 };

@@ -39,12 +39,12 @@ export default function DatabaseAdapter(): Adapter {
     async getUserByEmail(email) {
       return null;
     },
-    async getUserByAccount({ providerAccountId, provider }) {
+    async getUserByAccount({ provider, providerAccountId }) {
       try {
-        const u = await users.findUserBySocailAccount(
-          providerAccountId,
+        const u = await users.findUserBySocailAccount({
           provider,
-        );
+          socialId: providerAccountId,
+        });
         return toAdapterUserOrNull(u);
       } catch (e) {
         return null;
@@ -98,6 +98,8 @@ export default function DatabaseAdapter(): Adapter {
       return session as AdapterSession;
     },
     async getSessionAndUser(sessionToken) {
+
+
       const session = await sessions.findSession(sessionToken);
       const user = await users.findUserBySession(sessionToken);
 
