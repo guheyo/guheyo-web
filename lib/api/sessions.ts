@@ -18,11 +18,13 @@ export async function findSession(
       sessionToken,
     },
   });
-  const session: AdapterSession = data.data?.findSession;
-  return {
-    ...session,
-    expires: new Date(session.expires),
-  };
+  const session = data.data?.findSession;
+  return session
+    ? ({
+        ...session,
+        expires: new Date(session.expires),
+      } as AdapterSession)
+    : null;
 }
 
 export async function createSession(input: CreateSessionInput) {
