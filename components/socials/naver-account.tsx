@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
 import { SocialAccountResponse } from '@/generated/graphql';
 import IconText from '../icon-text/icon-text';
 import SocialLogo from './social-logo';
@@ -17,14 +18,21 @@ export default function NaverAccount({
     return (
       <IconText>
         <SocialLogo provider="naver" width={24} height={24} />
-        <div className="text-red-400">네이버 미연동</div>
+        <div className="text-red-400">네이버 미인증</div>
+        <button
+          type="submit"
+          className="bg-green-500 hover:bg-green-400 text-sm font-bold p-2 rounded text-light-200"
+          onClick={() => signIn('naver')}
+        >
+          네이버 인증하기
+        </button>
       </IconText>
     );
 
   return (
     <IconText>
       <SocialLogo provider="naver" width={24} height={24} />
-      <div>{naverAccount.socialId}</div>
+      <div>네이버 인증 완료</div>
     </IconText>
   );
 }
