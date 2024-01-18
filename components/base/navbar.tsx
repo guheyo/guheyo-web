@@ -7,14 +7,14 @@ import Scrollbar from './scrollbar';
 
 export default function Navbar() {
   return (
-    <Scrollbar upPosition="top-0">
-      <header className="w-full">
+    <Scrollbar upPosition="top-0" zIndex={50}>
+      <header className="w-full border-b-2 border-dark-600">
         <div className="max-w-5xl mx-auto flex items-center justify-between px-2 md:px-0 py-8 h-14">
           <Link href="/">
             <div className="flex flex-row items-center">
               <Image
                 alt="guheyo logo"
-                src="/star-bg-purple-rounded.ico"
+                src="/star/star-bg-purple-rounded.ico"
                 width={32}
                 height={32}
                 className="rounded"
