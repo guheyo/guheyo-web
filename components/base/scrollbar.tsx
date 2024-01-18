@@ -15,9 +15,12 @@ export default function Scrollbar({
   const scrollDirection = useScrollDirection();
   return (
     <div
-      className={`sticky bg-inherit z-${zIndex} ${
+      className={`sticky bg-inherit ${
         scrollDirection === 'up' ? `${upPosition}` : `top-unset`
       }`}
+      style={{
+        zIndex,
+      }}
     >
       {children}
     </div>
