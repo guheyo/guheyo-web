@@ -12,7 +12,7 @@ export default function SocialLogo({
   if (provider === 'discord') {
     return (
       <Image
-        src="/discord-mark-blue.svg"
+        src="/socials/discord/discord-mark-blue.svg"
         alt={`${provider} logo`}
         className="dark:invert rounded-full"
         width={width}
@@ -24,7 +24,7 @@ export default function SocialLogo({
   if (provider === 'naver') {
     return (
       <Image
-        src="/naver.jpg"
+        src="/socials/naver/naver-logo.jpg"
         alt={`${provider} logo`}
         className="dark:invert rounded-full"
         width={width}
