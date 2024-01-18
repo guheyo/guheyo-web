@@ -27,7 +27,7 @@ export default async function Page() {
     {
       title: '2023년 6월 30일',
       content: 'guheyo 베타 버전 공개',
-      iconURL: '/star/star-bg-purple.png',
+      iconURL: '/star/star-bg-purple-rounded.png',
     },
   ];
 
