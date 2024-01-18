@@ -645,7 +645,7 @@ export type Query = {
   findOfferById: OfferResponse;
   findOffers: PaginatedOffersResponse;
   findRoleById?: Maybe<RoleResponse>;
-  findSession: SessionResponse;
+  findSession?: Maybe<SessionResponse>;
   findSwapById?: Maybe<SwapResponse>;
   findSwaps: PaginatedSwapsResponse;
   findUserImageById?: Maybe<UserImageResponse>;
@@ -1062,7 +1062,7 @@ export type FindSessionQueryVariables = Exact<{
 }>;
 
 
-export type FindSessionQuery = { __typename?: 'Query', findSession: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } };
+export type FindSessionQuery = { __typename?: 'Query', findSession?: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } | null };
 
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
