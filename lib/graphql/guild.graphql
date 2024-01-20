@@ -39,3 +39,9 @@ query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
     }
   }
 }
+
+query findGuild($slug: String!) {
+  findGuild(slug: $slug) {
+    ...guild
+  }
+}
