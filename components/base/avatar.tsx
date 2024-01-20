@@ -12,7 +12,7 @@ export default function Avatar({
   return (
     <MuiAvatar
       alt={`${name} avatar`}
-      src={avatarURL || '/dongwang-gray.svg'}
+      src={avatarURL || '/dongwang/dongwang-gray.svg'}
       className="w-8 h-8 bg-zinc-200"
     />
   );

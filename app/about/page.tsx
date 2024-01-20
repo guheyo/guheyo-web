@@ -22,18 +22,18 @@ export default async function Page() {
     {
       title: '2021년 2월 3일',
       content: '디스코드 장터 "동물의 왕국"',
-      iconURL: '/dongwang.png',
+      iconURL: '/dongwang/dongwang.png',
     },
     {
       title: '2023년 6월 30일',
       content: 'guheyo 베타 버전 공개',
-      iconURL: '/star.svg',
+      iconURL: '/star/star-bg-purple-rounded.png',
     },
   ];
 
   return (
     <div className="flex flex-col">
-      <Scrollbar upPosition="top-0">
+      <Scrollbar upPosition="top-0" zIndex={20}>
         <div className="pt-4 pb-4 md:pt-6 md:pb-6 px-2 bg-dark-500">
           <Tabs tabs={tabs} />
         </div>

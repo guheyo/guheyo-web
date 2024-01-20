@@ -1,6 +1,7 @@
 fragment guild on GuildResponse {
   id
   name
+  slug
   description
   icon
   position
@@ -14,11 +15,13 @@ fragment guild on GuildResponse {
   productCategories {
     id
     name
+    slug
     position
   }
   postCategories {
     id
     name
+    slug
     description
     position
   }
@@ -37,8 +40,8 @@ query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   }
 }
 
-query FindGuildByName($name: String!) {
-  findGuildByName(name: $name) {
+query findGuild($slug: String!) {
+  findGuild(slug: $slug) {
     ...guild
   }
 }

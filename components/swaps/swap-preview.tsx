@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
-import { SwapResponse } from '@/generated/graphql';
+import { SwapResponse, UserImageResponse } from '@/generated/graphql';
 import SwapDetail from './swap-detail';
 import Thumbnail from '../base/thumbnail';
 import SwapName from './swap-name';
@@ -18,12 +18,16 @@ interface Props {
 
 export default function SwapPreview({ swap }: Props) {
   const router = useRouter();
-  const thumbnail = _.get(swap.images, '[0]');
+  const thumbnail: UserImageResponse = _.get(swap.images, '[0]')!;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
-    window.history.pushState({}, ``, `/swaps/${swap.id}`);
+    window.history.pushState(
+      {},
+      ``,
+      `/user/${swap.proposer.username}/swaps/${swap.slug}`,
+    );
   };
 
   const handleClose = () => {
@@ -41,7 +45,7 @@ export default function SwapPreview({ swap }: Props) {
       >
         {thumbnail && (
           <div className="flex relative w-[38.5%] md:w-fit">
-            <Thumbnail image={thumbnail} />
+            <Thumbnail url={thumbnail.url} name={thumbnail.name} />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"

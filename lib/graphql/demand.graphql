@@ -3,6 +3,7 @@ fragment demand on DemandResponse {
   createdAt
   updatedAt
   name
+  slug
   description
   price
   priceCurrency
@@ -50,6 +51,16 @@ query findDemandById(
 ) {
   findDemandById(
     id: $id
+  ) {
+    ...demand
+  }
+}
+
+query findDemand(
+  $slug: String!
+) {
+  findDemand(
+    slug: $slug
   ) {
     ...demand
   }

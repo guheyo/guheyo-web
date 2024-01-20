@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
         } as AdapterUser;
       },
       style: {
-        logo: `${process.env.NEXTAUTH_URL}/naver.jpg`,
+        logo: `${process.env.NEXTAUTH_URL}/socials/naver/naver-logo.jpg`,
         bg: '#06c755',
         text: '#ffffff',
       },
@@ -62,7 +62,7 @@ export const authOptions: AuthOptions = {
   theme: {
     colorScheme: 'light',
     brandColor: '#CB337B',
-    logo: `${process.env.NEXTAUTH_URL}/star-bg-purple-rounded.ico`,
+    logo: `${process.env.NEXTAUTH_URL}/star/star-bg-purple-rounded.ico`,
     buttonText: '#CB337B',
   },
 };

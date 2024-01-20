@@ -3,7 +3,7 @@
 import { Deal, dealVar } from '@/lib/apollo/cache';
 import { useReactiveVar } from '@apollo/client';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 const options = [
@@ -12,21 +12,20 @@ const options = [
   { value: 'swaps', label: '교환' },
 ];
 
-export default function DealSelector() {
+export default function DealSelector({
+  categorySlug,
+}: {
+  categorySlug: string;
+}) {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const selectedCategoryId = searchParams.get('categoryId');
   const deal = useReactiveVar(dealVar);
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
     dealVar(value as Deal);
     router.push(
-      `${pathname
-        .split('/')
-        .slice(0, -1)
-        .join('/')}/${value}?categoryId=${selectedCategoryId}`,
+      `${pathname.split('/').slice(0, -2).join('/')}/${value}/${categorySlug}`,
     );
   };
 

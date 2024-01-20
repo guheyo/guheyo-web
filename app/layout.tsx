@@ -34,9 +34,9 @@ export default function RootLayout({
             gtag('config', 'G-TWPX7X0128');
           `}
         </Script>
-        <link rel="icon" href="/star-bg-purple-rounded.ico" sizes="any" />
-        <meta property="og:image" content="star-bg-purple-rounded.png" />
-        <meta property="og:alt" content="guheyo Logo" />
+        <link rel="icon" href="/star/star-bg-purple-rounded.ico" sizes="any" />
+        <meta property="og:image" content="/star/star-bg-purple-rounded.png" />
+        <meta property="og:alt" content="guheyo logo" />
         <meta property="og:type" content="image/png" />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />

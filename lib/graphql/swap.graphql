@@ -2,6 +2,7 @@ fragment swap on SwapResponse {
   id
   createdAt
   updatedAt
+  slug
   name0
   name1
   description0
@@ -52,6 +53,16 @@ query findSwapById(
 ) {
   findSwapById(
     id: $id
+  ) {
+    ...swap
+  }
+}
+
+query findSwap(
+  $slug: String!
+) {
+  findSwap(
+    slug: $slug
   ) {
     ...swap
   }

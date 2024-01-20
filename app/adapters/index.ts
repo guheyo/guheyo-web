@@ -98,8 +98,6 @@ export default function DatabaseAdapter(): Adapter {
       return session as AdapterSession;
     },
     async getSessionAndUser(sessionToken) {
-
-
       const session = await sessions.findSession(sessionToken);
       const user = await users.findUserBySession(sessionToken);
 

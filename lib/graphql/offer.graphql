@@ -3,6 +3,7 @@ fragment offer on OfferResponse {
   createdAt
   updatedAt
   name
+  slug
   description
   price
   priceCurrency
@@ -50,6 +51,16 @@ query findOfferById(
 ) {
   findOfferById(
     id: $id
+  ) {
+    ...offer
+  }
+}
+
+query findOffer(
+  $slug: String!
+) {
+  findOffer(
+    slug: $slug
   ) {
     ...offer
   }

@@ -15,12 +15,10 @@ function Page() {
   if (error) return <div>Error</div>;
 
   const guild = data?.findGuilds.edges[0].node;
-  const defaultCategoryId = guild?.productCategories[0].id;
   guildVar(guild);
+  const defaultCategorySlug = guild?.productCategories[0].slug;
 
-  return redirect(
-    `g/${guild?.name}/market/offers?categoryId=${defaultCategoryId}`,
-  );
+  return redirect(`g/${guild?.slug}/market/offers/${defaultCategorySlug}`);
 }
 
 export default Page;

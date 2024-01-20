@@ -27,7 +27,7 @@ export default function UserAvatar({
   return (
     <MuiAvatar
       alt={`${username} avatar`}
-      src={avatarURL || '/dongwang-gray.svg'}
+      src={avatarURL || '/dongwang/dongwang-gray.svg'}
       sx={{
         width: avatarSize,
         height: avatarSize,

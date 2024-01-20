@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice, truncateName } from '@/lib/formatter';
-import { OfferResponse } from '@/generated/graphql';
+import { OfferResponse, UserImageResponse } from '@/generated/graphql';
 import Thumbnail from '../base/thumbnail';
 import PostDialog from '../posts/post-dialog';
 import OfferDetail from './offer-detail';
@@ -17,12 +17,16 @@ interface Props {
 
 export default function OfferPreview({ offer }: Props) {
   const router = useRouter();
-  const thumbnail = _.get(offer.images, '[0]');
+  const thumbnail: UserImageResponse = _.get(offer.images, '[0]')!;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
-    window.history.pushState({}, '', `/offers/${offer.id}`);
+    window.history.pushState(
+      {},
+      '',
+      `/user/${offer.seller.username}/offers/${offer.slug}`,
+    );
   };
 
   const handleClose = () => {
@@ -40,7 +44,7 @@ export default function OfferPreview({ offer }: Props) {
       >
         {thumbnail && (
           <div className="flex relative w-[38.5%] md:w-fit">
-            <Thumbnail image={thumbnail} />
+            <Thumbnail url={thumbnail.url} name={thumbnail.name} />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"
