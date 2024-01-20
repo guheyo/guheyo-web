@@ -3,6 +3,7 @@ fragment demand on DemandResponse {
   createdAt
   updatedAt
   name
+  slug
   description
   price
   priceCurrency

@@ -3,6 +3,7 @@ fragment offer on OfferResponse {
   createdAt
   updatedAt
   name
+  slug
   description
   price
   priceCurrency
