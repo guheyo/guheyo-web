@@ -1,25 +1,26 @@
 'use client';
 
 import OfferDetail from '@/components/offers/offer-detail';
-import { useFindOfferByIdQuery } from '@/generated/graphql';
+import { useFindOfferQuery } from '@/generated/graphql';
 
 function OfferPage({
-  params: { id },
+  params: { slug },
 }: {
   params: {
-    id: string;
+    slug: string;
   };
 }) {
-  const { loading, error, data } = useFindOfferByIdQuery({
+  const { loading, error, data } = useFindOfferQuery({
     variables: {
-      id,
+      slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
+  if (!data?.findOffer) return <div>null</div>;
 
-  return <OfferDetail offer={data?.findOfferById!} />;
+  return <OfferDetail offer={data.findOffer} />;
 }
 
 export default OfferPage;

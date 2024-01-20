@@ -23,7 +23,7 @@ function Page({
   const user = data.findMyUserByUsername;
 
   return (
-    <div className="text-light-200">
+    <div className="max-w-md text-light-200 mx-2 md:mx-0">
       <MyUserProfile user={user} />
     </div>
   );
