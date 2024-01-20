@@ -28,7 +28,7 @@ export default function GuildInfo({ slug }: { slug: string }) {
         alt={`${guild.name} logo`}
         className="rounded-lg"
       />
-      <div className="text-star-500 text-lg md:text-xl font-bold ">{`g/${guild.description}`}</div>
+      <div className="text-star-500 text-lg md:text-xl font-bold ">{`g/${guild.name}`}</div>
     </div>
   );
 }
