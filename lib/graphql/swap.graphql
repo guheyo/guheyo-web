@@ -57,3 +57,13 @@ query findSwapById(
     ...swap
   }
 }
+
+query findSwap(
+  $slug: String!
+) {
+  findSwap(
+    slug: $slug
+  ) {
+    ...swap
+  }
+}

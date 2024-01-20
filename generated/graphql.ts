@@ -638,6 +638,7 @@ export type Query = {
   __typename?: 'Query';
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
+  findDemand?: Maybe<DemandResponse>;
   findDemandById?: Maybe<DemandResponse>;
   findDemands: PaginatedDemandsResponse;
   findGuild?: Maybe<GuildResponse>;
@@ -648,11 +649,12 @@ export type Query = {
   findMyUserBySession?: Maybe<MyUserResponse>;
   findMyUserBySocialAccount?: Maybe<MyUserResponse>;
   findMyUserByUsername?: Maybe<MyUserResponse>;
-  findOffer: OfferResponse;
-  findOfferById: OfferResponse;
+  findOffer?: Maybe<OfferResponse>;
+  findOfferById?: Maybe<OfferResponse>;
   findOffers: PaginatedOffersResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSession?: Maybe<SessionResponse>;
+  findSwap?: Maybe<SwapResponse>;
   findSwapById?: Maybe<SwapResponse>;
   findSwaps: PaginatedSwapsResponse;
   findUserImageById?: Maybe<UserImageResponse>;
@@ -672,6 +674,11 @@ export type QueryFindAuctionsArgs = {
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryFindDemandArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -757,6 +764,11 @@ export type QueryFindRoleByIdArgs = {
 
 export type QueryFindSessionArgs = {
   sessionToken: Scalars['String']['input'];
+};
+
+
+export type QueryFindSwapArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -1010,6 +1022,13 @@ export type FindDemandByIdQueryVariables = Exact<{
 
 export type FindDemandByIdQuery = { __typename?: 'Query', findDemandById?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
 
+export type FindDemandQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type FindDemandQuery = { __typename?: 'Query', findDemand?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
+
 export type GuildFragment = { __typename?: 'GuildResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> };
 
 export type FindGuildsQueryVariables = Exact<{
@@ -1045,14 +1064,14 @@ export type FindOfferByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferByIdQuery = { __typename?: 'Query', findOfferById: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } };
+export type FindOfferByIdQuery = { __typename?: 'Query', findOfferById?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
 
 export type FindOfferQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type FindOfferQuery = { __typename?: 'Query', findOffer: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } };
+export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -1121,6 +1140,13 @@ export type FindSwapByIdQueryVariables = Exact<{
 
 
 export type FindSwapByIdQuery = { __typename?: 'Query', findSwapById?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
+
+export type FindSwapQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type FindSwapQuery = { __typename?: 'Query', findSwap?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
 
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
 
@@ -1537,6 +1563,46 @@ export type FindDemandByIdQueryHookResult = ReturnType<typeof useFindDemandByIdQ
 export type FindDemandByIdLazyQueryHookResult = ReturnType<typeof useFindDemandByIdLazyQuery>;
 export type FindDemandByIdSuspenseQueryHookResult = ReturnType<typeof useFindDemandByIdSuspenseQuery>;
 export type FindDemandByIdQueryResult = Apollo.QueryResult<FindDemandByIdQuery, FindDemandByIdQueryVariables>;
+export const FindDemandDocument = gql`
+    query findDemand($slug: String!) {
+  findDemand(slug: $slug) {
+    ...demand
+  }
+}
+    ${DemandFragmentDoc}`;
+
+/**
+ * __useFindDemandQuery__
+ *
+ * To run a query within a React component, call `useFindDemandQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindDemandQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindDemandQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindDemandQuery(baseOptions: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+      }
+export function useFindDemandLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+        }
+export function useFindDemandSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+        }
+export type FindDemandQueryHookResult = ReturnType<typeof useFindDemandQuery>;
+export type FindDemandLazyQueryHookResult = ReturnType<typeof useFindDemandLazyQuery>;
+export type FindDemandSuspenseQueryHookResult = ReturnType<typeof useFindDemandSuspenseQuery>;
+export type FindDemandQueryResult = Apollo.QueryResult<FindDemandQuery, FindDemandQueryVariables>;
 export const FindGuildsDocument = gql`
     query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGuilds(cursor: $cursor, skip: $skip, take: $take) {
@@ -2056,6 +2122,46 @@ export type FindSwapByIdQueryHookResult = ReturnType<typeof useFindSwapByIdQuery
 export type FindSwapByIdLazyQueryHookResult = ReturnType<typeof useFindSwapByIdLazyQuery>;
 export type FindSwapByIdSuspenseQueryHookResult = ReturnType<typeof useFindSwapByIdSuspenseQuery>;
 export type FindSwapByIdQueryResult = Apollo.QueryResult<FindSwapByIdQuery, FindSwapByIdQueryVariables>;
+export const FindSwapDocument = gql`
+    query findSwap($slug: String!) {
+  findSwap(slug: $slug) {
+    ...swap
+  }
+}
+    ${SwapFragmentDoc}`;
+
+/**
+ * __useFindSwapQuery__
+ *
+ * To run a query within a React component, call `useFindSwapQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSwapQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSwapQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindSwapQuery(baseOptions: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
+      }
+export function useFindSwapLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
+        }
+export function useFindSwapSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
+        }
+export type FindSwapQueryHookResult = ReturnType<typeof useFindSwapQuery>;
+export type FindSwapLazyQueryHookResult = ReturnType<typeof useFindSwapLazyQuery>;
+export type FindSwapSuspenseQueryHookResult = ReturnType<typeof useFindSwapSuspenseQuery>;
+export type FindSwapQueryResult = Apollo.QueryResult<FindSwapQuery, FindSwapQueryVariables>;
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: ID!) {
   findMyUserById(id: $id) {
