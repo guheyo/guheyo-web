@@ -1,25 +1,26 @@
 'use client';
 
 import DemandDetail from '@/components/demands/demand-detail';
-import { useFindDemandByIdQuery } from '@/generated/graphql';
+import { useFindDemandQuery } from '@/generated/graphql';
 
 function DemandPage({
-  params: { id },
+  params: { slug },
 }: {
   params: {
-    id: string;
+    slug: string;
   };
 }) {
-  const { loading, error, data } = useFindDemandByIdQuery({
+  const { loading, error, data } = useFindDemandQuery({
     variables: {
-      id,
+      slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
+  if (!data?.findDemand) return <div>null</div>;
 
-  return <DemandDetail demand={data?.findDemandById!} />;
+  return <DemandDetail demand={data.findDemand} />;
 }
 
 export default DemandPage;

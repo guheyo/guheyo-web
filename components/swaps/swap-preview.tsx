@@ -23,7 +23,11 @@ export default function SwapPreview({ swap }: Props) {
 
   const handleOpen = () => {
     setOpen(!open);
-    window.history.pushState({}, ``, `/swaps/${swap.id}`);
+    window.history.pushState(
+      {},
+      ``,
+      `/user/${swap.proposer.username}/swaps/${swap.slug}`,
+    );
   };
 
   const handleClose = () => {

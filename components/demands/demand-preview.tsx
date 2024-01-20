@@ -18,7 +18,11 @@ export default function DemandPreview({ demand }: Props) {
 
   const handleOpen = () => {
     setOpen(!open);
-    window.history.pushState({}, ``, `/demands/${demand.id}`);
+    window.history.pushState(
+      {},
+      ``,
+      `/user/${demand.buyer.username}/demands/${demand.slug}`,
+    );
   };
 
   const handleClose = () => {

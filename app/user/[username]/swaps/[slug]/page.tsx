@@ -1,25 +1,26 @@
 'use client';
 
 import SwapDetail from '@/components/swaps/swap-detail';
-import { useFindSwapByIdQuery } from '@/generated/graphql';
+import { useFindSwapQuery } from '@/generated/graphql';
 
 function SwapPage({
-  params: { id },
+  params: { slug },
 }: {
   params: {
-    id: string;
+    slug: string;
   };
 }) {
-  const { loading, error, data } = useFindSwapByIdQuery({
+  const { loading, error, data } = useFindSwapQuery({
     variables: {
-      id,
+      slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
+  if (!data?.findSwap) return <div>null</div>;
 
-  return <SwapDetail swap={data?.findSwapById!} />;
+  return <SwapDetail swap={data.findSwap} />;
 }
 
 export default SwapPage;
