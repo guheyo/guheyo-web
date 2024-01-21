@@ -11,7 +11,7 @@ export default function Navbar() {
       <header className="w-full border-b-2 border-dark-600">
         <div className="max-w-5xl mx-auto flex items-center justify-between px-2 md:px-0 py-8 h-14">
           <Link href="/">
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row gap-2 items-center">
               <Image
                 alt="guheyo logo"
                 src="/star/star-bg-purple-rounded.ico"

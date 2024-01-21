@@ -20,7 +20,7 @@ export default function GuildInfo({ slug }: { slug: string }) {
   guildVar(guild);
 
   return (
-    <div className="flex flex-row items-center gap-4 mx-2 md:mx-0">
+    <div className="flex flex-row items-center gap-4">
       <Image
         src={guild.icon!}
         width={isMobile ? 48 : 56}
@@ -28,7 +28,7 @@ export default function GuildInfo({ slug }: { slug: string }) {
         alt={`${guild.name} logo`}
         className="rounded-lg"
       />
-      <div className="text-star-500 text-lg md:text-xl font-bold ">{`g/${guild.name}`}</div>
+      <div className="text-star-500 text-lg md:text-xl font-bold">{`g/${guild.name}`}</div>
     </div>
   );
 }
