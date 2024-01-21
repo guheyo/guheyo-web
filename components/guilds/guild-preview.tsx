@@ -22,7 +22,7 @@ export default function GuildPreview({ guild }: Props) {
         </Link>
         <GuildJoinButton slug={guild.slug!} />
       </div>
-      <div className="text-base md:text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
+      <div className="text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/offers`}>
           <span className="flex flex-row items-center gap-1">
             {guild.name} 팝니다
@@ -44,7 +44,7 @@ export default function GuildPreview({ guild }: Props) {
           </span>
         </Link>
       </div>
-      <div className="text-base md:text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
+      <div className="text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/demands`}>{guild.name} 삽니다</Link>
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
