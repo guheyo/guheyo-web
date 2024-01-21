@@ -6,19 +6,19 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
-import { SwapResponse, UserImageResponse } from '@/generated/graphql';
+import { SwapPreviewFragment } from '@/generated/graphql';
 import SwapDetail from './swap-detail';
 import Thumbnail from '../base/thumbnail';
 import SwapName from './swap-name';
 import PostDialog from '../posts/post-dialog';
 
 interface Props {
-  swap: SwapResponse;
+  swap: SwapPreviewFragment;
 }
 
 export default function SwapPreview({ swap }: Props) {
   const router = useRouter();
-  const thumbnail: UserImageResponse = _.get(swap.images, '[0]')!;
+  const { thumbnail } = swap;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -75,7 +75,7 @@ export default function SwapPreview({ swap }: Props) {
           handleOpen={handleOpen}
           handleClose={handleClose}
         >
-          <SwapDetail swap={swap} />
+          <SwapDetail slug={swap.slug!} />
         </PostDialog>
       </div>
     </div>

@@ -6,18 +6,18 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice, truncateName } from '@/lib/formatter';
-import { OfferResponse, UserImageResponse } from '@/generated/graphql';
+import { OfferPreviewFragment } from '@/generated/graphql';
 import Thumbnail from '../base/thumbnail';
 import PostDialog from '../posts/post-dialog';
 import OfferDetail from './offer-detail';
 
 interface Props {
-  offer: OfferResponse;
+  offer: OfferPreviewFragment;
 }
 
 export default function OfferPreview({ offer }: Props) {
   const router = useRouter();
-  const thumbnail: UserImageResponse = _.get(offer.images, '[0]')!;
+  const { thumbnail } = offer;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -74,7 +74,7 @@ export default function OfferPreview({ offer }: Props) {
           handleOpen={handleOpen}
           handleClose={handleClose}
         >
-          <OfferDetail offer={offer} />
+          <OfferDetail slug={offer.slug!} />
         </PostDialog>
       </div>
     </div>

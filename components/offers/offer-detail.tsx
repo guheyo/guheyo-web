@@ -3,13 +3,24 @@
 import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { OfferResponse } from '@/generated/graphql';
+import { useFindOfferQuery } from '@/generated/graphql';
 import { getPrice } from '@/lib/formatter';
 import UserProfile from '../users/user-profile';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 
-export default function OfferDetail({ offer }: { offer: OfferResponse }) {
+export default function OfferDetail({ slug }: { slug: string }) {
+  const { loading, error, data } = useFindOfferQuery({
+    variables: {
+      slug,
+    },
+  });
+
+  if (loading) return <div>Loading</div>;
+  if (error) return <div>Error</div>;
+  if (!data?.findOffer) return <div>null</div>;
+  const offer = data.findOffer;
+
   const sizes = 'h-[360px] md:h-[524px]';
 
   return (
