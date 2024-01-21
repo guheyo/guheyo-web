@@ -6,6 +6,7 @@ import { GuildPreviewFragment } from '@/generated/graphql';
 import GuildInfo from './guild-info';
 import DemandPreview from '../demands/demand-preview';
 import OfferPreview from '../offers/offer-preview';
+import GuildJoinButton from './guild-join-button';
 
 interface Props {
   guild: GuildPreviewFragment;
@@ -14,12 +15,13 @@ interface Props {
 export default function GuildPreview({ guild }: Props) {
   return (
     <div className="bg-dark-500 rounded-lg">
-      <div className="w-fit px-0 md:px-0 pt-4 mx-2 md:mx-0">
+      <div className="flex flex-row gap-6 justify-between w-fit px-0 md:px-0 pt-4 mx-2 md:mx-0">
         <Link href={`g/${guild.slug}`}>
           <GuildInfo slug={guild.slug!} />
         </Link>
+        <GuildJoinButton slug={guild.slug!} />
       </div>
-      <div className="flex flex-row justify-between gap-2 text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
+      <div className="text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/offers`}>
           <span className="flex flex-row font-medium items-center gap-1">
             {guild.name} 팝니다
@@ -35,7 +37,7 @@ export default function GuildPreview({ guild }: Props) {
         <Link href={`g/${guild.slug}/market/offers`}>
           <span className="flex flex-row font-medium items-center gap-1">
             <PlayCircleOutlineOutlinedIcon fontSize="medium" />
-            판매 채널 입장
+            판매 채널
           </span>
         </Link>
       </div>
@@ -51,7 +53,7 @@ export default function GuildPreview({ guild }: Props) {
         <Link href={`g/${guild.slug}/market/demands`}>
           <span className="flex flex-row font-medium items-center gap-1">
             <PlayCircleOutlineOutlinedIcon fontSize="medium" />
-            구매 채널 입장
+            구매 채널
           </span>
         </Link>
       </div>
