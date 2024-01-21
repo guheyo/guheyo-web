@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { GuildPreviewFragment } from '@/generated/graphql';
+import { isMobile } from 'react-device-detect';
 import GuildInfo from './guild-info';
 import DemandPreview from '../demands/demand-preview';
 import OfferPreview from '../offers/offer-preview';
@@ -21,9 +22,9 @@ export default function GuildPreview({ guild }: Props) {
         </Link>
         <GuildJoinButton slug={guild.slug!} />
       </div>
-      <div className="text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
+      <div className="text-base md:text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/offers`}>
-          <span className="flex flex-row font-medium items-center gap-1">
+          <span className="flex flex-row items-center gap-1">
             {guild.name} 팝니다
           </span>
         </Link>
@@ -33,15 +34,17 @@ export default function GuildPreview({ guild }: Props) {
           <OfferPreview key={offer.slug} offer={offer} />
         ))}
       </div>
-      <div className="flex justify-end text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-2">
+      <div className="flex justify-end text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-2">
         <Link href={`g/${guild.slug}/market/offers`}>
-          <span className="flex flex-row font-medium items-center gap-1">
-            <PlayCircleOutlineOutlinedIcon fontSize="medium" />
+          <span className="flex flex-row items-center gap-1">
+            <PlayCircleOutlineOutlinedIcon
+              fontSize={isMobile ? 'small' : 'medium'}
+            />
             판매 채널
           </span>
         </Link>
       </div>
-      <div className="text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
+      <div className="text-base md:text-lg text-star-500 font-medium mx-2 md:mx-3 pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/demands`}>{guild.name} 삽니다</Link>
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
@@ -49,10 +52,12 @@ export default function GuildPreview({ guild }: Props) {
           <DemandPreview key={demand.slug} demand={demand} />
         ))}
       </div>
-      <div className="flex justify-end text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-2">
+      <div className="flex justify-end text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-2">
         <Link href={`g/${guild.slug}/market/demands`}>
-          <span className="flex flex-row font-medium items-center gap-1">
-            <PlayCircleOutlineOutlinedIcon fontSize="medium" />
+          <span className="flex flex-row items-center gap-1">
+            <PlayCircleOutlineOutlinedIcon
+              fontSize={isMobile ? 'small' : 'medium'}
+            />
             구매 채널
           </span>
         </Link>
