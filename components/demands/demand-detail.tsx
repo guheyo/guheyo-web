@@ -3,13 +3,24 @@
 import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { DemandResponse } from '@/generated/graphql';
+import { useFindDemandQuery } from '@/generated/graphql';
 import { getPrice, truncateName } from '@/lib/formatter';
 import UserProfile from '../users/user-profile';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 
-export default function DemandDetail({ demand }: { demand: DemandResponse }) {
+export default function DemandDetail({ slug }: { slug: string }) {
+  const { loading, error, data } = useFindDemandQuery({
+    variables: {
+      slug,
+    },
+  });
+
+  if (loading) return <div>Loading</div>;
+  if (error) return <div>Error</div>;
+  if (!data?.findDemand) return <div>null</div>;
+  const demand = data.findDemand;
+
   const sizes = 'h-[360px] md:h-[524px]';
 
   if (demand.images.length > 0)

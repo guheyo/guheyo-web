@@ -4,12 +4,12 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getPrice } from '@/lib/formatter';
-import { DemandResponse } from '@/generated/graphql';
+import { DemandPreviewFragment } from '@/generated/graphql';
 import DemandDetail from './demand-detail';
 import PostDialog from '../posts/post-dialog';
 
 interface Props {
-  demand: DemandResponse;
+  demand: DemandPreviewFragment;
 }
 
 export default function DemandPreview({ demand }: Props) {
@@ -58,7 +58,7 @@ export default function DemandPreview({ demand }: Props) {
           handleOpen={handleOpen}
           handleClose={handleClose}
         >
-          <DemandDetail demand={demand} />
+          <DemandDetail slug={demand.slug!} />
         </PostDialog>
       </div>
     </div>

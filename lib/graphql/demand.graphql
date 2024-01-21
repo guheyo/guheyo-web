@@ -21,6 +21,25 @@ fragment demand on DemandResponse {
   brandId
 }
 
+fragment demandPreview on DemandResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  guildId
+  productCategoryId
+  buyer {
+    username
+  }
+  brandId
+}
+
 query findDemands(
   $productCategoryId: ID!
   $cursor: ID
@@ -35,7 +54,7 @@ query findDemands(
   ) {
     edges {
       node {
-        ...demand
+        ...demandPreview
       }
       cursor
     }

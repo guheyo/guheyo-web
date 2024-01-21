@@ -21,6 +21,28 @@ fragment offer on OfferResponse {
   brandId
 }
 
+fragment offerPreview on OfferResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  thumbnail {
+    ...image
+  }
+  guildId
+  productCategoryId
+  seller {
+    username
+  }
+  brandId
+}
+
 query findOffers(
   $productCategoryId: ID!
   $cursor: ID
@@ -35,7 +57,7 @@ query findOffers(
   ) {
     edges {
       node {
-        ...offer
+        ...offerPreview
       }
       cursor
     }

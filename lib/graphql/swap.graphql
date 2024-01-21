@@ -23,6 +23,29 @@ fragment swap on SwapResponse {
   brandId
 }
 
+fragment swapPreview on SwapResponse {
+  id
+  createdAt
+  updatedAt
+  slug
+  name0
+  name1
+  price
+  priceCurrency
+  businessFunction
+  status
+  source
+  thumbnail {
+    ...image
+  }
+  guildId
+  productCategoryId
+  proposer {
+    username
+  }
+  brandId
+}
+
 query findSwaps(
   $productCategoryId: ID!
   $cursor: ID
@@ -37,7 +60,7 @@ query findSwaps(
   ) {
     edges {
       node {
-        ...swap
+        ...swapPreview
       }
       cursor
     }
