@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import PaidIcon from '@mui/icons-material/Paid';
 import { GuildPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import GuildInfo from './guild-info';
@@ -25,6 +26,7 @@ export default function GuildPreview({ guild }: Props) {
       <div className="text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-3 md:pt-5 pb-1">
         <Link href={`g/${guild.slug}/market/offers`}>
           <span className="flex flex-row items-center gap-1">
+            <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
             {guild.name} 팝니다
           </span>
         </Link>
@@ -45,7 +47,12 @@ export default function GuildPreview({ guild }: Props) {
         </Link>
       </div>
       <div className="text-base md:text-lg text-light-200 font-medium mx-2 md:mx-3 pt-0 md:pt-5 pb-1">
-        <Link href={`g/${guild.slug}/market/demands`}>{guild.name} 삽니다</Link>
+        <div className="flex flex-row items-center gap-1">
+          <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
+          <Link href={`g/${guild.slug}/market/demands`}>
+            {guild.name} 삽니다
+          </Link>
+        </div>
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
         {guild.demands.map((demand) => (
