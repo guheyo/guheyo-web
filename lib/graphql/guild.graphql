@@ -27,6 +27,21 @@ fragment guild on GuildResponse {
   }
 }
 
+fragment guildPreview on GuildPreviewResponse {
+  id
+  name
+  slug
+  description
+  icon
+  position
+  offers {
+    ...offerPreview
+  }
+  demands {
+    ...demandPreview
+  }
+}
+
 query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGuilds(cursor: $cursor, skip: $skip, take: $take) {
     edges {
@@ -43,5 +58,11 @@ query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
 query findGuild($slug: String!) {
   findGuild(slug: $slug) {
     ...guild
+  }
+}
+
+query findGuildPreviews {
+  findGuildPreviews {
+    ...guildPreview
   }
 }
