@@ -11,7 +11,7 @@ export default function GuildFeed() {
   const guilds = data.findGuildPreviews;
 
   return (
-    <div className="grid grid-rows gap-12">
+    <div className="grid grid-rows gap-4 md:gap-12">
       {guilds.map((guild) => (
         <GuildPreview guild={guild} key={guild.slug} />
       ))}
