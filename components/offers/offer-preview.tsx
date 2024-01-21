@@ -69,11 +69,7 @@ export default function OfferPreview({ offer }: Props) {
         </div>
       </button>
       <div>
-        <PostDialog
-          open={open}
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-        >
+        <PostDialog open={open} handleClose={handleClose}>
           <OfferDetail slug={offer.slug!} />
         </PostDialog>
       </div>
