@@ -9,9 +9,9 @@ import { Mocks } from '../mock/mock';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
-    return `bg-dark-700 hover:bg-dark-600 text-dark-200 hover:text-light-200`;
+    return `text-dark-200 hover:text-light-200`;
   }
-  return `bg-dark-200 text-light-200`;
+  return `border-b-2 border-light-200 text-light-200`;
 };
 
 export interface ProductCategoriesProps {
@@ -42,7 +42,7 @@ export default function CategoriesNavbar({
           {categories?.map((category) => (
             <Link
               key={category.slug}
-              className={`flex-none max-w-sm rounded p-2 overflow-hidden shadow-sm ${getButtonCSS(
+              className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
                 category.slug === categorySlug,
               )}`}
               passHref

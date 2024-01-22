@@ -36,7 +36,7 @@ export default function DealSelector({
       value={deal}
       onChange={handleChange}
       inputProps={{
-        className: 'py-2',
+        className: 'px-3 py-2 text-xs md:text-base',
       }}
       sx={{
         color: '#f2f3ed',

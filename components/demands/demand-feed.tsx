@@ -10,7 +10,7 @@ function DemandFeed({ categoryId }: { categoryId: string }) {
   const { loading, error, data, fetchMore } = useFindDemandsQuery({
     variables: {
       productCategoryId: categoryId,
-      take: 12,
+      take: 15,
       skip: 0,
     },
   });
@@ -23,7 +23,7 @@ function DemandFeed({ categoryId }: { categoryId: string }) {
         variables: {
           productCategoryId: categoryId,
           cursor: data?.findDemands.pageInfo.endCursor,
-          take: 12,
+          take: 15,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
