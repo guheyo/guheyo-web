@@ -70,11 +70,7 @@ export default function SwapPreview({ swap }: Props) {
         </div>
       </button>
       <div>
-        <PostDialog
-          open={open}
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-        >
+        <PostDialog open={open} handleClose={handleClose}>
           <SwapDetail slug={swap.slug!} />
         </PostDialog>
       </div>

@@ -13,7 +13,7 @@ export default function GuildLayout({
 }) {
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="pt-4 pb-2">
+      <div className="pt-4 pb-2 px-2 md:px-0 mt-0 md:mt-2">
         <GuildInfo slug={params.guildSlug} />
       </div>
       {children}

@@ -4,7 +4,7 @@ import GuildFeed from '@/components/guilds/guild-feed';
 
 function Page() {
   return (
-    <div className="mt-0">
+    <div className="mt-0 md:mt-2">
       <GuildFeed />
     </div>
   );

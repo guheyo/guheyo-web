@@ -39,11 +39,11 @@ export default function DemandPreview({ demand }: Props) {
         className="w-full text-start"
       >
         <div className="grid gap-2">
-          <div className="justify-self-start text-sm md:text-base font-medium text-light-200">
+          <div className="justify-self-start text-xs md:text-sm font-medium text-light-200">
             {demand.name}
           </div>
           <div className="flex justify-between items-center">
-            <div className="flex-none text-sm md:text-base font-semibold">
+            <div className="flex-none text-xs md:text-sm font-semibold">
               {getPrice(demand.price)}
             </div>
             <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-500">
@@ -53,11 +53,7 @@ export default function DemandPreview({ demand }: Props) {
         </div>
       </button>
       <div>
-        <PostDialog
-          open={open}
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-        >
+        <PostDialog open={open} handleClose={handleClose}>
           <DemandDetail slug={demand.slug!} />
         </PostDialog>
       </div>

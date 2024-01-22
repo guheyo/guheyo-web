@@ -14,10 +14,10 @@ export default function GuildJoinButton({ slug }: { slug: string }) {
     <div className="inline-flex items-center">
       <button
         type="submit"
-        className="bg-eye-500 hover:bg-eye-400 text-sm font-bold p-2 rounded text-light-200"
+        className="bg-star-500 hover:bg-star-400 text-sm font-bold px-2 py-1.5 rounded text-light-200"
         onClick={() => join()}
       >
-        입장
+        입장해요
       </button>
     </div>
   );
