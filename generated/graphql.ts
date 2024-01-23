@@ -671,6 +671,7 @@ export type Query = {
   findSwap?: Maybe<SwapResponse>;
   findSwapById?: Maybe<SwapResponse>;
   findSwaps: PaginatedSwapsResponse;
+  findTerm?: Maybe<TermResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
   findUsers: PaginatedUsersResponse;
@@ -799,6 +800,11 @@ export type QueryFindSwapsArgs = {
 };
 
 
+export type QueryFindTermArgs = {
+  name: Scalars['String']['input'];
+};
+
+
 export type QueryFindUserImageByIdArgs = {
   id: Scalars['ID']['input'];
 };
@@ -889,6 +895,18 @@ export type SwapResponseEdge = {
   __typename?: 'SwapResponseEdge';
   cursor: Scalars['String']['output'];
   node: SwapResponse;
+};
+
+export type TermResponse = {
+  __typename?: 'TermResponse';
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  metaDescription: Scalars['String']['output'];
+  metaTitle: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UpdateAuctionInput = {
@@ -1175,6 +1193,15 @@ export type FindSwapQueryVariables = Exact<{
 
 
 export type FindSwapQuery = { __typename?: 'Query', findSwap?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, guildId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, guildId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, guildId: string }> }> } } | null };
+
+export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string };
+
+export type FindTermQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type FindTermQuery = { __typename?: 'Query', findTerm?: { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string } | null };
 
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
 
@@ -1535,6 +1562,18 @@ export const SwapPreviewFragmentDoc = gql`
   brandId
 }
     ${ImageFragmentDoc}`;
+export const TermFragmentDoc = gql`
+    fragment term on TermResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  title
+  content
+  metaTitle
+  metaDescription
+}
+    `;
 export const UserFragmentDoc = gql`
     fragment user on UserResponse {
   id
@@ -2313,6 +2352,46 @@ export type FindSwapQueryHookResult = ReturnType<typeof useFindSwapQuery>;
 export type FindSwapLazyQueryHookResult = ReturnType<typeof useFindSwapLazyQuery>;
 export type FindSwapSuspenseQueryHookResult = ReturnType<typeof useFindSwapSuspenseQuery>;
 export type FindSwapQueryResult = Apollo.QueryResult<FindSwapQuery, FindSwapQueryVariables>;
+export const FindTermDocument = gql`
+    query findTerm($name: String!) {
+  findTerm(name: $name) {
+    ...term
+  }
+}
+    ${TermFragmentDoc}`;
+
+/**
+ * __useFindTermQuery__
+ *
+ * To run a query within a React component, call `useFindTermQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindTermQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindTermQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useFindTermQuery(baseOptions: Apollo.QueryHookOptions<FindTermQuery, FindTermQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindTermQuery, FindTermQueryVariables>(FindTermDocument, options);
+      }
+export function useFindTermLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindTermQuery, FindTermQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindTermQuery, FindTermQueryVariables>(FindTermDocument, options);
+        }
+export function useFindTermSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindTermQuery, FindTermQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindTermQuery, FindTermQueryVariables>(FindTermDocument, options);
+        }
+export type FindTermQueryHookResult = ReturnType<typeof useFindTermQuery>;
+export type FindTermLazyQueryHookResult = ReturnType<typeof useFindTermLazyQuery>;
+export type FindTermSuspenseQueryHookResult = ReturnType<typeof useFindTermSuspenseQuery>;
+export type FindTermQueryResult = Apollo.QueryResult<FindTermQuery, FindTermQueryVariables>;
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: ID!) {
   findMyUserById(id: $id) {

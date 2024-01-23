@@ -1,0 +1,20 @@
+fragment term on TermResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  title
+  content
+  metaTitle
+  metaDescription
+}
+
+query findTerm(
+  $name: String!
+) {
+  findTerm(
+    name: $name
+  ) {
+    ...term
+  }
+}
