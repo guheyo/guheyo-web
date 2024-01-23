@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 /* eslint-disable import/no-extraneous-dependencies */
 const colors = require('tailwindcss/colors');
+const typography = require('@tailwindcss/typography');
 
 module.exports = {
   content: [
@@ -47,5 +48,5 @@ module.exports = {
       ...colors,
     },
   },
-  plugins: [],
+  plugins: [typography],
 };
