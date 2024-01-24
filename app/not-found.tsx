@@ -14,15 +14,13 @@ export default function NotFound() {
         className="rounded-lg"
       />
       <div className="grid grid-cols-1 justify-around justify-items-center">
-        <h1 className="pb-2">안녕하세요!</h1>
-        <span>이곳의 페이지 주소는 잘못 입력되었거나</span>
-        <span>변경 또는 삭제되어 더는 사용할 수 없어요</span>
+        <h1 className="pb-2">어이쿠,</h1>
+        <span>당신이 입력한 페이지가 존재하지 않아요</span>
         <span className="flex items-rows gap-1 mt-2">
-          저와 함께
           <HomeLink>
             <div className="text-star-500 font-bold">홈(Home)</div>
           </HomeLink>
-          으로 돌아가요
+          으로 이동해 주세요
         </span>
       </div>
     </div>
