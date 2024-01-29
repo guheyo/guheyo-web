@@ -20,7 +20,6 @@ export default function OfferDetail({ slug }: { slug: string }) {
   if (error) return <div>Error</div>;
   if (!data?.findOffer) return <div>null</div>;
   const offer = data.findOffer;
-
   const sizes = 'h-[360px] md:h-[524px]';
 
   return (
