@@ -4,9 +4,8 @@ import { useFindGuildPreviewsQuery } from '@/generated/graphql';
 import GuildPreview from './guild-preview';
 
 export default function GuildFeed() {
-  const { loading, error, data } = useFindGuildPreviewsQuery();
+  const { loading, data } = useFindGuildPreviewsQuery();
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findGuildPreviews) return <div>null</div>;
   const guilds = data.findGuildPreviews;
 

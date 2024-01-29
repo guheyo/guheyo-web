@@ -6,14 +6,13 @@ import Image from 'next/image';
 import { isMobile } from 'react-device-detect';
 
 export default function GuildInfo({ slug }: { slug: string }) {
-  const { loading, error, data } = useFindGuildQuery({
+  const { loading, data } = useFindGuildQuery({
     variables: {
       slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findGuild) return <div>null</div>;
 
   const guild = data?.findGuild;
