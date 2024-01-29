@@ -22,7 +22,7 @@ export default function GuildInfo({ slug }: { slug: string }) {
   return (
     <div className="flex flex-row items-center gap-4">
       <Image
-        src={guild.icon!}
+        src={!guild.icon ? '/star/star.svg' : guild.icon}
         width={isMobile ? 48 : 56}
         height={isMobile ? 48 : 56}
         alt={`${guild.name} logo`}

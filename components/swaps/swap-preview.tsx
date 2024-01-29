@@ -1,6 +1,5 @@
 'use client';
 
-import _ from 'lodash';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
