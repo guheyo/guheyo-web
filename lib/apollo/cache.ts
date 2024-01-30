@@ -1,6 +1,6 @@
 import { gql, makeVar } from '@apollo/client';
 import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
-import { GuildResponse } from '@/generated/graphql';
+import { GroupResponse } from '@/generated/graphql';
 
 export type Deal = 'offers' | 'demands' | 'swaps';
 
@@ -9,7 +9,7 @@ export interface Category {
   id: string;
 }
 
-export const guildVar = makeVar<GuildResponse | null>(null);
+export const groupVar = makeVar<GroupResponse | null>(null);
 
 export const dealVar = makeVar<Deal>('offers');
 
@@ -17,7 +17,7 @@ export const colsVar = makeVar<number>(1);
 
 export const GET_GUILD = gql`
   query {
-    guild @client
+    group @client
   }
 `;
 
@@ -31,14 +31,14 @@ export const cache = new NextSSRInMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        guild: {
+        group: {
           read() {
-            return guildVar();
+            return groupVar();
           },
         },
         productCategory: {
           read(existing, { variables }) {
-            return guildVar()?.productCategories.find(
+            return groupVar()?.productCategories.find(
               (category) => category.slug === variables?.slug,
             );
           },

@@ -1,13 +1,13 @@
 'use client';
 
 import HomeFooter from '@/components/footers/home-footer';
-import GuildFeed from '@/components/guilds/guild-feed';
+import GroupFeed from '@/components/groups/group-feed';
 
 function Page() {
   return (
     <>
       <div className="mt-0 md:mt-2 mb-36">
-        <GuildFeed />
+        <GroupFeed />
       </div>
       <HomeFooter />
     </>

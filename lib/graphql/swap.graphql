@@ -15,7 +15,7 @@ fragment swap on SwapResponse {
   images {
     ...image
   }
-  guildId
+  groupId
   productCategoryId
   proposer {
     ...proposer
@@ -38,7 +38,7 @@ fragment swapPreview on SwapResponse {
   thumbnail {
     ...image
   }
-  guildId
+  groupId
   productCategoryId
   proposer {
     username

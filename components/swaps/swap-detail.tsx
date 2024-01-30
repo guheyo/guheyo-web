@@ -11,14 +11,13 @@ import SwapName from './swap-name';
 import PostDetail from '../posts/post-detail';
 
 export default function SwapDetail({ slug }: { slug: string }) {
-  const { loading, error, data } = useFindSwapQuery({
+  const { loading, data } = useFindSwapQuery({
     variables: {
       slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findSwap) return <div>null</div>;
   const swap = data.findSwap;
 

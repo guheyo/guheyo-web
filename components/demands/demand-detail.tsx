@@ -10,14 +10,13 @@ import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 
 export default function DemandDetail({ slug }: { slug: string }) {
-  const { loading, error, data } = useFindDemandQuery({
+  const { loading, data } = useFindDemandQuery({
     variables: {
       slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findDemand) return <div>null</div>;
   const demand = data.findDemand;
 

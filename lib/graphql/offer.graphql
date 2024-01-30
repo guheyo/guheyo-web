@@ -13,7 +13,7 @@ fragment offer on OfferResponse {
   images {
     ...image
   }
-  guildId
+  groupId
   productCategoryId
   seller {
     ...seller
@@ -35,7 +35,7 @@ fragment offerPreview on OfferResponse {
   thumbnail {
     ...image
   }
-  guildId
+  groupId
   productCategoryId
   seller {
     username

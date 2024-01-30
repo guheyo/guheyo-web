@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 
 function DemandFeed({ categoryId }: { categoryId: string }) {
-  const { loading, error, data, fetchMore } = useFindDemandsQuery({
+  const { loading, data, fetchMore } = useFindDemandsQuery({
     variables: {
       productCategoryId: categoryId,
       take: 15,
@@ -44,7 +44,6 @@ function DemandFeed({ categoryId }: { categoryId: string }) {
   );
 
   if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
-  if (error) return <div>Error</div>;
   if (!data?.findDemands) return <div>null</div>;
 
   const { edges } = data.findDemands;

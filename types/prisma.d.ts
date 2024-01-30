@@ -1,5 +1,5 @@
 declare module 'prisma' {
-  interface Guild {
+  interface Group {
     id: string;
     name: string;
     categories?: Category[];
@@ -9,7 +9,7 @@ declare module 'prisma' {
   interface Category {
     id: string;
     name: string;
-    guildId: string;
+    groupId: string;
     posts?: Post[];
     rank: number;
   }

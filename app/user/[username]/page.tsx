@@ -10,14 +10,13 @@ function Page({
     username: string;
   };
 }) {
-  const { loading, error, data } = useFindMyUserByUsernameQuery({
+  const { loading, data } = useFindMyUserByUsernameQuery({
     variables: {
       username,
     },
   });
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findMyUserByUsername) return <div>null</div>;
 
   const user = data.findMyUserByUsername;

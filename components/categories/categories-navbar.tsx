@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
-import { dealVar, guildVar } from '@/lib/apollo/cache';
+import { dealVar, groupVar } from '@/lib/apollo/cache';
 import Scrollbar from '../base/scrollbar';
 import DealSelector from '../deals/deal-selector';
 import { Mocks } from '../mock/mock';
@@ -21,16 +21,16 @@ export interface ProductCategoriesProps {
 export default function CategoriesNavbar({
   categorySlug,
 }: ProductCategoriesProps) {
-  const guild = useReactiveVar(guildVar);
+  const group = useReactiveVar(groupVar);
   const deal = useReactiveVar(dealVar);
 
-  if (!guild)
+  if (!group)
     return (
       <div className="grid gap-2 md:gap-6 lg:gap-8 md:px-0 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
-  const categories = guild.productCategories;
+  const categories = group.productCategories;
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
@@ -46,7 +46,7 @@ export default function CategoriesNavbar({
                 category.slug === categorySlug,
               )}`}
               passHref
-              href={`/g/${guild.slug}/market/${deal}/${category.slug}`}
+              href={`/g/${group.slug}/market/${deal}/${category.slug}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}

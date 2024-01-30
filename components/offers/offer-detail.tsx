@@ -10,14 +10,13 @@ import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 
 export default function OfferDetail({ slug }: { slug: string }) {
-  const { loading, error, data } = useFindOfferQuery({
+  const { loading, data } = useFindOfferQuery({
     variables: {
       slug,
     },
   });
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
   if (!data?.findOffer) return <div>null</div>;
   const offer = data.findOffer;
   const sizes = 'h-[360px] md:h-[524px]';

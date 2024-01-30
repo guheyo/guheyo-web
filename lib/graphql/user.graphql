@@ -3,14 +3,14 @@ fragment role on RoleResponse {
   name
   position
   hexColor
-  guildId
+  groupId
 }
 
 fragment member on MemberWithRolesResponse {
   id
   createdAt
   userId
-  guildId
+  groupId
   roles {
     ...role
   }

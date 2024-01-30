@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 
 function OfferFeed({ categoryId }: { categoryId: string }) {
-  const { loading, error, data, fetchMore } = useFindOffersQuery({
+  const { loading, data, fetchMore } = useFindOffersQuery({
     variables: {
       productCategoryId: categoryId,
       take: 12,
@@ -44,7 +44,6 @@ function OfferFeed({ categoryId }: { categoryId: string }) {
   );
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (error) return <div>Error</div>;
   if (!data?.findOffers) return <div>null</div>;
 
   const { edges } = data.findOffers;
