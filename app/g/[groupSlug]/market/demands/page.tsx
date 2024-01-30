@@ -1,14 +1,14 @@
 'use client';
 
 import { redirect } from 'next/navigation';
-import { guildVar } from '@/lib/apollo/cache';
+import { groupVar } from '@/lib/apollo/cache';
 import { useReactiveVar } from '@apollo/client';
 
 function Page() {
-  const guild = useReactiveVar(guildVar);
-  if (!guild) return <div>null</div>;
+  const group = useReactiveVar(groupVar);
+  if (!group) return <div>null</div>;
 
-  const defaultCategorySlug = guild?.productCategories[0].slug;
+  const defaultCategorySlug = group?.productCategories[0].slug;
   return redirect(`demands/${defaultCategorySlug}`);
 }
 

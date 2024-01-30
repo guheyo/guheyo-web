@@ -1,25 +1,25 @@
 'use client';
 
-import { guildVar } from '@/lib/apollo/cache';
+import { groupVar } from '@/lib/apollo/cache';
 import { useReactiveVar } from '@apollo/client';
 import DemandFeed from '@/components/demands/demand-feed';
 
 export interface DemandsPageProps {
   params: {
-    guildSlug: string;
+    groupSlug: string;
     categorySlug: string;
   };
 }
 
 function DemandsPage({
-  params: { guildSlug, categorySlug },
+  params: { groupSlug, categorySlug },
 }: DemandsPageProps) {
-  const guild = useReactiveVar(guildVar);
-  const category = guild?.productCategories.find(
+  const group = useReactiveVar(groupVar);
+  const category = group?.productCategories.find(
     (c) => c.slug === categorySlug,
   );
 
-  if (!guild || !category) return <div>null</div>;
+  if (!group || !category) return <div>null</div>;
   return <DemandFeed categoryId={category.id} />;
 }
 

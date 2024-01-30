@@ -1,20 +1,20 @@
 'use client';
 
-import GuildInfo from '@/components/guilds/guild-info';
+import GroupInfo from '@/components/groups/group-info';
 
-export default function GuildLayout({
+export default function Layout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: {
-    guildSlug: string;
+    groupSlug: string;
   };
 }) {
   return (
     <div className="max-w-5xl mx-auto pb-12">
       <div className="pt-4 pb-2 px-2 md:px-0 mt-0 md:mt-2">
-        <GuildInfo slug={params.guildSlug} />
+        <GroupInfo slug={params.groupSlug} />
       </div>
       {children}
     </div>
