@@ -13,7 +13,7 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata = {
   title: '구해요',
-  description: '커스텀 키보드 장터 구해요',
+  description: '디스코드 거래 장터, 구해요',
 };
 
 export default function RootLayout({
