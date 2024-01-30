@@ -1,4 +1,4 @@
-fragment guild on GuildResponse {
+fragment group on GroupResponse {
   id
   name
   slug
@@ -10,7 +10,7 @@ fragment guild on GuildResponse {
     name
     position
     hexColor
-    guildId
+    groupId
   }
   productCategories {
     id
@@ -27,7 +27,7 @@ fragment guild on GuildResponse {
   }
 }
 
-fragment guildPreview on GuildPreviewResponse {
+fragment groupPreview on GroupPreviewResponse {
   id
   name
   slug
@@ -42,11 +42,11 @@ fragment guildPreview on GuildPreviewResponse {
   }
 }
 
-query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
-  findGuilds(cursor: $cursor, skip: $skip, take: $take) {
+query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroups(cursor: $cursor, skip: $skip, take: $take) {
     edges {
       node {
-        ...guild
+        ...group
       }
     }
     pageInfo {
@@ -55,14 +55,14 @@ query FindGuilds($cursor: ID, $skip: Int! = 1, $take: Int!) {
   }
 }
 
-query findGuild($slug: String!) {
-  findGuild(slug: $slug) {
-    ...guild
+query findGroup($slug: String!) {
+  findGroup(slug: $slug) {
+    ...group
   }
 }
 
-query findGuildPreviews {
-  findGuildPreviews {
-    ...guildPreview
+query findGroupPreviews {
+  findGroupPreviews {
+    ...groupPreview
   }
 }

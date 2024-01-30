@@ -13,7 +13,7 @@ fragment demand on DemandResponse {
   images {
     ...image
   }
-  guildId
+  groupId
   productCategoryId
   buyer {
     ...buyer
@@ -32,7 +32,7 @@ fragment demandPreview on DemandResponse {
   businessFunction
   status
   source
-  guildId
+  groupId
   productCategoryId
   buyer {
     username
