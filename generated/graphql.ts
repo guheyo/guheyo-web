@@ -660,8 +660,6 @@ export type Query = {
   findGroups: PaginatedGroupsResponse;
   findMemberByUserAndGroup?: Maybe<MemberWithRolesResponse>;
   findMyUserById?: Maybe<MyUserResponse>;
-  findMyUserBySession?: Maybe<MyUserResponse>;
-  findMyUserBySocialAccount?: Maybe<MyUserResponse>;
   findMyUserByUsername?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferById?: Maybe<OfferResponse>;
@@ -672,6 +670,7 @@ export type Query = {
   findSwapById?: Maybe<SwapResponse>;
   findSwaps: PaginatedSwapsResponse;
   findTerm?: Maybe<TermResponse>;
+  findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
   findUsers: PaginatedUsersResponse;
@@ -738,17 +737,6 @@ export type QueryFindMyUserByIdArgs = {
 };
 
 
-export type QueryFindMyUserBySessionArgs = {
-  sessionToken: Scalars['String']['input'];
-};
-
-
-export type QueryFindMyUserBySocialAccountArgs = {
-  provider: Scalars['String']['input'];
-  socialId: Scalars['String']['input'];
-};
-
-
 export type QueryFindMyUserByUsernameArgs = {
   username: Scalars['ID']['input'];
 };
@@ -802,6 +790,13 @@ export type QueryFindSwapsArgs = {
 
 export type QueryFindTermArgs = {
   name: Scalars['String']['input'];
+};
+
+
+export type QueryFindUserArgs = {
+  provider?: InputMaybe<Scalars['String']['input']>;
+  sessionToken?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1226,20 +1221,14 @@ export type FindMyUserByIdQueryVariables = Exact<{
 
 export type FindMyUserByIdQuery = { __typename?: 'Query', findMyUserById?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
 
-export type FindMyUserBySocialAccountQueryVariables = Exact<{
-  provider: Scalars['String']['input'];
-  socialId: Scalars['String']['input'];
+export type FindUserQueryVariables = Exact<{
+  provider?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
+  sessionToken?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type FindMyUserBySocialAccountQuery = { __typename?: 'Query', findMyUserBySocialAccount?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
-
-export type FindMyUserBySessionQueryVariables = Exact<{
-  sessionToken: Scalars['String']['input'];
-}>;
-
-
-export type FindMyUserBySessionQuery = { __typename?: 'Query', findMyUserBySession?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } | null };
 
 export type FindMyUserByUsernameQueryVariables = Exact<{
   username: Scalars['ID']['input'];
@@ -2432,87 +2421,48 @@ export type FindMyUserByIdQueryHookResult = ReturnType<typeof useFindMyUserByIdQ
 export type FindMyUserByIdLazyQueryHookResult = ReturnType<typeof useFindMyUserByIdLazyQuery>;
 export type FindMyUserByIdSuspenseQueryHookResult = ReturnType<typeof useFindMyUserByIdSuspenseQuery>;
 export type FindMyUserByIdQueryResult = Apollo.QueryResult<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>;
-export const FindMyUserBySocialAccountDocument = gql`
-    query findMyUserBySocialAccount($provider: String!, $socialId: String!) {
-  findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
-    ...myUser
+export const FindUserDocument = gql`
+    query findUser($provider: String, $socialId: String, $sessionToken: String) {
+  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken) {
+    ...user
   }
 }
-    ${MyUserFragmentDoc}`;
+    ${UserFragmentDoc}`;
 
 /**
- * __useFindMyUserBySocialAccountQuery__
+ * __useFindUserQuery__
  *
- * To run a query within a React component, call `useFindMyUserBySocialAccountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindMyUserBySocialAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindMyUserBySocialAccountQuery({
+ * const { data, loading, error } = useFindUserQuery({
  *   variables: {
  *      provider: // value for 'provider'
  *      socialId: // value for 'socialId'
- *   },
- * });
- */
-export function useFindMyUserBySocialAccountQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
-      }
-export function useFindMyUserBySocialAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
-        }
-export function useFindMyUserBySocialAccountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>(FindMyUserBySocialAccountDocument, options);
-        }
-export type FindMyUserBySocialAccountQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountQuery>;
-export type FindMyUserBySocialAccountLazyQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountLazyQuery>;
-export type FindMyUserBySocialAccountSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySocialAccountSuspenseQuery>;
-export type FindMyUserBySocialAccountQueryResult = Apollo.QueryResult<FindMyUserBySocialAccountQuery, FindMyUserBySocialAccountQueryVariables>;
-export const FindMyUserBySessionDocument = gql`
-    query findMyUserBySession($sessionToken: String!) {
-  findMyUserBySession(sessionToken: $sessionToken) {
-    ...myUser
-  }
-}
-    ${MyUserFragmentDoc}`;
-
-/**
- * __useFindMyUserBySessionQuery__
- *
- * To run a query within a React component, call `useFindMyUserBySessionQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindMyUserBySessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindMyUserBySessionQuery({
- *   variables: {
  *      sessionToken: // value for 'sessionToken'
  *   },
  * });
  */
-export function useFindMyUserBySessionQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+export function useFindUserQuery(baseOptions?: Apollo.QueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+        return Apollo.useQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
       }
-export function useFindMyUserBySessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+export function useFindUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+          return Apollo.useLazyQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
         }
-export function useFindMyUserBySessionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>) {
+export function useFindUserSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>(FindMyUserBySessionDocument, options);
+          return Apollo.useSuspenseQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
         }
-export type FindMyUserBySessionQueryHookResult = ReturnType<typeof useFindMyUserBySessionQuery>;
-export type FindMyUserBySessionLazyQueryHookResult = ReturnType<typeof useFindMyUserBySessionLazyQuery>;
-export type FindMyUserBySessionSuspenseQueryHookResult = ReturnType<typeof useFindMyUserBySessionSuspenseQuery>;
-export type FindMyUserBySessionQueryResult = Apollo.QueryResult<FindMyUserBySessionQuery, FindMyUserBySessionQueryVariables>;
+export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
+export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
+export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
+export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const FindMyUserByUsernameDocument = gql`
     query findMyUserByUsername($username: ID!) {
   findMyUserByUsername(username: $username) {

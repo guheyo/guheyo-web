@@ -4,8 +4,7 @@ import {
   CreateUserInput,
   DeleteUserDocument,
   FindMyUserByIdDocument,
-  FindMyUserBySessionDocument,
-  FindMyUserBySocialAccountDocument,
+  FindUserDocument,
   UpdateUserDocument,
   UpdateUserInput,
 } from '@/generated/graphql';
@@ -28,23 +27,23 @@ export async function findUserBySocailAccount({
   socialId: string;
 }) {
   const data = await client.query({
-    query: FindMyUserBySocialAccountDocument,
+    query: FindUserDocument,
     variables: {
       provider,
       socialId,
     },
   });
-  return data.data?.findMyUserBySocialAccount;
+  return data.data?.findUser;
 }
 
 export async function findUserBySession(sessionToken: string) {
   const data = await client.query({
-    query: FindMyUserBySessionDocument,
+    query: FindUserDocument,
     variables: {
       sessionToken,
     },
   });
-  return data.data?.findMyUserBySession;
+  return data.data?.findUser;
 }
 
 export async function createUser(input: CreateUserInput) {
