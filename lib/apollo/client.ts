@@ -25,7 +25,7 @@ export const authLink = setContext(async (_, { headers }) => {
 
 export function makeClient() {
   return new NextSSRApolloClient({
-    link: from([httpLink, authLink]),
+    link: from([authLink, httpLink]),
     cache,
   });
 }
