@@ -47,7 +47,8 @@ fragment swapPreview on SwapResponse {
 }
 
 query findSwaps(
-  $productCategoryId: ID!
+  $productCategoryId: ID
+  $proposerId: ID
   $status: String
   $cursor: ID
   $skip: Int!
@@ -55,6 +56,7 @@ query findSwaps(
 ) {
   findSwaps(
     productCategoryId: $productCategoryId
+    proposerId: $proposerId
     status: $status
     cursor: $cursor
     skip: $skip
