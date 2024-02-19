@@ -20,12 +20,7 @@ function Page({
   if (!data?.findMyUserByUsername) return <div>null</div>;
 
   const user = data.findMyUserByUsername;
-
-  return (
-    <div className="max-w-md text-light-200 mx-2 md:mx-0">
-      <MyUserProfile user={user} />
-    </div>
-  );
+  return <MyUserProfile user={user} />;
 }
 
 export default Page;
