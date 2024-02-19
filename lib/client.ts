@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const client = axios.create();
-client.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_BASE_URL}:${process.env.NEXT_PUBLIC_API_PORT}/api`;
+client.defaults.baseURL = `${process.env.NEXT_PUBLIC_API_URL}}/api`;
 client.defaults.headers.post['Content-Type'] = 'application/json';
 client.defaults.headers.get['Cache-Control'] = 'no-store';
 client.defaults.headers.get.Pragma = 'no-store';

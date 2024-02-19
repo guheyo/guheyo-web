@@ -1,0 +1,13 @@
+mutation RefreshTokens {
+  refreshTokens {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation Logout {
+  logout {
+    provider
+    socialId
+  }
+}

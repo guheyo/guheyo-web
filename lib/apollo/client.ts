@@ -1,15 +1,16 @@
-import { HttpLink } from '@apollo/client';
+import { HttpLink, from } from '@apollo/client';
 import { NextSSRApolloClient } from '@apollo/experimental-nextjs-app-support/ssr';
 import { cache } from './cache';
 
-export function makeClient() {
-  const link = new HttpLink({
-    uri: `${process.env.NEXT_PUBLIC_GRAPHQL_BASE_URL}:${process.env.NEXT_PUBLIC_GRAPHQL_PORT}/graphql`,
-  });
+export const httpLink = new HttpLink({
+  uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+  credentials: 'include',
+});
 
+export function makeClient() {
   return new NextSSRApolloClient({
+    link: from([httpLink]),
     cache,
-    link,
   });
 }
 

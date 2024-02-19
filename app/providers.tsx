@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   StyledEngineProvider,
@@ -50,13 +49,11 @@ const queryClient = new QueryClient({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>
-        <ApolloWrapper>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          </StyledEngineProvider>
-        </ApolloWrapper>
-      </SessionProvider>
+      <ApolloWrapper>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </StyledEngineProvider>
+      </ApolloWrapper>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

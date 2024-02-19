@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
-import { useSession } from 'next-auth/react';
+import { useJwtUser } from '@/hooks/use-jwt-user';
 import LoginButton from './login-button';
 
 export default function DmDialog({ url }: { url: string }) {
   const [open, setOpen] = useState(false);
-  const session = useSession();
+  const jwtUser = useJwtUser();
 
   const handleOpen = () => {
-    if (session.data?.user) {
+    if (jwtUser?.username) {
       window.open(url, '_blank');
     } else {
       setOpen(!open);

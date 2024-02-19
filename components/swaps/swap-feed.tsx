@@ -1,47 +1,17 @@
 'use client';
 
-import { useFindSwapsQuery } from '@/generated/graphql';
 import SwapPreview from '@/components/swaps/swap-preview';
-import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
+import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 
 function SwapFeed({ categoryId }: { categoryId: string }) {
-  const { loading, data, fetchMore } = useFindSwapsQuery({
-    variables: {
-      productCategoryId: categoryId!,
-      take: 12,
-      skip: 0,
-    },
-  });
-
   const ref = useRef<HTMLDivElement>(null);
-  useInfiniteScroll(
+  const { loading, data } = useInfiniteSwapFeed({
     ref,
-    () =>
-      fetchMore({
-        variables: {
-          productCategoryId: categoryId,
-          cursor: data?.findSwaps.pageInfo.endCursor,
-          take: 12,
-          skip: 1,
-        },
-        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
-          return {
-            findSwaps: {
-              __typename: previousQueryResult.findSwaps.__typename,
-              edges: [
-                ...previousQueryResult.findSwaps.edges,
-                ...fetchMoreResult.findSwaps.edges,
-              ],
-              pageInfo: fetchMoreResult.findSwaps.pageInfo,
-            },
-          };
-        },
-      }),
-    data?.findSwaps.pageInfo.hasNextPage,
-  );
+    categoryId,
+    take: 12,
+  });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (!data?.findSwaps) return <div>null</div>;

@@ -1,7 +1,7 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { SocialAccountResponse } from '@/generated/graphql';
+import { useSignIn } from '@/hooks/use-sign-in';
 import IconText from '../icon-text/icon-text';
 import SocialLogo from './social-logo';
 
@@ -10,6 +10,7 @@ export default function NaverAccount({
 }: {
   socialAccounts: SocialAccountResponse[];
 }) {
+  const signIn = useSignIn();
   const naverAccount = socialAccounts.find(
     (account) => account.provider === 'naver',
   );

@@ -90,20 +90,13 @@ query findMyUserById(
   }
 }
 
-query findMyUserBySocialAccount(
-  $provider: String!
-  $socialId: String!
+query findUser(
+  $provider: String
+  $socialId: String
+  $sessionToken: String
 ) {
-  findMyUserBySocialAccount(provider: $provider, socialId: $socialId) {
-    ...myUser
-  }
-}
-
-query findMyUserBySession(
-  $sessionToken: String!
-) {
-  findMyUserBySession(sessionToken: $sessionToken) {
-    ...myUser
+  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken) {
+    ...user
   }
 }
 
