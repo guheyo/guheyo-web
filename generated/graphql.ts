@@ -85,8 +85,10 @@ export type CancelBidInput = {
 };
 
 export type ConnectRolesInput = {
-  id: Scalars['ID']['input'];
+  groupId: Scalars['ID']['input'];
   roleIds: Array<Scalars['ID']['input']>;
+  roleNames: Array<Scalars['String']['input']>;
+  userId: Scalars['ID']['input'];
 };
 
 export type CreateAuctionInput = {
@@ -259,6 +261,7 @@ export type DemandResponseEdge = {
 export type DisconnectRolesInput = {
   id: Scalars['ID']['input'];
   roleIds: Array<Scalars['ID']['input']>;
+  roleNames: Array<Scalars['String']['input']>;
 };
 
 export type GroupPreviewResponse = {
@@ -290,6 +293,12 @@ export type GroupResponseEdge = {
   __typename?: 'GroupResponseEdge';
   cursor: Scalars['String']['output'];
   node: GroupResponse;
+};
+
+export type JwtResponse = {
+  __typename?: 'JwtResponse';
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
 };
 
 export type MemberWithRolesResponse = {
@@ -332,6 +341,8 @@ export type Mutation = {
   deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   disconnectRoles: Scalars['String']['output'];
+  logout: SocialUserResponse;
+  refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
   updateDemand: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
@@ -863,6 +874,12 @@ export type SocialAccountWithoutAuthResponse = {
   userId: Scalars['String']['output'];
 };
 
+export type SocialUserResponse = {
+  __typename?: 'SocialUserResponse';
+  provider: Scalars['String']['output'];
+  socialId: Scalars['String']['output'];
+};
+
 export type SwapResponse = {
   __typename?: 'SwapResponse';
   brandId?: Maybe<Scalars['String']['output']>;
@@ -963,13 +980,15 @@ export type UpdateSessionInput = {
 export type UpdateSocialAccountInput = {
   accessToken?: InputMaybe<Scalars['String']['input']>;
   expiresAt?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
   idToken?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
   refreshToken?: InputMaybe<Scalars['String']['input']>;
   scope?: InputMaybe<Scalars['String']['input']>;
   sessionState?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
   tokenType?: InputMaybe<Scalars['String']['input']>;
-  userId: Scalars['String']['input'];
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSwapInput = {
@@ -1030,6 +1049,16 @@ export type UserResponseEdge = {
   cursor: Scalars['String']['output'];
   node: UserResponse;
 };
+
+export type RefreshTokensMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RefreshTokensMutation = { __typename?: 'Mutation', refreshTokens: { __typename?: 'JwtResponse', accessToken: string, refreshToken: string } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'SocialUserResponse', provider: string, socialId: string } };
 
 export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
@@ -1606,6 +1635,72 @@ export const MyUserFragmentDoc = gql`
 }
     ${SocialAccountFragmentDoc}
 ${MemberFragmentDoc}`;
+export const RefreshTokensDocument = gql`
+    mutation RefreshTokens {
+  refreshTokens {
+    accessToken
+    refreshToken
+  }
+}
+    `;
+export type RefreshTokensMutationFn = Apollo.MutationFunction<RefreshTokensMutation, RefreshTokensMutationVariables>;
+
+/**
+ * __useRefreshTokensMutation__
+ *
+ * To run a mutation, you first call `useRefreshTokensMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRefreshTokensMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [refreshTokensMutation, { data, loading, error }] = useRefreshTokensMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOptions<RefreshTokensMutation, RefreshTokensMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RefreshTokensMutation, RefreshTokensMutationVariables>(RefreshTokensDocument, options);
+      }
+export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
+export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
+export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logout {
+    provider
+    socialId
+  }
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindDemandsDocument = gql`
     query findDemands($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemands(
