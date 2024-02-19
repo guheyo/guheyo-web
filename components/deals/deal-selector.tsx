@@ -5,12 +5,7 @@ import { useReactiveVar } from '@apollo/client';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
-
-const options = [
-  { value: 'offers', label: '판매' },
-  { value: 'demands', label: '구매' },
-  { value: 'swaps', label: '교환' },
-];
+import { DEAL_OPTIONS } from './deal.constants';
 
 export default function DealSelector({
   categorySlug,
@@ -43,7 +38,7 @@ export default function DealSelector({
         fontWeight: 'bold',
       }}
     >
-      {options.map(({ value, label }) => (
+      {DEAL_OPTIONS.map(({ value, label }) => (
         <MenuItem key={value} value={value}>
           {label}
         </MenuItem>
