@@ -5,15 +5,18 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 export const useInfiniteSwapFeed = ({
   ref,
   categoryId,
+  status,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId: string;
+  status: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindSwapsQuery({
     variables: {
       productCategoryId: categoryId,
+      status,
       take,
       skip: 0,
     },
@@ -25,6 +28,7 @@ export const useInfiniteSwapFeed = ({
       fetchMore({
         variables: {
           productCategoryId: categoryId,
+          status,
           cursor: data?.findSwaps.pageInfo.endCursor,
           take,
           skip: 1,

@@ -18,7 +18,7 @@ function SwapsPage({ params: { groupSlug, categorySlug } }: SwapsPageProps) {
   );
 
   if (!group || !category) return <div>null</div>;
-  return <SwapFeed categoryId={category.id} />;
+  return <SwapFeed categoryId={category.id} status="OPEN" />;
 }
 
 export default SwapsPage;

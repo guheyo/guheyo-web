@@ -5,15 +5,18 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 export const useInfiniteDemandFeed = ({
   ref,
   categoryId,
+  status,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId: string;
+  status?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindDemandsQuery({
     variables: {
       productCategoryId: categoryId,
+      status,
       take,
       skip: 0,
     },
@@ -25,6 +28,7 @@ export const useInfiniteDemandFeed = ({
       fetchMore({
         variables: {
           productCategoryId: categoryId,
+          status,
           cursor: data?.findDemands.pageInfo.endCursor,
           take,
           skip: 1,

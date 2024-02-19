@@ -5,11 +5,18 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 
-function SwapFeed({ categoryId }: { categoryId: string }) {
+function SwapFeed({
+  categoryId,
+  status,
+}: {
+  categoryId: string;
+  status?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
     ref,
     categoryId,
+    status,
     take: 12,
   });
 

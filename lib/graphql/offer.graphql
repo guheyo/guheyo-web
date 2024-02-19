@@ -45,12 +45,14 @@ fragment offerPreview on OfferResponse {
 
 query findOffers(
   $productCategoryId: ID!
+  $status: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
   findOffers(
     productCategoryId: $productCategoryId
+    status: $status
     cursor: $cursor
     skip: $skip
     take: $take

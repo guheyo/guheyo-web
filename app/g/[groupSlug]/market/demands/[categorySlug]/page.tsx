@@ -20,7 +20,7 @@ function DemandsPage({
   );
 
   if (!group || !category) return <div>null</div>;
-  return <DemandFeed categoryId={category.id} />;
+  return <DemandFeed categoryId={category.id} status="OPEN" />;
 }
 
 export default DemandsPage;

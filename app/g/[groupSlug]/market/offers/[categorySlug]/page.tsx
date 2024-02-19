@@ -18,7 +18,7 @@ function OffersPage({ params: { groupSlug, categorySlug } }: OffersPageProps) {
   );
 
   if (!group || !category) return <div>null</div>;
-  return <OfferFeed categoryId={category.id} />;
+  return <OfferFeed categoryId={category.id} status="OPEN" />;
 }
 
 export default OffersPage;

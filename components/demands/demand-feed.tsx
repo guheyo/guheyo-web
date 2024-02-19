@@ -5,11 +5,18 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 
-function DemandFeed({ categoryId }: { categoryId: string }) {
+function DemandFeed({
+  categoryId,
+  status,
+}: {
+  categoryId: string;
+  status?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
     ref,
     categoryId,
+    status,
     take: 15,
   });
 
