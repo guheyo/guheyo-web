@@ -10,7 +10,7 @@ export const useInfiniteSwapFeed = ({
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId: string;
-  status: string;
+  status?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindSwapsQuery({
