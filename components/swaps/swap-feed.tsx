@@ -7,15 +7,18 @@ import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 
 function SwapFeed({
   categoryId,
+  proposerId,
   status,
 }: {
-  categoryId: string;
+  categoryId?: string;
+  proposerId?: string;
   status?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
     ref,
     categoryId,
+    proposerId,
     status,
     take: 12,
   });

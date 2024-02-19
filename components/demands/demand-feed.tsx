@@ -7,15 +7,18 @@ import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 
 function DemandFeed({
   categoryId,
+  buyerId,
   status,
 }: {
-  categoryId: string;
+  categoryId?: string;
+  buyerId?: string;
   status?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
     ref,
     categoryId,
+    buyerId,
     status,
     take: 15,
   });

@@ -5,17 +5,20 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 export const useInfiniteOfferFeed = ({
   ref,
   categoryId,
+  sellerId,
   status,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  categoryId: string;
+  categoryId?: string;
+  sellerId?: string;
   status?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindOffersQuery({
     variables: {
       productCategoryId: categoryId,
+      sellerId,
       status,
       take,
       skip: 0,
@@ -28,6 +31,7 @@ export const useInfiniteOfferFeed = ({
       fetchMore({
         variables: {
           productCategoryId: categoryId,
+          sellerId,
           status,
           cursor: data?.findOffers.pageInfo.endCursor,
           take,

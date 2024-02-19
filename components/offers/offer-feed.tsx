@@ -7,15 +7,18 @@ import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 
 function OfferFeed({
   categoryId,
+  sellerId,
   status,
 }: {
-  categoryId: string;
+  categoryId?: string;
+  sellerId?: string;
   status?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     categoryId,
+    sellerId,
     status,
     take: 12,
   });
