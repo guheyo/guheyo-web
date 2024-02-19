@@ -1,47 +1,17 @@
 'use client';
 
-import { useFindDemandsQuery } from '@/generated/graphql';
 import DemandPreview from '@/components/demands/demand-preview';
-import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
+import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 
 function DemandFeed({ categoryId }: { categoryId: string }) {
-  const { loading, data, fetchMore } = useFindDemandsQuery({
-    variables: {
-      productCategoryId: categoryId,
-      take: 15,
-      skip: 0,
-    },
-  });
-
   const ref = useRef<HTMLDivElement>(null);
-  useInfiniteScroll(
+  const { loading, data } = useInfiniteDemandFeed({
     ref,
-    () =>
-      fetchMore({
-        variables: {
-          productCategoryId: categoryId,
-          cursor: data?.findDemands.pageInfo.endCursor,
-          take: 15,
-          skip: 1,
-        },
-        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
-          return {
-            findDemands: {
-              __typename: previousQueryResult.findDemands.__typename,
-              edges: [
-                ...previousQueryResult.findDemands.edges,
-                ...fetchMoreResult.findDemands.edges,
-              ],
-              pageInfo: fetchMoreResult.findDemands.pageInfo,
-            },
-          };
-        },
-      }),
-    data?.findDemands.pageInfo.hasNextPage,
-  );
+    categoryId,
+    take: 15,
+  });
 
   if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
   if (!data?.findDemands) return <div>null</div>;
