@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { refreshTokens } from '@/lib/api/auth';
 import { useEffect, useState } from 'react';
-import { JwtUser } from '@/interfaces/auth.interfaces';
+import { JwtUser } from '@/interfaces/jwt.interfaces';
 
 export const useJwtUser = () => {
   const [cookie] = useCookies(['access-token']);
