@@ -34,6 +34,7 @@ export default function LoginButton() {
   const handleSignOut = (): void => {
     handleCloseMenu();
     logout();
+    router.push('/');
   };
 
   if (!jwtUser) {
