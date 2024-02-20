@@ -11,7 +11,7 @@ function UserHomeLayout({ children }: Props) {
       <div className="pt-6">
         <UserHomeNavbar />
       </div>
-      <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>
+      {children}
     </div>
   );
 }

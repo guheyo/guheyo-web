@@ -1,11 +1,13 @@
 'use client';
 
 import OfferFeed from '@/components/offers/offer-feed';
+import { useDealStatus } from '@/hooks/use-deal-status';
 import { useJwtUser } from '@/hooks/use-jwt-user';
 
 function MyOffersPage() {
   const jwtUser = useJwtUser();
-  return <OfferFeed sellerId={jwtUser?.id} />;
+  const status = useDealStatus();
+  return <OfferFeed sellerId={jwtUser?.id} status={status!} />;
 }
 
 export default MyOffersPage;
