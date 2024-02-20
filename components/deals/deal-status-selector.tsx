@@ -13,6 +13,10 @@ export default function DealStatusSelector({
   const pathname = usePathname();
   const router = useRouter();
 
+  if (!status) {
+    router.push(`${pathname}?status=OPEN`);
+  }
+
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
     router.push(`${pathname}?status=${value}`);
