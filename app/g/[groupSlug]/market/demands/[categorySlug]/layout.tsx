@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import CategoriesNavbar from '@/components/categories/categories-navbar';
+import FeedHomeLayout from '@/components/deals/feed-home.layout';
+import TextFeedLayout from '@/components/deals/text-feed.layout';
 import { DemandsPageProps } from './page';
 
 interface Props extends DemandsPageProps {
@@ -10,7 +12,9 @@ function DemandsLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
       <CategoriesNavbar categorySlug={params.categorySlug} />
-      <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>
+      <FeedHomeLayout>
+        <TextFeedLayout>{children}</TextFeedLayout>
+      </FeedHomeLayout>
     </div>
   );
 }
