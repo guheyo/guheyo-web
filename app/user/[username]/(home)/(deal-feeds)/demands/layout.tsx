@@ -1,7 +1,8 @@
+import TextFeedLayout from '@/components/deals/text-feed.layout';
 import React from 'react';
 
 function MyDemandsLayout({ children }: { children: React.ReactNode }) {
-  return <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>;
+  return <TextFeedLayout>{children}</TextFeedLayout>;
 }
 
 export default MyDemandsLayout;
