@@ -8,7 +8,9 @@ interface Props {
 function UserHomeLayout({ children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <UserHomeNavbar />
+      <div className="pt-6">
+        <UserHomeNavbar />
+      </div>
       <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>
     </div>
   );
