@@ -16,8 +16,8 @@ export default function DemandDetail({ slug }: { slug: string }) {
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findDemand) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findDemand) return <div />;
   const demand = data.findDemand;
 
   const sizes = 'h-[360px] md:h-[524px]';

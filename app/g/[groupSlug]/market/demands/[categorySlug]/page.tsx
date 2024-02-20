@@ -21,7 +21,7 @@ function DemandsPage({
   );
   const status = useDealStatus();
 
-  if (!group || !category) return <div>null</div>;
+  if (!group || !category) return <div />;
   return <DemandFeed categoryId={category.id} status={status!} />;
 }
 

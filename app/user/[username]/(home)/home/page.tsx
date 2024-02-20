@@ -16,8 +16,8 @@ function Page({
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findMyUserByUsername) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findMyUserByUsername) return <div />;
 
   const user = data.findMyUserByUsername;
   return <MyUserProfile user={user} />;

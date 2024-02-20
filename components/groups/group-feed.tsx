@@ -5,8 +5,8 @@ import GroupPreview from './group-preview';
 
 export default function GroupFeed() {
   const { loading, data } = useFindGroupPreviewsQuery();
-  if (loading) return <div>Loading</div>;
-  if (!data?.findGroupPreviews) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findGroupPreviews) return <div />;
   const groups = data.findGroupPreviews;
 
   return (

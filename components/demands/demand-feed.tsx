@@ -24,7 +24,7 @@ function DemandFeed({
   });
 
   if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
-  if (!data?.findDemands) return <div>null</div>;
+  if (!data?.findDemands) return <div />;
 
   const { edges } = data.findDemands;
 

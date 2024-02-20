@@ -19,7 +19,7 @@ function SwapsPage({ params: { groupSlug, categorySlug } }: SwapsPageProps) {
   );
   const status = useDealStatus();
 
-  if (!group || !category) return <div>null</div>;
+  if (!group || !category) return <div />;
   return <SwapFeed categoryId={category.id} status={status!} />;
 }
 

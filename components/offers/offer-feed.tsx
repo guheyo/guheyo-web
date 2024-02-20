@@ -24,7 +24,7 @@ function OfferFeed({
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findOffers) return <div>null</div>;
+  if (!data?.findOffers) return <div />;
 
   const { edges } = data.findOffers;
 

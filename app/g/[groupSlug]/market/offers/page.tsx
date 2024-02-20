@@ -6,7 +6,7 @@ import { useReactiveVar } from '@apollo/client';
 
 function Page() {
   const group = useReactiveVar(groupVar);
-  if (!group) return <div>null</div>;
+  if (!group) return <div />;
 
   const defaultCategorySlug = group?.productCategories[0].slug;
   return redirect(`offers/${defaultCategorySlug}`);

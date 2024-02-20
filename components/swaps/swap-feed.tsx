@@ -24,7 +24,7 @@ function SwapFeed({
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findSwaps) return <div>null</div>;
+  if (!data?.findSwaps) return <div />;
 
   const { edges } = data.findSwaps;
 

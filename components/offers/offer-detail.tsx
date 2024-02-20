@@ -16,8 +16,8 @@ export default function OfferDetail({ slug }: { slug: string }) {
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findOffer) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findOffer) return <div />;
   const offer = data.findOffer;
   const sizes = 'h-[360px] md:h-[524px]';
 
