@@ -41,13 +41,17 @@ fragment demandPreview on DemandResponse {
 }
 
 query findDemands(
-  $productCategoryId: ID!
+  $productCategoryId: ID
+  $buyerId: ID
+  $status: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
   findDemands(
     productCategoryId: $productCategoryId
+    buyerId: $buyerId
+    status: $status
     cursor: $cursor
     skip: $skip
     take: $take

@@ -3,6 +3,7 @@
 import { groupVar } from '@/lib/apollo/cache';
 import { useReactiveVar } from '@apollo/client';
 import DemandFeed from '@/components/demands/demand-feed';
+import { useDealStatus } from '@/hooks/use-deal-status';
 
 export interface DemandsPageProps {
   params: {
@@ -18,9 +19,10 @@ function DemandsPage({
   const category = group?.productCategories.find(
     (c) => c.slug === categorySlug,
   );
+  const status = useDealStatus();
 
-  if (!group || !category) return <div>null</div>;
-  return <DemandFeed categoryId={category.id} />;
+  if (!group || !category) return <div />;
+  return <DemandFeed categoryId={category.id} status={status!} />;
 }
 
 export default DemandsPage;

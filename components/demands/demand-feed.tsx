@@ -5,16 +5,26 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 
-function DemandFeed({ categoryId }: { categoryId: string }) {
+function DemandFeed({
+  categoryId,
+  buyerId,
+  status,
+}: {
+  categoryId?: string;
+  buyerId?: string;
+  status?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
     ref,
     categoryId,
+    buyerId,
+    status,
     take: 15,
   });
 
   if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
-  if (!data?.findDemands) return <div>null</div>;
+  if (!data?.findDemands) return <div />;
 
   const { edges } = data.findDemands;
 

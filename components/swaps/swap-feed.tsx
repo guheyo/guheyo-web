@@ -5,16 +5,26 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 
-function SwapFeed({ categoryId }: { categoryId: string }) {
+function SwapFeed({
+  categoryId,
+  proposerId,
+  status,
+}: {
+  categoryId?: string;
+  proposerId?: string;
+  status?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
     ref,
     categoryId,
+    proposerId,
+    status,
     take: 12,
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findSwaps) return <div>null</div>;
+  if (!data?.findSwaps) return <div />;
 
   const { edges } = data.findSwaps;
 

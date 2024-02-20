@@ -34,6 +34,7 @@ export default function LoginButton() {
   const handleSignOut = (): void => {
     handleCloseMenu();
     logout();
+    router.push('/');
   };
 
   if (!jwtUser) {
@@ -66,7 +67,10 @@ export default function LoginButton() {
         className="mt-1 pr-3 pl-3"
       >
         <MenuItem>
-          <Link href={`/user/${jwtUser.username}`} onClick={handleCloseMenu}>
+          <Link
+            href={`/user/${jwtUser.username}/home`}
+            onClick={handleCloseMenu}
+          >
             <div className="focus:bg-gray-100 hover:bg-gray-100">
               <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
                 <SentimentSatisfiedAltIcon />

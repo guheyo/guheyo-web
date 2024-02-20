@@ -11,8 +11,8 @@ export default function Term({ name }: { name: string }) {
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findTerm) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findTerm) return <div />;
 
   const term = data.findTerm;
 

@@ -31,7 +31,7 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
+      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
         {group.offers.map((offer) => (
           <OfferPreview key={offer.slug} offer={offer} />
         ))}
@@ -54,7 +54,7 @@ export default function GroupPreview({ group }: Props) {
           </Link>
         </div>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
+      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
         {group.demands.map((demand) => (
           <DemandPreview key={demand.slug} demand={demand} />
         ))}

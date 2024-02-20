@@ -17,8 +17,8 @@ export default function SwapDetail({ slug }: { slug: string }) {
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findSwap) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findSwap) return <div />;
   const swap = data.findSwap;
 
   const sizes = 'h-[360px] md:h-[524px]';

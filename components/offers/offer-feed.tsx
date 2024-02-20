@@ -5,12 +5,26 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 
-function OfferFeed({ categoryId }: { categoryId: string }) {
+function OfferFeed({
+  categoryId,
+  sellerId,
+  status,
+}: {
+  categoryId?: string;
+  sellerId?: string;
+  status?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const { loading, data } = useInfiniteOfferFeed({ ref, categoryId, take: 12 });
+  const { loading, data } = useInfiniteOfferFeed({
+    ref,
+    categoryId,
+    sellerId,
+    status,
+    take: 12,
+  });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findOffers) return <div>null</div>;
+  if (!data?.findOffers) return <div />;
 
   const { edges } = data.findOffers;
 

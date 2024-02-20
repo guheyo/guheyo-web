@@ -16,16 +16,11 @@ function Page({
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findMyUserByUsername) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findMyUserByUsername) return <div />;
 
   const user = data.findMyUserByUsername;
-
-  return (
-    <div className="max-w-md text-light-200 mx-2 md:mx-0">
-      <MyUserProfile user={user} />
-    </div>
-  );
+  return <MyUserProfile user={user} />;
 }
 
 export default Page;

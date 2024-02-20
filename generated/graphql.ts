@@ -713,9 +713,11 @@ export type QueryFindDemandByIdArgs = {
 
 
 export type QueryFindDemandsArgs = {
+  buyerId?: InputMaybe<Scalars['ID']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
 };
 
@@ -765,8 +767,10 @@ export type QueryFindOfferByIdArgs = {
 
 export type QueryFindOffersArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  sellerId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
 };
 
@@ -793,8 +797,10 @@ export type QueryFindSwapByIdArgs = {
 
 export type QueryFindSwapsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  proposerId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
 };
 
@@ -1065,7 +1071,9 @@ export type DemandFragment = { __typename?: 'DemandResponse', id: string, create
 export type DemandPreviewFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'AuthorResponse', username: string } };
 
 export type FindDemandsQueryVariables = Exact<{
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  buyerId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1118,7 +1126,9 @@ export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdA
 export type OfferPreviewFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'AuthorResponse', username: string } };
 
 export type FindOffersQueryVariables = Exact<{
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  sellerId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1195,7 +1205,9 @@ export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt:
 export type SwapPreviewFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'AuthorResponse', username: string } };
 
 export type FindSwapsQueryVariables = Exact<{
-  productCategoryId: Scalars['ID']['input'];
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  proposerId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1702,9 +1714,11 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindDemandsDocument = gql`
-    query findDemands($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findDemands($productCategoryId: ID, $buyerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemands(
     productCategoryId: $productCategoryId
+    buyerId: $buyerId
+    status: $status
     cursor: $cursor
     skip: $skip
     take: $take
@@ -1736,6 +1750,8 @@ export const FindDemandsDocument = gql`
  * const { data, loading, error } = useFindDemandsQuery({
  *   variables: {
  *      productCategoryId: // value for 'productCategoryId'
+ *      buyerId: // value for 'buyerId'
+ *      status: // value for 'status'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -1967,9 +1983,11 @@ export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
 export const FindOffersDocument = gql`
-    query findOffers($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findOffers($productCategoryId: ID, $sellerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOffers(
     productCategoryId: $productCategoryId
+    sellerId: $sellerId
+    status: $status
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2001,6 +2019,8 @@ export const FindOffersDocument = gql`
  * const { data, loading, error } = useFindOffersQuery({
  *   variables: {
  *      productCategoryId: // value for 'productCategoryId'
+ *      sellerId: // value for 'sellerId'
+ *      status: // value for 'status'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2300,9 +2320,11 @@ export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof 
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindSwapsDocument = gql`
-    query findSwaps($productCategoryId: ID!, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findSwaps($productCategoryId: ID, $proposerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findSwaps(
     productCategoryId: $productCategoryId
+    proposerId: $proposerId
+    status: $status
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2334,6 +2356,8 @@ export const FindSwapsDocument = gql`
  * const { data, loading, error } = useFindSwapsQuery({
  *   variables: {
  *      productCategoryId: // value for 'productCategoryId'
+ *      proposerId: // value for 'proposerId'
+ *      status: // value for 'status'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'

@@ -12,8 +12,8 @@ export default function GroupInfo({ slug }: { slug: string }) {
     },
   });
 
-  if (loading) return <div>Loading</div>;
-  if (!data?.findGroup) return <div>null</div>;
+  if (loading) return <div />;
+  if (!data?.findGroup) return <div />;
 
   const group = data?.findGroup;
   groupVar(group);

@@ -1,44 +1,41 @@
 'use client';
 
-import { Deal, dealVar } from '@/lib/apollo/cache';
-import { useReactiveVar } from '@apollo/client';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
-import { DEAL_OPTIONS } from './deal.constants';
+import { DEAL_STATUS_OPTIONS } from './deal.constants';
 
-export default function DealSelector({
-  categorySlug,
+export default function DealStatusSelector({
+  status,
 }: {
-  categorySlug: string;
+  status: string | null;
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const deal = useReactiveVar(dealVar);
+
+  if (!status) {
+    router.push(`${pathname}?status=OPEN`);
+  }
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
-    dealVar(value as Deal);
-    router.push(
-      `${pathname.split('/').slice(0, -2).join('/')}/${value}/${categorySlug}`,
-    );
+    router.push(`${pathname}?status=${value}`);
   };
-
   return (
     <Select
       id="type-selector"
-      placeholder="판매"
-      value={deal}
+      placeholder="거래 가능"
+      value={status || 'OPEN'}
       onChange={handleChange}
       inputProps={{
-        className: 'px-3 py-2 text-xs md:text-base',
+        className: 'px-3 py-2 text-xs md:text-base w-16 md:w-20',
       }}
       sx={{
         color: '#f2f3ed',
         fontWeight: 'bold',
       }}
     >
-      {DEAL_OPTIONS.map(({ value, label }) => (
+      {DEAL_STATUS_OPTIONS.map(({ value, label }) => (
         <MenuItem key={value} value={value}>
           {label}
         </MenuItem>
