@@ -3,6 +3,7 @@
 import { groupVar } from '@/lib/apollo/cache';
 import { useReactiveVar } from '@apollo/client';
 import OfferFeed from '@/components/offers/offer-feed';
+import { useDealStatus } from '@/hooks/use-deal-status';
 
 export interface OffersPageProps {
   params: {
@@ -16,9 +17,10 @@ function OffersPage({ params: { groupSlug, categorySlug } }: OffersPageProps) {
   const category = group?.productCategories.find(
     (c) => c.slug === categorySlug,
   );
+  const status = useDealStatus();
 
   if (!group || !category) return <div>null</div>;
-  return <OfferFeed categoryId={category.id} status="OPEN" />;
+  return <OfferFeed categoryId={category.id} status={status!} />;
 }
 
 export default OffersPage;
