@@ -29,7 +29,7 @@ export default function UserHomeNavbar() {
               passHref
               href={`${option.value}`}
             >
-              <span className="font-bold text-xs md:text-base">
+              <span className="font-bold text-base md:text-lg">
                 {option.label}
               </span>
             </Link>
