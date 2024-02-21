@@ -21,7 +21,7 @@ fragment offer on OfferResponse {
   brandId
 }
 
-fragment offerPreview on OfferResponse {
+fragment offerPreview on OfferPreviewResponse {
   id
   createdAt
   updatedAt
@@ -43,18 +43,20 @@ fragment offerPreview on OfferResponse {
   brandId
 }
 
-query findOffers(
+query findOfferPreviews(
   $productCategoryId: ID
   $sellerId: ID
   $status: String
+  $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
-  findOffers(
+  findOfferPreviews(
     productCategoryId: $productCategoryId
     sellerId: $sellerId
     status: $status
+    keyword: $keyword
     cursor: $cursor
     skip: $skip
     take: $take

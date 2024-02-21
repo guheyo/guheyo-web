@@ -1,4 +1,4 @@
-import { useFindOffersQuery } from '@/generated/graphql';
+import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -7,19 +7,22 @@ export const useInfiniteOfferFeed = ({
   categoryId,
   sellerId,
   status,
+  keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId?: string;
   sellerId?: string;
   status?: string;
+  keyword?: string;
   take: number;
 }) => {
-  const { loading, data, fetchMore } = useFindOffersQuery({
+  const { loading, data, fetchMore } = useFindOfferPreviewsQuery({
     variables: {
       productCategoryId: categoryId,
       sellerId,
       status,
+      keyword,
       take,
       skip: 0,
     },
@@ -33,25 +36,26 @@ export const useInfiniteOfferFeed = ({
           productCategoryId: categoryId,
           sellerId,
           status,
-          cursor: data?.findOffers.pageInfo.endCursor,
+          keyword,
+          cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findOffers: {
-              __typename: previousQueryResult.findOffers.__typename,
+            findOfferPreviews: {
+              __typename: previousQueryResult.findOfferPreviews.__typename,
               edges: [
-                ...previousQueryResult.findOffers.edges,
-                ...fetchMoreResult.findOffers.edges,
+                ...previousQueryResult.findOfferPreviews.edges,
+                ...fetchMoreResult.findOfferPreviews.edges,
               ],
-              pageInfo: fetchMoreResult.findOffers.pageInfo,
+              pageInfo: fetchMoreResult.findOfferPreviews.pageInfo,
             },
           };
         },
       }),
-    data?.findOffers.pageInfo.hasNextPage,
+    data?.findOfferPreviews.pageInfo.hasNextPage,
   );
 
   return { loading, data };
