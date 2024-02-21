@@ -9,10 +9,12 @@ function SwapFeed({
   categoryId,
   proposerId,
   status,
+  keyword,
 }: {
   categoryId?: string;
   proposerId?: string;
   status?: string;
+  keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
@@ -20,6 +22,7 @@ function SwapFeed({
     categoryId,
     proposerId,
     status,
+    keyword,
     take: 12,
   });
 

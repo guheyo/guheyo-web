@@ -7,12 +7,14 @@ export const useInfiniteSwapFeed = ({
   categoryId,
   proposerId,
   status,
+  keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId?: string;
   proposerId?: string;
   status?: string;
+  keyword?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindSwapPreviewsQuery({
@@ -20,6 +22,7 @@ export const useInfiniteSwapFeed = ({
       productCategoryId: categoryId,
       proposerId,
       status,
+      keyword,
       take,
       skip: 0,
     },
@@ -33,6 +36,7 @@ export const useInfiniteSwapFeed = ({
           productCategoryId: categoryId,
           proposerId,
           status,
+          keyword,
           cursor: data?.findSwapPreviews.pageInfo.endCursor,
           take,
           skip: 1,
