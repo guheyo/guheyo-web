@@ -44,6 +44,7 @@ query findDemandPreviews(
   $productCategoryId: ID
   $buyerId: ID
   $status: String
+  $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -52,6 +53,7 @@ query findDemandPreviews(
     productCategoryId: $productCategoryId
     buyerId: $buyerId
     status: $status
+    keyword: $keyword
     cursor: $cursor
     skip: $skip
     take: $take

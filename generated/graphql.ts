@@ -1139,6 +1139,7 @@ export type FindDemandPreviewsQueryVariables = Exact<{
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   buyerId?: InputMaybe<Scalars['ID']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1274,6 +1275,7 @@ export type FindSwapPreviewsQueryVariables = Exact<{
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   proposerId?: InputMaybe<Scalars['ID']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1780,11 +1782,12 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindDemandPreviewsDocument = gql`
-    query findDemandPreviews($productCategoryId: ID, $buyerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findDemandPreviews($productCategoryId: ID, $buyerId: ID, $status: String, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
     productCategoryId: $productCategoryId
     buyerId: $buyerId
     status: $status
+    keyword: $keyword
     cursor: $cursor
     skip: $skip
     take: $take
@@ -1818,6 +1821,7 @@ export const FindDemandPreviewsDocument = gql`
  *      productCategoryId: // value for 'productCategoryId'
  *      buyerId: // value for 'buyerId'
  *      status: // value for 'status'
+ *      keyword: // value for 'keyword'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2388,11 +2392,12 @@ export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof 
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindSwapPreviewsDocument = gql`
-    query findSwapPreviews($productCategoryId: ID, $proposerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findSwapPreviews($productCategoryId: ID, $proposerId: ID, $status: String, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findSwapPreviews(
     productCategoryId: $productCategoryId
     proposerId: $proposerId
     status: $status
+    keyword: $keyword
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2426,6 +2431,7 @@ export const FindSwapPreviewsDocument = gql`
  *      productCategoryId: // value for 'productCategoryId'
  *      proposerId: // value for 'proposerId'
  *      status: // value for 'status'
+ *      keyword: // value for 'keyword'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'

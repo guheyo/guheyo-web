@@ -50,6 +50,7 @@ query findSwapPreviews(
   $productCategoryId: ID
   $proposerId: ID
   $status: String
+  $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -58,6 +59,7 @@ query findSwapPreviews(
     productCategoryId: $productCategoryId
     proposerId: $proposerId
     status: $status
+    keyword: $keyword
     cursor: $cursor
     skip: $skip
     take: $take
