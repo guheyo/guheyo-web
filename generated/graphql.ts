@@ -665,9 +665,9 @@ export type PaginatedOfferPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
-export type PaginatedSwapsResponse = {
-  __typename?: 'PaginatedSwapsResponse';
-  edges: Array<SwapResponseEdge>;
+export type PaginatedSwapPreviewsResponse = {
+  __typename?: 'PaginatedSwapPreviewsResponse';
+  edges: Array<SwapPreviewResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -716,7 +716,7 @@ export type Query = {
   findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
   findSwapById?: Maybe<SwapResponse>;
-  findSwaps: PaginatedSwapsResponse;
+  findSwapPreviews: PaginatedSwapPreviewsResponse;
   findTerm?: Maybe<TermResponse>;
   findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
@@ -834,7 +834,7 @@ export type QueryFindSwapByIdArgs = {
 };
 
 
-export type QueryFindSwapsArgs = {
+export type QueryFindSwapPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
@@ -926,6 +926,32 @@ export type SocialUserResponse = {
   socialId: Scalars['String']['output'];
 };
 
+export type SwapPreviewResponse = {
+  __typename?: 'SwapPreviewResponse';
+  brandId?: Maybe<Scalars['String']['output']>;
+  businessFunction: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name0: Scalars['String']['output'];
+  name1: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  priceCurrency: Scalars['String']['output'];
+  productCategoryId: Scalars['String']['output'];
+  proposer: UsernameResponse;
+  slug?: Maybe<Scalars['String']['output']>;
+  source: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  thumbnail?: Maybe<UserImageResponse>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type SwapPreviewResponseEdge = {
+  __typename?: 'SwapPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: SwapPreviewResponse;
+};
+
 export type SwapResponse = {
   __typename?: 'SwapResponse';
   brandId?: Maybe<Scalars['String']['output']>;
@@ -947,12 +973,6 @@ export type SwapResponse = {
   status: Scalars['String']['output'];
   thumbnail?: Maybe<UserImageResponse>;
   updatedAt: Scalars['DateTime']['output'];
-};
-
-export type SwapResponseEdge = {
-  __typename?: 'SwapResponseEdge';
-  cursor: Scalars['String']['output'];
-  node: SwapResponse;
 };
 
 export type TermResponse = {
@@ -1248,9 +1268,9 @@ export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', d
 
 export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type SwapPreviewFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'AuthorResponse', username: string } };
+export type SwapPreviewFragment = { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UsernameResponse', username: string } };
 
-export type FindSwapsQueryVariables = Exact<{
+export type FindSwapPreviewsQueryVariables = Exact<{
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   proposerId?: InputMaybe<Scalars['ID']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
@@ -1260,7 +1280,7 @@ export type FindSwapsQueryVariables = Exact<{
 }>;
 
 
-export type FindSwapsQuery = { __typename?: 'Query', findSwaps: { __typename?: 'PaginatedSwapsResponse', edges: Array<{ __typename?: 'SwapResponseEdge', cursor: string, node: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'AuthorResponse', username: string } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindSwapPreviewsQuery = { __typename?: 'Query', findSwapPreviews: { __typename?: 'PaginatedSwapPreviewsResponse', edges: Array<{ __typename?: 'SwapPreviewResponseEdge', cursor: string, node: { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UsernameResponse', username: string } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindSwapByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1615,7 +1635,7 @@ export const SwapFragmentDoc = gql`
     ${ImageFragmentDoc}
 ${ProposerFragmentDoc}`;
 export const SwapPreviewFragmentDoc = gql`
-    fragment swapPreview on SwapResponse {
+    fragment swapPreview on SwapPreviewResponse {
   id
   createdAt
   updatedAt
@@ -2367,9 +2387,9 @@ export function useDeleteSocialAccountByProviderMutation(baseOptions?: Apollo.Mu
 export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof useDeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
-export const FindSwapsDocument = gql`
-    query findSwaps($productCategoryId: ID, $proposerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
-  findSwaps(
+export const FindSwapPreviewsDocument = gql`
+    query findSwapPreviews($productCategoryId: ID, $proposerId: ID, $status: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findSwapPreviews(
     productCategoryId: $productCategoryId
     proposerId: $proposerId
     status: $status
@@ -2392,16 +2412,16 @@ export const FindSwapsDocument = gql`
     ${SwapPreviewFragmentDoc}`;
 
 /**
- * __useFindSwapsQuery__
+ * __useFindSwapPreviewsQuery__
  *
- * To run a query within a React component, call `useFindSwapsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSwapsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindSwapPreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSwapPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindSwapsQuery({
+ * const { data, loading, error } = useFindSwapPreviewsQuery({
  *   variables: {
  *      productCategoryId: // value for 'productCategoryId'
  *      proposerId: // value for 'proposerId'
@@ -2412,22 +2432,22 @@ export const FindSwapsDocument = gql`
  *   },
  * });
  */
-export function useFindSwapsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+export function useFindSwapPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+        return Apollo.useQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
       }
-export function useFindSwapsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+export function useFindSwapPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+          return Apollo.useLazyQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
         }
-export function useFindSwapsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapsQuery, FindSwapsQueryVariables>) {
+export function useFindSwapPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSwapsQuery, FindSwapsQueryVariables>(FindSwapsDocument, options);
+          return Apollo.useSuspenseQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
         }
-export type FindSwapsQueryHookResult = ReturnType<typeof useFindSwapsQuery>;
-export type FindSwapsLazyQueryHookResult = ReturnType<typeof useFindSwapsLazyQuery>;
-export type FindSwapsSuspenseQueryHookResult = ReturnType<typeof useFindSwapsSuspenseQuery>;
-export type FindSwapsQueryResult = Apollo.QueryResult<FindSwapsQuery, FindSwapsQueryVariables>;
+export type FindSwapPreviewsQueryHookResult = ReturnType<typeof useFindSwapPreviewsQuery>;
+export type FindSwapPreviewsLazyQueryHookResult = ReturnType<typeof useFindSwapPreviewsLazyQuery>;
+export type FindSwapPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindSwapPreviewsSuspenseQuery>;
+export type FindSwapPreviewsQueryResult = Apollo.QueryResult<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>;
 export const FindSwapByIdDocument = gql`
     query findSwapById($id: ID!) {
   findSwapById(id: $id) {

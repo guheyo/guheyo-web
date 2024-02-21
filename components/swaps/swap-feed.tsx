@@ -24,9 +24,9 @@ function SwapFeed({
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findSwaps) return <div />;
+  if (!data?.findSwapPreviews) return <div />;
 
-  const { edges } = data.findSwaps;
+  const { edges } = data.findSwapPreviews;
 
   return (
     <>

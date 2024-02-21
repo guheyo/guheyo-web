@@ -23,7 +23,7 @@ fragment swap on SwapResponse {
   brandId
 }
 
-fragment swapPreview on SwapResponse {
+fragment swapPreview on SwapPreviewResponse {
   id
   createdAt
   updatedAt
@@ -46,7 +46,7 @@ fragment swapPreview on SwapResponse {
   brandId
 }
 
-query findSwaps(
+query findSwapPreviews(
   $productCategoryId: ID
   $proposerId: ID
   $status: String
@@ -54,7 +54,7 @@ query findSwaps(
   $skip: Int!
   $take: Int!
 ) {
-  findSwaps(
+  findSwapPreviews(
     productCategoryId: $productCategoryId
     proposerId: $proposerId
     status: $status
