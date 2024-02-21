@@ -9,10 +9,12 @@ function DemandFeed({
   categoryId,
   buyerId,
   status,
+  keyword,
 }: {
   categoryId?: string;
   buyerId?: string;
   status?: string;
+  keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
@@ -20,6 +22,7 @@ function DemandFeed({
     categoryId,
     buyerId,
     status,
+    keyword,
     take: 15,
   });
 

@@ -7,12 +7,14 @@ export const useInfiniteDemandFeed = ({
   categoryId,
   buyerId,
   status,
+  keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId?: string;
   buyerId?: string;
   status?: string;
+  keyword?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindDemandPreviewsQuery({
@@ -20,6 +22,7 @@ export const useInfiniteDemandFeed = ({
       productCategoryId: categoryId,
       buyerId,
       status,
+      keyword,
       take,
       skip: 0,
     },
@@ -33,6 +36,7 @@ export const useInfiniteDemandFeed = ({
           productCategoryId: categoryId,
           buyerId,
           status,
+          keyword,
           cursor: data?.findDemandPreviews.pageInfo.endCursor,
           take,
           skip: 1,
