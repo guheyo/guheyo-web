@@ -42,3 +42,11 @@ body {
 .MuiMenu-paper {
   @apply border shadow-md;
 }
+
+.MuiOutlinedInput-root:hover fieldset {
+  border: #7f838e solid 2px !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border: #7f838e solid 2px !important;
+}
