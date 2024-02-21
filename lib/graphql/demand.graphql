@@ -21,7 +21,7 @@ fragment demand on DemandResponse {
   brandId
 }
 
-fragment demandPreview on DemandResponse {
+fragment demandPreview on DemandPreviewResponse {
   id
   createdAt
   updatedAt
@@ -40,7 +40,7 @@ fragment demandPreview on DemandResponse {
   brandId
 }
 
-query findDemands(
+query findDemandPreviews(
   $productCategoryId: ID
   $buyerId: ID
   $status: String
@@ -48,7 +48,7 @@ query findDemands(
   $skip: Int!
   $take: Int!
 ) {
-  findDemands(
+  findDemandPreviews(
     productCategoryId: $productCategoryId
     buyerId: $buyerId
     status: $status

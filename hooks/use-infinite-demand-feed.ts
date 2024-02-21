@@ -1,4 +1,4 @@
-import { useFindDemandsQuery } from '@/generated/graphql';
+import { useFindDemandPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -15,7 +15,7 @@ export const useInfiniteDemandFeed = ({
   status?: string;
   take: number;
 }) => {
-  const { loading, data, fetchMore } = useFindDemandsQuery({
+  const { loading, data, fetchMore } = useFindDemandPreviewsQuery({
     variables: {
       productCategoryId: categoryId,
       buyerId,
@@ -33,25 +33,25 @@ export const useInfiniteDemandFeed = ({
           productCategoryId: categoryId,
           buyerId,
           status,
-          cursor: data?.findDemands.pageInfo.endCursor,
+          cursor: data?.findDemandPreviews.pageInfo.endCursor,
           take,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findDemands: {
-              __typename: previousQueryResult.findDemands.__typename,
+            findDemandPreviews: {
+              __typename: previousQueryResult.findDemandPreviews.__typename,
               edges: [
-                ...previousQueryResult.findDemands.edges,
-                ...fetchMoreResult.findDemands.edges,
+                ...previousQueryResult.findDemandPreviews.edges,
+                ...fetchMoreResult.findDemandPreviews.edges,
               ],
-              pageInfo: fetchMoreResult.findDemands.pageInfo,
+              pageInfo: fetchMoreResult.findDemandPreviews.pageInfo,
             },
           };
         },
       }),
-    data?.findDemands.pageInfo.hasNextPage,
+    data?.findDemandPreviews.pageInfo.hasNextPage,
   );
 
   return { loading, data };
