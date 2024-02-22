@@ -1,6 +1,6 @@
 'use client';
 
-import OfferPreview from '@/components/offers/offer-preview';
+import OfferThumbnailPreview from '@/components/offers/offer-thumbnail-preview';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
@@ -35,7 +35,7 @@ function OfferFeed({
     <>
       {edges.map((edge) => (
         <div className="col-span-1" key={edge.node.id}>
-          <OfferPreview offer={edge.node} />
+          <OfferThumbnailPreview offer={edge.node} />
         </div>
       ))}
       <div ref={ref} />
