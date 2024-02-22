@@ -6,7 +6,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import GroupInfo from './group-info';
-import DemandPreview from '../demands/demand-preview';
+import DemandTextPreview from '../demands/demand-text-preview';
 import OfferPreview from '../offers/offer-preview';
 import GroupJoinButton from './gorup-join-button';
 
@@ -56,7 +56,7 @@ export default function GroupPreview({ group }: Props) {
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
         {group.demands.map((demand) => (
-          <DemandPreview key={demand.slug} demand={demand} />
+          <DemandTextPreview key={demand.slug} demand={demand} />
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
