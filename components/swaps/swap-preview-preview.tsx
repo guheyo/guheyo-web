@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { SwapPreviewFragment } from '@/generated/graphql';
 import SwapDetail from './swap-detail';
 import SwapName from './swap-name';
-import DealThumbnailPreviewLayout from '../deals/deal-thumbnail-preview.layout';
+import DealPreviewLayout from '../deals/deal-preview.layout';
 
 interface Props {
   swap: SwapPreviewFragment;
+  type: 'text' | 'thumbnail';
 }
 
-export default function SwapThumbnailPreview({ swap }: Props) {
+export default function SwapPreview({ swap, type }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -30,7 +31,8 @@ export default function SwapThumbnailPreview({ swap }: Props) {
   };
 
   return (
-    <DealThumbnailPreviewLayout
+    <DealPreviewLayout
+      type={type}
       thumbnail={swap.thumbnail}
       name={<SwapName name0={swap.name0} name1={swap.name1} />}
       price={swap.price}
@@ -40,6 +42,6 @@ export default function SwapThumbnailPreview({ swap }: Props) {
       handleClose={handleClose}
     >
       <SwapDetail slug={swap.slug!} />
-    </DealThumbnailPreviewLayout>
+    </DealPreviewLayout>
   );
 }

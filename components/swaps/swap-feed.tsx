@@ -1,9 +1,9 @@
 'use client';
 
-import SwapThumbnailPreview from '@/components/swaps/swap-thumbnail-preview';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
+import SwapPreview from '@/components/swaps/swap-preview-preview';
 
 function SwapFeed({
   categoryId,
@@ -35,7 +35,7 @@ function SwapFeed({
     <>
       {edges.map((edge) => (
         <div className="col-span-1" key={edge.node.id}>
-          <SwapThumbnailPreview swap={edge.node} />
+          <SwapPreview swap={edge.node} type="thumbnail" />
         </div>
       ))}
       <div ref={ref} />

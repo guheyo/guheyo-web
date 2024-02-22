@@ -7,7 +7,7 @@ import DealTextPreviewLayout from './deal-text-preview.layout';
 interface Props {
   type: 'text' | 'thumbnail';
   thumbnail?: UserImageResponse | null;
-  name: string;
+  name: any;
   price: number;
   createdAt: Date;
   open: boolean;
