@@ -9,7 +9,7 @@ import PostDialog from '../posts/post-dialog';
 
 interface Props {
   thumbnail?: UserImageResponse | null;
-  name: string;
+  name: any;
   price: number;
   createdAt: Date;
   open: boolean;
