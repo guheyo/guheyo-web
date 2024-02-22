@@ -35,9 +35,7 @@ function OfferFeed({
   return (
     <>
       {edges.map((edge) => (
-        <div className="col-span-1" key={edge.node.id}>
-          <OfferPreview offer={edge.node} type={type} />
-        </div>
+        <OfferPreview key={edge.node.id} offer={edge.node} type={type} />
       ))}
       <div ref={ref} />
     </>

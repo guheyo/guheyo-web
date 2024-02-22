@@ -30,13 +30,10 @@ function SwapFeed({
   if (!data?.findSwapPreviews) return <div />;
 
   const { edges } = data.findSwapPreviews;
-
   return (
     <>
       {edges.map((edge) => (
-        <div className="col-span-1" key={edge.node.id}>
-          <SwapPreview swap={edge.node} type="thumbnail" />
-        </div>
+        <SwapPreview key={edge.node.id} swap={edge.node} type="thumbnail" />
       ))}
       <div ref={ref} />
     </>

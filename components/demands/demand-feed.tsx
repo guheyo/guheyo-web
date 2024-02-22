@@ -30,13 +30,10 @@ function DemandFeed({
   if (!data?.findDemandPreviews) return <div />;
 
   const { edges } = data.findDemandPreviews;
-
   return (
     <>
       {edges.map((edge) => (
-        <div className="col-span-1" key={edge.node.id}>
-          <DemandPreview demand={edge.node} type="text" />
-        </div>
+        <DemandPreview key={edge.node.id} demand={edge.node} type="text" />
       ))}
       <div ref={ref} />
     </>
