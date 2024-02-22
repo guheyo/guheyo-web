@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DemandPreviewFragment } from '@/generated/graphql';
 import DemandDetail from './demand-detail';
-import DealTextPreview from '../deals/deal-text-preview.layout';
+import DealPreviewLayout from '../deals/deal-preview.layout';
 
 interface Props {
   demand: DemandPreviewFragment;
+  type: 'text' | 'thumbnail';
 }
 
-export default function DemandTextPreview({ demand }: Props) {
+export default function DemandPreview({ demand, type }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -29,7 +30,8 @@ export default function DemandTextPreview({ demand }: Props) {
   };
 
   return (
-    <DealTextPreview
+    <DealPreviewLayout
+      type={type}
       name={demand.name}
       price={demand.price}
       createdAt={demand.createdAt}
@@ -38,6 +40,6 @@ export default function DemandTextPreview({ demand }: Props) {
       handleClose={handleClose}
     >
       <DemandDetail slug={demand.slug!} />
-    </DealTextPreview>
+    </DealPreviewLayout>
   );
 }

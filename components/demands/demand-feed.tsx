@@ -1,9 +1,9 @@
 'use client';
 
-import DemandTextPreview from '@/components/demands/demand-text-preview';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
+import DemandPreview from '@/components/demands/demand-preview';
 
 function DemandFeed({
   categoryId,
@@ -35,7 +35,7 @@ function DemandFeed({
     <>
       {edges.map((edge) => (
         <div className="col-span-1" key={edge.node.id}>
-          <DemandTextPreview demand={edge.node} />
+          <DemandPreview demand={edge.node} type="text" />
         </div>
       ))}
       <div ref={ref} />
