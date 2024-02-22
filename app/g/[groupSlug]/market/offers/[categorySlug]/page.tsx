@@ -20,7 +20,9 @@ function OffersPage({ params: { groupSlug, categorySlug } }: OffersPageProps) {
   const status = useDealStatus();
 
   if (!group || !category) return <div />;
-  return <OfferFeed categoryId={category.id} status={status!} />;
+  return (
+    <OfferFeed categoryId={category.id} status={status!} type="thumbnail" />
+  );
 }
 
 export default OffersPage;

@@ -1,20 +1,22 @@
 'use client';
 
-import OfferThumbnailPreview from '@/components/offers/offer-thumbnail-preview';
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
+import OfferPreview from '@/components/offers/offer-preview';
 
 function OfferFeed({
   categoryId,
   sellerId,
   status,
   keyword,
+  type,
 }: {
   categoryId?: string;
   sellerId?: string;
   status?: string;
-  keyword?: string,
+  keyword?: string;
+  type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteOfferFeed({
@@ -30,12 +32,11 @@ function OfferFeed({
   if (!data?.findOfferPreviews) return <div />;
 
   const { edges } = data.findOfferPreviews;
-
   return (
     <>
       {edges.map((edge) => (
         <div className="col-span-1" key={edge.node.id}>
-          <OfferThumbnailPreview offer={edge.node} />
+          <OfferPreview offer={edge.node} type={type} />
         </div>
       ))}
       <div ref={ref} />

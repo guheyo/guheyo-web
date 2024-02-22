@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { truncateName } from '@/lib/formatter';
 import { OfferPreviewFragment } from '@/generated/graphql';
 import OfferDetail from './offer-detail';
-import DealThumbnailPreviewLayout from '../deals/deal-thumbnail-preview.layout';
+import DealPreviewLayout from '../deals/deal-preview.layout';
 
 interface Props {
   offer: OfferPreviewFragment;
+  type: 'text' | 'thumbnail';
 }
 
-export default function OfferThumbnailPreview({ offer }: Props) {
+export default function OfferPreview({ offer, type }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -30,7 +31,8 @@ export default function OfferThumbnailPreview({ offer }: Props) {
   };
 
   return (
-    <DealThumbnailPreviewLayout
+    <DealPreviewLayout
+      type={type}
       thumbnail={offer.thumbnail}
       name={truncateName(offer.name, 45)}
       price={offer.price}
@@ -40,6 +42,6 @@ export default function OfferThumbnailPreview({ offer }: Props) {
       handleClose={handleClose}
     >
       <OfferDetail slug={offer.slug!} />
-    </DealThumbnailPreviewLayout>
+    </DealPreviewLayout>
   );
 }

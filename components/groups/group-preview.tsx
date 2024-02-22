@@ -7,7 +7,7 @@ import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import GroupInfo from './group-info';
 import DemandTextPreview from '../demands/demand-text-preview';
-import OfferThumbnailPreview from '../offers/offer-thumbnail-preview';
+import OfferPreview from '../offers/offer-preview';
 import GroupJoinButton from './gorup-join-button';
 
 interface Props {
@@ -33,7 +33,7 @@ export default function GroupPreview({ group }: Props) {
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
         {group.offers.map((offer) => (
-          <OfferThumbnailPreview key={offer.slug} offer={offer} />
+          <OfferPreview key={offer.slug} offer={offer} type="thumbnail" />
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
