@@ -1,44 +1,38 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { getPrice } from '@/lib/formatter';
-import { SwapPreviewFragment } from '@/generated/graphql';
-import SwapDetail from './swap-detail';
+import { UserImageResponse } from '@/generated/graphql';
 import Thumbnail from '../base/thumbnail';
-import SwapName from './swap-name';
 import PostDialog from '../posts/post-dialog';
 
 interface Props {
-  swap: SwapPreviewFragment;
+  thumbnail?: UserImageResponse | null;
+  name: any;
+  price: number;
+  createdAt: Date;
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  children: React.ReactNode;
 }
 
-export default function SwapPreview({ swap }: Props) {
-  const router = useRouter();
-  const { thumbnail } = swap;
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
-    window.history.pushState(
-      {},
-      ``,
-      `/user/${swap.proposer.username}/swaps/${swap.slug}`,
-    );
-  };
-
-  const handleClose = () => {
-    setOpen(!open);
-    router.back();
-  };
-
+export default function DealThumbnailPreviewLayout({
+  thumbnail,
+  name,
+  price,
+  createdAt,
+  open,
+  handleOpen,
+  handleClose,
+  children,
+}: Props) {
   return (
     <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
       <button
         type="submit"
-        aria-label="swap-detail"
+        aria-label="deal-detail"
         onClick={() => handleOpen()}
         className="flex flex-row w-full md:flex-col text-start"
       >
@@ -55,22 +49,22 @@ export default function SwapPreview({ swap }: Props) {
           </div>
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
-          <div className="text-xs md:text-sm font-medium py-2 text-light-200 h-fit md:h-12">
-            <SwapName name0={swap.name0} name1={swap.name1} />
+          <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
+            {name}
           </div>
-          <div className="flex flex-row justify-between items-center pt-10 pb-2">
+          <div className="flex flex-row justify-between items-center py-3">
             <div className="flex-none text-sm md:text-base font-semibold">
-              {getPrice(swap.price)}
+              {getPrice(price)}
             </div>
             <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-              {dayjs(swap.createdAt).fromNow()}
+              {dayjs(createdAt).fromNow()}
             </div>
           </div>
         </div>
       </button>
       <div>
         <PostDialog open={open} handleClose={handleClose}>
-          <SwapDetail slug={swap.slug!} />
+          {children}
         </PostDialog>
       </div>
     </div>

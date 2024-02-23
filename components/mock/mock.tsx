@@ -1,7 +1,6 @@
 'use client';
 
 export function Mock({ height, color }: { height: number; color: string }) {
-  // return <div className={`col-span-1 bg-dark-400 h-${height} rounded-lg`} />;
   return <div className={`col-span-1 ${color} h-${height} rounded-lg`} />;
 }
 

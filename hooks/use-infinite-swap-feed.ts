@@ -1,4 +1,4 @@
-import { useFindSwapsQuery } from '@/generated/graphql';
+import { useFindSwapPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -7,19 +7,22 @@ export const useInfiniteSwapFeed = ({
   categoryId,
   proposerId,
   status,
+  keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   categoryId?: string;
   proposerId?: string;
   status?: string;
+  keyword?: string;
   take: number;
 }) => {
-  const { loading, data, fetchMore } = useFindSwapsQuery({
+  const { loading, data, fetchMore } = useFindSwapPreviewsQuery({
     variables: {
       productCategoryId: categoryId,
       proposerId,
       status,
+      keyword,
       take,
       skip: 0,
     },
@@ -33,25 +36,26 @@ export const useInfiniteSwapFeed = ({
           productCategoryId: categoryId,
           proposerId,
           status,
-          cursor: data?.findSwaps.pageInfo.endCursor,
+          keyword,
+          cursor: data?.findSwapPreviews.pageInfo.endCursor,
           take,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findSwaps: {
-              __typename: previousQueryResult.findSwaps.__typename,
+            findSwapPreviews: {
+              __typename: previousQueryResult.findSwapPreviews.__typename,
               edges: [
-                ...previousQueryResult.findSwaps.edges,
-                ...fetchMoreResult.findSwaps.edges,
+                ...previousQueryResult.findSwapPreviews.edges,
+                ...fetchMoreResult.findSwapPreviews.edges,
               ],
-              pageInfo: fetchMoreResult.findSwaps.pageInfo,
+              pageInfo: fetchMoreResult.findSwapPreviews.pageInfo,
             },
           };
         },
       }),
-    data?.findSwaps.pageInfo.hasNextPage,
+    data?.findSwapPreviews.pageInfo.hasNextPage,
   );
 
   return { loading, data };

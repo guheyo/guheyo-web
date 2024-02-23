@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { DemandPreviewFragment } from '@/generated/graphql';
-import DemandDetail from './demand-detail';
+import { SwapPreviewFragment } from '@/generated/graphql';
+import SwapDetail from './swap-detail';
+import SwapName from './swap-name';
 import DealPreviewLayout from '../deals/deal-preview.layout';
 
 interface Props {
-  demand: DemandPreviewFragment;
+  swap: SwapPreviewFragment;
   type: 'text' | 'thumbnail';
 }
 
-export default function DemandPreview({ demand, type }: Props) {
+export default function SwapPreview({ swap, type }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -20,7 +21,7 @@ export default function DemandPreview({ demand, type }: Props) {
     window.history.pushState(
       {},
       ``,
-      `/user/${demand.buyer.username}/demands/${demand.slug}`,
+      `/user/${swap.proposer.username}/swaps/${swap.slug}`,
     );
   };
 
@@ -32,14 +33,15 @@ export default function DemandPreview({ demand, type }: Props) {
   return (
     <DealPreviewLayout
       type={type}
-      name={demand.name}
-      price={demand.price}
-      createdAt={demand.createdAt}
+      thumbnail={swap.thumbnail}
+      name={<SwapName name0={swap.name0} name1={swap.name1} />}
+      price={swap.price}
+      createdAt={swap.createdAt}
       open={open}
       handleOpen={handleOpen}
       handleClose={handleClose}
     >
-      <DemandDetail slug={demand.slug!} />
+      <SwapDetail slug={swap.slug!} />
     </DealPreviewLayout>
   );
 }
