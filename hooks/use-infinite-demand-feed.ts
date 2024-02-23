@@ -4,6 +4,7 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteDemandFeed = ({
   ref,
+  groupId,
   categoryId,
   buyerId,
   status,
@@ -11,6 +12,7 @@ export const useInfiniteDemandFeed = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
+  groupId?: string;
   categoryId?: string;
   buyerId?: string;
   status?: string;
@@ -19,6 +21,7 @@ export const useInfiniteDemandFeed = ({
 }) => {
   const { loading, data, fetchMore } = useFindDemandPreviewsQuery({
     variables: {
+      groupId,
       productCategoryId: categoryId,
       buyerId,
       status,
@@ -33,6 +36,7 @@ export const useInfiniteDemandFeed = ({
     () =>
       fetchMore({
         variables: {
+          groupId,
           productCategoryId: categoryId,
           buyerId,
           status,

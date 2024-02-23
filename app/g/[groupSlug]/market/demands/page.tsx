@@ -22,7 +22,9 @@ function DemandsPage({ params: { groupSlug } }: DemandsPageProps) {
   const status = useDealStatus();
 
   if (!group) return <div />;
-  return <DemandFeed categoryId={category?.id} status={status!} />;
+  return (
+    <DemandFeed groupId={group.id} categoryId={category?.id} status={status!} />
+  );
 }
 
 export default DemandsPage;
