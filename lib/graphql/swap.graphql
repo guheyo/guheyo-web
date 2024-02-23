@@ -47,6 +47,7 @@ fragment swapPreview on SwapPreviewResponse {
 }
 
 query findSwapPreviews(
+  $groupId: ID
   $productCategoryId: ID
   $proposerId: ID
   $status: String
@@ -56,6 +57,7 @@ query findSwapPreviews(
   $take: Int!
 ) {
   findSwapPreviews(
+    groupId: $groupId
     productCategoryId: $productCategoryId
     proposerId: $proposerId
     status: $status
