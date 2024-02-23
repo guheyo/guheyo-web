@@ -294,6 +294,20 @@ export type GroupPreviewResponse = {
   slug?: Maybe<Scalars['String']['output']>;
 };
 
+export type GroupProfileResponse = {
+  __typename?: 'GroupProfileResponse';
+  icon?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type GroupProfileResponseEdge = {
+  __typename?: 'GroupProfileResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: GroupProfileResponse;
+};
+
 export type GroupResponse = {
   __typename?: 'GroupResponse';
   description?: Maybe<Scalars['String']['output']>;
@@ -653,6 +667,12 @@ export type PaginatedDemandPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedGroupProfilesResponse = {
+  __typename?: 'PaginatedGroupProfilesResponse';
+  edges: Array<GroupProfileResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedGroupsResponse = {
   __typename?: 'PaginatedGroupsResponse';
   edges: Array<GroupResponseEdge>;
@@ -705,6 +725,7 @@ export type Query = {
   findGroup?: Maybe<GroupResponse>;
   findGroupById?: Maybe<GroupResponse>;
   findGroupPreviews: Array<GroupPreviewResponse>;
+  findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
   findMemberByUserAndGroup?: Maybe<MemberWithRolesResponse>;
   findMyUserById?: Maybe<MyUserResponse>;
@@ -767,6 +788,14 @@ export type QueryFindGroupArgs = {
 
 export type QueryFindGroupByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindGroupProfilesArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
@@ -1164,6 +1193,8 @@ export type FindDemandQuery = { __typename?: 'Query', findDemand?: { __typename?
 
 export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> };
 
+export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null };
+
 export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UsernameResponse', username: string } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UsernameResponse', username: string } }> };
 
 export type FindGroupsQueryVariables = Exact<{
@@ -1174,6 +1205,16 @@ export type FindGroupsQueryVariables = Exact<{
 
 
 export type FindGroupsQuery = { __typename?: 'Query', findGroups: { __typename?: 'PaginatedGroupsResponse', edges: Array<{ __typename?: 'GroupResponseEdge', node: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
+
+export type FindGroupProfilesQueryVariables = Exact<{
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindGroupQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -1483,6 +1524,14 @@ export const GroupFragmentDoc = gql`
     description
     position
   }
+}
+    `;
+export const GroupProfileFragmentDoc = gql`
+    fragment groupProfile on GroupProfileResponse {
+  id
+  name
+  slug
+  icon
 }
     `;
 export const OfferPreviewFragmentDoc = gql`
@@ -1973,6 +2022,58 @@ export type FindGroupsQueryHookResult = ReturnType<typeof useFindGroupsQuery>;
 export type FindGroupsLazyQueryHookResult = ReturnType<typeof useFindGroupsLazyQuery>;
 export type FindGroupsSuspenseQueryHookResult = ReturnType<typeof useFindGroupsSuspenseQuery>;
 export type FindGroupsQueryResult = Apollo.QueryResult<FindGroupsQuery, FindGroupsQueryVariables>;
+export const FindGroupProfilesDocument = gql`
+    query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroupProfiles(keyword: $keyword, cursor: $cursor, skip: $skip, take: $take) {
+    edges {
+      node {
+        ...groupProfile
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${GroupProfileFragmentDoc}`;
+
+/**
+ * __useFindGroupProfilesQuery__
+ *
+ * To run a query within a React component, call `useFindGroupProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindGroupProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindGroupProfilesQuery({
+ *   variables: {
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindGroupProfilesQuery(baseOptions: Apollo.QueryHookOptions<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>(FindGroupProfilesDocument, options);
+      }
+export function useFindGroupProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>(FindGroupProfilesDocument, options);
+        }
+export function useFindGroupProfilesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>(FindGroupProfilesDocument, options);
+        }
+export type FindGroupProfilesQueryHookResult = ReturnType<typeof useFindGroupProfilesQuery>;
+export type FindGroupProfilesLazyQueryHookResult = ReturnType<typeof useFindGroupProfilesLazyQuery>;
+export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFindGroupProfilesSuspenseQuery>;
+export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
 export const FindGroupDocument = gql`
     query findGroup($slug: String!) {
   findGroup(slug: $slug) {

@@ -27,6 +27,13 @@ fragment group on GroupResponse {
   }
 }
 
+fragment groupProfile on GroupProfileResponse {
+  id
+  name
+  slug
+  icon
+}
+
 fragment groupPreview on GroupPreviewResponse {
   id
   name
@@ -51,6 +58,21 @@ query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
     }
     pageInfo {
       endCursor
+    }
+  }
+}
+
+query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroupProfiles(keyword: $keyword, cursor: $cursor, skip: $skip, take: $take) {
+    edges {
+      node {
+        ...groupProfile
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
     }
   }
 }
