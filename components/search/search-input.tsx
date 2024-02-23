@@ -1,32 +1,39 @@
+'use client';
+
 import { InputAdornment, TextField } from '@mui/material';
 import { SearchRounded, ClearRounded } from '@mui/icons-material';
-import { KeyboardEvent, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-export default function SearchInput() {
+export default function SearchInput({
+  value,
+  setValue,
+  placeholder,
+  handleKeyDown,
+  handleChange,
+}: {
+  value?: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  placeholder: string;
+  handleKeyDown: (e: any) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   const [showClearIcon, setShowClearIcon] = useState('none');
-  const [value, setValue] = useState('');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setShowClearIcon(event.target.value === '' ? 'none' : 'flex');
-    setValue(event.target.value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    if (e.key === 'Enter') {
-      // TODO
-    }
-  };
 
   const handleClick = (): void => {
     setValue('');
     setShowClearIcon('none');
   };
 
+  const handleChangeAndClearIcon = (e) => {
+    setShowClearIcon(e.target.value === '' ? 'none' : 'flex');
+    handleChange(e);
+  };
+
   return (
     <TextField
       variant="outlined"
-      placeholder="그룹에서 구해요"
-      onChange={handleChange}
+      placeholder={placeholder}
+      onChange={handleChangeAndClearIcon}
       onKeyDown={handleKeyDown}
       value={value}
       InputProps={{
@@ -54,11 +61,11 @@ export default function SearchInput() {
         ),
         sx: {
           color: '#f2f3ed',
-          borderRadius: 8,
-          fontSize: '16px',
+          borderRadius: 2,
+          fontSize: '18px',
           backgroundColor: '#404146',
           fontWeight: 600,
-          maxHeight: 36,
+          minWidth: 360,
         },
       }}
     />
