@@ -3,7 +3,7 @@
 import { useFindGroupPreviewsQuery } from '@/generated/graphql';
 import GroupPreview from './group-preview';
 
-export default function GroupFeed() {
+export default function GroupFeed({ keyword }: { keyword?: string }) {
   const { loading, data } = useFindGroupPreviewsQuery();
   if (loading) return <div />;
   if (!data?.findGroupPreviews) return <div />;

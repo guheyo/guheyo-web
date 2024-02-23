@@ -19,7 +19,7 @@ export default function GroupPreview({ group }: Props) {
     <div className="bg-dark-500 rounded-lg">
       <div className="flex flex-row gap-6 justify-between w-fit px-0 md:px-0 pt-4 mx-2 md:mx-0">
         <Link href={`g/${group.slug}`}>
-          <GroupInfo slug={group.slug!} />
+          <GroupInfo name={group.name} icon={group.icon} />
         </Link>
         <GroupJoinButton slug={group.slug!} />
       </div>
