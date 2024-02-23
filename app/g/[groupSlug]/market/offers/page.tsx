@@ -23,7 +23,12 @@ function OffersPage({ params: { groupSlug } }: OffersPageProps) {
 
   if (!group) return <div />;
   return (
-    <OfferFeed categoryId={category?.id} status={status!} type="thumbnail" />
+    <OfferFeed
+      groupId={group.id}
+      categoryId={category?.id}
+      status={status!}
+      type="thumbnail"
+    />
   );
 }
 
