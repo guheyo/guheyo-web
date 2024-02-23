@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import LoginButton from './login-button';
 import Scrollbar from './scrollbar';
+import SearchButton from '../search/search-button';
 
 export default function Navbar() {
   return (
@@ -21,6 +22,7 @@ export default function Navbar() {
               />
             </div>
           </Link>
+          <SearchButton />
           <LoginButton />
         </div>
       </header>
