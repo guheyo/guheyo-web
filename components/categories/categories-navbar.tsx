@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
 import { dealVar, groupVar } from '@/lib/apollo/cache';
+import { useCreateQueryString } from '@/hooks/use-create-query-string';
+import { useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
 import DealSelector from '../deals/deal-selector';
 import { Mocks } from '../mock/mock';
@@ -14,15 +16,12 @@ const getButtonCSS = (clicked: boolean) => {
   return `border-b-2 border-light-200 text-light-200`;
 };
 
-export interface ProductCategoriesProps {
-  categorySlug: string;
-}
-
-export default function CategoriesNavbar({
-  categorySlug,
-}: ProductCategoriesProps) {
+export default function CategoriesNavbar() {
   const group = useReactiveVar(groupVar);
   const deal = useReactiveVar(dealVar);
+  const createQueryString = useCreateQueryString();
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category');
 
   if (!group)
     return (
@@ -46,7 +45,10 @@ export default function CategoriesNavbar({
                 category.slug === categorySlug,
               )}`}
               passHref
-              href={`/g/${group.slug}/market/${deal}/${category.slug}`}
+              href={`/g/${group.slug}/market/${deal}?${createQueryString(
+                'category',
+                category.slug,
+              )}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}

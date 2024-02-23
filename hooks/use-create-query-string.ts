@@ -5,7 +5,7 @@ export const useCreateQueryString = () => {
   const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
-    (name: string, value: string | null) => {
+    (name: string, value?: string | null) => {
       const params = new URLSearchParams(searchParams.toString());
       if (value) {
         params.set(name, value);
