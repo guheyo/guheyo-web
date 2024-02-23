@@ -4,6 +4,7 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteSwapFeed = ({
   ref,
+  groupId,
   categoryId,
   proposerId,
   status,
@@ -11,6 +12,7 @@ export const useInfiniteSwapFeed = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
+  groupId?: string;
   categoryId?: string;
   proposerId?: string;
   status?: string;
@@ -19,6 +21,7 @@ export const useInfiniteSwapFeed = ({
 }) => {
   const { loading, data, fetchMore } = useFindSwapPreviewsQuery({
     variables: {
+      groupId,
       productCategoryId: categoryId,
       proposerId,
       status,
@@ -33,6 +36,7 @@ export const useInfiniteSwapFeed = ({
     () =>
       fetchMore({
         variables: {
+          groupId,
           productCategoryId: categoryId,
           proposerId,
           status,
