@@ -1,13 +1,41 @@
 import { InputAdornment, TextField } from '@mui/material';
 import { SearchRounded } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
+import { useReactiveVar } from '@apollo/client';
+import { groupVar } from '@/lib/apollo/cache';
+
+const findLocation = (pathname: string) => {
+  if (pathname === '/') return 'home';
+  if (/^\/g\/[\w-]*\/market/.test(pathname)) return 'guild';
+  if (/^\/u\//.test(pathname)) return 'user';
+  if (/^\/search$/.test(pathname)) return 'search-guild';
+  if (/^\/search\/g\/[\w-]*\/market/.test(pathname)) return 'search-product';
+  return 'none';
+};
+
+const findHideButton = (location: string): boolean => {
+  if (['search-guild', 'search-product'].includes(location)) return true;
+  return false;
+};
+
+const findPlaceholder = (location: string, groupName?: string): string => {
+  if (location === 'home') return '그룹 찾기';
+  if (location === 'guild') return '제품 찾기';
+  if (location === 'search-product') return `in ${groupName}`;
+  return '';
+};
 
 export default function SearchButton() {
   const router = useRouter();
   const pathname = usePathname();
-  const hideButton = pathname === '/search';
+  const group = useReactiveVar(groupVar);
+  const location = findLocation(pathname);
+  const hideButton = findHideButton(location);
+
   const handleClick = (): void => {
-    router.push('/search');
+    if (location === 'home') router.push('/search');
+    else if (location === 'guild')
+      router.push(`/search/g/${group?.slug}/market`);
   };
 
   if (hideButton) return <div />;
@@ -15,7 +43,7 @@ export default function SearchButton() {
     <TextField
       className="w-36"
       variant="outlined"
-      placeholder="그룹 찾기"
+      placeholder={findPlaceholder(location, group?.name)}
       onClick={handleClick}
       InputProps={{
         startAdornment: (
