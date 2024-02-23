@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
 import { dealVar, groupVar } from '@/lib/apollo/cache';
+import { useCreateQueryString } from '@/hooks/use-create-query-string';
+import { useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
 import DealSelector from '../deals/deal-selector';
 import { Mocks } from '../mock/mock';
@@ -14,15 +16,12 @@ const getButtonCSS = (clicked: boolean) => {
   return `border-b-2 border-light-200 text-light-200`;
 };
 
-export interface ProductCategoriesProps {
-  categorySlug: string;
-}
-
-export default function CategoriesNavbar({
-  categorySlug,
-}: ProductCategoriesProps) {
+export default function CategoriesNavbar() {
   const group = useReactiveVar(groupVar);
   const deal = useReactiveVar(dealVar);
+  const createQueryString = useCreateQueryString();
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category');
 
   if (!group)
     return (
@@ -39,6 +38,16 @@ export default function CategoriesNavbar({
           <DealSelector categorySlug={categorySlug} />
         </div>
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
+          <Link
+            key="all"
+            className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
+              !categorySlug,
+            )}`}
+            passHref
+            href={`/g/${group.slug}/market/${deal}`}
+          >
+            <span className="font-bold text-xs md:text-base">전체</span>
+          </Link>
           {categories?.map((category) => (
             <Link
               key={category.slug}
@@ -46,7 +55,10 @@ export default function CategoriesNavbar({
                 category.slug === categorySlug,
               )}`}
               passHref
-              href={`/g/${group.slug}/market/${deal}/${category.slug}`}
+              href={`/g/${group.slug}/market/${deal}?${createQueryString(
+                'category',
+                category.slug,
+              )}`}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}

@@ -6,11 +6,13 @@ import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 import SwapPreview from '@/components/swaps/swap-preview-preview';
 
 function SwapFeed({
+  groupId,
   categoryId,
   proposerId,
   status,
   keyword,
 }: {
+  groupId?: string;
   categoryId?: string;
   proposerId?: string;
   status?: string;
@@ -19,6 +21,7 @@ function SwapFeed({
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
     ref,
+    groupId,
     categoryId,
     proposerId,
     status,

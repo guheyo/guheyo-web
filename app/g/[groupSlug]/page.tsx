@@ -14,8 +14,7 @@ function Page({ params: { groupSlug } }: Props) {
   const group = useReactiveVar(groupVar);
   if (!group) return <div />;
 
-  const defaultCategorySlug = group?.productCategories[0].slug;
-  return redirect(`${groupSlug}/market/offers/${defaultCategorySlug}`);
+  return redirect(`${groupSlug}/market/offers`);
 }
 
 export default Page;

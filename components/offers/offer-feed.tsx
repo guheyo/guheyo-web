@@ -6,12 +6,14 @@ import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
 
 function OfferFeed({
+  groupId,
   categoryId,
   sellerId,
   status,
   keyword,
   type,
 }: {
+  groupId?: string;
   categoryId?: string;
   sellerId?: string;
   status?: string;
@@ -21,6 +23,7 @@ function OfferFeed({
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteOfferFeed({
     ref,
+    groupId,
     categoryId,
     sellerId,
     status,

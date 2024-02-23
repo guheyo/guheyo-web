@@ -8,10 +8,10 @@ interface Props extends DemandsPageProps {
   children: ReactNode;
 }
 
-function DemandsLayout({ params, children }: Props) {
+function DemandsLayout({ children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar categorySlug={params.categorySlug} />
+      <CategoriesNavbar />
       <FeedHomeLayout>
         <TextFeedLayout>{children}</TextFeedLayout>
       </FeedHomeLayout>

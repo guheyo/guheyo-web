@@ -6,11 +6,13 @@ import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 import DemandPreview from '@/components/demands/demand-preview';
 
 function DemandFeed({
+  groupId,
   categoryId,
   buyerId,
   status,
   keyword,
 }: {
+  groupId?: string;
   categoryId?: string;
   buyerId?: string;
   status?: string;
@@ -19,6 +21,7 @@ function DemandFeed({
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
     ref,
+    groupId,
     categoryId,
     buyerId,
     status,

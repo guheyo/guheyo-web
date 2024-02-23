@@ -41,6 +41,7 @@ fragment demandPreview on DemandPreviewResponse {
 }
 
 query findDemandPreviews(
+  $groupId: ID
   $productCategoryId: ID
   $buyerId: ID
   $status: String
@@ -50,6 +51,7 @@ query findDemandPreviews(
   $take: Int!
 ) {
   findDemandPreviews(
+    groupId: $groupId
     productCategoryId: $productCategoryId
     buyerId: $buyerId
     status: $status
