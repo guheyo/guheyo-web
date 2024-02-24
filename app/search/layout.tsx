@@ -8,7 +8,7 @@ interface Props {
 
 function Layout({ children }: Props) {
   return (
-    <div className="flex gap-1 pt-2 md:pt-16 justify-center">{children}</div>
+    <div className="flex px-2 pb-2 pt-4 md:pt-6 justify-center">{children}</div>
   );
 }
 
