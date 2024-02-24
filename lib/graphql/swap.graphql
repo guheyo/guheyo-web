@@ -47,20 +47,16 @@ fragment swapPreview on SwapPreviewResponse {
 }
 
 query findSwapPreviews(
-  $groupId: ID
-  $productCategoryId: ID
-  $proposerId: ID
-  $status: String
+  $where: JSON
+  $orderBy: JSON
   $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
   findSwapPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    proposerId: $proposerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip

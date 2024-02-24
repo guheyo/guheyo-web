@@ -772,14 +772,12 @@ export type QueryFindDemandByIdArgs = {
 
 
 export type QueryFindDemandPreviewsArgs = {
-  buyerId?: InputMaybe<Scalars['ID']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  groupId?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -866,13 +864,11 @@ export type QueryFindSwapByIdArgs = {
 
 export type QueryFindSwapPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  groupId?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  proposerId?: InputMaybe<Scalars['ID']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1167,10 +1163,8 @@ export type DemandFragment = { __typename?: 'DemandResponse', id: string, create
 export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UsernameResponse', username: string } };
 
 export type FindDemandPreviewsQueryVariables = Exact<{
-  groupId?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  buyerId?: InputMaybe<Scalars['ID']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1315,10 +1309,8 @@ export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt:
 export type SwapPreviewFragment = { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UsernameResponse', username: string } };
 
 export type FindSwapPreviewsQueryVariables = Exact<{
-  groupId?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  proposerId?: InputMaybe<Scalars['ID']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1834,12 +1826,10 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindDemandPreviewsDocument = gql`
-    query findDemandPreviews($groupId: ID, $productCategoryId: ID, $buyerId: ID, $status: String, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    buyerId: $buyerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip
@@ -1871,10 +1861,8 @@ export const FindDemandPreviewsDocument = gql`
  * @example
  * const { data, loading, error } = useFindDemandPreviewsQuery({
  *   variables: {
- *      groupId: // value for 'groupId'
- *      productCategoryId: // value for 'productCategoryId'
- *      buyerId: // value for 'buyerId'
- *      status: // value for 'status'
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
@@ -2496,12 +2484,10 @@ export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof 
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindSwapPreviewsDocument = gql`
-    query findSwapPreviews($groupId: ID, $productCategoryId: ID, $proposerId: ID, $status: String, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findSwapPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findSwapPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    proposerId: $proposerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip
@@ -2533,10 +2519,8 @@ export const FindSwapPreviewsDocument = gql`
  * @example
  * const { data, loading, error } = useFindSwapPreviewsQuery({
  *   variables: {
- *      groupId: // value for 'groupId'
- *      productCategoryId: // value for 'productCategoryId'
- *      proposerId: // value for 'proposerId'
- *      status: // value for 'status'
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
