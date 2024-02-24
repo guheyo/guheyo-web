@@ -1,3 +1,5 @@
+import { SortOrder } from '@/types/sort.types';
+
 export interface FindDealsWhereArgs {
   groupId?: string;
 
@@ -11,9 +13,9 @@ export interface FindDealsWhereArgs {
 }
 
 export interface FindDealsOrderByArgs {
-  price?: 'asc' | 'desc';
+  price?: SortOrder;
 
-  createdAt?: 'asc' | 'desc';
+  createdAt?: SortOrder;
 }
 
 export interface FindOffersWhereArgs extends FindDealsWhereArgs {
