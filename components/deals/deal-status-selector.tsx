@@ -2,18 +2,16 @@
 
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { DEAL_STATUS_OPTIONS } from './deal.constants';
 
-export default function DealStatusSelector({
-  status,
-}: {
-  status: string | null;
-}) {
+export default function DealStatusSelector() {
   const pathname = usePathname();
   const router = useRouter();
   const createQueryString = useCreateQueryString();
+  const serachParams = useSearchParams();
+  const status = serachParams.get('status');
 
   if (!status) {
     router.push(`${pathname}?${createQueryString('status', 'OPEN')}`);
