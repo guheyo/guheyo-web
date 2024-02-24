@@ -1,6 +1,9 @@
 import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
-import { FindDealsOrderByArgs, FindDealsWhereArgs } from '@/interfaces/deal.interfaces';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteOfferFeed = ({

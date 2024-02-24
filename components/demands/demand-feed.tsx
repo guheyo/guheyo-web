@@ -4,27 +4,25 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 import DemandPreview from '@/components/demands/demand-preview';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 
 function DemandFeed({
-  groupId,
-  categoryId,
-  buyerId,
-  status,
+  where,
+  orderBy,
   keyword,
 }: {
-  groupId?: string;
-  categoryId?: string;
-  buyerId?: string;
-  status?: string;
+  where?: FindDealsWhereArgs;
+  orderBy?: FindDealsOrderByArgs;
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteDemandFeed({
     ref,
-    groupId,
-    categoryId,
-    buyerId,
-    status,
+    where,
+    orderBy,
     keyword,
     take: 15,
   });
