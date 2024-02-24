@@ -30,7 +30,7 @@ export default function SearchProducts() {
       <SearchInput
         value={value}
         setValue={setValue}
-        placeholder="어떤 제품을 구해요?"
+        placeholder="어떤 제품을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
