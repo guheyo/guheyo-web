@@ -6,6 +6,7 @@ import { groupVar } from '@/lib/apollo/cache';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
+import DealStatusSelector from '../deals/deal-status-selector';
 
 export default function SearchProducts() {
   const [value, setValue] = useState('');
@@ -36,6 +37,9 @@ export default function SearchProducts() {
       />
       <div className="pt-4">
         <CategoriesNavbar hideSelector />
+      </div>
+      <div className="flex justify-end pb-2">
+        <DealStatusSelector />
       </div>
       <div className="pt-4">
         <ProductSearchResults
