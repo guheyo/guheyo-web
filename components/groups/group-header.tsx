@@ -1,28 +1,23 @@
 'use client';
 
-import { useFindGroupQuery } from '@/generated/graphql';
+import { useGroup } from '@/hooks/use-group';
 import { groupVar } from '@/lib/apollo/cache';
 import Image from 'next/image';
 import { isMobile } from 'react-device-detect';
 
 export default function GroupHeader({ slug }: { slug: string }) {
-  const { loading, data } = useFindGroupQuery({
-    variables: {
-      slug,
-    },
-  });
+  const { loading, group } = useGroup();
 
   if (loading) return <div />;
-  if (!data?.findGroup) return <div />;
-  const group = data?.findGroup;
+  if (!group) return <div />;
   groupVar(group);
 
   return (
     <div className="flex flex-row items-center gap-4">
       <Image
         src={!group.icon ? '/star/star.svg' : group.icon}
-        width={isMobile ? 48 : 56}
-        height={isMobile ? 48 : 56}
+        width={isMobile ? 36 : 48}
+        height={isMobile ? 36 : 48}
         alt={`${group.name} logo`}
         className="rounded-lg"
       />

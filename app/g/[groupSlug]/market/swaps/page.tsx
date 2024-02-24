@@ -5,6 +5,10 @@ import { useReactiveVar } from '@apollo/client';
 import SwapFeed from '@/components/swaps/swap-feed';
 import { useDealStatus } from '@/hooks/use-deal-status';
 import { useSearchParams } from 'next/navigation';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 
 export interface SwapsPageProps {
   params: {
@@ -22,9 +26,17 @@ function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
   const status = useDealStatus();
 
   if (!group) return <div />;
-  return (
-    <SwapFeed groupId={group.id} categoryId={category?.id} status={status!} />
-  );
+
+  const where: FindDealsWhereArgs = {
+    groupId: group.id,
+    productCategoryId: category?.id,
+    status: status!,
+  };
+  const orderBy: FindDealsOrderByArgs = {
+    createdAt: 'desc',
+  };
+
+  return <SwapFeed where={where} orderBy={orderBy} />;
 }
 
 export default SwapsPage;

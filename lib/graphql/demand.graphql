@@ -41,20 +41,16 @@ fragment demandPreview on DemandPreviewResponse {
 }
 
 query findDemandPreviews(
-  $groupId: ID
-  $productCategoryId: ID
-  $buyerId: ID
-  $status: String
+  $where: JSON
+  $orderBy: JSON
   $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
   findDemandPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    buyerId: $buyerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip

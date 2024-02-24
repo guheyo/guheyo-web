@@ -2,6 +2,7 @@
 
 import { InputAdornment, TextField } from '@mui/material';
 import { SearchRounded, ClearRounded } from '@mui/icons-material';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 export default function SearchInput({
@@ -18,6 +19,7 @@ export default function SearchInput({
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const [showClearIcon, setShowClearIcon] = useState('none');
+  const device = useDeviceDetect();
 
   const handleClick = (): void => {
     setValue('');
@@ -62,7 +64,7 @@ export default function SearchInput({
         sx: {
           color: '#f2f3ed',
           borderRadius: 2,
-          fontSize: '18px',
+          fontSize: device === 'mobile' ? '16px' : '18px',
           backgroundColor: '#404146',
           fontWeight: 600,
           minWidth: 360,

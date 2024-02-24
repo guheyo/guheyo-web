@@ -1,30 +1,28 @@
 import { useFindSwapPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteSwapFeed = ({
   ref,
-  groupId,
-  categoryId,
-  proposerId,
-  status,
+  where,
+  orderBy,
   keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  groupId?: string;
-  categoryId?: string;
-  proposerId?: string;
-  status?: string;
+  where?: FindDealsWhereArgs;
+  orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindSwapPreviewsQuery({
     variables: {
-      groupId,
-      productCategoryId: categoryId,
-      proposerId,
-      status,
+      where,
+      orderBy,
       keyword,
       take,
       skip: 0,
@@ -36,10 +34,8 @@ export const useInfiniteSwapFeed = ({
     () =>
       fetchMore({
         variables: {
-          groupId,
-          productCategoryId: categoryId,
-          proposerId,
-          status,
+          where,
+          orderBy,
           keyword,
           cursor: data?.findSwapPreviews.pageInfo.endCursor,
           take,

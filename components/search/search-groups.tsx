@@ -20,7 +20,7 @@ export default function SearchGroups() {
       <SearchInput
         value={value}
         setValue={setValue}
-        placeholder="어떤 취미를 좋아해요?"
+        placeholder="어떤 그룹을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />

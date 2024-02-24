@@ -4,27 +4,25 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 import SwapPreview from '@/components/swaps/swap-preview-preview';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 
 function SwapFeed({
-  groupId,
-  categoryId,
-  proposerId,
-  status,
+  where,
+  orderBy,
   keyword,
 }: {
-  groupId?: string;
-  categoryId?: string;
-  proposerId?: string;
-  status?: string;
+  where?: FindDealsWhereArgs;
+  orderBy?: FindDealsOrderByArgs;
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteSwapFeed({
     ref,
-    groupId,
-    categoryId,
-    proposerId,
-    status,
+    where,
+    orderBy,
     keyword,
     take: 12,
   });
@@ -33,6 +31,7 @@ function SwapFeed({
   if (!data?.findSwapPreviews) return <div />;
 
   const { edges } = data.findSwapPreviews;
+
   return (
     <>
       {edges.map((edge) => (

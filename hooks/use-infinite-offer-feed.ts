@@ -1,30 +1,28 @@
 import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteOfferFeed = ({
   ref,
-  groupId,
-  categoryId,
-  sellerId,
-  status,
+  where,
+  orderBy,
   keyword,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  groupId?: string;
-  categoryId?: string;
-  sellerId?: string;
-  status?: string;
+  where?: FindDealsWhereArgs;
+  orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindOfferPreviewsQuery({
     variables: {
-      groupId,
-      productCategoryId: categoryId,
-      sellerId,
-      status,
+      where,
+      orderBy,
       keyword,
       take,
       skip: 0,
@@ -36,10 +34,8 @@ export const useInfiniteOfferFeed = ({
     () =>
       fetchMore({
         variables: {
-          groupId,
-          productCategoryId: categoryId,
-          sellerId,
-          status,
+          where,
+          orderBy,
           keyword,
           cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,

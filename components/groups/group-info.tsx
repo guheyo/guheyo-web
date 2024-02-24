@@ -15,8 +15,8 @@ export default function GroupInfo({
       <div>
         <Image
           src={!icon ? '/star/star.svg' : icon}
-          width={isMobile ? 48 : 56}
-          height={isMobile ? 48 : 56}
+          width={isMobile ? 36 : 48}
+          height={isMobile ? 36 : 48}
           alt={`${name} logo`}
           className="rounded-lg"
         />

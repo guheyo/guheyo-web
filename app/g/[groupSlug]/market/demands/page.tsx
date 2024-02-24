@@ -5,6 +5,10 @@ import { useReactiveVar } from '@apollo/client';
 import DemandFeed from '@/components/demands/demand-feed';
 import { useDealStatus } from '@/hooks/use-deal-status';
 import { useSearchParams } from 'next/navigation';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 
 export interface DemandsPageProps {
   params: {
@@ -22,9 +26,17 @@ function DemandsPage({ params: { groupSlug } }: DemandsPageProps) {
   const status = useDealStatus();
 
   if (!group) return <div />;
-  return (
-    <DemandFeed groupId={group.id} categoryId={category?.id} status={status!} />
-  );
+
+  const where: FindDealsWhereArgs = {
+    groupId: group.id,
+    productCategoryId: category?.id,
+    status: status!,
+  };
+  const orderBy: FindDealsOrderByArgs = {
+    createdAt: 'desc',
+  };
+
+  return <DemandFeed where={where} orderBy={orderBy} />;
 }
 
 export default DemandsPage;

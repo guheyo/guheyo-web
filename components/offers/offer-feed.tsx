@@ -4,29 +4,27 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
+import {
+  FindDealsOrderByArgs,
+  FindDealsWhereArgs,
+} from '@/interfaces/deal.interfaces';
 
 function OfferFeed({
-  groupId,
-  categoryId,
-  sellerId,
-  status,
+  where,
+  orderBy,
   keyword,
   type,
 }: {
-  groupId?: string;
-  categoryId?: string;
-  sellerId?: string;
-  status?: string;
+  where?: FindDealsWhereArgs;
+  orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteOfferFeed({
     ref,
-    groupId,
-    categoryId,
-    sellerId,
-    status,
+    where,
+    orderBy,
     keyword,
     take: 12,
   });
