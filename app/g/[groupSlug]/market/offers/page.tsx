@@ -30,7 +30,7 @@ function OffersPage({ params: { groupSlug } }: OffersPageProps) {
   const where: FindOffersWhereArgs = {
     groupId: group.id,
     productCategoryId: category?.id,
-    status: status!,
+    status: status || undefined,
   };
   const orderBy: FindDealsOrderByArgs = {
     createdAt: 'desc',

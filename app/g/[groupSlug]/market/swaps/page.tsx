@@ -30,7 +30,7 @@ function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
   const where: FindSwapsWhereArgs = {
     groupId: group.id,
     productCategoryId: category?.id,
-    status: status!,
+    status: status || undefined,
   };
   const orderBy: FindDealsOrderByArgs = {
     createdAt: 'desc',
