@@ -13,8 +13,8 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { KeenSliderHooks, KeenSliderInstance } from 'keen-slider';
 import Link from 'next/link';
-import { isMobile } from 'react-device-detect';
 import { UserImageResponse } from '@/generated/graphql';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 
 interface CarouselArrowProps {
   disabled: boolean;
@@ -37,11 +37,15 @@ interface ZoomIconProps {
 }
 
 function ZoomIcon({ targetImage }: ZoomIconProps) {
+  const device = useDeviceDetect();
+
   return (
     <Link key={targetImage.id} href={targetImage.url} target="_blank">
       <IconButton
         className={`absolute ${
-          isMobile ? 'bottom-[5px] right-[5px]' : 'bottom-[10px] right-[10px]'
+          device === 'mobile'
+            ? 'bottom-[5px] right-[5px]'
+            : 'bottom-[10px] right-[10px]'
         } bg-gray-500 bg-opacity-10`}
       >
         <MagnifyingGlassIcon className="w-[20px] text-gray-200" />
