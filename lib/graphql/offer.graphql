@@ -44,20 +44,16 @@ fragment offerPreview on OfferPreviewResponse {
 }
 
 query findOfferPreviews(
-  $groupId: ID
-  $productCategoryId: ID
-  $sellerId: ID
-  $status: String
+  $where: JSON
+  $orderBy: JSON
   $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
   findOfferPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    sellerId: $sellerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip

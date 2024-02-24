@@ -16,6 +16,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
 };
 
 export type AddBidInput = {
@@ -835,13 +836,11 @@ export type QueryFindOfferByIdArgs = {
 
 export type QueryFindOfferPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  groupId?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  sellerId?: InputMaybe<Scalars['ID']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
   take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1237,10 +1236,8 @@ export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdA
 export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UsernameResponse', username: string } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
-  groupId?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  sellerId?: InputMaybe<Scalars['ID']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -2162,12 +2159,10 @@ export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
 export const FindOfferPreviewsDocument = gql`
-    query findOfferPreviews($groupId: ID, $productCategoryId: ID, $sellerId: ID, $status: String, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
-    groupId: $groupId
-    productCategoryId: $productCategoryId
-    sellerId: $sellerId
-    status: $status
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     cursor: $cursor
     skip: $skip
@@ -2199,10 +2194,8 @@ export const FindOfferPreviewsDocument = gql`
  * @example
  * const { data, loading, error } = useFindOfferPreviewsQuery({
  *   variables: {
- *      groupId: // value for 'groupId'
- *      productCategoryId: // value for 'productCategoryId'
- *      sellerId: // value for 'sellerId'
- *      status: // value for 'status'
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
