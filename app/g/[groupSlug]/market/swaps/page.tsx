@@ -7,7 +7,7 @@ import { useDealStatus } from '@/hooks/use-deal-status';
 import { useSearchParams } from 'next/navigation';
 import {
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
+  FindSwapsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 
 export interface SwapsPageProps {
@@ -27,7 +27,7 @@ function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
 
   if (!group) return <div />;
 
-  const where: FindDealsWhereArgs = {
+  const where: FindSwapsWhereArgs = {
     groupId: group.id,
     productCategoryId: category?.id,
     status: status!,

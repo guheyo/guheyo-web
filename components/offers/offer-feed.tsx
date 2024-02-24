@@ -5,8 +5,8 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
 import {
+  FindOffersWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 
 function OfferFeed({
@@ -15,7 +15,7 @@ function OfferFeed({
   keyword,
   type,
 }: {
-  where?: FindDealsWhereArgs;
+  where?: FindOffersWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';

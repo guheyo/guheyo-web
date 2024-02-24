@@ -1,8 +1,8 @@
 import { useFindSwapPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import {
+  FindSwapsWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -14,7 +14,7 @@ export const useInfiniteSwapFeed = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindDealsWhereArgs;
+  where?: FindSwapsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   take: number;

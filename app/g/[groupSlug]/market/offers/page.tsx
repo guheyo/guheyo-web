@@ -7,7 +7,7 @@ import { useDealStatus } from '@/hooks/use-deal-status';
 import { useSearchParams } from 'next/navigation';
 import {
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
+  FindOffersWhereArgs,
 } from '@/interfaces/deal.interfaces';
 
 export interface OffersPageProps {
@@ -27,7 +27,7 @@ function OffersPage({ params: { groupSlug } }: OffersPageProps) {
 
   if (!group) return <div />;
 
-  const where: FindDealsWhereArgs = {
+  const where: FindOffersWhereArgs = {
     groupId: group.id,
     productCategoryId: category?.id,
     status: status!,

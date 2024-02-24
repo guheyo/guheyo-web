@@ -5,8 +5,8 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 import DemandPreview from '@/components/demands/demand-preview';
 import {
+  FindDemandsWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 
 function DemandFeed({
@@ -14,7 +14,7 @@ function DemandFeed({
   orderBy,
   keyword,
 }: {
-  where?: FindDealsWhereArgs;
+  where?: FindDemandsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
 }) {

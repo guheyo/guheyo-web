@@ -3,8 +3,6 @@ export interface FindDealsWhereArgs {
 
   productCategoryId?: string;
 
-  sellerId?: string;
-
   status?: string;
 
   createdAt?: {
@@ -16,4 +14,16 @@ export interface FindDealsOrderByArgs {
   price?: 'asc' | 'desc';
 
   createdAt?: 'asc' | 'desc';
+}
+
+export interface FindOffersWhereArgs extends FindDealsWhereArgs {
+  sellerId?: string;
+}
+
+export interface FindDemandsWhereArgs extends FindDealsWhereArgs {
+  buyerId?: string;
+}
+
+export interface FindSwapsWhereArgs extends FindDealsWhereArgs {
+  proposerId?: string;
 }

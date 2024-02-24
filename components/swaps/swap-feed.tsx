@@ -5,8 +5,8 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 import SwapPreview from '@/components/swaps/swap-preview-preview';
 import {
+  FindSwapsWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 
 function SwapFeed({
@@ -14,7 +14,7 @@ function SwapFeed({
   orderBy,
   keyword,
 }: {
-  where?: FindDealsWhereArgs;
+  where?: FindSwapsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
 }) {
