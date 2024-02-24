@@ -10,10 +10,12 @@ export default function QuerySelector({
   queryKey,
   defaultValue,
   options,
+  inputClassName,
 }: {
   queryKey: string;
   defaultValue: string;
   options: Option[];
+  inputClassName: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -31,12 +33,12 @@ export default function QuerySelector({
   };
   return (
     <Select
-      id="type-selector"
+      id={`${queryKey}-selector`}
       placeholder={options[0].label}
       value={status || defaultValue}
       onChange={handleChange}
       inputProps={{
-        className: 'px-3 py-2 text-xs md:text-base w-16 md:w-20',
+        className: inputClassName,
       }}
       sx={{
         color: '#f2f3ed',
