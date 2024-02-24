@@ -33,7 +33,7 @@ function OffersPage({ params: { groupSlug } }: OffersPageProps) {
     status: status!,
   };
   const orderBy: FindDealsOrderByArgs = {
-    price: 'desc',
+    createdAt: 'desc',
   };
   return <OfferFeed where={where} orderBy={orderBy} type="thumbnail" />;
 }
