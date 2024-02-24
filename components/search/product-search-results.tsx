@@ -1,5 +1,7 @@
 import DemandFeed from '@/components/demands/demand-feed';
 import OfferFeed from '@/components/offers/offer-feed';
+import { useDealStatus } from '@/hooks/use-deal-status';
+import { FindDealsWhereArgs } from '@/interfaces/deal.interfaces';
 
 export default function ProductSearchResults({
   groupId,
@@ -10,6 +12,13 @@ export default function ProductSearchResults({
   categoryId?: string;
   keyword?: string;
 }) {
+  const status = useDealStatus();
+  const where: FindDealsWhereArgs = {
+    groupId,
+    productCategoryId: categoryId,
+    status: status || undefined,
+  };
+
   return (
     <div className="grid grid-cols-2 gap-4 md:gap-4 w-full">
       <div>
@@ -19,9 +28,11 @@ export default function ProductSearchResults({
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <OfferFeed
-              groupId={groupId}
-              categoryId={categoryId}
-              status="OPEN"
+              where={where}
+              orderBy={{
+                price: 'asc',
+                createdAt: 'desc',
+              }}
               keyword={keyword}
               type="text"
             />
@@ -37,9 +48,11 @@ export default function ProductSearchResults({
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <DemandFeed
-              groupId={groupId}
-              categoryId={categoryId}
-              status="OPEN"
+              where={where}
+              orderBy={{
+                price: 'desc',
+                createdAt: 'desc',
+              }}
               keyword={keyword}
             />
           ) : (
