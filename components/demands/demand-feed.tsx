@@ -17,10 +17,12 @@ function DemandFeed({
   where,
   orderBy,
   keyword,
+  type,
 }: {
   where?: FindDemandsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
@@ -52,7 +54,7 @@ function DemandFeed({
   return (
     <>
       {edges.map((edge) => (
-        <DemandPreview key={edge.node.id} demand={edge.node} type="text" />
+        <DemandPreview key={edge.node.id} demand={edge.node} type={type} />
       ))}
       <div ref={ref} />
     </>

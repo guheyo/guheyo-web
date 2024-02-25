@@ -9,7 +9,7 @@ function MyDemandsPage() {
   const where: FindDemandsWhereArgs = {
     buyerId: jwtUser?.id,
   };
-  return <DemandFeed where={where} />;
+  return <DemandFeed where={where} type="text" />;
 }
 
 export default MyDemandsPage;

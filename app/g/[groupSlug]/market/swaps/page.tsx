@@ -9,7 +9,7 @@ export interface SwapsPageProps {
 }
 
 function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
-  return <SwapFeed />;
+  return <SwapFeed type="thumbnail" />;
 }
 
 export default SwapsPage;

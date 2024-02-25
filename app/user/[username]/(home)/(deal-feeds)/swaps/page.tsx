@@ -9,7 +9,7 @@ function MySwapsPage() {
   const where: FindSwapsWhereArgs = {
     proposerId: jwtUser?.id,
   };
-  return <SwapFeed where={where} />;
+  return <SwapFeed where={where} type="thumbnail" />;
 }
 
 export default MySwapsPage;

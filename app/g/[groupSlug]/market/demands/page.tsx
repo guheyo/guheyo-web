@@ -9,7 +9,7 @@ export interface DemandsPageProps {
 }
 
 function DemandsPage({ params: { groupSlug } }: DemandsPageProps) {
-  return <DemandFeed />;
+  return <DemandFeed type="text" />;
 }
 
 export default DemandsPage;

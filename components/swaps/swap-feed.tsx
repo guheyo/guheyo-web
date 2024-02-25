@@ -17,10 +17,12 @@ function SwapFeed({
   where,
   orderBy,
   keyword,
+  type,
 }: {
   where?: FindSwapsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
@@ -53,7 +55,7 @@ function SwapFeed({
   return (
     <>
       {edges.map((edge) => (
-        <SwapPreview key={edge.node.id} swap={edge.node} type="thumbnail" />
+        <SwapPreview key={edge.node.id} swap={edge.node} type={type} />
       ))}
       <div ref={ref} />
     </>
