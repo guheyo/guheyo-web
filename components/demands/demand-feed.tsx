@@ -8,6 +8,10 @@ import {
   FindDemandsWhereArgs,
   FindDealsOrderByArgs,
 } from '@/interfaces/deal.interfaces';
+import { useGroup } from '@/hooks/use-group';
+import { useProductCategory } from '@/hooks/use-product-category';
+import { useDealStatus } from '@/hooks/use-deal-status';
+import { useDistinct } from '@/hooks/use-distinct';
 
 function DemandFeed({
   where,
@@ -19,11 +23,25 @@ function DemandFeed({
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const { group } = useGroup();
+  const category = useProductCategory();
+  const status = useDealStatus();
+  const distinct = useDistinct();
+
   const { loading, data } = useInfiniteDemandFeed({
     ref,
-    where,
-    orderBy,
+    where: {
+      groupId: group?.id,
+      productCategoryId: category?.id,
+      status: status || undefined,
+      buyerId: where?.buyerId,
+    },
+    orderBy: {
+      createdAt: orderBy?.createdAt || 'desc',
+      price: orderBy?.price,
+    },
     keyword,
+    distinct,
     take: 15,
   });
 
