@@ -1,10 +1,11 @@
 'use client';
 
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
+import BaseSelector from './base-selector';
 
 export default function QuerySelector({
   queryKey,
@@ -21,9 +22,9 @@ export default function QuerySelector({
   const router = useRouter();
   const createQueryString = useCreateQueryString();
   const serachParams = useSearchParams();
-  const status = serachParams.get(queryKey);
+  const queryValue = serachParams.get(queryKey);
 
-  if (!status) {
+  if (!queryValue) {
     router.push(`${pathname}?${createQueryString(queryKey, defaultValue)}`);
   }
 
@@ -31,25 +32,14 @@ export default function QuerySelector({
     const { value } = e.target;
     router.push(`${pathname}?${createQueryString(queryKey, value)}`);
   };
+
   return (
-    <Select
-      id={`${queryKey}-selector`}
-      placeholder={options[0].label}
-      value={status || defaultValue}
-      onChange={handleChange}
-      inputProps={{
-        className: inputClassName,
-      }}
-      sx={{
-        color: '#f2f3ed',
-        fontWeight: 'bold',
-      }}
-    >
-      {options.map(({ value, label }, i) => (
-        <MenuItem key={value} value={value}>
-          {label}
-        </MenuItem>
-      ))}
-    </Select>
+    <BaseSelector
+      name={queryKey}
+      selectedValue={queryValue || defaultValue}
+      options={options}
+      inputClassName={inputClassName}
+      handleChange={handleChange}
+    />
   );
 }
