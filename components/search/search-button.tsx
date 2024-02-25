@@ -3,6 +3,7 @@ import { SearchRounded } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import { useReactiveVar } from '@apollo/client';
 import { groupVar } from '@/lib/apollo/cache';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 
 const findLocation = (pathname: string) => {
   if (pathname === '/') return 'home';
@@ -31,6 +32,7 @@ export default function SearchButton() {
   const group = useReactiveVar(groupVar);
   const location = findLocation(pathname);
   const hideButton = findHideButton(location);
+  const device = useDeviceDetect();
 
   const handleClick = (): void => {
     if (location === 'home') router.push('/search');
@@ -58,7 +60,7 @@ export default function SearchButton() {
         sx: {
           color: '#f2f3ed',
           borderRadius: 2,
-          fontSize: '16px',
+          fontSize: device === 'mobile' ? '14px' : '16px',
           backgroundColor: '#404146',
           fontWeight: 600,
           maxHeight: 36,
