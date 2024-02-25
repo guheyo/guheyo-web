@@ -773,6 +773,7 @@ export type QueryFindDemandByIdArgs = {
 
 export type QueryFindDemandPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
@@ -793,6 +794,7 @@ export type QueryFindGroupByIdArgs = {
 
 export type QueryFindGroupProfilesArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -834,6 +836,7 @@ export type QueryFindOfferByIdArgs = {
 
 export type QueryFindOfferPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
@@ -864,6 +867,7 @@ export type QueryFindSwapByIdArgs = {
 
 export type QueryFindSwapPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
@@ -1166,6 +1170,7 @@ export type FindDemandPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1233,6 +1238,7 @@ export type FindOfferPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1312,6 +1318,7 @@ export type FindSwapPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1826,11 +1833,12 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindDemandPreviewsDocument = gql`
-    query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -1864,6 +1872,7 @@ export const FindDemandPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2147,11 +2156,12 @@ export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
 export const FindOfferPreviewsDocument = gql`
-    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2185,6 +2195,7 @@ export const FindOfferPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2484,11 +2495,12 @@ export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof 
 export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
 export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindSwapPreviewsDocument = gql`
-    query findSwapPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findSwapPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findSwapPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2522,6 +2534,7 @@ export const FindSwapPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'

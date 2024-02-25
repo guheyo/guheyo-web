@@ -50,6 +50,7 @@ query findSwapPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
+  $distinct: Boolean
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -58,6 +59,7 @@ query findSwapPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
