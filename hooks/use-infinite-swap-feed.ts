@@ -11,12 +11,14 @@ export const useInfiniteSwapFeed = ({
   where,
   orderBy,
   keyword,
+  distinct,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindSwapsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  distinct?: boolean;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindSwapPreviewsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteSwapFeed = ({
       where,
       orderBy,
       keyword,
+      distinct,
       take,
       skip: 0,
     },
@@ -37,6 +40,7 @@ export const useInfiniteSwapFeed = ({
           where,
           orderBy,
           keyword,
+          distinct,
           cursor: data?.findSwapPreviews.pageInfo.endCursor,
           take,
           skip: 1,

@@ -8,6 +8,10 @@ import {
   FindSwapsWhereArgs,
   FindDealsOrderByArgs,
 } from '@/interfaces/deal.interfaces';
+import { useGroup } from '@/hooks/use-group';
+import { useProductCategory } from '@/hooks/use-product-category';
+import { useDealStatus } from '@/hooks/use-deal-status';
+import { useDistinct } from '@/hooks/use-distinct';
 
 function SwapFeed({
   where,
@@ -19,11 +23,25 @@ function SwapFeed({
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const { group } = useGroup();
+  const category = useProductCategory();
+  const status = useDealStatus();
+  const distinct = useDistinct();
+
   const { loading, data } = useInfiniteSwapFeed({
     ref,
-    where,
-    orderBy,
+    where: {
+      groupId: group?.id,
+      productCategoryId: category?.id,
+      status: status || undefined,
+      proposerId: where?.proposerId,
+    },
+    orderBy: {
+      createdAt: orderBy?.createdAt || 'desc',
+      price: orderBy?.price,
+    },
     keyword,
+    distinct,
     take: 12,
   });
 

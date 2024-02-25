@@ -1,14 +1,6 @@
 'use client';
 
-import { groupVar } from '@/lib/apollo/cache';
-import { useReactiveVar } from '@apollo/client';
 import SwapFeed from '@/components/swaps/swap-feed';
-import { useDealStatus } from '@/hooks/use-deal-status';
-import { useSearchParams } from 'next/navigation';
-import {
-  FindDealsOrderByArgs,
-  FindSwapsWhereArgs,
-} from '@/interfaces/deal.interfaces';
 
 export interface SwapsPageProps {
   params: {
@@ -17,26 +9,7 @@ export interface SwapsPageProps {
 }
 
 function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
-  const group = useReactiveVar(groupVar);
-  const searchParams = useSearchParams();
-  const categorySlug = searchParams.get('category');
-  const category = group?.productCategories.find(
-    (c) => c.slug === categorySlug,
-  );
-  const status = useDealStatus();
-
-  if (!group) return <div />;
-
-  const where: FindSwapsWhereArgs = {
-    groupId: group.id,
-    productCategoryId: category?.id,
-    status: status || undefined,
-  };
-  const orderBy: FindDealsOrderByArgs = {
-    createdAt: 'desc',
-  };
-
-  return <SwapFeed where={where} orderBy={orderBy} />;
+  return <SwapFeed />;
 }
 
 export default SwapsPage;
