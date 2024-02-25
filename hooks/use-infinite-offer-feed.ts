@@ -11,12 +11,14 @@ export const useInfiniteOfferFeed = ({
   where,
   orderBy,
   keyword,
+  distinct,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindOffersWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  distinct?: boolean;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindOfferPreviewsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteOfferFeed = ({
       where,
       orderBy,
       keyword,
+      distinct,
       take,
       skip: 0,
     },
@@ -37,6 +40,7 @@ export const useInfiniteOfferFeed = ({
           where,
           orderBy,
           keyword,
+          distinct,
           cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,
           skip: 1,
