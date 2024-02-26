@@ -8,7 +8,7 @@ export interface FindDealsWhereArgs {
   status?: string;
 
   createdAt?: {
-    gt: string;
+    gt: Date;
   };
 }
 

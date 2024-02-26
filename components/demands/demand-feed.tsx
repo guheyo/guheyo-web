@@ -11,7 +11,7 @@ import {
 import { useGroup } from '@/hooks/use-group';
 import { useProductCategory } from '@/hooks/use-product-category';
 import { useSearchParams } from 'next/navigation';
-import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import { convertPeriodToDate } from '@/lib/date/date.converter';
 
 function DemandFeed({
   where,
@@ -31,7 +31,7 @@ function DemandFeed({
   const status = searchParams.get('status') || 'OPEN';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
-  const from = convertPeriodToDateString(period);
+  const from = convertPeriodToDate(period);
 
   const { loading, data } = useInfiniteDemandFeed({
     ref,
