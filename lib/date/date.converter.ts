@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
-import { PERIOD } from './date.types';
 
-export const convertPeriodToDate = (period: PERIOD | null) => {
+export const convertPeriodToDate = (period: string | null) => {
   switch (period) {
     case '1w': {
       return dayjs().subtract(1, 'w').toDate();
