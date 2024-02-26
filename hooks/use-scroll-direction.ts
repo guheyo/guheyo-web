@@ -22,5 +22,6 @@ export const useScrollDirection = () => {
       window.removeEventListener('scroll', updateScrollDirection);
     };
   }, [scrollDirection]);
+
   return scrollDirection;
 };
