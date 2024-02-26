@@ -80,7 +80,7 @@ export default async function Page() {
             <div className="text-base md:text-lg pt-4 font-semibold">
               프론트엔드
             </div>
-            <p>Next.js, React, React Query, Zustand</p>
+            <p>Next.js, React, Apollo, GraphQL</p>
             <p>Tailwind CSS, MUI</p>
             <div className="text-base md:text-lg pt-4 font-semibold">
               백엔드
@@ -90,7 +90,7 @@ export default async function Page() {
             <div className="text-base md:text-lg pt-4 font-semibold">
               인프라
             </div>
-            <p>AWS Beanstalk, Amplify, RDS, Route 53, S3</p>
+            <p>AWS ECS, Amplify, RDS, Route 53, S3</p>
           </div>
           <div id="team">
             <div className="flex flex-row gap-2 items-center justify-center pb-2">
