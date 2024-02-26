@@ -5,9 +5,13 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
 import {
+  FindOffersWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
+import { useGroup } from '@/hooks/use-group';
+import { useProductCategory } from '@/hooks/use-product-category';
+import { useSearchParams } from 'next/navigation';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function OfferFeed({
   where,
@@ -15,17 +19,37 @@ function OfferFeed({
   keyword,
   type,
 }: {
-  where?: FindDealsWhereArgs;
+  where?: FindOffersWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const { group } = useGroup();
+  const category = useProductCategory();
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status') || 'OPEN';
+  const distinct = searchParams.get('distinct') !== 'false';
+  const period = searchParams.get('period');
+  const from = convertPeriodToDateString(period);
+
   const { loading, data } = useInfiniteOfferFeed({
     ref,
-    where,
-    orderBy,
+    where: {
+      groupId: group?.id,
+      productCategoryId: category?.id,
+      status: status || undefined,
+      sellerId: where?.sellerId,
+      createdAt: {
+        gt: from,
+      },
+    },
+    orderBy: {
+      createdAt: orderBy?.createdAt || 'desc',
+      price: orderBy?.price,
+    },
     keyword,
+    distinct,
     take: 12,
   });
 

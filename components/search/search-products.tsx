@@ -1,21 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { groupVar } from '@/lib/apollo/cache';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
+import DealSelectors from '../selectors/deal-selectors';
 
 export default function SearchProducts() {
   const [value, setValue] = useState('');
-  const group = groupVar();
-  const searchParams = useSearchParams();
-  const categorySlug = searchParams.get('category');
-
-  const category = group?.productCategories.find(
-    (c) => c.slug === categorySlug,
-  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
@@ -38,11 +30,10 @@ export default function SearchProducts() {
         <CategoriesNavbar hideSelector />
       </div>
       <div className="pt-4">
-        <ProductSearchResults
-          groupId={group?.id}
-          categoryId={category?.id}
-          keyword={value}
-        />
+        <DealSelectors />
+      </div>
+      <div className="pt-4">
+        <ProductSearchResults keyword={value} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ interface Props extends DemandsPageProps {
 function DemandsLayout({ children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar />
+      <CategoriesNavbar hideSelector={false} />
       <FeedHomeLayout>
         <TextFeedLayout>{children}</TextFeedLayout>
       </FeedHomeLayout>

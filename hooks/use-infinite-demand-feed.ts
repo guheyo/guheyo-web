@@ -1,8 +1,8 @@
 import { useFindDemandPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import {
+  FindDemandsWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -11,12 +11,14 @@ export const useInfiniteDemandFeed = ({
   where,
   orderBy,
   keyword,
+  distinct,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindDealsWhereArgs;
+  where?: FindDemandsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  distinct?: boolean;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindDemandPreviewsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteDemandFeed = ({
       where,
       orderBy,
       keyword,
+      distinct,
       take,
       skip: 0,
     },
@@ -37,6 +40,7 @@ export const useInfiniteDemandFeed = ({
           where,
           orderBy,
           keyword,
+          distinct,
           cursor: data?.findDemandPreviews.pageInfo.endCursor,
           take,
           skip: 1,

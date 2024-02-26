@@ -1,19 +1,31 @@
+import { SortOrder } from '@/types/sort.types';
+
 export interface FindDealsWhereArgs {
   groupId?: string;
 
   productCategoryId?: string;
 
-  sellerId?: string;
-
   status?: string;
 
   createdAt?: {
-    gt: Date;
+    gt: string;
   };
 }
 
 export interface FindDealsOrderByArgs {
-  price?: 'asc' | 'desc';
+  price?: SortOrder;
 
-  createdAt?: 'asc' | 'desc';
+  createdAt?: SortOrder;
+}
+
+export interface FindOffersWhereArgs extends FindDealsWhereArgs {
+  sellerId?: string;
+}
+
+export interface FindDemandsWhereArgs extends FindDealsWhereArgs {
+  buyerId?: string;
+}
+
+export interface FindSwapsWhereArgs extends FindDealsWhereArgs {
+  proposerId?: string;
 }

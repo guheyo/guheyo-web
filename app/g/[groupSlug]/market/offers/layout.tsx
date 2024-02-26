@@ -11,7 +11,7 @@ interface Props extends OffersPageProps {
 function OffersLayout({ params, children }: Props) {
   return (
     <div className="pb-4 md:pb-6">
-      <CategoriesNavbar />
+      <CategoriesNavbar hideSelector={false} />
       <FeedHomeLayout>
         <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
       </FeedHomeLayout>

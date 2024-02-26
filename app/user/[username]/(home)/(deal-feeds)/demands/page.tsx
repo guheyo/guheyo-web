@@ -1,13 +1,15 @@
 'use client';
 
 import DemandFeed from '@/components/demands/demand-feed';
-import { useDealStatus } from '@/hooks/use-deal-status';
 import { useJwtUser } from '@/hooks/use-jwt-user';
+import { FindDemandsWhereArgs } from '@/interfaces/deal.interfaces';
 
 function MyDemandsPage() {
   const jwtUser = useJwtUser();
-  const status = useDealStatus();
-  return <DemandFeed buyerId={jwtUser?.id} status={status!} />;
+  const where: FindDemandsWhereArgs = {
+    buyerId: jwtUser?.id,
+  };
+  return <DemandFeed where={where} type="text" />;
 }
 
 export default MyDemandsPage;

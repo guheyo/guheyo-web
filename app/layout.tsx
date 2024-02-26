@@ -43,8 +43,10 @@ export default function RootLayout({
       </head>
       <body className={`${notoSansKr.className} text-dark-200 bg-dark-500`}>
         <Providers>
-          <Navbar />
-          <div className="max-w-5xl mx-auto">{children}</div>
+          <div className="max-w-5xl mx-auto pb-12">
+            <Navbar />
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

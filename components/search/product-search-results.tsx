@@ -1,13 +1,9 @@
 import DemandFeed from '@/components/demands/demand-feed';
-import OfferFeed from '@/components/offers/offer-feed';
+import OfferFeed from '../offers/offer-feed';
 
 export default function ProductSearchResults({
-  groupId,
-  categoryId,
   keyword,
 }: {
-  groupId?: string;
-  categoryId?: string;
   keyword?: string;
 }) {
   return (
@@ -19,9 +15,10 @@ export default function ProductSearchResults({
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <OfferFeed
-              groupId={groupId}
-              categoryId={categoryId}
-              status="OPEN"
+              orderBy={{
+                price: 'asc',
+                createdAt: 'desc',
+              }}
               keyword={keyword}
               type="text"
             />
@@ -37,10 +34,12 @@ export default function ProductSearchResults({
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <DemandFeed
-              groupId={groupId}
-              categoryId={categoryId}
-              status="OPEN"
+              orderBy={{
+                price: 'desc',
+                createdAt: 'desc',
+              }}
               keyword={keyword}
+              type="text"
             />
           ) : (
             <div className="text-sm md:text-base">검색 결과가 없어요</div>

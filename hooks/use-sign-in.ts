@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 const getSignInURL = (provider: string) =>
   `${process.env.NEXT_PUBLIC_API_URL}/api/auth/${provider}`;
@@ -6,9 +7,12 @@ const getSignInURL = (provider: string) =>
 export const useSignIn = () => {
   const router = useRouter();
 
-  function signIn(provider: string) {
-    router.push(getSignInURL(provider));
-  }
+  const signIn = useCallback(
+    (provider: string) => {
+      router.push(getSignInURL(provider));
+    },
+    [router],
+  );
 
   return signIn;
 };

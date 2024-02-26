@@ -5,25 +5,51 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 import DemandPreview from '@/components/demands/demand-preview';
 import {
+  FindDemandsWhereArgs,
   FindDealsOrderByArgs,
-  FindDealsWhereArgs,
 } from '@/interfaces/deal.interfaces';
+import { useGroup } from '@/hooks/use-group';
+import { useProductCategory } from '@/hooks/use-product-category';
+import { useSearchParams } from 'next/navigation';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function DemandFeed({
   where,
   orderBy,
   keyword,
+  type,
 }: {
-  where?: FindDealsWhereArgs;
+  where?: FindDemandsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
+  type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const { group } = useGroup();
+  const category = useProductCategory();
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status') || 'OPEN';
+  const distinct = searchParams.get('distinct') !== 'false';
+  const period = searchParams.get('period');
+  const from = convertPeriodToDateString(period);
+
   const { loading, data } = useInfiniteDemandFeed({
     ref,
-    where,
-    orderBy,
+    where: {
+      groupId: group?.id,
+      productCategoryId: category?.id,
+      status: status || undefined,
+      buyerId: where?.buyerId,
+      createdAt: {
+        gt: from,
+      },
+    },
+    orderBy: {
+      createdAt: orderBy?.createdAt || 'desc',
+      price: orderBy?.price,
+    },
     keyword,
+    distinct,
     take: 15,
   });
 
@@ -34,7 +60,7 @@ function DemandFeed({
   return (
     <>
       {edges.map((edge) => (
-        <DemandPreview key={edge.node.id} demand={edge.node} type="text" />
+        <DemandPreview key={edge.node.id} demand={edge.node} type={type} />
       ))}
       <div ref={ref} />
     </>
