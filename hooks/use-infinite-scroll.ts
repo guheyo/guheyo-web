@@ -21,8 +21,8 @@ export const useInfiniteScroll = (
         threshold: 1,
       },
     );
-
     observer.observe(ref.current);
+
     return () => observer.disconnect();
   }, [ref, fetchNext, hasNext]);
 };
