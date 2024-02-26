@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import CategoriesNavbar from '@/components/categories/categories-navbar';
 import FeedHomeLayout from '@/components/deals/feed-home.layout';
 import ThumbnailFeedLayout from '@/components/deals/thumbnail-feed.layout';
 import { OffersPageProps } from './page';
@@ -10,12 +9,9 @@ interface Props extends OffersPageProps {
 
 function OffersLayout({ params, children }: Props) {
   return (
-    <div className="pb-4 md:pb-6">
-      <CategoriesNavbar hideSelector={false} />
-      <FeedHomeLayout>
-        <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
-      </FeedHomeLayout>
-    </div>
+    <FeedHomeLayout>
+      <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
+    </FeedHomeLayout>
   );
 }
 
