@@ -10,8 +10,8 @@ import {
 } from '@/interfaces/deal.interfaces';
 import { useGroup } from '@/hooks/use-group';
 import { useProductCategory } from '@/hooks/use-product-category';
-import { useDealStatus } from '@/hooks/use-deal-status';
-import { useDistinct } from '@/hooks/use-distinct';
+import { useSearchParams } from 'next/navigation';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function SwapFeed({
   where,
@@ -27,8 +27,11 @@ function SwapFeed({
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const category = useProductCategory();
-  const status = useDealStatus();
-  const distinct = useDistinct();
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status') || 'OPEN';
+  const distinct = searchParams.get('distinct') !== 'false';
+  const period = searchParams.get('period');
+  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteSwapFeed({
     ref,
@@ -37,6 +40,9 @@ function SwapFeed({
       productCategoryId: category?.id,
       status: status || undefined,
       proposerId: where?.proposerId,
+      createdAt: {
+        gt: from,
+      },
     },
     orderBy: {
       createdAt: orderBy?.createdAt || 'desc',
