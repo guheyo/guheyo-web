@@ -5644,56 +5644,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/match-sorter-utils@npm:^8.7.0":
-  version: 8.8.4
-  resolution: "@tanstack/match-sorter-utils@npm:8.8.4"
-  dependencies:
-    remove-accents: 0.4.2
-  checksum: d005f500754f52ef94966cbbe4217f26e7e3c07291faa2578b06bca9a5abe01689569994c37a1d01c6e783addf5ffbb28fa82eba7961d36eabf43ec43d1e496b
-  languageName: node
-  linkType: hard
-
-"@tanstack/query-core@npm:4.36.1":
-  version: 4.36.1
-  resolution: "@tanstack/query-core@npm:4.36.1"
-  checksum: 47672094da20d89402d9fe03bb7b0462be73a76ff9ca715169738bc600a719d064d106d083a8eedae22a2c22de22f87d5eb5d31ef447aba771d9190f2117ed10
-  languageName: node
-  linkType: hard
-
-"@tanstack/react-query-devtools@npm:^4.29.25":
-  version: 4.36.1
-  resolution: "@tanstack/react-query-devtools@npm:4.36.1"
-  dependencies:
-    "@tanstack/match-sorter-utils": ^8.7.0
-    superjson: ^1.10.0
-    use-sync-external-store: ^1.2.0
-  peerDependencies:
-    "@tanstack/react-query": ^4.36.1
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: d4f7da4121a933be0d0406fb75f682b193a33e7d4ba9a4d54ff19e04db823d00513fbe86230c43d34aae55f6d0d1f8be17315f19d515b298b6bb0dabd0c5d261
-  languageName: node
-  linkType: hard
-
-"@tanstack/react-query@npm:^4.29.15":
-  version: 4.36.1
-  resolution: "@tanstack/react-query@npm:4.36.1"
-  dependencies:
-    "@tanstack/query-core": 4.36.1
-    use-sync-external-store: ^1.2.0
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 1aff0a476859386f8d32253fa0d0bde7b81769a6d4d4d9cbd78778f0f955459a3bdb7ee27a0d2ee7373090f12998b45df80db0b5b313bd0a7a39d36c6e8e51c5
-  languageName: node
-  linkType: hard
-
 "@testing-library/dom@npm:^8.3.0":
   version: 8.20.1
   resolution: "@testing-library/dom@npm:8.20.1"
@@ -11285,8 +11235,6 @@ __metadata:
     "@storybook/react": 7.0.20
     "@storybook/testing-library": 0.0.14-next.2
     "@tailwindcss/typography": ^0.5.10
-    "@tanstack/react-query": ^4.29.15
-    "@tanstack/react-query-devtools": ^4.29.25
     "@types/lodash": ^4.14.195
     "@types/node": 20.1.4
     "@types/react": 18.2.6
@@ -16043,13 +15991,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remove-accents@npm:0.4.2":
-  version: 0.4.2
-  resolution: "remove-accents@npm:0.4.2"
-  checksum: 84a6988555dea24115e2d1954db99509588d43fe55a1590f0b5894802776f7b488b3151c37ceb9e4f4b646f26b80b7325dcea2fae58bc3865df146e1fa606711
-  languageName: node
-  linkType: hard
-
 "remove-trailing-separator@npm:^1.0.1":
   version: 1.1.0
   resolution: "remove-trailing-separator@npm:1.1.0"
@@ -17232,7 +17173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superjson@npm:^1.10.0, superjson@npm:^1.12.2":
+"superjson@npm:^1.12.2":
   version: 1.13.3
   resolution: "superjson@npm:1.13.3"
   dependencies:
@@ -18261,7 +18202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.2.0":
+"use-sync-external-store@npm:1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:
