@@ -24,10 +24,6 @@ export default function QuerySelector({
   const serachParams = useSearchParams();
   const queryValue = serachParams.get(queryKey);
 
-  if (!queryValue) {
-    router.push(`${pathname}?${createQueryString(queryKey, defaultValue)}`);
-  }
-
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
     router.push(`${pathname}?${createQueryString(queryKey, value)}`);
