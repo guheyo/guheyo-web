@@ -13,6 +13,7 @@ export const useInfiniteScroll = (
         entries.forEach((entry) => {
           if (entry.isIntersecting && !!hasNext) {
             fetchNext();
+            observer.unobserve(entry.target);
           }
         });
       },
