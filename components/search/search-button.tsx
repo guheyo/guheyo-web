@@ -20,8 +20,8 @@ const findHideButton = (location: string): boolean => {
 };
 
 const findPlaceholder = (location: string, groupName?: string): string => {
-  if (location === 'home') return '그룹 찾기';
-  if (location === 'guild') return '제품 찾기';
+  if (location === 'home') return '그룹';
+  if (location === 'guild') return '제품';
   if (location === 'search-product') return `in ${groupName}`;
   return '';
 };
@@ -43,7 +43,7 @@ export default function SearchButton() {
   if (hideButton) return <div />;
   return (
     <TextField
-      className="w-36"
+      className="w-28"
       variant="outlined"
       placeholder={findPlaceholder(location, group?.name)}
       onClick={handleClick}
