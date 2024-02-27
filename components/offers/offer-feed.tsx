@@ -11,7 +11,7 @@ import {
 import { useGroup } from '@/hooks/use-group';
 import { useProductCategory } from '@/hooks/use-product-category';
 import { useSearchParams } from 'next/navigation';
-import { convertPeriodToDate } from '@/lib/date/date.converter';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function OfferFeed({
   where,
@@ -31,7 +31,7 @@ function OfferFeed({
   const status = searchParams.get('status') || 'OPEN';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
-  const from = convertPeriodToDate(period);
+  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteOfferFeed({
     ref,
