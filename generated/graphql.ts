@@ -1879,7 +1879,7 @@ export const FindDemandPreviewsDocument = gql`
  *   },
  * });
  */
-export function useFindDemandPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>) {
+export function useFindDemandPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables> & ({ variables: FindDemandPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>(FindDemandPreviewsDocument, options);
       }
@@ -1919,7 +1919,7 @@ export const FindDemandByIdDocument = gql`
  *   },
  * });
  */
-export function useFindDemandByIdQuery(baseOptions: Apollo.QueryHookOptions<FindDemandByIdQuery, FindDemandByIdQueryVariables>) {
+export function useFindDemandByIdQuery(baseOptions: Apollo.QueryHookOptions<FindDemandByIdQuery, FindDemandByIdQueryVariables> & ({ variables: FindDemandByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindDemandByIdQuery, FindDemandByIdQueryVariables>(FindDemandByIdDocument, options);
       }
@@ -1959,7 +1959,7 @@ export const FindDemandDocument = gql`
  *   },
  * });
  */
-export function useFindDemandQuery(baseOptions: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+export function useFindDemandQuery(baseOptions: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables> & ({ variables: FindDemandQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
       }
@@ -2008,7 +2008,7 @@ export const FindGroupsDocument = gql`
  *   },
  * });
  */
-export function useFindGroupsQuery(baseOptions: Apollo.QueryHookOptions<FindGroupsQuery, FindGroupsQueryVariables>) {
+export function useFindGroupsQuery(baseOptions: Apollo.QueryHookOptions<FindGroupsQuery, FindGroupsQueryVariables> & ({ variables: FindGroupsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindGroupsQuery, FindGroupsQueryVariables>(FindGroupsDocument, options);
       }
@@ -2060,7 +2060,7 @@ export const FindGroupProfilesDocument = gql`
  *   },
  * });
  */
-export function useFindGroupProfilesQuery(baseOptions: Apollo.QueryHookOptions<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>) {
+export function useFindGroupProfilesQuery(baseOptions: Apollo.QueryHookOptions<FindGroupProfilesQuery, FindGroupProfilesQueryVariables> & ({ variables: FindGroupProfilesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>(FindGroupProfilesDocument, options);
       }
@@ -2100,7 +2100,7 @@ export const FindGroupDocument = gql`
  *   },
  * });
  */
-export function useFindGroupQuery(baseOptions: Apollo.QueryHookOptions<FindGroupQuery, FindGroupQueryVariables>) {
+export function useFindGroupQuery(baseOptions: Apollo.QueryHookOptions<FindGroupQuery, FindGroupQueryVariables> & ({ variables: FindGroupQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindGroupQuery, FindGroupQueryVariables>(FindGroupDocument, options);
       }
@@ -2202,7 +2202,7 @@ export const FindOfferPreviewsDocument = gql`
  *   },
  * });
  */
-export function useFindOfferPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>) {
+export function useFindOfferPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables> & ({ variables: FindOfferPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>(FindOfferPreviewsDocument, options);
       }
@@ -2242,7 +2242,7 @@ export const FindOfferByIdDocument = gql`
  *   },
  * });
  */
-export function useFindOfferByIdQuery(baseOptions: Apollo.QueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
+export function useFindOfferByIdQuery(baseOptions: Apollo.QueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables> & ({ variables: FindOfferByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
       }
@@ -2282,7 +2282,7 @@ export const FindOfferDocument = gql`
  *   },
  * });
  */
-export function useFindOfferQuery(baseOptions: Apollo.QueryHookOptions<FindOfferQuery, FindOfferQueryVariables>) {
+export function useFindOfferQuery(baseOptions: Apollo.QueryHookOptions<FindOfferQuery, FindOfferQueryVariables> & ({ variables: FindOfferQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindOfferQuery, FindOfferQueryVariables>(FindOfferDocument, options);
       }
@@ -2415,7 +2415,7 @@ export const FindSessionDocument = gql`
  *   },
  * });
  */
-export function useFindSessionQuery(baseOptions: Apollo.QueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
+export function useFindSessionQuery(baseOptions: Apollo.QueryHookOptions<FindSessionQuery, FindSessionQueryVariables> & ({ variables: FindSessionQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
       }
@@ -2541,7 +2541,7 @@ export const FindSwapPreviewsDocument = gql`
  *   },
  * });
  */
-export function useFindSwapPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
+export function useFindSwapPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables> & ({ variables: FindSwapPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
       }
@@ -2581,7 +2581,7 @@ export const FindSwapByIdDocument = gql`
  *   },
  * });
  */
-export function useFindSwapByIdQuery(baseOptions: Apollo.QueryHookOptions<FindSwapByIdQuery, FindSwapByIdQueryVariables>) {
+export function useFindSwapByIdQuery(baseOptions: Apollo.QueryHookOptions<FindSwapByIdQuery, FindSwapByIdQueryVariables> & ({ variables: FindSwapByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindSwapByIdQuery, FindSwapByIdQueryVariables>(FindSwapByIdDocument, options);
       }
@@ -2621,7 +2621,7 @@ export const FindSwapDocument = gql`
  *   },
  * });
  */
-export function useFindSwapQuery(baseOptions: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
+export function useFindSwapQuery(baseOptions: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables> & ({ variables: FindSwapQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
       }
@@ -2661,7 +2661,7 @@ export const FindTermDocument = gql`
  *   },
  * });
  */
-export function useFindTermQuery(baseOptions: Apollo.QueryHookOptions<FindTermQuery, FindTermQueryVariables>) {
+export function useFindTermQuery(baseOptions: Apollo.QueryHookOptions<FindTermQuery, FindTermQueryVariables> & ({ variables: FindTermQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindTermQuery, FindTermQueryVariables>(FindTermDocument, options);
       }
@@ -2701,7 +2701,7 @@ export const FindMyUserByIdDocument = gql`
  *   },
  * });
  */
-export function useFindMyUserByIdQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>) {
+export function useFindMyUserByIdQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByIdQuery, FindMyUserByIdQueryVariables> & ({ variables: FindMyUserByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>(FindMyUserByIdDocument, options);
       }
@@ -2783,7 +2783,7 @@ export const FindMyUserByUsernameDocument = gql`
  *   },
  * });
  */
-export function useFindMyUserByUsernameQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>) {
+export function useFindMyUserByUsernameQuery(baseOptions: Apollo.QueryHookOptions<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables> & ({ variables: FindMyUserByUsernameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindMyUserByUsernameQuery, FindMyUserByUsernameQueryVariables>(FindMyUserByUsernameDocument, options);
       }

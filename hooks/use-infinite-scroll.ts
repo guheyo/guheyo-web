@@ -13,6 +13,7 @@ export const useInfiniteScroll = (
         entries.forEach((entry) => {
           if (entry.isIntersecting && !!hasNext) {
             fetchNext();
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -21,8 +22,8 @@ export const useInfiniteScroll = (
         threshold: 1,
       },
     );
-
     observer.observe(ref.current);
+
     return () => observer.disconnect();
   }, [ref, fetchNext, hasNext]);
 };

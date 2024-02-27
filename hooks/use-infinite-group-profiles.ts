@@ -18,6 +18,7 @@ export const useInfiniteGroupProfiles = ({
       skip: 0,
     },
   });
+
   useInfiniteScroll(
     ref,
     () =>

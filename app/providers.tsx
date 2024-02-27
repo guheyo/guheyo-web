@@ -1,13 +1,11 @@
 'use client';
 
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   StyledEngineProvider,
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
@@ -38,23 +36,12 @@ const theme = createTheme({
   },
 });
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ApolloWrapper>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </StyledEngineProvider>
-      </ApolloWrapper>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ApolloWrapper>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </StyledEngineProvider>
+    </ApolloWrapper>
   );
 }
