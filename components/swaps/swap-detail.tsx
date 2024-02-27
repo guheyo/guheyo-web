@@ -13,7 +13,7 @@ import PostDetail from '../posts/post-detail';
 export default function SwapDetail({ slug }: { slug: string }) {
   const { loading, data } = useFindSwapQuery({
     variables: {
-      slug,
+      slug: decodeURI(slug),
     },
   });
 
