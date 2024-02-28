@@ -16,7 +16,7 @@ export const dealVar = makeVar<Deal>('offers');
 export const colsVar = makeVar<number>(1);
 
 export const GET_GUILD = gql`
-  query {
+  query getGroup {
     group @client
   }
 `;
