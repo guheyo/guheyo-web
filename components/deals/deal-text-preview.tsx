@@ -2,33 +2,30 @@
 
 import dayjs from 'dayjs';
 import { getPrice } from '@/lib/formatter';
-import PostDialog from '../posts/post-dialog';
+import Link from 'next/link';
+import { Deal } from '@/lib/apollo/cache';
 
 interface Props {
+  deal: Deal;
   name: string;
   price: number;
   createdAt: Date;
-  open: boolean;
-  handleOpen: () => void;
-  handleClose: () => void;
-  children: React.ReactNode;
+  username: string;
+  slug: string;
 }
 
-export default function DealTextPreviewLayout({
+export default function DealTextPreview({
+  deal,
   name,
   price,
   createdAt,
-  open,
-  handleOpen,
-  handleClose,
-  children,
+  username,
+  slug,
 }: Props) {
   return (
     <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
-      <button
-        type="submit"
-        aria-label="demand-detail"
-        onClick={() => handleOpen()}
+      <Link
+        href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
         <div className="grid gap-2">
@@ -44,12 +41,7 @@ export default function DealTextPreviewLayout({
             </div>
           </div>
         </div>
-      </button>
-      <div>
-        <PostDialog open={open} handleClose={handleClose}>
-          {children}
-        </PostDialog>
-      </div>
+      </Link>
     </div>
   );
 }
