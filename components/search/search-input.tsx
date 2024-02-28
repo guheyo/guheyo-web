@@ -6,14 +6,14 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 export default function SearchInput({
-  value,
-  setValue,
+  text,
+  setText,
   placeholder,
   handleKeyDown,
   handleChange,
 }: {
-  value?: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  text?: string;
+  setText: Dispatch<SetStateAction<string>>;
   placeholder: string;
   handleKeyDown: (e: any) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,11 +22,11 @@ export default function SearchInput({
   const device = useDeviceDetect();
 
   const handleClick = (): void => {
-    setValue('');
+    setText('');
     setShowClearIcon('none');
   };
 
-  const handleChangeAndClearIcon = (e) => {
+  const handleChangeAndClearIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShowClearIcon(e.target.value === '' ? 'none' : 'flex');
     handleChange(e);
   };
@@ -37,7 +37,7 @@ export default function SearchInput({
       placeholder={placeholder}
       onChange={handleChangeAndClearIcon}
       onKeyDown={handleKeyDown}
-      value={value}
+      value={text}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
