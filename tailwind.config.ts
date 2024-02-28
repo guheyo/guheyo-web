@@ -45,6 +45,11 @@ module.exports = {
       'dark-600': '#2c2d30', // category-bg
       'dark-700': '#292a2e', // forum-bg
       'dark-800': '#1e1f22', // leftbar-bg
+      'discord-blue-300': '#8D96F6',
+      'discord-blue-400': '#7A84F5',
+      'discord-blue-500': '#5865F2',
+      'discord-blue-600': '#5461F2',
+      'discord-blue-700': '#4150F1',
       ...colors,
     },
   },
