@@ -26,11 +26,12 @@ function OfferFeed({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
-  const category = useProductCategory();
   const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category');
   const status = searchParams.get('status') || 'OPEN';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
+  const category = useProductCategory(categorySlug);
   const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteOfferFeed({
