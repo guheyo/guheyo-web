@@ -24,7 +24,7 @@ export default function Navbar() {
               </div>
             </Link>
           </div>
-          <div className="col-span-4 md:col-span-2 justify-self-end">
+          <div className="col-span-4 md:col-span-2 justify-self-center md:justify-self-end">
             <SearchButton />
           </div>
           <div className="col-span-4 md:col-span-2 justify-self-end">
