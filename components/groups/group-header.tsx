@@ -1,7 +1,6 @@
 'use client';
 
 import { useGroup } from '@/hooks/use-group';
-import { groupVar } from '@/lib/apollo/cache';
 import Image from 'next/image';
 import { isMobile } from 'react-device-detect';
 
@@ -10,7 +9,6 @@ export default function GroupHeader({ slug }: { slug: string }) {
 
   if (loading) return <div />;
   if (!group) return <div />;
-  groupVar(group);
 
   return (
     <div className="flex flex-row items-center gap-4">

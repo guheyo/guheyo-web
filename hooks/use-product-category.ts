@@ -1,12 +1,11 @@
-import { useSearchParams } from 'next/navigation';
-import { useGroup } from './use-group';
+import { useQuery } from '@apollo/client';
+import { GET_PRODUCT_CATEGORY } from '@/lib/apollo/cache';
 
-export const useProductCategory = () => {
-  const { group } = useGroup();
-  const searchParams = useSearchParams();
-  const categorySlug = searchParams.get('category');
-  const category = group?.productCategories.find(
-    (c) => c.slug === categorySlug,
-  );
-  return category;
+export const useProductCategory = (categorySlug: string | null) => {
+  const { data } = useQuery(GET_PRODUCT_CATEGORY, {
+    variables: {
+      slug: categorySlug,
+    },
+  });
+  return data?.productCategory;
 };

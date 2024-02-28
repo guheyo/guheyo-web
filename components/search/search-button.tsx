@@ -8,21 +8,21 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 const findLocation = (pathname: string) => {
   if (pathname === '/') return 'home';
   if (/^\/g\/[\w-]*\/market/.test(pathname)) return 'guild';
-  if (/^\/u\//.test(pathname)) return 'user';
+  if (/^\/user\//.test(pathname)) return 'user';
   if (/^\/search$/.test(pathname)) return 'search-guild';
   if (/^\/search\/g\/[\w-]*\/market/.test(pathname)) return 'search-product';
   return 'none';
 };
 
 const findHideButton = (location: string): boolean => {
-  if (['search-guild', 'search-product'].includes(location)) return true;
+  if (['search-guild', 'search-product', 'user'].includes(location))
+    return true;
   return false;
 };
 
-const findPlaceholder = (location: string, groupName?: string): string => {
-  if (location === 'home') return '그룹 찾기';
-  if (location === 'guild') return '제품 찾기';
-  if (location === 'search-product') return `in ${groupName}`;
+const findPlaceholder = (location: string): string => {
+  if (location === 'home') return '그룹';
+  if (location === 'guild') return '제품';
   return '';
 };
 
@@ -43,9 +43,9 @@ export default function SearchButton() {
   if (hideButton) return <div />;
   return (
     <TextField
-      className="w-36"
+      className="w-28"
       variant="outlined"
-      placeholder={findPlaceholder(location, group?.name)}
+      placeholder={findPlaceholder(location)}
       onClick={handleClick}
       InputProps={{
         startAdornment: (

@@ -1,5 +1,7 @@
 import { useFindGroupQuery } from '@/generated/graphql';
+import { groupVar } from '@/lib/apollo/cache';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 export const useGroup = () => {
   const pathname = usePathname();
@@ -11,6 +13,10 @@ export const useGroup = () => {
       slug,
     },
   });
+
+  useEffect(() => {
+    groupVar(data?.findGroup);
+  }, [data?.findGroup]);
 
   const group = data?.findGroup;
   return {

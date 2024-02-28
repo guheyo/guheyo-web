@@ -12,7 +12,7 @@ import PostDetail from '../posts/post-detail';
 export default function DemandDetail({ slug }: { slug: string }) {
   const { loading, data } = useFindDemandQuery({
     variables: {
-      slug,
+      slug: decodeURI(slug),
     },
   });
 

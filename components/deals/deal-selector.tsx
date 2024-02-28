@@ -1,7 +1,5 @@
 'use client';
 
-import { Deal, dealVar } from '@/lib/apollo/cache';
-import { useReactiveVar } from '@apollo/client';
 import { SelectChangeEvent } from '@mui/material';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter } from 'next/navigation';
@@ -16,12 +14,11 @@ export default function DealSelector({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const deal = useReactiveVar(dealVar);
+  const deal = pathname.split('/').at(-1) || 'offers';
   const createQueryString = useCreateQueryString();
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
-    dealVar(value as Deal);
     router.push(
       `${pathname
         .split('/')

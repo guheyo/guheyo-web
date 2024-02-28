@@ -12,7 +12,7 @@ import PostDetail from '../posts/post-detail';
 export default function OfferDetail({ slug }: { slug: string }) {
   const { loading, data } = useFindOfferQuery({
     variables: {
-      slug,
+      slug: decodeURI(slug),
     },
   });
 

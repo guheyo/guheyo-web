@@ -1,39 +1,36 @@
 'use client';
 
+import Link from 'next/link';
 import dayjs from 'dayjs';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
+import { Deal } from '@/lib/apollo/cache';
 import { getPrice } from '@/lib/formatter';
 import { UserImageResponse } from '@/generated/graphql';
 import Thumbnail from '../base/thumbnail';
-import PostDialog from '../posts/post-dialog';
 
 interface Props {
+  deal: Deal;
   thumbnail?: UserImageResponse | null;
   name: any;
   price: number;
   createdAt: Date;
-  open: boolean;
-  handleOpen: () => void;
-  handleClose: () => void;
-  children: React.ReactNode;
+  username: string;
+  slug: string;
 }
 
-export default function DealThumbnailPreviewLayout({
+export default function DealThumbnailPreview({
+  deal,
   thumbnail,
   name,
   price,
   createdAt,
-  open,
-  handleOpen,
-  handleClose,
-  children,
+  username,
+  slug,
 }: Props) {
   return (
     <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
-      <button
-        type="submit"
-        aria-label="deal-detail"
-        onClick={() => handleOpen()}
+      <Link
+        href={`/user/${username}/${deal}/${slug}`}
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
@@ -61,12 +58,7 @@ export default function DealThumbnailPreviewLayout({
             </div>
           </div>
         </div>
-      </button>
-      <div>
-        <PostDialog open={open} handleClose={handleClose}>
-          {children}
-        </PostDialog>
-      </div>
+      </Link>
     </div>
   );
 }
