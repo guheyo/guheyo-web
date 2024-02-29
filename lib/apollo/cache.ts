@@ -4,11 +4,6 @@ import { GroupResponse } from '@/generated/graphql';
 
 export type Deal = 'offers' | 'demands' | 'swaps';
 
-export interface Category {
-  name: string;
-  id: string;
-}
-
 export const groupVar = makeVar<GroupResponse | null>(null);
 
 export const dealVar = makeVar<Deal>('offers');
@@ -21,12 +16,6 @@ export const GET_GUILD = gql`
   }
 `;
 
-export const GET_PRODUCT_CATEGORY = gql`
-  query GetProductCategory($slug: String!) {
-    productCategory @client
-  }
-`;
-
 export const cache = new NextSSRInMemoryCache({
   typePolicies: {
     Query: {
@@ -34,13 +23,6 @@ export const cache = new NextSSRInMemoryCache({
         group: {
           read() {
             return groupVar();
-          },
-        },
-        productCategory: {
-          read(existing, { variables }) {
-            return groupVar()?.productCategories.find(
-              (category) => category.slug === variables?.slug,
-            );
           },
         },
         deal: {
