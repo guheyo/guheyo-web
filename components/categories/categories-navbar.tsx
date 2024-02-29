@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { MouseEvent } from 'react';
 import { useGroup } from '@/hooks/use-group';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
@@ -54,16 +53,16 @@ export default function CategoriesNavbar({
           </div>
         )}
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
-          <Link
+          <button
+            type="button"
             key="all"
             className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
               !categorySlug,
             )}`}
-            passHref
-            href={`${pathname}`}
+            onClick={(e) => handleClick(e, null)}
           >
             <span className="font-bold text-xs md:text-base">전체</span>
-          </Link>
+          </button>
           {categories?.map((category) => (
             <button
               type="button"
