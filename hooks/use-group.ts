@@ -13,12 +13,12 @@ export const useGroup = () => {
       slug,
     },
   });
+  const group = data?.findGroup;
 
   useEffect(() => {
-    groupVar(data?.findGroup);
-  }, [data?.findGroup]);
+    if (group?.id) groupVar(group);
+  }, [group, group?.id]);
 
-  const group = data?.findGroup;
   return {
     loading,
     error,
