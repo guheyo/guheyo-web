@@ -9,8 +9,8 @@ import {
   FindDealsOrderByArgs,
 } from '@/interfaces/deal.interfaces';
 import { useGroup } from '@/hooks/use-group';
-import { useProductCategory } from '@/hooks/use-product-category';
 import { useSearchParams } from 'next/navigation';
+import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function DemandFeed({
@@ -31,7 +31,7 @@ function DemandFeed({
   const status = searchParams.get('status') || 'OPEN';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
-  const category = useProductCategory(categorySlug);
+  const category = findProductCategory(group?.productCategories, categorySlug);
   const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteDemandFeed({
@@ -39,7 +39,7 @@ function DemandFeed({
     where: {
       groupId: group?.id,
       productCategoryId: category?.id,
-      status: status || undefined,
+      status,
       buyerId: where?.buyerId,
       createdAt: {
         gt: from,

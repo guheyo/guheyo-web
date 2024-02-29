@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
+import { MouseEvent } from 'react';
 import { useGroup } from '@/hooks/use-group';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
 import DealSelector from '../deals/deal-selector';
 import { Mocks } from '../mock/mock';
@@ -20,11 +20,19 @@ export default function CategoriesNavbar({
 }: {
   hideSelector: boolean;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const { group } = useGroup();
-  const createQueryString = useCreateQueryString();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const pathname = usePathname();
+  const createQueryString = useCreateQueryString();
+
+  const handleClick = (e: MouseEvent, slug?: string | null) => {
+    e.preventDefault();
+    router.push(
+      `${pathname}?${createQueryString(searchParams, 'category', slug)}`,
+    );
+  };
 
   if (!group)
     return (
@@ -45,32 +53,29 @@ export default function CategoriesNavbar({
           </div>
         )}
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
-          <Link
+          <button
+            type="button"
             key="all"
             className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
               !categorySlug,
             )}`}
-            passHref
-            href={`${pathname}`}
+            onClick={(e) => handleClick(e, null)}
           >
             <span className="font-bold text-xs md:text-base">전체</span>
-          </Link>
+          </button>
           {categories?.map((category) => (
-            <Link
+            <button
+              type="button"
               key={category.slug}
               className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
                 category.slug === categorySlug,
               )}`}
-              passHref
-              href={`${pathname}?${createQueryString(
-                'category',
-                category.slug,
-              )}`}
+              onClick={(e) => handleClick(e, category.slug)}
             >
               <span className="font-bold text-xs md:text-base">
                 {category.name}
               </span>
-            </Link>
+            </button>
           ))}
         </div>
       </div>

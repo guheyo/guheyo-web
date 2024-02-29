@@ -6,12 +6,12 @@ export const useInfiniteScroll = (
   hasNext?: boolean,
 ) => {
   useEffect(() => {
-    if (!ref.current) return undefined;
+    if (!ref.current || !hasNext) return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !!hasNext) {
+          if (entry.isIntersecting) {
             fetchNext();
             observer.unobserve(entry.target);
           }

@@ -20,7 +20,7 @@ export default function DmDialog({ url }: { url: string }) {
       <button
         type="submit"
         onClick={handleOpen}
-        className="bg-eye-500 hover:bg-eye-400 text-sm font-bold p-2 rounded text-white"
+        className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-white"
       >
         DM
       </button>

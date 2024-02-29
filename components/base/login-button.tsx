@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -43,9 +44,15 @@ export default function LoginButton() {
         <div>
           <button
             type="submit"
-            className="bg-star-500 hover:bg-star-400 text-sm font-bold p-2 rounded text-light-200"
-            onClick={() => signIn('discord')}
+            className="bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
+            onClick={() => signIn(router, 'discord')}
           >
+            <Image
+              alt="로그인"
+              src="/socials/discord/discord-mark-white.svg"
+              width={24}
+              height={24}
+            />
             로그인
           </button>
         </div>
