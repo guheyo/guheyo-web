@@ -17,7 +17,8 @@ export const useGroup = () => {
 
   useEffect(() => {
     if (group?.id) groupVar(group);
-  }, [group, group?.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group?.id]);
 
   return {
     loading,
