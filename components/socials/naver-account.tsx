@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { SocialAccountResponse } from '@/generated/graphql';
 import { useSignIn } from '@/hooks/use-sign-in';
 import IconText from '../icon-text/icon-text';
@@ -10,6 +11,7 @@ export default function NaverAccount({
 }: {
   socialAccounts: SocialAccountResponse[];
 }) {
+  const router = useRouter();
   const signIn = useSignIn();
   const naverAccount = socialAccounts.find(
     (account) => account.provider === 'naver',
@@ -23,7 +25,7 @@ export default function NaverAccount({
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-400 text-sm font-bold p-2 rounded text-light-200"
-          onClick={() => signIn('naver')}
+          onClick={() => signIn(router, 'naver')}
         >
           네이버 인증하기
         </button>

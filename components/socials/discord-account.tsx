@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { SocialAccountResponse } from '@/generated/graphql';
 import { useSignIn } from '@/hooks/use-sign-in';
 import IconText from '../icon-text/icon-text';
@@ -10,6 +11,7 @@ export default function DiscordAccount({
 }: {
   socialAccounts: SocialAccountResponse[];
 }) {
+  const router = useRouter();
   const signIn = useSignIn();
   const discordAccount = socialAccounts.find(
     (account) => account.provider === 'discord',
@@ -23,7 +25,7 @@ export default function DiscordAccount({
         <button
           type="submit"
           className="bg-indigo-500 hover:bg-indigo-400 text-sm font-bold p-2 rounded text-light-200"
-          onClick={() => signIn('discord')}
+          onClick={() => signIn(router, 'discord')}
         >
           디스코드 연동하기
         </button>
