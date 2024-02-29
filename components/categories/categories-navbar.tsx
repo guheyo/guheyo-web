@@ -24,13 +24,15 @@ export default function CategoriesNavbar({
   const router = useRouter();
   const pathname = usePathname();
   const { group } = useGroup();
-  const createQueryString = useCreateQueryString();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const createQueryString = useCreateQueryString();
 
   const handleClick = (e: MouseEvent, slug?: string | null) => {
     e.preventDefault();
-    router.push(`${pathname}?${createQueryString('category', slug)}`);
+    router.push(
+      `${pathname}?${createQueryString(searchParams, 'category', slug)}`,
+    );
   };
 
   if (!group)

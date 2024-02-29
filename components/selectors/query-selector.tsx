@@ -20,13 +20,15 @@ export default function QuerySelector({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const createQueryString = useCreateQueryString();
   const serachParams = useSearchParams();
   const queryValue = serachParams.get(queryKey);
+  const createQueryString = useCreateQueryString();
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
-    router.push(`${pathname}?${createQueryString(queryKey, value)}`);
+    router.push(
+      `${pathname}?${createQueryString(serachParams, queryKey, value)}`,
+    );
   };
 
   return (
