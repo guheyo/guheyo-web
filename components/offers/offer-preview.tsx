@@ -12,7 +12,7 @@ interface Props {
 export default function OfferPreview({ offer, type }: Props) {
   return (
     <DealPreview
-      deal="offers"
+      deal="offer"
       type={type}
       thumbnail={offer.thumbnail}
       name={truncateName(offer.name, 45)}

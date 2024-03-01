@@ -1,7 +1,7 @@
 export const DEAL_OPTIONS = [
-  { value: 'offers', label: '판매' },
-  { value: 'demands', label: '구매' },
-  { value: 'swaps', label: '교환' },
+  { value: 'offer', label: '판매' },
+  { value: 'demand', label: '구매' },
+  { value: 'swap', label: '교환' },
 ];
 
 export const DEAL_STATUS_OPTIONS = [

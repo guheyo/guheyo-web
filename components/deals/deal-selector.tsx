@@ -15,7 +15,7 @@ export default function DealSelector({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const deal = pathname.split('/').at(-1) || 'offers';
+  const deal = pathname.split('/').at(-1) || 'offer';
   const createQueryString = useCreateQueryString();
 
   const handleChange = (e: SelectChangeEvent) => {
