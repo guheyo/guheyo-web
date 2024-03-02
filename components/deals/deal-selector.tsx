@@ -4,7 +4,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
-import { DEAL_OPTIONS } from './deal.constants';
+import { DEAL_OPTIONS } from '../../lib/deal/deal.constants';
 import BaseSelector from '../selectors/base-selector';
 
 export default function DealSelector({
@@ -15,7 +15,7 @@ export default function DealSelector({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const deal = pathname.split('/').at(-1) || 'offers';
+  const deal = pathname.split('/').at(-1) || 'offer';
   const createQueryString = useCreateQueryString();
 
   const handleChange = (e: SelectChangeEvent) => {

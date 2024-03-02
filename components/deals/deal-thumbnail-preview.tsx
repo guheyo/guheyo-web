@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { Deal } from '@/lib/apollo/cache';
 import { getPrice } from '@/lib/formatter';
 import { UserImageResponse } from '@/generated/graphql';
+import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
 
 interface Props {

@@ -14,11 +14,8 @@ const findLocation = (pathname: string) => {
   return 'none';
 };
 
-const findHideButton = (location: string): boolean => {
-  if (['search-guild', 'search-product', 'user'].includes(location))
-    return true;
-  return false;
-};
+const findHideButton = (location: string): boolean =>
+  !['home', 'guild'].includes(location);
 
 const findPlaceholder = (location: string): string => {
   if (location === 'home') return '그룹';

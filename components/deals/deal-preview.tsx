@@ -1,7 +1,7 @@
 'use client';
 
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/apollo/cache';
+import { Deal } from '@/lib/deal/deal.types';
 import DealTextPreview from './deal-text-preview';
 import DealThumbnailPreview from './deal-thumbnail-preview';
 

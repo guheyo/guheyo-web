@@ -31,7 +31,9 @@ function DemandFeed({
   const status = searchParams.get('status') || 'OPEN';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
-  const category = findProductCategory(group?.productCategories, categorySlug);
+  const category = findProductCategory(group?.productCategories, {
+    slug: categorySlug,
+  });
   const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteDemandFeed({

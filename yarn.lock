@@ -11281,6 +11281,7 @@ __metadata:
     react-cookie: ^7.1.0
     react-device-detect: ^2.2.3
     react-dom: ^18.2.0
+    react-hook-form: ^7.50.1
     react-markdown: ^8.0.7
     react-material-ui-carousel: ^3.4.2
     remark-gfm: ^3.0.1
@@ -15594,6 +15595,15 @@ __metadata:
   peerDependencies:
     react: ">=16.13.1"
   checksum: f36270a5d775a25c8920f854c0d91649ceea417b15b5bc51e270a959b0476647bb79abb4da3be7dd9a4597b029214e8fe43ea914a7f16fa7543c91f784977f1b
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.50.1":
+  version: 7.50.1
+  resolution: "react-hook-form@npm:7.50.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 40dcb64d2ff631f6da76db2c5788957da3429f07649a6f3aed76545c616fae8eee557a6b06d0d0842be1f80ac8244f44d87f4d8d83fddabec76d7ab9921f8781
   languageName: node
   linkType: hard
 
