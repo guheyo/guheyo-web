@@ -8,15 +8,21 @@ import {
 
 interface Option {
   value: string;
-  content: string;
+  label: string;
   selected: boolean;
 }
 
 interface OptionsProps {
   optionsProps: {
     options: Option[];
-    defaultStyle: string;
-    selectedStyle: string;
+    label: {
+      name: string;
+      style: string;
+    };
+    button: {
+      defaultStyle: string;
+      selectedStyle: string;
+    };
   };
 }
 
@@ -35,26 +41,29 @@ export default function ButtonInputs<
   const { field } = useController(props);
 
   return (
-    <div>
-      {optionsProps.options.map((option) => (
-        <Button
-          name={field.name}
-          key={option.content}
-          type="button"
-          {...buttonProps}
-          value={option.value}
-          className={
-            option.selected
-              ? optionsProps.selectedStyle
-              : optionsProps.defaultStyle
-          }
-          onClick={(e) => {
-            field.onChange(e);
-          }}
-        >
-          {option.content}
-        </Button>
-      ))}
+    <div className="flex flex-col gap-2">
+      <div className={optionsProps.label.style}>{optionsProps.label.name}</div>
+      <div id={field.name} className="grid grid-cols-4 md:grid-cols-6 gap-2">
+        {optionsProps.options.map((option) => (
+          <Button
+            key={option.label}
+            name={field.name}
+            type="button"
+            {...buttonProps}
+            value={option.value}
+            className={
+              option.selected
+                ? optionsProps.button.selectedStyle
+                : optionsProps.button.defaultStyle
+            }
+            onClick={(e) => {
+              field.onChange(e);
+            }}
+          >
+            {option.label}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }
