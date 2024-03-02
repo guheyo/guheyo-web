@@ -3,15 +3,37 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
-import { Button } from '@mui/material';
 import { useEffect } from 'react';
-import { findProductCategory } from '@/lib/group/find-product-category';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
-import { findDealLabel } from '@/lib/deal/find-deal-label';
 import { Deal } from '@/lib/deal/deal.types';
-import { DEAL_OPTIONS } from '@/lib/deal/deal.constants';
+import {
+  DEAL_CATEGORY_LABEL_NAME,
+  DEAL_DESCRIPTION_LABEL_NAME,
+  DEAL_NAME,
+  DEAL_NAME_PLACEHOLDER,
+  DEAL_OPTIONS,
+  DEAL_PRICE_LABEL_NAME,
+  DEAL_PRICE_PLACEHOLDER,
+  DEAL_SUBMIT_BUTTON_NAME,
+  DEAL_TYPE_LABEL_NAME,
+} from '@/lib/deal/deal.constants';
+import { parseDealDescriptionPlaceholder } from '@/lib/deal/parse-deal-description-placeholder';
+import {
+  DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+  DEFAULT_INPUT_TEXT_COLOR,
+} from '@/lib/input/input.colors';
+import {
+  getInputTextFontSize,
+  getInputTextMinWidth,
+} from '@/lib/input/input.props';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
+import {
+  DEFAULT_INPUT_BUTTON_STYLE,
+  DEFAULT_LABEL_STYLE,
+  DEFAULT_SUBMIT_BUTTON_STYLE,
+  SELECTED_INPUT_BUTTON_STYLE,
+} from '../../lib/input/input.constants';
 
 type FormValues = {
   name: string;
@@ -23,16 +45,15 @@ type FormValues = {
 
 export default function OfferForm() {
   const { group } = useGroup();
-  const { handleSubmit, formState, control, watch, setValue } =
-    useForm<FormValues>({
-      defaultValues: {
-        name: '',
-        dealType: 'offer',
-        categoryId: '',
-        price: 0,
-        description: '',
-      },
-    });
+  const { handleSubmit, control, watch, setValue } = useForm<FormValues>({
+    defaultValues: {
+      name: '',
+      dealType: 'offer',
+      categoryId: '',
+      price: 0,
+      description: '',
+    },
+  });
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
   const device = useDeviceDetect();
@@ -65,21 +86,21 @@ export default function OfferForm() {
         name="name"
         textInputProps={{
           label: {
-            name: '제목',
-            style: 'text-base text-light-200 font-bold',
+            name: DEAL_NAME,
+            style: DEFAULT_LABEL_STYLE,
           },
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '제목',
+          placeholder: DEAL_NAME_PLACEHOLDER,
           InputProps: {
             sx: {
-              color: '#f2f3ed',
+              color: DEFAULT_INPUT_TEXT_COLOR,
               borderRadius: 2,
-              fontSize: device === 'mobile' ? '16px' : '18px',
-              backgroundColor: '#404146',
+              fontSize: getInputTextFontSize(device),
+              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
               fontWeight: 600,
-              minWidth: device === 'mobile' ? 360 : 550,
+              minWidth: getInputTextMinWidth(device),
             },
           },
         }}
@@ -88,24 +109,18 @@ export default function OfferForm() {
       <ButtonInputs
         control={control}
         name="dealType"
-        buttonProps={{
-          variant: 'contained',
-          disableRipple: true,
-        }}
-        optionsProps={{
+        buttonInputsProps={{
           options: DEAL_OPTIONS.map((option) => ({
             ...option,
             selected: dealType === option.value,
           })),
           label: {
-            name: '거래 유형',
-            style: 'text-base text-light-200 font-bold',
+            name: DEAL_TYPE_LABEL_NAME,
+            style: DEFAULT_LABEL_STYLE,
           },
           button: {
-            defaultStyle:
-              'text-light-200 bg-dark-400 hover:bg-dark-200 font-bold text-xs md:text-sm rounded-lg',
-            selectedStyle:
-              'text-dark-700 bg-light-200 hover:bg-light-200 font-bold text-xs md:text-sm rounded-lg',
+            defaultStyle: DEFAULT_INPUT_BUTTON_STYLE,
+            selectedStyle: SELECTED_INPUT_BUTTON_STYLE,
           },
         }}
       />
@@ -113,25 +128,19 @@ export default function OfferForm() {
       <ButtonInputs
         control={control}
         name="categoryId"
-        buttonProps={{
-          variant: 'contained',
-          disableRipple: true,
-        }}
-        optionsProps={{
+        buttonInputsProps={{
           options: group.productCategories.map((category) => ({
             value: category.id,
             label: category.name,
             selected: categoryId === category.id,
           })),
           label: {
-            name: '카테고리',
-            style: 'text-base text-light-200 font-bold',
+            name: DEAL_CATEGORY_LABEL_NAME,
+            style: DEFAULT_LABEL_STYLE,
           },
           button: {
-            defaultStyle:
-              'text-light-200 bg-dark-400 hover:bg-dark-200 font-bold text-xs md:text-sm rounded-lg',
-            selectedStyle:
-              'text-dark-700 bg-light-200 hover:bg-light-200 font-bold text-xs md:text-sm rounded-lg',
+            defaultStyle: DEFAULT_INPUT_BUTTON_STYLE,
+            selectedStyle: SELECTED_INPUT_BUTTON_STYLE,
           },
         }}
       />
@@ -141,22 +150,22 @@ export default function OfferForm() {
         name="price"
         textInputProps={{
           label: {
-            name: '가격',
-            style: 'text-base text-light-200 font-bold',
+            name: DEAL_PRICE_LABEL_NAME,
+            style: DEFAULT_LABEL_STYLE,
           },
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '가격',
+          placeholder: DEAL_PRICE_PLACEHOLDER,
           InputProps: {
             startAdornment: <div className="pr-2">₩</div>,
             sx: {
-              color: '#f2f3ed',
+              color: DEFAULT_INPUT_TEXT_COLOR,
               borderRadius: 2,
-              fontSize: device === 'mobile' ? '16px' : '18px',
-              backgroundColor: '#404146',
+              fontSize: getInputTextFontSize(device),
+              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
               fontWeight: 600,
-              minWidth: device === 'mobile' ? 360 : 550,
+              minWidth: getInputTextMinWidth(device),
             },
           },
         }}
@@ -167,27 +176,25 @@ export default function OfferForm() {
         name="description"
         textInputProps={{
           label: {
-            name: '제품 설명',
-            style: 'text-base text-light-200 font-bold',
+            name: DEAL_DESCRIPTION_LABEL_NAME,
+            style: DEFAULT_LABEL_STYLE,
           },
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: `${findDealLabel(dealType)}할 ${findProductCategory(
-            group.productCategories,
-            {
-              id: categoryId,
-            },
-          )
-            ?.name} 제품을 자세히 소개해 주세요.\n\n특이 사항이 있을 경우 근접 사진을 첨부해 주세요.`,
+          placeholder: parseDealDescriptionPlaceholder({
+            dealType,
+            productCategories: group.productCategories,
+            categoryId,
+          }),
           InputProps: {
             sx: {
-              color: '#f2f3ed',
+              color: DEFAULT_INPUT_TEXT_COLOR,
               borderRadius: 2,
               fontSize: '16px',
-              backgroundColor: '#404146',
+              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
               fontWeight: 600,
-              minWidth: device === 'mobile' ? 360 : 550,
+              minWidth: getInputTextMinWidth(device),
             },
           },
           multiline: true,
@@ -195,12 +202,13 @@ export default function OfferForm() {
         }}
       />
 
-      <Button
-        className="text-light-200 bg-star-500 hover:bg-star-400 text-lg font-bold"
+      <button
+        type="button"
+        className={DEFAULT_SUBMIT_BUTTON_STYLE}
         onClick={handleSubmit(onSubmit)}
       >
-        작성 완료
-      </Button>
+        {DEAL_SUBMIT_BUTTON_NAME}
+      </button>
     </form>
   );
 }
