@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 import { getPrice } from '@/lib/formatter';
 import Link from 'next/link';
-import { Deal } from '@/lib/apollo/cache';
+import { Deal } from '@/lib/deal/deal.types';
 
 interface Props {
   deal: Deal;

@@ -4,7 +4,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
-import { DEAL_OPTIONS } from './deal.constants';
+import { DEAL_OPTIONS } from '../../lib/deal/deal.constants';
 import BaseSelector from '../selectors/base-selector';
 
 export default function DealSelector({

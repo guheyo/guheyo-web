@@ -1,7 +1,7 @@
 'use client';
 
 import QuerySelector from '../selectors/query-selector';
-import { DEAL_STATUS_OPTIONS } from './deal.constants';
+import { DEAL_STATUS_OPTIONS } from '../../lib/deal/deal.constants';
 
 export default function DealStatusSelector() {
   return (
