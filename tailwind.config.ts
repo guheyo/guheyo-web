@@ -3,7 +3,7 @@
 const colors = require('tailwindcss/colors');
 const typography = require('@tailwindcss/typography');
 
-module.exports = {
+const tailwindConfig = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -55,3 +55,5 @@ module.exports = {
   },
   plugins: [typography],
 };
+
+export default tailwindConfig;
