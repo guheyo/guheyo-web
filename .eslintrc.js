@@ -101,5 +101,11 @@ module.exports = {
     ],
     'react/jsx-props-no-spreading': OFF,
     'no-bitwise': OFF,
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelAttributes: ['htmlFor'],
+      },
+    ],
   },
 };
