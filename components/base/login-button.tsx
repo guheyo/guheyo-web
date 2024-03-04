@@ -8,7 +8,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
-import { useJwtUser } from '@/hooks/use-jwt-user';
+import useJwtUser from '@/hooks/use-jwt-user';
 import { useSignIn } from '@/hooks/use-sign-in';
 import Avatar from './avatar';
 
@@ -16,7 +16,7 @@ export default function LoginButton() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
-  const jwtUser = useJwtUser();
+  const { data: jwtUser } = useJwtUser();
   const signIn = useSignIn();
   const [logout, { error }] = useLogoutMutation();
 

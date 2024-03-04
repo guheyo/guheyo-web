@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
-import { useJwtUser } from '@/hooks/use-jwt-user';
+import useJwtUser from '@/hooks/use-jwt-user';
 import LoginButton from './login-button';
 
 export default function DmDialog({ url }: { url: string }) {
   const [open, setOpen] = useState(false);
-  const jwtUser = useJwtUser();
+  const { data: jwtUser } = useJwtUser();
 
   const handleOpen = () => {
     if (jwtUser?.username) {

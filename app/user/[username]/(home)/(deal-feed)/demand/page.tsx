@@ -1,11 +1,11 @@
 'use client';
 
 import DemandFeed from '@/components/demands/demand-feed';
-import { useJwtUser } from '@/hooks/use-jwt-user';
+import useJwtUser from '@/hooks/use-jwt-user';
 import { FindDemandsWhereArgs } from '@/interfaces/deal.interfaces';
 
 function MyDemandsPage() {
-  const jwtUser = useJwtUser();
+  const { data: jwtUser } = useJwtUser();
   const where: FindDemandsWhereArgs = {
     buyerId: jwtUser?.id,
   };

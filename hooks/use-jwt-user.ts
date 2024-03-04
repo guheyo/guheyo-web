@@ -4,28 +4,35 @@ import { refreshTokens } from '@/lib/api/auth';
 import { useEffect, useState } from 'react';
 import { JwtUser } from '@/interfaces/jwt.interfaces';
 
-export const useJwtUser = () => {
+const useJwtUser = () => {
   const [cookie] = useCookies(['access-token']);
   const [jwtUser, setJwtUser] = useState<JwtUser | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const token = cookie['access-token'] as string | null;
 
   useEffect(() => {
     async function fetchTokens() {
-      if (!token) {
-        try {
-          const { accessToken } = await refreshTokens();
+      try {
+        if (!token) {
+          const { data: accessToken, errors } = await refreshTokens();
+          if (errors) setError(errors[0]);
           const payload = jwtDecode(accessToken) as JwtUser;
           setJwtUser(payload);
-        } catch {
-          setJwtUser(null);
+        } else {
+          const payload = jwtDecode(token) as JwtUser;
+          setJwtUser(payload);
         }
-      } else {
-        const payload = jwtDecode(token) as JwtUser;
-        setJwtUser(payload);
+      } catch (e) {
+        setError(e as any);
       }
     }
     fetchTokens();
   }, [token]);
 
-  return jwtUser;
+  return {
+    data: jwtUser,
+    error,
+  };
 };
+
+export default useJwtUser;
