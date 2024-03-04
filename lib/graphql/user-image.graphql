@@ -6,6 +6,7 @@ fragment image on UserImageResponse {
   url
   contentType
   description
+  size
   height
   width
   position
@@ -16,7 +17,10 @@ fragment image on UserImageResponse {
 }
 
 mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
-  createSignedUrl(input: $input)
+  createSignedUrl(input: $input) {
+    signedUrl
+    url
+  }
 }
 
 mutation CreateUserImage($input: CreateUserImageInput!) {
