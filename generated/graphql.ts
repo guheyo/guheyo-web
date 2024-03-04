@@ -179,6 +179,12 @@ export type CreateSessionInput = {
   userId: Scalars['ID']['input'];
 };
 
+export type CreateSignedUrlInput = {
+  filename: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
 export type CreateSocialAccountInput = {
   accessToken?: InputMaybe<Scalars['String']['input']>;
   expiresAt?: InputMaybe<Scalars['Int']['input']>;
@@ -357,6 +363,7 @@ export type Mutation = {
   createOffer: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSession: Scalars['String']['output'];
+  createSignedUrl: Scalars['String']['output'];
   createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
   createUser: Scalars['String']['output'];
@@ -447,6 +454,11 @@ export type MutationCreateRoleArgs = {
 
 export type MutationCreateSessionArgs = {
   input: CreateSessionInput;
+};
+
+
+export type MutationCreateSignedUrlArgs = {
+  input: CreateSignedUrlInput;
 };
 
 
@@ -1351,6 +1363,20 @@ export type FindTermQueryVariables = Exact<{
 export type FindTermQuery = { __typename?: 'Query', findTerm?: { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string } | null };
 
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
+
+export type CreateSignedUrlMutationVariables = Exact<{
+  input: CreateSignedUrlInput;
+}>;
+
+
+export type CreateSignedUrlMutation = { __typename?: 'Mutation', createSignedUrl: string };
+
+export type CreateUserImageMutationVariables = Exact<{
+  input: CreateUserImageInput;
+}>;
+
+
+export type CreateUserImageMutation = { __typename?: 'Mutation', createUserImage: string };
 
 export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string };
 
@@ -2677,6 +2703,68 @@ export type FindTermQueryHookResult = ReturnType<typeof useFindTermQuery>;
 export type FindTermLazyQueryHookResult = ReturnType<typeof useFindTermLazyQuery>;
 export type FindTermSuspenseQueryHookResult = ReturnType<typeof useFindTermSuspenseQuery>;
 export type FindTermQueryResult = Apollo.QueryResult<FindTermQuery, FindTermQueryVariables>;
+export const CreateSignedUrlDocument = gql`
+    mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
+  createSignedUrl(input: $input)
+}
+    `;
+export type CreateSignedUrlMutationFn = Apollo.MutationFunction<CreateSignedUrlMutation, CreateSignedUrlMutationVariables>;
+
+/**
+ * __useCreateSignedUrlMutation__
+ *
+ * To run a mutation, you first call `useCreateSignedUrlMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSignedUrlMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSignedUrlMutation, { data, loading, error }] = useCreateSignedUrlMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSignedUrlMutation(baseOptions?: Apollo.MutationHookOptions<CreateSignedUrlMutation, CreateSignedUrlMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSignedUrlMutation, CreateSignedUrlMutationVariables>(CreateSignedUrlDocument, options);
+      }
+export type CreateSignedUrlMutationHookResult = ReturnType<typeof useCreateSignedUrlMutation>;
+export type CreateSignedUrlMutationResult = Apollo.MutationResult<CreateSignedUrlMutation>;
+export type CreateSignedUrlMutationOptions = Apollo.BaseMutationOptions<CreateSignedUrlMutation, CreateSignedUrlMutationVariables>;
+export const CreateUserImageDocument = gql`
+    mutation CreateUserImage($input: CreateUserImageInput!) {
+  createUserImage(input: $input)
+}
+    `;
+export type CreateUserImageMutationFn = Apollo.MutationFunction<CreateUserImageMutation, CreateUserImageMutationVariables>;
+
+/**
+ * __useCreateUserImageMutation__
+ *
+ * To run a mutation, you first call `useCreateUserImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserImageMutation, { data, loading, error }] = useCreateUserImageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateUserImageMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserImageMutation, CreateUserImageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserImageMutation, CreateUserImageMutationVariables>(CreateUserImageDocument, options);
+      }
+export type CreateUserImageMutationHookResult = ReturnType<typeof useCreateUserImageMutation>;
+export type CreateUserImageMutationResult = Apollo.MutationResult<CreateUserImageMutation>;
+export type CreateUserImageMutationOptions = Apollo.BaseMutationOptions<CreateUserImageMutation, CreateUserImageMutationVariables>;
 export const FindMyUserByIdDocument = gql`
     query findMyUserById($id: ID!) {
   findMyUserById(id: $id) {

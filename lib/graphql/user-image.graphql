@@ -14,3 +14,11 @@ fragment image on UserImageResponse {
   userId
   source
 }
+
+mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
+  createSignedUrl(input: $input)
+}
+
+mutation CreateUserImage($input: CreateUserImageInput!) {
+  createUserImage(input: $input)
+}
