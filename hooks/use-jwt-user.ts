@@ -15,7 +15,7 @@ const useJwtUser = () => {
       try {
         if (!token) {
           const { data: accessToken, errors } = await refreshTokens();
-          if (errors) setError(errors[0]);
+          if (errors?.length) setError(errors[0]);
           const payload = jwtDecode(accessToken) as JwtUser;
           setJwtUser(payload);
         } else {
