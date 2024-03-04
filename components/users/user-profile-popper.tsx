@@ -12,7 +12,7 @@ import DmDialog from '../base/dm-dialog';
 import Popper from '../base/popper';
 import Username from './user-name';
 
-export default function UserProfile({
+export default function UserProfilePopper({
   user,
   displayAvatar,
   displayUsername,
