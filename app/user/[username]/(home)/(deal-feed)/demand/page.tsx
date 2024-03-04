@@ -1,15 +1,33 @@
 'use client';
 
 import DemandFeed from '@/components/demands/demand-feed';
-import useJwtUser from '@/hooks/use-jwt-user';
+import { useFindUserQuery } from '@/generated/graphql';
 import { FindDemandsWhereArgs } from '@/interfaces/deal.interfaces';
 
-function MyDemandsPage() {
-  const { data: jwtUser } = useJwtUser();
+function Page({
+  params: { username },
+}: {
+  params: {
+    username: string;
+  };
+}) {
+  // TODO
+  // if jwtUser=user, return MyPage
+
+  const { loading, data } = useFindUserQuery({
+    variables: {
+      username,
+    },
+  });
+  const user = data?.findUser;
+
+  if (loading) return <div />;
+  if (!user) return <div />;
+
   const where: FindDemandsWhereArgs = {
-    buyerId: jwtUser?.id,
+    buyerId: user.id,
   };
   return <DemandFeed where={where} type="text" />;
 }
 
-export default MyDemandsPage;
+export default Page;
