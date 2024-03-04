@@ -12,7 +12,7 @@ interface Props {
 export default function SwapPreview({ swap, type }: Props) {
   return (
     <DealPreview
-      deal="swaps"
+      deal="swap"
       type={type}
       thumbnail={swap.thumbnail}
       name={<SwapName name0={swap.name0} name1={swap.name1} />}

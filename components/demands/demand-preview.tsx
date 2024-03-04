@@ -11,7 +11,7 @@ interface Props {
 export default function DemandPreview({ demand, type }: Props) {
   return (
     <DealPreview
-      deal="demands"
+      deal="demand"
       type={type}
       name={demand.name}
       price={demand.price}
