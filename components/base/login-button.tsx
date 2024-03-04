@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
 import useJwtUser from '@/hooks/use-jwt-user';
-import { useSignIn } from '@/hooks/use-sign-in';
+import useSignIn from '@/hooks/use-sign-in';
 import Avatar from './avatar';
 
 export default function LoginButton() {

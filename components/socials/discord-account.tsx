@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { SocialAccountResponse } from '@/generated/graphql';
-import { useSignIn } from '@/hooks/use-sign-in';
+import useSignIn from '@/hooks/use-sign-in';
 import IconText from '../icon-text/icon-text';
 import SocialLogo from './social-logo';
 
