@@ -94,8 +94,9 @@ query findUser(
   $provider: String
   $socialId: String
   $sessionToken: String
+  $username: String
 ) {
-  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken) {
+  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken, username: $username) {
     ...user
   }
 }

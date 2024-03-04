@@ -898,6 +898,7 @@ export type QueryFindUserArgs = {
   provider?: InputMaybe<Scalars['String']['input']>;
   sessionToken?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1411,6 +1412,7 @@ export type FindUserQueryVariables = Exact<{
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   sessionToken?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2818,8 +2820,13 @@ export type FindMyUserByIdLazyQueryHookResult = ReturnType<typeof useFindMyUserB
 export type FindMyUserByIdSuspenseQueryHookResult = ReturnType<typeof useFindMyUserByIdSuspenseQuery>;
 export type FindMyUserByIdQueryResult = Apollo.QueryResult<FindMyUserByIdQuery, FindMyUserByIdQueryVariables>;
 export const FindUserDocument = gql`
-    query findUser($provider: String, $socialId: String, $sessionToken: String) {
-  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken) {
+    query findUser($provider: String, $socialId: String, $sessionToken: String, $username: String) {
+  findUser(
+    provider: $provider
+    socialId: $socialId
+    sessionToken: $sessionToken
+    username: $username
+  ) {
     ...user
   }
 }
@@ -2840,6 +2847,7 @@ export const FindUserDocument = gql`
  *      provider: // value for 'provider'
  *      socialId: // value for 'socialId'
  *      sessionToken: // value for 'sessionToken'
+ *      username: // value for 'username'
  *   },
  * });
  */
