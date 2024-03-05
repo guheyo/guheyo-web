@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
-import useJwtUser from '@/hooks/use-jwt-user';
 import LoginButton from './login-button';
+import { AuthContext } from '../auth/auth.provider';
 
 export default function DmDialog({ url }: { url: string }) {
   const [open, setOpen] = useState(false);
-  const { data: jwtUser } = useJwtUser();
+  const { user } = useContext(AuthContext);
 
   const handleOpen = () => {
-    if (jwtUser?.username) {
+    if (user?.username) {
       window.open(url, '_blank');
     } else {
       setOpen(!open);

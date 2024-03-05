@@ -1,7 +1,8 @@
 import { JwtResponse, RefreshTokensDocument } from '@/generated/graphql';
 import { client } from '@/lib/apollo/client';
+import { FetchResult } from '@apollo/client';
 
-export async function refreshTokens(): Promise<any> {
+export async function refreshTokens(): Promise<FetchResult<JwtResponse>> {
   const res = await client.mutate<JwtResponse>({
     mutation: RefreshTokensDocument,
   });
