@@ -9,7 +9,8 @@ import {
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
-import { ApolloWrapper } from '@/lib/apollo/apollo-provider';
+import ApolloWrapper from '@/lib/apollo/apollo-provider';
+import AuthProvider from '@/components/auth/auth.provider';
 
 // dayjs config
 dayjs.extend(relativeTime);
@@ -39,9 +40,11 @@ const theme = createTheme({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ApolloWrapper>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </StyledEngineProvider>
+      <AuthProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </StyledEngineProvider>
+      </AuthProvider>
     </ApolloWrapper>
   );
 }
