@@ -2,7 +2,7 @@
 
 import { MouseEvent } from 'react';
 import { useGroup } from '@/hooks/use-group';
-import { useCreateQueryString } from '@/hooks/use-create-query-string';
+import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
 import DealSelector from '../deals/deal-selector';
@@ -25,12 +25,15 @@ export default function CategoriesNavbar({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const createQueryString = useCreateQueryString();
 
   const handleClick = (e: MouseEvent, slug?: string | null) => {
     e.preventDefault();
     router.push(
-      `${pathname}?${createQueryString(searchParams, 'category', slug)}`,
+      `${pathname}?${createQueryString({
+        searchParams,
+        name: 'category',
+        value: slug,
+      })}`,
     );
   };
 

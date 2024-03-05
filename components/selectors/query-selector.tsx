@@ -1,10 +1,10 @@
 'use client';
 
 import { SelectChangeEvent } from '@mui/material';
-import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
+import createQueryString from '@/lib/query-string/create-query-string';
 import BaseSelector from './base-selector';
 
 export default function QuerySelector({
@@ -20,14 +20,17 @@ export default function QuerySelector({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const serachParams = useSearchParams();
-  const queryValue = serachParams.get(queryKey);
-  const createQueryString = useCreateQueryString();
+  const searchParams = useSearchParams();
+  const queryValue = searchParams.get(queryKey);
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
     router.push(
-      `${pathname}?${createQueryString(serachParams, queryKey, value)}`,
+      `${pathname}?${createQueryString({
+        searchParams,
+        name: queryKey,
+        value,
+      })}`,
     );
   };
 
