@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useGetUser } from '@/hooks/use-get-user';
 import { Auth, User } from '@/interfaces/auth.interfaces';
+import getUser from '@/lib/auth/get-user';
 
 export const AuthContext = createContext<Auth>({
   user: null,
@@ -13,18 +13,19 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
   const token = cookie['access-token'] as string | null;
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const getUser = useGetUser(token);
 
   useEffect(() => {
     async function setAuth() {
       try {
-        return setUser(await getUser());
+        setUser(await getUser(token));
+        setError(null);
       } catch (e: any) {
-        return setError(e);
+        setError(e);
+        setUser(null);
       }
     }
     setAuth();
-  }, [getUser]);
+  }, [token]);
 
   const auth = useMemo(() => ({ user, error }), [user, error]);
 
