@@ -11,4 +11,5 @@ export interface User {
 export interface Auth {
   user: User | null;
   error: Error | null;
+  loading: boolean;
 }
