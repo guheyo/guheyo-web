@@ -1,28 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
-import { useJwtUser } from '@/hooks/use-jwt-user';
-import { useSignIn } from '@/hooks/use-sign-in';
+import signIn from '@/lib/auth/sign-in';
 import Avatar from './avatar';
+import { AuthContext } from '../auth/auth.provider';
 
 export default function LoginButton() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
-  const jwtUser = useJwtUser();
-  const signIn = useSignIn();
-  const [logout, { error }] = useLogoutMutation();
-
-  if (error) {
-    router.push('/');
-  }
+  const { user } = useContext(AuthContext);
+  const [logout] = useLogoutMutation();
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +33,7 @@ export default function LoginButton() {
     router.push('/');
   };
 
-  if (!jwtUser) {
+  if (!user) {
     return (
       <div className="inline-flex items-center">
         <div>
@@ -63,7 +58,7 @@ export default function LoginButton() {
   return (
     <div>
       <IconButton className="inline-flex items-center" onClick={handleOpenMenu}>
-        <Avatar name={jwtUser.username} avatarURL={jwtUser.avatarURL} />
+        <Avatar name={user.username} avatarURL={user.avatarURL} />
       </IconButton>
       <Menu
         open={menuOpen}
@@ -74,10 +69,7 @@ export default function LoginButton() {
         className="mt-1 pr-3 pl-3"
       >
         <MenuItem>
-          <Link
-            href={`/user/${jwtUser.username}/home`}
-            onClick={handleCloseMenu}
-          >
+          <Link href={`/user/${user.username}/home`} onClick={handleCloseMenu}>
             <div className="focus:bg-gray-100 hover:bg-gray-100">
               <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
                 <SentimentSatisfiedAltIcon />

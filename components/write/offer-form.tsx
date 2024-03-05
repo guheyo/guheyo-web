@@ -3,17 +3,20 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import { Deal } from '@/lib/deal/deal.types';
 import {
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
+  DEAL_DESCRIPTION_REQUIRED_MESSAGE,
   DEAL_NAME,
   DEAL_NAME_PLACEHOLDER,
+  DEAL_NAME_REQUIRED_MESSAGE,
   DEAL_OPTIONS,
   DEAL_PRICE_LABEL_NAME,
   DEAL_PRICE_PLACEHOLDER,
+  DEAL_PRICE_REQUIRED_MESSAGE,
   DEAL_SUBMIT_BUTTON_NAME,
   DEAL_TYPE_LABEL_NAME,
 } from '@/lib/deal/deal.constants';
@@ -26,16 +29,29 @@ import {
   getInputTextFontSize,
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
+import _ from 'lodash';
+import {
+  IMAGE_UPLOAD_LABEL_NAME,
+  IMAGE_UPLOAD_REQUIRED_MESSAGE,
+} from '@/lib/image/image.constants';
+import { v4 as uuid4 } from 'uuid';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
   DEFAULT_INPUT_BUTTON_STYLE,
   DEFAULT_LABEL_STYLE,
   DEFAULT_SUBMIT_BUTTON_STYLE,
+  MOBILE_FILE_INPUT_LABEL_STYLE,
   SELECTED_INPUT_BUTTON_STYLE,
-} from '../../lib/input/input.constants';
+} from '../../lib/input/input.styles';
+import ImagesInput from '../inputs/images-input';
+import ImagePreviews from '../images/image.previews';
+import { UploadedUserImage } from '../images/image.interfaces';
+import { AuthContext } from '../auth/auth.provider';
 
 type FormValues = {
+  id: string;
+  images: UploadedUserImage[];
   name: string;
   dealType: Deal;
   categoryId: string;
@@ -45,8 +61,14 @@ type FormValues = {
 
 export default function OfferForm() {
   const { group } = useGroup();
+  const dealId = uuid4();
+  const { user } = useContext(AuthContext);
+  const device = useDeviceDetect();
+
   const { handleSubmit, control, watch, setValue } = useForm<FormValues>({
     defaultValues: {
+      id: dealId,
+      images: [],
       name: '',
       dealType: 'offer',
       categoryId: '',
@@ -54,9 +76,10 @@ export default function OfferForm() {
       description: '',
     },
   });
+
+  const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
-  const device = useDeviceDetect();
 
   useEffect(() => {
     setValue(
@@ -76,14 +99,56 @@ export default function OfferForm() {
     // TODO
   };
 
+  const onChangeFileInput = (files: FileList | null) => {
+    if (!files) return;
+    if (!user) return;
+
+    _.map(files, (file) => {
+      setValue(`images.${images.length}`, {
+        file,
+        info: {
+          id: uuid4(),
+          type: dealType,
+          refId: dealId,
+          userId: user.id,
+          device,
+          position: images.length,
+        },
+      });
+    });
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-8"
+      onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <TextInput
+      <ImagesInput
+        name="images"
         control={control}
+        rules={{ required: IMAGE_UPLOAD_REQUIRED_MESSAGE }}
+        imagesInputProps={{
+          label: {
+            name: IMAGE_UPLOAD_LABEL_NAME,
+            style: MOBILE_FILE_INPUT_LABEL_STYLE,
+          },
+          icon: {
+            fontSize: 'large',
+          },
+          onChange: onChangeFileInput,
+        }}
+        inputProps={{
+          multiple: true,
+          hidden: true,
+        }}
+      />
+
+      <ImagePreviews uploadedImages={images} />
+
+      <TextInput
         name="name"
+        control={control}
+        rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
         textInputProps={{
           label: {
             name: DEAL_NAME,
@@ -107,8 +172,9 @@ export default function OfferForm() {
       />
 
       <ButtonInputs
-        control={control}
         name="dealType"
+        control={control}
+        rules={{ required: true }}
         buttonInputsProps={{
           options: DEAL_OPTIONS.map((option) => ({
             ...option,
@@ -126,8 +192,9 @@ export default function OfferForm() {
       />
 
       <ButtonInputs
-        control={control}
         name="categoryId"
+        control={control}
+        rules={{ required: true }}
         buttonInputsProps={{
           options: group.productCategories.map((category) => ({
             value: category.id,
@@ -146,8 +213,15 @@ export default function OfferForm() {
       />
 
       <TextInput
-        control={control}
         name="price"
+        control={control}
+        rules={{
+          required: DEAL_PRICE_REQUIRED_MESSAGE,
+          pattern: {
+            value: /^\d+$/,
+            message: DEAL_PRICE_REQUIRED_MESSAGE,
+          },
+        }}
         textInputProps={{
           label: {
             name: DEAL_PRICE_LABEL_NAME,
@@ -172,8 +246,9 @@ export default function OfferForm() {
       />
 
       <TextInput
-        control={control}
         name="description"
+        control={control}
+        rules={{ required: DEAL_DESCRIPTION_REQUIRED_MESSAGE }}
         textInputProps={{
           label: {
             name: DEAL_DESCRIPTION_LABEL_NAME,
@@ -202,11 +277,7 @@ export default function OfferForm() {
         }}
       />
 
-      <button
-        type="button"
-        className={DEFAULT_SUBMIT_BUTTON_STYLE}
-        onClick={handleSubmit(onSubmit)}
-      >
+      <button type="submit" className={DEFAULT_SUBMIT_BUTTON_STYLE}>
         {DEAL_SUBMIT_BUTTON_NAME}
       </button>
     </form>

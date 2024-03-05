@@ -5,7 +5,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useFindSwapQuery } from '@/generated/graphql';
 import { getPrice } from '@/lib/formatter';
-import UserProfile from '../users/user-profile';
+import UserProfilePopper from '../users/user-profile-popper';
 import ImageSlider from '../base/image-slider';
 import SwapName from './swap-name';
 import PostDetail from '../posts/post-detail';
@@ -31,7 +31,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
 
       <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
         <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center">
-          <UserProfile
+          <UserProfilePopper
             user={swap.proposer}
             displayAvatar
             displayUsername

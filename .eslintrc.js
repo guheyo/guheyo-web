@@ -63,7 +63,7 @@ module.exports = {
       },
       {
         selector: 'variable',
-        format: ['camelCase', 'UPPER_CASE'],
+        format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
       },
       {
         selector: 'function',
@@ -101,5 +101,11 @@ module.exports = {
     ],
     'react/jsx-props-no-spreading': OFF,
     'no-bitwise': OFF,
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelAttributes: ['htmlFor'],
+      },
+    ],
   },
 };

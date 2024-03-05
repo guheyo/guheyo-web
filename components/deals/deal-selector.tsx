@@ -1,9 +1,9 @@
 'use client';
 
 import { SelectChangeEvent } from '@mui/material';
-import { useCreateQueryString } from '@/hooks/use-create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
+import createQueryString from '@/lib/query-string/create-query-string';
 import { DEAL_OPTIONS } from '../../lib/deal/deal.constants';
 import BaseSelector from '../selectors/base-selector';
 
@@ -16,7 +16,6 @@ export default function DealSelector({
   const searchParams = useSearchParams();
   const router = useRouter();
   const deal = pathname.split('/').at(-1) || 'offer';
-  const createQueryString = useCreateQueryString();
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
@@ -24,11 +23,11 @@ export default function DealSelector({
       `${pathname
         .split('/')
         .slice(0, -1)
-        .join('/')}/${value}?${createQueryString(
+        .join('/')}/${value}?${createQueryString({
         searchParams,
-        'category',
-        categorySlug,
-      )}`,
+        name: 'category',
+        value: categorySlug,
+      })}`,
     );
   };
 

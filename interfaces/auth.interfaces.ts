@@ -1,12 +1,15 @@
-export interface JwtUser {
+export interface User {
   id: string;
   username: string;
   provider: string;
   socialId: string;
   avatarURL?: string;
-}
-
-export interface Payload extends JwtUser {
   iat: number;
   exp: number;
+}
+
+export interface Auth {
+  user: User | null;
+  error: Error | null;
+  loading: boolean;
 }

@@ -1,15 +1,33 @@
 'use client';
 
 import OfferFeed from '@/components/offers/offer-feed';
-import { useJwtUser } from '@/hooks/use-jwt-user';
+import { useFindUserQuery } from '@/generated/graphql';
 import { FindOffersWhereArgs } from '@/interfaces/deal.interfaces';
 
-function MyOffersPage() {
-  const jwtUser = useJwtUser();
+function Page({
+  params: { username },
+}: {
+  params: {
+    username: string;
+  };
+}) {
+  // TODO
+  // if jwtUser=user, return MyPage
+
+  const { loading, data } = useFindUserQuery({
+    variables: {
+      username,
+    },
+  });
+  const user = data?.findUser;
+
+  if (loading) return <div />;
+  if (!user) return <div />;
+
   const where: FindOffersWhereArgs = {
-    sellerId: jwtUser?.id,
+    sellerId: user.id,
   };
   return <OfferFeed where={where} type="thumbnail" />;
 }
 
-export default MyOffersPage;
+export default Page;

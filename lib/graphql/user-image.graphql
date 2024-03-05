@@ -6,6 +6,7 @@ fragment image on UserImageResponse {
   url
   contentType
   description
+  size
   height
   width
   position
@@ -13,4 +14,15 @@ fragment image on UserImageResponse {
   refId
   userId
   source
+}
+
+mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
+  createSignedUrl(input: $input) {
+    signedUrl
+    url
+  }
+}
+
+mutation CreateUserImage($input: CreateUserImageInput!) {
+  createUserImage(input: $input)
 }

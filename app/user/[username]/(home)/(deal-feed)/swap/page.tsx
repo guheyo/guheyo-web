@@ -1,15 +1,33 @@
 'use client';
 
 import SwapFeed from '@/components/swaps/swap-feed';
-import { useJwtUser } from '@/hooks/use-jwt-user';
+import { useFindUserQuery } from '@/generated/graphql';
 import { FindSwapsWhereArgs } from '@/interfaces/deal.interfaces';
 
-function MySwapsPage() {
-  const jwtUser = useJwtUser();
+function Page({
+  params: { username },
+}: {
+  params: {
+    username: string;
+  };
+}) {
+  // TODO
+  // if jwtUser=user, return MyPage
+
+  const { loading, data } = useFindUserQuery({
+    variables: {
+      username,
+    },
+  });
+  const user = data?.findUser;
+
+  if (loading) return <div />;
+  if (!user) return <div />;
+
   const where: FindSwapsWhereArgs = {
-    proposerId: jwtUser?.id,
+    proposerId: user.id,
   };
   return <SwapFeed where={where} type="thumbnail" />;
 }
 
-export default MySwapsPage;
+export default Page;
