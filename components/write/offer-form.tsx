@@ -3,7 +3,7 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import { Deal } from '@/lib/deal/deal.types';
 import {
@@ -30,7 +30,11 @@ import {
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
 import _ from 'lodash';
-import { IMAGE_UPLOAD_LABEL_NAME } from '@/lib/image/image.constants';
+import {
+  IMAGE_UPLOAD_LABEL_NAME,
+  IMAGE_UPLOAD_REQUIRED_MESSAGE,
+} from '@/lib/image/image.constants';
+import { v4 as uuid4 } from 'uuid';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -43,8 +47,10 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import { UploadedUserImage } from '../images/image.interfaces';
+import { AuthContext } from '../auth/auth.provider';
 
 type FormValues = {
+  id: string;
   images: UploadedUserImage[];
   name: string;
   dealType: Deal;
@@ -55,8 +61,13 @@ type FormValues = {
 
 export default function OfferForm() {
   const { group } = useGroup();
+  const dealId = uuid4();
+  const { user } = useContext(AuthContext);
+  const device = useDeviceDetect();
+
   const { handleSubmit, control, watch, setValue } = useForm<FormValues>({
     defaultValues: {
+      id: dealId,
       images: [],
       name: '',
       dealType: 'offer',
@@ -65,10 +76,10 @@ export default function OfferForm() {
       description: '',
     },
   });
+
   const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
-  const device = useDeviceDetect();
 
   useEffect(() => {
     setValue(
@@ -90,12 +101,18 @@ export default function OfferForm() {
 
   const onChangeFileInput = (files: FileList | null) => {
     if (!files) return;
+    if (!user) return;
+
     _.map(files, (file) => {
       setValue(`images.${images.length}`, {
         file,
         info: {
+          id: uuid4(),
           type: dealType,
-          userId: '',
+          refId: dealId,
+          userId: user.id,
+          device,
+          position: images.length,
         },
       });
     });
@@ -109,6 +126,7 @@ export default function OfferForm() {
       <ImagesInput
         name="images"
         control={control}
+        rules={{ required: IMAGE_UPLOAD_REQUIRED_MESSAGE }}
         imagesInputProps={{
           label: {
             name: IMAGE_UPLOAD_LABEL_NAME,
