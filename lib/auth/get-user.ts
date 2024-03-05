@@ -5,8 +5,10 @@ import { jwtDecode } from 'jwt-decode';
 const getUserFromRefreshedTokens = async () => {
   const { data, errors } = await refreshTokens();
   if (errors?.length) throw errors[0];
-  if (!data?.accessToken) throw new Error('NOT_FOUND_ACCESS_TOKEN');
-  const payload = jwtDecode(data?.accessToken);
+  if (!data?.refreshTokens.accessToken) {
+    throw new Error('NOT_FOUND_ACCESS_TOKEN');
+  }
+  const payload = jwtDecode(data?.refreshTokens.accessToken);
   return payload as User;
 };
 
