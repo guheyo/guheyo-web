@@ -8,7 +8,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
-import useSignIn from '@/hooks/use-sign-in';
+import signIn from '@/lib/auth/sign-in';
 import Avatar from './avatar';
 import { AuthContext } from '../auth/auth.provider';
 
@@ -17,7 +17,6 @@ export default function LoginButton() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
   const { user } = useContext(AuthContext);
-  const signIn = useSignIn();
   const [logout] = useLogoutMutation();
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>): void => {
