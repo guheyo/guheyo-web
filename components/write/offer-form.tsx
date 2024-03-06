@@ -5,7 +5,6 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
 import { useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
-import { Deal } from '@/lib/deal/deal.types';
 import {
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
@@ -37,6 +36,15 @@ import {
 import { v4 as uuid4 } from 'uuid';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
+import {
+  SWAP_NAME0_LABEL_NAME,
+  SWAP_NAME0_PLACEHOLDER,
+  SWAP_NAME0_REQUIRED_MESSAGE,
+  SWAP_NAME1_LABEL_NAME,
+  SWAP_NAME1_PLACEHOLDER,
+  SWAP_NAME1_REQUIRED_MESSAGE,
+} from '@/lib/swap/swap.constants';
+import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -48,18 +56,7 @@ import {
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
-import { UserImage } from '../../lib/image/image.interfaces';
 import { AuthContext } from '../auth/auth.provider';
-
-type FormValues = {
-  id: string;
-  images: UserImage[];
-  name: string;
-  dealType: Deal;
-  categoryId: string;
-  price: number;
-  description: string;
-};
 
 export default function OfferForm() {
   const { group } = useGroup();
@@ -67,11 +64,11 @@ export default function OfferForm() {
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, watch, setValue } = useForm<FormValues>({
+  const { handleSubmit, control, watch, setValue } = useForm<DealFormValues>({
     defaultValues: {
       id: dealId,
       images: [],
-      name: '',
+      name0: '',
       dealType: 'offer',
       categoryId: '',
       price: 0,
@@ -93,11 +90,11 @@ export default function OfferForm() {
 
   if (!group) return <div />;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<DealFormValues> = async (data) => {
     // TODO
   };
 
-  const onError: SubmitErrorHandler<FormValues> = (error) => {
+  const onError: SubmitErrorHandler<DealFormValues> = (error) => {
     // TODO
   };
 
@@ -150,31 +147,86 @@ export default function OfferForm() {
 
       <ImagePreviews images={images} />
 
-      <TextInput
-        name="name"
-        control={control}
-        rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
-        textInputProps={{
-          label: {
-            name: DEAL_NAME,
-            style: DEFAULT_LABEL_STYLE,
-          },
-        }}
-        textFieldProps={{
-          variant: 'outlined',
-          placeholder: DEAL_NAME_PLACEHOLDER,
-          InputProps: {
-            sx: {
-              color: DEFAULT_INPUT_TEXT_COLOR,
-              borderRadius: 2,
-              fontSize: getInputTextFontSize(device),
-              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
-              fontWeight: 600,
-              minWidth: getInputTextMinWidth(device),
+      {dealType !== 'swap' ? (
+        <TextInput
+          name="name0"
+          control={control}
+          rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
+          textInputProps={{
+            label: {
+              name: DEAL_NAME,
+              style: DEFAULT_LABEL_STYLE,
             },
-          },
-        }}
-      />
+          }}
+          textFieldProps={{
+            variant: 'outlined',
+            placeholder: DEAL_NAME_PLACEHOLDER,
+            InputProps: {
+              sx: {
+                color: DEFAULT_INPUT_TEXT_COLOR,
+                borderRadius: 2,
+                fontSize: getInputTextFontSize(device),
+                backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                fontWeight: 600,
+                minWidth: getInputTextMinWidth(device),
+              },
+            },
+          }}
+        />
+      ) : (
+        <>
+          <TextInput
+            name="name0"
+            control={control}
+            rules={{ required: SWAP_NAME0_REQUIRED_MESSAGE }}
+            textInputProps={{
+              label: {
+                name: SWAP_NAME0_LABEL_NAME,
+                style: DEFAULT_LABEL_STYLE,
+              },
+            }}
+            textFieldProps={{
+              variant: 'outlined',
+              placeholder: SWAP_NAME0_PLACEHOLDER,
+              InputProps: {
+                sx: {
+                  color: DEFAULT_INPUT_TEXT_COLOR,
+                  borderRadius: 2,
+                  fontSize: getInputTextFontSize(device),
+                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                  fontWeight: 600,
+                  minWidth: getInputTextMinWidth(device),
+                },
+              },
+            }}
+          />
+          <TextInput
+            name="name1"
+            control={control}
+            rules={{ required: SWAP_NAME1_REQUIRED_MESSAGE }}
+            textInputProps={{
+              label: {
+                name: SWAP_NAME1_LABEL_NAME,
+                style: DEFAULT_LABEL_STYLE,
+              },
+            }}
+            textFieldProps={{
+              variant: 'outlined',
+              placeholder: SWAP_NAME1_PLACEHOLDER,
+              InputProps: {
+                sx: {
+                  color: DEFAULT_INPUT_TEXT_COLOR,
+                  borderRadius: 2,
+                  fontSize: getInputTextFontSize(device),
+                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                  fontWeight: 600,
+                  minWidth: getInputTextMinWidth(device),
+                },
+              },
+            }}
+          />
+        </>
+      )}
 
       <ButtonInputs
         name="dealType"
@@ -271,7 +323,7 @@ export default function OfferForm() {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,
               borderRadius: 2,
-              fontSize: '16px',
+              fontSize: getInputTextFontSize(device),
               backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
               fontWeight: 600,
               minWidth: getInputTextMinWidth(device),
