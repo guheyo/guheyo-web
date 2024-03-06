@@ -1,19 +1,11 @@
 import ImagePreview from './image.preview';
-import { UploadedUserImage } from './image.interfaces';
+import { UserImage } from '../../lib/image/image.interfaces';
 
-export default function ImagePreviews({
-  uploadedImages,
-}: {
-  uploadedImages: UploadedUserImage[];
-}) {
+export default function ImagePreviews({ images }: { images: UserImage[] }) {
   return (
     <div className="flex flex-row gap-2">
-      {uploadedImages.map((image) => (
-        <ImagePreview
-          key={image.file.name}
-          file={image.file}
-          info={image.info}
-        />
+      {images.map((image) => (
+        <ImagePreview key={image.id} image={image} />
       ))}
     </div>
   );

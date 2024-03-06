@@ -5,9 +5,9 @@ export const DEAL_OPTIONS = [
 ];
 
 export const DEAL_STATUS_OPTIONS = [
-  { value: 'OPEN', label: '거래 가능' },
-  { value: 'PENDING', label: '미응답' },
-  { value: 'CLOSED', label: '거래 완료' },
+  { value: 'open', label: '거래 가능' },
+  { value: 'pending', label: '미응답' },
+  { value: 'closed', label: '거래 완료' },
 ];
 
 export const DEAL_NAME = '제목';

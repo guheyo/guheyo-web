@@ -96,3 +96,7 @@ query findSwap(
     ...swap
   }
 }
+
+mutation CreateSwap($input: CreateSwapInput!) {
+  createSwap(input: $input)
+}

@@ -1,11 +1,15 @@
 'use client';
 
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FieldPath,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
 import { useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
-import { Deal } from '@/lib/deal/deal.types';
 import {
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
@@ -35,6 +39,19 @@ import {
   IMAGE_UPLOAD_REQUIRED_MESSAGE,
 } from '@/lib/image/image.constants';
 import { v4 as uuid4 } from 'uuid';
+import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
+import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
+import {
+  SWAP_NAME0_LABEL_NAME,
+  SWAP_NAME0_PLACEHOLDER,
+  SWAP_NAME0_REQUIRED_MESSAGE,
+  SWAP_NAME1_LABEL_NAME,
+  SWAP_NAME1_PLACEHOLDER,
+  SWAP_NAME1_REQUIRED_MESSAGE,
+} from '@/lib/swap/swap.constants';
+import { DealFormValues } from '@/lib/deal/deal.interfaces';
+import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
+import createDeal from '@/lib/deal/create-deal';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -46,30 +63,18 @@ import {
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
-import { UploadedUserImage } from '../images/image.interfaces';
 import { AuthContext } from '../auth/auth.provider';
 
-type FormValues = {
-  id: string;
-  images: UploadedUserImage[];
-  name: string;
-  dealType: Deal;
-  categoryId: string;
-  price: number;
-  description: string;
-};
-
-export default function OfferForm() {
+export default function DealForm() {
   const { group } = useGroup();
-  const dealId = uuid4();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, watch, setValue } = useForm<FormValues>({
+  const { handleSubmit, control, watch, setValue } = useForm<DealFormValues>({
     defaultValues: {
-      id: dealId,
+      id: uuid4(),
       images: [],
-      name: '',
+      name0: '',
       dealType: 'offer',
       categoryId: '',
       price: 0,
@@ -77,6 +82,7 @@ export default function OfferForm() {
     },
   });
 
+  const dealId = watch('id');
   const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
@@ -91,31 +97,53 @@ export default function OfferForm() {
 
   if (!group) return <div />;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<DealFormValues> = async (data) => {
+    if (!user) return;
+
+    const input = parseCreateDealInput({
+      dealFormValues: data,
+      groupId: group.id,
+      userId: user.id,
+      device,
+    });
+
+    await createDeal({
+      dealType,
+      createDealInput: input,
+    });
+  };
+
+  const onError: SubmitErrorHandler<DealFormValues> = (error) => {
     // TODO
   };
 
-  const onError: SubmitErrorHandler<FormValues> = (error) => {
-    // TODO
-  };
-
-  const onChangeFileInput = (files: FileList | null) => {
+  const onChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
     if (!user) return;
 
-    _.map(files, (file) => {
-      setValue(`images.${images.length}`, {
-        file,
-        info: {
-          id: uuid4(),
-          type: dealType,
-          refId: dealId,
-          userId: user.id,
-          device,
-          position: images.length,
-        },
-      });
+    const uploadedImages = parseUploadedImages({
+      files,
+      offset: images.length,
     });
+
+    const userImages = await uploadAndSaveImages({
+      uploadedImages,
+      type: 'offer',
+      userId: user.id,
+      dealId,
+      device,
+    });
+
+    userImages.map((userImage) =>
+      setValue(`images.${userImage.position}`, userImage),
+    );
+  };
+
+  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(
+      e.target.name as FieldPath<DealFormValues>,
+      parseInt(e.target.value, 10),
+    );
   };
 
   return (
@@ -143,33 +171,88 @@ export default function OfferForm() {
         }}
       />
 
-      <ImagePreviews uploadedImages={images} />
+      <ImagePreviews images={images} />
 
-      <TextInput
-        name="name"
-        control={control}
-        rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
-        textInputProps={{
-          label: {
-            name: DEAL_NAME,
-            style: DEFAULT_LABEL_STYLE,
-          },
-        }}
-        textFieldProps={{
-          variant: 'outlined',
-          placeholder: DEAL_NAME_PLACEHOLDER,
-          InputProps: {
-            sx: {
-              color: DEFAULT_INPUT_TEXT_COLOR,
-              borderRadius: 2,
-              fontSize: getInputTextFontSize(device),
-              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
-              fontWeight: 600,
-              minWidth: getInputTextMinWidth(device),
+      {dealType !== 'swap' ? (
+        <TextInput
+          name="name0"
+          control={control}
+          rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
+          textInputProps={{
+            label: {
+              name: DEAL_NAME,
+              style: DEFAULT_LABEL_STYLE,
             },
-          },
-        }}
-      />
+          }}
+          textFieldProps={{
+            variant: 'outlined',
+            placeholder: DEAL_NAME_PLACEHOLDER,
+            InputProps: {
+              sx: {
+                color: DEFAULT_INPUT_TEXT_COLOR,
+                borderRadius: 2,
+                fontSize: getInputTextFontSize(device),
+                backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                fontWeight: 600,
+                minWidth: getInputTextMinWidth(device),
+              },
+            },
+          }}
+        />
+      ) : (
+        <>
+          <TextInput
+            name="name0"
+            control={control}
+            rules={{ required: SWAP_NAME0_REQUIRED_MESSAGE }}
+            textInputProps={{
+              label: {
+                name: SWAP_NAME0_LABEL_NAME,
+                style: DEFAULT_LABEL_STYLE,
+              },
+            }}
+            textFieldProps={{
+              variant: 'outlined',
+              placeholder: SWAP_NAME0_PLACEHOLDER,
+              InputProps: {
+                sx: {
+                  color: DEFAULT_INPUT_TEXT_COLOR,
+                  borderRadius: 2,
+                  fontSize: getInputTextFontSize(device),
+                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                  fontWeight: 600,
+                  minWidth: getInputTextMinWidth(device),
+                },
+              },
+            }}
+          />
+          <TextInput
+            name="name1"
+            control={control}
+            rules={{ required: SWAP_NAME1_REQUIRED_MESSAGE }}
+            textInputProps={{
+              label: {
+                name: SWAP_NAME1_LABEL_NAME,
+                style: DEFAULT_LABEL_STYLE,
+              },
+            }}
+            textFieldProps={{
+              variant: 'outlined',
+              placeholder: SWAP_NAME1_PLACEHOLDER,
+              InputProps: {
+                sx: {
+                  color: DEFAULT_INPUT_TEXT_COLOR,
+                  borderRadius: 2,
+                  fontSize: getInputTextFontSize(device),
+                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                  fontWeight: 600,
+                  minWidth: getInputTextMinWidth(device),
+                },
+              },
+            }}
+          />
+        </>
+      )}
 
       <ButtonInputs
         name="dealType"
@@ -227,8 +310,10 @@ export default function OfferForm() {
             name: DEAL_PRICE_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
+          onChange: onChangeNumberInput,
         }}
         textFieldProps={{
+          type: 'number',
           variant: 'outlined',
           placeholder: DEAL_PRICE_PLACEHOLDER,
           InputProps: {
@@ -266,7 +351,7 @@ export default function OfferForm() {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,
               borderRadius: 2,
-              fontSize: '16px',
+              fontSize: getInputTextFontSize(device),
               backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
               fontWeight: 600,
               minWidth: getInputTextMinWidth(device),

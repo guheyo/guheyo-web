@@ -90,3 +90,7 @@ query findDemand(
     ...demand
   }
 }
+
+mutation CreateDemand($input: CreateDemandInput!) {
+  createDemand(input: $input)
+}

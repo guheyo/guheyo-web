@@ -93,3 +93,7 @@ query findOffer(
     ...offer
   }
 }
+
+mutation CreateOffer($input: CreateOfferInput!) {
+  createOffer(input: $input)
+}
