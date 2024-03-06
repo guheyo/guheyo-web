@@ -26,3 +26,7 @@ mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
 mutation CreateUserImage($input: CreateUserImageInput!) {
   createUserImage(input: $input)
 }
+
+mutation DeleteUserImage($id: ID!) {
+  deleteUserImage(id: $id)
+}
