@@ -96,7 +96,7 @@ export type CreateAuctionInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
   createdAt: Scalars['DateTime']['input'];
-  description: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
   endedAt: Scalars['DateTime']['input'];
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
@@ -111,7 +111,7 @@ export type CreateDemandInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
   buyerId: Scalars['String']['input'];
-  description: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
@@ -152,7 +152,7 @@ export type CreateMemberInput = {
 export type CreateOfferInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
-  description: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
@@ -202,8 +202,8 @@ export type CreateSocialAccountInput = {
 export type CreateSwapInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
-  description0: Scalars['String']['input'];
-  description1: Scalars['String']['input'];
+  description0?: InputMaybe<Scalars['String']['input']>;
+  description1?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   name0: Scalars['String']['input'];
