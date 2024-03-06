@@ -58,7 +58,7 @@ import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import { AuthContext } from '../auth/auth.provider';
 
-export default function OfferForm() {
+export default function DealForm() {
   const { group } = useGroup();
   const dealId = uuid4();
   const { user } = useContext(AuthContext);
