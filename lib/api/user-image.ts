@@ -5,6 +5,8 @@ import {
   CreateUserImageDocument,
   CreateUserImageInput,
   CreateUserImageMutation,
+  DeleteUserImageDocument,
+  DeleteUserImageMutation,
 } from '@/generated/graphql';
 import { client } from '@/lib/apollo/client';
 
@@ -24,6 +26,15 @@ export async function createUserImage(
     mutation: CreateUserImageDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function deleteUserImage(id: string): Promise<void> {
+  await client.mutate<DeleteUserImageMutation>({
+    mutation: DeleteUserImageDocument,
+    variables: {
+      id,
     },
   });
 }

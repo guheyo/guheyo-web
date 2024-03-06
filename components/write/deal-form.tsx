@@ -4,6 +4,7 @@ import {
   FieldPath,
   SubmitErrorHandler,
   SubmitHandler,
+  useFieldArray,
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
@@ -52,6 +53,7 @@ import {
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
+import { deleteUserImage } from '@/lib/api/user-image';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -80,6 +82,11 @@ export default function DealForm() {
       price: 0,
       description: '',
     },
+  });
+
+  const { remove } = useFieldArray({
+    control,
+    name: 'images',
   });
 
   const dealId = watch('id');
@@ -146,6 +153,14 @@ export default function DealForm() {
     );
   };
 
+  const onClickImagePreview = async (position: number) => {
+    const imageId = images.find((image) => image.position === position)?.id;
+    if (!imageId) return;
+
+    await deleteUserImage(imageId);
+    remove(position);
+  };
+
   return (
     <form
       className="flex flex-col gap-8"
@@ -171,7 +186,12 @@ export default function DealForm() {
         }}
       />
 
-      <ImagePreviews images={images} />
+      <ImagePreviews
+        images={images}
+        previewsProp={{
+          onClick: onClickImagePreview,
+        }}
+      />
 
       {dealType !== 'swap' ? (
         <TextInput
