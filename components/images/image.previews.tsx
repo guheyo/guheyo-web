@@ -2,8 +2,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DEFAULT_CLOSE_ICON_COLOR } from '@/lib/image/image.colors';
 import {
   BROWSER_CLOSE_ICON_STYLE,
-  DEFAULT_IMAGE_PREVIEWS_BUTTON_STYLE,
   DEFAULT_IMAGE_PREVIEWS_STYLE,
+  DEFAULT_IMAGE_PREVIEW_LAYOUT_STYLE,
   MOBILE_CLOSE_ICON_STYLE,
 } from '@/lib/image/image.styles';
 import { isMobile } from 'react-device-detect';
@@ -23,7 +23,7 @@ export default function ImagePreviews({
   return (
     <div className={DEFAULT_IMAGE_PREVIEWS_STYLE}>
       {images.map((image) => (
-        <div key={image.id} className={DEFAULT_IMAGE_PREVIEWS_BUTTON_STYLE}>
+        <div key={image.id} className={DEFAULT_IMAGE_PREVIEW_LAYOUT_STYLE}>
           <button
             type="button"
             aria-label={IMAGE_PREVIEWS_BUTTON_ARIA_LABEL}
@@ -35,7 +35,7 @@ export default function ImagePreviews({
               }
               sx={{
                 color: DEFAULT_CLOSE_ICON_COLOR,
-                fontSize: isMobile ? '18px' : '24px',
+                fontSize: isMobile ? '16px' : '18px',
               }}
             />
           </button>
