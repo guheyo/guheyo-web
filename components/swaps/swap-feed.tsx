@@ -28,7 +28,7 @@ function SwapFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const status = searchParams.get('status') || 'OPEN';
+  const status = searchParams.get('status') || 'open';
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
