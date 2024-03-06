@@ -53,6 +53,7 @@ import {
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
+import { deleteUserImage } from '@/lib/api/user-image';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -152,10 +153,12 @@ export default function DealForm() {
     );
   };
 
-  const onClickImagePreview = (position: number) => {
+  const onClickImagePreview = async (position: number) => {
+    const imageId = images.find((image) => image.position === position)?.id;
+    if (!imageId) return;
+
+    await deleteUserImage(imageId);
     remove(position);
-    // TODO
-    // remove in db
   };
 
   return (
