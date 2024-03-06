@@ -16,6 +16,7 @@ interface TextInputProps {
       name: string;
       style: string;
     };
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   };
 }
 
@@ -39,6 +40,9 @@ export default function TextInput<
         {...field}
         error={!!fieldState.error}
         helperText={!!fieldState.error && fieldState.error.message}
+        onChange={
+          textInputProps.onChange ? textInputProps.onChange : field.onChange
+        }
       />
     </div>
   );

@@ -1,6 +1,11 @@
 'use client';
 
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FieldPath,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
 import { useContext, useEffect } from 'react';
@@ -45,6 +50,8 @@ import {
   SWAP_NAME1_REQUIRED_MESSAGE,
 } from '@/lib/swap/swap.constants';
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
+import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
+import createDeal from '@/lib/deal/create-deal';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -60,13 +67,12 @@ import { AuthContext } from '../auth/auth.provider';
 
 export default function DealForm() {
   const { group } = useGroup();
-  const dealId = uuid4();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
 
   const { handleSubmit, control, watch, setValue } = useForm<DealFormValues>({
     defaultValues: {
-      id: dealId,
+      id: uuid4(),
       images: [],
       name0: '',
       dealType: 'offer',
@@ -76,6 +82,7 @@ export default function DealForm() {
     },
   });
 
+  const dealId = watch('id');
   const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
@@ -91,7 +98,19 @@ export default function DealForm() {
   if (!group) return <div />;
 
   const onSubmit: SubmitHandler<DealFormValues> = async (data) => {
-    // TODO
+    if (!user) return;
+
+    const input = parseCreateDealInput({
+      dealFormValues: data,
+      groupId: group.id,
+      userId: user.id,
+      device,
+    });
+
+    await createDeal({
+      dealType,
+      createDealInput: input,
+    });
   };
 
   const onError: SubmitErrorHandler<DealFormValues> = (error) => {
@@ -117,6 +136,13 @@ export default function DealForm() {
 
     userImages.map((userImage) =>
       setValue(`images.${userImage.position}`, userImage),
+    );
+  };
+
+  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(
+      e.target.name as FieldPath<DealFormValues>,
+      parseInt(e.target.value, 10),
     );
   };
 
@@ -284,8 +310,10 @@ export default function DealForm() {
             name: DEAL_PRICE_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
+          onChange: onChangeNumberInput,
         }}
         textFieldProps={{
+          type: 'number',
           variant: 'outlined',
           placeholder: DEAL_PRICE_PLACEHOLDER,
           InputProps: {
