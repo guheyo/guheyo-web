@@ -35,6 +35,8 @@ import {
   IMAGE_UPLOAD_REQUIRED_MESSAGE,
 } from '@/lib/image/image.constants';
 import { v4 as uuid4 } from 'uuid';
+import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
+import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -46,12 +48,12 @@ import {
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
-import { UploadedUserImage } from '../images/image.interfaces';
+import { UserImage } from '../../lib/image/image.interfaces';
 import { AuthContext } from '../auth/auth.provider';
 
 type FormValues = {
   id: string;
-  images: UploadedUserImage[];
+  images: UserImage[];
   name: string;
   dealType: Deal;
   categoryId: string;
@@ -99,23 +101,26 @@ export default function OfferForm() {
     // TODO
   };
 
-  const onChangeFileInput = (files: FileList | null) => {
+  const onChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
     if (!user) return;
 
-    _.map(files, (file) => {
-      setValue(`images.${images.length}`, {
-        file,
-        info: {
-          id: uuid4(),
-          type: dealType,
-          refId: dealId,
-          userId: user.id,
-          device,
-          position: images.length,
-        },
-      });
+    const uploadedImages = parseUploadedImages({
+      files,
+      offset: images.length,
     });
+
+    const userImages = await uploadAndSaveImages({
+      uploadedImages,
+      type: 'offer',
+      userId: user.id,
+      dealId,
+      device,
+    });
+
+    userImages.map((userImage) =>
+      setValue(`images.${userImage.position}`, userImage),
+    );
   };
 
   return (
@@ -143,7 +148,7 @@ export default function OfferForm() {
         }}
       />
 
-      <ImagePreviews uploadedImages={images} />
+      <ImagePreviews images={images} />
 
       <TextInput
         name="name"
