@@ -4,6 +4,7 @@ import {
   FieldPath,
   SubmitErrorHandler,
   SubmitHandler,
+  useFieldArray,
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
@@ -82,6 +83,11 @@ export default function DealForm() {
     },
   });
 
+  const { remove } = useFieldArray({
+    control,
+    name: 'images',
+  });
+
   const dealId = watch('id');
   const images = watch('images');
   const dealType = watch('dealType');
@@ -146,6 +152,12 @@ export default function DealForm() {
     );
   };
 
+  const onClickImagePreview = (position: number) => {
+    remove(position);
+    // TODO
+    // remove in db
+  };
+
   return (
     <form
       className="flex flex-col gap-8"
@@ -171,7 +183,12 @@ export default function DealForm() {
         }}
       />
 
-      <ImagePreviews images={images} />
+      <ImagePreviews
+        images={images}
+        previewsProp={{
+          onClick: onClickImagePreview,
+        }}
+      />
 
       {dealType !== 'swap' ? (
         <TextInput
