@@ -15,7 +15,7 @@ interface ImagesInputProps {
       style: string;
     };
     icon: IconProps;
-    onChange: (e: any) => void;
+    onChange: (files: FileList | null) => void;
   };
 }
 
