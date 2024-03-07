@@ -1,32 +1,42 @@
-import React, { useContext, useState } from 'react';
+import React, { MouseEventHandler, useContext, useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
-import LoginButton from './login-button';
-import { AuthContext } from '../auth/auth.provider';
+import { AuthContext } from './auth.provider';
+import LoginButton from '../base/login-button';
 
-export default function DmDialog({ url }: { url: string }) {
+export default function DiscordLoginDialog({
+  name,
+  onAuthorization,
+  onUnAuthorization,
+}: {
+  name: string;
+  onAuthorization: MouseEventHandler;
+  onUnAuthorization: MouseEventHandler;
+}) {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const handleOpen = () => {
+  const handleOpen: MouseEventHandler = (e) => {
     if (user?.username) {
-      window.open(url, '_blank');
+      setOpen(false);
+      onAuthorization(e);
     } else {
-      setOpen(!open);
+      setOpen(true);
+      onUnAuthorization(e);
     }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
     <div>
-      <button
-        type="submit"
-        onClick={handleOpen}
-        className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-white"
-      >
-        DM
+      <button type="submit" onClick={handleOpen} className="w-full">
+        {name}
       </button>
       <Dialog
         open={open}
-        onClose={handleOpen}
+        onClose={handleClose}
         maxWidth="xs"
         fullWidth
         className="backdrop-blur-sm"

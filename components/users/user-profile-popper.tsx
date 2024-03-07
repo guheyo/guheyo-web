@@ -8,7 +8,7 @@ import { AuthorResponse } from '@/generated/graphql';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from '../socials/social-join-dates';
-import DmDialog from '../base/dm-dialog';
+import DmDialog from '../dm/dm-dialog';
 import Popper from '../base/popper';
 import Username from './user-name';
 
