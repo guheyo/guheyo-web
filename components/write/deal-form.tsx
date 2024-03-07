@@ -55,7 +55,7 @@ import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
 import { deleteUserImage } from '@/lib/api/user-image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
 import TextInput from '../inputs/text-input';
@@ -77,6 +77,7 @@ export default function DealForm() {
   const device = useDeviceDetect();
   const params = useParams();
   const groupSlug = params.groupSlug as string;
+  const router = useRouter();
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<DealFormValues>({
@@ -168,9 +169,17 @@ export default function DealForm() {
       dealType,
       createDealInput: input,
     });
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+    secureLocalStorage.removeItem(key);
+
+    router.push(`/g/${groupSlug}/market/${dealType}`);
   };
 
-  const onError: SubmitErrorHandler<DealFormValues> = (error) => {
+  const onError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
     // TODO
   };
 
@@ -219,7 +228,10 @@ export default function DealForm() {
       <ImagesInput
         name="images"
         control={control}
-        rules={{ required: IMAGE_UPLOAD_REQUIRED_MESSAGE }}
+        rules={{
+          required:
+            dealType === 'demand' ? false : IMAGE_UPLOAD_REQUIRED_MESSAGE,
+        }}
         imagesInputProps={{
           label: {
             name: IMAGE_UPLOAD_LABEL_NAME,
