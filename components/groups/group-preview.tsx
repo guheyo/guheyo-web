@@ -5,6 +5,7 @@ import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutline
 import PaidIcon from '@mui/icons-material/Paid';
 import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
+import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import GroupInfo from './group-info';
 import GroupJoinButton from './gorup-join-button';
 import OfferPreview from '../offers/offer-preview';
@@ -24,7 +25,12 @@ export default function GroupPreview({ group }: Props) {
         <GroupJoinButton slug={group.slug!} />
       </div>
       <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-3 md:pt-5 pb-1">
-        <Link href={`g/${group.slug}/market/offer`}>
+        <Link
+          href={parseGroupMarketLink({
+            groupSlug: group.slug!,
+            dealType: 'offer',
+          })}
+        >
           <span className="flex flex-row items-center gap-1">
             <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
             {group.name} 팝니다
@@ -37,7 +43,12 @@ export default function GroupPreview({ group }: Props) {
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
-        <Link href={`g/${group.slug}/market/offer`}>
+        <Link
+          href={parseGroupMarketLink({
+            groupSlug: group.slug!,
+            dealType: 'offer',
+          })}
+        >
           <span className="flex flex-row items-center gap-1">
             <PlayCircleOutlineOutlinedIcon
               fontSize={isMobile ? 'small' : 'medium'}
@@ -49,7 +60,12 @@ export default function GroupPreview({ group }: Props) {
       <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-0 md:pt-5 pb-1">
         <div className="flex flex-row items-center gap-1">
           <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
-          <Link href={`g/${group.slug}/market/demand`}>
+          <Link
+            href={parseGroupMarketLink({
+              groupSlug: group.slug!,
+              dealType: 'demand',
+            })}
+          >
             {group.name} 삽니다
           </Link>
         </div>
@@ -60,7 +76,12 @@ export default function GroupPreview({ group }: Props) {
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
-        <Link href={`g/${group.slug}/market/demand`}>
+        <Link
+          href={parseGroupMarketLink({
+            groupSlug: group.slug!,
+            dealType: 'demand',
+          })}
+        >
           <span className="flex flex-row items-center gap-1">
             <PlayCircleOutlineOutlinedIcon
               fontSize={isMobile ? 'small' : 'medium'}

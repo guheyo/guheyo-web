@@ -58,6 +58,7 @@ import { deleteUserImage } from '@/lib/api/user-image';
 import { useParams, useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
+import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -176,7 +177,12 @@ export default function DealForm() {
     });
     secureLocalStorage.removeItem(key);
 
-    router.push(`/g/${groupSlug}/market/${dealType}`);
+    router.push(
+      `${parseGroupMarketLink({
+        groupSlug,
+        dealType,
+      })}`,
+    );
   };
 
   const onError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
