@@ -41,8 +41,6 @@ import {
   IMAGE_UPLOAD_REQUIRED_MESSAGE,
 } from '@/lib/image/image.constants';
 import { v4 as uuid4 } from 'uuid';
-import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
-import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import {
   SWAP_NAME0_LABEL_NAME,
   SWAP_NAME0_PLACEHOLDER,
@@ -52,13 +50,12 @@ import {
   SWAP_NAME1_REQUIRED_MESSAGE,
 } from '@/lib/swap/swap.constants';
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
-import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
-import createDeal from '@/lib/deal/create-deal';
-import { deleteUserImage } from '@/lib/api/user-image';
-import { useParams, useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
+import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
+import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
+import { useRouter } from 'next/navigation';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -73,24 +70,32 @@ import ImagePreviews from '../images/image.previews';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
-export default function DealForm() {
+export default function DealForm({
+  onSubmitCallback,
+  onClickImagePreviewCallback,
+}: {
+  onSubmitCallback: SubmitHandler<DealFormValues>;
+  onClickImagePreviewCallback: (imageId: string) => void;
+}) {
   const { group } = useGroup();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
-  const params = useParams();
-  const groupSlug = params.groupSlug as string;
+  const groupSlug = group?.id;
   const router = useRouter();
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<DealFormValues>({
       defaultValues: {
         id: '',
+        userId: '',
+        groupId: '',
         images: [],
         name0: '',
         dealType: 'offer',
         categoryId: '',
         price: undefined,
         description: '',
+        source: '',
       },
     });
 
@@ -108,12 +113,16 @@ export default function DealForm() {
     if (!user || !groupSlug) return;
 
     const key = parseTempDealFormKey({
-      username: user.username,
+      userId: user.id,
       groupSlug,
     });
 
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
     if (!tempValues) {
+      setValue('userId', user.id);
+      setValue('groupId', group.id);
+      setValue('source', device);
+
       const newId = uuid4();
       setValue('id', newId);
     } else {
@@ -137,7 +146,7 @@ export default function DealForm() {
     if (!user || !dealId || !groupSlug) return;
 
     const key = parseTempDealFormKey({
-      username: user.username,
+      userId: user.id,
       groupSlug,
     });
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
@@ -157,40 +166,14 @@ export default function DealForm() {
 
   if (!group) return <div />;
 
-  const onSubmit: SubmitHandler<DealFormValues> = async (data) => {
-    if (!user) return;
-
-    const input = parseCreateDealInput({
-      dealFormValues: data,
-      groupId: group.id,
-      userId: user.id,
-      device,
-    });
-
-    await createDeal({
-      dealType,
-      createDealInput: input,
-    });
-
-    const key = parseTempDealFormKey({
-      username: user.username,
-      groupSlug,
-    });
-    secureLocalStorage.removeItem(key);
-
-    router.push(
-      `${parseGroupMarketLink({
-        groupSlug,
-        dealType,
-      })}`,
+  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(
+      e.target.name as FieldPath<DealFormValues>,
+      parseInt(e.target.value, 10),
     );
   };
 
-  const onError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
-    // TODO
-  };
-
-  const onChangeFileInput = async (files: FileList | null) => {
+  const handleOnChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
     if (!user) return;
 
@@ -201,7 +184,7 @@ export default function DealForm() {
 
     const userImages = await uploadAndSaveImages({
       uploadedImages,
-      type: 'offer',
+      type: dealType,
       userId: user.id,
       dealId,
       device,
@@ -212,33 +195,50 @@ export default function DealForm() {
     );
   };
 
-  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(
-      e.target.name as FieldPath<DealFormValues>,
-      parseInt(e.target.value, 10),
-    );
-  };
-
-  const onClickImagePreview = async (position: number) => {
+  const handleOnClickImagePreview = async (position: number) => {
     const imageId = images.find((image) => image.position === position)?.id;
     if (!imageId) return;
 
-    await deleteUserImage(imageId);
+    await onClickImagePreviewCallback(imageId);
+
     remove(position);
   };
 
-  const handleAuthorization: MouseEventHandler = (e) => {
+  const handleOnSubmit: SubmitHandler<DealFormValues> = async (data) => {
+    if (!user || !groupSlug) return;
+
+    await onSubmitCallback(data);
+
+    const key = parseTempDealFormKey({
+      userId: data.userId,
+      groupSlug,
+    });
+    secureLocalStorage.removeItem(key);
+
+    router.push(
+      `${parseGroupMarketLink({
+        groupSlug,
+        dealType: data.dealType,
+      })}`,
+    );
+  };
+
+  const handleOnSubmitError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
+    // TODO
+  };
+
+  const handleOnAuthorization: MouseEventHandler = (e) => {
     // Do nothing
   };
 
-  const handleUnAuthorization: MouseEventHandler = (e) => {
+  const handleOnUnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
   };
 
   return (
     <form
       className="flex flex-col gap-8"
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(handleOnSubmit, handleOnSubmitError)}
     >
       <ImagesInput
         name="images"
@@ -255,7 +255,8 @@ export default function DealForm() {
           icon: {
             fontSize: 'large',
           },
-          onChange: onChangeFileInput,
+          // onChange: onChangeFileInput,
+          onChange: handleOnChangeFileInput,
         }}
         inputProps={{
           multiple: true,
@@ -266,7 +267,7 @@ export default function DealForm() {
       <ImagePreviews
         images={images}
         previewsProp={{
-          onClick: onClickImagePreview,
+          onClick: handleOnClickImagePreview,
         }}
       />
 
@@ -458,11 +459,12 @@ export default function DealForm() {
           minRows: 10,
         }}
       />
+
       <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
           name={DEAL_SUBMIT_BUTTON_NAME}
-          onAuthorization={handleAuthorization}
-          onUnAuthorization={handleUnAuthorization}
+          onAuthorization={handleOnAuthorization}
+          onUnAuthorization={handleOnUnAuthorization}
         />
       </div>
     </form>
