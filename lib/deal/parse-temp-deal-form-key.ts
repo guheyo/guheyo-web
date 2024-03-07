@@ -1,7 +1,7 @@
 export const parseTempDealFormKey = ({
-  username,
+  userId,
   groupSlug,
 }: {
-  username: string;
+  userId: string;
   groupSlug: string;
-}) => `${username}.${groupSlug}.deal-form`;
+}) => `${userId}.${groupSlug}.deal-form`;
