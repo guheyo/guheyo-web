@@ -86,7 +86,7 @@ export default function DealForm() {
         name0: '',
         dealType: 'offer',
         categoryId: '',
-        price: 0,
+        price: undefined,
         description: '',
       },
     });
@@ -138,11 +138,11 @@ export default function DealForm() {
       groupSlug,
     });
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
-    const updatedValues = watch();
+    const currentValues = watch();
     const notChanged =
-      JSON.stringify(tempValues) === JSON.stringify(updatedValues);
+      JSON.stringify(tempValues) === JSON.stringify(currentValues);
     if (!notChanged) {
-      secureLocalStorage.setItem(key, updatedValues);
+      secureLocalStorage.setItem(key, currentValues);
     }
   };
 
