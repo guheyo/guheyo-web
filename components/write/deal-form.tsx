@@ -12,6 +12,7 @@ import { useGroup } from '@/hooks/use-group';
 import { useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
+  DEAL_AUTO_SAVE_INTERVAL_MS,
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
   DEAL_DESCRIPTION_REQUIRED_MESSAGE,
@@ -56,7 +57,6 @@ import createDeal from '@/lib/deal/create-deal';
 import { deleteUserImage } from '@/lib/api/user-image';
 import { useParams } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import { useDebounce } from 'use-debounce';
 import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
@@ -100,9 +100,6 @@ export default function DealForm() {
   const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
-  const values = watch();
-
-  const [updatedValuesString] = useDebounce(JSON.stringify(values), 5000);
 
   useEffect(() => {
     if (!user || !groupSlug) return;
@@ -111,8 +108,8 @@ export default function DealForm() {
       username: user.username,
       groupSlug,
     });
-    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
 
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
     if (!tempValues) {
       const newId = uuid4();
       setValue('id', newId);
@@ -123,14 +120,17 @@ export default function DealForm() {
   }, [user, groupSlug]);
 
   useEffect(() => {
-    setValue(
-      'categoryId',
-      findDefaultProductCategory(group?.productCategories)?.id || '',
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group?.id]);
+    if (!user || !dealId) return;
 
-  useEffect(() => {
+    if (!categoryId)
+      setValue(
+        'categoryId',
+        findDefaultProductCategory(group?.productCategories)?.id || '',
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, dealId, group?.productCategories]);
+
+  const updateValues = () => {
     if (!user || !dealId || !groupSlug) return;
 
     const key = parseTempDealFormKey({
@@ -138,13 +138,19 @@ export default function DealForm() {
       groupSlug,
     });
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
-
-    const notChanged = JSON.stringify(tempValues) === updatedValuesString;
-
+    const updatedValues = watch();
+    const notChanged =
+      JSON.stringify(tempValues) === JSON.stringify(updatedValues);
     if (!notChanged) {
-      secureLocalStorage.setItem(key, JSON.parse(updatedValuesString));
+      secureLocalStorage.setItem(key, updatedValues);
     }
-  }, [user, dealId, groupSlug, updatedValuesString]);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(updateValues, DEAL_AUTO_SAVE_INTERVAL_MS);
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, dealId, groupSlug]);
 
   if (!group) return <div />;
 
