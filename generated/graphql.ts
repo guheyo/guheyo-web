@@ -734,7 +734,6 @@ export type Query = {
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
   findDemand?: Maybe<DemandResponse>;
-  findDemandById?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
   findGroup?: Maybe<GroupResponse>;
   findGroupById?: Maybe<GroupResponse>;
@@ -745,12 +744,10 @@ export type Query = {
   findMyUserById?: Maybe<MyUserResponse>;
   findMyUserByUsername?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
-  findOfferById?: Maybe<OfferResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
-  findSwapById?: Maybe<SwapResponse>;
   findSwapPreviews: PaginatedSwapPreviewsResponse;
   findTerm?: Maybe<TermResponse>;
   findUser?: Maybe<UserResponse>;
@@ -775,12 +772,8 @@ export type QueryFindAuctionsArgs = {
 
 
 export type QueryFindDemandArgs = {
-  slug: Scalars['String']['input'];
-};
-
-
-export type QueryFindDemandByIdArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -838,12 +831,8 @@ export type QueryFindMyUserByUsernameArgs = {
 
 
 export type QueryFindOfferArgs = {
-  slug: Scalars['String']['input'];
-};
-
-
-export type QueryFindOfferByIdArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -869,12 +858,8 @@ export type QueryFindSessionArgs = {
 
 
 export type QueryFindSwapArgs = {
-  slug: Scalars['String']['input'];
-};
-
-
-export type QueryFindSwapByIdArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1203,15 +1188,9 @@ export type FindDemandPreviewsQueryVariables = Exact<{
 
 export type FindDemandPreviewsQuery = { __typename?: 'Query', findDemandPreviews: { __typename?: 'PaginatedDemandPreviewsResponse', edges: Array<{ __typename?: 'DemandPreviewResponseEdge', cursor: string, node: { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UsernameResponse', username: string } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type FindDemandByIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type FindDemandByIdQuery = { __typename?: 'Query', findDemandById?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
-
 export type FindDemandQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1285,15 +1264,9 @@ export type FindOfferPreviewsQueryVariables = Exact<{
 
 export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UsernameResponse', username: string } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type FindOfferByIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type FindOfferByIdQuery = { __typename?: 'Query', findOfferById?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
-
 export type FindOfferQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1379,15 +1352,9 @@ export type FindSwapPreviewsQueryVariables = Exact<{
 
 export type FindSwapPreviewsQuery = { __typename?: 'Query', findSwapPreviews: { __typename?: 'PaginatedSwapPreviewsResponse', edges: Array<{ __typename?: 'SwapPreviewResponseEdge', cursor: string, node: { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UsernameResponse', username: string } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type FindSwapByIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type FindSwapByIdQuery = { __typename?: 'Query', findSwapById?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
-
 export type FindSwapQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1984,49 +1951,9 @@ export type FindDemandPreviewsQueryHookResult = ReturnType<typeof useFindDemandP
 export type FindDemandPreviewsLazyQueryHookResult = ReturnType<typeof useFindDemandPreviewsLazyQuery>;
 export type FindDemandPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindDemandPreviewsSuspenseQuery>;
 export type FindDemandPreviewsQueryResult = Apollo.QueryResult<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>;
-export const FindDemandByIdDocument = gql`
-    query findDemandById($id: ID!) {
-  findDemandById(id: $id) {
-    ...demand
-  }
-}
-    ${DemandFragmentDoc}`;
-
-/**
- * __useFindDemandByIdQuery__
- *
- * To run a query within a React component, call `useFindDemandByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindDemandByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindDemandByIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useFindDemandByIdQuery(baseOptions: Apollo.QueryHookOptions<FindDemandByIdQuery, FindDemandByIdQueryVariables> & ({ variables: FindDemandByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindDemandByIdQuery, FindDemandByIdQueryVariables>(FindDemandByIdDocument, options);
-      }
-export function useFindDemandByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindDemandByIdQuery, FindDemandByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindDemandByIdQuery, FindDemandByIdQueryVariables>(FindDemandByIdDocument, options);
-        }
-export function useFindDemandByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindDemandByIdQuery, FindDemandByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindDemandByIdQuery, FindDemandByIdQueryVariables>(FindDemandByIdDocument, options);
-        }
-export type FindDemandByIdQueryHookResult = ReturnType<typeof useFindDemandByIdQuery>;
-export type FindDemandByIdLazyQueryHookResult = ReturnType<typeof useFindDemandByIdLazyQuery>;
-export type FindDemandByIdSuspenseQueryHookResult = ReturnType<typeof useFindDemandByIdSuspenseQuery>;
-export type FindDemandByIdQueryResult = Apollo.QueryResult<FindDemandByIdQuery, FindDemandByIdQueryVariables>;
 export const FindDemandDocument = gql`
-    query findDemand($slug: String!) {
-  findDemand(slug: $slug) {
+    query findDemand($id: ID, $slug: String) {
+  findDemand(id: $id, slug: $slug) {
     ...demand
   }
 }
@@ -2044,11 +1971,12 @@ export const FindDemandDocument = gql`
  * @example
  * const { data, loading, error } = useFindDemandQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useFindDemandQuery(baseOptions: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables> & ({ variables: FindDemandQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindDemandQuery(baseOptions?: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
       }
@@ -2369,49 +2297,9 @@ export type FindOfferPreviewsQueryHookResult = ReturnType<typeof useFindOfferPre
 export type FindOfferPreviewsLazyQueryHookResult = ReturnType<typeof useFindOfferPreviewsLazyQuery>;
 export type FindOfferPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindOfferPreviewsSuspenseQuery>;
 export type FindOfferPreviewsQueryResult = Apollo.QueryResult<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>;
-export const FindOfferByIdDocument = gql`
-    query findOfferById($id: ID!) {
-  findOfferById(id: $id) {
-    ...offer
-  }
-}
-    ${OfferFragmentDoc}`;
-
-/**
- * __useFindOfferByIdQuery__
- *
- * To run a query within a React component, call `useFindOfferByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindOfferByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindOfferByIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useFindOfferByIdQuery(baseOptions: Apollo.QueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables> & ({ variables: FindOfferByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
-      }
-export function useFindOfferByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
-        }
-export function useFindOfferByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindOfferByIdQuery, FindOfferByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindOfferByIdQuery, FindOfferByIdQueryVariables>(FindOfferByIdDocument, options);
-        }
-export type FindOfferByIdQueryHookResult = ReturnType<typeof useFindOfferByIdQuery>;
-export type FindOfferByIdLazyQueryHookResult = ReturnType<typeof useFindOfferByIdLazyQuery>;
-export type FindOfferByIdSuspenseQueryHookResult = ReturnType<typeof useFindOfferByIdSuspenseQuery>;
-export type FindOfferByIdQueryResult = Apollo.QueryResult<FindOfferByIdQuery, FindOfferByIdQueryVariables>;
 export const FindOfferDocument = gql`
-    query findOffer($slug: String!) {
-  findOffer(slug: $slug) {
+    query findOffer($id: ID, $slug: String) {
+  findOffer(id: $id, slug: $slug) {
     ...offer
   }
 }
@@ -2429,11 +2317,12 @@ export const FindOfferDocument = gql`
  * @example
  * const { data, loading, error } = useFindOfferQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useFindOfferQuery(baseOptions: Apollo.QueryHookOptions<FindOfferQuery, FindOfferQueryVariables> & ({ variables: FindOfferQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindOfferQuery(baseOptions?: Apollo.QueryHookOptions<FindOfferQuery, FindOfferQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindOfferQuery, FindOfferQueryVariables>(FindOfferDocument, options);
       }
@@ -2770,49 +2659,9 @@ export type FindSwapPreviewsQueryHookResult = ReturnType<typeof useFindSwapPrevi
 export type FindSwapPreviewsLazyQueryHookResult = ReturnType<typeof useFindSwapPreviewsLazyQuery>;
 export type FindSwapPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindSwapPreviewsSuspenseQuery>;
 export type FindSwapPreviewsQueryResult = Apollo.QueryResult<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>;
-export const FindSwapByIdDocument = gql`
-    query findSwapById($id: ID!) {
-  findSwapById(id: $id) {
-    ...swap
-  }
-}
-    ${SwapFragmentDoc}`;
-
-/**
- * __useFindSwapByIdQuery__
- *
- * To run a query within a React component, call `useFindSwapByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSwapByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindSwapByIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useFindSwapByIdQuery(baseOptions: Apollo.QueryHookOptions<FindSwapByIdQuery, FindSwapByIdQueryVariables> & ({ variables: FindSwapByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSwapByIdQuery, FindSwapByIdQueryVariables>(FindSwapByIdDocument, options);
-      }
-export function useFindSwapByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapByIdQuery, FindSwapByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSwapByIdQuery, FindSwapByIdQueryVariables>(FindSwapByIdDocument, options);
-        }
-export function useFindSwapByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapByIdQuery, FindSwapByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSwapByIdQuery, FindSwapByIdQueryVariables>(FindSwapByIdDocument, options);
-        }
-export type FindSwapByIdQueryHookResult = ReturnType<typeof useFindSwapByIdQuery>;
-export type FindSwapByIdLazyQueryHookResult = ReturnType<typeof useFindSwapByIdLazyQuery>;
-export type FindSwapByIdSuspenseQueryHookResult = ReturnType<typeof useFindSwapByIdSuspenseQuery>;
-export type FindSwapByIdQueryResult = Apollo.QueryResult<FindSwapByIdQuery, FindSwapByIdQueryVariables>;
 export const FindSwapDocument = gql`
-    query findSwap($slug: String!) {
-  findSwap(slug: $slug) {
+    query findSwap($id: ID, $slug: String) {
+  findSwap(id: $id, slug: $slug) {
     ...swap
   }
 }
@@ -2830,11 +2679,12 @@ export const FindSwapDocument = gql`
  * @example
  * const { data, loading, error } = useFindSwapQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useFindSwapQuery(baseOptions: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables> & ({ variables: FindSwapQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindSwapQuery(baseOptions?: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
       }

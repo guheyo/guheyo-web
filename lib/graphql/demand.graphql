@@ -71,20 +71,12 @@ query findDemandPreviews(
   }
 }
 
-query findDemandById(
-  $id: ID!
-) {
-  findDemandById(
-    id: $id
-  ) {
-    ...demand
-  }
-}
-
 query findDemand(
-  $slug: String!
+  $id: ID
+  $slug: String
 ) {
   findDemand(
+    id: $id
     slug: $slug
   ) {
     ...demand

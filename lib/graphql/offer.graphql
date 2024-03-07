@@ -74,20 +74,12 @@ query findOfferPreviews(
   }
 }
 
-query findOfferById(
-  $id: ID!
-) {
-  findOfferById(
-    id: $id
-  ) {
-    ...offer
-  }
-}
-
 query findOffer(
-  $slug: String!
+  $id: ID
+  $slug: String
 ) {
   findOffer(
+    id: $id
     slug: $slug
   ) {
     ...offer
