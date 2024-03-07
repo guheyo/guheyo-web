@@ -45,8 +45,8 @@ export default function LoginButton() {
             <Image
               alt="로그인"
               src="/socials/discord/discord-mark-white.svg"
-              width={24}
-              height={24}
+              width={20}
+              height={20}
             />
             로그인
           </button>
