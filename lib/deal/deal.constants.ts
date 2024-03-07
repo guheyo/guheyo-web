@@ -26,3 +26,5 @@ export const DEAL_DESCRIPTION_LABEL_NAME = '제품 설명';
 export const DEAL_DESCRIPTION_REQUIRED_MESSAGE = '제품 설명을 작성해 주세요';
 
 export const DEAL_SUBMIT_BUTTON_NAME = '작성 완료';
+
+export const DEAL_AUTO_SAVE_INTERVAL_MS = 60 * 1000;

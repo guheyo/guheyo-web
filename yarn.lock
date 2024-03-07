@@ -8706,6 +8706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"crypto-js@npm:^4.1.1":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
+  languageName: node
+  linkType: hard
+
 "crypto-random-string@npm:^2.0.0":
   version: 2.0.0
   resolution: "crypto-random-string@npm:2.0.0"
@@ -11284,6 +11291,7 @@ __metadata:
     react-hook-form: ^7.50.1
     react-markdown: ^8.0.7
     react-material-ui-carousel: ^3.4.2
+    react-secure-storage: ^1.3.2
     remark-gfm: ^3.0.1
     sharp: ^0.32.6
     simple-zustand-devtools: ^1.1.0
@@ -13936,6 +13944,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"murmurhash-js@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "murmurhash-js@npm:1.0.0"
+  checksum: 083cea92a11bc9eb25be1446fc92eded3f49731bc1ad34fa8023afd68c234d1dd59458d70eb20e667b1383bedeeb8dfb1a16c89913b6ffe3584fd22fb598739d
+  languageName: node
+  linkType: hard
+
 "mute-stream@npm:0.0.8":
   version: 0.0.8
   resolution: "mute-stream@npm:0.0.8"
@@ -15696,6 +15711,16 @@ __metadata:
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
   checksum: dc69fa8c993df512f42dd0f1b604978ae89bd747c0ed5ec595c0cc50d535fb2696619ccd98ae28775cc01d0a7c146a532f0f7fb81dc22e1977c242a4912312f4
+  languageName: node
+  linkType: hard
+
+"react-secure-storage@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "react-secure-storage@npm:1.3.2"
+  dependencies:
+    crypto-js: ^4.1.1
+    murmurhash-js: ^1.0.0
+  checksum: 703ff2e98593b9f0f1e1540ade5b8e0a522124ccc979f8bca6dc508b09f31623de7a9faa7f59f7a5219dedeccc06acdc93305eb3b8a333941f81a95240a7ae1c
   languageName: node
   linkType: hard
 

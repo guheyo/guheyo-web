@@ -9,9 +9,10 @@ import {
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
-import { useContext, useEffect } from 'react';
+import { MouseEventHandler, useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
+  DEAL_AUTO_SAVE_INTERVAL_MS,
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
   DEAL_DESCRIPTION_REQUIRED_MESSAGE,
@@ -54,6 +55,10 @@ import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
 import { deleteUserImage } from '@/lib/api/user-image';
+import { useParams, useRouter } from 'next/navigation';
+import secureLocalStorage from 'react-secure-storage';
+import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
+import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -66,23 +71,28 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import { AuthContext } from '../auth/auth.provider';
+import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function DealForm() {
   const { group } = useGroup();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
+  const params = useParams();
+  const groupSlug = params.groupSlug as string;
+  const router = useRouter();
 
-  const { handleSubmit, control, watch, setValue } = useForm<DealFormValues>({
-    defaultValues: {
-      id: uuid4(),
-      images: [],
-      name0: '',
-      dealType: 'offer',
-      categoryId: '',
-      price: 0,
-      description: '',
-    },
-  });
+  const { handleSubmit, control, watch, setValue, reset } =
+    useForm<DealFormValues>({
+      defaultValues: {
+        id: '',
+        images: [],
+        name0: '',
+        dealType: 'offer',
+        categoryId: '',
+        price: undefined,
+        description: '',
+      },
+    });
 
   const { remove } = useFieldArray({
     control,
@@ -95,12 +105,55 @@ export default function DealForm() {
   const categoryId = watch('categoryId');
 
   useEffect(() => {
-    setValue(
-      'categoryId',
-      findDefaultProductCategory(group?.productCategories)?.id || '',
-    );
+    if (!user || !groupSlug) return;
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+    if (!tempValues) {
+      const newId = uuid4();
+      setValue('id', newId);
+    } else {
+      reset(tempValues);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group?.id]);
+  }, [user, groupSlug]);
+
+  useEffect(() => {
+    if (!user || !dealId) return;
+
+    if (!categoryId)
+      setValue(
+        'categoryId',
+        findDefaultProductCategory(group?.productCategories)?.id || '',
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, dealId, group?.productCategories]);
+
+  const updateValues = () => {
+    if (!user || !dealId || !groupSlug) return;
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+    const currentValues = watch();
+    const notChanged =
+      JSON.stringify(tempValues) === JSON.stringify(currentValues);
+    if (!notChanged) {
+      secureLocalStorage.setItem(key, currentValues);
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(updateValues, DEAL_AUTO_SAVE_INTERVAL_MS);
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, dealId, groupSlug]);
 
   if (!group) return <div />;
 
@@ -118,9 +171,22 @@ export default function DealForm() {
       dealType,
       createDealInput: input,
     });
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+    secureLocalStorage.removeItem(key);
+
+    router.push(
+      `${parseGroupMarketLink({
+        groupSlug,
+        dealType,
+      })}`,
+    );
   };
 
-  const onError: SubmitErrorHandler<DealFormValues> = (error) => {
+  const onError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
     // TODO
   };
 
@@ -161,6 +227,14 @@ export default function DealForm() {
     remove(position);
   };
 
+  const handleAuthorization: MouseEventHandler = (e) => {
+    // Do nothing
+  };
+
+  const handleUnAuthorization: MouseEventHandler = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <form
       className="flex flex-col gap-8"
@@ -169,7 +243,10 @@ export default function DealForm() {
       <ImagesInput
         name="images"
         control={control}
-        rules={{ required: IMAGE_UPLOAD_REQUIRED_MESSAGE }}
+        rules={{
+          required:
+            dealType === 'demand' ? false : IMAGE_UPLOAD_REQUIRED_MESSAGE,
+        }}
         imagesInputProps={{
           label: {
             name: IMAGE_UPLOAD_LABEL_NAME,
@@ -381,10 +458,13 @@ export default function DealForm() {
           minRows: 10,
         }}
       />
-
-      <button type="submit" className={DEFAULT_SUBMIT_BUTTON_STYLE}>
-        {DEAL_SUBMIT_BUTTON_NAME}
-      </button>
+      <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <DiscordLoginDialog
+          name={DEAL_SUBMIT_BUTTON_NAME}
+          onAuthorization={handleAuthorization}
+          onUnAuthorization={handleUnAuthorization}
+        />
+      </div>
     </form>
   );
 }

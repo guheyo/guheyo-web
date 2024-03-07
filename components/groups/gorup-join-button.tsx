@@ -15,7 +15,7 @@ export default function GroupJoinButton({ slug }: { slug: string }) {
       <button
         type="submit"
         className="bg-star-500 hover:bg-star-400 text-sm font-bold px-2 py-1.5 rounded text-light-200"
-        name={`${slug} 월드에 입장하기`}
+        name={`${slug} 그룹에 입장하기`}
         onClick={() => join()}
       >
         입장
