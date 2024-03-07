@@ -94,3 +94,7 @@ query findDemand(
 mutation CreateDemand($input: CreateDemandInput!) {
   createDemand(input: $input)
 }
+
+mutation UpdateDemand($input: UpdateDemandInput!) {
+  updateDemand(input: $input)
+}

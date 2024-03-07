@@ -97,3 +97,7 @@ query findOffer(
 mutation CreateOffer($input: CreateOfferInput!) {
   createOffer(input: $input)
 }
+
+mutation UpdateOffer($input: UpdateOfferInput!) {
+  updateOffer(input: $input)
+}

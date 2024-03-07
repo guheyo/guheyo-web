@@ -1039,21 +1039,23 @@ export type TermResponse = {
 };
 
 export type UpdateAuctionInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateDemandInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   source: Scalars['String']['input'];
 };
 
@@ -1071,13 +1073,14 @@ export type UpdateMemberInput = {
 };
 
 export type UpdateOfferInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   source: Scalars['String']['input'];
 };
 
@@ -1221,6 +1224,13 @@ export type CreateDemandMutationVariables = Exact<{
 
 export type CreateDemandMutation = { __typename?: 'Mutation', createDemand: string };
 
+export type UpdateDemandMutationVariables = Exact<{
+  input: UpdateDemandInput;
+}>;
+
+
+export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: string };
+
 export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> };
 
 export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null };
@@ -1295,6 +1305,13 @@ export type CreateOfferMutationVariables = Exact<{
 
 
 export type CreateOfferMutation = { __typename?: 'Mutation', createOffer: string };
+
+export type UpdateOfferMutationVariables = Exact<{
+  input: UpdateOfferInput;
+}>;
+
+
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: string };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -1382,6 +1399,13 @@ export type CreateSwapMutationVariables = Exact<{
 
 
 export type CreateSwapMutation = { __typename?: 'Mutation', createSwap: string };
+
+export type UpdateSwapMutationVariables = Exact<{
+  input: UpdateSwapInput;
+}>;
+
+
+export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: string };
 
 export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string };
 
@@ -2071,6 +2095,37 @@ export function useCreateDemandMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateDemandMutationHookResult = ReturnType<typeof useCreateDemandMutation>;
 export type CreateDemandMutationResult = Apollo.MutationResult<CreateDemandMutation>;
 export type CreateDemandMutationOptions = Apollo.BaseMutationOptions<CreateDemandMutation, CreateDemandMutationVariables>;
+export const UpdateDemandDocument = gql`
+    mutation UpdateDemand($input: UpdateDemandInput!) {
+  updateDemand(input: $input)
+}
+    `;
+export type UpdateDemandMutationFn = Apollo.MutationFunction<UpdateDemandMutation, UpdateDemandMutationVariables>;
+
+/**
+ * __useUpdateDemandMutation__
+ *
+ * To run a mutation, you first call `useUpdateDemandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDemandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDemandMutation, { data, loading, error }] = useUpdateDemandMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateDemandMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDemandMutation, UpdateDemandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateDemandMutation, UpdateDemandMutationVariables>(UpdateDemandDocument, options);
+      }
+export type UpdateDemandMutationHookResult = ReturnType<typeof useUpdateDemandMutation>;
+export type UpdateDemandMutationResult = Apollo.MutationResult<UpdateDemandMutation>;
+export type UpdateDemandMutationOptions = Apollo.BaseMutationOptions<UpdateDemandMutation, UpdateDemandMutationVariables>;
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
@@ -2425,6 +2480,37 @@ export function useCreateOfferMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateOfferMutationHookResult = ReturnType<typeof useCreateOfferMutation>;
 export type CreateOfferMutationResult = Apollo.MutationResult<CreateOfferMutation>;
 export type CreateOfferMutationOptions = Apollo.BaseMutationOptions<CreateOfferMutation, CreateOfferMutationVariables>;
+export const UpdateOfferDocument = gql`
+    mutation UpdateOffer($input: UpdateOfferInput!) {
+  updateOffer(input: $input)
+}
+    `;
+export type UpdateOfferMutationFn = Apollo.MutationFunction<UpdateOfferMutation, UpdateOfferMutationVariables>;
+
+/**
+ * __useUpdateOfferMutation__
+ *
+ * To run a mutation, you first call `useUpdateOfferMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOfferMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOfferMutation, { data, loading, error }] = useUpdateOfferMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateOfferMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOfferMutation, UpdateOfferMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOfferMutation, UpdateOfferMutationVariables>(UpdateOfferDocument, options);
+      }
+export type UpdateOfferMutationHookResult = ReturnType<typeof useUpdateOfferMutation>;
+export type UpdateOfferMutationResult = Apollo.MutationResult<UpdateOfferMutation>;
+export type UpdateOfferMutationOptions = Apollo.BaseMutationOptions<UpdateOfferMutation, UpdateOfferMutationVariables>;
 export const CreateSessionDocument = gql`
     mutation createSession($input: CreateSessionInput!) {
   createSession(input: $input)
@@ -2795,6 +2881,37 @@ export function useCreateSwapMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateSwapMutationHookResult = ReturnType<typeof useCreateSwapMutation>;
 export type CreateSwapMutationResult = Apollo.MutationResult<CreateSwapMutation>;
 export type CreateSwapMutationOptions = Apollo.BaseMutationOptions<CreateSwapMutation, CreateSwapMutationVariables>;
+export const UpdateSwapDocument = gql`
+    mutation UpdateSwap($input: UpdateSwapInput!) {
+  updateSwap(input: $input)
+}
+    `;
+export type UpdateSwapMutationFn = Apollo.MutationFunction<UpdateSwapMutation, UpdateSwapMutationVariables>;
+
+/**
+ * __useUpdateSwapMutation__
+ *
+ * To run a mutation, you first call `useUpdateSwapMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSwapMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSwapMutation, { data, loading, error }] = useUpdateSwapMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateSwapMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSwapMutation, UpdateSwapMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSwapMutation, UpdateSwapMutationVariables>(UpdateSwapDocument, options);
+      }
+export type UpdateSwapMutationHookResult = ReturnType<typeof useUpdateSwapMutation>;
+export type UpdateSwapMutationResult = Apollo.MutationResult<UpdateSwapMutation>;
+export type UpdateSwapMutationOptions = Apollo.BaseMutationOptions<UpdateSwapMutation, UpdateSwapMutationVariables>;
 export const FindTermDocument = gql`
     query findTerm($name: String!) {
   findTerm(name: $name) {
