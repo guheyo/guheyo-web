@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useGroup } from '@/hooks/use-group';
-import { useContext, useEffect } from 'react';
+import { MouseEventHandler, useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
   DEAL_AUTO_SAVE_INTERVAL_MS,
@@ -71,6 +71,7 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import { AuthContext } from '../auth/auth.provider';
+import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function DealForm() {
   const { group } = useGroup();
@@ -224,6 +225,14 @@ export default function DealForm() {
 
     await deleteUserImage(imageId);
     remove(position);
+  };
+
+  const handleAuthorization: MouseEventHandler = (e) => {
+    // Do nothing
+  };
+
+  const handleUnAuthorization: MouseEventHandler = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -449,10 +458,13 @@ export default function DealForm() {
           minRows: 10,
         }}
       />
-
-      <button type="submit" className={DEFAULT_SUBMIT_BUTTON_STYLE}>
-        {DEAL_SUBMIT_BUTTON_NAME}
-      </button>
+      <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <DiscordLoginDialog
+          name={DEAL_SUBMIT_BUTTON_NAME}
+          onAuthorization={handleAuthorization}
+          onUnAuthorization={handleUnAuthorization}
+        />
+      </div>
     </form>
   );
 }
