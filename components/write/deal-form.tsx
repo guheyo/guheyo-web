@@ -54,6 +54,10 @@ import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
 import { deleteUserImage } from '@/lib/api/user-image';
+import { useParams } from 'next/navigation';
+import secureLocalStorage from 'react-secure-storage';
+import { useDebounce } from 'use-debounce';
+import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -71,18 +75,21 @@ export default function DealForm() {
   const { group } = useGroup();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
+  const params = useParams();
+  const groupSlug = params.groupSlug as string;
 
-  const { handleSubmit, control, watch, setValue } = useForm<DealFormValues>({
-    defaultValues: {
-      id: uuid4(),
-      images: [],
-      name0: '',
-      dealType: 'offer',
-      categoryId: '',
-      price: 0,
-      description: '',
-    },
-  });
+  const { handleSubmit, control, watch, setValue, reset } =
+    useForm<DealFormValues>({
+      defaultValues: {
+        id: '',
+        images: [],
+        name0: '',
+        dealType: 'offer',
+        categoryId: '',
+        price: 0,
+        description: '',
+      },
+    });
 
   const { remove } = useFieldArray({
     control,
@@ -93,6 +100,27 @@ export default function DealForm() {
   const images = watch('images');
   const dealType = watch('dealType');
   const categoryId = watch('categoryId');
+  const values = watch();
+
+  const [updatedValuesString] = useDebounce(JSON.stringify(values), 5000);
+
+  useEffect(() => {
+    if (!user || !groupSlug) return;
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+
+    if (!tempValues) {
+      const newId = uuid4();
+      setValue('id', newId);
+    } else {
+      reset(tempValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, groupSlug]);
 
   useEffect(() => {
     setValue(
@@ -101,6 +129,22 @@ export default function DealForm() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [group?.id]);
+
+  useEffect(() => {
+    if (!user || !dealId || !groupSlug) return;
+
+    const key = parseTempDealFormKey({
+      username: user.username,
+      groupSlug,
+    });
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+
+    const notChanged = JSON.stringify(tempValues) === updatedValuesString;
+
+    if (!notChanged) {
+      secureLocalStorage.setItem(key, JSON.parse(updatedValuesString));
+    }
+  }, [user, dealId, groupSlug, updatedValuesString]);
 
   if (!group) return <div />;
 
