@@ -5,7 +5,7 @@ import {
   useController,
 } from 'react-hook-form';
 
-interface Option {
+export interface ButtonOption {
   value: string;
   label: string;
   selected: boolean;
@@ -13,7 +13,7 @@ interface Option {
 
 interface ButtonInputsProps {
   buttonInputsProps: {
-    options: Option[];
+    options: ButtonOption[];
     label: {
       name: string;
       style: string;
