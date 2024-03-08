@@ -11,6 +11,6 @@ export type DealFormValues = {
   dealType: Deal;
   categoryId: string;
   price: number;
-  description: string;
+  description?: string;
   source: string;
 };
