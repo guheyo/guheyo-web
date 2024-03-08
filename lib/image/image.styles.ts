@@ -1,5 +1,5 @@
 export const DEFAULT_IMAGE_PREVIEWS_STYLE =
-  'grid grid-cols-6 gap-2 items-center justify-items-start';
+  'flex flex-row gap-4 items-center justify-items-start';
 
 export const DEFAULT_IMAGE_PREVIEW_LAYOUT_STYLE =
   'flex flex-col relative w-fit h-fit';

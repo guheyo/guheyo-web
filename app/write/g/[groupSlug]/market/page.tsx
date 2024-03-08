@@ -1,5 +1,5 @@
-import DealForm from '@/components/write/deal-form';
+import WriteDealForm from '@/components/write/write-deal-form';
 
 export default function Page() {
-  return <DealForm />;
+  return <WriteDealForm />;
 }

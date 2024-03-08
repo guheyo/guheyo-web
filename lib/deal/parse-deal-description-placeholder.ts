@@ -6,13 +6,13 @@ import { findProductCategory } from '../group/find-product-category';
 export const parseDealDescriptionPlaceholder = ({
   dealType,
   productCategories,
-  categoryId,
+  productCategoryId,
 }: {
   dealType: Deal;
   productCategories: ProductCategoryResponse[];
-  categoryId: string;
+  productCategoryId: string;
 }) =>
   `${findDealLabel(dealType)}할 ${findProductCategory(productCategories, {
-    id: categoryId,
+    id: productCategoryId,
   })
     ?.name} 제품을 자세히 소개해 주세요.\n\n특이 사항이 있을 경우 근접 사진을 첨부해 주세요.`;

@@ -1,18 +1,17 @@
 import {
-  CreateDemandInput,
-  CreateOfferInput,
-  CreateSwapInput,
+  UpdateDemandInput,
+  UpdateOfferInput,
+  UpdateSwapInput,
 } from '@/generated/graphql';
 import { DealFormValues } from './deal.interfaces';
 
-const parseCreateDealInput = ({
+const parseUpdateDealInput = ({
   dealFormValues,
 }: {
   dealFormValues: DealFormValues;
-}): CreateOfferInput | CreateDemandInput | CreateSwapInput => {
+}): UpdateOfferInput | UpdateDemandInput | UpdateSwapInput => {
   const input = {
     id: dealFormValues.id,
-    groupId: dealFormValues.groupId,
     productCategoryId: dealFormValues.categoryId,
     priceCurrency: 'krw',
     price: dealFormValues.price,
@@ -23,7 +22,6 @@ const parseCreateDealInput = ({
     return {
       ...input,
       businessFunction: 'trade',
-      proposerId: dealFormValues.userId,
       name0: dealFormValues.name0,
       name1: dealFormValues.name1!,
       description0: dealFormValues.description,
@@ -34,7 +32,6 @@ const parseCreateDealInput = ({
     return {
       ...input,
       businessFunction: 'sell',
-      sellerId: dealFormValues.userId,
       name: dealFormValues.name0,
       description: dealFormValues.description,
     };
@@ -43,10 +40,9 @@ const parseCreateDealInput = ({
   return {
     ...input,
     businessFunction: 'buy',
-    buyerId: dealFormValues.userId,
     name: dealFormValues.name0,
     description: dealFormValues.description,
   };
 };
 
-export default parseCreateDealInput;
+export default parseUpdateDealInput;

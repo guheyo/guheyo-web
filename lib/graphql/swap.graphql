@@ -77,20 +77,12 @@ query findSwapPreviews(
   }
 }
 
-query findSwapById(
-  $id: ID!
-) {
-  findSwapById(
-    id: $id
-  ) {
-    ...swap
-  }
-}
-
 query findSwap(
-  $slug: String!
+  $id: ID
+  $slug: String
 ) {
   findSwap(
+    id: $id
     slug: $slug
   ) {
     ...swap
@@ -99,4 +91,8 @@ query findSwap(
 
 mutation CreateSwap($input: CreateSwapInput!) {
   createSwap(input: $input)
+}
+
+mutation UpdateSwap($input: UpdateSwapInput!) {
+  updateSwap(input: $input)
 }
