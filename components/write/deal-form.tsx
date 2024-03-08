@@ -94,7 +94,7 @@ export default function DealForm({
         images: [],
         name0: '',
         dealType: 'offer',
-        categoryId: '',
+        productCategoryId: '',
         price: undefined,
         description: '',
         source: '',
@@ -109,31 +109,27 @@ export default function DealForm({
   const dealId = watch('id');
   const images = watch('images');
   const dealType = watch('dealType');
-  const categoryId = watch('categoryId');
+  const productCategoryId = watch('productCategoryId');
 
   useEffect(() => {
     if (!user || !groupSlug) return;
 
-    if (prevFormValues) {
+    const key = parseTempDealFormKey({
+      userId: user.id,
+      groupSlug,
+    });
+    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+
+    if (tempValues) {
+      reset(tempValues);
+    } else if (prevFormValues) {
       reset(prevFormValues);
     } else {
-      const key = parseTempDealFormKey({
-        userId: user.id,
-        groupSlug,
-      });
-      const tempValues = secureLocalStorage.getItem(
-        key,
-      ) as DealFormValues | null;
-
-      if (tempValues) {
-        reset(tempValues);
-      } else {
-        setValue('userId', user.id);
-        setValue('groupId', group.id);
-        setValue('source', device);
-        const newId = uuid4();
-        setValue('id', newId);
-      }
+      setValue('userId', user.id);
+      setValue('groupId', group.id);
+      setValue('source', device);
+      const newId = uuid4();
+      setValue('id', newId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, groupSlug]);
@@ -141,9 +137,9 @@ export default function DealForm({
   useEffect(() => {
     if (!user || !dealId) return;
 
-    if (!categoryId)
+    if (!productCategoryId)
       setValue(
-        'categoryId',
+        'productCategoryId',
         findDefaultProductCategory(group?.productCategories)?.id || '',
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -379,14 +375,14 @@ export default function DealForm({
       />
 
       <ButtonInputs
-        name="categoryId"
+        name="productCategoryId"
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
           options: group.productCategories.map((category) => ({
             value: category.id,
             label: category.name,
-            selected: categoryId === category.id,
+            selected: productCategoryId === category.id,
           })),
           label: {
             name: DEAL_CATEGORY_LABEL_NAME,
@@ -449,7 +445,7 @@ export default function DealForm({
           placeholder: parseDealDescriptionPlaceholder({
             dealType,
             productCategories: group.productCategories,
-            categoryId,
+            productCategoryId,
           }),
           InputProps: {
             sx: {
