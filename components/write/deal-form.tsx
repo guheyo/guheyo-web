@@ -19,7 +19,6 @@ import {
   DEAL_NAME,
   DEAL_NAME_PLACEHOLDER,
   DEAL_NAME_REQUIRED_MESSAGE,
-  DEAL_OPTIONS,
   DEAL_PRICE_LABEL_NAME,
   DEAL_PRICE_PLACEHOLDER,
   DEAL_PRICE_REQUIRED_MESSAGE,
@@ -56,6 +55,7 @@ import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import { useRouter } from 'next/navigation';
+import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -71,9 +71,11 @@ import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function DealForm({
+  prevFormValues,
   onSubmitCallback,
   onClickImagePreviewCallback,
 }: {
+  prevFormValues?: DealFormValues;
   onSubmitCallback: SubmitHandler<DealFormValues>;
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
@@ -112,21 +114,26 @@ export default function DealForm({
   useEffect(() => {
     if (!user || !groupSlug) return;
 
-    const key = parseTempDealFormKey({
-      userId: user.id,
-      groupSlug,
-    });
-
-    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
-    if (!tempValues) {
-      setValue('userId', user.id);
-      setValue('groupId', group.id);
-      setValue('source', device);
-
-      const newId = uuid4();
-      setValue('id', newId);
+    if (prevFormValues) {
+      reset(prevFormValues);
     } else {
-      reset(tempValues);
+      const key = parseTempDealFormKey({
+        userId: user.id,
+        groupSlug,
+      });
+      const tempValues = secureLocalStorage.getItem(
+        key,
+      ) as DealFormValues | null;
+
+      if (tempValues) {
+        reset(tempValues);
+      } else {
+        setValue('userId', user.id);
+        setValue('groupId', group.id);
+        setValue('source', device);
+        const newId = uuid4();
+        setValue('id', newId);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, groupSlug]);
@@ -255,7 +262,6 @@ export default function DealForm({
           icon: {
             fontSize: 'large',
           },
-          // onChange: onChangeFileInput,
           onChange: handleOnChangeFileInput,
         }}
         inputProps={{
@@ -357,10 +363,10 @@ export default function DealForm({
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
-          options: DEAL_OPTIONS.map((option) => ({
-            ...option,
-            selected: dealType === option.value,
-          })),
+          options: parseDealTypeButtonOptions({
+            dealType,
+            multiple: !prevFormValues,
+          }),
           label: {
             name: DEAL_TYPE_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
