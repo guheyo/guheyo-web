@@ -82,7 +82,7 @@ export default function DealForm({
   const { group } = useGroup();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
-  const groupSlug = group?.id;
+  const groupSlug = group?.slug;
   const router = useRouter();
 
   const { handleSubmit, control, watch, setValue, reset } =
