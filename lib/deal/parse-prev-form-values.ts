@@ -10,7 +10,7 @@ export const parsePrevOfferFormValues: (
   prevDeal: OfferResponse,
 ) => DealFormValues = (prevDeal) => ({
   dealType: 'offer',
-  categoryId: prevDeal.productCategoryId,
+  productCategoryId: prevDeal.productCategoryId,
   ..._.pick(prevDeal, ['id', 'groupId', 'price', 'source']),
   images: prevDeal.images,
   userId: prevDeal.seller.id,
@@ -22,7 +22,7 @@ export const parsePrevDemandFormValues: (
   prevDeal: DemandResponse,
 ) => DealFormValues = (prevDeal) => ({
   dealType: 'demand',
-  categoryId: prevDeal.productCategoryId,
+  productCategoryId: prevDeal.productCategoryId,
   ..._.pick(prevDeal, ['id', 'groupId', 'price', 'source']),
   images: prevDeal.images,
   userId: prevDeal.buyer.id,
@@ -34,8 +34,8 @@ export const parsePrevSwapFormValues: (
   prevDeal: SwapResponse,
 ) => DealFormValues = (prevDeal) => ({
   dealType: 'swap',
-  categoryId: prevDeal.productCategoryId,
-  ..._.pick(prevDeal, ['id', 'groupId', 'price', 'name0', 'source']),
+  productCategoryId: prevDeal.productCategoryId,
+  ..._.pick(prevDeal, ['id', 'groupId', 'price', 'name0', 'name1', 'source']),
   images: prevDeal.images,
   userId: prevDeal.proposer.id,
   description: prevDeal.description0 || undefined,
