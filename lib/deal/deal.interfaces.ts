@@ -9,7 +9,7 @@ export type DealFormValues = {
   name0: string;
   name1?: string;
   dealType: Deal;
-  categoryId: string;
+  productCategoryId: string;
   price: number;
   description?: string;
   source: string;
