@@ -110,7 +110,7 @@ export type CreateAuctionInput = {
 export type CreateDemandInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
-  buyerId: Scalars['String']['input'];
+  buyerId: Scalars['ID']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
@@ -159,7 +159,7 @@ export type CreateOfferInput = {
   price: Scalars['Int']['input'];
   priceCurrency: Scalars['String']['input'];
   productCategoryId: Scalars['String']['input'];
-  sellerId: Scalars['String']['input'];
+  sellerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
 };
@@ -211,7 +211,7 @@ export type CreateSwapInput = {
   price: Scalars['Int']['input'];
   priceCurrency: Scalars['String']['input'];
   productCategoryId: Scalars['String']['input'];
-  proposerId: Scalars['String']['input'];
+  proposerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
 };
@@ -489,6 +489,7 @@ export type MutationDeleteAuctionArgs = {
 
 
 export type MutationDeleteDemandArgs = {
+  buyerId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
 };
 
@@ -506,6 +507,7 @@ export type MutationDeleteMemberArgs = {
 
 export type MutationDeleteOfferArgs = {
   id: Scalars['ID']['input'];
+  sellerId: Scalars['ID']['input'];
 };
 
 
@@ -532,6 +534,7 @@ export type MutationDeleteSocialAccountByProviderArgs = {
 
 export type MutationDeleteSwapArgs = {
   id: Scalars['ID']['input'];
+  proposerId: Scalars['ID']['input'];
 };
 
 
@@ -1035,6 +1038,7 @@ export type UpdateAuctionInput = {
 export type UpdateDemandInput = {
   brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
+  buyerId: Scalars['ID']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
@@ -1066,6 +1070,7 @@ export type UpdateOfferInput = {
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
+  sellerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
 };
 
@@ -1106,6 +1111,7 @@ export type UpdateSwapInput = {
   name1?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
+  proposerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
 };
 
