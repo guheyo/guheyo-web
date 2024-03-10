@@ -15,7 +15,9 @@ fragment swap on SwapResponse {
   images {
     ...image
   }
-  groupId
+  group {
+    ...groupProfile
+  }
   productCategoryId
   proposer {
     ...proposer

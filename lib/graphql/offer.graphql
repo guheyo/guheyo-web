@@ -13,7 +13,9 @@ fragment offer on OfferResponse {
   images {
     ...image
   }
-  groupId
+  group {
+    ...groupProfile
+  }
   productCategoryId
   seller {
     ...seller

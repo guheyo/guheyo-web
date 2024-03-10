@@ -13,7 +13,9 @@ fragment demand on DemandResponse {
   images {
     ...image
   }
-  groupId
+  group {
+    ...groupProfile
+  }
   productCategoryId
   buyer {
     ...buyer
