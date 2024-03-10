@@ -112,11 +112,13 @@ export default function DealForm({
   const productCategoryId = watch('productCategoryId');
 
   useEffect(() => {
-    if (!user || !groupSlug) return;
+    if (dealId || !user || !groupSlug || !dealType) return;
 
     const key = parseTempDealFormKey({
       userId: user.id,
+      dealType,
       groupSlug,
+      prevDealId: prevFormValues?.id,
     });
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
 
@@ -131,8 +133,8 @@ export default function DealForm({
       const newId = uuid4();
       setValue('id', newId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, groupSlug]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dealId, user, groupSlug, dealType]);
 
   useEffect(() => {
     if (!user || !dealId) return;
@@ -150,7 +152,9 @@ export default function DealForm({
 
     const key = parseTempDealFormKey({
       userId: user.id,
+      dealType,
       groupSlug,
+      prevDealId: prevFormValues?.id,
     });
     const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
     const currentValues = watch();
@@ -213,8 +217,10 @@ export default function DealForm({
     await onSubmitCallback(data);
 
     const key = parseTempDealFormKey({
-      userId: data.userId,
+      userId: user.id,
+      dealType,
       groupSlug,
+      prevDealId: prevFormValues?.id,
     });
     secureLocalStorage.removeItem(key);
 
