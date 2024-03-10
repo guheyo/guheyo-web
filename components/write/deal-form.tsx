@@ -16,14 +16,15 @@ import {
   DEAL_CATEGORY_LABEL_NAME,
   DEAL_DESCRIPTION_LABEL_NAME,
   DEAL_DESCRIPTION_REQUIRED_MESSAGE,
+  DEAL_EDIT_SUBMIT_BUTTON_NAME,
   DEAL_NAME,
   DEAL_NAME_PLACEHOLDER,
   DEAL_NAME_REQUIRED_MESSAGE,
   DEAL_PRICE_LABEL_NAME,
   DEAL_PRICE_PLACEHOLDER,
   DEAL_PRICE_REQUIRED_MESSAGE,
-  DEAL_SUBMIT_BUTTON_NAME,
   DEAL_TYPE_LABEL_NAME,
+  DEAL_WRITE_SUBMIT_BUTTON_NAME,
 } from '@/lib/deal/deal.constants';
 import { parseDealDescriptionPlaceholder } from '@/lib/deal/parse-deal-description-placeholder';
 import {
@@ -468,13 +469,23 @@ export default function DealForm({
         }}
       />
 
-      <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
-        <DiscordLoginDialog
-          name={DEAL_SUBMIT_BUTTON_NAME}
-          onAuthorization={handleOnAuthorization}
-          onUnAuthorization={handleOnUnAuthorization}
-        />
-      </div>
+      {prevFormValues ? (
+        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+          <DiscordLoginDialog
+            name={DEAL_EDIT_SUBMIT_BUTTON_NAME}
+            onAuthorization={handleOnAuthorization}
+            onUnAuthorization={handleOnUnAuthorization}
+          />
+        </div>
+      ) : (
+        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+          <DiscordLoginDialog
+            name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
+            onAuthorization={handleOnAuthorization}
+            onUnAuthorization={handleOnUnAuthorization}
+          />
+        </div>
+      )}
     </form>
   );
 }
