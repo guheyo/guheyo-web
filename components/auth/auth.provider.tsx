@@ -1,7 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { Auth, AuthUser } from '@/interfaces/auth.interfaces';
-import getAuthUser from '@/lib/auth/get-auth-user';
+import { getAuthUserFromRefreshedTokens } from '@/lib/auth/get-auth-user';
 
 export const AuthContext = createContext<Auth>({
   user: null,
@@ -10,16 +9,14 @@ export const AuthContext = createContext<Auth>({
 });
 
 export default function AuthProvider({ children }: React.PropsWithChildren) {
-  const [cookie] = useCookies(['access-token']);
-  const accessToken = cookie['access-token'] as string | null;
   const [user, setUser] = useState<AuthUser | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const setAuth = async () => {
+  const refreshTokens = async () => {
     setLoading(true);
     try {
-      setUser(await getAuthUser(accessToken));
+      setUser(await getAuthUserFromRefreshedTokens());
       setError(null);
     } catch (e: any) {
       setError(e);
@@ -30,13 +27,12 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
 
   useEffect(() => {
     const intervalId = setInterval(
-      setAuth,
+      refreshTokens,
       parseInt(process.env.NEXT_PUBLIC_JWT_REFRESH_TOKENS_INTERVAL_MS!, 10),
     );
-    setAuth();
+    refreshTokens();
     return () => clearInterval(intervalId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+  }, []);
 
   const auth = useMemo(
     () => ({ user, error, loading }),
