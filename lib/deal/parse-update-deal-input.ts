@@ -12,7 +12,7 @@ const parseUpdateDealInput = ({
 }): UpdateOfferInput | UpdateDemandInput | UpdateSwapInput => {
   const input = {
     id: dealFormValues.id,
-    productCategoryId: dealFormValues.categoryId,
+    productCategoryId: dealFormValues.productCategoryId,
     priceCurrency: 'krw',
     price: dealFormValues.price,
     source: dealFormValues.source,
@@ -22,6 +22,7 @@ const parseUpdateDealInput = ({
     return {
       ...input,
       businessFunction: 'trade',
+      proposerId: dealFormValues.userId,
       name0: dealFormValues.name0,
       name1: dealFormValues.name1!,
       description0: dealFormValues.description,
@@ -32,6 +33,7 @@ const parseUpdateDealInput = ({
     return {
       ...input,
       businessFunction: 'sell',
+      sellerId: dealFormValues.userId,
       name: dealFormValues.name0,
       description: dealFormValues.description,
     };
@@ -40,6 +42,7 @@ const parseUpdateDealInput = ({
   return {
     ...input,
     businessFunction: 'buy',
+    buyerId: dealFormValues.userId,
     name: dealFormValues.name0,
     description: dealFormValues.description,
   };

@@ -13,7 +13,7 @@ const parseCreateDealInput = ({
   const input = {
     id: dealFormValues.id,
     groupId: dealFormValues.groupId,
-    productCategoryId: dealFormValues.categoryId,
+    productCategoryId: dealFormValues.productCategoryId,
     priceCurrency: 'krw',
     price: dealFormValues.price,
     source: dealFormValues.source,

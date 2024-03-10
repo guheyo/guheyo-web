@@ -1,7 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import { Auth, User } from '@/interfaces/auth.interfaces';
-import getUser from '@/lib/auth/get-user';
+import { Auth, AuthUser } from '@/interfaces/auth.interfaces';
+import { getAuthUserFromRefreshedTokens } from '@/lib/auth/get-auth-user';
 
 export const AuthContext = createContext<Auth>({
   user: null,
@@ -10,26 +9,30 @@ export const AuthContext = createContext<Auth>({
 });
 
 export default function AuthProvider({ children }: React.PropsWithChildren) {
-  const [cookie] = useCookies(['access-token']);
-  const token = cookie['access-token'] as string | null;
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    async function setAuth() {
-      setLoading(true);
-      try {
-        setUser(await getUser(token));
-        setError(null);
-      } catch (e: any) {
-        setError(e);
-        setUser(null);
-      }
-      setLoading(false);
+  const refreshTokens = async () => {
+    setLoading(true);
+    try {
+      setUser(await getAuthUserFromRefreshedTokens());
+      setError(null);
+    } catch (e: any) {
+      setError(e);
+      setUser(null);
     }
-    setAuth();
-  }, [token]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(
+      refreshTokens,
+      parseInt(process.env.NEXT_PUBLIC_JWT_REFRESH_TOKENS_INTERVAL_MS!, 10),
+    );
+    refreshTokens();
+    return () => clearInterval(intervalId);
+  }, []);
 
   const auth = useMemo(
     () => ({ user, error, loading }),
