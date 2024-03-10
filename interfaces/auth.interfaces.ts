@@ -1,4 +1,4 @@
-export interface User {
+export interface AuthUser {
   id: string;
   username: string;
   provider: string;
@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface Auth {
-  user: User | null;
+  user: AuthUser | null;
   error: Error | null;
   loading: boolean;
 }
