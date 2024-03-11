@@ -37,6 +37,9 @@ import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name'
 import TextInput from '../inputs/text-input';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
+import PriceUpDownButtons, {
+  UP_DOWN_PRICE_UNIT,
+} from './price-up-down-buttons';
 
 export default function DealBumpForm({
   dealType,
@@ -61,13 +64,14 @@ export default function DealBumpForm({
   const device = useDeviceDetect();
   const router = useRouter();
 
-  const { handleSubmit, control, setValue } = useForm<DealBumpValues>({
-    defaultValues: {
-      dealId,
-      userId: '',
-      price,
-    },
-  });
+  const { handleSubmit, control, setValue, getValues } =
+    useForm<DealBumpValues>({
+      defaultValues: {
+        dealId,
+        userId: '',
+        price,
+      },
+    });
 
   useEffect(() => {
     if (!user) return;
@@ -100,6 +104,16 @@ export default function DealBumpForm({
 
   const handleOnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
+  };
+
+  const handleUpButtonClick: MouseEventHandler = (e) => {
+    const currentPrice = getValues('price');
+    setValue('price', currentPrice + UP_DOWN_PRICE_UNIT);
+  };
+
+  const handleDownButtonClick: MouseEventHandler = (e) => {
+    const currentPrice = getValues('price');
+    setValue('price', currentPrice - UP_DOWN_PRICE_UNIT);
   };
 
   return (
@@ -161,6 +175,10 @@ export default function DealBumpForm({
               },
             },
           }}
+        />
+        <PriceUpDownButtons
+          handleUpButtonClick={handleUpButtonClick}
+          handleDownButtonClick={handleDownButtonClick}
         />
         <div className="text-base text-light-200 font-bold">
           {DEAL_BUMP_INFO_MESSAGE}
