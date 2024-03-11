@@ -7,7 +7,7 @@ export interface FindDealsWhereArgs {
 
   status?: string;
 
-  createdAt?: {
+  bumpedAt?: {
     gt: string;
   };
 }
@@ -15,7 +15,7 @@ export interface FindDealsWhereArgs {
 export interface FindDealsOrderByArgs {
   price?: SortOrder;
 
-  createdAt?: SortOrder;
+  bumpedAt?: SortOrder;
 }
 
 export interface FindOffersWhereArgs extends FindDealsWhereArgs {

@@ -95,9 +95,9 @@ export type BumpOfferInput = {
 };
 
 export type BumpSwapInput = {
-  buyerId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   newPrice: Scalars['Int']['input'];
+  proposerId: Scalars['ID']['input'];
   swapId: Scalars['ID']['input'];
 };
 

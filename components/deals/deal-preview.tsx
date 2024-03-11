@@ -11,7 +11,7 @@ interface Props {
   thumbnail?: UserImageResponse | null;
   name: any;
   price: number;
-  createdAt: Date;
+  bumpedAt: Date;
   username: string;
   slug: string;
 }
@@ -22,7 +22,7 @@ export default function DealPreview({
   thumbnail,
   name,
   price,
-  createdAt,
+  bumpedAt,
   username,
   slug,
 }: Props) {
@@ -33,7 +33,7 @@ export default function DealPreview({
           deal={deal}
           name={name}
           price={price}
-          createdAt={createdAt}
+          bumpedAt={bumpedAt}
           username={username}
           slug={slug}
         />
@@ -46,7 +46,7 @@ export default function DealPreview({
           thumbnail={thumbnail}
           name={name}
           price={price}
-          createdAt={createdAt}
+          bumpedAt={bumpedAt}
           username={username}
           slug={slug}
         />

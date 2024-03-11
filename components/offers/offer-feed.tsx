@@ -43,12 +43,12 @@ function OfferFeed({
       productCategoryId: category?.id,
       status,
       sellerId: where?.sellerId,
-      createdAt: {
+      bumpedAt: {
         gt: from,
       },
     },
     orderBy: {
-      createdAt: orderBy?.createdAt || 'desc',
+      bumpedAt: orderBy?.bumpedAt || 'desc',
       price: orderBy?.price,
     },
     keyword,

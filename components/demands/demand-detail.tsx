@@ -40,7 +40,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
                 mode="standard"
               />
               <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
-                {dayjs(demand.createdAt).fromNow()}
+                {dayjs(demand.bumpedAt).fromNow()}
               </div>
             </div>
             <div className="mr-[-24px]">
@@ -85,7 +85,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
               mode="standard"
             />
             <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
-              {dayjs(demand.createdAt).fromNow()}
+              {dayjs(demand.bumpedAt).fromNow()}
             </div>
           </div>
           <div className="mr-[-24px]">

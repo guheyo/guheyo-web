@@ -9,7 +9,7 @@ interface Props {
   deal: Deal;
   name: string;
   price: number;
-  createdAt: Date;
+  bumpedAt: Date;
   username: string;
   slug: string;
 }
@@ -18,7 +18,7 @@ export default function DealTextPreview({
   deal,
   name,
   price,
-  createdAt,
+  bumpedAt,
   username,
   slug,
 }: Props) {
@@ -37,7 +37,7 @@ export default function DealTextPreview({
               {getPrice(price)}
             </div>
             <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-500">
-              {dayjs(createdAt).fromNow()}
+              {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
         </div>

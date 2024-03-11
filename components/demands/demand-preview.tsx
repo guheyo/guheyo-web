@@ -15,7 +15,7 @@ export default function DemandPreview({ demand, type }: Props) {
       type={type}
       name={demand.name}
       price={demand.price}
-      createdAt={demand.createdAt}
+      bumpedAt={demand.bumpedAt}
       username={demand.buyer.username}
       slug={demand.slug!}
     />

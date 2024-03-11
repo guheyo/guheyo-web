@@ -43,12 +43,12 @@ function DemandFeed({
       productCategoryId: category?.id,
       status,
       buyerId: where?.buyerId,
-      createdAt: {
+      bumpedAt: {
         gt: from,
       },
     },
     orderBy: {
-      createdAt: orderBy?.createdAt || 'desc',
+      bumpedAt: orderBy?.bumpedAt || 'desc',
       price: orderBy?.price,
     },
     keyword,

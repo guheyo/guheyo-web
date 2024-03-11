@@ -13,7 +13,7 @@ interface Props {
   thumbnail?: UserImageResponse | null;
   name: any;
   price: number;
-  createdAt: Date;
+  bumpedAt: Date;
   username: string;
   slug: string;
 }
@@ -23,7 +23,7 @@ export default function DealThumbnailPreview({
   thumbnail,
   name,
   price,
-  createdAt,
+  bumpedAt,
   username,
   slug,
 }: Props) {
@@ -54,7 +54,7 @@ export default function DealThumbnailPreview({
               {getPrice(price)}
             </div>
             <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-              {dayjs(createdAt).fromNow()}
+              {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
         </div>

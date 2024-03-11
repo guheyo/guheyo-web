@@ -39,7 +39,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
               mode="standard"
             />
             <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
-              {dayjs(offer.createdAt).fromNow()}
+              {dayjs(offer.bumpedAt).fromNow()}
             </div>
           </div>
           <div className="mr-[-24px]">
