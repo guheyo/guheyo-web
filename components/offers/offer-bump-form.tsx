@@ -37,6 +37,7 @@ export default function OfferBumpForm({ slug }: { slug: string }) {
       groupSlug={offer.group.slug!}
       price={offer.price}
       thumbnail={offer.images[0]}
+      bumpedAt={offer.bumpedAt}
       submitValidCallback={submitValidCallback}
     />
   );

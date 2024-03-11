@@ -9,7 +9,6 @@ import {
 } from 'react-hook-form';
 import {
   DEAL_BUMP_INFO_MESSAGE,
-  DEAL_BUMP_SUBMIT_BUTTON_NAME,
   DEAL_PRICE_LABEL_NAME,
   DEAL_PRICE_PLACEHOLDER,
   DEAL_PRICE_REQUIRED_MESSAGE,
@@ -34,6 +33,7 @@ import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { useRouter } from 'next/navigation';
 import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name';
 import TextInput from '../inputs/text-input';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
@@ -45,6 +45,7 @@ export default function DealBumpForm({
   groupSlug,
   price,
   thumbnail,
+  bumpedAt,
   submitValidCallback,
 }: {
   dealType: Deal;
@@ -53,6 +54,7 @@ export default function DealBumpForm({
   groupSlug: string;
   price: number;
   thumbnail?: UserImageResponse;
+  bumpedAt: Date;
   submitValidCallback: SubmitHandler<DealBumpValues>;
 }) {
   const { user } = useContext(AuthContext);
@@ -166,7 +168,7 @@ export default function DealBumpForm({
       </div>
       <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
-          name={DEAL_BUMP_SUBMIT_BUTTON_NAME}
+          name={parseDealBumpButtonName(bumpedAt)}
           onAuthorization={handleAuthorization}
           onUnAuthorization={handleOnAuthorization}
         />

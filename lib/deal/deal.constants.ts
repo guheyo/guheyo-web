@@ -25,10 +25,9 @@ export const DEAL_PRICE_REQUIRED_MESSAGE = '가격을 숫자로 입력해 주세
 export const DEAL_DESCRIPTION_LABEL_NAME = '제품 설명';
 export const DEAL_DESCRIPTION_REQUIRED_MESSAGE = '제품 설명을 작성해 주세요';
 
-export const DEAL_BUMP_INFO_MESSAGE = '24시간 후에 다시 끌어올릴 수 있어요';
+export const DEAL_BUMP_INFO_MESSAGE = '끌올 재사용 대기시간 : 24시간';
 
 export const DEAL_WRITE_SUBMIT_BUTTON_NAME = '작성 완료';
 export const DEAL_EDIT_SUBMIT_BUTTON_NAME = '수정 완료';
-export const DEAL_BUMP_SUBMIT_BUTTON_NAME = '끌어올리기';
 
 export const DEAL_AUTO_SAVE_INTERVAL_MS = 60 * 1000;

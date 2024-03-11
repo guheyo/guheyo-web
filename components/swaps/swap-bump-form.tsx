@@ -23,7 +23,7 @@ export default function SwapBumpForm({ slug }: { slug: string }) {
     const input: BumpSwapInput = {
       id: uuid4(),
       swapId: values.dealId,
-      buyerId: values.userId,
+      proposerId: values.userId,
       newPrice: values.price,
     };
 
@@ -38,6 +38,7 @@ export default function SwapBumpForm({ slug }: { slug: string }) {
       groupSlug={swap.group.slug!}
       price={swap.price}
       thumbnail={swap.images[0]}
+      bumpedAt={swap.bumpedAt}
       submitValidCallback={submitValidCallback}
     />
   );

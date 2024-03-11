@@ -37,6 +37,7 @@ export default function DemandBumpForm({ slug }: { slug: string }) {
       groupSlug={demand.group.slug!}
       price={demand.price}
       thumbnail={demand.images[0]}
+      bumpedAt={demand.bumpedAt}
       submitValidCallback={submitValidCallback}
     />
   );
