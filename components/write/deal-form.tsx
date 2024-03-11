@@ -134,7 +134,7 @@ export default function DealForm({
       const newId = uuid4();
       setValue('id', newId);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealId, user, groupSlug, dealType]);
 
   useEffect(() => {
