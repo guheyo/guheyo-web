@@ -2,6 +2,7 @@ fragment offer on OfferResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   name
   slug
   description
@@ -27,6 +28,7 @@ fragment offerPreview on OfferPreviewResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   name
   slug
   price
@@ -94,4 +96,8 @@ mutation CreateOffer($input: CreateOfferInput!) {
 
 mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input)
+}
+
+mutation BumpOffer($input: BumpOfferInput!) {
+  bumpOffer(input: $input)
 }

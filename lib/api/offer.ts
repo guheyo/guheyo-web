@@ -1,4 +1,7 @@
 import {
+  BumpOfferDocument,
+  BumpOfferInput,
+  BumpOfferMutation,
   CreateOfferDocument,
   CreateOfferInput,
   CreateOfferMutation,
@@ -20,6 +23,15 @@ export async function createOffer(input: CreateOfferInput) {
 export async function updateOffer(input: UpdateOfferInput) {
   return client.mutate<UpdateOfferMutation>({
     mutation: UpdateOfferDocument,
+    variables: {
+      input,
+    },
+  });
+}
+
+export async function bumpOffer(input: BumpOfferInput) {
+  return client.mutate<BumpOfferMutation>({
+    mutation: BumpOfferDocument,
     variables: {
       input,
     },
