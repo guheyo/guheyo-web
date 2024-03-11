@@ -48,6 +48,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
               dealId={offer.id}
               authorId={offer.seller.id}
               groupSlug={offer.group.slug!}
+              slug={offer.slug!}
             />
           </div>
         </div>
