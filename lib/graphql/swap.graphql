@@ -2,6 +2,7 @@ fragment swap on SwapResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   slug
   name0
   name1
@@ -29,6 +30,7 @@ fragment swapPreview on SwapPreviewResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   slug
   name0
   name1
@@ -97,4 +99,8 @@ mutation CreateSwap($input: CreateSwapInput!) {
 
 mutation UpdateSwap($input: UpdateSwapInput!) {
   updateSwap(input: $input)
+}
+
+mutation BumpSwap($input: BumpSwapInput!) {
+  bumpSwap(input: $input)
 }

@@ -2,6 +2,7 @@ fragment demand on DemandResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   name
   slug
   description
@@ -27,6 +28,7 @@ fragment demandPreview on DemandPreviewResponse {
   id
   createdAt
   updatedAt
+  bumpedAt
   name
   slug
   price
@@ -91,4 +93,8 @@ mutation CreateDemand($input: CreateDemandInput!) {
 
 mutation UpdateDemand($input: UpdateDemandInput!) {
   updateDemand(input: $input)
+}
+
+mutation BumpDemand($input: BumpDemandInput!) {
+  bumpDemand(input: $input)
 }
