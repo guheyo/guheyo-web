@@ -1,7 +1,12 @@
 'use client';
 
-import { BumpOfferInput, useFindOfferQuery } from '@/generated/graphql';
-import { FieldPath, SubmitErrorHandler, useForm } from 'react-hook-form';
+import { UserImageResponse } from '@/generated/graphql';
+import {
+  FieldPath,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import {
   DEAL_BUMP_INFO_MESSAGE,
   DEAL_BUMP_SUBMIT_BUTTON_NAME,
@@ -24,47 +29,50 @@ import {
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, useContext, useEffect } from 'react';
 import Image from 'next/image';
-import { bumpOffer } from '@/lib/api/offer';
-import { v4 as uuid4 } from 'uuid';
 import { parseDealBumpFormTitle } from '@/lib/deal/parse-deal-bump-form-title';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
+import { useRouter } from 'next/navigation';
+import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
+import { Deal } from '@/lib/deal/deal.types';
 import TextInput from '../inputs/text-input';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
-export default function OfferBump({ slug }: { slug: string }) {
+export default function DealBumpForm({
+  dealType,
+  dealId,
+  dealName,
+  groupSlug,
+  price,
+  thumbnail,
+  submitValidCallback,
+}: {
+  dealType: Deal;
+  dealId: string;
+  dealName: string;
+  groupSlug: string;
+  price: number;
+  thumbnail?: UserImageResponse;
+  submitValidCallback: SubmitHandler<DealBumpValues>;
+}) {
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
+  const router = useRouter();
 
-  const { loading, data } = useFindOfferQuery({
-    variables: {
-      slug: decodeURI(slug),
-    },
-  });
-  const offer = data?.findOffer;
-
-  const { handleSubmit, control, watch, setValue } = useForm<DealBumpValues>({
+  const { handleSubmit, control, setValue } = useForm<DealBumpValues>({
     defaultValues: {
-      dealId: '',
+      dealId,
       userId: '',
-      price: 0,
+      price,
     },
   });
-
-  const dealId = watch('dealId');
-  const price = watch('price');
 
   useEffect(() => {
-    if (!offer || !user) return;
+    if (!user) return;
 
-    setValue('dealId', offer.id);
     setValue('userId', user.id);
-    setValue('price', offer.price);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offer, user]);
-
-  if (loading) return <div />;
-  if (!offer) return <div />;
+  }, [user]);
 
   const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
@@ -73,57 +81,48 @@ export default function OfferBump({ slug }: { slug: string }) {
     );
   };
 
-  const handleOnSubmit = async () => {
+  const handleSubmitValid: SubmitHandler<DealBumpValues> = async (data) => {
     if (!user) return;
 
-    const input: BumpOfferInput = {
-      id: uuid4(),
-      offerId: dealId,
-      sellerId: user.id,
-      newPrice: price,
-    };
-    try {
-      await bumpOffer(input);
-    } catch (e: any) {
-      // TODO handle error
-    }
+    await submitValidCallback(data);
+    router.push(`${parseGroupMarketLink({ groupSlug, dealType })}`);
   };
 
-  const handleOnSubmitError: SubmitErrorHandler<DealBumpValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<DealBumpValues> = (errors, event) => {
     // TODO
   };
 
-  const handleOnAuthorization: MouseEventHandler = () => {
+  const handleAuthorization: MouseEventHandler = () => {
     // Do nothing
   };
 
-  const handleOnUnAuthorization: MouseEventHandler = (e) => {
+  const handleOnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
   };
-
-  const thumbnail = offer.images[0];
 
   return (
     <form
       className="flex flex-col gap-12"
-      onSubmit={handleSubmit(handleOnSubmit, handleOnSubmitError)}
+      onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-xl text-light-200 font-bold">
-        {parseDealBumpFormTitle('offer')}
+        {parseDealBumpFormTitle(dealType)}
       </div>
       <div className="flex flex-row gap-2 items-center">
-        <Image
-          src={thumbnail.url}
-          alt={thumbnail.name}
-          width={48}
-          height={48}
-          className="rounded"
-        />
+        {thumbnail?.url ? (
+          <Image
+            src={thumbnail.url}
+            alt={thumbnail.name}
+            width={48}
+            height={48}
+            className="rounded"
+          />
+        ) : (
+          <div />
+        )}
         <div className="flex flex-col">
-          <div className="text-sm text-light-200">{offer.name}</div>
-          <div className="text-base text-light-200 font-bold">
-            {offer.price}
-          </div>
+          <div className="text-sm text-light-200">{dealName}</div>
+          <div className="text-base text-light-200 font-bold">{price}</div>
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -168,8 +167,8 @@ export default function OfferBump({ slug }: { slug: string }) {
       <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
           name={DEAL_BUMP_SUBMIT_BUTTON_NAME}
-          onAuthorization={handleOnAuthorization}
-          onUnAuthorization={handleOnUnAuthorization}
+          onAuthorization={handleAuthorization}
+          onUnAuthorization={handleOnAuthorization}
         />
       </div>
     </form>

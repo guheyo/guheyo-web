@@ -1,7 +1,7 @@
 'use client';
 
-import DealBumpLayout from '@/components/deals/deal-bump.layout';
-import OfferBump from '@/components/offers/offer-bump';
+import DealBumpFormLayout from '@/components/deals/deal-bump-form.layout';
+import OfferBumpForm from '@/components/offers/offer-bump-form';
 
 function Page({
   params: { slug },
@@ -11,9 +11,9 @@ function Page({
   };
 }) {
   return (
-    <DealBumpLayout>
-      <OfferBump slug={slug} />
-    </DealBumpLayout>
+    <DealBumpFormLayout>
+      <OfferBumpForm slug={slug} />
+    </DealBumpFormLayout>
   );
 }
 export default Page;
