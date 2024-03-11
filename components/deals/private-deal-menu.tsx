@@ -6,15 +6,20 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
 import { parseEditLink } from '@/lib/deal/parse-edit-link';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseDealBumpLink } from '@/lib/deal/parse-deal-bump-link';
 
 export default function PrivateDealMenu({
   dealType,
   dealId,
   groupSlug,
+  username,
+  slug,
 }: {
   dealType: Deal;
   dealId: string;
   groupSlug: string;
+  username: string;
+  slug: string;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,7 +31,6 @@ export default function PrivateDealMenu({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleEditClick = () => {
     router.push(
       parseEditLink({
@@ -37,8 +41,14 @@ export default function PrivateDealMenu({
     );
   };
 
-  const handleBumpClick = () => {
-    // TODO
+  const handleBumpClick = async () => {
+    router.push(
+      parseDealBumpLink({
+        username,
+        dealType,
+        slug,
+      }),
+    );
   };
 
   return (

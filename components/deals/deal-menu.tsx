@@ -9,11 +9,13 @@ export default function DealMenu({
   dealId,
   authorId,
   groupSlug,
+  slug,
 }: {
   dealType: Deal;
   dealId: string;
   authorId: string;
   groupSlug: string;
+  slug: string;
 }) {
   const { user } = React.useContext(AuthContext);
 
@@ -23,6 +25,8 @@ export default function DealMenu({
         dealType={dealType}
         dealId={dealId}
         groupSlug={groupSlug}
+        username={user.username}
+        slug={slug}
       />
     );
 
