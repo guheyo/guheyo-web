@@ -12,6 +12,8 @@ export default function DemandPreview({ demand, type }: Props) {
   return (
     <DealPreview
       deal="demand"
+      dealId={demand.id}
+      authorId={demand.buyer.id}
       type={type}
       name={demand.name}
       price={demand.price}

@@ -4,9 +4,12 @@ import dayjs from 'dayjs';
 import { getPrice } from '@/lib/formatter';
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
+import DealMenu from './deal-menu';
 
 interface Props {
   deal: Deal;
+  dealId: string;
+  authorId: string;
   name: string;
   price: number;
   bumpedAt: Date;
@@ -16,6 +19,8 @@ interface Props {
 
 export default function DealTextPreview({
   deal,
+  dealId,
+  authorId,
   name,
   price,
   bumpedAt,
@@ -29,8 +34,19 @@ export default function DealTextPreview({
         className="w-full text-start"
       >
         <div className="grid gap-2">
-          <div className="justify-self-start text-xs md:text-sm font-medium text-light-200">
-            {name}
+          <div className="flex justify-between items-center">
+            <div className="text-xs md:text-sm font-medium text-light-200">
+              {name}
+            </div>
+            <div className="mr-[-24px]">
+              <DealMenu
+                dealType={deal}
+                dealId={dealId}
+                authorId={authorId}
+                slug={slug}
+                privateOnly
+              />
+            </div>
           </div>
           <div className="flex justify-between items-center">
             <div className="flex-none text-xs md:text-sm font-semibold">
