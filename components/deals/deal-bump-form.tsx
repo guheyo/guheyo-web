@@ -40,6 +40,7 @@ import DiscordLoginDialog from '../auth/discord-login-dialog';
 import PriceUpDownButtons, {
   UP_DOWN_PRICE_UNIT,
 } from './price-up-down-buttons';
+import { validateBump } from '@/lib/deal/validate-bump';
 
 export default function DealBumpForm({
   dealType,
@@ -89,6 +90,7 @@ export default function DealBumpForm({
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (data) => {
     if (!user) return;
+    if (!validateBump(bumpedAt)) return;
 
     await submitValidCallback(data);
     router.push(`${parseGroupMarketLink({ groupSlug, dealType })}`);
