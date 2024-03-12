@@ -3,12 +3,12 @@ import {
   UpdateOfferInput,
   UpdateSwapInput,
 } from '@/generated/graphql';
-import { Deal } from './deal.types';
-import { updateOffer } from '../api/offer';
-import { updateDemand } from '../api/demand';
-import { updateSwap } from '../api/swap';
+import { Deal } from '../deal/deal.types';
+import { updateOffer } from './offer';
+import { updateDemand } from './demand';
+import { updateSwap } from './swap';
 
-const updateDeal = async ({
+export const updateDeal = async ({
   dealType,
   updateDealInput,
 }: {
@@ -23,5 +23,3 @@ const updateDeal = async ({
   }
   return updateSwap(updateDealInput as UpdateSwapInput);
 };
-
-export default updateDeal;
