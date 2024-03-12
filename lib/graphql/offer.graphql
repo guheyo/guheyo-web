@@ -42,7 +42,7 @@ fragment offerPreview on OfferPreviewResponse {
   groupId
   productCategoryId
   seller {
-    username
+    ...user
   }
   brandId
 }

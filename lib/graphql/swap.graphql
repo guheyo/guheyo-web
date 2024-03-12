@@ -45,7 +45,7 @@ fragment swapPreview on SwapPreviewResponse {
   groupId
   productCategoryId
   proposer {
-    username
+    ...user
   }
   brandId
 }

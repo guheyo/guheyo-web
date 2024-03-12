@@ -39,7 +39,7 @@ fragment demandPreview on DemandPreviewResponse {
   groupId
   productCategoryId
   buyer {
-    username
+    ...user
   }
   brandId
 }
