@@ -3,9 +3,9 @@
 import { SubmitHandler } from 'react-hook-form';
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import { deleteUserImage } from '@/lib/api/user-image';
-import parseUpdateDealInput from '@/lib/deal/parse-update-deal-input';
-import updateDeal from '@/lib/deal/update-deal';
+import { parseUpdateDealInputFromFormValues } from '@/lib/deal/parse-update-deal-input';
 import { useFindGroupQuery } from '@/generated/graphql';
+import { updateDeal } from '@/lib/api/deal';
 import DealForm from './deal-form';
 
 export default function EditDealForm({
@@ -22,7 +22,7 @@ export default function EditDealForm({
   const handleOnSubmitCallback: SubmitHandler<DealFormValues> = async (
     values,
   ) => {
-    const input = parseUpdateDealInput({
+    const input = parseUpdateDealInputFromFormValues({
       dealFormValues: values,
     });
 

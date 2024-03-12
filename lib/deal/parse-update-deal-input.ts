@@ -4,8 +4,9 @@ import {
   UpdateSwapInput,
 } from '@/generated/graphql';
 import { DealFormValues } from './deal.interfaces';
+import { Deal } from './deal.types';
 
-const parseUpdateDealInput = ({
+export const parseUpdateDealInputFromFormValues = ({
   dealFormValues,
 }: {
   dealFormValues: DealFormValues;
@@ -48,4 +49,30 @@ const parseUpdateDealInput = ({
   };
 };
 
-export default parseUpdateDealInput;
+export const parseUpdateDealInput = ({
+  dealType,
+  input,
+  authorId,
+}: {
+  dealType: Deal;
+  authorId: string;
+  input:
+    | Omit<UpdateOfferInput, 'sellerId'>
+    | Omit<UpdateDemandInput, 'buyerId'>
+    | Omit<UpdateSwapInput, 'proposerId'>;
+}) => {
+  if (dealType === 'offer')
+    return {
+      ...input,
+      sellerId: authorId,
+    } as UpdateOfferInput;
+  if (dealType === 'demand')
+    return {
+      ...input,
+      buyerId: authorId,
+    } as UpdateDemandInput;
+  return {
+    ...input,
+    proposerId: authorId,
+  } as UpdateSwapInput;
+};
