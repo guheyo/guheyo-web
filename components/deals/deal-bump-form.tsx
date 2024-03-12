@@ -34,13 +34,13 @@ import { useRouter } from 'next/navigation';
 import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import { Deal } from '@/lib/deal/deal.types';
 import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name';
+import { validateBump } from '@/lib/deal/validate-bump';
 import TextInput from '../inputs/text-input';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import PriceUpDownButtons, {
   UP_DOWN_PRICE_UNIT,
 } from './price-up-down-buttons';
-import { validateBump } from '@/lib/deal/validate-bump';
 
 export default function DealBumpForm({
   dealType,
