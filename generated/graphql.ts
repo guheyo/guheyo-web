@@ -1086,6 +1086,7 @@ export type UpdateDemandInput = {
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   source: Scalars['String']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateGroupInput = {
@@ -1112,6 +1113,7 @@ export type UpdateOfferInput = {
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   sellerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateRoleInput = {
@@ -1153,6 +1155,7 @@ export type UpdateSwapInput = {
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
   proposerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateUserImageInput = {

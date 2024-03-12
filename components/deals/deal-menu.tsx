@@ -18,7 +18,13 @@ export default function DealMenu({
   const { user } = React.useContext(AuthContext);
 
   if (user?.id === authorId)
-    return <PrivateDealMenu dealType={dealType} dealId={dealId} />;
+    return (
+      <PrivateDealMenu
+        dealType={dealType}
+        dealId={dealId}
+        authorId={authorId}
+      />
+    );
 
   if (privateOnly) return <div />;
 
