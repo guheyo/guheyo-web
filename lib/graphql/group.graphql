@@ -77,8 +77,8 @@ query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: I
   }
 }
 
-query findGroup($slug: String!) {
-  findGroup(slug: $slug) {
+query findGroup($id: ID, $slug: String) {
+  findGroup(id: $id, slug: $slug) {
     ...group
   }
 }

@@ -782,7 +782,6 @@ export type Query = {
   findDemand?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
   findGroup?: Maybe<GroupResponse>;
-  findGroupById?: Maybe<GroupResponse>;
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
@@ -835,12 +834,8 @@ export type QueryFindDemandPreviewsArgs = {
 
 
 export type QueryFindGroupArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryFindGroupByIdArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
@@ -1289,7 +1284,8 @@ export type FindGroupProfilesQueryVariables = Exact<{
 export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindGroupQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -2271,8 +2267,8 @@ export type FindGroupProfilesLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFindGroupProfilesSuspenseQuery>;
 export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
 export const FindGroupDocument = gql`
-    query findGroup($slug: String!) {
-  findGroup(slug: $slug) {
+    query findGroup($id: ID, $slug: String) {
+  findGroup(id: $id, slug: $slug) {
     ...group
   }
 }
@@ -2290,11 +2286,12 @@ export const FindGroupDocument = gql`
  * @example
  * const { data, loading, error } = useFindGroupQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useFindGroupQuery(baseOptions: Apollo.QueryHookOptions<FindGroupQuery, FindGroupQueryVariables> & ({ variables: FindGroupQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindGroupQuery(baseOptions?: Apollo.QueryHookOptions<FindGroupQuery, FindGroupQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindGroupQuery, FindGroupQueryVariables>(FindGroupDocument, options);
       }
