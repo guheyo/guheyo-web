@@ -7,10 +7,10 @@ import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { bumpDemand } from '@/lib/api/demand';
 import DealBumpForm from '../deals/deal-bump-form';
 
-export default function DemandBumpForm({ slug }: { slug: string }) {
+export default function DemandBumpForm({ id }: { id: string }) {
   const { loading, data } = useFindDemandQuery({
     variables: {
-      slug: decodeURI(slug),
+      id,
     },
   });
   const demand = data?.findDemand;

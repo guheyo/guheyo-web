@@ -8,10 +8,10 @@ import { bumpSwap } from '@/lib/api/swap';
 import { parseSwapName } from '@/lib/swap/parse-swap-name';
 import DealBumpForm from '../deals/deal-bump-form';
 
-export default function SwapBumpForm({ slug }: { slug: string }) {
+export default function SwapBumpForm({ id }: { id: string }) {
   const { loading, data } = useFindSwapQuery({
     variables: {
-      slug: decodeURI(slug),
+      id,
     },
   });
   const swap = data?.findSwap;

@@ -49,8 +49,6 @@ export default function SwapDetail({ slug }: { slug: string }) {
               dealType="swap"
               dealId={swap.id}
               authorId={swap.proposer.id}
-              groupSlug={swap.group.slug!}
-              slug={swap.slug!}
             />
           </div>
         </div>

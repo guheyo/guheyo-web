@@ -1,11 +1,9 @@
 import { Deal } from './deal.types';
 
 export const parseDealBumpLink = ({
-  username,
   dealType,
-  slug,
+  dealId,
 }: {
-  username: string;
   dealType: Deal;
-  slug: string;
-}) => `/user/${username}/${dealType}/${slug}/bump`;
+  dealId: string;
+}) => `/bump/${dealType}/${dealId}`;

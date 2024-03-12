@@ -7,10 +7,10 @@ import { v4 as uuid4 } from 'uuid';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import DealBumpForm from '../deals/deal-bump-form';
 
-export default function OfferBumpForm({ slug }: { slug: string }) {
+export default function OfferBumpForm({ id }: { id: string }) {
   const { loading, data } = useFindOfferQuery({
     variables: {
-      slug: decodeURI(slug),
+      id,
     },
   });
   const offer = data?.findOffer;

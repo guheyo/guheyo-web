@@ -1,18 +1,18 @@
 'use client';
 
 import DealBumpFormLayout from '@/components/deals/deal-bump-form.layout';
-import OfferBumpForm from '@/components/offers/offer-bump-form';
+import SwapBumpForm from '@/components/swaps/swap-bump-form';
 
 function Page({
-  params: { slug },
+  params: { id },
 }: {
   params: {
-    slug: string;
+    id: string;
   };
 }) {
   return (
     <DealBumpFormLayout>
-      <OfferBumpForm slug={slug} />
+      <SwapBumpForm id={id} />
     </DealBumpFormLayout>
   );
 }

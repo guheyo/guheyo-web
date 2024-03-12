@@ -11,13 +11,9 @@ import { parseDealBumpLink } from '@/lib/deal/parse-deal-bump-link';
 export default function PrivateDealMenu({
   dealType,
   dealId,
-  username,
-  slug,
 }: {
   dealType: Deal;
   dealId: string;
-  username: string;
-  slug: string;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,9 +41,8 @@ export default function PrivateDealMenu({
     event.preventDefault();
     router.push(
       parseDealBumpLink({
-        username,
         dealType,
-        slug,
+        dealId,
       }),
     );
   };

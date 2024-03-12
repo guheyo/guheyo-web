@@ -60,7 +60,6 @@ export default function DealThumbnailPreview({
                 dealType={deal}
                 dealId={dealId}
                 authorId={authorId}
-                slug={slug}
                 privateOnly
               />
             </div>
