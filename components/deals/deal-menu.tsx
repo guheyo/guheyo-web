@@ -8,25 +8,19 @@ export default function DealMenu({
   dealType,
   dealId,
   authorId,
-  groupSlug,
+  privateOnly,
 }: {
   dealType: Deal;
   dealId: string;
   authorId: string;
-  groupSlug: string;
+  privateOnly?: boolean;
 }) {
   const { user } = React.useContext(AuthContext);
 
   if (user?.id === authorId)
-    return (
-      <PrivateDealMenu
-        dealType={dealType}
-        dealId={dealId}
-        groupSlug={groupSlug}
-      />
-    );
+    return <PrivateDealMenu dealType={dealType} dealId={dealId} />;
 
-  return (
-    <PublicDealMenu dealType={dealType} dealId={dealId} groupSlug={groupSlug} />
-  );
+  if (privateOnly) return <div />;
+
+  return <PublicDealMenu dealType={dealType} dealId={dealId} />;
 }

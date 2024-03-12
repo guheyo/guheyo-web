@@ -13,11 +13,13 @@ export default function OfferPreview({ offer, type }: Props) {
   return (
     <DealPreview
       deal="offer"
+      dealId={offer.id}
+      authorId={offer.seller.id}
       type={type}
       thumbnail={offer.thumbnail}
       name={truncateName(offer.name, 45)}
       price={offer.price}
-      createdAt={offer.createdAt}
+      bumpedAt={offer.bumpedAt}
       username={offer.seller.username}
       slug={offer.slug!}
     />

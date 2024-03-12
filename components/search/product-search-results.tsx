@@ -17,7 +17,7 @@ export default function ProductSearchResults({
             <OfferFeed
               orderBy={{
                 price: 'asc',
-                createdAt: 'desc',
+                bumpedAt: 'desc',
               }}
               keyword={keyword}
               type="text"
@@ -36,7 +36,7 @@ export default function ProductSearchResults({
             <DemandFeed
               orderBy={{
                 price: 'desc',
-                createdAt: 'desc',
+                bumpedAt: 'desc',
               }}
               keyword={keyword}
               type="text"

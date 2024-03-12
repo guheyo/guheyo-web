@@ -1,4 +1,7 @@
 import {
+  BumpDemandDocument,
+  BumpDemandInput,
+  BumpDemandMutation,
   CreateDemandDocument,
   CreateDemandInput,
   CreateDemandMutation,
@@ -20,6 +23,15 @@ export async function createDemand(input: CreateDemandInput) {
 export async function updateDemand(input: UpdateDemandInput) {
   return client.mutate<UpdateDemandMutation>({
     mutation: UpdateDemandDocument,
+    variables: {
+      input,
+    },
+  });
+}
+
+export async function bumpDemand(input: BumpDemandInput) {
+  return client.mutate<BumpDemandMutation>({
+    mutation: BumpDemandDocument,
     variables: {
       input,
     },

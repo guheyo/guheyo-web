@@ -7,23 +7,28 @@ import { getPrice } from '@/lib/formatter';
 import { UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
+import DealMenu from './deal-menu';
 
 interface Props {
   deal: Deal;
+  dealId: string;
+  authorId: string;
   thumbnail?: UserImageResponse | null;
   name: any;
   price: number;
-  createdAt: Date;
+  bumpedAt: Date;
   username: string;
   slug: string;
 }
 
 export default function DealThumbnailPreview({
   deal,
+  dealId,
+  authorId,
   thumbnail,
   name,
   price,
-  createdAt,
+  bumpedAt,
   username,
   slug,
 }: Props) {
@@ -46,15 +51,25 @@ export default function DealThumbnailPreview({
           </div>
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
-          <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
-            {name}
+          <div className="flex justify-between items-center">
+            <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
+              {name}
+            </div>
+            <div className="mr-[-24px]">
+              <DealMenu
+                dealType={deal}
+                dealId={dealId}
+                authorId={authorId}
+                privateOnly
+              />
+            </div>
           </div>
           <div className="flex flex-row justify-between items-center py-3">
             <div className="flex-none text-sm md:text-base font-semibold">
               {getPrice(price)}
             </div>
             <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-              {dayjs(createdAt).fromNow()}
+              {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
         </div>

@@ -41,7 +41,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
               mode="standard"
             />
             <div className="justify-self-end text-[10px] md:text-xs text-gray-400">
-              {dayjs(swap.createdAt).fromNow()}
+              {dayjs(swap.bumpedAt).fromNow()}
             </div>
           </div>
           <div className="mr-[-24px]">
@@ -49,7 +49,6 @@ export default function SwapDetail({ slug }: { slug: string }) {
               dealType="swap"
               dealId={swap.id}
               authorId={swap.proposer.id}
-              groupSlug={swap.group.slug!}
             />
           </div>
         </div>

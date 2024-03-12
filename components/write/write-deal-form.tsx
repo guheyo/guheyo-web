@@ -5,9 +5,10 @@ import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
 import createDeal from '@/lib/deal/create-deal';
 import { deleteUserImage } from '@/lib/api/user-image';
+import { GroupResponse } from '@/generated/graphql';
 import DealForm from './deal-form';
 
-export default function WriteDealForm() {
+export default function WriteDealForm({ group }: { group: GroupResponse }) {
   const handleOnSubmitCallback: SubmitHandler<DealFormValues> = async (
     data,
   ) => {
@@ -27,6 +28,7 @@ export default function WriteDealForm() {
 
   return (
     <DealForm
+      group={group}
       onSubmitCallback={handleOnSubmitCallback}
       onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
     />

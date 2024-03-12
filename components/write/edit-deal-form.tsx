@@ -5,6 +5,7 @@ import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import { deleteUserImage } from '@/lib/api/user-image';
 import parseUpdateDealInput from '@/lib/deal/parse-update-deal-input';
 import updateDeal from '@/lib/deal/update-deal';
+import { useFindGroupQuery } from '@/generated/graphql';
 import DealForm from './deal-form';
 
 export default function EditDealForm({
@@ -12,15 +13,21 @@ export default function EditDealForm({
 }: {
   prevFormValues: DealFormValues;
 }) {
+  const { loading, data } = useFindGroupQuery({
+    variables: {
+      id: prevFormValues.groupId,
+    },
+  });
+
   const handleOnSubmitCallback: SubmitHandler<DealFormValues> = async (
-    data,
+    values,
   ) => {
     const input = parseUpdateDealInput({
-      dealFormValues: data,
+      dealFormValues: values,
     });
 
     await updateDeal({
-      dealType: data.dealType,
+      dealType: values.dealType,
       updateDealInput: input,
     });
   };
@@ -29,8 +36,12 @@ export default function EditDealForm({
     await deleteUserImage(imageId);
   };
 
+  if (loading) return <div />;
+  if (!data?.findGroup) return <div />;
+
   return (
     <DealForm
+      group={data.findGroup}
       prevFormValues={prevFormValues}
       onSubmitCallback={handleOnSubmitCallback}
       onClickImagePreviewCallback={handleOnClickImagePreviewCallback}

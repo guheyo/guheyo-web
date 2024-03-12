@@ -43,12 +43,12 @@ function SwapFeed({
       productCategoryId: category?.id,
       status,
       proposerId: where?.proposerId,
-      createdAt: {
+      bumpedAt: {
         gt: from,
       },
     },
     orderBy: {
-      createdAt: orderBy?.createdAt || 'desc',
+      bumpedAt: orderBy?.bumpedAt || 'desc',
       price: orderBy?.price,
     },
     keyword,

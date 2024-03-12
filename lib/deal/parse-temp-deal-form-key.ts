@@ -1,16 +1,12 @@
-import { Deal } from './deal.types';
-
 export const parseTempDealFormKey = ({
   userId,
-  dealType,
   groupSlug,
   prevDealId,
 }: {
   userId: string;
-  dealType: Deal;
-  groupSlug: string;
+  groupSlug?: string | null;
   prevDealId?: string;
 }) =>
   prevDealId
-    ? `${userId}.edit.${dealType}.${groupSlug}.${prevDealId}`
-    : `${userId}.write.${dealType}.${groupSlug}`;
+    ? `${userId}.edit.deal.${prevDealId}`
+    : `${userId}.write.deal.${groupSlug}`;

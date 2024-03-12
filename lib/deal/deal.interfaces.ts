@@ -14,3 +14,9 @@ export type DealFormValues = {
   description?: string;
   source: string;
 };
+
+export type DealBumpValues = {
+  dealId: string;
+  userId: string;
+  price: number;
+};

@@ -8,7 +8,6 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useContext, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
@@ -35,7 +34,6 @@ import {
   getInputTextFontSize,
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
-import _ from 'lodash';
 import {
   IMAGE_UPLOAD_LABEL_NAME,
   IMAGE_UPLOAD_REQUIRED_MESSAGE,
@@ -57,12 +55,13 @@ import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import { useRouter } from 'next/navigation';
 import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
+import { GroupResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
   DEFAULT_INPUT_BUTTON_STYLE,
   DEFAULT_LABEL_STYLE,
-  DEFAULT_SUBMIT_BUTTON_STYLE,
+  STICKY_SUBMIT_BUTTON_STYLE,
   MOBILE_FILE_INPUT_LABEL_STYLE,
   SELECTED_INPUT_BUTTON_STYLE,
 } from '../../lib/input/input.styles';
@@ -72,26 +71,27 @@ import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function DealForm({
+  group,
   prevFormValues,
   onSubmitCallback,
   onClickImagePreviewCallback,
 }: {
+  group: GroupResponse;
   prevFormValues?: DealFormValues;
   onSubmitCallback: SubmitHandler<DealFormValues>;
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
-  const { group } = useGroup();
   const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
-  const groupSlug = group?.slug;
   const router = useRouter();
+  const groupSlug = group.slug!;
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<DealFormValues>({
       defaultValues: {
         id: '',
         userId: '',
-        groupId: '',
+        groupId: group.id,
         images: [],
         name0: '',
         dealType: 'offer',
@@ -112,12 +112,12 @@ export default function DealForm({
   const dealType = watch('dealType');
   const productCategoryId = watch('productCategoryId');
 
+  // Init DealFormValues
   useEffect(() => {
-    if (dealId || !user || !groupSlug || !dealType) return;
+    if (dealId || !user) return;
 
     const key = parseTempDealFormKey({
       userId: user.id,
-      dealType,
       groupSlug,
       prevDealId: prevFormValues?.id,
     });
@@ -134,8 +134,8 @@ export default function DealForm({
       const newId = uuid4();
       setValue('id', newId);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, user, groupSlug, dealType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dealId, user, prevFormValues]);
 
   useEffect(() => {
     if (!user || !dealId) return;
@@ -149,11 +149,10 @@ export default function DealForm({
   }, [user, dealId, group?.productCategories]);
 
   const updateValues = () => {
-    if (!user || !dealId || !groupSlug) return;
+    if (!dealId || !user) return;
 
     const key = parseTempDealFormKey({
       userId: user.id,
-      dealType,
       groupSlug,
       prevDealId: prevFormValues?.id,
     });
@@ -170,7 +169,7 @@ export default function DealForm({
     const intervalId = setInterval(updateValues, DEAL_AUTO_SAVE_INTERVAL_MS);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, dealId, groupSlug]);
+  }, [user, dealId]);
 
   if (!group) return <div />;
 
@@ -219,7 +218,6 @@ export default function DealForm({
 
     const key = parseTempDealFormKey({
       userId: user.id,
-      dealType,
       groupSlug,
       prevDealId: prevFormValues?.id,
     });
@@ -470,7 +468,7 @@ export default function DealForm({
       />
 
       {prevFormValues ? (
-        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_EDIT_SUBMIT_BUTTON_NAME}
             onAuthorization={handleOnAuthorization}
@@ -478,7 +476,7 @@ export default function DealForm({
           />
         </div>
       ) : (
-        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
             onAuthorization={handleOnAuthorization}

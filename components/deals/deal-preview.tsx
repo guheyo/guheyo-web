@@ -7,22 +7,26 @@ import DealThumbnailPreview from './deal-thumbnail-preview';
 
 interface Props {
   deal: Deal;
+  dealId: string;
+  authorId: string;
   type: 'text' | 'thumbnail';
   thumbnail?: UserImageResponse | null;
   name: any;
   price: number;
-  createdAt: Date;
+  bumpedAt: Date;
   username: string;
   slug: string;
 }
 
 export default function DealPreview({
   deal,
+  dealId,
+  authorId,
   type,
   thumbnail,
   name,
   price,
-  createdAt,
+  bumpedAt,
   username,
   slug,
 }: Props) {
@@ -31,9 +35,11 @@ export default function DealPreview({
       return (
         <DealTextPreview
           deal={deal}
+          dealId={dealId}
+          authorId={authorId}
           name={name}
           price={price}
-          createdAt={createdAt}
+          bumpedAt={bumpedAt}
           username={username}
           slug={slug}
         />
@@ -43,10 +49,12 @@ export default function DealPreview({
       return (
         <DealThumbnailPreview
           deal={deal}
+          dealId={dealId}
+          authorId={authorId}
           thumbnail={thumbnail}
           name={name}
           price={price}
-          createdAt={createdAt}
+          bumpedAt={bumpedAt}
           username={username}
           slug={slug}
         />
