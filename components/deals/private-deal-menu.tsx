@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useRouter } from 'next/navigation';
 import { parseEditLink } from '@/lib/deal/parse-edit-link';
 import { Deal } from '@/lib/deal/deal.types';
@@ -11,13 +11,11 @@ import { parseDealBumpLink } from '@/lib/deal/parse-deal-bump-link';
 export default function PrivateDealMenu({
   dealType,
   dealId,
-  groupSlug,
   username,
   slug,
 }: {
   dealType: Deal;
   dealId: string;
-  groupSlug: string;
   username: string;
   slug: string;
 }) {
@@ -26,22 +24,25 @@ export default function PrivateDealMenu({
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setAnchorEl(null);
   };
-  const handleEditClick = () => {
+  const handleEditClick: React.MouseEventHandler = (event) => {
+    event.preventDefault();
     router.push(
       parseEditLink({
-        groupSlug,
         dealType,
         id: dealId,
       }),
     );
   };
 
-  const handleBumpClick = async () => {
+  const handleBumpClick: React.MouseEventHandler = async (event) => {
+    event.preventDefault();
     router.push(
       parseDealBumpLink({
         username,
@@ -60,7 +61,7 @@ export default function PrivateDealMenu({
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreVertIcon className="text-xl md:text-2xl text-light-200" />
+        <MoreHorizIcon className="text-xl md:text-2xl text-light-200" />
       </Button>
       <Menu
         id="basic-menu"
