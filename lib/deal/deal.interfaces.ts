@@ -20,3 +20,11 @@ export type DealBumpValues = {
   userId: string;
   price: number;
 };
+
+export type DealReportValues = {
+  dealId: string;
+  reporterId: string;
+  position: number;
+  title: string;
+  content?: string;
+};
