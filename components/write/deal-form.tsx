@@ -62,7 +62,7 @@ import ButtonInputs from '../inputs/button-inputs';
 import {
   DEFAULT_INPUT_BUTTON_STYLE,
   DEFAULT_LABEL_STYLE,
-  DEFAULT_SUBMIT_BUTTON_STYLE,
+  STICKY_SUBMIT_BUTTON_STYLE,
   MOBILE_FILE_INPUT_LABEL_STYLE,
   SELECTED_INPUT_BUTTON_STYLE,
 } from '../../lib/input/input.styles';
@@ -470,7 +470,7 @@ export default function DealForm({
       />
 
       {prevFormValues ? (
-        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_EDIT_SUBMIT_BUTTON_NAME}
             onAuthorization={handleOnAuthorization}
@@ -478,7 +478,7 @@ export default function DealForm({
           />
         </div>
       ) : (
-        <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+        <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
             onAuthorization={handleOnAuthorization}

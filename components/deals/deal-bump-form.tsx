@@ -14,8 +14,8 @@ import {
   DEAL_PRICE_REQUIRED_MESSAGE,
 } from '@/lib/deal/deal.constants';
 import {
+  ABSOLUTE_SUBMIT_BUTTON_STYLE,
   DEFAULT_LABEL_STYLE,
-  DEFAULT_SUBMIT_BUTTON_STYLE,
 } from '@/lib/input/input.styles';
 import {
   DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
@@ -141,7 +141,7 @@ export default function DealBumpForm({
           <div className="text-base text-light-200 font-bold">{price}</div>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 md-0 md:mb-8">
         <TextInput
           name="price"
           control={control}
@@ -184,7 +184,8 @@ export default function DealBumpForm({
           {DEAL_BUMP_INFO_MESSAGE}
         </div>
       </div>
-      <div className={DEFAULT_SUBMIT_BUTTON_STYLE}>
+
+      <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
           name={parseDealBumpButtonName(bumpedAt)}
           onAuthorization={handleAuthorization}
