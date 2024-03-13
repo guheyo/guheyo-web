@@ -1,0 +1,18 @@
+fragment report on ReportResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  offerId
+  demandId
+  swapId
+  reporter {
+    ...author
+  }
+  title
+  content
+}
+
+mutation CreateReport($input: CreateReportInput!) {
+  createReport(input: $input)
+}
