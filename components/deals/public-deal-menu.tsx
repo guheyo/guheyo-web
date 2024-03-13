@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseDealLink } from '@/lib/deal/parse-deal-link';
+import { useRouter } from 'next/navigation';
 
 export default function PublicDealMenu({
   dealType,
@@ -14,6 +16,7 @@ export default function PublicDealMenu({
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -24,8 +27,13 @@ export default function PublicDealMenu({
     setAnchorEl(null);
   };
 
-  const handleReportClick = () => {
-    // TODO
+  const handleReportClick = (event: React.MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    router.push(parseDealLink({
+      action: 'report',
+      dealType,
+      dealId,
+    }))
   };
 
   return (

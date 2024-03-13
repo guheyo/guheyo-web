@@ -3,7 +3,6 @@ import { Deal } from './deal.types';
 
 export type DealFormValues = {
   id: string;
-  userId: string;
   groupId: string;
   images: UserImage[];
   name0: string;
@@ -16,7 +15,15 @@ export type DealFormValues = {
 };
 
 export type DealBumpValues = {
+  id: string;
   dealId: string;
-  userId: string;
   price: number;
+};
+
+export type DealReportValues = {
+  id: string;
+  dealId: string;
+  position: number;
+  title: string;
+  content?: string;
 };

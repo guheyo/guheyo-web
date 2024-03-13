@@ -3,11 +3,16 @@
 import { BumpOfferInput, useFindOfferQuery } from '@/generated/graphql';
 import { SubmitHandler } from 'react-hook-form';
 import { bumpOffer } from '@/lib/api/offer';
-import { v4 as uuid4 } from 'uuid';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { validateBump } from '@/lib/deal/validate-bump';
+import { AuthContext } from '../auth/auth.provider';
 import DealBumpForm from '../deals/deal-bump-form';
 
 export default function OfferBumpForm({ id }: { id: string }) {
+  const router = useRouter();
+  const { user } = useContext(AuthContext);
   const { loading, data } = useFindOfferQuery({
     variables: {
       id,
@@ -18,15 +23,18 @@ export default function OfferBumpForm({ id }: { id: string }) {
   if (loading) return <div />;
   if (!offer) return <div />;
 
-  const submitValidCallback: SubmitHandler<DealBumpValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
+    if (!user) return;
+    if (!validateBump(offer.bumpedAt)) return;
+
     const input: BumpOfferInput = {
-      id: uuid4(),
+      id: values.id,
       offerId: values.dealId,
-      sellerId: values.userId,
+      sellerId: user.id,
       newPrice: values.price,
     };
-
     await bumpOffer(input);
+    router.back();
   };
 
   return (
@@ -34,11 +42,10 @@ export default function OfferBumpForm({ id }: { id: string }) {
       dealType="offer"
       dealId={offer.id}
       dealName={offer.name}
-      groupSlug={offer.group.slug!}
       price={offer.price}
       thumbnail={offer.images[0]}
       bumpedAt={offer.bumpedAt}
-      submitValidCallback={submitValidCallback}
+      handleSubmitValid={handleSubmitValid}
     />
   );
 }

@@ -2,13 +2,18 @@
 
 import { BumpSwapInput, useFindSwapQuery } from '@/generated/graphql';
 import { SubmitHandler } from 'react-hook-form';
-import { v4 as uuid4 } from 'uuid';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { bumpSwap } from '@/lib/api/swap';
 import { parseSwapName } from '@/lib/swap/parse-swap-name';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { validateBump } from '@/lib/deal/validate-bump';
+import { AuthContext } from '../auth/auth.provider';
 import DealBumpForm from '../deals/deal-bump-form';
 
 export default function SwapBumpForm({ id }: { id: string }) {
+  const router = useRouter();
+  const { user } = useContext(AuthContext);
   const { loading, data } = useFindSwapQuery({
     variables: {
       id,
@@ -19,15 +24,18 @@ export default function SwapBumpForm({ id }: { id: string }) {
   if (loading) return <div />;
   if (!swap) return <div />;
 
-  const submitValidCallback: SubmitHandler<DealBumpValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
+    if (!user) return;
+    if (!validateBump(swap.bumpedAt)) return;
+
     const input: BumpSwapInput = {
-      id: uuid4(),
+      id: values.id,
       swapId: values.dealId,
-      proposerId: values.userId,
+      proposerId: user.id,
       newPrice: values.price,
     };
-
     await bumpSwap(input);
+    router.back();
   };
 
   return (
@@ -35,11 +43,10 @@ export default function SwapBumpForm({ id }: { id: string }) {
       dealType="swap"
       dealId={swap.id}
       dealName={parseSwapName({ name0: swap.name0, name1: swap.name1 })}
-      groupSlug={swap.group.slug!}
       price={swap.price}
       thumbnail={swap.images[0]}
       bumpedAt={swap.bumpedAt}
-      submitValidCallback={submitValidCallback}
+      handleSubmitValid={handleSubmitValid}
     />
   );
 }

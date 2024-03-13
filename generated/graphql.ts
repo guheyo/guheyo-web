@@ -185,6 +185,17 @@ export type CreateOfferInput = {
   status?: Scalars['String']['input'];
 };
 
+export type CreateReportInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  demandId?: InputMaybe<Scalars['ID']['input']>;
+  id: Scalars['ID']['input'];
+  offerId?: InputMaybe<Scalars['ID']['input']>;
+  reporterId: Scalars['ID']['input'];
+  swapId?: InputMaybe<Scalars['ID']['input']>;
+  title: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+};
+
 export type CreateRoleInput = {
   groupId: Scalars['ID']['input'];
   hexColor?: Scalars['String']['input'];
@@ -388,6 +399,7 @@ export type Mutation = {
   createManyUserImage: Scalars['String']['output'];
   createMember: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
+  createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSession: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
@@ -486,6 +498,11 @@ export type MutationCreateMemberArgs = {
 
 export type MutationCreateOfferArgs = {
   input: CreateOfferInput;
+};
+
+
+export type MutationCreateReportArgs = {
+  input: CreateReportInput;
 };
 
 
@@ -790,6 +807,7 @@ export type Query = {
   findMyUserByUsername?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
+  findReport: ReportResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
@@ -888,6 +906,16 @@ export type QueryFindOfferPreviewsArgs = {
 };
 
 
+export type QueryFindReportArgs = {
+  demandId?: InputMaybe<Scalars['ID']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  offerId?: InputMaybe<Scalars['ID']['input']>;
+  reporterId?: InputMaybe<Scalars['ID']['input']>;
+  swapId?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryFindRoleByIdArgs = {
   id: Scalars['ID']['input'];
 };
@@ -948,6 +976,20 @@ export type QueryFindUsersArgs = {
 
 export type QueryGetSocialAccountsByUserIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+export type ReportResponse = {
+  __typename?: 'ReportResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  demandId?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['ID']['output']>;
+  reporter: AuthorResponse;
+  swapId?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type RoleResponse = {
@@ -1345,6 +1387,15 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: string };
 
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: any, offerId?: string | null, demandId?: string | null, swapId?: string | null, title: string, content?: string | null, reporter: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
+export type CreateReportMutationVariables = Exact<{
+  input: CreateReportInput;
+}>;
+
+
+export type CreateReportMutation = { __typename?: 'Mutation', createReport: string };
+
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
 }>;
@@ -1478,11 +1529,7 @@ export type MemberFragment = { __typename?: 'MemberWithRolesResponse', id: strin
 
 export type UserFragment = { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean };
 
-export type SellerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
-
-export type BuyerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
-
-export type ProposerFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
+export type AuthorFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
 
 export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
 
@@ -1587,8 +1634,8 @@ export const MemberFragmentDoc = gql`
   }
 }
     ${RoleFragmentDoc}`;
-export const BuyerFragmentDoc = gql`
-    fragment buyer on AuthorResponse {
+export const AuthorFragmentDoc = gql`
+    fragment author on AuthorResponse {
   id
   createdAt
   username
@@ -1625,13 +1672,13 @@ export const DemandFragmentDoc = gql`
   }
   productCategoryId
   buyer {
-    ...buyer
+    ...author
   }
   brandId
 }
     ${ImageFragmentDoc}
 ${GroupProfileFragmentDoc}
-${BuyerFragmentDoc}`;
+${AuthorFragmentDoc}`;
 export const GroupFragmentDoc = gql`
     fragment group on GroupResponse {
   id
@@ -1734,22 +1781,6 @@ export const GroupPreviewFragmentDoc = gql`
 }
     ${OfferPreviewFragmentDoc}
 ${DemandPreviewFragmentDoc}`;
-export const SellerFragmentDoc = gql`
-    fragment seller on AuthorResponse {
-  id
-  createdAt
-  username
-  avatarURL
-  bot
-  socialAccounts {
-    ...socialAccountWithoutAuth
-  }
-  members {
-    ...member
-  }
-}
-    ${SocialAccountWithoutAuthFragmentDoc}
-${MemberFragmentDoc}`;
 export const OfferFragmentDoc = gql`
     fragment offer on OfferResponse {
   id
@@ -1772,13 +1803,29 @@ export const OfferFragmentDoc = gql`
   }
   productCategoryId
   seller {
-    ...seller
+    ...author
   }
   brandId
 }
     ${ImageFragmentDoc}
 ${GroupProfileFragmentDoc}
-${SellerFragmentDoc}`;
+${AuthorFragmentDoc}`;
+export const ReportFragmentDoc = gql`
+    fragment report on ReportResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  offerId
+  demandId
+  swapId
+  reporter {
+    ...author
+  }
+  title
+  content
+}
+    ${AuthorFragmentDoc}`;
 export const SessionFragmentDoc = gql`
     fragment session on SessionResponse {
   sessionToken
@@ -1786,22 +1833,6 @@ export const SessionFragmentDoc = gql`
   userId
 }
     `;
-export const ProposerFragmentDoc = gql`
-    fragment proposer on AuthorResponse {
-  id
-  createdAt
-  username
-  avatarURL
-  bot
-  socialAccounts {
-    ...socialAccountWithoutAuth
-  }
-  members {
-    ...member
-  }
-}
-    ${SocialAccountWithoutAuthFragmentDoc}
-${MemberFragmentDoc}`;
 export const SwapFragmentDoc = gql`
     fragment swap on SwapResponse {
   id
@@ -1826,13 +1857,13 @@ export const SwapFragmentDoc = gql`
   }
   productCategoryId
   proposer {
-    ...proposer
+    ...author
   }
   brandId
 }
     ${ImageFragmentDoc}
 ${GroupProfileFragmentDoc}
-${ProposerFragmentDoc}`;
+${AuthorFragmentDoc}`;
 export const SwapPreviewFragmentDoc = gql`
     fragment swapPreview on SwapPreviewResponse {
   id
@@ -2546,6 +2577,37 @@ export function useBumpOfferMutation(baseOptions?: Apollo.MutationHookOptions<Bu
 export type BumpOfferMutationHookResult = ReturnType<typeof useBumpOfferMutation>;
 export type BumpOfferMutationResult = Apollo.MutationResult<BumpOfferMutation>;
 export type BumpOfferMutationOptions = Apollo.BaseMutationOptions<BumpOfferMutation, BumpOfferMutationVariables>;
+export const CreateReportDocument = gql`
+    mutation CreateReport($input: CreateReportInput!) {
+  createReport(input: $input)
+}
+    `;
+export type CreateReportMutationFn = Apollo.MutationFunction<CreateReportMutation, CreateReportMutationVariables>;
+
+/**
+ * __useCreateReportMutation__
+ *
+ * To run a mutation, you first call `useCreateReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReportMutation, { data, loading, error }] = useCreateReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateReportMutation(baseOptions?: Apollo.MutationHookOptions<CreateReportMutation, CreateReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateReportMutation, CreateReportMutationVariables>(CreateReportDocument, options);
+      }
+export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMutation>;
+export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
+export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
 export const CreateSessionDocument = gql`
     mutation createSession($input: CreateSessionInput!) {
   createSession(input: $input)

@@ -1,8 +1,7 @@
 'use client';
 
-import EditDealForm from '@/components/write/edit-deal-form';
+import DealReportForm from '@/components/deals/deal-report-form';
 import { useFindDemandQuery } from '@/generated/graphql';
-import { parsePrevDemandFormValues } from '@/lib/deal/parse-prev-form-values';
 
 export default function Page({
   params: { id },
@@ -15,13 +14,17 @@ export default function Page({
     variables: {
       id,
     },
-    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
   if (!data?.findDemand) return <div />;
+  const demand = data.findDemand;
 
-  const prevFormValues = parsePrevDemandFormValues(data.findDemand);
-
-  return <EditDealForm prevFormValues={prevFormValues} />;
+  return (
+    <DealReportForm
+      dealType="demand"
+      dealId={demand.id}
+      dealName={demand.name}
+    />
+  );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import EditDealForm from '@/components/write/edit-deal-form';
+import DealReportForm from '@/components/deals/deal-report-form';
 import { useFindSwapQuery } from '@/generated/graphql';
-import { parsePrevSwapFormValues } from '@/lib/deal/parse-prev-form-values';
+import { parseSwapName } from '@/lib/swap/parse-swap-name';
 
 export default function Page({
   params: { id },
@@ -15,13 +15,17 @@ export default function Page({
     variables: {
       id,
     },
-    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
   if (!data?.findSwap) return <div />;
+  const swap = data.findSwap;
 
-  const prevFormValues = parsePrevSwapFormValues(data.findSwap);
-
-  return <EditDealForm prevFormValues={prevFormValues} />;
+  return (
+    <DealReportForm
+      dealType="swap"
+      dealId={swap.id}
+      dealName={parseSwapName({ name0: swap.name0, name1: swap.name1 })}
+    />
+  );
 }

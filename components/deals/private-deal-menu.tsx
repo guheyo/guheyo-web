@@ -4,12 +4,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useRouter } from 'next/navigation';
-import { parseEditLink } from '@/lib/deal/parse-edit-link';
 import { Deal, DealStatus } from '@/lib/deal/deal.types';
-import { parseDealBumpLink } from '@/lib/deal/parse-deal-bump-link';
 import { updateDeal } from '@/lib/api/deal';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
+import { parseDealLink } from '@/lib/deal/parse-deal-link';
 
 export default function PrivateDealMenu({
   dealType,
@@ -59,9 +58,10 @@ export default function PrivateDealMenu({
   const handleEditClick: React.MouseEventHandler = (event) => {
     event.preventDefault();
     router.push(
-      parseEditLink({
+      parseDealLink({
+        action: 'edit',
         dealType,
-        id: dealId,
+        dealId,
       }),
     );
   };
@@ -69,7 +69,8 @@ export default function PrivateDealMenu({
   const handleBumpClick: React.MouseEventHandler = async (event) => {
     event.preventDefault();
     router.push(
-      parseDealBumpLink({
+      parseDealLink({
+        action: 'bump',
         dealType,
         dealId,
       }),

@@ -6,8 +6,10 @@ import {
 import { DealFormValues } from './deal.interfaces';
 
 const parseCreateDealInput = ({
+  authorId,
   dealFormValues,
 }: {
+  authorId: string;
   dealFormValues: DealFormValues;
 }): CreateOfferInput | CreateDemandInput | CreateSwapInput => {
   const input = {
@@ -23,7 +25,7 @@ const parseCreateDealInput = ({
     return {
       ...input,
       businessFunction: 'trade',
-      proposerId: dealFormValues.userId,
+      proposerId: authorId,
       name0: dealFormValues.name0,
       name1: dealFormValues.name1!,
       description0: dealFormValues.description,
@@ -34,7 +36,7 @@ const parseCreateDealInput = ({
     return {
       ...input,
       businessFunction: 'sell',
-      sellerId: dealFormValues.userId,
+      sellerId: authorId,
       name: dealFormValues.name0,
       description: dealFormValues.description,
     };
@@ -43,7 +45,7 @@ const parseCreateDealInput = ({
   return {
     ...input,
     businessFunction: 'buy',
-    buyerId: dealFormValues.userId,
+    buyerId: authorId,
     name: dealFormValues.name0,
     description: dealFormValues.description,
   };

@@ -19,7 +19,7 @@ fragment demand on DemandResponse {
   }
   productCategoryId
   buyer {
-    ...buyer
+    ...author
   }
   brandId
 }

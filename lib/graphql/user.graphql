@@ -24,35 +24,7 @@ fragment user on UserResponse {
   bot
 }
 
-fragment seller on AuthorResponse {
-  id
-  createdAt
-  username
-  avatarURL
-  bot
-  socialAccounts {
-    ...socialAccountWithoutAuth
-  }
-  members {
-    ...member
-  }
-}
-
-fragment buyer on AuthorResponse {
-  id
-  createdAt
-  username
-  avatarURL
-  bot
-  socialAccounts {
-    ...socialAccountWithoutAuth
-  }
-  members {
-    ...member
-  }
-}
-
-fragment proposer on AuthorResponse {
+fragment author on AuthorResponse {
   id
   createdAt
   username

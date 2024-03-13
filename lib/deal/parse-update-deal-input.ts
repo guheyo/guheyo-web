@@ -7,8 +7,10 @@ import { DealFormValues } from './deal.interfaces';
 import { Deal } from './deal.types';
 
 export const parseUpdateDealInputFromFormValues = ({
+  authorId,
   dealFormValues,
 }: {
+  authorId: string;
   dealFormValues: DealFormValues;
 }): UpdateOfferInput | UpdateDemandInput | UpdateSwapInput => {
   const input = {
@@ -23,7 +25,7 @@ export const parseUpdateDealInputFromFormValues = ({
     return {
       ...input,
       businessFunction: 'trade',
-      proposerId: dealFormValues.userId,
+      proposerId: authorId,
       name0: dealFormValues.name0,
       name1: dealFormValues.name1!,
       description0: dealFormValues.description,
@@ -34,7 +36,7 @@ export const parseUpdateDealInputFromFormValues = ({
     return {
       ...input,
       businessFunction: 'sell',
-      sellerId: dealFormValues.userId,
+      sellerId: authorId,
       name: dealFormValues.name0,
       description: dealFormValues.description,
     };
@@ -43,7 +45,7 @@ export const parseUpdateDealInputFromFormValues = ({
   return {
     ...input,
     businessFunction: 'buy',
-    buyerId: dealFormValues.userId,
+    buyerId: authorId,
     name: dealFormValues.name0,
     description: dealFormValues.description,
   };

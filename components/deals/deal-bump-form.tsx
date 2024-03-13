@@ -26,17 +26,14 @@ import {
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler, useContext, useEffect } from 'react';
+import { MouseEventHandler } from 'react';
 import Image from 'next/image';
+import { v4 as uuid4 } from 'uuid';
 import { parseDealBumpFormTitle } from '@/lib/deal/parse-deal-bump-form-title';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
-import { useRouter } from 'next/navigation';
-import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
 import { Deal } from '@/lib/deal/deal.types';
 import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name';
-import { validateBump } from '@/lib/deal/validate-bump';
 import TextInput from '../inputs/text-input';
-import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import PriceUpDownButtons, {
   UP_DOWN_PRICE_UNIT,
@@ -46,54 +43,35 @@ export default function DealBumpForm({
   dealType,
   dealId,
   dealName,
-  groupSlug,
   price,
   thumbnail,
   bumpedAt,
-  submitValidCallback,
+  handleSubmitValid,
 }: {
   dealType: Deal;
   dealId: string;
   dealName: string;
-  groupSlug: string;
   price: number;
   thumbnail?: UserImageResponse;
   bumpedAt: Date;
-  submitValidCallback: SubmitHandler<DealBumpValues>;
+  handleSubmitValid: SubmitHandler<DealBumpValues>;
 }) {
-  const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
-  const router = useRouter();
 
   const { handleSubmit, control, setValue, getValues } =
     useForm<DealBumpValues>({
       defaultValues: {
+        id: uuid4(),
         dealId,
-        userId: '',
         price,
       },
     });
-
-  useEffect(() => {
-    if (!user) return;
-
-    setValue('userId', user.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
       e.target.name as FieldPath<DealBumpValues>,
       parseInt(e.target.value, 10),
     );
-  };
-
-  const handleSubmitValid: SubmitHandler<DealBumpValues> = async (data) => {
-    if (!user) return;
-    if (!validateBump(bumpedAt)) return;
-
-    await submitValidCallback(data);
-    router.push(`${parseGroupMarketLink({ groupSlug, dealType })}`);
   };
 
   const handleSubmitError: SubmitErrorHandler<DealBumpValues> = (errors, event) => {

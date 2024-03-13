@@ -8,7 +8,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler, useContext, useEffect } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
   DEAL_AUTO_SAVE_INTERVAL_MS,
@@ -49,11 +49,8 @@ import {
 } from '@/lib/swap/swap.constants';
 import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import secureLocalStorage from 'react-secure-storage';
-import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
 import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
-import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
-import { useRouter } from 'next/navigation';
 import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
 import { GroupResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
@@ -67,30 +64,29 @@ import {
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
-import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function DealForm({
+  localStorageKey,
+  authorId,
   group,
   prevFormValues,
-  onSubmitCallback,
+  handleSubmitValid,
   onClickImagePreviewCallback,
 }: {
+  localStorageKey: string;
+  authorId?: string;
   group: GroupResponse;
   prevFormValues?: DealFormValues;
-  onSubmitCallback: SubmitHandler<DealFormValues>;
+  handleSubmitValid: SubmitHandler<DealFormValues>;
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
-  const { user } = useContext(AuthContext);
   const device = useDeviceDetect();
-  const router = useRouter();
-  const groupSlug = group.slug!;
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<DealFormValues>({
       defaultValues: {
         id: '',
-        userId: '',
         groupId: group.id,
         images: [],
         name0: '',
@@ -114,54 +110,46 @@ export default function DealForm({
 
   // Init DealFormValues
   useEffect(() => {
-    if (dealId || !user) return;
+    if (dealId || !authorId) return;
 
-    const key = parseTempDealFormKey({
-      userId: user.id,
-      groupSlug,
-      prevDealId: prevFormValues?.id,
-    });
-    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
-
+    const tempValues = secureLocalStorage.getItem(
+      localStorageKey,
+    ) as DealFormValues | null;
     if (tempValues) {
       reset(tempValues);
     } else if (prevFormValues) {
       reset(prevFormValues);
     } else {
-      setValue('userId', user.id);
       setValue('groupId', group.id);
       setValue('source', device);
       const newId = uuid4();
       setValue('id', newId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, user, prevFormValues]);
+  }, [dealId, authorId, prevFormValues]);
 
   useEffect(() => {
-    if (!user || !dealId) return;
+    if (!dealId) return;
 
     if (!productCategoryId)
       setValue(
         'productCategoryId',
-        findDefaultProductCategory(group?.productCategories)?.id || '',
+        findDefaultProductCategory(group.productCategories)?.id || '',
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, dealId, group?.productCategories]);
+  }, [dealId, group.productCategories]);
 
   const updateValues = () => {
-    if (!dealId || !user) return;
+    if (!dealId || !authorId) return;
 
-    const key = parseTempDealFormKey({
-      userId: user.id,
-      groupSlug,
-      prevDealId: prevFormValues?.id,
-    });
-    const tempValues = secureLocalStorage.getItem(key) as DealFormValues | null;
+    const tempValues = secureLocalStorage.getItem(
+      localStorageKey,
+    ) as DealFormValues | null;
     const currentValues = watch();
     const notChanged =
       JSON.stringify(tempValues) === JSON.stringify(currentValues);
     if (!notChanged) {
-      secureLocalStorage.setItem(key, currentValues);
+      secureLocalStorage.setItem(localStorageKey, currentValues);
     }
   };
 
@@ -169,20 +157,20 @@ export default function DealForm({
     const intervalId = setInterval(updateValues, DEAL_AUTO_SAVE_INTERVAL_MS);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, dealId]);
+  }, [dealId, authorId, localStorageKey]);
 
   if (!group) return <div />;
 
-  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
       e.target.name as FieldPath<DealFormValues>,
       parseInt(e.target.value, 10),
     );
   };
 
-  const handleOnChangeFileInput = async (files: FileList | null) => {
+  const handleChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
-    if (!user) return;
+    if (!authorId) return;
 
     const uploadedImages = parseUploadedImages({
       files,
@@ -192,7 +180,7 @@ export default function DealForm({
     const userImages = await uploadAndSaveImages({
       uploadedImages,
       type: dealType,
-      userId: user.id,
+      userId: authorId,
       dealId,
       device,
     });
@@ -202,7 +190,7 @@ export default function DealForm({
     );
   };
 
-  const handleOnClickImagePreview = async (position: number) => {
+  const handleClickImagePreview = async (position: number) => {
     const imageId = images.find((image) => image.position === position)?.id;
     if (!imageId) return;
 
@@ -211,42 +199,22 @@ export default function DealForm({
     remove(position);
   };
 
-  const handleOnSubmit: SubmitHandler<DealFormValues> = async (data) => {
-    if (!user || !groupSlug) return;
-
-    await onSubmitCallback(data);
-
-    const key = parseTempDealFormKey({
-      userId: user.id,
-      groupSlug,
-      prevDealId: prevFormValues?.id,
-    });
-    secureLocalStorage.removeItem(key);
-
-    router.push(
-      `${parseGroupMarketLink({
-        groupSlug,
-        dealType: data.dealType,
-      })}`,
-    );
-  };
-
-  const handleOnSubmitError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
     // TODO
   };
 
-  const handleOnAuthorization: MouseEventHandler = (e) => {
+  const handleAuthorization: MouseEventHandler = (e) => {
     // Do nothing
   };
 
-  const handleOnUnAuthorization: MouseEventHandler = (e) => {
+  const handleUnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
   };
 
   return (
     <form
       className="flex flex-col gap-8"
-      onSubmit={handleSubmit(handleOnSubmit, handleOnSubmitError)}
+      onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <ImagesInput
         name="images"
@@ -263,7 +231,7 @@ export default function DealForm({
           icon: {
             fontSize: 'large',
           },
-          onChange: handleOnChangeFileInput,
+          onChange: handleChangeFileInput,
         }}
         inputProps={{
           multiple: true,
@@ -274,7 +242,7 @@ export default function DealForm({
       <ImagePreviews
         images={images}
         previewsProp={{
-          onClick: handleOnClickImagePreview,
+          onClick: handleClickImagePreview,
         }}
       />
 
@@ -415,7 +383,7 @@ export default function DealForm({
             name: DEAL_PRICE_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
-          onChange: onChangeNumberInput,
+          onChange: handleChangeNumberInput,
         }}
         textFieldProps={{
           type: 'number',
@@ -471,16 +439,16 @@ export default function DealForm({
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_EDIT_SUBMIT_BUTTON_NAME}
-            onAuthorization={handleOnAuthorization}
-            onUnAuthorization={handleOnUnAuthorization}
+            onAuthorization={handleAuthorization}
+            onUnAuthorization={handleUnAuthorization}
           />
         </div>
       ) : (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
             name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
-            onAuthorization={handleOnAuthorization}
-            onUnAuthorization={handleOnUnAuthorization}
+            onAuthorization={handleAuthorization}
+            onUnAuthorization={handleUnAuthorization}
           />
         </div>
       )}
