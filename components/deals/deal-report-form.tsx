@@ -60,7 +60,7 @@ export default function DealReportForm({
       offerId: dealType === 'offer' ? dealId : undefined,
       demandId: dealType === 'demand' ? dealId : undefined,
       swapId: dealType === 'swap' ? dealId : undefined,
-      reporterId: user.id,
+      authorId: user.id,
       title: values.title,
       content: values.content,
     };

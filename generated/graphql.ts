@@ -186,11 +186,12 @@ export type CreateOfferInput = {
 };
 
 export type CreateReportInput = {
+  authorId: Scalars['ID']['input'];
   content?: InputMaybe<Scalars['String']['input']>;
   demandId?: InputMaybe<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
   offerId?: InputMaybe<Scalars['ID']['input']>;
-  reporterId: Scalars['ID']['input'];
+  status?: Scalars['String']['input'];
   swapId?: InputMaybe<Scalars['ID']['input']>;
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
@@ -907,10 +908,10 @@ export type QueryFindOfferPreviewsArgs = {
 
 
 export type QueryFindReportArgs = {
+  authorId?: InputMaybe<Scalars['ID']['input']>;
   demandId?: InputMaybe<Scalars['ID']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   offerId?: InputMaybe<Scalars['ID']['input']>;
-  reporterId?: InputMaybe<Scalars['ID']['input']>;
   swapId?: InputMaybe<Scalars['ID']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
 };
@@ -980,12 +981,13 @@ export type QueryGetSocialAccountsByUserIdArgs = {
 
 export type ReportResponse = {
   __typename?: 'ReportResponse';
+  author: AuthorResponse;
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   demandId?: Maybe<Scalars['ID']['output']>;
   id: Scalars['ID']['output'];
   offerId?: Maybe<Scalars['ID']['output']>;
-  reporter: AuthorResponse;
+  status: Scalars['String']['output'];
   swapId?: Maybe<Scalars['ID']['output']>;
   title: Scalars['String']['output'];
   type: Scalars['DateTime']['output'];
@@ -1387,7 +1389,7 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: string };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: any, offerId?: string | null, demandId?: string | null, swapId?: string | null, title: string, content?: string | null, reporter: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: any, offerId?: string | null, demandId?: string | null, swapId?: string | null, title: string, content?: string | null, author: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1819,7 +1821,7 @@ export const ReportFragmentDoc = gql`
   offerId
   demandId
   swapId
-  reporter {
+  author {
     ...author
   }
   title
