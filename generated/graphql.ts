@@ -912,6 +912,7 @@ export type QueryFindReportArgs = {
   offerId?: InputMaybe<Scalars['ID']['input']>;
   reporterId?: InputMaybe<Scalars['ID']['input']>;
   swapId?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
