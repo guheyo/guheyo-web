@@ -20,5 +20,11 @@ export default function Page({
   if (!data?.findDemand) return <div />;
   const demand = data.findDemand;
 
-  return <DealReportForm dealType='demand' dealId={demand.id} dealName={demand.name} />;
+  return (
+    <DealReportForm
+      dealType="demand"
+      dealId={demand.id}
+      dealName={demand.name}
+    />
+  );
 }

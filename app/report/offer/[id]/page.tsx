@@ -20,5 +20,7 @@ export default function Page({
   if (!data?.findOffer) return <div />;
   const offer = data.findOffer;
 
-  return <DealReportForm dealType='offer' dealId={offer.id} dealName={offer.name} />;
+  return (
+    <DealReportForm dealType="offer" dealId={offer.id} dealName={offer.name} />
+  );
 }

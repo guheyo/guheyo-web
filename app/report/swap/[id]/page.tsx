@@ -21,5 +21,11 @@ export default function Page({
   if (!data?.findSwap) return <div />;
   const swap = data.findSwap;
 
-  return <DealReportForm dealType='swap' dealId={swap.id} dealName={parseSwapName({ name0: swap.name0, name1: swap.name1})} />;
+  return (
+    <DealReportForm
+      dealType="swap"
+      dealId={swap.id}
+      dealName={parseSwapName({ name0: swap.name0, name1: swap.name1 })}
+    />
+  );
 }
