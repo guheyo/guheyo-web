@@ -1,20 +1,19 @@
 'use client';
 
-import {
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-} from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { MouseEventHandler, useContext, useEffect } from 'react';
+import { v4 as uuid4 } from 'uuid';
 import { DealReportValues } from '@/lib/deal/deal.interfaces';
 import { useRouter } from 'next/navigation';
 import { Deal } from '@/lib/deal/deal.types';
-import { AuthContext } from '../auth/auth.provider';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
 import { parseDealReportFormTitle } from '@/lib/deal/parse-deal-report-form-title';
-import AccordionInput from '../inputs/accordion-input';
 import { REPORT_REASONS } from '@/lib/report/report.constants';
 import { STICKY_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
+import { CreateReportInput } from '@/generated/graphql';
+import { createReport } from '@/lib/api/report';
+import { AuthContext } from '../auth/auth.provider';
+import DiscordLoginDialog from '../auth/discord-login-dialog';
+import AccordionInput from '../inputs/accordion-input';
 
 export default function DealReportForm({
   dealType,
@@ -28,24 +27,21 @@ export default function DealReportForm({
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
-  const { handleSubmit, control, setValue, getValues, watch } =
-    useForm<DealReportValues>({
-      defaultValues: {
-        dealId,
-        reporterId: '',
-        position: 0,
-        title: '',
-        content: '',
-      },
-    });
-const values = watch();
-console.log('values: ', values);
+  const { handleSubmit, control, setValue, watch } = useForm<DealReportValues>({
+    defaultValues: {
+      id: '',
+      dealId,
+      position: undefined,
+      title: '',
+      content: '',
+    },
+  });
 
-
+  // Init DealReportValues
   useEffect(() => {
     if (!user) return;
 
-    setValue('reporterId', user.id);
+    setValue('id', uuid4());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -55,9 +51,21 @@ console.log('values: ', values);
     setValue('content', REPORT_REASONS[position].content);
   };
 
-  const handleSubmitValid: SubmitHandler<DealReportValues> = async (data) => {
+  const handleSubmitValid: SubmitHandler<DealReportValues> = async (values) => {
     if (!user) return;
-    // TODO
+
+    const input: CreateReportInput = {
+      id: values.id,
+      type: dealType,
+      offerId: dealType === 'offer' ? dealId : undefined,
+      demandId: dealType === 'demand' ? dealId : undefined,
+      swapId: dealType === 'swap' ? dealId : undefined,
+      reporterId: user.id,
+      title: values.title,
+      content: values.content,
+    };
+    await createReport(input);
+    router.back();
   };
 
   const handleSubmitError: SubmitErrorHandler<DealReportValues> = (errors, event) => {
@@ -85,7 +93,7 @@ console.log('values: ', values);
         position={watch('position')}
         reportReasons={REPORT_REASONS}
         summaryProps={{
-          onClick: onClickTitle
+          onClick: onClickTitle,
         }}
         detailProps={{
           controlProps: {

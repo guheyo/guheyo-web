@@ -22,8 +22,8 @@ export type DealBumpValues = {
 };
 
 export type DealReportValues = {
+  id: string;
   dealId: string;
-  reporterId: string;
   position: number;
   title: string;
   content?: string;
