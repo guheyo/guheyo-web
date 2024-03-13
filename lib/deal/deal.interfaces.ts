@@ -16,8 +16,8 @@ export type DealFormValues = {
 };
 
 export type DealBumpValues = {
+  id: string;
   dealId: string;
-  userId: string;
   price: number;
 };
 
