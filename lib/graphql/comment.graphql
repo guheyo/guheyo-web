@@ -1,0 +1,18 @@
+fragment comment on CommentResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  parentId
+  postId
+  reportId
+  auctionId
+  author {
+    ...author
+  }
+  content
+}
+
+mutation CreateComment($input: CreateCommentInput!) {
+  createComment(input: $input)
+}

@@ -106,6 +106,20 @@ export type CancelBidInput = {
   bidderId: Scalars['String']['input'];
 };
 
+export type CommentResponse = {
+  __typename?: 'CommentResponse';
+  auctionId?: Maybe<Scalars['ID']['output']>;
+  author: AuthorResponse;
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  parentId?: Maybe<Scalars['ID']['output']>;
+  postId?: Maybe<Scalars['ID']['output']>;
+  reportId?: Maybe<Scalars['ID']['output']>;
+  type: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type ConnectRolesInput = {
   groupId: Scalars['ID']['input'];
   roleIds: Array<Scalars['ID']['input']>;
@@ -126,6 +140,18 @@ export type CreateAuctionInput = {
   sellerId: Scalars['String']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
+};
+
+export type CreateCommentInput = {
+  auctionId?: InputMaybe<Scalars['ID']['input']>;
+  authorId: Scalars['ID']['input'];
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  parentId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  reportId?: InputMaybe<Scalars['ID']['input']>;
+  source: Scalars['String']['input'];
+  type: Scalars['String']['input'];
 };
 
 export type CreateDemandInput = {
@@ -394,6 +420,7 @@ export type Mutation = {
   cancelBid: Scalars['String']['output'];
   connectRoles: Scalars['String']['output'];
   createAuction: Scalars['String']['output'];
+  createComment: Scalars['String']['output'];
   createDemand: Scalars['String']['output'];
   createDiscordMessage: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
@@ -469,6 +496,11 @@ export type MutationConnectRolesArgs = {
 
 export type MutationCreateAuctionArgs = {
   input: CreateAuctionInput;
+};
+
+
+export type MutationCreateCommentArgs = {
+  input: CreateCommentInput;
 };
 
 
@@ -797,6 +829,7 @@ export type Query = {
   __typename?: 'Query';
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
+  findComment: CommentResponse;
   findDemand?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
   findGroup?: Maybe<GroupResponse>;
@@ -832,6 +865,15 @@ export type QueryFindAuctionsArgs = {
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryFindCommentArgs = {
+  auctionId?: InputMaybe<Scalars['ID']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  reportId?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1259,6 +1301,15 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'SocialUserResponse', provider: string, socialId: string } };
 
+export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: any, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string, author: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
+export type CreateCommentMutationVariables = Exact<{
+  input: CreateCommentInput;
+}>;
+
+
+export type CreateCommentMutation = { __typename?: 'Mutation', createComment: string };
+
 export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
 export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
@@ -1580,33 +1631,6 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
-export const ImageFragmentDoc = gql`
-    fragment image on UserImageResponse {
-  id
-  createdAt
-  updatedAt
-  name
-  url
-  contentType
-  description
-  size
-  height
-  width
-  position
-  type
-  refId
-  userId
-  source
-}
-    `;
-export const GroupProfileFragmentDoc = gql`
-    fragment groupProfile on GroupProfileResponse {
-  id
-  name
-  slug
-  icon
-}
-    `;
 export const SocialAccountWithoutAuthFragmentDoc = gql`
     fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
   id
@@ -1652,6 +1676,49 @@ export const AuthorFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${MemberFragmentDoc}`;
+export const CommentFragmentDoc = gql`
+    fragment comment on CommentResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  parentId
+  postId
+  reportId
+  auctionId
+  author {
+    ...author
+  }
+  content
+}
+    ${AuthorFragmentDoc}`;
+export const ImageFragmentDoc = gql`
+    fragment image on UserImageResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  url
+  contentType
+  description
+  size
+  height
+  width
+  position
+  type
+  refId
+  userId
+  source
+}
+    `;
+export const GroupProfileFragmentDoc = gql`
+    fragment groupProfile on GroupProfileResponse {
+  id
+  name
+  slug
+  icon
+}
+    `;
 export const DemandFragmentDoc = gql`
     fragment demand on DemandResponse {
   id
@@ -2004,6 +2071,37 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const CreateCommentDocument = gql`
+    mutation CreateComment($input: CreateCommentInput!) {
+  createComment(input: $input)
+}
+    `;
+export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+
+/**
+ * __useCreateCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
+      }
+export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const FindDemandPreviewsDocument = gql`
     query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
