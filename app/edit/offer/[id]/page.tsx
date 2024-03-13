@@ -15,6 +15,7 @@ export default function Page({
     variables: {
       id,
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
