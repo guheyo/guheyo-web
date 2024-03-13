@@ -22,6 +22,9 @@ fragment demand on DemandResponse {
     ...author
   }
   brandId
+  reports {
+    ...reportWithAuthor
+  }
 }
 
 fragment demandPreview on DemandPreviewResponse {
@@ -42,6 +45,9 @@ fragment demandPreview on DemandPreviewResponse {
     ...user
   }
   brandId
+  reports {
+    ...report
+  }
 }
 
 query findDemandPreviews(
