@@ -1,6 +1,6 @@
 'use client';
 
-import { UserImageResponse } from '@/generated/graphql';
+import { ReportResponse, UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import DealTextPreview from './deal-text-preview';
 import DealThumbnailPreview from './deal-thumbnail-preview';
@@ -16,6 +16,7 @@ interface Props {
   bumpedAt: Date;
   username: string;
   slug: string;
+  reports: ReportResponse[];
 }
 
 export default function DealPreview({
@@ -29,6 +30,7 @@ export default function DealPreview({
   bumpedAt,
   username,
   slug,
+  reports,
 }: Props) {
   switch (type) {
     case 'text': {
@@ -42,6 +44,7 @@ export default function DealPreview({
           bumpedAt={bumpedAt}
           username={username}
           slug={slug}
+          reports={reports}
         />
       );
     }
@@ -57,6 +60,7 @@ export default function DealPreview({
           bumpedAt={bumpedAt}
           username={username}
           slug={slug}
+          reports={reports}
         />
       );
     }

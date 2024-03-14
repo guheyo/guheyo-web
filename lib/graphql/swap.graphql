@@ -24,6 +24,9 @@ fragment swap on SwapResponse {
     ...author
   }
   brandId
+  reports {
+    ...reportWithAuthor
+  }
 }
 
 fragment swapPreview on SwapPreviewResponse {
@@ -48,6 +51,9 @@ fragment swapPreview on SwapPreviewResponse {
     ...user
   }
   brandId
+  reports {
+    ...report
+  }
 }
 
 query findSwapPreviews(

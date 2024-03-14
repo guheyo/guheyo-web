@@ -22,6 +22,9 @@ fragment offer on OfferResponse {
     ...author
   }
   brandId
+  reports {
+    ...reportWithAuthor
+  }
 }
 
 fragment offerPreview on OfferPreviewResponse {
@@ -45,6 +48,9 @@ fragment offerPreview on OfferPreviewResponse {
     ...user
   }
   brandId
+  reports {
+    ...report
+  }
 }
 
 query findOfferPreviews(

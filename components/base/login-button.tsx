@@ -35,23 +35,19 @@ export default function LoginButton() {
 
   if (!user) {
     return (
-      <div className="inline-flex items-center">
-        <div>
-          <button
-            type="submit"
-            className="bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
-            onClick={() => signIn(router, 'discord')}
-          >
-            <Image
-              alt="로그인"
-              src="/socials/discord/discord-mark-white.svg"
-              width={20}
-              height={20}
-            />
-            로그인
-          </button>
-        </div>
-      </div>
+      <button
+        type="submit"
+        className="inline-flex items-center bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
+        onClick={() => signIn(router, 'discord')}
+      >
+        <Image
+          alt="로그인"
+          src="/socials/discord/discord-mark-white.svg"
+          width={20}
+          height={20}
+        />
+        로그인
+      </button>
     );
   }
 

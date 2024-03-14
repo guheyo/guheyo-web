@@ -6,11 +6,25 @@ fragment report on ReportResponse {
   offerId
   demandId
   swapId
-  reporter {
-    ...author
-  }
+  status
   title
   content
+}
+
+fragment reportWithAuthor on ReportWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  offerId
+  demandId
+  swapId
+  status
+  title
+  content
+  author {
+    ...author
+  }
 }
 
 mutation CreateReport($input: CreateReportInput!) {
