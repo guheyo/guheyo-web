@@ -55,7 +55,7 @@ export default function DealThumbnailPreview({
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
+            <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-fit">
               {name}
             </div>
             <div className="mr-[-24px]">
@@ -67,7 +67,7 @@ export default function DealThumbnailPreview({
               />
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center pt-3">
+          <div className="flex flex-row justify-between items-center pt-0">
             <div className="flex-none text-sm md:text-base font-semibold">
               {getPrice(price)}
             </div>

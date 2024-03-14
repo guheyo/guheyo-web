@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
-import SwapPreview from '@/components/swaps/swap-preview-preview';
+import SwapPreview from '@/components/swaps/swap-preview';
 import {
   FindSwapsWhereArgs,
   FindDealsOrderByArgs,

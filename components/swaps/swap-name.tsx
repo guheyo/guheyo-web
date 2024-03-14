@@ -1,8 +1,6 @@
 import { truncateName } from '@/lib/formatter';
-import {
-  ArrowLeftEndOnRectangleIcon,
-  ArrowRightStartOnRectangleIcon,
-} from '@heroicons/react/24/outline';
+import EastIcon from '@mui/icons-material/East';
+import WestIcon from '@mui/icons-material/West';
 
 export default function SwapName({
   name0,
@@ -12,14 +10,14 @@ export default function SwapName({
   name1: string;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-0">
+    <div className="grid grid-cols-1 gap-1">
       <div className="flex flex-row gap-2 items-center">
-        <ArrowRightStartOnRectangleIcon width={24} height={24} />
-        <div>{truncateName(name0, 32)}</div>
+        <EastIcon fontSize="small" className="text-dark-200 rounded" />
+        <div>{truncateName(name0, 25)}</div>
       </div>
       <div className="flex flex-row gap-2 items-center">
-        <ArrowLeftEndOnRectangleIcon width={24} height={24} />
-        <div>{truncateName(name1, 32)}</div>
+        <WestIcon fontSize="small" className="text-dark-200  rounded" />
+        <div>{truncateName(name1, 25)}</div>
       </div>
     </div>
   );
