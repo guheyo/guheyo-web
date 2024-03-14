@@ -37,7 +37,7 @@ export default function DealTextPreview({
         href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
-        <div className="grid px-0 md:px-2">
+        <div className="grid px-1 md:px-2">
           <div className="flex justify-between items-center">
             <div className="text-xs md:text-sm py-3 font-medium text-light-200">
               {name}
@@ -55,13 +55,8 @@ export default function DealTextPreview({
             <div className="flex-none text-xs md:text-sm font-semibold">
               {getPrice(price)}
             </div>
-            <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-500">
-              {dayjs(bumpedAt).fromNow()}
-            </div>
-          </div>
-          <div className="flex justify-end pt-6">
-            <div className="absolute bottom-3">
-              <DealAddons reports={reports} />
+            <div className="absolute bottom-3 md:bottom-3 right-4 md:right-5">
+              <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>
           </div>
         </div>

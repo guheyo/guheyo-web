@@ -71,13 +71,8 @@ export default function DealThumbnailPreview({
             <div className="flex-none text-sm md:text-base font-semibold">
               {getPrice(price)}
             </div>
-            <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-              {dayjs(bumpedAt).fromNow()}
-            </div>
-          </div>
-          <div className="flex justify-end pt-6">
-            <div className="absolute bottom-3">
-              <DealAddons reports={reports} />
+            <div className="absolute bottom-6 md:bottom-3 right-4 md:right-5">
+              <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>
           </div>
         </div>
