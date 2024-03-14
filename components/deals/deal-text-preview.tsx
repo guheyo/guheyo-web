@@ -1,12 +1,11 @@
 'use client';
 
-import dayjs from 'dayjs';
-import { getPrice } from '@/lib/formatter';
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
 import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
+import DealPreviewPrice from './deal-preview-price';
 
 interface Props {
   deal: Deal;
@@ -37,9 +36,9 @@ export default function DealTextPreview({
         href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
-        <div className="grid px-1 md:px-2">
+        <div className="grid gap-3 px-1 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm py-3 font-medium text-light-200">
+            <div className="text-xs md:text-sm font-medium text-light-200">
               {name}
             </div>
             <div className="mr-[-24px]">
@@ -52,9 +51,7 @@ export default function DealTextPreview({
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <div className="flex-none text-xs md:text-sm font-semibold">
-              {getPrice(price)}
-            </div>
+            <DealPreviewPrice price={price} />
             <div className="absolute bottom-3 md:bottom-3 right-4 md:right-5">
               <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>

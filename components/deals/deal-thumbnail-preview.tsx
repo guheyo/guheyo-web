@@ -1,14 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import dayjs from 'dayjs';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { getPrice } from '@/lib/formatter';
 import { ReportResponse, UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
+import DealPreviewPrice from './deal-preview-price';
 
 interface Props {
   deal: Deal;
@@ -68,9 +67,7 @@ export default function DealThumbnailPreview({
             </div>
           </div>
           <div className="flex flex-row justify-between items-center">
-            <div className="flex-none text-sm md:text-base font-semibold">
-              {getPrice(price)}
-            </div>
+            <DealPreviewPrice price={price} />
             <div className="absolute bottom-6 md:bottom-3 right-4 md:right-5">
               <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>
