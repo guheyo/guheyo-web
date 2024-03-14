@@ -127,16 +127,15 @@ export default function DealForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealId, authorId, prevFormValues]);
 
+  // Init default productCategoryId
   useEffect(() => {
-    if (!dealId) return;
-
     if (!productCategoryId)
       setValue(
         'productCategoryId',
         findDefaultProductCategory(group.productCategories)?.id || '',
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, group.productCategories]);
+  }, [group.productCategories]);
 
   const updateValues = () => {
     if (!dealId || !authorId) return;
