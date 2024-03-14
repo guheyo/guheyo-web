@@ -6,6 +6,7 @@ import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';
+import DealPreviewName from './deal-preview-name';
 
 interface Props {
   deal: Deal;
@@ -38,9 +39,7 @@ export default function DealTextPreview({
       >
         <div className="grid gap-3 px-1 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium text-light-200">
-              {name}
-            </div>
+            <DealPreviewName name={name} />
             <div className="mr-[-24px]">
               <DealMenu
                 dealType={deal}

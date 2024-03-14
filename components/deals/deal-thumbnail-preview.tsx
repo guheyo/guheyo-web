@@ -8,6 +8,7 @@ import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';
+import DealPreviewName from './deal-preview-name';
 
 interface Props {
   deal: Deal;
@@ -54,8 +55,8 @@ export default function DealThumbnailPreview({
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-fit">
-              {name}
+            <div className="py-3">
+              <DealPreviewName name={name} />
             </div>
             <div className="mr-[-24px]">
               <DealMenu
