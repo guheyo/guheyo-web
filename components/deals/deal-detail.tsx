@@ -3,7 +3,6 @@
 import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { getPrice } from '@/lib/formatter';
 import {
   AuthorResponse,
   ReportResponse,
@@ -14,8 +13,9 @@ import UserProfilePopper from '../users/user-profile-popper';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealMenu from './deal-menu';
-import SwapName from '../swaps/swap-name';
 import ReportsLink from '../reports/reports-link';
+import DealDetailPrice from './deal-detail-price';
+import DealDetailName from './deal-detail-name';
 
 export default function DealDetail({
   dealType,
@@ -66,14 +66,12 @@ export default function DealDetail({
             </div>
           </div>
           <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-            <div className="text-lg md:text-xl font-semibold">
-              {name1 ? <SwapName name0={name0} name1={name1} /> : name0}
-            </div>
-            <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
-              {getPrice(price)}
-            </div>
+            <DealDetailName name0={name0} name1={name1} />
+            <DealDetailPrice price={price} />
           </div>
-          <ReportsLink reports={reports} />
+          <div className="pt-4">
+            <ReportsLink reports={reports} />
+          </div>
           <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto pb-20">
             {description && (
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -106,14 +104,12 @@ export default function DealDetail({
           </div>
         </div>
         <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-          <div className="text-lg md:text-xl font-semibold">
-            {name1 ? <SwapName name0={name0} name1={name1} /> : name0}
-          </div>
-          <div className="flex text-base md:text-lg justify-self-end mt-0 items-center mb-4 font-semibold">
-            {getPrice(price)}
-          </div>
+          <DealDetailName name0={name0} name1={name1} />
+          <DealDetailPrice price={price} />
         </div>
-        <ReportsLink reports={reports} />
+        <div className="pt-4">
+          <ReportsLink reports={reports} />
+        </div>
         <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
           {description && (
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
