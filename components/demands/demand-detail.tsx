@@ -48,7 +48,6 @@ export default function DemandDetail({ slug }: { slug: string }) {
                 dealType="demand"
                 dealId={demand.id}
                 authorId={demand.buyer.id}
-                groupSlug={demand.group.slug!}
               />
             </div>
           </div>
@@ -92,7 +91,6 @@ export default function DemandDetail({ slug }: { slug: string }) {
               dealType="demand"
               dealId={demand.id}
               authorId={demand.buyer.id}
-              slug={demand.slug!}
             />
           </div>
         </div>
