@@ -9,8 +9,6 @@ import {
 } from 'react-hook-form';
 import {
   DEAL_BUMP_INFO_MESSAGE,
-  DEAL_PRICE_LABEL_NAME,
-  DEAL_PRICE_PLACEHOLDER,
   DEAL_PRICE_REQUIRED_MESSAGE,
 } from '@/lib/deal/deal.constants';
 import {
@@ -33,6 +31,7 @@ import { parseDealBumpFormTitle } from '@/lib/deal/parse-deal-bump-form-title';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { Deal } from '@/lib/deal/deal.types';
 import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name';
+import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
 import TextInput from '../inputs/text-input';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import PriceUpDownButtons, {
@@ -134,7 +133,7 @@ export default function DealBumpForm({
           }}
           textInputProps={{
             label: {
-              name: DEAL_PRICE_LABEL_NAME,
+              name: parseDealPriceName(dealType),
               style: DEFAULT_LABEL_STYLE,
             },
             onChange: onChangeNumberInput,
@@ -142,7 +141,7 @@ export default function DealBumpForm({
           textFieldProps={{
             type: 'number',
             variant: 'outlined',
-            placeholder: DEAL_PRICE_PLACEHOLDER,
+            placeholder: parseDealPriceName(dealType),
             InputProps: {
               startAdornment: <div className="pr-2">₩</div>,
               sx: {

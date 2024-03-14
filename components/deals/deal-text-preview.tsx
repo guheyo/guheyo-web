@@ -1,12 +1,12 @@
 'use client';
 
-import dayjs from 'dayjs';
-import { getPrice } from '@/lib/formatter';
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
 import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
-import ReportsCount from '../reports/reports-count';
+import DealAddons from './deal-addons';
+import DealPreviewPrice from './deal-preview-price';
+import DealPreviewName from './deal-preview-name';
 
 interface Props {
   deal: Deal;
@@ -32,16 +32,14 @@ export default function DealTextPreview({
   reports,
 }: Props) {
   return (
-    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
+    <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 py-4 rounded-lg">
       <Link
         href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
         <div className="grid gap-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium text-light-200">
-              {name}
-            </div>
+            <DealPreviewName name={name} />
             <div className="mr-[-24px]">
               <DealMenu
                 dealType={deal}
@@ -52,16 +50,11 @@ export default function DealTextPreview({
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <div className="flex-none text-xs md:text-sm font-semibold">
-              {getPrice(price)}
-            </div>
-            <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-500">
-              {dayjs(bumpedAt).fromNow()}
+            <DealPreviewPrice price={price} />
+            <div className="absolute bottom-4 right-4 md:right-5">
+              <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>
           </div>
-        </div>
-        <div className="flex justify-end pt-1">
-          <ReportsCount reports={reports} />
         </div>
       </Link>
     </div>

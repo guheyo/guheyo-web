@@ -7,9 +7,6 @@ fragment comment on CommentResponse {
   postId
   reportId
   auctionId
-  author {
-    ...author
-  }
   content
 }
 

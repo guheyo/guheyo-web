@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import dayjs from 'dayjs';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { getPrice } from '@/lib/formatter';
 import { ReportResponse, UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
-import ReportsCount from '../reports/reports-count';
+import DealAddons from './deal-addons';
+import DealPreviewPrice from './deal-preview-price';
+import DealPreviewName from './deal-preview-name';
 
 interface Props {
   deal: Deal;
@@ -36,7 +36,7 @@ export default function DealThumbnailPreview({
   reports,
 }: Props) {
   return (
-    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
+    <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
         href={`/user/${username}/${deal}/${slug}`}
         className="flex flex-row w-full md:flex-col text-start"
@@ -55,8 +55,8 @@ export default function DealThumbnailPreview({
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium py-3 text-light-200 h-fit md:h-12">
-              {name}
+            <div className="pt-4 pb-2">
+              <DealPreviewName name={name} />
             </div>
             <div className="mr-[-24px]">
               <DealMenu
@@ -67,16 +67,11 @@ export default function DealThumbnailPreview({
               />
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center pt-3">
-            <div className="flex-none text-sm md:text-base font-semibold">
-              {getPrice(price)}
+          <div className="flex flex-row justify-between items-center pb-1">
+            <DealPreviewPrice price={price} />
+            <div className="absolute bottom-4 right-4 md:right-5">
+              <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>
-            <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-              {dayjs(bumpedAt).fromNow()}
-            </div>
-          </div>
-          <div className="flex justify-end pt-1">
-            <ReportsCount reports={reports} />
           </div>
         </div>
       </Link>

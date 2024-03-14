@@ -25,7 +25,7 @@ fragment swap on SwapResponse {
   }
   brandId
   reports {
-    ...reportWithAuthor
+    ...report
   }
 }
 

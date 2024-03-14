@@ -18,8 +18,6 @@ export const DEAL_TYPE_LABEL_NAME = '거래 유형';
 
 export const DEAL_CATEGORY_LABEL_NAME = '카테고리';
 
-export const DEAL_PRICE_LABEL_NAME = '가격';
-export const DEAL_PRICE_PLACEHOLDER = '가격';
 export const DEAL_PRICE_REQUIRED_MESSAGE = '가격을 숫자로 입력해 주세요';
 
 export const DEAL_DESCRIPTION_LABEL_NAME = '제품 설명';

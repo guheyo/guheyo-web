@@ -19,8 +19,6 @@ import {
   DEAL_NAME,
   DEAL_NAME_PLACEHOLDER,
   DEAL_NAME_REQUIRED_MESSAGE,
-  DEAL_PRICE_LABEL_NAME,
-  DEAL_PRICE_PLACEHOLDER,
   DEAL_PRICE_REQUIRED_MESSAGE,
   DEAL_TYPE_LABEL_NAME,
   DEAL_WRITE_SUBMIT_BUTTON_NAME,
@@ -53,6 +51,7 @@ import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
 import { GroupResponse } from '@/generated/graphql';
+import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -128,16 +127,15 @@ export default function DealForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealId, authorId, prevFormValues]);
 
+  // Init default productCategoryId
   useEffect(() => {
-    if (!dealId) return;
-
     if (!productCategoryId)
       setValue(
         'productCategoryId',
         findDefaultProductCategory(group.productCategories)?.id || '',
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, group.productCategories]);
+  }, [group.productCategories]);
 
   const updateValues = () => {
     if (!dealId || !authorId) return;
@@ -380,7 +378,7 @@ export default function DealForm({
         }}
         textInputProps={{
           label: {
-            name: DEAL_PRICE_LABEL_NAME,
+            name: parseDealPriceName(dealType),
             style: DEFAULT_LABEL_STYLE,
           },
           onChange: handleChangeNumberInput,
@@ -388,7 +386,7 @@ export default function DealForm({
         textFieldProps={{
           type: 'number',
           variant: 'outlined',
-          placeholder: DEAL_PRICE_PLACEHOLDER,
+          placeholder: parseDealPriceName(dealType),
           InputProps: {
             startAdornment: <div className="pr-2">₩</div>,
             sx: {

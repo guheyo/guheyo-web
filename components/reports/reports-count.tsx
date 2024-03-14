@@ -9,7 +9,7 @@ export default function ReportsCount({
   if (reports.length === 0) return <div />;
 
   return (
-    <div className="flex flex-row gap-1 items-center text-red-500 font-bold text-xs md:text-sm">
+    <div className="flex flex-row gap-0.5 text-red-500">
       <div>
         <WarningIcon fontSize="inherit" />
       </div>
