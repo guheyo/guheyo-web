@@ -4,7 +4,9 @@ import dayjs from 'dayjs';
 import { getPrice } from '@/lib/formatter';
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
+import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
+import ReportsCount from '../reports/reports-count';
 
 interface Props {
   deal: Deal;
@@ -15,6 +17,7 @@ interface Props {
   bumpedAt: Date;
   username: string;
   slug: string;
+  reports: ReportResponse[];
 }
 
 export default function DealTextPreview({
@@ -26,6 +29,7 @@ export default function DealTextPreview({
   bumpedAt,
   username,
   slug,
+  reports,
 }: Props) {
   return (
     <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
@@ -55,6 +59,9 @@ export default function DealTextPreview({
               {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
+        </div>
+        <div className="flex justify-end pt-1">
+          <ReportsCount reports={reports} />
         </div>
       </Link>
     </div>
