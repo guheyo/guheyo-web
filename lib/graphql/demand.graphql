@@ -23,7 +23,7 @@ fragment demand on DemandResponse {
   }
   brandId
   reports {
-    ...reportWithAuthor
+    ...report
   }
 }
 

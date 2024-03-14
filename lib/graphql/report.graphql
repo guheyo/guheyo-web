@@ -9,21 +9,8 @@ fragment report on ReportResponse {
   status
   title
   content
-}
-
-fragment reportWithAuthor on ReportWithAuthorResponse {
-  id
-  createdAt
-  updatedAt
-  type
-  offerId
-  demandId
-  swapId
-  status
-  title
-  content
-  author {
-    ...author
+  comments {
+    ...comment
   }
 }
 

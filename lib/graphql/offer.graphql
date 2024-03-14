@@ -23,7 +23,7 @@ fragment offer on OfferResponse {
   }
   brandId
   reports {
-    ...reportWithAuthor
+    ...report
   }
 }
 
