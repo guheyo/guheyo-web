@@ -24,6 +24,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
       bumpedAt={offer.bumpedAt}
       author={offer.seller}
       images={offer.images}
+      reports={offer.reports}
     />
   );
 }

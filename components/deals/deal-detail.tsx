@@ -4,13 +4,18 @@ import dayjs from 'dayjs';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPrice } from '@/lib/formatter';
-import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
+import {
+  AuthorResponse,
+  ReportResponse,
+  UserImageResponse,
+} from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import UserProfilePopper from '../users/user-profile-popper';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealMenu from './deal-menu';
 import SwapName from '../swaps/swap-name';
+import ReportsLink from '../reports/reports-link';
 
 export default function DealDetail({
   dealType,
@@ -22,6 +27,7 @@ export default function DealDetail({
   bumpedAt,
   author,
   images,
+  reports,
 }: {
   dealType: Deal;
   id: string;
@@ -32,6 +38,7 @@ export default function DealDetail({
   bumpedAt: Date;
   author: AuthorResponse;
   images: UserImageResponse[];
+  reports: ReportResponse[];
 }) {
   if (images.length > 0)
     return (
@@ -66,6 +73,7 @@ export default function DealDetail({
               {getPrice(price)}
             </div>
           </div>
+          <ReportsLink reports={reports} />
           <div className="pt-4 text-base md:text-base md:h-[30rem] overflow-y-auto pb-20">
             {description && (
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -105,6 +113,7 @@ export default function DealDetail({
             {getPrice(price)}
           </div>
         </div>
+        <ReportsLink reports={reports} />
         <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
           {description && (
             <ReactMarkdown remarkPlugins={[remarkGfm]}>

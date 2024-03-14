@@ -24,6 +24,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
       bumpedAt={demand.bumpedAt}
       author={demand.buyer}
       images={demand.images}
+      reports={demand.reports}
     />
   );
 }
