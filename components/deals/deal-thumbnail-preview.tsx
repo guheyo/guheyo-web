@@ -8,7 +8,7 @@ import { ReportResponse, UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
-import ReportsCount from '../reports/reports-count';
+import DealAddons from './deal-addons';
 
 interface Props {
   deal: Deal;
@@ -36,7 +36,7 @@ export default function DealThumbnailPreview({
   reports,
 }: Props) {
   return (
-    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
+    <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
         href={`/user/${username}/${deal}/${slug}`}
         className="flex flex-row w-full md:flex-col text-start"
@@ -67,7 +67,7 @@ export default function DealThumbnailPreview({
               />
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center pt-0">
+          <div className="flex flex-row justify-between items-center">
             <div className="flex-none text-sm md:text-base font-semibold">
               {getPrice(price)}
             </div>
@@ -75,8 +75,10 @@ export default function DealThumbnailPreview({
               {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
-          <div className="flex justify-end pt-1">
-            <ReportsCount reports={reports} />
+          <div className="flex justify-end pt-6">
+            <div className="absolute bottom-3">
+              <DealAddons reports={reports} />
+            </div>
           </div>
         </div>
       </Link>

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
 import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
-import ReportsCount from '../reports/reports-count';
+import DealAddons from './deal-addons';
 
 interface Props {
   deal: Deal;
@@ -32,14 +32,14 @@ export default function DealTextPreview({
   reports,
 }: Props) {
   return (
-    <div className="overflow-hidden line-break bg-dark-400 p-3 rounded-lg">
+    <div className="relative overflow-hidden line-break bg-dark-400 px-3 py-3 rounded-lg">
       <Link
         href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
-        <div className="grid gap-2">
+        <div className="grid px-0 md:px-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs md:text-sm font-medium text-light-200">
+            <div className="text-xs md:text-sm py-3 font-medium text-light-200">
               {name}
             </div>
             <div className="mr-[-24px]">
@@ -59,9 +59,11 @@ export default function DealTextPreview({
               {dayjs(bumpedAt).fromNow()}
             </div>
           </div>
-        </div>
-        <div className="flex justify-end pt-1">
-          <ReportsCount reports={reports} />
+          <div className="flex justify-end pt-6">
+            <div className="absolute bottom-3">
+              <DealAddons reports={reports} />
+            </div>
+          </div>
         </div>
       </Link>
     </div>
