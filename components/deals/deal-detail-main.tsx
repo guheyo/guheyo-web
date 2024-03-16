@@ -54,7 +54,12 @@ export default function DealDetailMain({
         <DealDetailPrice price={price} />
       </div>
       <div className="pt-4">
-        <ReportsLink reports={reports} />
+        <ReportsLink
+          reports={reports}
+          username={author.username}
+          type={dealType}
+          refId={id}
+        />
       </div>
       <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
         {description && (

@@ -2,16 +2,35 @@ import { ReportResponse } from '@/generated/graphql';
 import WarningIcon from '@mui/icons-material/Warning';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { countComments } from '@/lib/comment/count-comments';
+import { useRouter } from 'next/navigation';
+import { parseReportPageLink } from '@/lib/report/parse-report-page-link';
 
 export default function ReportsLink({
   reports,
+  username,
+  type,
+  refId,
 }: {
   reports: ReportResponse[];
+  username: string;
+  type: string;
+  refId: string;
 }) {
+  const router = useRouter();
   if (reports.length === 0) return <div />;
 
+  const handleClick = () => {
+    router.push(
+      parseReportPageLink({
+        username,
+        type,
+        refId,
+      }),
+    );
+  };
+
   return (
-    <div>
+    <button type="button" onClick={handleClick}>
       <div className="flex flex-row gap-1 items-center text-red-500 font-bold">
         <div>
           <WarningIcon fontSize="inherit" />
@@ -26,6 +45,6 @@ export default function ReportsLink({
           reports,
         )}개를 확인해 주세요`}
       </div>
-    </div>
+    </button>
   );
 }
