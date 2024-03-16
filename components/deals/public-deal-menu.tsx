@@ -29,11 +29,13 @@ export default function PublicDealMenu({
 
   const handleReportClick = (event: React.MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
-    router.push(parseDealLink({
-      action: 'report',
-      dealType,
-      dealId,
-    }))
+    router.push(
+      parseDealLink({
+        action: 'report',
+        dealType,
+        dealId,
+      }),
+    );
   };
 
   return (
