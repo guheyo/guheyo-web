@@ -3,6 +3,7 @@
 import { useFindOfferQuery } from '@/generated/graphql';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
+import ReportHomeLayout from '../reports/report-home.layout';
 
 export default function OfferReport({ slug }: { slug: string }) {
   const { loading, data } = useFindOfferQuery({
@@ -16,16 +17,14 @@ export default function OfferReport({ slug }: { slug: string }) {
   const offer = data.findOffer;
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex flex-col gap-8 w-full md:w-3/4">
-        <ReportHeader
-          name={offer.name}
-          price={offer.price}
-          author={offer.seller}
-          updatedAt={offer.updatedAt}
-        />
-        <ReportFeed type="offer" offerId={offer.id} />
-      </div>
-    </div>
+    <ReportHomeLayout>
+      <ReportHeader
+        name={offer.name}
+        price={offer.price}
+        author={offer.seller}
+        updatedAt={offer.updatedAt}
+      />
+      <ReportFeed type="offer" offerId={offer.id} />
+    </ReportHomeLayout>
   );
 }
