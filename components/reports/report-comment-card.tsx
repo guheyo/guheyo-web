@@ -11,7 +11,7 @@ export default function ReportCommentCard({
   if (!content) {
     return (
       <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-        <div className="flex flex-row gap-0 items-center text-light-200 text-sm md:text-base font-semibold">
+        <div className="flex flex-row gap-0 items-center text-yellow-500 text-sm md:text-base font-semibold">
           <SubdirectoryArrowRightIcon />
           <div>[피신고자 소명 부재]</div>
         </div>
@@ -21,7 +21,7 @@ export default function ReportCommentCard({
 
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <div className="flex flex-row gap-0 items-center text-light-200 text-sm md:text-base font-semibold">
+      <div className="flex flex-row gap-0 items-center text-yellow-500 text-sm md:text-base font-semibold">
         <SubdirectoryArrowRightIcon />
         <div>[피신고자 소명]</div>
       </div>

@@ -39,9 +39,9 @@ export default function ReportFeed({
   const reports = data.findReports.edges;
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-5 w-full">
       {reports.map((report, index) => (
-        <div key={report.node.id} className="flex flex-col gap-2">
+        <div key={report.node.id} className="flex flex-col gap-1">
           <ReportCard
             index={index}
             title={report.node.title}

@@ -13,7 +13,7 @@ export default function ReportCard({
 }) {
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <div className="text-light-200 text-sm md:text-base font-semibold">
+      <div className="text-star-500 text-sm md:text-base font-semibold">
         {`[신고 ${index + 1}] ${title}`}
       </div>
       <div className="text-light-200 font-light text-xs md:text-sm">
