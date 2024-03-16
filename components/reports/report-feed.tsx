@@ -1,18 +1,22 @@
 'use client';
 
 import { useInfiniteReports } from '@/hooks/use-infinite-reports';
-import { useSearchParams } from 'next/navigation';
 import { useRef } from 'react';
 import ReportCard from './report-card';
 import ReportCommentCard from './report-comment-card';
 
-export default function ReportFeed() {
+export default function ReportFeed({
+  type,
+  offerId,
+  demandId,
+  swapId,
+}: {
+  type: string;
+  offerId?: string;
+  demandId?: string;
+  swapId?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type');
-  const offerId = searchParams.get('offerId');
-  const demandId = searchParams.get('demandId');
-  const swapId = searchParams.get('swapId');
 
   const { loading, data } = useInfiniteReports({
     ref,
@@ -35,7 +39,7 @@ export default function ReportFeed() {
   const reports = data.findReports.edges;
 
   return (
-    <div className="flex flex-col gap-8 w-full md:w-3/4">
+    <div className="flex flex-col gap-6 w-full">
       {reports.map((report, index) => (
         <div key={report.node.id} className="flex flex-col gap-2">
           <ReportCard
