@@ -17,3 +17,34 @@ fragment report on ReportResponse {
 mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)
 }
+
+query findReports(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $distinct: Boolean
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findReports(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    distinct: $distinct
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...report
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

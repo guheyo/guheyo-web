@@ -15,6 +15,7 @@ export default function DealDetail({
   id,
   name0,
   name1,
+  slug,
   price,
   description,
   bumpedAt,
@@ -26,6 +27,7 @@ export default function DealDetail({
   id: string;
   name0: string;
   name1?: string;
+  slug: string;
   price: number;
   description?: string | null;
   bumpedAt: Date;
@@ -46,6 +48,7 @@ export default function DealDetail({
             id={id}
             name0={name0}
             name1={name1}
+            slug={slug}
             price={price}
             description={description}
             bumpedAt={bumpedAt}
@@ -64,6 +67,7 @@ export default function DealDetail({
           id={id}
           name0={name0}
           name1={name1}
+          slug={slug}
           price={price}
           description={description}
           bumpedAt={bumpedAt}

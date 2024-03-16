@@ -142,13 +142,10 @@ export type CreateAuctionInput = {
 };
 
 export type CreateCommentInput = {
-  auctionId?: InputMaybe<Scalars['ID']['input']>;
   authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  parentId?: InputMaybe<Scalars['ID']['input']>;
-  postId?: InputMaybe<Scalars['ID']['input']>;
-  reportId?: InputMaybe<Scalars['ID']['input']>;
+  refId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };
@@ -213,11 +210,8 @@ export type CreateOfferInput = {
 export type CreateReportInput = {
   authorId: Scalars['ID']['input'];
   content?: InputMaybe<Scalars['String']['input']>;
-  demandId?: InputMaybe<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
-  offerId?: InputMaybe<Scalars['ID']['input']>;
-  status?: Scalars['String']['input'];
-  swapId?: InputMaybe<Scalars['ID']['input']>;
+  refId: Scalars['ID']['input'];
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };
@@ -798,6 +792,12 @@ export type PaginatedOfferPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedReportsResponse = {
+  __typename?: 'PaginatedReportsResponse';
+  edges: Array<ReportResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedSwapPreviewsResponse = {
   __typename?: 'PaginatedSwapPreviewsResponse';
   edges: Array<SwapPreviewResponseEdge>;
@@ -845,6 +845,7 @@ export type Query = {
   findOffer?: Maybe<OfferResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findReport: ReportResponse;
+  findReports: PaginatedReportsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
@@ -962,6 +963,17 @@ export type QueryFindReportArgs = {
 };
 
 
+export type QueryFindReportsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+
 export type QueryFindRoleByIdArgs = {
   id: Scalars['ID']['input'];
 };
@@ -1037,6 +1049,12 @@ export type ReportResponse = {
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ReportResponseEdge = {
+  __typename?: 'ReportResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ReportResponse;
 };
 
 export type RoleResponse = {
@@ -1453,6 +1471,19 @@ export type CreateReportMutationVariables = Exact<{
 
 
 export type CreateReportMutation = { __typename?: 'Mutation', createReport: string };
+
+export type FindReportsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindReportsQuery = { __typename?: 'Query', findReports: { __typename?: 'PaginatedReportsResponse', edges: Array<{ __typename?: 'ReportResponseEdge', cursor: string, node: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -2735,6 +2766,69 @@ export function useCreateReportMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMutation>;
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
+export const FindReportsDocument = gql`
+    query findReports($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
+  findReports(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    distinct: $distinct
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...report
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${ReportFragmentDoc}`;
+
+/**
+ * __useFindReportsQuery__
+ *
+ * To run a query within a React component, call `useFindReportsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReportsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      distinct: // value for 'distinct'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindReportsQuery(baseOptions: Apollo.QueryHookOptions<FindReportsQuery, FindReportsQueryVariables> & ({ variables: FindReportsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+      }
+export function useFindReportsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportsQuery, FindReportsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+        }
+export function useFindReportsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportsQuery, FindReportsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+        }
+export type FindReportsQueryHookResult = ReturnType<typeof useFindReportsQuery>;
+export type FindReportsLazyQueryHookResult = ReturnType<typeof useFindReportsLazyQuery>;
+export type FindReportsSuspenseQueryHookResult = ReturnType<typeof useFindReportsSuspenseQuery>;
+export type FindReportsQueryResult = Apollo.QueryResult<FindReportsQuery, FindReportsQueryVariables>;
 export const CreateSessionDocument = gql`
     mutation createSession($input: CreateSessionInput!) {
   createSession(input: $input)

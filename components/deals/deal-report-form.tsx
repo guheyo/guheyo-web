@@ -57,9 +57,7 @@ export default function DealReportForm({
     const input: CreateReportInput = {
       id: values.id,
       type: dealType,
-      offerId: dealType === 'offer' ? dealId : undefined,
-      demandId: dealType === 'demand' ? dealId : undefined,
-      swapId: dealType === 'swap' ? dealId : undefined,
+      refId: dealId,
       authorId: user.id,
       title: values.title,
       content: values.content,

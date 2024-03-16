@@ -5,7 +5,7 @@ export const parseDealLink = ({
   dealType,
   dealId,
 }: {
-  action: 'edit' | 'bump' | 'report',
+  action: 'edit' | 'bump' | 'report';
   dealType: Deal;
   dealId: string;
 }) => `/${action}/${dealType}/${dealId}`;
