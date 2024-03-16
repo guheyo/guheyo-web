@@ -1,9 +1,9 @@
 export const parseReportPageLink = ({
   username,
   type,
-  refId,
+  slug,
 }: {
   username: string;
   type: string;
-  refId: string;
-}) => `/user/${username}/report?type=${type}&${type}Id=${refId}`;
+  slug: string;
+}) => `/user/${username}/${type}/${slug}/report`;

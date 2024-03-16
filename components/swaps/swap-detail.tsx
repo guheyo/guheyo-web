@@ -20,6 +20,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
       id={swap.id}
       name0={swap.name0}
       name1={swap.name1}
+      slug={swap.slug!}
       price={swap.price}
       description={swap.description0}
       bumpedAt={swap.bumpedAt}

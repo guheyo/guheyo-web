@@ -9,12 +9,12 @@ export default function ReportsLink({
   reports,
   username,
   type,
-  refId,
+  slug,
 }: {
   reports: ReportResponse[];
   username: string;
   type: string;
-  refId: string;
+  slug: string;
 }) {
   const router = useRouter();
   if (reports.length === 0) return <div />;
@@ -24,7 +24,7 @@ export default function ReportsLink({
       parseReportPageLink({
         username,
         type,
-        refId,
+        slug,
       }),
     );
   };

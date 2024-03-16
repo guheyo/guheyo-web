@@ -19,6 +19,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
       dealType="demand"
       id={demand.id}
       name0={demand.name}
+      slug={demand.slug!}
       price={demand.price}
       description={demand.description}
       bumpedAt={demand.bumpedAt}
