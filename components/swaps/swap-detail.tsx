@@ -16,7 +16,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
 
   return (
     <DealDetail
-      dealType="offer"
+      dealType="swap"
       id={swap.id}
       name0={swap.name0}
       name1={swap.name1}
