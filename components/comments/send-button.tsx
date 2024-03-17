@@ -7,7 +7,7 @@ export default function SendButton() {
       type="submit"
       className="rounded text-light-200 hover:text-white ml-6"
     >
-      <SendIcon />
+      <SendIcon fontSize="inherit" />
     </button>
   );
 }
