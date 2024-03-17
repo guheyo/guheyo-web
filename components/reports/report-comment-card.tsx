@@ -1,36 +1,48 @@
-import dayjs from 'dayjs';
-import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
+'use client';
+
+import { useContext } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { CommentValues } from '@/lib/comment/comment.types';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { AuthContext } from '../auth/auth.provider';
+import ReportCommentTitle from './report-comment-title';
+import ReportCommentContent from './report-comment-content';
 
 export default function ReportCommentCard({
+  reportId,
+  type,
+  refId,
   content,
   createdAt,
+  reportedUserId,
 }: {
+  reportId: string;
+  type: string;
+  refId: string;
   content?: string;
-  createdAt: Date;
+  createdAt?: Date;
+  reportedUserId: string;
 }) {
-  if (!content) {
-    return (
-      <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-        <div className="flex flex-row gap-0 items-center text-yellow-500 text-sm md:text-base font-semibold">
-          <SubdirectoryArrowRightIcon />
-          <div>[피신고자 소명 부재]</div>
-        </div>
-      </div>
-    );
-  }
+  const { user } = useContext(AuthContext);
+  const isReportedUser = !!user && user.id === reportedUserId;
+  const device = useDeviceDetect();
+
+  const handleSubmitValid: SubmitHandler<CommentValues> = async (values) => {
+    if (!isReportedUser) return;
+    if (!values.content) return;
+
+    // TODO
+  };
 
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <div className="flex flex-row gap-0 items-center text-yellow-500 text-sm md:text-base font-semibold">
-        <SubdirectoryArrowRightIcon />
-        <div>[피신고자 소명]</div>
-      </div>
-      <div className="text-light-200 font-light text-xs md:text-sm">
-        {content}
-      </div>
-      <div className="text-dark-200 text-xs md:text-sm">
-        {dayjs(createdAt).fromNow()}
-      </div>
+      <ReportCommentTitle hasContent={!!content} />
+      <ReportCommentContent
+        content={content}
+        createdAt={createdAt}
+        isReportedUser={isReportedUser}
+        handleSubmitValid={handleSubmitValid}
+      />
     </div>
   );
 }
