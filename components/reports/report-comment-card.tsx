@@ -1,12 +1,12 @@
 'use client';
 
 import { useContext } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
 import { AuthContext } from '../auth/auth.provider';
 import ReportCommentTitle from './report-comment-title';
-import ReportCommentContent from './report-comment-content';
+import CommentCard from '../comments/comment-card';
 
 export default function ReportCommentCard({
   reportId,
@@ -25,23 +25,44 @@ export default function ReportCommentCard({
 }) {
   const { user } = useContext(AuthContext);
   const isReportedUser = !!user && user.id === reportedUserId;
+  const defaultMode = parseDefaultReportCommentMode({
+    isReportedUser,
+    content,
+  });
   const device = useDeviceDetect();
 
-  const handleSubmitValid: SubmitHandler<CommentValues> = async (values) => {
+  const handleWrite = async (values: CommentValues) => {
     if (!isReportedUser) return;
     if (!values.content) return;
 
     // TODO
   };
 
+  const handleEdit = async (values: CommentValues) => {
+    // TODO
+  };
+
+  const handleDelete = (values: CommentValues) => {
+    // TODO
+  };
+
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
       <ReportCommentTitle hasContent={!!content} />
-      <ReportCommentContent
+      <CommentCard
+        displayMenu={isReportedUser}
+        defaultMode={defaultMode}
         content={content}
         createdAt={createdAt}
-        isReportedUser={isReportedUser}
-        handleSubmitValid={handleSubmitValid}
+        textFieldProps={{
+          multiline: true,
+          placeholder: content || '메시지 보내기',
+          minRows: 1,
+          size: 'small',
+        }}
+        handleWrite={handleWrite}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
       />
     </div>
   );
