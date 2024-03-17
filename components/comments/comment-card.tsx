@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
+import { TextFieldProps } from '@mui/material';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 
@@ -13,6 +14,7 @@ export default function CommentCard({
   defaultMode,
   content,
   createdAt,
+  textFieldProps,
   handleWrite,
   handleEdit,
   handleDelete,
@@ -21,6 +23,7 @@ export default function CommentCard({
   defaultMode: CRUD;
   content?: string;
   createdAt?: Date;
+  textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
   handleDelete: (values: CommentValues) => void;
@@ -62,12 +65,7 @@ export default function CommentCard({
             control,
             rules: { required: '댓글을 입력해 주세요' },
           }}
-          textFieldProps={{
-            multiline: true,
-            placeholder: content || '소명 댓글',
-            minRows: 2,
-            size: 'small',
-          }}
+          textFieldProps={textFieldProps}
         />
       </form>
     );
