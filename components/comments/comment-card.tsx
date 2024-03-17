@@ -4,7 +4,6 @@ import { v4 as uuid4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { parseCommentPlaceholder } from '@/lib/comment/parse-comment-placeholder';
 import { CRUD } from '@/lib/crud/crud.types';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
@@ -65,7 +64,7 @@ export default function CommentCard({
           }}
           textFieldProps={{
             multiline: true,
-            placeholder: parseCommentPlaceholder(content),
+            placeholder: content || '소명 댓글',
             minRows: 2,
             size: 'small',
           }}
