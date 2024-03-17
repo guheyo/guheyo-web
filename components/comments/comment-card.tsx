@@ -1,7 +1,7 @@
 'use client';
 
 import { v4 as uuid4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import { KeyboardEventHandler, useEffect, useState } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
@@ -56,6 +56,13 @@ export default function CommentCard({
     }
   };
 
+  const handleKeyDown: KeyboardEventHandler = (event) => {
+    if (event.code === 'Enter') {
+      event.preventDefault();
+      handleSubmitValid(getValues(), event);
+    }
+  };
+
   if (mode === 'create' || mode === 'update') {
     return (
       <form onSubmit={handleSubmit(handleSubmitValid)}>
@@ -65,7 +72,10 @@ export default function CommentCard({
             control,
             rules: { required: '댓글을 입력해 주세요' },
           }}
-          textFieldProps={textFieldProps}
+          textFieldProps={{
+            ...textFieldProps,
+            onKeyDown: handleKeyDown,
+          }}
         />
       </form>
     );

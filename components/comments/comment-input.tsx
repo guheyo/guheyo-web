@@ -18,12 +18,11 @@ export default function CommentInput({
   return (
     <TextField
       {...field}
+      {...textFieldProps}
       error={!!fieldState.error}
       helperText={!!fieldState.error && fieldState.error.message}
       fullWidth
-      multiline={textFieldProps.multiline}
       className="rounded bg-dark-400"
-      placeholder={textFieldProps.placeholder}
       InputProps={{
         endAdornment: <SendButton />,
         sx: {
@@ -31,8 +30,6 @@ export default function CommentInput({
           alignItems: 'flex-start',
         },
       }}
-      size={textFieldProps.size}
-      minRows={textFieldProps.minRows}
     />
   );
 }
