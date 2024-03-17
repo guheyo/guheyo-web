@@ -24,7 +24,11 @@ export default function OfferReport({ slug }: { slug: string }) {
         author={offer.seller}
         updatedAt={offer.updatedAt}
       />
-      <ReportFeed type="offer" offerId={offer.id} />
+      <ReportFeed
+        type="offer"
+        refId={offer.id}
+        reportedUserId={offer.seller.id}
+      />
     </ReportHomeLayout>
   );
 }

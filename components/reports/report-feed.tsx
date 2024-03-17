@@ -7,24 +7,20 @@ import ReportCommentCard from './report-comment-card';
 
 export default function ReportFeed({
   type,
-  offerId,
-  demandId,
-  swapId,
+  refId,
+  reportedUserId,
 }: {
   type: string;
-  offerId?: string;
-  demandId?: string;
-  swapId?: string;
+  refId: string;
+  reportedUserId: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { loading, data } = useInfiniteReports({
     ref,
     where: {
-      type: type!,
-      offerId: offerId || undefined,
-      demandId: demandId || undefined,
-      swapId: swapId || undefined,
+      type,
+      refId,
     },
     orderBy: {
       createdAt: 'asc',
@@ -32,7 +28,6 @@ export default function ReportFeed({
     take: 10,
   });
 
-  if (!type && !(offerId || demandId || swapId)) return <div />;
   if (loading) return <div />;
   if (!data?.findReports) return <div />;
 
@@ -49,8 +44,12 @@ export default function ReportFeed({
             createdAt={report.node.createdAt}
           />
           <ReportCommentCard
+            reportId={report.node.id}
+            type={report.node.type}
+            refId={refId}
             content={report.node.comments[0]?.content}
             createdAt={report.node.comments[0]?.createdAt}
+            reportedUserId={reportedUserId}
           />
         </div>
       ))}
