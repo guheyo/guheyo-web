@@ -3,8 +3,13 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { CRUD } from '@/lib/crud/crud.types';
 
-export default function CommentMenu() {
+export default function CommentMenu({
+  handleMenuClick,
+}: {
+  handleMenuClick: (mode: CRUD) => void;
+}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -16,16 +21,6 @@ export default function CommentMenu() {
   const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setAnchorEl(null);
-  };
-
-  const handleEditClick: React.MouseEventHandler = (event) => {
-    event.preventDefault();
-    // TODO
-  };
-
-  const handleDeleteClick: React.MouseEventHandler = async (event) => {
-    event.preventDefault();
-    // TODO
   };
 
   return (
@@ -48,8 +43,8 @@ export default function CommentMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleEditClick}>수정</MenuItem>
-        <MenuItem onClick={handleDeleteClick}>삭제</MenuItem>
+        <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
+        <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
       </Menu>
     </div>
   );
