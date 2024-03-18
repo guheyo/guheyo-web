@@ -26,7 +26,6 @@ const commentDealReport = ({
     authorId,
     source,
   };
-  console.log('input: ', input);
   if (type === 'offer') {
     return commentOfferReport({
       ...input,
