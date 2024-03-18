@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Deal } from '@/lib/deal/deal.types';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
 import { useRouter } from 'next/navigation';
@@ -47,7 +47,7 @@ export default function PublicDealMenu({
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreHorizIcon className="text-xl md:text-2xl text-dark-200" />
+        <MoreVertIcon className="text-xl md:text-2xl text-dark-200" />
       </Button>
       <Menu
         id="basic-menu"

@@ -21,7 +21,9 @@ export default function CommentOutput({
         <div className="text-light-200 font-light text-xs md:text-sm">
           {content}
         </div>
-        {displayMenu && <CommentMenu handleMenuClick={handleMenuClick} />}
+        <div className="mr-[-12px]">
+          {displayMenu && <CommentMenu handleMenuClick={handleMenuClick} />}
+        </div>
       </div>
       {dayjs(createdAt).fromNow()}
     </div>
