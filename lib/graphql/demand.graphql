@@ -104,3 +104,7 @@ mutation UpdateDemand($input: UpdateDemandInput!) {
 mutation BumpDemand($input: BumpDemandInput!) {
   bumpDemand(input: $input)
 }
+
+mutation CommentDemandReport($input: CommentDemandReportInput!) {
+  commentDemandReport(input: $input)
+}

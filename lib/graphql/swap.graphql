@@ -110,3 +110,7 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
 mutation BumpSwap($input: BumpSwapInput!) {
   bumpSwap(input: $input)
 }
+
+mutation CommentSwapReport($input: CommentSwapReportInput!) {
+  commentSwapReport(input: $input)
+}

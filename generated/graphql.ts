@@ -106,6 +106,15 @@ export type CancelBidInput = {
   bidderId: Scalars['String']['input'];
 };
 
+export type CommentDemandReportInput = {
+  authorId: Scalars['ID']['input'];
+  content: Scalars['String']['input'];
+  demandId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
+  reportId: Scalars['ID']['input'];
+  source: Scalars['String']['input'];
+};
+
 export type CommentOfferReportInput = {
   authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
@@ -126,6 +135,15 @@ export type CommentResponse = {
   reportId?: Maybe<Scalars['ID']['output']>;
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type CommentSwapReportInput = {
+  authorId: Scalars['ID']['input'];
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  reportId: Scalars['ID']['input'];
+  source: Scalars['String']['input'];
+  swapId: Scalars['ID']['input'];
 };
 
 export type ConnectRolesInput = {
@@ -422,7 +440,9 @@ export type Mutation = {
   bumpOffer: Scalars['String']['output'];
   bumpSwap: Scalars['String']['output'];
   cancelBid: Scalars['String']['output'];
+  commentDemandReport: Scalars['String']['output'];
   commentOfferReport: Scalars['String']['output'];
+  commentSwapReport: Scalars['String']['output'];
   connectRoles: Scalars['String']['output'];
   createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
@@ -494,8 +514,18 @@ export type MutationCancelBidArgs = {
 };
 
 
+export type MutationCommentDemandReportArgs = {
+  input: CommentDemandReportInput;
+};
+
+
 export type MutationCommentOfferReportArgs = {
   input: CommentOfferReportInput;
+};
+
+
+export type MutationCommentSwapReportArgs = {
+  input: CommentSwapReportInput;
 };
 
 
@@ -1394,6 +1424,13 @@ export type BumpDemandMutationVariables = Exact<{
 
 export type BumpDemandMutation = { __typename?: 'Mutation', bumpDemand: string };
 
+export type CommentDemandReportMutationVariables = Exact<{
+  input: CommentDemandReportInput;
+}>;
+
+
+export type CommentDemandReportMutation = { __typename?: 'Mutation', commentDemandReport: string };
+
 export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> };
 
 export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null };
@@ -1601,6 +1638,13 @@ export type BumpSwapMutationVariables = Exact<{
 
 
 export type BumpSwapMutation = { __typename?: 'Mutation', bumpSwap: string };
+
+export type CommentSwapReportMutationVariables = Exact<{
+  input: CommentSwapReportInput;
+}>;
+
+
+export type CommentSwapReportMutation = { __typename?: 'Mutation', commentSwapReport: string };
 
 export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string };
 
@@ -2379,6 +2423,37 @@ export function useBumpDemandMutation(baseOptions?: Apollo.MutationHookOptions<B
 export type BumpDemandMutationHookResult = ReturnType<typeof useBumpDemandMutation>;
 export type BumpDemandMutationResult = Apollo.MutationResult<BumpDemandMutation>;
 export type BumpDemandMutationOptions = Apollo.BaseMutationOptions<BumpDemandMutation, BumpDemandMutationVariables>;
+export const CommentDemandReportDocument = gql`
+    mutation CommentDemandReport($input: CommentDemandReportInput!) {
+  commentDemandReport(input: $input)
+}
+    `;
+export type CommentDemandReportMutationFn = Apollo.MutationFunction<CommentDemandReportMutation, CommentDemandReportMutationVariables>;
+
+/**
+ * __useCommentDemandReportMutation__
+ *
+ * To run a mutation, you first call `useCommentDemandReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCommentDemandReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [commentDemandReportMutation, { data, loading, error }] = useCommentDemandReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCommentDemandReportMutation(baseOptions?: Apollo.MutationHookOptions<CommentDemandReportMutation, CommentDemandReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CommentDemandReportMutation, CommentDemandReportMutationVariables>(CommentDemandReportDocument, options);
+      }
+export type CommentDemandReportMutationHookResult = ReturnType<typeof useCommentDemandReportMutation>;
+export type CommentDemandReportMutationResult = Apollo.MutationResult<CommentDemandReportMutation>;
+export type CommentDemandReportMutationOptions = Apollo.BaseMutationOptions<CommentDemandReportMutation, CommentDemandReportMutationVariables>;
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
@@ -3275,6 +3350,37 @@ export function useBumpSwapMutation(baseOptions?: Apollo.MutationHookOptions<Bum
 export type BumpSwapMutationHookResult = ReturnType<typeof useBumpSwapMutation>;
 export type BumpSwapMutationResult = Apollo.MutationResult<BumpSwapMutation>;
 export type BumpSwapMutationOptions = Apollo.BaseMutationOptions<BumpSwapMutation, BumpSwapMutationVariables>;
+export const CommentSwapReportDocument = gql`
+    mutation CommentSwapReport($input: CommentSwapReportInput!) {
+  commentSwapReport(input: $input)
+}
+    `;
+export type CommentSwapReportMutationFn = Apollo.MutationFunction<CommentSwapReportMutation, CommentSwapReportMutationVariables>;
+
+/**
+ * __useCommentSwapReportMutation__
+ *
+ * To run a mutation, you first call `useCommentSwapReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCommentSwapReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [commentSwapReportMutation, { data, loading, error }] = useCommentSwapReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCommentSwapReportMutation(baseOptions?: Apollo.MutationHookOptions<CommentSwapReportMutation, CommentSwapReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CommentSwapReportMutation, CommentSwapReportMutationVariables>(CommentSwapReportDocument, options);
+      }
+export type CommentSwapReportMutationHookResult = ReturnType<typeof useCommentSwapReportMutation>;
+export type CommentSwapReportMutationResult = Apollo.MutationResult<CommentSwapReportMutation>;
+export type CommentSwapReportMutationOptions = Apollo.BaseMutationOptions<CommentSwapReportMutation, CommentSwapReportMutationVariables>;
 export const FindTermDocument = gql`
     query findTerm($name: String!) {
   findTerm(name: $name) {
