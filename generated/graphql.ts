@@ -106,6 +106,15 @@ export type CancelBidInput = {
   bidderId: Scalars['String']['input'];
 };
 
+export type CommentOfferReportInput = {
+  authorId: Scalars['ID']['input'];
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  offerId: Scalars['ID']['input'];
+  reportId: Scalars['ID']['input'];
+  source: Scalars['String']['input'];
+};
+
 export type CommentResponse = {
   __typename?: 'CommentResponse';
   auctionId?: Maybe<Scalars['ID']['output']>;
@@ -413,6 +422,7 @@ export type Mutation = {
   bumpOffer: Scalars['String']['output'];
   bumpSwap: Scalars['String']['output'];
   cancelBid: Scalars['String']['output'];
+  commentOfferReport: Scalars['String']['output'];
   connectRoles: Scalars['String']['output'];
   createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
@@ -481,6 +491,11 @@ export type MutationBumpSwapArgs = {
 
 export type MutationCancelBidArgs = {
   input: CancelBidInput;
+};
+
+
+export type MutationCommentOfferReportArgs = {
+  input: CommentOfferReportInput;
 };
 
 
@@ -1462,6 +1477,13 @@ export type BumpOfferMutationVariables = Exact<{
 
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: string };
+
+export type CommentOfferReportMutationVariables = Exact<{
+  input: CommentOfferReportInput;
+}>;
+
+
+export type CommentOfferReportMutation = { __typename?: 'Mutation', commentOfferReport: string };
 
 export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
@@ -2735,6 +2757,37 @@ export function useBumpOfferMutation(baseOptions?: Apollo.MutationHookOptions<Bu
 export type BumpOfferMutationHookResult = ReturnType<typeof useBumpOfferMutation>;
 export type BumpOfferMutationResult = Apollo.MutationResult<BumpOfferMutation>;
 export type BumpOfferMutationOptions = Apollo.BaseMutationOptions<BumpOfferMutation, BumpOfferMutationVariables>;
+export const CommentOfferReportDocument = gql`
+    mutation CommentOfferReport($input: CommentOfferReportInput!) {
+  commentOfferReport(input: $input)
+}
+    `;
+export type CommentOfferReportMutationFn = Apollo.MutationFunction<CommentOfferReportMutation, CommentOfferReportMutationVariables>;
+
+/**
+ * __useCommentOfferReportMutation__
+ *
+ * To run a mutation, you first call `useCommentOfferReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCommentOfferReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [commentOfferReportMutation, { data, loading, error }] = useCommentOfferReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCommentOfferReportMutation(baseOptions?: Apollo.MutationHookOptions<CommentOfferReportMutation, CommentOfferReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CommentOfferReportMutation, CommentOfferReportMutationVariables>(CommentOfferReportDocument, options);
+      }
+export type CommentOfferReportMutationHookResult = ReturnType<typeof useCommentOfferReportMutation>;
+export type CommentOfferReportMutationResult = Apollo.MutationResult<CommentOfferReportMutation>;
+export type CommentOfferReportMutationOptions = Apollo.BaseMutationOptions<CommentOfferReportMutation, CommentOfferReportMutationVariables>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)

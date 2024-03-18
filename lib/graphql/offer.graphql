@@ -107,3 +107,7 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
 mutation BumpOffer($input: BumpOfferInput!) {
   bumpOffer(input: $input)
 }
+
+mutation CommentOfferReport($input: CommentOfferReportInput!) {
+  commentOfferReport(input: $input)
+}

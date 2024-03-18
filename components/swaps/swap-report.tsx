@@ -25,7 +25,11 @@ export default function SwapReport({ slug }: { slug: string }) {
         author={swap.proposer}
         updatedAt={swap.updatedAt}
       />
-      <ReportFeed type="swap" swapId={swap.id} />
+      <ReportFeed
+        type="swap"
+        refId={swap.id}
+        reportedUserId={swap.proposer.id}
+      />
     </ReportHomeLayout>
   );
 }

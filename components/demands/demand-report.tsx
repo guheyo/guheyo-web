@@ -24,7 +24,11 @@ export default function DemandReport({ slug }: { slug: string }) {
         author={demand.buyer}
         updatedAt={demand.updatedAt}
       />
-      <ReportFeed type="demand" demandId={demand.id} />
+      <ReportFeed
+        type="demand"
+        refId={demand.id}
+        reportedUserId={demand.buyer.id}
+      />
     </ReportHomeLayout>
   );
 }
