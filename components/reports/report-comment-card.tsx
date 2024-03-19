@@ -6,6 +6,8 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
 import commentDealReport from '@/lib/deal/comment-deal-report';
 import { useRouter } from 'next/navigation';
+import { updateComment } from '@/lib/api/comment';
+import { CommentResponse } from '@/generated/graphql';
 import { AuthContext } from '../auth/auth.provider';
 import ReportCommentTitle from './report-comment-title';
 import CommentCard from '../comments/comment-card';
@@ -14,29 +16,26 @@ export default function ReportCommentCard({
   reportId,
   type,
   refId,
-  content,
-  createdAt,
+  comment,
   reportedUserId,
 }: {
   reportId: string;
   type: string;
   refId: string;
-  content?: string;
-  createdAt?: Date;
+  comment?: CommentResponse;
   reportedUserId: string;
 }) {
   const { user } = useContext(AuthContext);
   const isReportedUser = !!user && user.id === reportedUserId;
   const defaultMode = parseDefaultReportCommentMode({
     isReportedUser,
-    content,
+    content: comment?.content,
   });
   const device = useDeviceDetect();
   const router = useRouter();
 
   const handleWrite = async (values: CommentValues) => {
-    if (!isReportedUser) return;
-    if (!values.content) return;
+    if (!isReportedUser || !values.content) return;
 
     await commentDealReport({
       type,
@@ -47,11 +46,17 @@ export default function ReportCommentCard({
       authorId: user.id,
       source: device,
     });
-    router.refresh();
   };
 
   const handleEdit = async (values: CommentValues) => {
-    // TODO
+    if (!isReportedUser || !values.content) return;
+
+    await updateComment({
+      id: values.id,
+      authorId: user.id,
+      content: values.content,
+      source: device,
+    });
   };
 
   const handleDelete = (values: CommentValues) => {
@@ -60,15 +65,14 @@ export default function ReportCommentCard({
 
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <ReportCommentTitle hasContent={!!content} />
+      <ReportCommentTitle hasContent={!!comment?.content} />
       <CommentCard
         displayMenu={isReportedUser}
         defaultMode={defaultMode}
-        content={content}
-        createdAt={createdAt}
+        comment={comment}
         textFieldProps={{
           multiline: true,
-          placeholder: content || '메시지 보내기',
+          placeholder: '메시지 보내기',
           minRows: 1,
           size: 'small',
         }}

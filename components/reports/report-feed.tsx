@@ -47,8 +47,7 @@ export default function ReportFeed({
             reportId={report.node.id}
             type={report.node.type}
             refId={refId}
-            content={report.node.comments[0]?.content}
-            createdAt={report.node.comments[0]?.createdAt}
+            comment={report.node.comments[0]}
             reportedUserId={reportedUserId}
           />
         </div>
