@@ -1,17 +1,19 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { CRUD } from '@/lib/crud/crud.types';
+import { parseCommentDate } from '@/lib/comment/parse-comment-date';
 import CommentMenu from './comment-menu';
 
 export default function CommentOutput({
   content,
   createdAt,
+  updatedAt,
   displayMenu,
   handleMenuClick,
 }: {
   content?: string;
   createdAt?: Date;
+  updatedAt?: Date;
   displayMenu: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
@@ -25,7 +27,9 @@ export default function CommentOutput({
           {displayMenu && <CommentMenu handleMenuClick={handleMenuClick} />}
         </div>
       </div>
-      {dayjs(createdAt).fromNow()}
+      <div className="text-dark-200 text-xs md:text-sm">
+        {parseCommentDate({ createdAt, updatedAt })}
+      </div>
     </div>
   );
 }

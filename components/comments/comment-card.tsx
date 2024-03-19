@@ -96,6 +96,7 @@ export default function CommentCard({
     <CommentOutput
       content={comment?.content}
       createdAt={comment?.createdAt}
+      updatedAt={comment?.updatedAt}
       displayMenu={displayMenu}
       handleMenuClick={handleMenuClick}
     />
