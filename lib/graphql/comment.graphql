@@ -13,3 +13,7 @@ fragment comment on CommentResponse {
 mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
 }
+
+mutation UpdateComment($input: UpdateCommentInput!) {
+  updateComment(input: $input)
+}
