@@ -8,6 +8,8 @@ fragment offer on OfferResponse {
   description
   price
   priceCurrency
+  shippingCost
+  shippingType
   businessFunction
   status
   source
@@ -36,6 +38,8 @@ fragment offerPreview on OfferPreviewResponse {
   slug
   price
   priceCurrency
+  shippingCost
+  shippingType
   businessFunction
   status
   source
@@ -106,6 +110,8 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
     status
     name
     price
+    shippingCost
+    shippingType
   }
 }
 
@@ -114,6 +120,8 @@ mutation BumpOffer($input: BumpOfferInput!) {
     id
     bumpedAt
     price
+    shippingCost
+    shippingType
   }
 }
 
