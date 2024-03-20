@@ -1,3 +1,16 @@
+fragment reportPreview on ReportPreviewResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  offerId
+  demandId
+  swapId
+  status
+  title
+  content
+}
+
 fragment report on ReportResponse {
   id
   createdAt
@@ -18,7 +31,7 @@ mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)
 }
 
-query findReports(
+query findReportPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
@@ -27,7 +40,7 @@ query findReports(
   $skip: Int!
   $take: Int!
 ) {
-  findReports(
+  findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
@@ -38,7 +51,7 @@ query findReports(
   ) {
     edges {
       node {
-        ...report
+        ...reportPreview
       }
       cursor
     }
