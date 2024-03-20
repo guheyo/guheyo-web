@@ -10,6 +10,7 @@ fragment offer on OfferResponse {
   priceCurrency
   shippingCost
   shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -40,6 +41,7 @@ fragment offerPreview on OfferPreviewResponse {
   priceCurrency
   shippingCost
   shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -112,6 +114,7 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
     price
     shippingCost
     shippingType
+    totalPrice
   }
 }
 
@@ -122,6 +125,7 @@ mutation BumpOffer($input: BumpOfferInput!) {
     price
     shippingCost
     shippingType
+    totalPrice
   }
 }
 

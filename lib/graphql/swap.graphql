@@ -12,6 +12,7 @@ fragment swap on SwapResponse {
   priceCurrency
   shippingCost
   shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -43,6 +44,7 @@ fragment swapPreview on SwapPreviewResponse {
   priceCurrency
   shippingCost
   shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -116,6 +118,7 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
     price
     shippingCost
     shippingType
+    totalPrice
   }
 }
 
@@ -126,6 +129,7 @@ mutation BumpSwap($input: BumpSwapInput!) {
     price
     shippingCost
     shippingType
+    totalPrice
   }
 }
 
