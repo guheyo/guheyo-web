@@ -6,8 +6,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CRUD } from '@/lib/crud/crud.types';
 
 export default function CommentMenu({
+  allowDelete,
   handleMenuClick,
 }: {
+  allowDelete: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -44,7 +46,9 @@ export default function CommentMenu({
         }}
       >
         <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
-        <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+        {allowDelete && (
+          <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+        )}
       </Menu>
     </div>
   );

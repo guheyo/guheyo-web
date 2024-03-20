@@ -6,14 +6,14 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
+import { CommentResponse } from '@/generated/graphql';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 
 export default function CommentCard({
   displayMenu,
   defaultMode,
-  content,
-  createdAt,
+  comment,
   textFieldProps,
   handleWrite,
   handleEdit,
@@ -21,8 +21,7 @@ export default function CommentCard({
 }: {
   displayMenu: boolean;
   defaultMode: CRUD;
-  content?: string;
-  createdAt?: Date;
+  comment?: CommentResponse | null;
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
@@ -30,16 +29,28 @@ export default function CommentCard({
 }) {
   const [mode, setMode] = useState<CRUD>('read');
 
-  const { handleSubmit, control, getValues } = useForm<CommentValues>({
-    defaultValues: {
-      id: uuid4(),
-      content: content || '',
+  const { handleSubmit, control, getValues, setValue } = useForm<CommentValues>(
+    {
+      defaultValues: {
+        id: undefined,
+        content: undefined,
+      },
     },
-  });
+  );
 
   useEffect(() => {
     setMode(defaultMode);
   }, [defaultMode]);
+
+  useEffect(() => {
+    if (!comment) {
+      setValue('id', uuid4());
+    } else {
+      setValue('id', comment.id);
+      setValue('content', comment.content);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comment]);
 
   const handleMenuClick = (newMode: CRUD) => {
     if (newMode === 'delete') {
@@ -54,6 +65,7 @@ export default function CommentCard({
     } else if (mode === 'update') {
       handleEdit(values);
     }
+    setMode('read');
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
@@ -83,8 +95,9 @@ export default function CommentCard({
 
   return (
     <CommentOutput
-      content={content}
-      createdAt={createdAt}
+      content={comment?.content}
+      createdAt={comment?.createdAt}
+      updatedAt={comment?.updatedAt}
       displayMenu={displayMenu}
       handleMenuClick={handleMenuClick}
     />
