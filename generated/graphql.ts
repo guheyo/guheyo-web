@@ -476,7 +476,7 @@ export type Mutation = {
   logout: SocialUserResponse;
   refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
-  updateComment: Scalars['String']['output'];
+  updateComment: CommentResponse;
   updateDemand: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
   updateMember: Scalars['String']['output'];
@@ -843,9 +843,9 @@ export type PaginatedOfferPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
-export type PaginatedReportsResponse = {
-  __typename?: 'PaginatedReportsResponse';
-  edges: Array<ReportResponseEdge>;
+export type PaginatedReportPreviewsResponse = {
+  __typename?: 'PaginatedReportPreviewsResponse';
+  edges: Array<ReportPreviewResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -883,7 +883,7 @@ export type Query = {
   __typename?: 'Query';
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
-  findComment: CommentResponse;
+  findComment?: Maybe<CommentResponse>;
   findDemand?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
   findGroup?: Maybe<GroupResponse>;
@@ -896,7 +896,7 @@ export type Query = {
   findOffer?: Maybe<OfferResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findReport: ReportResponse;
-  findReports: PaginatedReportsResponse;
+  findReportPreviews: PaginatedReportPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
@@ -924,10 +924,8 @@ export type QueryFindAuctionsArgs = {
 
 
 export type QueryFindCommentArgs = {
-  auctionId?: InputMaybe<Scalars['ID']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
-  postId?: InputMaybe<Scalars['ID']['input']>;
-  reportId?: InputMaybe<Scalars['ID']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1014,7 +1012,7 @@ export type QueryFindReportArgs = {
 };
 
 
-export type QueryFindReportsArgs = {
+export type QueryFindReportPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
@@ -1087,6 +1085,26 @@ export type QueryGetSocialAccountsByUserIdArgs = {
   id: Scalars['ID']['input'];
 };
 
+export type ReportPreviewResponse = {
+  __typename?: 'ReportPreviewResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  demandId?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['ID']['output']>;
+  status: Scalars['String']['output'];
+  swapId?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ReportPreviewResponseEdge = {
+  __typename?: 'ReportPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ReportPreviewResponse;
+};
+
 export type ReportResponse = {
   __typename?: 'ReportResponse';
   comments: Array<CommentResponse>;
@@ -1100,12 +1118,6 @@ export type ReportResponse = {
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
-};
-
-export type ReportResponseEdge = {
-  __typename?: 'ReportResponseEdge';
-  cursor: Scalars['String']['output'];
-  node: ReportResponse;
 };
 
 export type RoleResponse = {
@@ -1396,7 +1408,16 @@ export type UpdateCommentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: string };
+export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } };
+
+export type FindCommentQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } | null };
 
 export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, businessFunction: string, status: string, source: string, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reports: Array<{ __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> }> };
 
@@ -1542,6 +1563,8 @@ export type CommentOfferReportMutationVariables = Exact<{
 
 export type CommentOfferReportMutation = { __typename?: 'Mutation', commentOfferReport: string };
 
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null };
+
 export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
 export type CreateReportMutationVariables = Exact<{
@@ -1551,7 +1574,7 @@ export type CreateReportMutationVariables = Exact<{
 
 export type CreateReportMutation = { __typename?: 'Mutation', createReport: string };
 
-export type FindReportsQueryVariables = Exact<{
+export type FindReportPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
@@ -1562,7 +1585,7 @@ export type FindReportsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportsQuery = { __typename?: 'Query', findReports: { __typename?: 'PaginatedReportsResponse', edges: Array<{ __typename?: 'ReportResponseEdge', cursor: string, node: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, demandId?: string | null, swapId?: string | null, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateSessionMutationVariables = Exact<{
   input: CreateSessionInput;
@@ -2031,6 +2054,20 @@ export const OfferFragmentDoc = gql`
 ${GroupProfileFragmentDoc}
 ${AuthorFragmentDoc}
 ${ReportFragmentDoc}`;
+export const ReportPreviewFragmentDoc = gql`
+    fragment reportPreview on ReportPreviewResponse {
+  id
+  createdAt
+  updatedAt
+  type
+  offerId
+  demandId
+  swapId
+  status
+  title
+  content
+}
+    `;
 export const SessionFragmentDoc = gql`
     fragment session on SessionResponse {
   sessionToken
@@ -2248,9 +2285,11 @@ export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMut
 export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const UpdateCommentDocument = gql`
     mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input)
+  updateComment(input: $input) {
+    ...comment
+  }
 }
-    `;
+    ${CommentFragmentDoc}`;
 export type UpdateCommentMutationFn = Apollo.MutationFunction<UpdateCommentMutation, UpdateCommentMutationVariables>;
 
 /**
@@ -2277,6 +2316,48 @@ export function useUpdateCommentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateCommentMutationHookResult = ReturnType<typeof useUpdateCommentMutation>;
 export type UpdateCommentMutationResult = Apollo.MutationResult<UpdateCommentMutation>;
 export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<UpdateCommentMutation, UpdateCommentMutationVariables>;
+export const FindCommentDocument = gql`
+    query FindComment($id: ID, $type: String, $refId: ID) {
+  findComment(id: $id, type: $type, refId: $refId) {
+    ...comment
+  }
+}
+    ${CommentFragmentDoc}`;
+
+/**
+ * __useFindCommentQuery__
+ *
+ * To run a query within a React component, call `useFindCommentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCommentQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      type: // value for 'type'
+ *      refId: // value for 'refId'
+ *   },
+ * });
+ */
+export function useFindCommentQuery(baseOptions?: Apollo.QueryHookOptions<FindCommentQuery, FindCommentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCommentQuery, FindCommentQueryVariables>(FindCommentDocument, options);
+      }
+export function useFindCommentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommentQuery, FindCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCommentQuery, FindCommentQueryVariables>(FindCommentDocument, options);
+        }
+export function useFindCommentSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCommentQuery, FindCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCommentQuery, FindCommentQueryVariables>(FindCommentDocument, options);
+        }
+export type FindCommentQueryHookResult = ReturnType<typeof useFindCommentQuery>;
+export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLazyQuery>;
+export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
+export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
 export const FindDemandPreviewsDocument = gql`
     query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
@@ -2945,9 +3026,9 @@ export function useCreateReportMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMutation>;
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
-export const FindReportsDocument = gql`
-    query findReports($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
-  findReports(
+export const FindReportPreviewsDocument = gql`
+    query findReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
+  findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
@@ -2958,7 +3039,7 @@ export const FindReportsDocument = gql`
   ) {
     edges {
       node {
-        ...report
+        ...reportPreview
       }
       cursor
     }
@@ -2968,19 +3049,19 @@ export const FindReportsDocument = gql`
     }
   }
 }
-    ${ReportFragmentDoc}`;
+    ${ReportPreviewFragmentDoc}`;
 
 /**
- * __useFindReportsQuery__
+ * __useFindReportPreviewsQuery__
  *
- * To run a query within a React component, call `useFindReportsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindReportsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindReportPreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindReportsQuery({
+ * const { data, loading, error } = useFindReportPreviewsQuery({
  *   variables: {
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
@@ -2992,22 +3073,22 @@ export const FindReportsDocument = gql`
  *   },
  * });
  */
-export function useFindReportsQuery(baseOptions: Apollo.QueryHookOptions<FindReportsQuery, FindReportsQueryVariables> & ({ variables: FindReportsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindReportPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindReportPreviewsQuery, FindReportPreviewsQueryVariables> & ({ variables: FindReportPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+        return Apollo.useQuery<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>(FindReportPreviewsDocument, options);
       }
-export function useFindReportsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportsQuery, FindReportsQueryVariables>) {
+export function useFindReportPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+          return Apollo.useLazyQuery<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>(FindReportPreviewsDocument, options);
         }
-export function useFindReportsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportsQuery, FindReportsQueryVariables>) {
+export function useFindReportPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindReportsQuery, FindReportsQueryVariables>(FindReportsDocument, options);
+          return Apollo.useSuspenseQuery<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>(FindReportPreviewsDocument, options);
         }
-export type FindReportsQueryHookResult = ReturnType<typeof useFindReportsQuery>;
-export type FindReportsLazyQueryHookResult = ReturnType<typeof useFindReportsLazyQuery>;
-export type FindReportsSuspenseQueryHookResult = ReturnType<typeof useFindReportsSuspenseQuery>;
-export type FindReportsQueryResult = Apollo.QueryResult<FindReportsQuery, FindReportsQueryVariables>;
+export type FindReportPreviewsQueryHookResult = ReturnType<typeof useFindReportPreviewsQuery>;
+export type FindReportPreviewsLazyQueryHookResult = ReturnType<typeof useFindReportPreviewsLazyQuery>;
+export type FindReportPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindReportPreviewsSuspenseQuery>;
+export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>;
 export const CreateSessionDocument = gql`
     mutation createSession($input: CreateSessionInput!) {
   createSession(input: $input)

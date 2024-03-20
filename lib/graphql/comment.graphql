@@ -15,5 +15,21 @@ mutation CreateComment($input: CreateCommentInput!) {
 }
 
 mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input)
+  updateComment(input: $input) {
+    ...comment
+  }
+}
+
+query FindComment(
+  $id: ID
+  $type: String
+  $refId: ID
+) {
+  findComment(
+    id: $id
+    type: $type
+    refId: $refId
+  ) {
+    ...comment
+  }
 }
