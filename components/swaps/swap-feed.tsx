@@ -59,8 +59,9 @@ function SwapFeed({
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (!data?.findSwapPreviews) return <div />;
 
-  const { edges } = data.findSwapPreviews;
-
+  const edges = data.findSwapPreviews.edges.filter((edge) =>
+    status ? edge.node.status === status : true,
+  );
   return (
     <>
       {edges.map((edge) => (

@@ -101,11 +101,20 @@ mutation CreateOffer($input: CreateOfferInput!) {
 }
 
 mutation UpdateOffer($input: UpdateOfferInput!) {
-  updateOffer(input: $input)
+  updateOffer(input: $input) {
+    id
+    status
+    name
+    price
+  }
 }
 
 mutation BumpOffer($input: BumpOfferInput!) {
-  bumpOffer(input: $input)
+  bumpOffer(input: $input) {
+    id
+    bumpedAt
+    price
+  }
 }
 
 mutation CommentOfferReport($input: CommentOfferReportInput!) {

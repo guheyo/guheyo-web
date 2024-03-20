@@ -8,6 +8,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
     variables: {
       slug: decodeURI(slug),
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
