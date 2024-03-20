@@ -13,7 +13,7 @@ interface Props {
   dealId: string;
   authorId: string;
   name: string;
-  price: number;
+  totalPrice: number;
   bumpedAt: Date;
   username: string;
   slug: string;
@@ -25,7 +25,7 @@ export default function DealTextPreview({
   dealId,
   authorId,
   name,
-  price,
+  totalPrice,
   bumpedAt,
   username,
   slug,
@@ -50,7 +50,7 @@ export default function DealTextPreview({
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <DealPreviewPrice price={price} />
+            <DealPreviewPrice totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
               <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>

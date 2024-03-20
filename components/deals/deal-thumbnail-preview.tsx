@@ -16,7 +16,7 @@ interface Props {
   authorId: string;
   thumbnail?: UserImageResponse | null;
   name: any;
-  price: number;
+  totalPrice: number;
   bumpedAt: Date;
   username: string;
   slug: string;
@@ -29,7 +29,7 @@ export default function DealThumbnailPreview({
   authorId,
   thumbnail,
   name,
-  price,
+  totalPrice,
   bumpedAt,
   username,
   slug,
@@ -68,7 +68,7 @@ export default function DealThumbnailPreview({
             </div>
           </div>
           <div className="flex flex-row justify-between items-center pb-1">
-            <DealPreviewPrice price={price} />
+            <DealPreviewPrice totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
               <DealAddons bumpedAt={bumpedAt} reports={reports} />
             </div>

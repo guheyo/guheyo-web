@@ -12,7 +12,7 @@ interface Props {
   type: 'text' | 'thumbnail';
   thumbnail?: UserImageResponse | null;
   name: any;
-  price: number;
+  totalPrice: number;
   bumpedAt: Date;
   username: string;
   slug: string;
@@ -26,7 +26,7 @@ export default function DealPreview({
   type,
   thumbnail,
   name,
-  price,
+  totalPrice,
   bumpedAt,
   username,
   slug,
@@ -40,7 +40,7 @@ export default function DealPreview({
           dealId={dealId}
           authorId={authorId}
           name={name}
-          price={price}
+          totalPrice={totalPrice}
           bumpedAt={bumpedAt}
           username={username}
           slug={slug}
@@ -56,7 +56,7 @@ export default function DealPreview({
           authorId={authorId}
           thumbnail={thumbnail}
           name={name}
-          price={price}
+          totalPrice={totalPrice}
           bumpedAt={bumpedAt}
           username={username}
           slug={slug}

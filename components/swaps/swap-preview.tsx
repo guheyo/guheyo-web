@@ -18,7 +18,7 @@ export default function SwapPreview({ swap, type }: Props) {
       type={type}
       thumbnail={swap.thumbnail}
       name={<SwapName name0={swap.name0} name1={swap.name1} />}
-      price={swap.price}
+      totalPrice={swap.totalPrice}
       bumpedAt={swap.bumpedAt}
       username={swap.proposer.username}
       slug={swap.slug!}

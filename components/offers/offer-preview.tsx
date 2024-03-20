@@ -18,7 +18,7 @@ export default function OfferPreview({ offer, type }: Props) {
       type={type}
       thumbnail={offer.thumbnail}
       name={truncateName(offer.name, 42)}
-      price={offer.price}
+      totalPrice={offer.totalPrice}
       bumpedAt={offer.bumpedAt}
       username={offer.seller.username}
       slug={offer.slug!}
