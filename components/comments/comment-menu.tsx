@@ -44,7 +44,7 @@ export default function CommentMenu({
         }}
       >
         <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
-        <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+        {/* <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem> */}
       </Menu>
     </div>
   );
