@@ -8,6 +8,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
     variables: {
       slug: decodeURI(slug),
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
@@ -28,5 +29,5 @@ export default function SwapDetail({ slug }: { slug: string }) {
       images={swap.images}
       reports={swap.reports}
     />
-  )
+  );
 }

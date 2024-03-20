@@ -11,6 +11,7 @@ export default function SwapReport({ slug }: { slug: string }) {
     variables: {
       slug: decodeURI(slug),
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;

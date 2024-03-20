@@ -8,6 +8,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
     variables: {
       slug: decodeURI(slug),
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
