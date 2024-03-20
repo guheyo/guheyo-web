@@ -65,6 +65,7 @@ export default function CommentCard({
     } else if (mode === 'update') {
       handleEdit(values);
     }
+    setMode('read');
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
