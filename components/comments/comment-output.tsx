@@ -24,7 +24,12 @@ export default function CommentOutput({
           {content}
         </div>
         <div className="mr-[-12px]">
-          {displayMenu && <CommentMenu handleMenuClick={handleMenuClick} />}
+          {displayMenu && (
+            <CommentMenu
+              allowDelete={false}
+              handleMenuClick={handleMenuClick}
+            />
+          )}
         </div>
       </div>
       <div className="text-dark-200 text-xs md:text-sm">
