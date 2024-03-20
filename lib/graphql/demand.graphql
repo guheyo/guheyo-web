@@ -101,6 +101,8 @@ mutation UpdateDemand($input: UpdateDemandInput!) {
   updateDemand(input: $input) {
     id
     status
+    name
+    price
   }
 }
 

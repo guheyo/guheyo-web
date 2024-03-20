@@ -1456,7 +1456,7 @@ export type UpdateDemandMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string } };
+export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string, name: string, price: number } };
 
 export type BumpDemandMutationVariables = Exact<{
   input: BumpDemandInput;
@@ -1547,7 +1547,7 @@ export type UpdateOfferMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string } };
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string, name: string, price: number } };
 
 export type BumpOfferMutationVariables = Exact<{
   input: BumpOfferInput;
@@ -1673,7 +1673,7 @@ export type UpdateSwapMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string } };
+export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string, name0: string, name1: string, price: number } };
 
 export type BumpSwapMutationVariables = Exact<{
   input: BumpSwapInput;
@@ -2498,6 +2498,8 @@ export const UpdateDemandDocument = gql`
   updateDemand(input: $input) {
     id
     status
+    name
+    price
   }
 }
     `;
@@ -2914,6 +2916,8 @@ export const UpdateOfferDocument = gql`
   updateOffer(input: $input) {
     id
     status
+    name
+    price
   }
 }
     `;
@@ -3439,6 +3443,9 @@ export const UpdateSwapDocument = gql`
   updateSwap(input: $input) {
     id
     status
+    name0
+    name1
+    price
   }
 }
     `;

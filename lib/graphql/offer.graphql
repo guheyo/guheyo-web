@@ -104,6 +104,8 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
     id
     status
+    name
+    price
   }
 }
 

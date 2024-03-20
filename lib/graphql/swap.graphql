@@ -107,6 +107,9 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
   updateSwap(input: $input) {
     id
     status
+    name0
+    name1
+    price
   }
 }
 
