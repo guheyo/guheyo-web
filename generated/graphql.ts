@@ -1332,6 +1332,7 @@ export type UpdateSwapInput = {
   name1?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
+  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   proposerId: Scalars['ID']['input'];
   source: Scalars['String']['input'];
   status?: InputMaybe<Scalars['String']['input']>;
