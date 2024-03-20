@@ -1,8 +1,8 @@
-import { useFindReportsQuery } from '@/generated/graphql';
+import { useFindReportPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import {
-  FindReportsOrderByArgs,
-  FindReportsWhereArgs,
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
@@ -14,12 +14,12 @@ export const useInfiniteReports = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindReportsWhereArgs;
-  orderBy?: FindReportsOrderByArgs;
+  where?: FindReportPreviewsWhereArgs;
+  orderBy?: FindReportPreviewsOrderByArgs;
   keyword?: string;
   take: number;
 }) => {
-  const { loading, data, fetchMore } = useFindReportsQuery({
+  const { loading, data, fetchMore } = useFindReportPreviewsQuery({
     variables: {
       keyword,
       where,
@@ -35,25 +35,25 @@ export const useInfiniteReports = ({
       fetchMore({
         variables: {
           keyword,
-          cursor: data?.findReports.pageInfo.endCursor,
+          cursor: data?.findReportPreviews.pageInfo.endCursor,
           take,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findReports: {
-              __typename: previousQueryResult.findReports.__typename,
+            findReportPreviews: {
+              __typename: previousQueryResult.findReportPreviews.__typename,
               edges: [
-                ...previousQueryResult.findReports.edges,
-                ...fetchMoreResult.findReports.edges,
+                ...previousQueryResult.findReportPreviews.edges,
+                ...fetchMoreResult.findReportPreviews.edges,
               ],
-              pageInfo: fetchMoreResult.findReports.pageInfo,
+              pageInfo: fetchMoreResult.findReportPreviews.pageInfo,
             },
           };
         },
       }),
-    data?.findReports.pageInfo.hasNextPage,
+    data?.findReportPreviews.pageInfo.hasNextPage,
   );
 
   return { loading, data };

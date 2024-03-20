@@ -1,6 +1,6 @@
 import { SortOrder } from '@/types/sort.types';
 
-export interface FindReportsWhereArgs {
+export interface FindReportPreviewsWhereArgs {
   type?: string;
 
   refId?: string;
@@ -12,6 +12,6 @@ export interface FindReportsWhereArgs {
   };
 }
 
-export interface FindReportsOrderByArgs {
+export interface FindReportPreviewsOrderByArgs {
   createdAt?: SortOrder;
 }
