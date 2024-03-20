@@ -104,7 +104,10 @@ mutation CreateSwap($input: CreateSwapInput!) {
 }
 
 mutation UpdateSwap($input: UpdateSwapInput!) {
-  updateSwap(input: $input)
+  updateSwap(input: $input) {
+    id
+    status
+  }
 }
 
 mutation BumpSwap($input: BumpSwapInput!) {

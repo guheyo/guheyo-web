@@ -477,14 +477,14 @@ export type Mutation = {
   refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
   updateComment: CommentResponse;
-  updateDemand: Scalars['String']['output'];
+  updateDemand: DemandPreviewResponse;
   updateGroup: Scalars['String']['output'];
   updateMember: Scalars['String']['output'];
-  updateOffer: Scalars['String']['output'];
+  updateOffer: OfferPreviewResponse;
   updateRole: Scalars['String']['output'];
   updateSession: Scalars['String']['output'];
   updateSocialAccount: Scalars['String']['output'];
-  updateSwap: Scalars['String']['output'];
+  updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
 };
@@ -1456,7 +1456,7 @@ export type UpdateDemandMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: string };
+export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string } };
 
 export type BumpDemandMutationVariables = Exact<{
   input: BumpDemandInput;
@@ -1547,7 +1547,7 @@ export type UpdateOfferMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: string };
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string } };
 
 export type BumpOfferMutationVariables = Exact<{
   input: BumpOfferInput;
@@ -1673,7 +1673,7 @@ export type UpdateSwapMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: string };
+export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string } };
 
 export type BumpSwapMutationVariables = Exact<{
   input: BumpSwapInput;
@@ -2495,7 +2495,10 @@ export type CreateDemandMutationResult = Apollo.MutationResult<CreateDemandMutat
 export type CreateDemandMutationOptions = Apollo.BaseMutationOptions<CreateDemandMutation, CreateDemandMutationVariables>;
 export const UpdateDemandDocument = gql`
     mutation UpdateDemand($input: UpdateDemandInput!) {
-  updateDemand(input: $input)
+  updateDemand(input: $input) {
+    id
+    status
+  }
 }
     `;
 export type UpdateDemandMutationFn = Apollo.MutationFunction<UpdateDemandMutation, UpdateDemandMutationVariables>;
@@ -2904,7 +2907,10 @@ export type CreateOfferMutationResult = Apollo.MutationResult<CreateOfferMutatio
 export type CreateOfferMutationOptions = Apollo.BaseMutationOptions<CreateOfferMutation, CreateOfferMutationVariables>;
 export const UpdateOfferDocument = gql`
     mutation UpdateOffer($input: UpdateOfferInput!) {
-  updateOffer(input: $input)
+  updateOffer(input: $input) {
+    id
+    status
+  }
 }
     `;
 export type UpdateOfferMutationFn = Apollo.MutationFunction<UpdateOfferMutation, UpdateOfferMutationVariables>;
@@ -3422,7 +3428,10 @@ export type CreateSwapMutationResult = Apollo.MutationResult<CreateSwapMutation>
 export type CreateSwapMutationOptions = Apollo.BaseMutationOptions<CreateSwapMutation, CreateSwapMutationVariables>;
 export const UpdateSwapDocument = gql`
     mutation UpdateSwap($input: UpdateSwapInput!) {
-  updateSwap(input: $input)
+  updateSwap(input: $input) {
+    id
+    status
+  }
 }
     `;
 export type UpdateSwapMutationFn = Apollo.MutationFunction<UpdateSwapMutation, UpdateSwapMutationVariables>;

@@ -101,7 +101,10 @@ mutation CreateOffer($input: CreateOfferInput!) {
 }
 
 mutation UpdateOffer($input: UpdateOfferInput!) {
-  updateOffer(input: $input)
+  updateOffer(input: $input) {
+    id
+    status
+  }
 }
 
 mutation BumpOffer($input: BumpOfferInput!) {

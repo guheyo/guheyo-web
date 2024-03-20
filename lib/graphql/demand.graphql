@@ -98,7 +98,10 @@ mutation CreateDemand($input: CreateDemandInput!) {
 }
 
 mutation UpdateDemand($input: UpdateDemandInput!) {
-  updateDemand(input: $input)
+  updateDemand(input: $input) {
+    id
+    status
+  }
 }
 
 mutation BumpDemand($input: BumpDemandInput!) {
