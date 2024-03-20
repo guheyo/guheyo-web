@@ -52,7 +52,6 @@ export default function PrivateDealMenu({
       dealType,
       updateDealInput,
     });
-    window.location.reload();
   };
 
   const handleEditClick: React.MouseEventHandler = (event) => {

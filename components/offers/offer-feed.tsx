@@ -59,7 +59,9 @@ function OfferFeed({
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (!data?.findOfferPreviews) return <div />;
 
-  const { edges } = data.findOfferPreviews;
+  const edges = data.findOfferPreviews.edges.filter((edge) =>
+    status ? edge.node.status === status : true,
+  );
   return (
     <>
       {edges.map((edge) => (

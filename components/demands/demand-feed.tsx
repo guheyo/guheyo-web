@@ -59,7 +59,9 @@ function DemandFeed({
   if (loading) return <Mocks length={12} height={32} color="bg-dark-400" />;
   if (!data?.findDemandPreviews) return <div />;
 
-  const { edges } = data.findDemandPreviews;
+  const edges = data.findDemandPreviews.edges.filter((edge) =>
+    status ? edge.node.status === status : true,
+  );
   return (
     <>
       {edges.map((edge) => (
