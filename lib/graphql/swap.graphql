@@ -111,7 +111,11 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
 }
 
 mutation BumpSwap($input: BumpSwapInput!) {
-  bumpSwap(input: $input)
+  bumpSwap(input: $input) {
+    id
+    bumpedAt
+    price
+  }
 }
 
 mutation CommentSwapReport($input: CommentSwapReportInput!) {
