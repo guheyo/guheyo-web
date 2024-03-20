@@ -1,27 +1,49 @@
-import dayjs from 'dayjs';
+import { useFindCommentQuery } from '@/generated/graphql';
+import ReportPreview from './report-preview';
+import ReportCommentCard from './report-comment-card';
 
 export default function ReportCard({
   index,
+  id,
+  type,
+  refId,
   title,
   content,
   createdAt,
+  reportedUserId,
 }: {
   index: number;
+  id: string;
+  type: string;
+  refId: string;
   title: string;
   content?: string | null;
   createdAt: Date;
+  reportedUserId: string;
 }) {
+  const { data } = useFindCommentQuery({
+    variables: {
+      type: 'report',
+      refId: id,
+    },
+    fetchPolicy: 'network-only',
+  });
+
   return (
-    <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <div className="text-red-500 text-sm md:text-base font-semibold">
-        {`[신고 ${index + 1}] ${title}`}
-      </div>
-      <div className="text-light-200 font-light text-xs md:text-sm">
-        {content}
-      </div>
-      <div className="text-dark-200 text-xs md:text-sm">
-        {dayjs(createdAt).fromNow()}
-      </div>
+    <div key={id} className="flex flex-col gap-2">
+      <ReportPreview
+        index={index}
+        title={title}
+        content={content}
+        createdAt={createdAt}
+      />
+      <ReportCommentCard
+        reportId={id}
+        type={type}
+        refId={refId}
+        reportedUserId={reportedUserId}
+        comment={data?.findComment}
+      />
     </div>
   );
 }

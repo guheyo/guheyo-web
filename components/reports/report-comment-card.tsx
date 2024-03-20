@@ -5,7 +5,6 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
 import commentDealReport from '@/lib/deal/comment-deal-report';
-import { useRouter } from 'next/navigation';
 import { updateComment } from '@/lib/api/comment';
 import { CommentResponse } from '@/generated/graphql';
 import { AuthContext } from '../auth/auth.provider';
@@ -22,7 +21,7 @@ export default function ReportCommentCard({
   reportId: string;
   type: string;
   refId: string;
-  comment?: CommentResponse;
+  comment?: CommentResponse | null;
   reportedUserId: string;
 }) {
   const { user } = useContext(AuthContext);
@@ -32,7 +31,6 @@ export default function ReportCommentCard({
     content: comment?.content,
   });
   const device = useDeviceDetect();
-  const router = useRouter();
 
   const handleWrite = async (values: CommentValues) => {
     if (!isReportedUser || !values.content) return;

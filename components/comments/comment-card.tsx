@@ -21,7 +21,7 @@ export default function CommentCard({
 }: {
   displayMenu: boolean;
   defaultMode: CRUD;
-  comment?: CommentResponse;
+  comment?: CommentResponse | null;
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
