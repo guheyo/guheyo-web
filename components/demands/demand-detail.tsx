@@ -22,6 +22,8 @@ export default function DemandDetail({ slug }: { slug: string }) {
       name0={demand.name}
       slug={demand.slug!}
       price={demand.price}
+      shippingCost={demand.shippingCost}
+      shippingType={demand.shippingType}
       description={demand.description}
       bumpedAt={demand.bumpedAt}
       author={demand.buyer}
