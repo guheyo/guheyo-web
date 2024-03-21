@@ -54,11 +54,11 @@ export default function DealThumbnailPreview({
           </div>
         )}
         <div className="w-[61.5%] md:w-full px-4 md:px-2">
-          <div className="flex justify-between items-center">
-            <div className="py-4 w-fit">
+          <div className="flex flex-row justify-between items-center pt-2">
+            <div className="w-fit">
               <DealPreviewName name={name} />
             </div>
-            <div className="mr-[-24px]">
+            <div className="mr-[-24px] h-8">
               <DealMenu
                 dealType={deal}
                 dealId={dealId}

@@ -38,11 +38,11 @@ export default function DealTextPreview({
         className="w-full text-start"
       >
         <div className="grid grid-cols-1 gap-0">
-          <div className="flex flex-row justify-between items-center">
-            <div className="py-4 w-fit">
+          <div className="flex flex-row justify-between items-center pt-4">
+            <div className="w-fit">
               <DealPreviewName name={name} />
             </div>
-            <div className="mr-[-24px]">
+            <div className="mr-[-24px] h-8">
               <DealMenu
                 dealType={deal}
                 dealId={dealId}
