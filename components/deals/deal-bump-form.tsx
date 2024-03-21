@@ -24,7 +24,7 @@ import {
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, WheelEventHandler } from 'react';
 import Image from 'next/image';
 import { v4 as uuid4 } from 'uuid';
 import { parseDealBumpFormTitle } from '@/lib/deal/parse-deal-bump-form-title';
@@ -95,6 +95,10 @@ export default function DealBumpForm({
     setValue('price', currentPrice - UP_DOWN_PRICE_UNIT);
   };
 
+  const handleWheel: WheelEventHandler = (e) => {
+    (e.target as HTMLElement).blur();
+  };
+
   return (
     <form
       className="flex flex-col gap-12"
@@ -153,6 +157,7 @@ export default function DealBumpForm({
                 minWidth: getInputTextMinWidth(device),
               },
             },
+            onWheel: handleWheel,
           }}
         />
         <PriceUpDownButtons
