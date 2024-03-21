@@ -6,6 +6,7 @@ import {
   UserImageResponse,
 } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
+import { ShippingType } from '@/lib/shipping/shipping.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealDetailMain from './deal-detail-main';
@@ -17,6 +18,8 @@ export default function DealDetail({
   name1,
   slug,
   price,
+  shippingCost,
+  shippingType,
   description,
   bumpedAt,
   author,
@@ -29,6 +32,8 @@ export default function DealDetail({
   name1?: string;
   slug: string;
   price: number;
+  shippingCost: number;
+  shippingType: string;
   description?: string | null;
   bumpedAt: Date;
   author: AuthorResponse;
@@ -50,6 +55,8 @@ export default function DealDetail({
             name1={name1}
             slug={slug}
             price={price}
+            shippingCost={shippingCost}
+            shippingType={shippingType}
             description={description}
             bumpedAt={bumpedAt}
             author={author}
@@ -69,6 +76,8 @@ export default function DealDetail({
           name1={name1}
           slug={slug}
           price={price}
+          shippingCost={shippingCost}
+          shippingType={shippingType}
           description={description}
           bumpedAt={bumpedAt}
           author={author}

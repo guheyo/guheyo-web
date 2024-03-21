@@ -10,6 +10,7 @@ import ReportsLink from '../reports/reports-link';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
 import DealDetailBumpedAt from './deal-detail-bumped-at';
+import DealShippingCost from './deal-shipping-cost';
 
 export default function DealDetailMain({
   dealType,
@@ -18,6 +19,8 @@ export default function DealDetailMain({
   name1,
   slug,
   price,
+  shippingCost,
+  shippingType,
   description,
   bumpedAt,
   author,
@@ -29,6 +32,8 @@ export default function DealDetailMain({
   name1?: string;
   slug: string;
   price: number;
+  shippingCost: number;
+  shippingType: string;
   description?: string | null;
   bumpedAt: Date;
   author: AuthorResponse;
@@ -53,7 +58,13 @@ export default function DealDetailMain({
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
         <DealDetailName name0={name0} name1={name1} />
-        <DealDetailPrice price={price} />
+        <div className="grid grid-cols-1 gap-0 items-center">
+          <DealDetailPrice price={price} />
+          <DealShippingCost
+            shippingCost={shippingCost}
+            shippingType={shippingType}
+          />
+        </div>
       </div>
       <div className="pt-4">
         <ReportsLink

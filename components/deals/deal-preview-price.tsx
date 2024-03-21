@@ -1,9 +1,13 @@
-import { getPrice } from '@/lib/formatter';
+import { parsePrice } from '@/lib/deal/parse-price';
 
-export default function DealPreviewPrice({ price }: { price: number }) {
+export default function DealPreviewPrice({
+  totalPrice,
+}: {
+  totalPrice: number;
+}) {
   return (
     <div className="flex-none text-sm md:text-base font-semibold">
-      {getPrice(price)}
+      {parsePrice(totalPrice)}
     </div>
   );
 }

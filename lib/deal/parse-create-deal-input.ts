@@ -18,6 +18,9 @@ const parseCreateDealInput = ({
     productCategoryId: dealFormValues.productCategoryId,
     priceCurrency: 'krw',
     price: dealFormValues.price,
+    shippingCost:
+      dealFormValues.shippingType === 'free' ? 0 : dealFormValues.shippingCost,
+    shippingType: dealFormValues.shippingType,
     source: dealFormValues.source,
   };
 

@@ -8,6 +8,9 @@ fragment demand on DemandResponse {
   description
   price
   priceCurrency
+  shippingCost
+  shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -36,6 +39,9 @@ fragment demandPreview on DemandPreviewResponse {
   slug
   price
   priceCurrency
+  shippingCost
+  shippingType
+  totalPrice
   businessFunction
   status
   source
@@ -103,6 +109,9 @@ mutation UpdateDemand($input: UpdateDemandInput!) {
     status
     name
     price
+    shippingCost
+    shippingType
+    totalPrice
   }
 }
 
@@ -111,6 +120,9 @@ mutation BumpDemand($input: BumpDemandInput!) {
     id
     bumpedAt
     price
+    shippingCost
+    shippingType
+    totalPrice
   }
 }
 

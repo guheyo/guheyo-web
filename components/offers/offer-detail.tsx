@@ -22,6 +22,8 @@ export default function OfferDetail({ slug }: { slug: string }) {
       name0={offer.name}
       slug={offer.slug!}
       price={offer.price}
+      shippingCost={offer.shippingCost}
+      shippingType={offer.shippingType}
       description={offer.description}
       bumpedAt={offer.bumpedAt}
       author={offer.seller}

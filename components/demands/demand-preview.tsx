@@ -1,7 +1,7 @@
 'use client';
 
 import { DemandPreviewFragment } from '@/generated/graphql';
-import { truncateName } from '@/lib/formatter';
+import { truncateText } from '@/lib/text/truncate-text';
 import DealPreview from '../deals/deal-preview';
 
 interface Props {
@@ -16,8 +16,8 @@ export default function DemandPreview({ demand, type }: Props) {
       dealId={demand.id}
       authorId={demand.buyer.id}
       type={type}
-      name={truncateName(demand.name, 45)}
-      price={demand.price}
+      name={truncateText(demand.name, 45)}
+      totalPrice={demand.totalPrice}
       bumpedAt={demand.bumpedAt}
       username={demand.buyer.username}
       slug={demand.slug!}

@@ -8,7 +8,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler, useEffect } from 'react';
+import { MouseEventHandler, WheelEvent, WheelEventHandler, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
   DEAL_AUTO_SAVE_INTERVAL_MS,
@@ -52,6 +52,11 @@ import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
 import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
 import { GroupResponse } from '@/generated/graphql';
 import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
+import {
+  SHIPPING_COST_LABEL_NAME,
+  SHIPPING_TYPE_LABEL_NAME,
+  SHIPPING_TYPE_OPTIONS,
+} from '@/lib/shipping/shipping.constants';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -92,6 +97,8 @@ export default function DealForm({
         dealType: 'offer',
         productCategoryId: '',
         price: undefined,
+        shippingCost: 0,
+        shippingType: 'free',
         description: '',
         source: '',
       },
@@ -106,6 +113,7 @@ export default function DealForm({
   const images = watch('images');
   const dealType = watch('dealType');
   const productCategoryId = watch('productCategoryId');
+  const shippingType = watch('shippingType');
 
   // Init DealFormValues
   useEffect(() => {
@@ -207,6 +215,10 @@ export default function DealForm({
 
   const handleUnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
+  };
+
+  const handleWheel: WheelEventHandler = (e) => {
+    (e.target as HTMLElement).blur();
   };
 
   return (
@@ -366,6 +378,64 @@ export default function DealForm({
         }}
       />
 
+      <ButtonInputs
+        name="shippingType"
+        control={control}
+        rules={{ required: true }}
+        buttonInputsProps={{
+          options: SHIPPING_TYPE_OPTIONS.map((option) => ({
+            ...option,
+            selected: shippingType === option.value,
+          })),
+          label: {
+            name: SHIPPING_TYPE_LABEL_NAME,
+            style: DEFAULT_LABEL_STYLE,
+          },
+          button: {
+            defaultStyle: DEFAULT_INPUT_BUTTON_STYLE,
+            selectedStyle: SELECTED_INPUT_BUTTON_STYLE,
+          },
+        }}
+      />
+
+      {shippingType !== 'free' && (
+        <TextInput
+          name="shippingCost"
+          control={control}
+          rules={{
+            required: DEAL_PRICE_REQUIRED_MESSAGE,
+            pattern: {
+              value: /^\d+$/,
+              message: DEAL_PRICE_REQUIRED_MESSAGE,
+            },
+          }}
+          textInputProps={{
+            label: {
+              name: SHIPPING_COST_LABEL_NAME,
+              style: DEFAULT_LABEL_STYLE,
+            },
+            onChange: handleChangeNumberInput,
+          }}
+          textFieldProps={{
+            type: 'number',
+            variant: 'outlined',
+            placeholder: SHIPPING_COST_LABEL_NAME,
+            InputProps: {
+              startAdornment: <div className="pr-2">₩</div>,
+              sx: {
+                color: DEFAULT_INPUT_TEXT_COLOR,
+                borderRadius: 2,
+                fontSize: getInputTextFontSize(device),
+                backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                fontWeight: 600,
+                minWidth: getInputTextMinWidth(device),
+              },
+            },
+            onWheel: handleWheel,
+          }}
+        />
+      )}
+
       <TextInput
         name="price"
         control={control}
@@ -398,6 +468,7 @@ export default function DealForm({
               minWidth: getInputTextMinWidth(device),
             },
           },
+          onWheel: handleWheel,
         }}
       />
 
