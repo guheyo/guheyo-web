@@ -1,6 +1,6 @@
 'use client';
 
-import { truncateName } from '@/lib/formatter';
+import { truncateText } from '@/lib/text/truncate-text';
 import { OfferPreviewFragment } from '@/generated/graphql';
 import DealPreview from '../deals/deal-preview';
 
@@ -17,7 +17,7 @@ export default function OfferPreview({ offer, type }: Props) {
       authorId={offer.seller.id}
       type={type}
       thumbnail={offer.thumbnail}
-      name={truncateName(offer.name, 42)}
+      name={truncateText(offer.name, 42)}
       totalPrice={offer.totalPrice}
       bumpedAt={offer.bumpedAt}
       username={offer.seller.username}
