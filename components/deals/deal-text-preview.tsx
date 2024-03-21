@@ -32,14 +32,16 @@ export default function DealTextPreview({
   reports,
 }: Props) {
   return (
-    <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 py-4 rounded-lg">
+    <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
         href={`/user/${username}/${deal}/${slug}`}
         className="w-full text-start"
       >
-        <div className="grid gap-2">
-          <div className="flex justify-between items-center">
-            <DealPreviewName name={name} />
+        <div className="grid grid-cols-1 gap-0">
+          <div className="flex flex-row justify-between items-center">
+            <div className="py-4 w-fit">
+              <DealPreviewName name={name} />
+            </div>
             <div className="mr-[-24px]">
               <DealMenu
                 dealType={deal}
@@ -49,7 +51,7 @@ export default function DealTextPreview({
               />
             </div>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-row justify-between items-center pb-4">
             <DealPreviewPrice totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
               <DealAddons bumpedAt={bumpedAt} reports={reports} />
