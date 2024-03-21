@@ -1,2 +1,2 @@
 export const parsePrice = (price: number) =>
-  `${Intl.NumberFormat('ko-KR').format(price)}`;
+  `${Intl.NumberFormat('ko-KR').format(price)}원`;
