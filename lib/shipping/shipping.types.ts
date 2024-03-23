@@ -1,1 +1,1 @@
-export type ShippingType = 'free' | 'charge' | 'half';
+export type ShippingType = 'free' | 'prepaid' | 'half';

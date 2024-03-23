@@ -4,6 +4,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse, ReportResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
+import { ShippingType } from '@/lib/shipping/shipping.types';
 import UserProfilePopper from '../users/user-profile-popper';
 import DealMenu from './deal-menu';
 import ReportsLink from '../reports/reports-link';
@@ -62,7 +63,7 @@ export default function DealDetailMain({
           <DealDetailPrice price={price} />
           <DealShippingCost
             shippingCost={shippingCost}
-            shippingType={shippingType}
+            shippingType={shippingType as ShippingType}
           />
         </div>
       </div>

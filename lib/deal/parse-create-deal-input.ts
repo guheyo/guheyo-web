@@ -4,6 +4,7 @@ import {
   CreateSwapInput,
 } from '@/generated/graphql';
 import { DealFormValues } from './deal.interfaces';
+import { SHIPPING_FREE } from '../shipping/shipping.constants';
 
 const parseCreateDealInput = ({
   authorId,
@@ -19,7 +20,9 @@ const parseCreateDealInput = ({
     priceCurrency: 'krw',
     price: dealFormValues.price,
     shippingCost:
-      dealFormValues.shippingType === 'free' ? 0 : dealFormValues.shippingCost,
+      dealFormValues.shippingType === SHIPPING_FREE
+        ? 0
+        : dealFormValues.shippingCost,
     shippingType: dealFormValues.shippingType,
     source: dealFormValues.source,
   };

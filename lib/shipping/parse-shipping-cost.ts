@@ -1,14 +1,15 @@
 import { parsePrice } from '../deal/parse-price';
+import { ShippingType } from './shipping.types';
 
 export const parseShippingCost = ({
   shippingCost,
   shippingType,
 }: {
   shippingCost: number;
-  shippingType: string;
+  shippingType: ShippingType;
 }) => {
   const won = parsePrice(shippingCost);
-  if (shippingType === 'charge') return `택배비 ${won}`;
+  if (shippingType === 'prepaid') return `택배비 ${won}`;
   if (shippingType === 'half') return `반값 택배 ${won}`;
   return `택배비 포함`;
 };

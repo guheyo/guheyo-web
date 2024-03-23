@@ -5,6 +5,7 @@ import {
 } from '@/generated/graphql';
 import { DealFormValues } from './deal.interfaces';
 import { Deal } from './deal.types';
+import { SHIPPING_FREE } from '../shipping/shipping.constants';
 
 export const parseUpdateDealInputFromFormValues = ({
   authorId,
@@ -19,7 +20,9 @@ export const parseUpdateDealInputFromFormValues = ({
     priceCurrency: 'krw',
     price: dealFormValues.price,
     shippingCost:
-      dealFormValues.shippingType === 'free' ? 0 : dealFormValues.shippingCost,
+      dealFormValues.shippingType === SHIPPING_FREE
+        ? 0
+        : dealFormValues.shippingCost,
     shippingType: dealFormValues.shippingType,
     source: dealFormValues.source,
   };
