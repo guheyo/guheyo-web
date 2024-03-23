@@ -4,8 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Deal } from '@/lib/deal/deal.types';
-import { parseDealLink } from '@/lib/deal/parse-deal-link';
 import { useRouter } from 'next/navigation';
+import { parseReportPageLink } from '@/lib/report/parse-report-page-link';
 
 export default function PublicDealMenu({
   dealType,
@@ -30,10 +30,9 @@ export default function PublicDealMenu({
   const handleReportClick = (event: React.MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     router.push(
-      parseDealLink({
-        action: 'report',
-        dealType,
-        dealId,
+      parseReportPageLink({
+        type: dealType,
+        refId: dealId,
       }),
     );
   };
