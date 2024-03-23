@@ -224,6 +224,7 @@ export type CreateReportInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   refId: Scalars['ID']['input'];
+  refVersionId: Scalars['ID']['input'];
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };
@@ -1079,6 +1080,7 @@ export type ReportPreviewResponse = {
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -1098,6 +1100,7 @@ export type ReportResponse = {
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];

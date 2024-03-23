@@ -2,9 +2,6 @@ import {
   BumpOfferDocument,
   BumpOfferInput,
   BumpOfferMutation,
-  CommentOfferReportDocument,
-  CommentOfferReportInput,
-  CommentOfferReportMutation,
   CreateOfferDocument,
   CreateOfferInput,
   CreateOfferMutation,
@@ -35,15 +32,6 @@ export async function updateOffer(input: UpdateOfferInput) {
 export async function bumpOffer(input: BumpOfferInput) {
   return client.mutate<BumpOfferMutation>({
     mutation: BumpOfferDocument,
-    variables: {
-      input,
-    },
-  });
-}
-
-export async function commentOfferReport(input: CommentOfferReportInput) {
-  return client.mutate<CommentOfferReportMutation>({
-    mutation: CommentOfferReportDocument,
     variables: {
       input,
     },

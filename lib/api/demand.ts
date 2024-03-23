@@ -2,9 +2,6 @@ import {
   BumpDemandDocument,
   BumpDemandInput,
   BumpDemandMutation,
-  CommentDemandReportDocument,
-  CommentDemandReportInput,
-  CommentDemandReportMutation,
   CreateDemandDocument,
   CreateDemandInput,
   CreateDemandMutation,
@@ -35,15 +32,6 @@ export async function updateDemand(input: UpdateDemandInput) {
 export async function bumpDemand(input: BumpDemandInput) {
   return client.mutate<BumpDemandMutation>({
     mutation: BumpDemandDocument,
-    variables: {
-      input,
-    },
-  });
-}
-
-export async function commentDemandReport(input: CommentDemandReportInput) {
-  return client.mutate<CommentDemandReportMutation>({
-    mutation: CommentDemandReportDocument,
     variables: {
       input,
     },

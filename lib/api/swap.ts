@@ -2,9 +2,6 @@ import {
   BumpSwapDocument,
   BumpSwapInput,
   BumpSwapMutation,
-  CommentSwapReportDocument,
-  CommentSwapReportInput,
-  CommentSwapReportMutation,
   CreateSwapDocument,
   CreateSwapInput,
   CreateSwapMutation,
@@ -35,15 +32,6 @@ export async function updateSwap(input: UpdateSwapInput) {
 export async function bumpSwap(input: BumpSwapInput) {
   return client.mutate<BumpSwapMutation>({
     mutation: BumpSwapDocument,
-    variables: {
-      input,
-    },
-  });
-}
-
-export async function commentSwapReport(input: CommentSwapReportInput) {
-  return client.mutate<CommentSwapReportMutation>({
-    mutation: CommentSwapReportDocument,
     variables: {
       input,
     },
