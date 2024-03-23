@@ -14,6 +14,8 @@ fragment offer on OfferResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   images {
     ...image
   }
@@ -25,9 +27,6 @@ fragment offer on OfferResponse {
     ...author
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 fragment offerPreview on OfferPreviewResponse {
@@ -45,6 +44,8 @@ fragment offerPreview on OfferPreviewResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   thumbnail {
     ...image
   }
@@ -54,9 +55,6 @@ fragment offerPreview on OfferPreviewResponse {
     ...user
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 query findOfferPreviews(
@@ -127,8 +125,4 @@ mutation BumpOffer($input: BumpOfferInput!) {
     shippingType
     totalPrice
   }
-}
-
-mutation CommentOfferReport($input: CommentOfferReportInput!) {
-  commentOfferReport(input: $input)
 }

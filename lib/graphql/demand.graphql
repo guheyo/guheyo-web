@@ -14,6 +14,8 @@ fragment demand on DemandResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   images {
     ...image
   }
@@ -25,9 +27,6 @@ fragment demand on DemandResponse {
     ...author
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 fragment demandPreview on DemandPreviewResponse {
@@ -45,15 +44,14 @@ fragment demandPreview on DemandPreviewResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   groupId
   productCategoryId
   buyer {
     ...user
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 query findDemandPreviews(
@@ -124,8 +122,4 @@ mutation BumpDemand($input: BumpDemandInput!) {
     shippingType
     totalPrice
   }
-}
-
-mutation CommentDemandReport($input: CommentDemandReportInput!) {
-  commentDemandReport(input: $input)
 }
