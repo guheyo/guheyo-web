@@ -2,7 +2,7 @@
 
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { AuthorResponse, ReportResponse } from '@/generated/graphql';
+import { AuthorResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import UserProfilePopper from '../users/user-profile-popper';
@@ -25,7 +25,8 @@ export default function DealDetailMain({
   description,
   bumpedAt,
   author,
-  reports,
+  reportCount,
+  reportCommentCount,
 }: {
   dealType: Deal;
   id: string;
@@ -38,7 +39,8 @@ export default function DealDetailMain({
   description?: string | null;
   bumpedAt: Date;
   author: AuthorResponse;
-  reports: ReportResponse[];
+  reportCount: number;
+  reportCommentCount: number;
 }) {
   return (
     <>
@@ -69,7 +71,8 @@ export default function DealDetailMain({
       </div>
       <div className="pt-4">
         <ReportsLink
-          reports={reports}
+          reportCount={reportCount}
+          reportCommentCount={reportCommentCount}
           username={author.username}
           type={dealType}
           slug={slug}

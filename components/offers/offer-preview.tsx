@@ -22,7 +22,8 @@ export default function OfferPreview({ offer, type }: Props) {
       bumpedAt={offer.bumpedAt}
       username={offer.seller.username}
       slug={offer.slug!}
-      reports={offer.reports}
+      reportCount={offer.reportCount}
+      reportCommentCount={offer.reportCommentCount}
     />
   );
 }

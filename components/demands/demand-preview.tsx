@@ -21,7 +21,8 @@ export default function DemandPreview({ demand, type }: Props) {
       bumpedAt={demand.bumpedAt}
       username={demand.buyer.username}
       slug={demand.slug!}
-      reports={demand.reports}
+      reportCount={demand.reportCount}
+      reportCommentCount={demand.reportCommentCount}
     />
   );
 }

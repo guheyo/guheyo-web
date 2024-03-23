@@ -22,7 +22,8 @@ export default function SwapPreview({ swap, type }: Props) {
       bumpedAt={swap.bumpedAt}
       username={swap.proposer.username}
       slug={swap.slug!}
-      reports={swap.reports}
+      reportCount={swap.reportCount}
+      reportCommentCount={swap.reportCommentCount}
     />
   );
 }

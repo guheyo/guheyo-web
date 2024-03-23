@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
-import { ReportResponse } from '@/generated/graphql';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';
@@ -17,7 +16,8 @@ interface Props {
   bumpedAt: Date;
   username: string;
   slug: string;
-  reports: ReportResponse[];
+  reportCount: number;
+  reportCommentCount: number;
 }
 
 export default function DealTextPreview({
@@ -29,7 +29,8 @@ export default function DealTextPreview({
   bumpedAt,
   username,
   slug,
-  reports,
+  reportCount,
+  reportCommentCount,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
