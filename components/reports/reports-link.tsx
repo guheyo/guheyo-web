@@ -1,7 +1,7 @@
 import WarningIcon from '@mui/icons-material/Warning';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { useRouter } from 'next/navigation';
-import { parseReportPageLink } from '@/lib/report/parse-report-page-link';
+import { parseReportFeedLink } from '@/lib/report/parse-report-feed-link';
 
 export default function ReportsLink({
   reportCount,
@@ -21,7 +21,7 @@ export default function ReportsLink({
 
   const handleClick = () => {
     router.push(
-      parseReportPageLink({
+      parseReportFeedLink({
         username,
         type,
         slug,
