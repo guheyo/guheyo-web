@@ -898,6 +898,7 @@ export type Query = {
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
   findUsers: PaginatedUsersResponse;
+  findVersion: VersionResponse;
   getSocialAccountsByUserId: Scalars['String']['output'];
 };
 
@@ -1068,6 +1069,12 @@ export type QueryFindUsersArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryFindVersionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -1385,6 +1392,17 @@ export type UserResponseEdge = {
   __typename?: 'UserResponseEdge';
   cursor: Scalars['String']['output'];
   node: UserResponse;
+};
+
+export type VersionResponse = {
+  __typename?: 'VersionResponse';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  op: Scalars['String']['output'];
+  refId: Scalars['ID']['output'];
+  schemaName: Scalars['String']['output'];
+  tableName: Scalars['String']['output'];
+  values: Scalars['JSON']['output'];
 };
 
 export type RefreshTokensMutationVariables = Exact<{ [key: string]: never; }>;
@@ -1764,6 +1782,16 @@ export type DeleteUserMutationVariables = Exact<{
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
+
+export type VersionFragment = { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
+
+export type FindVersionQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindVersionQuery = { __typename?: 'Query', findVersion: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any } };
 
 export const ImageFragmentDoc = gql`
     fragment image on UserImageResponse {
@@ -2177,6 +2205,17 @@ export const MyUserFragmentDoc = gql`
 }
     ${SocialAccountFragmentDoc}
 ${MemberFragmentDoc}`;
+export const VersionFragmentDoc = gql`
+    fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+}
+    `;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {
@@ -3845,3 +3884,44 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const FindVersionDocument = gql`
+    query findVersion($id: ID, $refId: ID) {
+  findVersion(id: $id, refId: $refId) {
+    ...version
+  }
+}
+    ${VersionFragmentDoc}`;
+
+/**
+ * __useFindVersionQuery__
+ *
+ * To run a query within a React component, call `useFindVersionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindVersionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindVersionQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      refId: // value for 'refId'
+ *   },
+ * });
+ */
+export function useFindVersionQuery(baseOptions?: Apollo.QueryHookOptions<FindVersionQuery, FindVersionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindVersionQuery, FindVersionQueryVariables>(FindVersionDocument, options);
+      }
+export function useFindVersionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindVersionQuery, FindVersionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindVersionQuery, FindVersionQueryVariables>(FindVersionDocument, options);
+        }
+export function useFindVersionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindVersionQuery, FindVersionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindVersionQuery, FindVersionQueryVariables>(FindVersionDocument, options);
+        }
+export type FindVersionQueryHookResult = ReturnType<typeof useFindVersionQuery>;
+export type FindVersionLazyQueryHookResult = ReturnType<typeof useFindVersionLazyQuery>;
+export type FindVersionSuspenseQueryHookResult = ReturnType<typeof useFindVersionSuspenseQuery>;
+export type FindVersionQueryResult = Apollo.QueryResult<FindVersionQuery, FindVersionQueryVariables>;
