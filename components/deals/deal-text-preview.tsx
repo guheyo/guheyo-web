@@ -55,7 +55,11 @@ export default function DealTextPreview({
           <div className="flex flex-row justify-between items-center pb-4">
             <DealPreviewPrice totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
-              <DealAddons bumpedAt={bumpedAt} reports={reports} />
+              <DealAddons
+                bumpedAt={bumpedAt}
+                reportCount={reportCount}
+                reportCommentCount={reportCommentCount}
+              />
             </div>
           </div>
         </div>
