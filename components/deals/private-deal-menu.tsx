@@ -5,10 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
 import { Deal, DealStatus } from '@/lib/deal/deal.types';
-import { updateDeal } from '@/lib/api/deal';
+import { deleteDeal, updateDeal } from '@/lib/api/deal';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
+import PostDeleteDialog from '../posts/post-delete-dialog';
 
 export default function PrivateDealMenu({
   dealType,
@@ -76,6 +77,16 @@ export default function PrivateDealMenu({
     );
   };
 
+  const handleDelete: React.MouseEventHandler = async (event) => {
+    event.preventDefault();
+    await deleteDeal({
+      dealType,
+      id: dealId,
+      authorId,
+    });
+    router.back();
+  };
+
   return (
     <div>
       <Button
@@ -96,14 +107,27 @@ export default function PrivateDealMenu({
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={(e) => handleChangeDealStatus(e, 'open')}>
+        <MenuItem
+          onClick={(e) => handleChangeDealStatus(e, 'open')}
+          sx={{ justifyContent: 'center' }}
+        >
           거래 가능
         </MenuItem>
-        <MenuItem onClick={(e) => handleChangeDealStatus(e, 'closed')}>
+        <MenuItem
+          onClick={(e) => handleChangeDealStatus(e, 'closed')}
+          sx={{ justifyContent: 'center' }}
+        >
           거래 완료
         </MenuItem>
-        <MenuItem onClick={handleEditClick}>게시글 수정</MenuItem>
-        <MenuItem onClick={handleBumpClick}>끌어올리기</MenuItem>
+        <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
+          게시글 수정
+        </MenuItem>
+        <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
+          끌어올리기
+        </MenuItem>
+        <MenuItem sx={{ justifyContent: 'center' }}>
+          <PostDeleteDialog handleDelete={handleDelete} />
+        </MenuItem>
       </Menu>
     </div>
   );
