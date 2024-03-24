@@ -1,4 +1,4 @@
-fragment version on VersionResponse {
+fragment versionPreview on VersionPreviewResponse {
   id
   createdAt
   schemaName
@@ -8,13 +8,36 @@ fragment version on VersionResponse {
   values
 }
 
-query findVersion(
+fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+  images {
+    ...image
+  }
+}
+
+query findVersionPreview(
   $id: ID
   $refId: ID
 ) {
-  findVersion(
+  findVersionPreview(
     id: $id
     refId: $refId
+  ) {
+    ...versionPreview
+  }
+}
+
+query findVersion(
+  $id: ID!
+) {
+  findVersion(
+    id: $id
   ) {
     ...version
   }
