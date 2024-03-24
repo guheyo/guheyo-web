@@ -60,6 +60,13 @@ export default function DealDetailMain({
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
+        <ReportsLink
+          reportCount={reportCount}
+          reportCommentCount={reportCommentCount}
+          username={author.username}
+          type={dealType}
+          slug={slug}
+        />
         <DealDetailName name0={name0} name1={name1} />
         <div className="grid grid-cols-1 gap-0 items-center">
           <DealDetailPrice price={price} />
@@ -68,15 +75,6 @@ export default function DealDetailMain({
             shippingType={shippingType as ShippingType}
           />
         </div>
-      </div>
-      <div className="pt-4">
-        <ReportsLink
-          reportCount={reportCount}
-          reportCommentCount={reportCommentCount}
-          username={author.username}
-          type={dealType}
-          slug={slug}
-        />
       </div>
       <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
         {description && (
