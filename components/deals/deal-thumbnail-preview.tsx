@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
@@ -40,7 +41,7 @@ export default function DealThumbnailPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
-        href={`/user/${username}/${deal}/${slug}`}
+        href={parseDealDetailLink({ username, deal, slug })}
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
