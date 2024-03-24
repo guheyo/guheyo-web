@@ -120,6 +120,16 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
   }
 }
 
+mutation DeleteSwap(
+  $id: ID!
+  $proposerId: ID!
+) {
+  deleteSwap(
+    id: $id
+    proposerId: $proposerId
+  )
+}
+
 mutation BumpSwap($input: BumpSwapInput!) {
   bumpSwap(input: $input) {
     id
