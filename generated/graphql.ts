@@ -875,6 +875,7 @@ export type Query = {
   __typename?: 'Query';
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
+  findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
   findDemand?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
@@ -914,6 +915,11 @@ export type QueryFindAuctionsArgs = {
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryFindAuthorArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1772,6 +1778,13 @@ export type FindUserQueryVariables = Exact<{
 
 
 export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } | null };
+
+export type FindAuthorQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindAuthorQuery = { __typename?: 'Query', findAuthor?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
 
 export type FindMyUserByUsernameQueryVariables = Exact<{
   username: Scalars['ID']['input'];
@@ -3792,6 +3805,46 @@ export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
 export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
+export const FindAuthorDocument = gql`
+    query findAuthor($id: ID!) {
+  findAuthor(id: $id) {
+    ...author
+  }
+}
+    ${AuthorFragmentDoc}`;
+
+/**
+ * __useFindAuthorQuery__
+ *
+ * To run a query within a React component, call `useFindAuthorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuthorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuthorQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindAuthorQuery(baseOptions: Apollo.QueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables> & ({ variables: FindAuthorQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+      }
+export function useFindAuthorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+        }
+export function useFindAuthorSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+        }
+export type FindAuthorQueryHookResult = ReturnType<typeof useFindAuthorQuery>;
+export type FindAuthorLazyQueryHookResult = ReturnType<typeof useFindAuthorLazyQuery>;
+export type FindAuthorSuspenseQueryHookResult = ReturnType<typeof useFindAuthorSuspenseQuery>;
+export type FindAuthorQueryResult = Apollo.QueryResult<FindAuthorQuery, FindAuthorQueryVariables>;
 export const FindMyUserByUsernameDocument = gql`
     query findMyUserByUsername($username: ID!) {
   findMyUserByUsername(username: $username) {
