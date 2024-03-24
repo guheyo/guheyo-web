@@ -1,7 +1,7 @@
 'use client';
 
 import DealReportForm from '@/components/deals/deal-report-form';
-import { useFindVersionQuery } from '@/generated/graphql';
+import { useFindVersionPreviewQuery } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 
 export default function Page({
@@ -12,15 +12,16 @@ export default function Page({
     refId: string;
   };
 }) {
-  const { data, loading } = useFindVersionQuery({
+  const { data, loading } = useFindVersionPreviewQuery({
     variables: {
       refId,
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;
-  if (!data) return <div />;
-  const version = data.findVersion;
+  if (!data?.findVersionPreview) return <div />;
+  const version = data.findVersionPreview;
 
   return (
     <DealReportForm
