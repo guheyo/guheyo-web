@@ -16,11 +16,13 @@ export default function ReportPreview({
       <div className="text-red-500 text-sm md:text-base font-semibold">
         {`[신고 ${index + 1}] ${title}`}
       </div>
-      <div className="text-light-200 font-light text-xs md:text-sm">
-        {content}
-      </div>
-      <div className="text-dark-200 text-xs md:text-sm">
-        {dayjs(createdAt).fromNow()}
+      <div className="flex flex-col gap-1">
+        <div className="text-light-200 font-light text-xs md:text-sm">
+          {content}
+        </div>
+        <div className="text-dark-200 text-xs md:text-sm">
+          {dayjs(createdAt).fromNow()}
+        </div>
       </div>
     </div>
   );
