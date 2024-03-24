@@ -5,6 +5,8 @@ import {
   CreateSwapDocument,
   CreateSwapInput,
   CreateSwapMutation,
+  DeleteSwapDocument,
+  DeleteSwapMutation,
   UpdateSwapDocument,
   UpdateSwapInput,
   UpdateSwapMutation,
@@ -25,6 +27,16 @@ export async function updateSwap(input: UpdateSwapInput) {
     mutation: UpdateSwapDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function deleteSwap(id: string, proposerId: string) {
+  return client.mutate<DeleteSwapMutation>({
+    mutation: DeleteSwapDocument,
+    variables: {
+      id,
+      proposerId,
     },
   });
 }

@@ -5,6 +5,8 @@ import {
   CreateDemandDocument,
   CreateDemandInput,
   CreateDemandMutation,
+  DeleteDemandDocument,
+  DeleteDemandMutation,
   UpdateDemandDocument,
   UpdateDemandInput,
   UpdateDemandMutation,
@@ -25,6 +27,16 @@ export async function updateDemand(input: UpdateDemandInput) {
     mutation: UpdateDemandDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function deleteDemand(id: string, buyerId: string) {
+  return client.mutate<DeleteDemandMutation>({
+    mutation: DeleteDemandDocument,
+    variables: {
+      id,
+      buyerId,
     },
   });
 }

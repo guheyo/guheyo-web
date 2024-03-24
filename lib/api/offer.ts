@@ -5,6 +5,8 @@ import {
   CreateOfferDocument,
   CreateOfferInput,
   CreateOfferMutation,
+  DeleteOfferDocument,
+  DeleteOfferMutation,
   UpdateOfferDocument,
   UpdateOfferInput,
   UpdateOfferMutation,
@@ -25,6 +27,16 @@ export async function updateOffer(input: UpdateOfferInput) {
     mutation: UpdateOfferDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function deleteOffer(id: string, sellerId: string) {
+  return client.mutate<DeleteOfferMutation>({
+    mutation: DeleteOfferDocument,
+    variables: {
+      id,
+      sellerId,
     },
   });
 }
