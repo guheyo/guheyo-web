@@ -5,8 +5,6 @@ import ReportCommentCard from './report-comment-card';
 export default function ReportCard({
   index,
   id,
-  type,
-  refId,
   title,
   content,
   createdAt,
@@ -14,8 +12,6 @@ export default function ReportCard({
 }: {
   index: number;
   id: string;
-  type: string;
-  refId: string;
   title: string;
   content?: string | null;
   createdAt: Date;
@@ -39,8 +35,6 @@ export default function ReportCard({
       />
       <ReportCommentCard
         reportId={id}
-        type={type}
-        refId={refId}
         reportedUserId={reportedUserId}
         comment={data?.findComment}
       />

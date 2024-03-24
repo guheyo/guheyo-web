@@ -13,14 +13,10 @@ import CommentCard from '../comments/comment-card';
 
 export default function ReportCommentCard({
   reportId,
-  type,
-  refId,
   comment,
   reportedUserId,
 }: {
   reportId: string;
-  type: string;
-  refId: string;
   comment?: CommentResponse | null;
   reportedUserId: string;
 }) {
