@@ -875,6 +875,7 @@ export type Query = {
   __typename?: 'Query';
   findAuctionById?: Maybe<AuctionResponse>;
   findAuctions: PaginatedAuctionsResponse;
+  findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
   findDemand?: Maybe<DemandResponse>;
   findDemandPreviews: PaginatedDemandPreviewsResponse;
@@ -898,7 +899,8 @@ export type Query = {
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
   findUsers: PaginatedUsersResponse;
-  findVersion: VersionResponse;
+  findVersion?: Maybe<VersionResponse>;
+  findVersionPreview?: Maybe<VersionPreviewResponse>;
   getSocialAccountsByUserId: Scalars['String']['output'];
 };
 
@@ -913,6 +915,11 @@ export type QueryFindAuctionsArgs = {
   productCategoryId?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryFindAuthorArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1073,6 +1080,11 @@ export type QueryFindUsersArgs = {
 
 
 export type QueryFindVersionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindVersionPreviewArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -1394,10 +1406,22 @@ export type UserResponseEdge = {
   node: UserResponse;
 };
 
+export type VersionPreviewResponse = {
+  __typename?: 'VersionPreviewResponse';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  op: Scalars['String']['output'];
+  refId: Scalars['ID']['output'];
+  schemaName: Scalars['String']['output'];
+  tableName: Scalars['String']['output'];
+  values: Scalars['JSON']['output'];
+};
+
 export type VersionResponse = {
   __typename?: 'VersionResponse';
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  images: Array<UserImageResponse>;
   op: Scalars['String']['output'];
   refId: Scalars['ID']['output'];
   schemaName: Scalars['String']['output'];
@@ -1755,6 +1779,13 @@ export type FindUserQueryVariables = Exact<{
 
 export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } | null };
 
+export type FindAuthorQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindAuthorQuery = { __typename?: 'Query', findAuthor?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+
 export type FindMyUserByUsernameQueryVariables = Exact<{
   username: Scalars['ID']['input'];
 }>;
@@ -1783,15 +1814,24 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
-export type VersionFragment = { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
+export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
-export type FindVersionQueryVariables = Exact<{
+export type VersionFragment = { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }> };
+
+export type FindVersionPreviewQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
   refId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
-export type FindVersionQuery = { __typename?: 'Query', findVersion: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any } };
+export type FindVersionPreviewQuery = { __typename?: 'Query', findVersionPreview?: { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any } | null };
+
+export type FindVersionQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindVersionQuery = { __typename?: 'Query', findVersion?: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }> } | null };
 
 export const ImageFragmentDoc = gql`
     fragment image on UserImageResponse {
@@ -2205,8 +2245,8 @@ export const MyUserFragmentDoc = gql`
 }
     ${SocialAccountFragmentDoc}
 ${MemberFragmentDoc}`;
-export const VersionFragmentDoc = gql`
-    fragment version on VersionResponse {
+export const VersionPreviewFragmentDoc = gql`
+    fragment versionPreview on VersionPreviewResponse {
   id
   createdAt
   schemaName
@@ -2216,6 +2256,20 @@ export const VersionFragmentDoc = gql`
   values
 }
     `;
+export const VersionFragmentDoc = gql`
+    fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+  images {
+    ...image
+  }
+}
+    ${ImageFragmentDoc}`;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {
@@ -3751,6 +3805,46 @@ export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
 export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
+export const FindAuthorDocument = gql`
+    query findAuthor($id: ID!) {
+  findAuthor(id: $id) {
+    ...author
+  }
+}
+    ${AuthorFragmentDoc}`;
+
+/**
+ * __useFindAuthorQuery__
+ *
+ * To run a query within a React component, call `useFindAuthorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuthorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuthorQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindAuthorQuery(baseOptions: Apollo.QueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables> & ({ variables: FindAuthorQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+      }
+export function useFindAuthorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+        }
+export function useFindAuthorSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
+        }
+export type FindAuthorQueryHookResult = ReturnType<typeof useFindAuthorQuery>;
+export type FindAuthorLazyQueryHookResult = ReturnType<typeof useFindAuthorLazyQuery>;
+export type FindAuthorSuspenseQueryHookResult = ReturnType<typeof useFindAuthorSuspenseQuery>;
+export type FindAuthorQueryResult = Apollo.QueryResult<FindAuthorQuery, FindAuthorQueryVariables>;
 export const FindMyUserByUsernameDocument = gql`
     query findMyUserByUsername($username: ID!) {
   findMyUserByUsername(username: $username) {
@@ -3884,9 +3978,50 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const FindVersionPreviewDocument = gql`
+    query findVersionPreview($id: ID, $refId: ID) {
+  findVersionPreview(id: $id, refId: $refId) {
+    ...versionPreview
+  }
+}
+    ${VersionPreviewFragmentDoc}`;
+
+/**
+ * __useFindVersionPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindVersionPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindVersionPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindVersionPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      refId: // value for 'refId'
+ *   },
+ * });
+ */
+export function useFindVersionPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>(FindVersionPreviewDocument, options);
+      }
+export function useFindVersionPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>(FindVersionPreviewDocument, options);
+        }
+export function useFindVersionPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>(FindVersionPreviewDocument, options);
+        }
+export type FindVersionPreviewQueryHookResult = ReturnType<typeof useFindVersionPreviewQuery>;
+export type FindVersionPreviewLazyQueryHookResult = ReturnType<typeof useFindVersionPreviewLazyQuery>;
+export type FindVersionPreviewSuspenseQueryHookResult = ReturnType<typeof useFindVersionPreviewSuspenseQuery>;
+export type FindVersionPreviewQueryResult = Apollo.QueryResult<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>;
 export const FindVersionDocument = gql`
-    query findVersion($id: ID, $refId: ID) {
-  findVersion(id: $id, refId: $refId) {
+    query findVersion($id: ID!) {
+  findVersion(id: $id) {
     ...version
   }
 }
@@ -3905,11 +4040,10 @@ export const FindVersionDocument = gql`
  * const { data, loading, error } = useFindVersionQuery({
  *   variables: {
  *      id: // value for 'id'
- *      refId: // value for 'refId'
  *   },
  * });
  */
-export function useFindVersionQuery(baseOptions?: Apollo.QueryHookOptions<FindVersionQuery, FindVersionQueryVariables>) {
+export function useFindVersionQuery(baseOptions: Apollo.QueryHookOptions<FindVersionQuery, FindVersionQueryVariables> & ({ variables: FindVersionQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindVersionQuery, FindVersionQueryVariables>(FindVersionDocument, options);
       }

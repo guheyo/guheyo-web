@@ -73,6 +73,14 @@ query findUser(
   }
 }
 
+query findAuthor(
+  $id: ID!
+) {
+  findAuthor(id: $id) {
+    ...author
+  }
+}
+
 query findMyUserByUsername(
   $username: ID!
 ) {

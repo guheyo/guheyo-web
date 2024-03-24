@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
 import signIn from '@/lib/auth/sign-in';
+import { parseUserHomeLink } from '@/lib/link/parse-user-page.link';
 import Avatar from './avatar';
 import { AuthContext } from '../auth/auth.provider';
 
@@ -65,7 +66,10 @@ export default function LoginButton() {
         className="mt-1 pr-3 pl-3"
       >
         <MenuItem>
-          <Link href={`/user/${user.username}/home`} onClick={handleCloseMenu}>
+          <Link
+            href={parseUserHomeLink({ username: user.username })}
+            onClick={handleCloseMenu}
+          >
             <div className="focus:bg-gray-100 hover:bg-gray-100">
               <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
                 <SentimentSatisfiedAltIcon />

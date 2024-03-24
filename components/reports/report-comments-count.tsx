@@ -5,10 +5,8 @@ export default function ReportCommentsCount({
 }: {
   reportCommentCount: number;
 }) {
-  if (!reportCommentCount) return <div />;
-
   return (
-    <div className="flex flex-row gap-0.5 text-yellow-500">
+    <div className="flex flex-row gap-0.5 text-yellow-500 items-center">
       <div>
         <NewReleasesIcon fontSize="inherit" />
       </div>

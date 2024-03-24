@@ -6,16 +6,14 @@ import { AuthorResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import UserProfilePopper from '../users/user-profile-popper';
-import DealMenu from './deal-menu';
-import ReportsLink from '../reports/reports-link';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
-import DealDetailBumpedAt from './deal-detail-bumped-at';
 import DealShippingCost from './deal-shipping-cost';
+import RecentVersionLink from '../version/recent-version-link';
 
-export default function DealDetailMain({
+export default function DealVersionDetailMain({
+  versionCreatedAt,
   dealType,
-  id,
   name0,
   name1,
   slug,
@@ -23,13 +21,10 @@ export default function DealDetailMain({
   shippingCost,
   shippingType,
   description,
-  bumpedAt,
   author,
-  reportCount,
-  reportCommentCount,
 }: {
+  versionCreatedAt: Date;
   dealType: Deal;
-  id: string;
   name0: string;
   name1?: string;
   slug: string;
@@ -37,10 +32,7 @@ export default function DealDetailMain({
   shippingCost: number;
   shippingType: string;
   description?: string | null;
-  bumpedAt: Date;
   author: AuthorResponse;
-  reportCount: number;
-  reportCommentCount: number;
 }) {
   return (
     <>
@@ -53,18 +45,13 @@ export default function DealDetailMain({
             displayDM
             mode="standard"
           />
-          <DealDetailBumpedAt bumpedAt={bumpedAt} />
-        </div>
-        <div className="mr-[-24px]">
-          <DealMenu dealType={dealType} dealId={id} authorId={author.id} />
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        <ReportsLink
-          reportCount={reportCount}
-          reportCommentCount={reportCommentCount}
+        <RecentVersionLink
+          versionCreatedAt={versionCreatedAt}
           username={author.username}
-          type={dealType}
+          dealType={dealType}
           slug={slug}
         />
         <DealDetailName name0={name0} name1={name1} />

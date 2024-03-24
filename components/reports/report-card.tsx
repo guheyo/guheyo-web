@@ -5,21 +5,21 @@ import ReportCommentCard from './report-comment-card';
 export default function ReportCard({
   index,
   id,
-  type,
-  refId,
   title,
   content,
   createdAt,
   reportedUserId,
+  type,
+  refVersionId,
 }: {
   index: number;
   id: string;
-  type: string;
-  refId: string;
   title: string;
   content?: string | null;
   createdAt: Date;
   reportedUserId: string;
+  type: string;
+  refVersionId: string;
 }) {
   const { data } = useFindCommentQuery({
     variables: {
@@ -36,11 +36,12 @@ export default function ReportCard({
         title={title}
         content={content}
         createdAt={createdAt}
+        type={type}
+        refVersionId={refVersionId}
       />
       <ReportCommentCard
+        index={index}
         reportId={id}
-        type={type}
-        refId={refId}
         reportedUserId={reportedUserId}
         comment={data?.findComment}
       />

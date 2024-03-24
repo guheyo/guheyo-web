@@ -38,12 +38,12 @@ export default function ReportFeed({
           <ReportCard
             index={index}
             id={report.node.id}
-            type={report.node.type}
-            refId={refId}
             title={report.node.title}
             content={report.node.content}
             createdAt={report.node.createdAt}
             reportedUserId={reportedUserId}
+            type={type}
+            refVersionId={report.node.refVersionId}
           />
         </div>
       ))}

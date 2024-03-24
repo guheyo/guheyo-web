@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';
@@ -35,7 +36,7 @@ export default function DealTextPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
-        href={`/user/${username}/${deal}/${slug}`}
+        href={parseDealDetailLink({ username, deal, slug })}
         className="w-full text-start"
       >
         <div className="grid grid-cols-1 gap-0">

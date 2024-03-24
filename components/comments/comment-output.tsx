@@ -18,7 +18,7 @@ export default function CommentOutput({
   handleMenuClick: (mode: CRUD) => void;
 }) {
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col gap-1 items-start w-full">
       <div className="flex justify-between w-full">
         <div className="text-light-200 font-light text-xs md:text-sm">
           {content}
