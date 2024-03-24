@@ -12,10 +12,12 @@ import ReportCommentTitle from './report-comment-title';
 import CommentCard from '../comments/comment-card';
 
 export default function ReportCommentCard({
+  index,
   reportId,
   comment,
   reportedUserId,
 }: {
+  index: number;
   reportId: string;
   comment?: CommentResponse | null;
   reportedUserId: string;
@@ -57,7 +59,7 @@ export default function ReportCommentCard({
 
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <ReportCommentTitle hasContent={!!comment?.content} />
+      <ReportCommentTitle index={index} hasContent={!!comment?.content} />
       <CommentCard
         displayMenu={isReportedUser}
         defaultMode={defaultMode}

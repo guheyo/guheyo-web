@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 export const parseCommentDate = ({
   createdAt,
@@ -7,4 +7,8 @@ export const parseCommentDate = ({
   createdAt?: Date;
   updatedAt?: Date;
 }) =>
-  `${dayjs(updatedAt).fromNow()} ${createdAt !== updatedAt ? '(수정됨)' : ''}`;
+  createdAt && updatedAt
+    ? `${dayjs(updatedAt).fromNow()} ${
+        createdAt !== updatedAt ? '(수정됨)' : ''
+      }`
+    : undefined;

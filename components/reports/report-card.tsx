@@ -34,6 +34,7 @@ export default function ReportCard({
         createdAt={createdAt}
       />
       <ReportCommentCard
+        index={index}
         reportId={id}
         reportedUserId={reportedUserId}
         comment={data?.findComment}
