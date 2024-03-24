@@ -29,7 +29,8 @@ export default function SwapDetail({ slug }: { slug: string }) {
       bumpedAt={swap.bumpedAt}
       author={swap.proposer}
       images={swap.images}
-      reports={swap.reports}
+      reportCount={swap.reportCount}
+      reportCommentCount={swap.reportCommentCount}
     />
   );
 }

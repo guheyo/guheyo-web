@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { ReportResponse, UserImageResponse } from '@/generated/graphql';
+import { UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
@@ -20,7 +20,8 @@ interface Props {
   bumpedAt: Date;
   username: string;
   slug: string;
-  reports: ReportResponse[];
+  reportCount: number;
+  reportCommentCount: number;
 }
 
 export default function DealThumbnailPreview({
@@ -33,7 +34,8 @@ export default function DealThumbnailPreview({
   bumpedAt,
   username,
   slug,
-  reports,
+  reportCount,
+  reportCommentCount,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
@@ -70,7 +72,11 @@ export default function DealThumbnailPreview({
           <div className="flex flex-row justify-between items-center pb-1">
             <DealPreviewPrice totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
-              <DealAddons bumpedAt={bumpedAt} reports={reports} />
+              <DealAddons
+                bumpedAt={bumpedAt}
+                reportCount={reportCount}
+                reportCommentCount={reportCommentCount}
+              />
             </div>
           </div>
         </div>

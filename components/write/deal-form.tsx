@@ -8,7 +8,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler, WheelEvent, WheelEventHandler, useEffect } from 'react';
+import { MouseEventHandler, WheelEventHandler, useEffect } from 'react';
 import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
   DEAL_AUTO_SAVE_INTERVAL_MS,
@@ -54,6 +54,7 @@ import { GroupResponse } from '@/generated/graphql';
 import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
 import {
   SHIPPING_COST_LABEL_NAME,
+  SHIPPING_FREE,
   SHIPPING_TYPE_LABEL_NAME,
   SHIPPING_TYPE_OPTIONS,
 } from '@/lib/shipping/shipping.constants';
@@ -98,7 +99,7 @@ export default function DealForm({
         productCategoryId: '',
         price: undefined,
         shippingCost: 0,
-        shippingType: 'free',
+        shippingType: SHIPPING_FREE,
         description: '',
         source: '',
       },
@@ -398,7 +399,7 @@ export default function DealForm({
         }}
       />
 
-      {shippingType !== 'free' && (
+      {shippingType !== SHIPPING_FREE && (
         <TextInput
           name="shippingCost"
           control={control}

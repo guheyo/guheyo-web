@@ -16,6 +16,8 @@ fragment swap on SwapResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   images {
     ...image
   }
@@ -27,9 +29,6 @@ fragment swap on SwapResponse {
     ...author
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 fragment swapPreview on SwapPreviewResponse {
@@ -48,6 +47,8 @@ fragment swapPreview on SwapPreviewResponse {
   businessFunction
   status
   source
+  reportCount
+  reportCommentCount
   thumbnail {
     ...image
   }
@@ -57,9 +58,6 @@ fragment swapPreview on SwapPreviewResponse {
     ...user
   }
   brandId
-  reports {
-    ...report
-  }
 }
 
 query findSwapPreviews(
@@ -131,8 +129,4 @@ mutation BumpSwap($input: BumpSwapInput!) {
     shippingType
     totalPrice
   }
-}
-
-mutation CommentSwapReport($input: CommentSwapReportInput!) {
-  commentSwapReport(input: $input)
 }

@@ -3,9 +3,7 @@ fragment reportPreview on ReportPreviewResponse {
   createdAt
   updatedAt
   type
-  offerId
-  demandId
-  swapId
+  refVersionId
   status
   title
   content
@@ -16,9 +14,7 @@ fragment report on ReportResponse {
   createdAt
   updatedAt
   type
-  offerId
-  demandId
-  swapId
+  refVersionId
   status
   title
   content
@@ -60,4 +56,8 @@ query findReportPreviews(
       hasNextPage
     }
   }
+}
+
+mutation CommentReport($input: CommentReportInput!) {
+  commentReport(input: $input)
 }

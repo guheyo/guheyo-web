@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  AuthorResponse,
-  ReportResponse,
-  UserImageResponse,
-} from '@/generated/graphql';
+import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
-import { ShippingType } from '@/lib/shipping/shipping.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealDetailMain from './deal-detail-main';
@@ -24,7 +19,8 @@ export default function DealDetail({
   bumpedAt,
   author,
   images,
-  reports,
+  reportCount,
+  reportCommentCount,
 }: {
   dealType: Deal;
   id: string;
@@ -38,7 +34,8 @@ export default function DealDetail({
   bumpedAt: Date;
   author: AuthorResponse;
   images: UserImageResponse[];
-  reports: ReportResponse[];
+  reportCount: number;
+  reportCommentCount: number;
 }) {
   if (images.length > 0)
     return (
@@ -60,7 +57,8 @@ export default function DealDetail({
             description={description}
             bumpedAt={bumpedAt}
             author={author}
-            reports={reports}
+            reportCount={reportCount}
+            reportCommentCount={reportCommentCount}
           />
         </div>
       </PostDetail>
@@ -81,7 +79,8 @@ export default function DealDetail({
           description={description}
           bumpedAt={bumpedAt}
           author={author}
-          reports={reports}
+          reportCount={reportCount}
+          reportCommentCount={reportCommentCount}
         />
       </div>
     </PostDetail>

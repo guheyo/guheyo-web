@@ -1,0 +1,21 @@
+fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+}
+
+query findVersion(
+  $id: ID
+  $refId: ID
+) {
+  findVersion(
+    id: $id
+    refId: $refId
+  ) {
+    ...version
+  }
+}

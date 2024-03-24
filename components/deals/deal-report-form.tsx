@@ -18,10 +18,12 @@ import AccordionInput from '../inputs/accordion-input';
 export default function DealReportForm({
   dealType,
   dealId,
+  refVersionId,
   dealName,
 }: {
   dealType: Deal;
   dealId: string;
+  refVersionId: string;
   dealName: string;
 }) {
   const { user } = useContext(AuthContext);
@@ -30,7 +32,6 @@ export default function DealReportForm({
   const { handleSubmit, control, setValue, watch } = useForm<DealReportValues>({
     defaultValues: {
       id: '',
-      dealId,
       position: undefined,
       title: '',
       content: '',
@@ -58,6 +59,7 @@ export default function DealReportForm({
       id: values.id,
       type: dealType,
       refId: dealId,
+      refVersionId,
       authorId: user.id,
       title: values.title,
       content: values.content,

@@ -4,9 +4,9 @@ import { useContext } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
-import commentDealReport from '@/lib/deal/comment-deal-report';
 import { updateComment } from '@/lib/api/comment';
 import { CommentResponse } from '@/generated/graphql';
+import { commentReport } from '@/lib/api/report';
 import { AuthContext } from '../auth/auth.provider';
 import ReportCommentTitle from './report-comment-title';
 import CommentCard from '../comments/comment-card';
@@ -35,10 +35,8 @@ export default function ReportCommentCard({
   const handleWrite = async (values: CommentValues) => {
     if (!isReportedUser || !values.content) return;
 
-    await commentDealReport({
-      type,
+    await commentReport({
       id: values.id,
-      refId,
       content: values.content,
       reportId,
       authorId: user.id,
