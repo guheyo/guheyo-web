@@ -42,6 +42,8 @@ export default function ReportFeed({
             content={report.node.content}
             createdAt={report.node.createdAt}
             reportedUserId={reportedUserId}
+            type={type}
+            refVersionId={report.node.refVersionId}
           />
         </div>
       ))}

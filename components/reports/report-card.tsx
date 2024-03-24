@@ -9,6 +9,8 @@ export default function ReportCard({
   content,
   createdAt,
   reportedUserId,
+  type,
+  refVersionId,
 }: {
   index: number;
   id: string;
@@ -16,6 +18,8 @@ export default function ReportCard({
   content?: string | null;
   createdAt: Date;
   reportedUserId: string;
+  type: string;
+  refVersionId: string;
 }) {
   const { data } = useFindCommentQuery({
     variables: {
@@ -32,6 +36,8 @@ export default function ReportCard({
         title={title}
         content={content}
         createdAt={createdAt}
+        type={type}
+        refVersionId={refVersionId}
       />
       <ReportCommentCard
         index={index}
