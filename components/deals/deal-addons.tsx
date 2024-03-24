@@ -13,8 +13,14 @@ export default function DealAddons({
 }) {
   return (
     <div className="flex flex-row gap-2 items-center text-xs md:text-sm justify-self-end">
-      <ReportsCount reportCount={reportCount} />
-      <ReportCommentsCount reportCommentCount={reportCommentCount} />
+      {reportCount > 0 ? (
+        <>
+          <ReportsCount reportCount={reportCount} />
+          <ReportCommentsCount reportCommentCount={reportCommentCount} />
+        </>
+      ) : (
+        <div />
+      )}
       <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
         {dayjs(bumpedAt).fromNow()}
       </div>
