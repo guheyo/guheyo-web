@@ -21,7 +21,7 @@ export default function SearchProducts() {
   };
 
   return (
-    <div className="grid w-fit">
+    <div className="grid max-w-4xl w-full">
       <SearchInput
         text={text}
         setText={setText}

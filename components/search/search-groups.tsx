@@ -19,7 +19,7 @@ export default function SearchGroups() {
   };
 
   return (
-    <div className="grid gap-8 w-fit">
+    <div className="grid gap-8 max-w-4xl w-full">
       <SearchInput
         text={text}
         setText={setText}

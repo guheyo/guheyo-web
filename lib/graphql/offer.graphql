@@ -116,6 +116,16 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
   }
 }
 
+mutation DeleteOffer(
+  $id: ID!
+  $sellerId: ID!
+) {
+  deleteOffer(
+    id: $id
+    sellerId: $sellerId
+  )
+}
+
 mutation BumpOffer($input: BumpOfferInput!) {
   bumpOffer(input: $input) {
     id

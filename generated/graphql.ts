@@ -1503,6 +1503,14 @@ export type UpdateDemandMutationVariables = Exact<{
 
 export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
+export type DeleteDemandMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  buyerId: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteDemandMutation = { __typename?: 'Mutation', deleteDemand: string };
+
 export type BumpDemandMutationVariables = Exact<{
   input: BumpDemandInput;
 }>;
@@ -1586,6 +1594,14 @@ export type UpdateOfferMutationVariables = Exact<{
 
 
 export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+
+export type DeleteOfferMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  sellerId: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteOfferMutation = { __typename?: 'Mutation', deleteOffer: string };
 
 export type BumpOfferMutationVariables = Exact<{
   input: BumpOfferInput;
@@ -1712,6 +1728,14 @@ export type UpdateSwapMutationVariables = Exact<{
 
 
 export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string, name0: string, name1: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+
+export type DeleteSwapMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  proposerId: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteSwapMutation = { __typename?: 'Mutation', deleteSwap: string };
 
 export type BumpSwapMutationVariables = Exact<{
   input: BumpSwapInput;
@@ -2616,6 +2640,38 @@ export function useUpdateDemandMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdateDemandMutationHookResult = ReturnType<typeof useUpdateDemandMutation>;
 export type UpdateDemandMutationResult = Apollo.MutationResult<UpdateDemandMutation>;
 export type UpdateDemandMutationOptions = Apollo.BaseMutationOptions<UpdateDemandMutation, UpdateDemandMutationVariables>;
+export const DeleteDemandDocument = gql`
+    mutation DeleteDemand($id: ID!, $buyerId: ID!) {
+  deleteDemand(id: $id, buyerId: $buyerId)
+}
+    `;
+export type DeleteDemandMutationFn = Apollo.MutationFunction<DeleteDemandMutation, DeleteDemandMutationVariables>;
+
+/**
+ * __useDeleteDemandMutation__
+ *
+ * To run a mutation, you first call `useDeleteDemandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDemandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDemandMutation, { data, loading, error }] = useDeleteDemandMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      buyerId: // value for 'buyerId'
+ *   },
+ * });
+ */
+export function useDeleteDemandMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDemandMutation, DeleteDemandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDemandMutation, DeleteDemandMutationVariables>(DeleteDemandDocument, options);
+      }
+export type DeleteDemandMutationHookResult = ReturnType<typeof useDeleteDemandMutation>;
+export type DeleteDemandMutationResult = Apollo.MutationResult<DeleteDemandMutation>;
+export type DeleteDemandMutationOptions = Apollo.BaseMutationOptions<DeleteDemandMutation, DeleteDemandMutationVariables>;
 export const BumpDemandDocument = gql`
     mutation BumpDemand($input: BumpDemandInput!) {
   bumpDemand(input: $input) {
@@ -3009,6 +3065,38 @@ export function useUpdateOfferMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateOfferMutationHookResult = ReturnType<typeof useUpdateOfferMutation>;
 export type UpdateOfferMutationResult = Apollo.MutationResult<UpdateOfferMutation>;
 export type UpdateOfferMutationOptions = Apollo.BaseMutationOptions<UpdateOfferMutation, UpdateOfferMutationVariables>;
+export const DeleteOfferDocument = gql`
+    mutation DeleteOffer($id: ID!, $sellerId: ID!) {
+  deleteOffer(id: $id, sellerId: $sellerId)
+}
+    `;
+export type DeleteOfferMutationFn = Apollo.MutationFunction<DeleteOfferMutation, DeleteOfferMutationVariables>;
+
+/**
+ * __useDeleteOfferMutation__
+ *
+ * To run a mutation, you first call `useDeleteOfferMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteOfferMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteOfferMutation, { data, loading, error }] = useDeleteOfferMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      sellerId: // value for 'sellerId'
+ *   },
+ * });
+ */
+export function useDeleteOfferMutation(baseOptions?: Apollo.MutationHookOptions<DeleteOfferMutation, DeleteOfferMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteOfferMutation, DeleteOfferMutationVariables>(DeleteOfferDocument, options);
+      }
+export type DeleteOfferMutationHookResult = ReturnType<typeof useDeleteOfferMutation>;
+export type DeleteOfferMutationResult = Apollo.MutationResult<DeleteOfferMutation>;
+export type DeleteOfferMutationOptions = Apollo.BaseMutationOptions<DeleteOfferMutation, DeleteOfferMutationVariables>;
 export const BumpOfferDocument = gql`
     mutation BumpOffer($input: BumpOfferInput!) {
   bumpOffer(input: $input) {
@@ -3543,6 +3631,38 @@ export function useUpdateSwapMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateSwapMutationHookResult = ReturnType<typeof useUpdateSwapMutation>;
 export type UpdateSwapMutationResult = Apollo.MutationResult<UpdateSwapMutation>;
 export type UpdateSwapMutationOptions = Apollo.BaseMutationOptions<UpdateSwapMutation, UpdateSwapMutationVariables>;
+export const DeleteSwapDocument = gql`
+    mutation DeleteSwap($id: ID!, $proposerId: ID!) {
+  deleteSwap(id: $id, proposerId: $proposerId)
+}
+    `;
+export type DeleteSwapMutationFn = Apollo.MutationFunction<DeleteSwapMutation, DeleteSwapMutationVariables>;
+
+/**
+ * __useDeleteSwapMutation__
+ *
+ * To run a mutation, you first call `useDeleteSwapMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSwapMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSwapMutation, { data, loading, error }] = useDeleteSwapMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      proposerId: // value for 'proposerId'
+ *   },
+ * });
+ */
+export function useDeleteSwapMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSwapMutation, DeleteSwapMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSwapMutation, DeleteSwapMutationVariables>(DeleteSwapDocument, options);
+      }
+export type DeleteSwapMutationHookResult = ReturnType<typeof useDeleteSwapMutation>;
+export type DeleteSwapMutationResult = Apollo.MutationResult<DeleteSwapMutation>;
+export type DeleteSwapMutationOptions = Apollo.BaseMutationOptions<DeleteSwapMutation, DeleteSwapMutationVariables>;
 export const BumpSwapDocument = gql`
     mutation BumpSwap($input: BumpSwapInput!) {
   bumpSwap(input: $input) {
