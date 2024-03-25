@@ -9,6 +9,7 @@ import { deleteDeal, updateDeal } from '@/lib/api/deal';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
+import { DEAL_CLOSED, DEAL_HIDDEN, DEAL_OPEN } from '@/lib/deal/deal.constants';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 
 export default function PrivateDealMenu({
@@ -114,19 +115,19 @@ export default function PrivateDealMenu({
           끌어올리기
         </MenuItem>
         <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, 'open')}
+          onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
           sx={{ justifyContent: 'center' }}
         >
           거래 가능
         </MenuItem>
         <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, 'closed')}
+          onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
           sx={{ justifyContent: 'center' }}
         >
           거래 완료
         </MenuItem>
         <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, 'hidden')}
+          onClick={(e) => handleChangeDealStatus(e, DEAL_HIDDEN)}
           sx={{ justifyContent: 'center' }}
         >
           숨기기

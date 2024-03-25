@@ -29,7 +29,10 @@ function DemandFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const status = parseDealStatus(searchParams.get('status'));
+  const status = parseDealStatus({
+    status: searchParams.get('status'),
+    filterByAuthor: !!where?.buyerId,
+  });
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
