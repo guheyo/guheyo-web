@@ -107,6 +107,12 @@ export default function PrivateDealMenu({
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
+          게시글 수정
+        </MenuItem>
+        <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
+          끌어올리기
+        </MenuItem>
         <MenuItem
           onClick={(e) => handleChangeDealStatus(e, 'open')}
           sx={{ justifyContent: 'center' }}
@@ -119,11 +125,11 @@ export default function PrivateDealMenu({
         >
           거래 완료
         </MenuItem>
-        <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
-          게시글 수정
-        </MenuItem>
-        <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
-          끌어올리기
+        <MenuItem
+          onClick={(e) => handleChangeDealStatus(e, 'hidden')}
+          sx={{ justifyContent: 'center' }}
+        >
+          숨기기
         </MenuItem>
         <MenuItem sx={{ justifyContent: 'center' }}>
           <PostDeleteDialog handleDelete={handleDelete} />
