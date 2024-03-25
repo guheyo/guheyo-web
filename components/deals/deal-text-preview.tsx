@@ -19,7 +19,6 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
-  hasUncommentedReports: boolean;
 }
 
 export default function DealTextPreview({
@@ -33,7 +32,6 @@ export default function DealTextPreview({
   slug,
   reportCount,
   reportCommentCount,
-  hasUncommentedReports,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
@@ -46,13 +44,14 @@ export default function DealTextPreview({
             <div className="w-fit">
               <DealPreviewName name={name} />
             </div>
-            <div className="mr-[-24px] h-8">
+            <div className="h-8">
               <DealMenu
                 dealType={deal}
                 dealId={dealId}
                 authorId={authorId}
                 privateOnly
-                hasUncommentedReports={hasUncommentedReports}
+                reportCount={reportCount}
+                reportCommentCount={reportCommentCount}
               />
             </div>
           </div>
