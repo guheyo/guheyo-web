@@ -44,12 +44,14 @@ export default function DealTextPreview({
             <div className="w-fit">
               <DealPreviewName name={name} />
             </div>
-            <div className="mr-[-24px] h-8">
+            <div className="h-8">
               <DealMenu
                 dealType={deal}
                 dealId={dealId}
                 authorId={authorId}
                 privateOnly
+                reportCount={reportCount}
+                reportCommentCount={reportCommentCount}
               />
             </div>
           </div>

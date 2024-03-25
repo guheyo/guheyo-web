@@ -21,7 +21,7 @@ export default function CommentOutput({
     <div className="flex flex-col gap-1 items-start w-full">
       <div className="flex justify-between w-full">
         <div className="text-light-200 font-light text-xs md:text-sm">
-          {content}
+          {content || '무응답'}
         </div>
         <div className="mr-[-12px]">
           {displayMenu && (

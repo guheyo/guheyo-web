@@ -34,6 +34,8 @@ export default function DealPreview({
   reportCount,
   reportCommentCount,
 }: Props) {
+  const hasUncommentedReports = reportCount - reportCommentCount > 0;
+
   switch (type) {
     case 'text': {
       return (
@@ -48,6 +50,7 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
+          hasUncommentedReports={hasUncommentedReports}
         />
       );
     }
@@ -65,6 +68,7 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
+          hasUncommentedReports={hasUncommentedReports}
         />
       );
     }

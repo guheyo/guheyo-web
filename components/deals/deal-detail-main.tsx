@@ -55,8 +55,14 @@ export default function DealDetailMain({
           />
           <DealDetailBumpedAt bumpedAt={bumpedAt} />
         </div>
-        <div className="mr-[-24px]">
-          <DealMenu dealType={dealType} dealId={id} authorId={author.id} />
+        <div className="h-8">
+          <DealMenu
+            dealType={dealType}
+            dealId={id}
+            authorId={author.id}
+            reportCount={reportCount}
+            reportCommentCount={reportCommentCount}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">

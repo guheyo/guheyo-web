@@ -59,7 +59,7 @@ export default function ReportCommentCard({
 
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <ReportCommentTitle index={index} hasContent={!!comment?.content} />
+      <ReportCommentTitle index={index} />
       <CommentCard
         displayMenu={isReportedUser}
         defaultMode={defaultMode}

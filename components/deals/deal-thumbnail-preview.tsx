@@ -23,6 +23,7 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
+  hasUncommentedReports: boolean;
 }
 
 export default function DealThumbnailPreview({
@@ -37,6 +38,7 @@ export default function DealThumbnailPreview({
   slug,
   reportCount,
   reportCommentCount,
+  hasUncommentedReports,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
@@ -61,12 +63,14 @@ export default function DealThumbnailPreview({
             <div className="w-fit">
               <DealPreviewName name={name} />
             </div>
-            <div className="mr-[-24px] h-8">
+            <div className="h-8">
               <DealMenu
                 dealType={deal}
                 dealId={dealId}
                 authorId={authorId}
                 privateOnly
+                reportCount={reportCount}
+                reportCommentCount={reportCommentCount}
               />
             </div>
           </div>

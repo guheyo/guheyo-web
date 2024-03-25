@@ -33,15 +33,15 @@ export default function ReportsLink({
     <button
       type="button"
       onClick={handleClick}
-      className="flex flex-col gap-1 text-xs md:text-sm bg-dark-500 w-fit p-3 rounded"
+      className="flex flex-col gap-1 text-xs md:text-sm bg-pink-50 w-full p-3 rounded"
     >
-      <div className="flex flex-row gap-1 items-center text-red-500">
+      <div className="flex flex-row gap-1 items-center text-red-500 font-semibold">
         <div>
           <WarningIcon fontSize="inherit" />
         </div>
         {`해당 게시글에 ${reportCount}건의 신고 기록이 있어요`}
       </div>
-      <div className="flex flex-row gap-1 items-center text-yellow-500">
+      <div className="flex flex-row gap-1 items-center text-yellow-500 font-semibold">
         <div>
           <NewReleasesIcon fontSize="inherit" />
         </div>

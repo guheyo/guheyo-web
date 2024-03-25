@@ -1,6 +1,6 @@
 'use client';
 
-import FeedHomeLayout from '@/components/deals/feed-home.layout';
+import MyFeedHomeLayout from '@/components/deals/my-feed-home.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 function MyDealsLayout({ children }: Props) {
-  return <FeedHomeLayout>{children}</FeedHomeLayout>;
+  return <MyFeedHomeLayout>{children}</MyFeedHomeLayout>;
 }
 
 export default MyDealsLayout;
