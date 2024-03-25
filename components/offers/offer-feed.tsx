@@ -12,6 +12,7 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import { parseDealStatus } from '@/lib/deal/parse-deal-status';
 
 function OfferFeed({
   where,
@@ -28,7 +29,7 @@ function OfferFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const status = searchParams.get('status') || 'open';
+  const status = parseDealStatus(searchParams.get('status'));
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
