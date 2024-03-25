@@ -37,6 +37,8 @@ export default function DealDetail({
   reportCount: number;
   reportCommentCount: number;
 }) {
+  const hasUncommentedReports = reportCount - reportCommentCount > 0;
+
   if (images.length > 0)
     return (
       <PostDetail>
@@ -59,6 +61,7 @@ export default function DealDetail({
             author={author}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
+            hasUncommentedReports={hasUncommentedReports}
           />
         </div>
       </PostDetail>
@@ -81,6 +84,7 @@ export default function DealDetail({
           author={author}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
+          hasUncommentedReports={hasUncommentedReports}
         />
       </div>
     </PostDetail>

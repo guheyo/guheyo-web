@@ -27,6 +27,7 @@ export default function DealDetailMain({
   author,
   reportCount,
   reportCommentCount,
+  hasUncommentedReports,
 }: {
   dealType: Deal;
   id: string;
@@ -41,6 +42,7 @@ export default function DealDetailMain({
   author: AuthorResponse;
   reportCount: number;
   reportCommentCount: number;
+  hasUncommentedReports: boolean;
 }) {
   return (
     <>
@@ -56,7 +58,12 @@ export default function DealDetailMain({
           <DealDetailBumpedAt bumpedAt={bumpedAt} />
         </div>
         <div className="mr-[-24px]">
-          <DealMenu dealType={dealType} dealId={id} authorId={author.id} />
+          <DealMenu
+            dealType={dealType}
+            dealId={id}
+            authorId={author.id}
+            hasUncommentedReports={hasUncommentedReports}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
