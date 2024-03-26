@@ -15,6 +15,8 @@ fragment swap on SwapResponse {
   totalPrice
   businessFunction
   status
+  hidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -46,6 +48,8 @@ fragment swapPreview on SwapPreviewResponse {
   totalPrice
   businessFunction
   status
+  hidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -111,6 +115,8 @@ mutation UpdateSwap($input: UpdateSwapInput!) {
   updateSwap(input: $input) {
     id
     status
+    hidden
+    pending
     name0
     name1
     price
