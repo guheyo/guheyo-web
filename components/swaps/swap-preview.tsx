@@ -1,6 +1,7 @@
 'use client';
 
 import { SwapPreviewFragment } from '@/generated/graphql';
+import { DealStatus } from '@/lib/deal/deal.types';
 import SwapName from './swap-name';
 import DealPreview from '../deals/deal-preview';
 
@@ -24,6 +25,8 @@ export default function SwapPreview({ swap, type }: Props) {
       slug={swap.slug!}
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
+      status={swap.status as DealStatus}
+      hidden={swap.hidden}
     />
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
@@ -19,6 +19,8 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
+  status: DealStatus;
+  hidden: boolean;
 }
 
 export default function DealTextPreview({
@@ -32,6 +34,8 @@ export default function DealTextPreview({
   slug,
   reportCount,
   reportCommentCount,
+  status,
+  hidden,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
@@ -52,6 +56,8 @@ export default function DealTextPreview({
                 privateOnly
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
+                status={status}
+                hidden={hidden}
               />
             </div>
           </div>

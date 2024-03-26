@@ -3,7 +3,7 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import UserProfilePopper from '../users/user-profile-popper';
 import DealMenu from './deal-menu';
@@ -27,6 +27,8 @@ export default function DealDetailMain({
   author,
   reportCount,
   reportCommentCount,
+  status,
+  hidden,
 }: {
   dealType: Deal;
   id: string;
@@ -41,6 +43,8 @@ export default function DealDetailMain({
   author: AuthorResponse;
   reportCount: number;
   reportCommentCount: number;
+  status: DealStatus;
+  hidden: boolean;
 }) {
   return (
     <>
@@ -62,6 +66,8 @@ export default function DealDetailMain({
             authorId={author.id}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
+            status={status}
+            hidden={hidden}
           />
         </div>
       </div>

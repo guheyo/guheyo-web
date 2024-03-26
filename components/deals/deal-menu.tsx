@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { AuthContext } from '../auth/auth.provider';
 import PrivateDealMenu from './private-deal-menu';
 import PublicDealMenu from './public-deal-menu';
@@ -12,6 +12,8 @@ export default function DealMenu({
   privateOnly,
   reportCount,
   reportCommentCount,
+  status,
+  hidden,
 }: {
   dealType: Deal;
   dealId: string;
@@ -19,6 +21,8 @@ export default function DealMenu({
   privateOnly?: boolean;
   reportCount: number;
   reportCommentCount: number;
+  status: DealStatus;
+  hidden: boolean;
 }) {
   const { user } = React.useContext(AuthContext);
 
@@ -37,6 +41,8 @@ export default function DealMenu({
           dealType={dealType}
           dealId={dealId}
           authorId={authorId}
+          status={status}
+          hidden={hidden}
         />
       </div>
     );

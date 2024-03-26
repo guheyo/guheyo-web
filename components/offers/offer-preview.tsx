@@ -2,6 +2,7 @@
 
 import { truncateText } from '@/lib/text/truncate-text';
 import { OfferPreviewFragment } from '@/generated/graphql';
+import { DealStatus } from '@/lib/deal/deal.types';
 import DealPreview from '../deals/deal-preview';
 
 interface Props {
@@ -24,6 +25,8 @@ export default function OfferPreview({ offer, type }: Props) {
       slug={offer.slug!}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
+      status={offer.status as DealStatus}
+      hidden={offer.hidden}
     />
   );
 }
