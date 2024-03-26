@@ -885,7 +885,8 @@ export type QueryFindAuctionsArgs = {
 
 
 export type QueryFindAuthorArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 
