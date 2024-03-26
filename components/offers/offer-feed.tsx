@@ -13,7 +13,6 @@ import { useSearchParams } from 'next/navigation';
 import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { parseDealStatus } from '@/lib/deal/parse-deal-status';
-import { DEAL_HIDDEN } from '@/lib/deal/deal.constants';
 
 function OfferFeed({
   where,
