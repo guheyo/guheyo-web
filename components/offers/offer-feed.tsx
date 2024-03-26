@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation';
 import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { parseDealStatus } from '@/lib/deal/parse-deal-status';
+import { DEAL_HIDDEN } from '@/lib/deal/deal.constants';
 
 function OfferFeed({
   where,
@@ -33,6 +34,7 @@ function OfferFeed({
     status: searchParams.get('status'),
     filterByAuthor: !!where?.sellerId,
   });
+  const hidden = searchParams.get('hidden') === true.toString();
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
@@ -46,6 +48,7 @@ function OfferFeed({
       groupId: group?.id,
       productCategoryId: category?.id,
       status,
+      hidden,
       sellerId: where?.sellerId,
       bumpedAt: {
         gt: from,
