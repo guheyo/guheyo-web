@@ -24,7 +24,7 @@ interface Props {
   reportCount: number;
   reportCommentCount: number;
   status: DealStatus;
-  hidden: boolean;
+  isHidden: boolean;
 }
 
 export default function DealThumbnailPreview({
@@ -40,7 +40,7 @@ export default function DealThumbnailPreview({
   reportCount,
   reportCommentCount,
   status,
-  hidden,
+  isHidden,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
@@ -74,7 +74,7 @@ export default function DealThumbnailPreview({
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
                 status={status}
-                hidden={hidden}
+                isHidden={isHidden}
               />
             </div>
           </div>

@@ -25,7 +25,7 @@ export default function DemandPreview({ demand, type }: Props) {
       reportCount={demand.reportCount}
       reportCommentCount={demand.reportCommentCount}
       status={demand.status as DealStatus}
-      hidden={demand.hidden}
+      isHidden={demand.hidden}
     />
   );
 }

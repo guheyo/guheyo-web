@@ -20,7 +20,7 @@ interface Props {
   reportCount: number;
   reportCommentCount: number;
   status: DealStatus;
-  hidden: boolean;
+  isHidden: boolean;
 }
 
 export default function DealTextPreview({
@@ -35,7 +35,7 @@ export default function DealTextPreview({
   reportCount,
   reportCommentCount,
   status,
-  hidden,
+  isHidden,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
@@ -57,7 +57,7 @@ export default function DealTextPreview({
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
                 status={status}
-                hidden={hidden}
+                isHidden={isHidden}
               />
             </div>
           </div>

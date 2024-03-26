@@ -19,7 +19,7 @@ interface Props {
   reportCount: number;
   reportCommentCount: number;
   status: DealStatus;
-  hidden: boolean;
+  isHidden: boolean;
 }
 
 export default function DealPreview({
@@ -36,7 +36,7 @@ export default function DealPreview({
   reportCount,
   reportCommentCount,
   status,
-  hidden,
+  isHidden,
 }: Props) {
   switch (type) {
     case 'text': {
@@ -53,7 +53,7 @@ export default function DealPreview({
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
           status={status}
-          hidden={hidden}
+          isHidden={isHidden}
         />
       );
     }
@@ -72,7 +72,7 @@ export default function DealPreview({
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
           status={status}
-          hidden={hidden}
+          isHidden={isHidden}
         />
       );
     }

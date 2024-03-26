@@ -13,7 +13,7 @@ export default function DealMenu({
   reportCount,
   reportCommentCount,
   status,
-  hidden,
+  isHidden,
 }: {
   dealType: Deal;
   dealId: string;
@@ -22,7 +22,7 @@ export default function DealMenu({
   reportCount: number;
   reportCommentCount: number;
   status: DealStatus;
-  hidden: boolean;
+  isHidden: boolean;
 }) {
   const { user } = React.useContext(AuthContext);
 
@@ -42,7 +42,7 @@ export default function DealMenu({
           dealId={dealId}
           authorId={authorId}
           status={status}
-          hidden={hidden}
+          isHidden={isHidden}
         />
       </div>
     );

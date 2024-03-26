@@ -17,13 +17,13 @@ export default function PrivateDealMenu({
   dealId,
   authorId,
   status,
-  hidden,
+  isHidden,
 }: {
   dealType: Deal;
   dealId: string;
   authorId: string;
   status: DealStatus;
-  hidden: boolean;
+  isHidden: boolean;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -62,14 +62,14 @@ export default function PrivateDealMenu({
 
   const handleHidden = async (
     event: React.MouseEvent<HTMLElement>,
-    newHidden: boolean,
+    newIsHidden: boolean,
   ) => {
     event.preventDefault();
     const updateDealInput = parseUpdateDealInput({
       dealType,
       input: {
         id: dealId,
-        hidden: newHidden,
+        isHidden: newIsHidden,
         source: device,
       },
       authorId,
@@ -135,12 +135,12 @@ export default function PrivateDealMenu({
         <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
           글 수정
         </MenuItem>
-        {!hidden && status === DEAL_OPEN && (
+        {!isHidden && status === DEAL_OPEN && (
           <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
             끌올
           </MenuItem>
         )}
-        {!hidden && status === DEAL_CLOSED && (
+        {!isHidden && status === DEAL_CLOSED && (
           <MenuItem
             onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
             sx={{ justifyContent: 'center' }}
@@ -148,7 +148,7 @@ export default function PrivateDealMenu({
             거래 가능
           </MenuItem>
         )}
-        {!hidden && status === DEAL_OPEN && (
+        {!isHidden && status === DEAL_OPEN && (
           <MenuItem
             onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
             sx={{ justifyContent: 'center' }}
@@ -156,7 +156,7 @@ export default function PrivateDealMenu({
             거래 완료
           </MenuItem>
         )}
-        {!hidden && (
+        {!isHidden && (
           <MenuItem
             onClick={(e) => handleHidden(e, true)}
             sx={{ justifyContent: 'center' }}
@@ -164,7 +164,7 @@ export default function PrivateDealMenu({
             보관
           </MenuItem>
         )}
-        {hidden && (
+        {isHidden && (
           <MenuItem
             onClick={(e) => handleHidden(e, false)}
             sx={{ justifyContent: 'center' }}

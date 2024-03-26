@@ -13,12 +13,12 @@ export const DEAL_STATUS_OPTIONS = [
 export const MY_USER_DEAL_STATUS_OPTIONS = [
   { value: 'open', label: '거래 가능' },
   { value: 'closed', label: '거래 완료' },
-  { value: 'hidden', label: '보관' },
+  { value: 'isHidden', label: '보관' },
 ];
 
 export const DEAL_OPEN = 'open';
 export const DEAL_CLOSED = 'closed';
-export const DEAL_HIDDEN = 'hidden';
+export const DEAL_IS_HIDDEN = 'isHidden';
 
 export const DEAL_NAME = '제목';
 export const DEAL_NAME_PLACEHOLDER = '제목';

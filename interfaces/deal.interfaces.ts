@@ -7,7 +7,7 @@ export interface FindDealsWhereArgs {
 
   status?: string;
 
-  hidden?: boolean;
+  isHidden?: boolean;
 
   bumpedAt?: {
     gt: string;

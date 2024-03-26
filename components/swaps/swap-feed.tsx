@@ -33,7 +33,7 @@ function SwapFeed({
     status: searchParams.get('status'),
     filterByAuthor: !!where?.proposerId,
   });
-  const hidden = searchParams.get('hidden') === true.toString();
+  const isHidden = searchParams.get('isHidden') === true.toString();
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
@@ -47,7 +47,7 @@ function SwapFeed({
       groupId: group?.id,
       productCategoryId: category?.id,
       status,
-      hidden,
+      isHidden,
       proposerId: where?.proposerId,
       bumpedAt: {
         gt: from,
