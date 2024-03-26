@@ -1,3 +1,3 @@
 export type Deal = 'offer' | 'demand' | 'swap';
 
-export type DealStatus = 'open' | 'pending' | 'closed' | 'hidden';
+export type DealStatus = 'open' | 'pending' | 'closed';
