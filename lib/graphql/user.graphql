@@ -54,14 +54,6 @@ fragment myUser on MyUserResponse {
   }
 }
 
-query findMyUserById(
-  $id: ID!
-) {
-  findMyUserById(id: $id) {
-    ...myUser
-  }
-}
-
 query findUser(
   $provider: String
   $socialId: String
@@ -81,10 +73,14 @@ query findAuthor(
   }
 }
 
-query findMyUserByUsername(
-  $username: ID!
+query findMyUser(
+  $id: ID
+  $username: String
 ) {
-  findMyUserByUsername(username: $username) {
+  findMyUser(
+    id: $id
+    username: $username
+  ) {
     ...myUser
   }
 }
