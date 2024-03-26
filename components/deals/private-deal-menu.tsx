@@ -9,17 +9,21 @@ import { deleteDeal, updateDeal } from '@/lib/api/deal';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
-import { DEAL_CLOSED, DEAL_HIDDEN, DEAL_OPEN } from '@/lib/deal/deal.constants';
+import { DEAL_CLOSED, DEAL_OPEN } from '@/lib/deal/deal.constants';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 
 export default function PrivateDealMenu({
   dealType,
   dealId,
   authorId,
+  status,
+  hidden,
 }: {
   dealType: Deal;
   dealId: string;
   authorId: string;
+  status: DealStatus;
+  hidden: boolean;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -46,6 +50,26 @@ export default function PrivateDealMenu({
       input: {
         id: dealId,
         status: dealStatus,
+        source: device,
+      },
+      authorId,
+    });
+    await updateDeal({
+      dealType,
+      updateDealInput,
+    });
+  };
+
+  const handleHidden = async (
+    event: React.MouseEvent<HTMLElement>,
+    newHidden: boolean,
+  ) => {
+    event.preventDefault();
+    const updateDealInput = parseUpdateDealInput({
+      dealType,
+      input: {
+        id: dealId,
+        hidden: newHidden,
         source: device,
       },
       authorId,
@@ -109,29 +133,45 @@ export default function PrivateDealMenu({
         }}
       >
         <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
-          게시글 수정
+          글 수정
         </MenuItem>
-        <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
-          끌어올리기
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
-          sx={{ justifyContent: 'center' }}
-        >
-          거래 가능
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
-          sx={{ justifyContent: 'center' }}
-        >
-          거래 완료
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => handleChangeDealStatus(e, DEAL_HIDDEN)}
-          sx={{ justifyContent: 'center' }}
-        >
-          숨기기
-        </MenuItem>
+        {!hidden && status === DEAL_OPEN && (
+          <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
+            끌올
+          </MenuItem>
+        )}
+        {!hidden && status === DEAL_CLOSED && (
+          <MenuItem
+            onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
+            sx={{ justifyContent: 'center' }}
+          >
+            거래 가능
+          </MenuItem>
+        )}
+        {!hidden && status === DEAL_OPEN && (
+          <MenuItem
+            onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
+            sx={{ justifyContent: 'center' }}
+          >
+            거래 완료
+          </MenuItem>
+        )}
+        {!hidden && (
+          <MenuItem
+            onClick={(e) => handleHidden(e, true)}
+            sx={{ justifyContent: 'center' }}
+          >
+            보관
+          </MenuItem>
+        )}
+        {hidden && (
+          <MenuItem
+            onClick={(e) => handleHidden(e, false)}
+            sx={{ justifyContent: 'center' }}
+          >
+            꺼내기
+          </MenuItem>
+        )}
         <MenuItem sx={{ justifyContent: 'center' }}>
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
