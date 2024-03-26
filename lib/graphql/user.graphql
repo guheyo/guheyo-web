@@ -66,9 +66,13 @@ query findUser(
 }
 
 query findAuthor(
-  $id: ID!
+  $id: ID
+  $username: String
 ) {
-  findAuthor(id: $id) {
+  findAuthor(
+    id: $id
+    username: $username
+  ) {
     ...author
   }
 }

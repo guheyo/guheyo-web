@@ -1719,7 +1719,8 @@ export type FindUserQueryVariables = Exact<{
 export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } | null };
 
 export type FindAuthorQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3680,8 +3681,8 @@ export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const FindAuthorDocument = gql`
-    query findAuthor($id: ID!) {
-  findAuthor(id: $id) {
+    query findAuthor($id: ID, $username: String) {
+  findAuthor(id: $id, username: $username) {
     ...author
   }
 }
@@ -3700,10 +3701,11 @@ export const FindAuthorDocument = gql`
  * const { data, loading, error } = useFindAuthorQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      username: // value for 'username'
  *   },
  * });
  */
-export function useFindAuthorQuery(baseOptions: Apollo.QueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables> & ({ variables: FindAuthorQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindAuthorQuery(baseOptions?: Apollo.QueryHookOptions<FindAuthorQuery, FindAuthorQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindAuthorQuery, FindAuthorQueryVariables>(FindAuthorDocument, options);
       }
