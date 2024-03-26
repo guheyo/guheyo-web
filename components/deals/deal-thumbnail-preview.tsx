@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
@@ -23,7 +23,8 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
-  hasUncommentedReports: boolean;
+  status: DealStatus;
+  isHidden: boolean;
 }
 
 export default function DealThumbnailPreview({
@@ -38,7 +39,8 @@ export default function DealThumbnailPreview({
   slug,
   reportCount,
   reportCommentCount,
-  hasUncommentedReports,
+  status,
+  isHidden,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
@@ -71,6 +73,8 @@ export default function DealThumbnailPreview({
                 privateOnly
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
+                status={status}
+                isHidden={isHidden}
               />
             </div>
           </div>

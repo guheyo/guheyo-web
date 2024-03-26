@@ -24,7 +24,7 @@ export default function DealSelector({
         .split('/')
         .slice(0, -1)
         .join('/')}/${value}?${createQueryString({
-        searchParams,
+        searchParamsString: searchParams.toString(),
         name: 'category',
         value: categorySlug,
       })}`,

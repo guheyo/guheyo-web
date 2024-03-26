@@ -1,10 +1,11 @@
 'use client';
 
 import { Typography } from '@mui/material';
-import _ from 'lodash';
 import { useState } from 'react';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuthorResponse } from '@/generated/graphql';
+import { getSocialID } from '@/lib/user/get-discord-id';
+import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from '../socials/social-join-dates';
@@ -36,14 +37,6 @@ export default function UserProfilePopper({
   };
   const handlePopoverClose = () => {
     setAnchorEl(null);
-  };
-
-  const getDiscordSocialID = () => {
-    const account = _.find(
-      user.socialAccounts,
-      (socialAccount) => socialAccount.provider === 'discord',
-    );
-    return account?.socialId;
   };
 
   return (
@@ -95,7 +88,12 @@ export default function UserProfilePopper({
             />
             {displayDM && (
               <DmDialog
-                url={`https://discord.com/users/${getDiscordSocialID()}`}
+                url={parseDiscordDmLink(
+                  getSocialID({
+                    socialAccounts: user.socialAccounts,
+                    provider: 'discord',
+                  }),
+                )}
               />
             )}
           </div>

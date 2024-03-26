@@ -300,7 +300,9 @@ export type DemandPreviewResponse = {
   createdAt: Scalars['DateTime']['output'];
   groupId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isHidden: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -332,7 +334,9 @@ export type DemandResponse = {
   group: GroupProfileResponse;
   id: Scalars['ID']['output'];
   images: Array<UserImageResponse>;
+  isHidden: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -708,8 +712,8 @@ export type OfferPreviewResponse = {
   businessFunction: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   groupId: Scalars['String']['output'];
-  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
+  isHidden: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
@@ -742,9 +746,9 @@ export type OfferResponse = {
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   group: GroupProfileResponse;
-  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   images: Array<UserImageResponse>;
+  isHidden: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
@@ -1139,8 +1143,10 @@ export type SwapPreviewResponse = {
   createdAt: Scalars['DateTime']['output'];
   groupId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isHidden: Scalars['Boolean']['output'];
   name0: Scalars['String']['output'];
   name1: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -1174,8 +1180,10 @@ export type SwapResponse = {
   group: GroupProfileResponse;
   id: Scalars['ID']['output'];
   images: Array<UserImageResponse>;
+  isHidden: Scalars['Boolean']['output'];
   name0: Scalars['String']['output'];
   name1: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -1226,6 +1234,7 @@ export type UpdateDemandInput = {
   buyerId: Scalars['ID']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
+  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
@@ -1253,8 +1262,8 @@ export type UpdateOfferInput = {
   brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  hidden?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['ID']['input'];
+  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
@@ -1293,6 +1302,7 @@ export type UpdateSwapInput = {
   description0?: InputMaybe<Scalars['String']['input']>;
   description1?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
+  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
   name0?: InputMaybe<Scalars['String']['input']>;
   name1?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
@@ -1410,9 +1420,9 @@ export type FindCommentQueryVariables = Exact<{
 
 export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } | null };
 
-export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
+export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
 
 export type FindDemandPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1425,7 +1435,7 @@ export type FindDemandPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindDemandPreviewsQuery = { __typename?: 'Query', findDemandPreviews: { __typename?: 'PaginatedDemandPreviewsResponse', edges: Array<{ __typename?: 'DemandPreviewResponseEdge', cursor: string, node: { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindDemandPreviewsQuery = { __typename?: 'Query', findDemandPreviews: { __typename?: 'PaginatedDemandPreviewsResponse', edges: Array<{ __typename?: 'DemandPreviewResponseEdge', cursor: string, node: { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindDemandQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1433,7 +1443,7 @@ export type FindDemandQueryVariables = Exact<{
 }>;
 
 
-export type FindDemandQuery = { __typename?: 'Query', findDemand?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
+export type FindDemandQuery = { __typename?: 'Query', findDemand?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
 
 export type CreateDemandMutationVariables = Exact<{
   input: CreateDemandInput;
@@ -1447,7 +1457,7 @@ export type UpdateDemandMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
 export type DeleteDemandMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1468,7 +1478,7 @@ export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: st
 
 export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null };
 
-export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }> };
+export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }> };
 
 export type FindGroupsQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['ID']['input']>;
@@ -1500,11 +1510,11 @@ export type FindGroupQuery = { __typename?: 'Query', findGroup?: { __typename?: 
 export type FindGroupPreviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }> }> };
+export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } }> }> };
 
-export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
+export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1517,7 +1527,7 @@ export type FindOfferPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindOfferQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1525,7 +1535,7 @@ export type FindOfferQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
+export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
 
 export type CreateOfferMutationVariables = Exact<{
   input: CreateOfferInput;
@@ -1539,7 +1549,7 @@ export type UpdateOfferMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
 export type DeleteOfferMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1606,9 +1616,9 @@ export type DeleteSocialAccountByProviderMutationVariables = Exact<{
 
 export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
 
-export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type SwapPreviewFragment = { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
+export type SwapPreviewFragment = { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } };
 
 export type FindSwapPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1621,7 +1631,7 @@ export type FindSwapPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindSwapPreviewsQuery = { __typename?: 'Query', findSwapPreviews: { __typename?: 'PaginatedSwapPreviewsResponse', edges: Array<{ __typename?: 'SwapPreviewResponseEdge', cursor: string, node: { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindSwapPreviewsQuery = { __typename?: 'Query', findSwapPreviews: { __typename?: 'PaginatedSwapPreviewsResponse', edges: Array<{ __typename?: 'SwapPreviewResponseEdge', cursor: string, node: { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindSwapQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1629,7 +1639,7 @@ export type FindSwapQueryVariables = Exact<{
 }>;
 
 
-export type FindSwapQuery = { __typename?: 'Query', findSwap?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
+export type FindSwapQuery = { __typename?: 'Query', findSwap?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, groupId: string, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
 
 export type CreateSwapMutationVariables = Exact<{
   input: CreateSwapInput;
@@ -1643,7 +1653,7 @@ export type UpdateSwapMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string, name0: string, name1: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name0: string, name1: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
 export type DeleteSwapMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1861,6 +1871,8 @@ export const DemandFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -1933,6 +1945,8 @@ export const OfferPreviewFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -1963,6 +1977,8 @@ export const DemandPreviewFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -2007,6 +2023,8 @@ export const OfferFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -2083,6 +2101,8 @@ export const SwapFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -2117,6 +2137,8 @@ export const SwapPreviewFragmentDoc = gql`
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -2515,6 +2537,8 @@ export const UpdateDemandDocument = gql`
   updateDemand(input: $input) {
     id
     status
+    isHidden
+    pending
     name
     price
     shippingCost
@@ -2940,6 +2964,8 @@ export const UpdateOfferDocument = gql`
   updateOffer(input: $input) {
     id
     status
+    isHidden
+    pending
     name
     price
     shippingCost
@@ -3372,6 +3398,8 @@ export const UpdateSwapDocument = gql`
   updateSwap(input: $input) {
     id
     status
+    isHidden
+    pending
     name0
     name1
     price

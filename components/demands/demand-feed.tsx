@@ -33,6 +33,7 @@ function DemandFeed({
     status: searchParams.get('status'),
     filterByAuthor: !!where?.buyerId,
   });
+  const isHidden = searchParams.get('isHidden') === true.toString();
   const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
@@ -46,6 +47,7 @@ function DemandFeed({
       groupId: group?.id,
       productCategoryId: category?.id,
       status,
+      isHidden,
       buyerId: where?.buyerId,
       bumpedAt: {
         gt: from,

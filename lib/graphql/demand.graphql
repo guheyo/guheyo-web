@@ -13,6 +13,8 @@ fragment demand on DemandResponse {
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -43,6 +45,8 @@ fragment demandPreview on DemandPreviewResponse {
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -105,6 +109,8 @@ mutation UpdateDemand($input: UpdateDemandInput!) {
   updateDemand(input: $input) {
     id
     status
+    isHidden
+    pending
     name
     price
     shippingCost

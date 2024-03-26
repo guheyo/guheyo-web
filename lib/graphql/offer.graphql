@@ -13,6 +13,8 @@ fragment offer on OfferResponse {
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -43,6 +45,8 @@ fragment offerPreview on OfferPreviewResponse {
   totalPrice
   businessFunction
   status
+  isHidden
+  pending
   source
   reportCount
   reportCommentCount
@@ -108,6 +112,8 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
     id
     status
+    isHidden
+    pending
     name
     price
     shippingCost

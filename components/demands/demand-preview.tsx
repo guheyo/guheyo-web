@@ -2,6 +2,7 @@
 
 import { DemandPreviewFragment } from '@/generated/graphql';
 import { truncateText } from '@/lib/text/truncate-text';
+import { DealStatus } from '@/lib/deal/deal.types';
 import DealPreview from '../deals/deal-preview';
 
 interface Props {
@@ -23,6 +24,8 @@ export default function DemandPreview({ demand, type }: Props) {
       slug={demand.slug!}
       reportCount={demand.reportCount}
       reportCommentCount={demand.reportCommentCount}
+      status={demand.status as DealStatus}
+      isHidden={demand.hidden}
     />
   );
 }

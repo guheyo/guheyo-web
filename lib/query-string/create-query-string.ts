@@ -1,15 +1,14 @@
-import { ReadonlyURLSearchParams } from 'next/navigation';
-
 export default function createQueryString({
-  searchParams,
+  searchParamsString,
   name,
   value,
 }: {
-  searchParams: ReadonlyURLSearchParams;
+  searchParamsString: string;
   name: string;
   value?: string | null;
 }) {
-  const params = new URLSearchParams(searchParams.toString());
+  const params = new URLSearchParams(searchParamsString);
+
   if (value) {
     params.set(name, value);
   } else {

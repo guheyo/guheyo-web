@@ -30,7 +30,7 @@ export default function CategoriesNavbar({
     e.preventDefault();
     router.push(
       `${pathname}?${createQueryString({
-        searchParams,
+        searchParamsString: searchParams.toString(),
         name: 'category',
         value: slug,
       })}`,

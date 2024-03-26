@@ -27,7 +27,7 @@ export default function QuerySelector({
     const { value } = e.target;
     router.push(
       `${pathname}?${createQueryString({
-        searchParams,
+        searchParamsString: searchParams.toString(),
         name: queryKey,
         value,
       })}`,

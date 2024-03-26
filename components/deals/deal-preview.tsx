@@ -1,7 +1,7 @@
 'use client';
 
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import DealTextPreview from './deal-text-preview';
 import DealThumbnailPreview from './deal-thumbnail-preview';
 
@@ -18,6 +18,8 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
+  status: DealStatus;
+  isHidden: boolean;
 }
 
 export default function DealPreview({
@@ -33,9 +35,9 @@ export default function DealPreview({
   slug,
   reportCount,
   reportCommentCount,
+  status,
+  isHidden,
 }: Props) {
-  const hasUncommentedReports = reportCount - reportCommentCount > 0;
-
   switch (type) {
     case 'text': {
       return (
@@ -50,7 +52,8 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          hasUncommentedReports={hasUncommentedReports}
+          status={status}
+          isHidden={isHidden}
         />
       );
     }
@@ -68,7 +71,8 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          hasUncommentedReports={hasUncommentedReports}
+          status={status}
+          isHidden={isHidden}
         />
       );
     }
