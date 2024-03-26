@@ -175,15 +175,6 @@ export type CreateDemandInput = {
   status?: Scalars['String']['input'];
 };
 
-export type CreateDiscordMessageInput = {
-  discordChannelId?: InputMaybe<Scalars['String']['input']>;
-  discordGuildId?: InputMaybe<Scalars['String']['input']>;
-  discordMessageId?: InputMaybe<Scalars['String']['input']>;
-  groupId: Scalars['ID']['input'];
-  modelId: Scalars['ID']['input'];
-  modelName: Scalars['String']['input'];
-};
-
 export type CreateGroupInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   icon?: InputMaybe<Scalars['String']['input']>;
@@ -235,13 +226,6 @@ export type CreateRoleInput = {
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CreateSessionInput = {
-  expires: Scalars['DateTime']['input'];
-  id: Scalars['ID']['input'];
-  sessionToken: Scalars['String']['input'];
-  userId: Scalars['ID']['input'];
 };
 
 export type CreateSignedUrlInput = {
@@ -441,14 +425,12 @@ export type Mutation = {
   createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
   createDemand: Scalars['String']['output'];
-  createDiscordMessage: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
   createMember: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
-  createSession: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
   createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
@@ -460,7 +442,6 @@ export type Mutation = {
   deleteMember: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
-  deleteSession: Scalars['String']['output'];
   deleteSocialAccount: Scalars['String']['output'];
   deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
@@ -476,7 +457,6 @@ export type Mutation = {
   updateMember: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
   updateRole: Scalars['String']['output'];
-  updateSession: Scalars['String']['output'];
   updateSocialAccount: Scalars['String']['output'];
   updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
@@ -534,11 +514,6 @@ export type MutationCreateDemandArgs = {
 };
 
 
-export type MutationCreateDiscordMessageArgs = {
-  input: CreateDiscordMessageInput;
-};
-
-
 export type MutationCreateGroupArgs = {
   input: CreateGroupInput;
 };
@@ -566,11 +541,6 @@ export type MutationCreateReportArgs = {
 
 export type MutationCreateRoleArgs = {
   input: CreateRoleInput;
-};
-
-
-export type MutationCreateSessionArgs = {
-  input: CreateSessionInput;
 };
 
 
@@ -629,11 +599,6 @@ export type MutationDeleteOfferArgs = {
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteSessionArgs = {
-  sessionToken: Scalars['String']['input'];
 };
 
 
@@ -704,11 +669,6 @@ export type MutationUpdateRoleArgs = {
 };
 
 
-export type MutationUpdateSessionArgs = {
-  input: UpdateSessionInput;
-};
-
-
 export type MutationUpdateSocialAccountArgs = {
   input: UpdateSocialAccountInput;
 };
@@ -748,8 +708,10 @@ export type OfferPreviewResponse = {
   businessFunction: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   groupId: Scalars['String']['output'];
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -780,9 +742,11 @@ export type OfferResponse = {
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   group: GroupProfileResponse;
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   images: Array<UserImageResponse>;
   name: Scalars['String']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   productCategoryId: Scalars['String']['output'];
@@ -891,7 +855,6 @@ export type Query = {
   findReport: ReportResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
-  findSession?: Maybe<SessionResponse>;
   findSwap?: Maybe<SwapResponse>;
   findSwapPreviews: PaginatedSwapPreviewsResponse;
   findTerm?: Maybe<TermResponse>;
@@ -1026,11 +989,6 @@ export type QueryFindRoleByIdArgs = {
 };
 
 
-export type QueryFindSessionArgs = {
-  sessionToken: Scalars['String']['input'];
-};
-
-
 export type QueryFindSwapArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -1134,13 +1092,6 @@ export type RoleResponse = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   position?: Maybe<Scalars['Int']['output']>;
-};
-
-export type SessionResponse = {
-  __typename?: 'SessionResponse';
-  expires: Scalars['DateTime']['output'];
-  sessionToken: Scalars['String']['output'];
-  userId: Scalars['String']['output'];
 };
 
 export type SignedUrlResponse = {
@@ -1302,6 +1253,7 @@ export type UpdateOfferInput = {
   brandId?: InputMaybe<Scalars['ID']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  hidden?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
@@ -1319,12 +1271,6 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UpdateSessionInput = {
-  expires?: InputMaybe<Scalars['DateTime']['input']>;
-  sessionToken: Scalars['String']['input'];
-  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSocialAccountInput = {
@@ -1640,36 +1586,6 @@ export type CommentReportMutationVariables = Exact<{
 
 
 export type CommentReportMutation = { __typename?: 'Mutation', commentReport: string };
-
-export type CreateSessionMutationVariables = Exact<{
-  input: CreateSessionInput;
-}>;
-
-
-export type CreateSessionMutation = { __typename?: 'Mutation', createSession: string };
-
-export type UpdateSessionMutationVariables = Exact<{
-  input: UpdateSessionInput;
-}>;
-
-
-export type UpdateSessionMutation = { __typename?: 'Mutation', updateSession: string };
-
-export type DeleteSessionMutationVariables = Exact<{
-  sessionToken: Scalars['String']['input'];
-}>;
-
-
-export type DeleteSessionMutation = { __typename?: 'Mutation', deleteSession: string };
-
-export type SessionFragment = { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string };
-
-export type FindSessionQueryVariables = Exact<{
-  sessionToken: Scalars['String']['input'];
-}>;
-
-
-export type FindSessionQuery = { __typename?: 'Query', findSession?: { __typename?: 'SessionResponse', sessionToken: string, expires: any, userId: string } | null };
 
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
@@ -2149,13 +2065,6 @@ export const ReportFragmentDoc = gql`
   }
 }
     ${CommentFragmentDoc}`;
-export const SessionFragmentDoc = gql`
-    fragment session on SessionResponse {
-  sessionToken
-  expires
-  userId
-}
-    `;
 export const SwapFragmentDoc = gql`
     fragment swap on SwapResponse {
   id
@@ -3260,139 +3169,6 @@ export function useCommentReportMutation(baseOptions?: Apollo.MutationHookOption
 export type CommentReportMutationHookResult = ReturnType<typeof useCommentReportMutation>;
 export type CommentReportMutationResult = Apollo.MutationResult<CommentReportMutation>;
 export type CommentReportMutationOptions = Apollo.BaseMutationOptions<CommentReportMutation, CommentReportMutationVariables>;
-export const CreateSessionDocument = gql`
-    mutation createSession($input: CreateSessionInput!) {
-  createSession(input: $input)
-}
-    `;
-export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
-
-/**
- * __useCreateSessionMutation__
- *
- * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
-      }
-export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
-export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
-export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;
-export const UpdateSessionDocument = gql`
-    mutation updateSession($input: UpdateSessionInput!) {
-  updateSession(input: $input)
-}
-    `;
-export type UpdateSessionMutationFn = Apollo.MutationFunction<UpdateSessionMutation, UpdateSessionMutationVariables>;
-
-/**
- * __useUpdateSessionMutation__
- *
- * To run a mutation, you first call `useUpdateSessionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateSessionMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateSessionMutation, { data, loading, error }] = useUpdateSessionMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateSessionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSessionMutation, UpdateSessionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateSessionMutation, UpdateSessionMutationVariables>(UpdateSessionDocument, options);
-      }
-export type UpdateSessionMutationHookResult = ReturnType<typeof useUpdateSessionMutation>;
-export type UpdateSessionMutationResult = Apollo.MutationResult<UpdateSessionMutation>;
-export type UpdateSessionMutationOptions = Apollo.BaseMutationOptions<UpdateSessionMutation, UpdateSessionMutationVariables>;
-export const DeleteSessionDocument = gql`
-    mutation deleteSession($sessionToken: String!) {
-  deleteSession(sessionToken: $sessionToken)
-}
-    `;
-export type DeleteSessionMutationFn = Apollo.MutationFunction<DeleteSessionMutation, DeleteSessionMutationVariables>;
-
-/**
- * __useDeleteSessionMutation__
- *
- * To run a mutation, you first call `useDeleteSessionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteSessionMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteSessionMutation, { data, loading, error }] = useDeleteSessionMutation({
- *   variables: {
- *      sessionToken: // value for 'sessionToken'
- *   },
- * });
- */
-export function useDeleteSessionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSessionMutation, DeleteSessionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteSessionMutation, DeleteSessionMutationVariables>(DeleteSessionDocument, options);
-      }
-export type DeleteSessionMutationHookResult = ReturnType<typeof useDeleteSessionMutation>;
-export type DeleteSessionMutationResult = Apollo.MutationResult<DeleteSessionMutation>;
-export type DeleteSessionMutationOptions = Apollo.BaseMutationOptions<DeleteSessionMutation, DeleteSessionMutationVariables>;
-export const FindSessionDocument = gql`
-    query findSession($sessionToken: String!) {
-  findSession(sessionToken: $sessionToken) {
-    ...session
-  }
-}
-    ${SessionFragmentDoc}`;
-
-/**
- * __useFindSessionQuery__
- *
- * To run a query within a React component, call `useFindSessionQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindSessionQuery({
- *   variables: {
- *      sessionToken: // value for 'sessionToken'
- *   },
- * });
- */
-export function useFindSessionQuery(baseOptions: Apollo.QueryHookOptions<FindSessionQuery, FindSessionQueryVariables> & ({ variables: FindSessionQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
-      }
-export function useFindSessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
-        }
-export function useFindSessionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSessionQuery, FindSessionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSessionQuery, FindSessionQueryVariables>(FindSessionDocument, options);
-        }
-export type FindSessionQueryHookResult = ReturnType<typeof useFindSessionQuery>;
-export type FindSessionLazyQueryHookResult = ReturnType<typeof useFindSessionLazyQuery>;
-export type FindSessionSuspenseQueryHookResult = ReturnType<typeof useFindSessionSuspenseQuery>;
-export type FindSessionQueryResult = Apollo.QueryResult<FindSessionQuery, FindSessionQueryVariables>;
 export const CreateSocialAccountDocument = gql`
     mutation createSocialAccount($input: CreateSocialAccountInput!) {
   createSocialAccount(input: $input)

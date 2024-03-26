@@ -8,13 +8,11 @@ export const DEAL_STATUS_OPTIONS = [
   { value: 'all', label: '모든 상태' },
   { value: 'open', label: '거래 가능' },
   { value: 'closed', label: '거래 완료' },
-  { value: 'pending', label: '보류' },
 ];
 
 export const MY_USER_DEAL_STATUS_OPTIONS = [
   { value: 'open', label: '거래 가능' },
   { value: 'closed', label: '거래 완료' },
-  { value: 'pending', label: '보류' },
   { value: 'hidden', label: '숨김' },
 ];
 
