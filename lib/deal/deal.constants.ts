@@ -10,7 +10,7 @@ export const DEAL_STATUS_OPTIONS = [
   { value: 'closed', label: '거래 완료' },
 ];
 
-export const MY_USER_DEAL_STATUS_OPTIONS = [
+export const PRIVATE_USER_DEAL_STATUS_OPTIONS = [
   { value: 'open', label: '거래 가능' },
   { value: 'closed', label: '거래 완료' },
   { value: 'isHidden', label: '보관' },

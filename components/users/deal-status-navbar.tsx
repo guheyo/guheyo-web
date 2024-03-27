@@ -1,15 +1,12 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import {
-  DEAL_IS_HIDDEN,
-  DEAL_OPEN,
-  MY_USER_DEAL_STATUS_OPTIONS,
-} from '@/lib/deal/deal.constants';
+import { DEAL_IS_HIDDEN, DEAL_OPEN } from '@/lib/deal/deal.constants';
 import createQueryString from '@/lib/query-string/create-query-string';
+import { Option } from '@/interfaces/selector.interfaces';
 import TextNavbar from '../base/text-navbar';
 
-export default function MyDealStatusNavbar() {
+export default function DealStatusNavbar({ options }: { options: Option[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const selectedValue =
@@ -33,7 +30,7 @@ export default function MyDealStatusNavbar() {
 
   return (
     <TextNavbar
-      options={MY_USER_DEAL_STATUS_OPTIONS}
+      options={options}
       selectedValue={selectedValue}
       parseNewURL={(value) => parseNewURL(value)}
     />

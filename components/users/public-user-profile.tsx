@@ -1,0 +1,57 @@
+'use client';
+
+import { useFindAuthorQuery } from '@/generated/graphql';
+import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
+import { getSocialID } from '@/lib/user/get-discord-id';
+import UserAvatar from './user-avatar';
+import DmDialog from '../dm/dm-dialog';
+import Roles from './roles';
+import Username from './user-name';
+
+export default function PublicUserProfile({ username }: { username: string }) {
+  const { data, loading } = useFindAuthorQuery({
+    variables: {
+      username,
+    },
+  });
+
+  if (loading) return <div />;
+  if (!data?.findAuthor) return <div />;
+  const user = data.findAuthor;
+
+  return (
+    <div className="grid grid-cols-12 gap-0 px-2 pb-6 text-sm md:text-base rounded-lg items-center">
+      <div className="col-span-3 md:col-span-1">
+        <UserAvatar
+          username={user.username}
+          avatarURL={user.avatarURL || undefined}
+          size="lg"
+        />
+      </div>
+      <div className="col-span-9 md:col-span-5">
+        <div className="grid grid-cols-12 gap-2">
+          <span className="col-span-8 md:col-span-8 text-light-200 text-lg font-bold">
+            <Username user={user} />
+          </span>
+          <div className="col-span-4 md:col-span-4">
+            <DmDialog
+              url={parseDiscordDmLink(
+                getSocialID({
+                  socialAccounts: user.socialAccounts,
+                  provider: 'discord',
+                }),
+              )}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="col-span-12 flex flex-col justify-self-start items-center">
+        <div className="pl-20 text-xs md:text-sm">
+          {user.members.map((member) => (
+            <Roles key={member.id} roles={member.roles} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
