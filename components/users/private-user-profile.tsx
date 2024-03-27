@@ -1,6 +1,7 @@
 'use client';
 
 import { AuthorResponse, useFindMyUserQuery } from '@/generated/graphql';
+import { parseUserAbout } from '@/lib/user/parse-user-about';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import Username from './user-name';
@@ -27,6 +28,12 @@ export default function PrivateUserProfile({ userId }: { userId: string }) {
       </div>
       <div className="col-span-9 md:col-span-5">
         <Username user={user as AuthorResponse} />
+      </div>
+      <div className="col-span-12 pl-20 pb-2">
+        {parseUserAbout({
+          username: user.username,
+          about: user.about,
+        })}
       </div>
       <div className="col-span-12 flex flex-col justify-self-start items-center">
         <div className="pl-20 text-xs md:text-sm">

@@ -3,6 +3,7 @@
 import { useFindAuthorQuery } from '@/generated/graphql';
 import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
 import { getSocialID } from '@/lib/user/get-discord-id';
+import { parseUserAbout } from '@/lib/user/parse-user-about';
 import UserAvatar from './user-avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
@@ -44,6 +45,12 @@ export default function PublicUserProfile({ username }: { username: string }) {
             />
           </div>
         </div>
+      </div>
+      <div className="col-span-12 pl-20 pb-2">
+        {parseUserAbout({
+          username: user.username,
+          about: user.about,
+        })}
       </div>
       <div className="col-span-12 flex flex-col justify-self-start items-center">
         <div className="pl-20 text-xs md:text-sm">
