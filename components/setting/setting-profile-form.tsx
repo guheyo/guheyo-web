@@ -2,7 +2,7 @@
 
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import {
   ABSOLUTE_SUBMIT_BUTTON_STYLE,
   DEFAULT_LABEL_STYLE,
@@ -19,6 +19,7 @@ import { updateUser } from '@/lib/api/user';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import { ProfileFormValues } from './setting.interfaces';
 import TextInput from '../inputs/text-input';
+import AlertDialog from '../base/alert-dialog';
 
 export default function SettingProfileForm({
   prevFormValues,
@@ -26,13 +27,13 @@ export default function SettingProfileForm({
   prevFormValues: ProfileFormValues;
 }) {
   const device = useDeviceDetect();
+  const [open, setOpen] = useState(false);
 
-  const { handleSubmit, control, setValue, getValues } =
-    useForm<ProfileFormValues>({
-      defaultValues: {
-        ...prevFormValues,
-      },
-    });
+  const { handleSubmit, control } = useForm<ProfileFormValues>({
+    defaultValues: {
+      ...prevFormValues,
+    },
+  });
 
   const handleSubmitError: SubmitErrorHandler<ProfileFormValues> = (errors, event) => {
     // TODO
@@ -53,6 +54,11 @@ export default function SettingProfileForm({
       id: values.id,
       about: values.about,
     });
+    setOpen(true);
+  };
+
+  const handleClose: MouseEventHandler = (e) => {
+    setOpen(false);
   };
 
   return (
@@ -96,6 +102,7 @@ export default function SettingProfileForm({
           onUnAuthorization={handleOnAuthorization}
         />
       </div>
+      <AlertDialog open={open} text="수정되었어요!" handleClose={handleClose} />
     </form>
   );
 }
