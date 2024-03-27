@@ -5,11 +5,11 @@ import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
-import UserProfilePopper from '../users/user-profile-popper';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
 import DealShippingCost from './deal-shipping-cost';
 import RecentVersionLink from '../version/recent-version-link';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function DealVersionDetailMain({
   versionCreatedAt,
@@ -38,11 +38,10 @@ export default function DealVersionDetailMain({
     <>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
         <div className="flex flex-row items-center gap-2">
-          <UserProfilePopper
+          <UserProfileRedirectButton
             user={author}
             displayAvatar
             displayUsername
-            displayDM
             mode="standard"
           />
         </div>

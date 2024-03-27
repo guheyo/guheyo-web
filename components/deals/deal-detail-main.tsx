@@ -5,13 +5,13 @@ import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
 import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
-import UserProfilePopper from '../users/user-profile-popper';
 import DealMenu from './deal-menu';
 import ReportsLink from '../reports/reports-link';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
 import DealDetailBumpedAt from './deal-detail-bumped-at';
 import DealShippingCost from './deal-shipping-cost';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function DealDetailMain({
   dealType,
@@ -50,11 +50,10 @@ export default function DealDetailMain({
     <>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
         <div className="flex flex-row items-center gap-2">
-          <UserProfilePopper
+          <UserProfileRedirectButton
             user={author}
             displayAvatar
             displayUsername
-            displayDM
             mode="standard"
           />
           <DealDetailBumpedAt bumpedAt={bumpedAt} />

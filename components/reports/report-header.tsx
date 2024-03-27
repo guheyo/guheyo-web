@@ -1,7 +1,7 @@
 import { AuthorResponse } from '@/generated/graphql';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
-import UserProfilePopper from '../users/user-profile-popper';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function ReportHeader({
   name,
@@ -23,11 +23,10 @@ export default function ReportHeader({
   return (
     <button type="button" onClick={handleClick}>
       <div className="flex flex-col gap-4 px-4 py-4 bg-dark-400 rounded w-full">
-        <UserProfilePopper
+        <UserProfileRedirectButton
           user={author}
           displayAvatar
           displayUsername
-          displayDM
           mode="standard"
         />
         <div className="grid grid-cols-1 gap-1 justify-items-start">
