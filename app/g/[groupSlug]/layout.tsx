@@ -13,7 +13,7 @@ export default function Layout({
 }) {
   return (
     <div>
-      <div className="pt-4 pb-2 px-2 md:px-0 mt-0 md:mt-2">
+      <div className="pt-4 pb-2 mt-0 md:mt-2">
         <GroupHeader slug={params.groupSlug} />
       </div>
       {children}
