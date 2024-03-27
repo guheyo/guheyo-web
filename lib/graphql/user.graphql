@@ -20,6 +20,7 @@ fragment user on UserResponse {
   id
   createdAt
   username
+  about
   avatarURL
   bot
 }
@@ -28,6 +29,7 @@ fragment author on AuthorResponse {
   id
   createdAt
   username
+  about
   avatarURL
   bot
   socialAccounts {
@@ -42,6 +44,7 @@ fragment myUser on MyUserResponse {
   id
   createdAt
   username
+  about
   name
   phoneNumber
   avatarURL
