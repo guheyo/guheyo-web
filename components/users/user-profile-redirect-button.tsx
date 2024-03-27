@@ -2,7 +2,7 @@
 
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuthorResponse } from '@/generated/graphql';
-import { parseUserHomeLink } from '@/lib/link/parse-user-page.link';
+import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Link from 'next/link';
 import UserAvatar from './user-avatar';
 import Username from './user-name';

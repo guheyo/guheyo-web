@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
 import signIn from '@/lib/auth/sign-in';
-import { parseUserHomeLink } from '@/lib/link/parse-user-page.link';
+import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Avatar from './avatar';
 import { AuthContext } from '../auth/auth.provider';
 

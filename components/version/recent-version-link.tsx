@@ -1,5 +1,5 @@
 import { Deal } from '@/lib/deal/deal.types';
-import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
+import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 
