@@ -44,21 +44,14 @@ export default function UserProfilePopper({
       <button type="button" onClick={handlePopoverOpen}>
         {device === 'mobile' && (
           <div className="flex gap-2 items-center font-medium text-base">
-            {mode === 'light' && displayAvatar && (
+            {displayAvatar && (
               <UserAvatar
                 username={user.username}
                 avatarURL={user.avatarURL || undefined}
-                size="xs"
+                size={mode === 'standard' ? 'sm' : 'xs'}
               />
             )}
-            {mode === 'standard' && displayAvatar && (
-              <UserAvatar
-                username={user.username}
-                avatarURL={user.avatarURL || undefined}
-                size="sm"
-              />
-            )}
-            {mode === 'standard' && displayUsername && <Username user={user} />}
+            {displayUsername && <Username user={user} />}
           </div>
         )}
         {device === 'browser' && (
@@ -70,7 +63,7 @@ export default function UserProfilePopper({
                 size="sm"
               />
             )}
-            {mode === 'standard' && displayUsername && <Username user={user} />}
+            {displayUsername && <Username user={user} />}
           </div>
         )}
       </button>
