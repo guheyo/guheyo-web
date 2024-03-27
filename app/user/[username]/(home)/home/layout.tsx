@@ -7,7 +7,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>;
+  return <div className="grid gap-1 grid-cols-1">{children}</div>;
 }
 
 export default Layout;

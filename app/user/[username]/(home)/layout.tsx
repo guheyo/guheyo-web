@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import UserHomeNavbar from '@/components/users/user-home-navbar';
+import UserProfile from '@/components/users/user-profile';
 
 interface Props {
   children: ReactNode;
@@ -10,8 +11,9 @@ interface Props {
 
 function Layout({ children, params }: Props) {
   return (
-    <div className="pb-4 md:pb-6">
+    <div className="pb-4 md:pb-6 px-2 md:px-0">
       <div className="pt-6">
+        <UserProfile username={params.username} />
         <UserHomeNavbar username={params.username} />
       </div>
       {children}

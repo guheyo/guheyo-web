@@ -11,11 +11,11 @@ interface Props {
 function MyDealFeedLayout({ children }: Props) {
   return (
     <div>
-      <div className="flex flex-col justify-start px-2 md:px-0 pb-8">
+      <div className="flex flex-col justify-start">
         <DealCategoriesNavbar />
         <MyDealStatusNavbar />
       </div>
-      <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>
+      <div className="grid gap-1 grid-cols-1">{children}</div>
     </div>
   );
 }
