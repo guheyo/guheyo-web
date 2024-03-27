@@ -69,6 +69,7 @@ export default function SearchInput({
           fontWeight: 600,
           minWidth: 360,
         },
+        autoFocus: true,
       }}
     />
   );
