@@ -5,7 +5,7 @@ import { parseUserAbout } from '@/lib/user/parse-user-about';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import Username from './user-name';
-import UserSettingButton from './user-setting-button';
+import SettingButton from '../setting/setting-button';
 
 export default function PrivateUserProfile({ userId }: { userId: string }) {
   const { data, loading } = useFindMyUserQuery({
@@ -33,7 +33,7 @@ export default function PrivateUserProfile({ userId }: { userId: string }) {
             <Username user={user as AuthorResponse} />
           </span>
           <div className="col-span-3 md:col-span-3 justify-self-end">
-            <UserSettingButton username={user.username} />
+            <SettingButton settingItem="profile" />
           </div>
         </div>
       </div>
