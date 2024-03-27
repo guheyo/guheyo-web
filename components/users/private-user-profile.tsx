@@ -37,14 +37,16 @@ export default function PrivateUserProfile({ userId }: { userId: string }) {
           </div>
         </div>
       </div>
-      <div className="col-span-12 pl-20 md:pl-60 pb-2">
+      <div className="col-span-3" />
+      <div className="col-span-9 pb-2">
         {parseUserAbout({
           username: user.username,
           about: user.about,
         })}
       </div>
-      <div className="col-span-12 flex flex-col justify-self-start items-center">
-        <div className="pl-20 md:pl-60 text-xs md:text-sm">
+      <div className="col-span-3" />
+      <div className="col-span-9 flex flex-col justify-self-start items-center">
+        <div className="text-xs md:text-sm">
           {user.members.map((member) => (
             <Roles key={member.id} roles={member.roles} />
           ))}
