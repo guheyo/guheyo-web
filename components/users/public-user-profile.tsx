@@ -21,7 +21,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
   const user = data.findAuthor;
 
   return (
-    <div className="grid grid-cols-12 gap-0 px-2 pb-6 text-sm md:text-base rounded-lg items-center">
+    <div className="grid grid-cols-12 gap-0 px-2 pb-6 text-sm md:text-base items-center">
       <div className="col-span-3 md:col-span-1">
         <UserAvatar
           username={user.username}
