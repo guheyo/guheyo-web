@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Deal, DealStatus } from '@/lib/deal/deal.types';
-import { parseDealDetailLink } from '@/lib/link/parse-user-page.link';
+import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';

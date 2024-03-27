@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import Link from 'next/link';
-import { parseVersionLink } from '@/lib/link/parse-version-page.link';
+import { parseVersionLink } from '@/lib/version/parse-version-page.link';
 
 export default function ReportPreview({
   index,
