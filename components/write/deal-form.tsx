@@ -246,7 +246,7 @@ export default function DealForm({
         }}
         inputProps={{
           multiple: true,
-          isHidden: true,
+          hidden: true,
         }}
       />
 
