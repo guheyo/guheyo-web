@@ -24,9 +24,9 @@ export default function DealMenu({
   status: DealStatus;
   isHidden: boolean;
 }) {
-  const { user } = React.useContext(AuthContext);
+  const { jwtPayload } = React.useContext(AuthContext);
 
-  if (user?.id === authorId) {
+  if (jwtPayload?.id === authorId) {
     const uncommentedReportCount = reportCount - reportCommentCount;
     if (uncommentedReportCount > 0)
       return (

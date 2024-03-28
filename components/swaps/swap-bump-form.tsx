@@ -13,7 +13,7 @@ import DealBumpForm from '../deals/deal-bump-form';
 
 export default function SwapBumpForm({ id }: { id: string }) {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const { loading, data } = useFindSwapQuery({
     variables: {
       id,
@@ -25,13 +25,13 @@ export default function SwapBumpForm({ id }: { id: string }) {
   if (!swap) return <div />;
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
     if (!validateBump(swap.bumpedAt)) return;
 
     const input: BumpSwapInput = {
       id: values.id,
       swapId: values.dealId,
-      proposerId: user.id,
+      proposerId: jwtPayload.id,
       newPrice: values.price,
     };
     await bumpSwap(input);

@@ -26,7 +26,7 @@ export default function DealReportForm({
   refVersionId: string;
   dealName: string;
 }) {
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
 
   const { handleSubmit, control, setValue, watch } = useForm<DealReportValues>({
@@ -40,11 +40,11 @@ export default function DealReportForm({
 
   // Init DealReportValues
   useEffect(() => {
-    if (!user) return;
+    if (!jwtPayload) return;
 
     setValue('id', uuid4());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [jwtPayload]);
 
   const onClickTitle = (position: number) => {
     setValue('position', position);
@@ -53,14 +53,14 @@ export default function DealReportForm({
   };
 
   const handleSubmitValid: SubmitHandler<DealReportValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
 
     const input: CreateReportInput = {
       id: values.id,
       type: dealType,
       refId: dealId,
       refVersionId,
-      authorId: user.id,
+      authorId: jwtPayload.id,
       title: values.title,
       content: values.content,
     };

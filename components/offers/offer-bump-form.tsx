@@ -12,7 +12,7 @@ import DealBumpForm from '../deals/deal-bump-form';
 
 export default function OfferBumpForm({ id }: { id: string }) {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const { loading, data } = useFindOfferQuery({
     variables: {
       id,
@@ -24,13 +24,13 @@ export default function OfferBumpForm({ id }: { id: string }) {
   if (!offer) return <div />;
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
     if (!validateBump(offer.bumpedAt)) return;
 
     const input: BumpOfferInput = {
       id: values.id,
       offerId: values.dealId,
-      sellerId: user.id,
+      sellerId: jwtPayload.id,
       newPrice: values.price,
     };
     await bumpOffer(input);

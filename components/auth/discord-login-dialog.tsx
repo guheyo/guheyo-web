@@ -13,10 +13,10 @@ export default function DiscordLoginDialog({
   onUnAuthorization: MouseEventHandler;
 }) {
   const [open, setOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
 
   const handleOpen: MouseEventHandler = (e) => {
-    if (user?.username) {
+    if (jwtPayload?.username) {
       setOpen(false);
       onAuthorization(e);
     } else {

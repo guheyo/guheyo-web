@@ -6,11 +6,10 @@ import PublicUserProfile from '@/components/users/public-user-profile';
 import { useContext } from 'react';
 
 function UserProfile({ username }: { username: string }) {
-  const { user } = useContext(AuthContext);
-
-  if (user?.username !== username)
+  const { jwtPayload } = useContext(AuthContext);
+  if (jwtPayload?.username !== username)
     return <PublicUserProfile username={username} />;
-  return <PrivateUserProfile userId={user.id} />;
+  return <PrivateUserProfile userId={jwtPayload.id} />;
 }
 
 export default UserProfile;

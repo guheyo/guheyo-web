@@ -1,26 +1,26 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-import { Auth, AuthUser } from '@/interfaces/auth.interfaces';
-import { getAuthUserFromRefreshedTokens } from '@/lib/auth/get-auth-user';
+import { getJwtPayloadFromRefreshedTokens } from '@/lib/auth/get-jwt-payload';
+import { JwtPayload, JwtPayloadResult } from '@/interfaces/auth.interfaces';
 
-export const AuthContext = createContext<Auth>({
-  user: null,
+export const AuthContext = createContext<JwtPayloadResult>({
+  jwtPayload: null,
   error: null,
   loading: true,
 });
 
 export default function AuthProvider({ children }: React.PropsWithChildren) {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [jwtPayload, setJwtPayload] = useState<JwtPayload | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const refreshTokens = async () => {
     setLoading(true);
     try {
-      setUser(await getAuthUserFromRefreshedTokens());
+      setJwtPayload(await getJwtPayloadFromRefreshedTokens());
       setError(null);
     } catch (e: any) {
       setError(e);
-      setUser(null);
+      setJwtPayload(null);
     }
     setLoading(false);
   };
@@ -34,10 +34,12 @@ export default function AuthProvider({ children }: React.PropsWithChildren) {
     return () => clearInterval(intervalId);
   }, []);
 
-  const auth = useMemo(
-    () => ({ user, error, loading }),
-    [user, error, loading],
+  const contextValue = useMemo(
+    () => ({ jwtPayload, error, loading }),
+    [jwtPayload, error, loading],
   );
 
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 }

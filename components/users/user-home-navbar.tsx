@@ -12,9 +12,9 @@ import { AuthContext } from '../auth/auth.provider';
 export default function UserHomeNavbar({ username }: { username: string }) {
   const pathname = usePathname();
   const selectedValue = pathname.split(`/`).at(3);
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
 
-  if (user?.username !== username)
+  if (jwtPayload?.username !== username)
     return (
       <ScrollTextNavbar
         options={PUBLIC_USER_HOME_OPTIONS}

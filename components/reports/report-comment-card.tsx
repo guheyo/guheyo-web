@@ -22,8 +22,8 @@ export default function ReportCommentCard({
   comment?: CommentResponse | null;
   reportedUserId: string;
 }) {
-  const { user } = useContext(AuthContext);
-  const isReportedUser = !!user && user.id === reportedUserId;
+  const { jwtPayload } = useContext(AuthContext);
+  const isReportedUser = !!jwtPayload && jwtPayload.id === reportedUserId;
   const defaultMode = parseDefaultReportCommentMode({
     isReportedUser,
     content: comment?.content,
@@ -37,7 +37,7 @@ export default function ReportCommentCard({
       id: values.id,
       content: values.content,
       reportId,
-      authorId: user.id,
+      authorId: jwtPayload.id,
       source: device,
     });
   };
@@ -47,7 +47,7 @@ export default function ReportCommentCard({
 
     await updateComment({
       id: values.id,
-      authorId: user.id,
+      authorId: jwtPayload.id,
       content: values.content,
       source: device,
     });
