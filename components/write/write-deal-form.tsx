@@ -14,18 +14,18 @@ import DealForm from './deal-form';
 import { AuthContext } from '../auth/auth.provider';
 
 export default function WriteDealForm({ group }: { group: GroupResponse }) {
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
   const localStorageKey = parseTempDealFormKey({
-    userId: user?.id || 'ghost',
+    userId: jwtPayload?.id || 'ghost',
     groupSlug: group.slug,
   });
 
   const handleSubmitValid: SubmitHandler<DealFormValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
 
     const input = parseCreateDealInput({
-      authorId: user.id,
+      authorId: jwtPayload.id,
       dealFormValues: values,
     });
     await createDeal({
@@ -44,7 +44,7 @@ export default function WriteDealForm({ group }: { group: GroupResponse }) {
   return (
     <DealForm
       localStorageKey={localStorageKey}
-      authorId={user?.id}
+      authorId={jwtPayload?.id}
       group={group}
       handleSubmitValid={handleSubmitValid}
       onClickImagePreviewCallback={handleOnClickImagePreviewCallback}

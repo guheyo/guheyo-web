@@ -13,9 +13,9 @@ interface Props {
 }
 
 function Layout({ children, params }: Props) {
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
 
-  if (user?.username !== params.username)
+  if (jwtPayload?.username !== params.username)
     return <PublicUserDealFeedLayout>{children}</PublicUserDealFeedLayout>;
   return <PrivateUserDealFeedLayout>{children}</PrivateUserDealFeedLayout>;
 }

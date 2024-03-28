@@ -17,7 +17,7 @@ export default function LoginButton() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const [logout] = useLogoutMutation();
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>): void => {
@@ -34,7 +34,7 @@ export default function LoginButton() {
     router.push('/');
   };
 
-  if (!user) {
+  if (!jwtPayload) {
     return (
       <button
         type="submit"
@@ -55,7 +55,7 @@ export default function LoginButton() {
   return (
     <div>
       <IconButton className="inline-flex items-center" onClick={handleOpenMenu}>
-        <Avatar name={user.username} avatarURL={user.avatarURL} />
+        <Avatar name={jwtPayload.username} avatarURL={jwtPayload.avatarURL} />
       </IconButton>
       <Menu
         open={menuOpen}
@@ -67,7 +67,7 @@ export default function LoginButton() {
       >
         <MenuItem>
           <Link
-            href={parseUserHomeLink({ username: user.username })}
+            href={parseUserHomeLink({ username: jwtPayload.username })}
             onClick={handleCloseMenu}
           >
             <div className="focus:bg-gray-100 hover:bg-gray-100">

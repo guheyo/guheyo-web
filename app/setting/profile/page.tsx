@@ -6,15 +6,15 @@ import UserProfile from '@/components/users/user-profile';
 import { useContext } from 'react';
 
 export default function Page() {
-  const { user, loading } = useContext(AuthContext);
+  const { jwtPayload, loading } = useContext(AuthContext);
 
   if (loading) return <div />;
-  if (!user) return <div />;
+  if (!jwtPayload) return <div />;
 
   return (
     <div>
-      <UserProfile username={user.username} />
-      <SettingProfile userId={user.id} />
+      <UserProfile username={jwtPayload.username} />
+      <SettingProfile userId={jwtPayload.id} />
     </div>
   );
 }

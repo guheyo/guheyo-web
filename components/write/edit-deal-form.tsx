@@ -18,7 +18,7 @@ export default function EditDealForm({
 }: {
   prevFormValues: DealFormValues;
 }) {
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
   const { loading, data } = useFindGroupQuery({
     variables: {
@@ -27,15 +27,15 @@ export default function EditDealForm({
   });
 
   const localStorageKey = parseTempDealFormKey({
-    userId: user?.id || 'ghost',
+    userId: jwtPayload?.id || 'ghost',
     prevDealId: prevFormValues.id,
   });
 
   const handleSubmitValid: SubmitHandler<DealFormValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
 
     const input = parseUpdateDealInputFromFormValues({
-      authorId: user.id,
+      authorId: jwtPayload.id,
       dealFormValues: values,
     });
     await updateDeal({
@@ -57,7 +57,7 @@ export default function EditDealForm({
   return (
     <DealForm
       localStorageKey={localStorageKey}
-      authorId={user?.id}
+      authorId={jwtPayload?.id}
       group={data.findGroup}
       prevFormValues={prevFormValues}
       handleSubmitValid={handleSubmitValid}

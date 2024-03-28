@@ -12,7 +12,7 @@ import { AuthContext } from '../auth/auth.provider';
 
 export default function DemandBumpForm({ id }: { id: string }) {
   const router = useRouter();
-  const { user } = useContext(AuthContext);
+  const { jwtPayload } = useContext(AuthContext);
   const { loading, data } = useFindDemandQuery({
     variables: {
       id,
@@ -24,13 +24,13 @@ export default function DemandBumpForm({ id }: { id: string }) {
   if (!demand) return <div />;
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
-    if (!user) return;
+    if (!jwtPayload) return;
     if (!validateBump(demand.bumpedAt)) return;
 
     const input: BumpDemandInput = {
       id: values.id,
       demandId: values.dealId,
-      buyerId: user.id,
+      buyerId: jwtPayload.id,
       newPrice: values.price,
     };
     await bumpDemand(input);
