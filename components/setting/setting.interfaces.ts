@@ -1,4 +1,4 @@
-export type ProfileFormValues = {
+export type AboutFormValues = {
   id: string;
   about?: string;
 };

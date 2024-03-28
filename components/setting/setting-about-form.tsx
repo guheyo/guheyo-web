@@ -17,25 +17,25 @@ import {
 } from '@/lib/input/input.colors';
 import { updateUser } from '@/lib/api/user';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
-import { ProfileFormValues } from './setting.interfaces';
+import { AboutFormValues } from './setting.interfaces';
 import TextInput from '../inputs/text-input';
 import AlertDialog from '../base/alert-dialog';
 
-export default function SettingProfileForm({
+export default function SettingAboutForm({
   prevFormValues,
 }: {
-  prevFormValues: ProfileFormValues;
+  prevFormValues: AboutFormValues;
 }) {
   const device = useDeviceDetect();
   const [open, setOpen] = useState(false);
 
-  const { handleSubmit, control } = useForm<ProfileFormValues>({
+  const { handleSubmit, control } = useForm<AboutFormValues>({
     defaultValues: {
       ...prevFormValues,
     },
   });
 
-  const handleSubmitError: SubmitErrorHandler<ProfileFormValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<AboutFormValues> = (errors, event) => {
     // TODO
   };
 
@@ -47,9 +47,7 @@ export default function SettingProfileForm({
     e.preventDefault();
   };
 
-  const handleSubmitValid: SubmitHandler<ProfileFormValues> = async (
-    values,
-  ) => {
+  const handleSubmitValid: SubmitHandler<AboutFormValues> = async (values) => {
     await updateUser({
       id: values.id,
       about: values.about,
@@ -63,7 +61,7 @@ export default function SettingProfileForm({
 
   return (
     <form
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-12"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <TextInput

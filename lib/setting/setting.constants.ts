@@ -1,1 +1,1 @@
-export type SettingItem = 'profile';
+export type SettingItem = 'about' | 'discord-profile';

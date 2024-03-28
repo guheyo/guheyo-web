@@ -33,7 +33,7 @@ export default function PrivateUserProfile({ userId }: { userId: string }) {
             <Username user={user as AuthorResponse} />
           </span>
           <div className="col-span-3 md:col-span-3 justify-self-end">
-            <SettingButton settingItem="profile" />
+            <SettingButton settingItem="about" />
           </div>
         </div>
       </div>
