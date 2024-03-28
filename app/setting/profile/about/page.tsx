@@ -2,7 +2,6 @@
 
 import { AuthContext } from '@/components/auth/auth.provider';
 import SettingAbout from '@/components/setting/setting-about';
-import UserProfile from '@/components/users/user-profile';
 import { useContext } from 'react';
 
 export default function Page() {
@@ -11,10 +10,5 @@ export default function Page() {
   if (loading) return <div />;
   if (!jwtPayload) return <div />;
 
-  return (
-    <div>
-      <UserProfile username={jwtPayload.username} />
-      <SettingAbout userId={jwtPayload.id} />
-    </div>
-  );
+  return <SettingAbout userId={jwtPayload.id} />;
 }
