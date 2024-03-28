@@ -409,6 +409,10 @@ export type JwtResponse = {
   refreshToken: Scalars['String']['output'];
 };
 
+export type LinkSocialProfileInput = {
+  provider: Scalars['String']['input'];
+};
+
 export type MemberWithRolesResponse = {
   __typename?: 'MemberWithRolesResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -453,6 +457,7 @@ export type Mutation = {
   deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   disconnectRoles: Scalars['String']['output'];
+  linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
@@ -636,6 +641,11 @@ export type MutationDeleteUserImageArgs = {
 
 export type MutationDisconnectRolesArgs = {
   input: DisconnectRolesInput;
+};
+
+
+export type MutationLinkSocialProfileArgs = {
+  input: LinkSocialProfileInput;
 };
 
 
@@ -1758,6 +1768,13 @@ export type DeleteUserMutationVariables = Exact<{
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
+
+export type LinkSocialProfileMutationVariables = Exact<{
+  input: LinkSocialProfileInput;
+}>;
+
+
+export type LinkSocialProfileMutation = { __typename?: 'Mutation', linkSocialProfile: string };
 
 export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
@@ -3862,6 +3879,37 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const LinkSocialProfileDocument = gql`
+    mutation linkSocialProfile($input: LinkSocialProfileInput!) {
+  linkSocialProfile(input: $input)
+}
+    `;
+export type LinkSocialProfileMutationFn = Apollo.MutationFunction<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>;
+
+/**
+ * __useLinkSocialProfileMutation__
+ *
+ * To run a mutation, you first call `useLinkSocialProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLinkSocialProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [linkSocialProfileMutation, { data, loading, error }] = useLinkSocialProfileMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useLinkSocialProfileMutation(baseOptions?: Apollo.MutationHookOptions<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>(LinkSocialProfileDocument, options);
+      }
+export type LinkSocialProfileMutationHookResult = ReturnType<typeof useLinkSocialProfileMutation>;
+export type LinkSocialProfileMutationResult = Apollo.MutationResult<LinkSocialProfileMutation>;
+export type LinkSocialProfileMutationOptions = Apollo.BaseMutationOptions<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>;
 export const FindVersionPreviewDocument = gql`
     query findVersionPreview($id: ID, $refId: ID) {
   findVersionPreview(id: $id, refId: $refId) {

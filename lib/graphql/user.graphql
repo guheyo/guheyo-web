@@ -107,3 +107,7 @@ mutation updateUser(
 mutation deleteUser($id: ID!) {
   deleteUser(id: $id)
 }
+
+mutation linkSocialProfile($input: LinkSocialProfileInput!) {
+  linkSocialProfile(input: $input)
+}

@@ -1,6 +1,8 @@
 import { client } from '@/lib/apollo/client';
 import {
   DeleteUserDocument,
+  LinkSocialProfileDocument,
+  LinkSocialProfileInput,
   UpdateUserDocument,
   UpdateUserInput,
 } from '@/generated/graphql';
@@ -19,6 +21,15 @@ export async function deleteUser(id: string) {
     mutation: DeleteUserDocument,
     variables: {
       id,
+    },
+  });
+}
+
+export async function linkSocialProfile(input: LinkSocialProfileInput) {
+  await client.mutate({
+    mutation: LinkSocialProfileDocument,
+    variables: {
+      input,
     },
   });
 }
