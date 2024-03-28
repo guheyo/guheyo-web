@@ -459,6 +459,7 @@ export type Mutation = {
   disconnectRoles: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
+  reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
   updateComment: CommentResponse;
@@ -1400,6 +1401,11 @@ export type RefreshTokensMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type RefreshTokensMutation = { __typename?: 'Mutation', refreshTokens: { __typename?: 'JwtResponse', accessToken: string, refreshToken: string } };
 
+export type ReGenerateTokensMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReGenerateTokensMutation = { __typename?: 'Mutation', reGenerateTokens: { __typename?: 'JwtResponse', accessToken: string, refreshToken: string } };
+
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2273,6 +2279,39 @@ export function useRefreshTokensMutation(baseOptions?: Apollo.MutationHookOption
 export type RefreshTokensMutationHookResult = ReturnType<typeof useRefreshTokensMutation>;
 export type RefreshTokensMutationResult = Apollo.MutationResult<RefreshTokensMutation>;
 export type RefreshTokensMutationOptions = Apollo.BaseMutationOptions<RefreshTokensMutation, RefreshTokensMutationVariables>;
+export const ReGenerateTokensDocument = gql`
+    mutation ReGenerateTokens {
+  reGenerateTokens {
+    accessToken
+    refreshToken
+  }
+}
+    `;
+export type ReGenerateTokensMutationFn = Apollo.MutationFunction<ReGenerateTokensMutation, ReGenerateTokensMutationVariables>;
+
+/**
+ * __useReGenerateTokensMutation__
+ *
+ * To run a mutation, you first call `useReGenerateTokensMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReGenerateTokensMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reGenerateTokensMutation, { data, loading, error }] = useReGenerateTokensMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReGenerateTokensMutation(baseOptions?: Apollo.MutationHookOptions<ReGenerateTokensMutation, ReGenerateTokensMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReGenerateTokensMutation, ReGenerateTokensMutationVariables>(ReGenerateTokensDocument, options);
+      }
+export type ReGenerateTokensMutationHookResult = ReturnType<typeof useReGenerateTokensMutation>;
+export type ReGenerateTokensMutationResult = Apollo.MutationResult<ReGenerateTokensMutation>;
+export type ReGenerateTokensMutationOptions = Apollo.BaseMutationOptions<ReGenerateTokensMutation, ReGenerateTokensMutationVariables>;
 export const LogoutDocument = gql`
     mutation Logout {
   logout {
