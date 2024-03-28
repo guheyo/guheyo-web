@@ -26,7 +26,7 @@ export default function SwapPreview({ swap, type }: Props) {
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
       status={swap.status as DealStatus}
-      isHidden={swap.hidden}
+      isHidden={swap.isHidden}
     />
   );
 }
