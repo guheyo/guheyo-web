@@ -44,7 +44,9 @@ export default function RootLayout({
       <body className={`${notoSansKr.className} text-dark-200 bg-dark-500`}>
         <Providers>
           <div className="max-w-5xl mx-auto pb-0 md:pb-12">
-            <Navbar />
+            <div className="px-2 md:px-0">
+              <Navbar />
+            </div>
             {children}
           </div>
         </Providers>
