@@ -13,6 +13,7 @@ export default function SettingProfileNavbar() {
       options={SETTING_PROFILE_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => value}
+      size="large"
     />
   );
 }

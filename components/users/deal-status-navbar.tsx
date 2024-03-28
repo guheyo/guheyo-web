@@ -33,6 +33,7 @@ export default function DealStatusNavbar({ options }: { options: Option[] }) {
       options={options}
       selectedValue={selectedValue}
       parseNewURL={(value) => parseNewURL(value)}
+      size="medium"
     />
   );
 }

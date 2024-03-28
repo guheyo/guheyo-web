@@ -13,6 +13,7 @@ export default function DealCategoriesNavbar() {
       options={DEAL_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => value}
+      size="medium"
     />
   );
 }
