@@ -6,8 +6,8 @@ import {
   PRIVATE_USER_HOME_OPTIONS,
   PUBLIC_USER_HOME_OPTIONS,
 } from './user-home.constants';
-import ScrollTextNavbar from '../base/scroll-text-navbar';
 import { AuthContext } from '../auth/auth.provider';
+import TextNavbar from '../base/text-navbar';
 
 export default function UserHomeNavbar({ username }: { username: string }) {
   const pathname = usePathname();
@@ -16,17 +16,19 @@ export default function UserHomeNavbar({ username }: { username: string }) {
 
   if (jwtPayload?.username !== username)
     return (
-      <ScrollTextNavbar
+      <TextNavbar
         options={PUBLIC_USER_HOME_OPTIONS}
         selectedValue={selectedValue}
         parseNewURL={(value) => `/user/${username}/${value}`}
+        size="large"
       />
     );
   return (
-    <ScrollTextNavbar
+    <TextNavbar
       options={PRIVATE_USER_HOME_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => `/user/${username}/${value}`}
+      size="large"
     />
   );
 }
