@@ -1,10 +1,10 @@
 'use client';
 
 import { useFindMyUserQuery } from '@/generated/graphql';
-import SettingProfileForm from './setting-profile-form';
-import { ProfileFormValues } from './setting.interfaces';
+import { AboutFormValues } from './setting.interfaces';
+import SettingAboutForm from './setting-about-form';
 
-export default function SettingProfile({ userId }: { userId: string }) {
+export default function SettingAbout({ userId }: { userId: string }) {
   const { data, loading } = useFindMyUserQuery({
     variables: {
       id: userId,
@@ -15,14 +15,14 @@ export default function SettingProfile({ userId }: { userId: string }) {
   if (!data?.findMyUser) return <div />;
   const user = data.findMyUser;
 
-  const prevFormValues: ProfileFormValues = {
+  const prevFormValues: AboutFormValues = {
     id: user.id,
     about: user.about || '',
   };
 
   return (
     <div>
-      <SettingProfileForm prevFormValues={prevFormValues} />
+      <SettingAboutForm prevFormValues={prevFormValues} />
     </div>
   );
 }

@@ -26,7 +26,7 @@ export default function OfferPreview({ offer, type }: Props) {
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
       status={offer.status as DealStatus}
-      isHidden={offer.hidden}
+      isHidden={offer.isHidden}
     />
   );
 }

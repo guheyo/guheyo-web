@@ -10,8 +10,8 @@ import WriteButton from '../write/write-button';
 export default function Navbar() {
   return (
     <Scrollbar upPosition="top-0" zIndex={50}>
-      <header className="w-full border-b-2 border-dark-600 bg-dark-500">
-        <div className="grid grid-cols-12 px-2 md:px-0 py-0 h-12 items-center">
+      <header className="w-full border-b-2 border-dark-600 bg-dark-500 px-2 md:px-0">
+        <div className="grid grid-cols-12 py-0 h-12 items-center">
           <div className="col-span-2 md:col-span-6 justify-self-start">
             <Link href="/">
               <div className="flex flex-row gap-2">

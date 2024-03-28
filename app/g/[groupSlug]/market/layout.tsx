@@ -7,7 +7,7 @@ interface Props {
 
 function Layout({ children }: Props) {
   return (
-    <div className="pb-4 md:pb-6">
+    <div className="pb-4 md:pb-6 mx-2 md:mx-0">
       <CategoriesNavbar hideSelector={false} />
       {children}
     </div>

@@ -13,7 +13,7 @@ function FeedHomeLayout({ children }: Props) {
       <div className="flex justify-end pb-2">
         <DealSelectors />
       </div>
-      <div className="grid gap-1 grid-cols-1 mx-2 md:mx-0">{children}</div>
+      <div className="grid gap-1 grid-cols-1">{children}</div>
     </div>
   );
 }

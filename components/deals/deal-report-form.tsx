@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Deal } from '@/lib/deal/deal.types';
 import { parseDealReportFormTitle } from '@/lib/deal/parse-deal-report-form-title';
 import { REPORT_REASONS } from '@/lib/report/report.constants';
-import { STICKY_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
+import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { CreateReportInput } from '@/generated/graphql';
 import { createReport } from '@/lib/api/report';
 import { AuthContext } from '../auth/auth.provider';
@@ -103,7 +103,7 @@ export default function DealReportForm({
         }}
       />
 
-      <div className={STICKY_SUBMIT_BUTTON_STYLE}>
+      <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
           name="신고하기"
           onAuthorization={handleAuthorization}

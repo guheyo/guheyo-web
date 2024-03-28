@@ -1,19 +1,19 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { DEAL_OPTIONS } from '@/lib/deal/deal.constants';
 import TextNavbar from '../base/text-navbar';
+import { SETTING_PROFILE_OPTIONS } from './setting.constants';
 
-export default function DealCategoriesNavbar() {
+export default function SettingProfileNavbar() {
   const pathname = usePathname();
   const selectedValue = pathname.split('/').at(-1);
 
   return (
     <TextNavbar
-      options={DEAL_OPTIONS}
+      options={SETTING_PROFILE_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => value}
-      size="medium"
+      size="large"
     />
   );
 }
