@@ -39,7 +39,7 @@ export default function CategoriesNavbar({
 
   if (!group)
     return (
-      <div className="grid gap-2 md:gap-6 lg:gap-8 md:px-0 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid gap-2 md:gap-6 lg:gap-8 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
@@ -47,7 +47,7 @@ export default function CategoriesNavbar({
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
-      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center px-2 md:px-0 py-2 mb-6 bg-dark-500">
+      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-6 bg-dark-500">
         {hideSelector ? (
           <div />
         ) : (
