@@ -10,7 +10,9 @@ fragment member on MemberWithRolesResponse {
   id
   createdAt
   userId
-  groupId
+  group {
+    ...groupProfile
+  }
   roles {
     ...role
   }
@@ -71,10 +73,14 @@ query findUser(
 query findAuthor(
   $id: ID
   $username: String
+  $provider: String
+  $socialId: String
 ) {
   findAuthor(
     id: $id
     username: $username
+    provider: $provider
+    socialId: $socialId
   ) {
     ...author
   }
