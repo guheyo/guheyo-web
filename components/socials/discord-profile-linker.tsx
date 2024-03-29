@@ -3,6 +3,7 @@
 import { linkSocialProfile } from '@/lib/api/user';
 import { DISCORD_ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/social/discord/discord.styles';
 import { MouseEventHandler, useState } from 'react';
+import { reGenerateTokens } from '@/lib/api/auth';
 import SocialLogo from './social-logo';
 import AlertDialog from '../base/alert-dialog';
 
@@ -13,6 +14,7 @@ export default function DiscordProfileLinker() {
     await linkSocialProfile({
       provider: 'discord',
     });
+    await reGenerateTokens();
     setOpen(true);
   };
 

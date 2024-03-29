@@ -5,6 +5,13 @@ mutation RefreshTokens {
   }
 }
 
+mutation ReGenerateTokens {
+  reGenerateTokens {
+    accessToken
+    refreshToken
+  }
+}
+
 mutation Logout {
   logout {
     provider
