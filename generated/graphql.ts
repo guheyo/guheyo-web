@@ -413,6 +413,12 @@ export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
 
+export type MemberRoleResponse = {
+  __typename?: 'MemberRoleResponse';
+  groupSlug: Scalars['String']['output'];
+  roleNames: Array<Scalars['String']['output']>;
+};
+
 export type MemberWithRolesResponse = {
   __typename?: 'MemberWithRolesResponse';
   createdAt: Scalars['DateTime']['output'];

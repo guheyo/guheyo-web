@@ -5,11 +5,17 @@ export interface SocialProfile {
   avatarURL?: string;
 }
 
+export interface MemberRole {
+  groupSlug: string;
+  roleNames: string[];
+}
+
 export interface UserPayload {
   socialProfile: SocialProfile;
   id: string;
   username: string;
   avatarURL?: string;
+  memberRoles: MemberRole[];
 }
 
 export interface JwtPayload extends UserPayload {
