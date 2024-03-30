@@ -73,14 +73,10 @@ query findUser(
 query findAuthor(
   $id: ID
   $username: String
-  $provider: String
-  $socialId: String
 ) {
   findAuthor(
     id: $id
     username: $username
-    provider: $provider
-    socialId: $socialId
   ) {
     ...author
   }

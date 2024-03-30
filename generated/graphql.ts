@@ -413,6 +413,12 @@ export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
 
+export type MemberRoleResponse = {
+  __typename?: 'MemberRoleResponse';
+  groupSlug: Scalars['String']['output'];
+  roleNames: Array<Scalars['String']['output']>;
+};
+
 export type MemberWithRolesResponse = {
   __typename?: 'MemberWithRolesResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -899,8 +905,6 @@ export type QueryFindAuctionsArgs = {
 
 export type QueryFindAuthorArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1743,8 +1747,6 @@ export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'U
 export type FindAuthorQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  socialId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3751,13 +3753,8 @@ export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const FindAuthorDocument = gql`
-    query findAuthor($id: ID, $username: String, $provider: String, $socialId: String) {
-  findAuthor(
-    id: $id
-    username: $username
-    provider: $provider
-    socialId: $socialId
-  ) {
+    query findAuthor($id: ID, $username: String) {
+  findAuthor(id: $id, username: $username) {
     ...author
   }
 }
@@ -3777,8 +3774,6 @@ export const FindAuthorDocument = gql`
  *   variables: {
  *      id: // value for 'id'
  *      username: // value for 'username'
- *      provider: // value for 'provider'
- *      socialId: // value for 'socialId'
  *   },
  * });
  */
