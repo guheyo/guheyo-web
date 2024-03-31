@@ -4,7 +4,7 @@ import {
   UpdateSwapInput,
 } from '@/generated/graphql';
 import { DealFormValues } from './deal.interfaces';
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 import { SHIPPING_FREE } from '../shipping/shipping.constants';
 
 export const parseUpdateDealInputFromFormValues = ({
@@ -62,7 +62,7 @@ export const parseUpdateDealInput = ({
   input,
   authorId,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   authorId: string;
   input:
     | Omit<UpdateOfferInput, 'sellerId'>

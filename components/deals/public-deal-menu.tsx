@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Deal } from '@/lib/deal/deal.types';
+import { DealType } from '@/lib/deal/deal.types';
 import { useRouter } from 'next/navigation';
 import { parseReportPageLink } from '@/lib/report/parse-report-page-link';
 
@@ -11,7 +11,7 @@ export default function PublicDealMenu({
   dealType,
   dealId,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   dealId: string;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

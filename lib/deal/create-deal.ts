@@ -3,7 +3,7 @@ import {
   CreateOfferInput,
   CreateSwapInput,
 } from '@/generated/graphql';
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 import { createOffer } from '../api/offer';
 import { createDemand } from '../api/demand';
 import { createSwap } from '../api/swap';
@@ -12,7 +12,7 @@ const createDeal = ({
   dealType,
   createDealInput,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   createDealInput: CreateOfferInput | CreateDemandInput | CreateSwapInput;
 }) => {
   if (dealType === 'offer') {

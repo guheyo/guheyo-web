@@ -13,8 +13,9 @@ interface Props {
 export default function OfferPreview({ offer, type }: Props) {
   return (
     <DealPreview
-      deal="offer"
       dealId={offer.id}
+      dealType="offer"
+      dealStatus={offer.status as DealStatus}
       authorId={offer.seller.id}
       type={type}
       thumbnail={offer.thumbnail}
@@ -25,7 +26,6 @@ export default function OfferPreview({ offer, type }: Props) {
       slug={offer.slug!}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
-      status={offer.status as DealStatus}
       isHidden={offer.isHidden}
     />
   );

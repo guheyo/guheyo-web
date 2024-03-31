@@ -1,6 +1,6 @@
 import { UserImage } from '../image/image.interfaces';
 import { ShippingType } from '../shipping/shipping.types';
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 
 export type DealFormValues = {
   id: string;
@@ -8,7 +8,7 @@ export type DealFormValues = {
   images: UserImage[];
   name0: string;
   name1?: string;
-  dealType: Deal;
+  dealType: DealType;
   productCategoryId: string;
   price: number;
   shippingCost: number;

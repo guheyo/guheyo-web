@@ -15,7 +15,7 @@ export default function DealSelector({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const deal = pathname.split('/').at(-1) || 'offer';
+  const dealType = pathname.split('/').at(-1) || 'offer';
 
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
@@ -34,7 +34,7 @@ export default function DealSelector({
   return (
     <BaseSelector
       name="deal"
-      selectedValue={deal}
+      selectedValue={dealType}
       options={DEAL_OPTIONS}
       inputClassName="className: 'px-3 py-2 text-xs md:text-base"
       handleChange={handleChange}

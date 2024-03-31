@@ -1,27 +1,27 @@
 import * as React from 'react';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { AuthContext } from '../auth/auth.provider';
 import PrivateDealMenu from './private-deal-menu';
 import PublicDealMenu from './public-deal-menu';
 import ReportAlertDialog from '../reports/report-alert-dialog';
 
 export default function DealMenu({
-  dealType,
   dealId,
+  dealType,
+  dealStatus,
   authorId,
   privateOnly,
   reportCount,
   reportCommentCount,
-  status,
   isHidden,
 }: {
-  dealType: Deal;
   dealId: string;
+  dealType: DealType;
+  dealStatus: DealStatus;
   authorId: string;
   privateOnly?: boolean;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
   isHidden: boolean;
 }) {
   const { jwtPayload } = React.useContext(AuthContext);
@@ -38,10 +38,10 @@ export default function DealMenu({
     return (
       <div className="mr-[-24px]">
         <PrivateDealMenu
-          dealType={dealType}
           dealId={dealId}
+          dealType={dealType}
+          dealStatus={dealStatus}
           authorId={authorId}
-          status={status}
           isHidden={isHidden}
         />
       </div>

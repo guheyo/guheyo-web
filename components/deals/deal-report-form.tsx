@@ -5,7 +5,7 @@ import { MouseEventHandler, useContext, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { DealReportValues } from '@/lib/deal/deal.interfaces';
 import { useRouter } from 'next/navigation';
-import { Deal } from '@/lib/deal/deal.types';
+import { DealType } from '@/lib/deal/deal.types';
 import { parseDealReportFormTitle } from '@/lib/deal/parse-deal-report-form-title';
 import { REPORT_REASONS } from '@/lib/report/report.constants';
 import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
@@ -22,7 +22,7 @@ export default function DealReportForm({
   dealName,
   reportedUserId,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   dealId: string;
   refVersionId: string;
   dealName: string;

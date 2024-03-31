@@ -1,14 +1,15 @@
 'use client';
 
 import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealDetailMain from './deal-detail-main';
 
 export default function DealDetail({
-  dealType,
   id,
+  dealType,
+  dealStatus,
   name0,
   name1,
   slug,
@@ -22,8 +23,9 @@ export default function DealDetail({
   reportCount,
   reportCommentCount,
 }: {
-  dealType: Deal;
   id: string;
+  dealType: DealType;
+  dealStatus: DealStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -46,8 +48,9 @@ export default function DealDetail({
 
         <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
           <DealDetailMain
-            dealType={dealType}
             id={id}
+            dealType={dealType}
+            dealStatus={dealStatus}
             name0={name0}
             name1={name1}
             slug={slug}
@@ -68,8 +71,9 @@ export default function DealDetail({
     <PostDetail>
       <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
         <DealDetailMain
-          dealType={dealType}
           id={id}
+          dealType={dealType}
+          dealStatus={dealStatus}
           name0={name0}
           name1={name1}
           slug={slug}

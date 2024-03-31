@@ -1,13 +1,14 @@
 'use client';
 
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import DealTextPreview from './deal-text-preview';
 import DealThumbnailPreview from './deal-thumbnail-preview';
 
 interface Props {
-  deal: Deal;
   dealId: string;
+  dealType: DealType;
+  dealStatus: DealStatus;
   authorId: string;
   type: 'text' | 'thumbnail';
   thumbnail?: UserImageResponse | null;
@@ -18,13 +19,13 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
   isHidden: boolean;
 }
 
 export default function DealPreview({
-  deal,
   dealId,
+  dealType,
+  dealStatus,
   authorId,
   type,
   thumbnail,
@@ -35,15 +36,15 @@ export default function DealPreview({
   slug,
   reportCount,
   reportCommentCount,
-  status,
   isHidden,
 }: Props) {
   switch (type) {
     case 'text': {
       return (
         <DealTextPreview
-          deal={deal}
           dealId={dealId}
+          dealType={dealType}
+          dealStatus={dealStatus}
           authorId={authorId}
           name={name}
           totalPrice={totalPrice}
@@ -52,7 +53,6 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          status={status}
           isHidden={isHidden}
         />
       );
@@ -60,8 +60,9 @@ export default function DealPreview({
     case 'thumbnail': {
       return (
         <DealThumbnailPreview
-          deal={deal}
           dealId={dealId}
+          dealType={dealType}
+          dealStatus={dealStatus}
           authorId={authorId}
           thumbnail={thumbnail}
           name={name}
@@ -71,7 +72,6 @@ export default function DealPreview({
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          status={status}
           isHidden={isHidden}
         />
       );

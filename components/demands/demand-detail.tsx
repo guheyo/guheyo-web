@@ -1,6 +1,7 @@
 'use client';
 
 import { useFindDemandQuery } from '@/generated/graphql';
+import { DealStatus } from '@/lib/deal/deal.types';
 import DealDetail from '../deals/deal-detail';
 
 export default function DemandDetail({ slug }: { slug: string }) {
@@ -17,8 +18,9 @@ export default function DemandDetail({ slug }: { slug: string }) {
 
   return (
     <DealDetail
-      dealType="demand"
       id={demand.id}
+      dealType="demand"
+      dealStatus={demand.status as DealStatus}
       name0={demand.name}
       slug={demand.slug!}
       price={demand.price}

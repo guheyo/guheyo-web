@@ -1,4 +1,4 @@
-import { Deal } from '@/lib/deal/deal.types';
+import { DealType } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import dayjs from 'dayjs';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ export default function RecentVersionLink({
 }: {
   versionCreatedAt: Date;
   username: string;
-  dealType: Deal;
+  dealType: DealType;
   slug: string;
 }) {
   return (
@@ -24,7 +24,7 @@ export default function RecentVersionLink({
       <Link
         href={parseDealDetailLink({
           username,
-          deal: dealType,
+          dealType,
           slug,
         })}
         className="text-star-500 font-semibold"

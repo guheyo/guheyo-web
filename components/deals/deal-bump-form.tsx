@@ -29,7 +29,7 @@ import Image from 'next/image';
 import { v4 as uuid4 } from 'uuid';
 import { parseDealBumpFormTitle } from '@/lib/deal/parse-deal-bump-form-title';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
-import { Deal } from '@/lib/deal/deal.types';
+import { DealType } from '@/lib/deal/deal.types';
 import { parseDealBumpButtonName } from '@/lib/deal/parse-deal-bump-button-name';
 import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
 import TextInput from '../inputs/text-input';
@@ -47,7 +47,7 @@ export default function DealBumpForm({
   bumpedAt,
   handleSubmitValid,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   dealId: string;
   dealName: string;
   price: number;

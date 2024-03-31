@@ -1,11 +1,11 @@
 import { gql, makeVar } from '@apollo/client';
 import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
 import { GroupResponse } from '@/generated/graphql';
-import { Deal } from '../deal/deal.types';
+import { DealType } from '../deal/deal.types';
 
 export const groupVar = makeVar<GroupResponse | null>(null);
 
-export const dealVar = makeVar<Deal>('offer');
+export const dealTypeVar = makeVar<DealType>('offer');
 
 export const colsVar = makeVar<number>(1);
 
@@ -24,9 +24,9 @@ export const cache = new NextSSRInMemoryCache({
             return groupVar();
           },
         },
-        deal: {
+        dealType: {
           read() {
-            return dealVar();
+            return dealTypeVar();
           },
         },
         cols: {

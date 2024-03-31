@@ -1,4 +1,4 @@
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 
 export const parseDealBumpFormTitle = (dealType: Deal) => {
   switch (dealType) {

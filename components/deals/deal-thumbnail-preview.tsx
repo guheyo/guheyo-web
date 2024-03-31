@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
@@ -12,8 +12,9 @@ import DealPreviewPrice from './deal-preview-price';
 import DealPreviewName from './deal-preview-name';
 
 interface Props {
-  deal: Deal;
   dealId: string;
+  dealType: DealType;
+  dealStatus: DealStatus;
   authorId: string;
   thumbnail?: UserImageResponse | null;
   name: any;
@@ -23,13 +24,13 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
   isHidden: boolean;
 }
 
 export default function DealThumbnailPreview({
-  deal,
   dealId,
+  dealType,
+  dealStatus,
   authorId,
   thumbnail,
   name,
@@ -39,13 +40,12 @@ export default function DealThumbnailPreview({
   slug,
   reportCount,
   reportCommentCount,
-  status,
   isHidden,
 }: Props) {
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
-        href={parseDealDetailLink({ username, deal, slug })}
+        href={parseDealDetailLink({ username, dealType, slug })}
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
@@ -67,19 +67,19 @@ export default function DealThumbnailPreview({
             </div>
             <div className="h-8">
               <DealMenu
-                dealType={deal}
                 dealId={dealId}
+                dealType={dealType}
+                dealStatus={dealStatus}
                 authorId={authorId}
                 privateOnly
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
-                status={status}
                 isHidden={isHidden}
               />
             </div>
           </div>
           <div className="flex flex-row justify-between items-center pb-1">
-            <DealPreviewPrice totalPrice={totalPrice} />
+            <DealPreviewPrice dealStatus={dealStatus} totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
               <DealAddons
                 bumpedAt={bumpedAt}
