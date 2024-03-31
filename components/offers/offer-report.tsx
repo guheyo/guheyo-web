@@ -3,7 +3,6 @@
 import { useFindOfferQuery } from '@/generated/graphql';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
-import ReportHomeLayout from '../reports/report-home.layout';
 
 export default function OfferReport({ slug }: { slug: string }) {
   const { loading, data } = useFindOfferQuery({
@@ -18,7 +17,7 @@ export default function OfferReport({ slug }: { slug: string }) {
   const offer = data.findOffer;
 
   return (
-    <ReportHomeLayout>
+    <>
       <ReportHeader
         name={offer.name}
         price={offer.price}
@@ -30,6 +29,6 @@ export default function OfferReport({ slug }: { slug: string }) {
         refId={offer.id}
         reportedUserId={offer.seller.id}
       />
-    </ReportHomeLayout>
+    </>
   );
 }
