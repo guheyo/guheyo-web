@@ -32,7 +32,7 @@ export default function DealMenu({
       return (
         <ReportAlertDialog
           reportCount={reportCount}
-          uncommentedReportCount={uncommentedReportCount}
+          reportCommentCount={reportCommentCount}
         />
       );
     return (

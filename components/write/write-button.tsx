@@ -1,31 +1,35 @@
 'use client';
 
 import { useGroup } from '@/hooks/use-group';
+import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function WriteButton() {
   const router = useRouter();
-  const { group, loading } = useGroup();
+  const [loading, setLoading] = useState(false);
+  const { group, loading: isGroupLoading } = useGroup();
 
-  if (loading) return <div />;
+  if (isGroupLoading) return <div />;
   if (!group?.slug) return <div />;
   const { slug } = group;
 
   const handleOnClick = (): void => {
+    setLoading(true);
     router.push(`/write/g/${slug}/market`);
   };
 
   return (
     <div className="inline-flex items-center">
-      <button
+      <LoadingButton
         type="submit"
+        loading={loading}
         className="bg-star-500 hover:bg-star-400 text-xs md:text-sm font-bold p-2 rounded text-light-200"
         name={`${slug} 그룹 마켓에서 글쓰기`}
         onClick={handleOnClick}
       >
         글쓰기
-      </button>
+      </LoadingButton>
     </div>
   );
 }

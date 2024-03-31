@@ -4,18 +4,22 @@ import { linkSocialProfile } from '@/lib/api/user';
 import { DISCORD_ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/social/discord/discord.styles';
 import { MouseEventHandler, useState } from 'react';
 import { reGenerateTokens } from '@/lib/api/auth';
+import LoadingButton from '@mui/lab/LoadingButton';
 import SocialLogo from './social-logo';
 import AlertDialog from '../base/alert-dialog';
 
 export default function DiscordProfileLinker() {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
+    setLoading(true);
     await linkSocialProfile({
       provider: 'discord',
     });
     await reGenerateTokens();
     setOpen(true);
+    setLoading(false);
   };
 
   const handleClose: MouseEventHandler = (e) => {
@@ -47,13 +51,14 @@ export default function DiscordProfileLinker() {
           </button>
         </div>
       </div>
-      <button
+      <LoadingButton
         type="submit"
+        loading={loading}
         className={DISCORD_ABSOLUTE_SUBMIT_BUTTON_STYLE}
         onClick={handleClick}
       >
         디스코드 프로필 불러오기
-      </button>
+      </LoadingButton>
       <AlertDialog
         open={open}
         text="프로필이 업데이트되었어요!"

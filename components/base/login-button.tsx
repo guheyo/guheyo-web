@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useLogoutMutation } from '@/generated/graphql';
 import signIn from '@/lib/auth/sign-in';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
+import { LoadingButton } from '@mui/lab';
 import Avatar from './avatar';
 import { AuthContext } from '../auth/auth.provider';
 
@@ -17,6 +18,7 @@ export default function LoginButton() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
+  const [loading, setLoading] = useState(false);
   const { jwtPayload } = useContext(AuthContext);
   const [logout] = useLogoutMutation();
 
@@ -28,7 +30,13 @@ export default function LoginButton() {
     setAnchorEl(null);
   };
 
-  const handleSignOut = (): void => {
+  const handleSignIn = async () => {
+    setLoading(true);
+    await signIn(router, 'discord');
+  };
+
+  const handleSignOut = async () => {
+    setLoading(true);
     handleCloseMenu();
     logout();
     router.push('/');
@@ -36,10 +44,11 @@ export default function LoginButton() {
 
   if (!jwtPayload) {
     return (
-      <button
+      <LoadingButton
         type="submit"
+        loading={loading}
         className="inline-flex items-center bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
-        onClick={() => signIn(router, 'discord')}
+        onClick={handleSignIn}
       >
         <Image
           alt="로그인"
@@ -48,7 +57,7 @@ export default function LoginButton() {
           height={20}
         />
         로그인
-      </button>
+      </LoadingButton>
     );
   }
 
@@ -80,12 +89,16 @@ export default function LoginButton() {
         </MenuItem>
         <MenuItem>
           <div className="focus:bg-gray-100 hover:bg-gray-100">
-            <button type="submit" onClick={handleSignOut}>
+            <LoadingButton
+              type="submit"
+              loading={loading}
+              onClick={handleSignOut}
+            >
               <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
                 <LogoutIcon />
                 <span>로그아웃</span>
               </div>
-            </button>
+            </LoadingButton>
           </div>
         </MenuItem>
       </Menu>
