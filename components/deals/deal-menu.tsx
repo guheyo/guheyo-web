@@ -50,5 +50,9 @@ export default function DealMenu({
 
   if (privateOnly) return <div />;
 
-  return <PublicDealMenu dealType={dealType} dealId={dealId} />;
+  return (
+    <div className="mr-[-24px]">
+      <PublicDealMenu dealType={dealType} dealId={dealId} />
+    </div>
+  );
 }
