@@ -25,7 +25,7 @@ function Page({
   if (!user) return <div />;
 
   const where: FindReportPreviewsWhereArgs = {
-    reportedUserId: user.id,
+    authorId: user.id,
   };
   const orderBy: FindReportPreviewsOrderByArgs = {
     createdAt: 'desc',
