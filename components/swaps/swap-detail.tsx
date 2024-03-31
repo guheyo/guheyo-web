@@ -1,6 +1,7 @@
 'use client';
 
 import { useFindSwapQuery } from '@/generated/graphql';
+import { DealStatus } from '@/lib/deal/deal.types';
 import DealDetail from '../deals/deal-detail';
 
 export default function SwapDetail({ slug }: { slug: string }) {
@@ -31,6 +32,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
       images={swap.images}
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
+      status={swap.status as DealStatus}
     />
   );
 }

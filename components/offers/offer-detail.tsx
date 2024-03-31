@@ -1,6 +1,7 @@
 'use client';
 
 import { useFindOfferQuery } from '@/generated/graphql';
+import { DealStatus } from '@/lib/deal/deal.types';
 import DealDetail from '../deals/deal-detail';
 
 export default function OfferDetail({ slug }: { slug: string }) {
@@ -30,6 +31,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
       images={offer.images}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
+      status={offer.status as DealStatus}
     />
   );
 }

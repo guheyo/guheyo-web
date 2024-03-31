@@ -28,7 +28,6 @@ export default function DealDetailMain({
   reportCount,
   reportCommentCount,
   status,
-  isHidden,
 }: {
   dealType: Deal;
   id: string;
@@ -44,7 +43,6 @@ export default function DealDetailMain({
   reportCount: number;
   reportCommentCount: number;
   status: DealStatus;
-  isHidden: boolean;
 }) {
   return (
     <>
@@ -66,7 +64,7 @@ export default function DealDetailMain({
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
             status={status}
-            isHidden={isHidden}
+            isHidden={false}
           />
         </div>
       </div>

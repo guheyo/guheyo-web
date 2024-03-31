@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealDetailMain from './deal-detail-main';
@@ -21,6 +21,7 @@ export default function DealDetail({
   images,
   reportCount,
   reportCommentCount,
+  status,
 }: {
   dealType: Deal;
   id: string;
@@ -36,6 +37,7 @@ export default function DealDetail({
   images: UserImageResponse[];
   reportCount: number;
   reportCommentCount: number;
+  status: DealStatus;
 }) {
   if (images.length > 0)
     return (
@@ -59,6 +61,7 @@ export default function DealDetail({
             author={author}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
+            status={status}
           />
         </div>
       </PostDetail>
@@ -81,6 +84,7 @@ export default function DealDetail({
           author={author}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
+          status={status}
         />
       </div>
     </PostDetail>
