@@ -11,9 +11,6 @@ function Page({
     username: string;
   };
 }) {
-  // TODO
-  // if jwtUser=user, return MyPage
-
   const { loading, data } = useFindUserQuery({
     variables: {
       username,
