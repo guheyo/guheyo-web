@@ -12,7 +12,7 @@ export default function DealPreviewPrice({
   return (
     <div className="flex flex-row gap-2 items-center text-sm md:text-base font-semibold">
       {dealStatus !== 'open' && (
-        <div className="text-light-200 bg-dark-200 px-1.5 py-0.5 rounded">
+        <div className="text-light-200 bg-dark-200 px-1.5 rounded">
           {parseDealStatusLabel(dealStatus)}
         </div>
       )}
