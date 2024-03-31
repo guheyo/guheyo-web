@@ -27,6 +27,7 @@ export const useInfiniteReports = ({
       take,
       skip: 0,
     },
+    fetchPolicy: 'network-only',
   });
 
   useInfiniteScroll(

@@ -9,6 +9,7 @@ export default function SettingAbout({ userId }: { userId: string }) {
     variables: {
       id: userId,
     },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <div />;

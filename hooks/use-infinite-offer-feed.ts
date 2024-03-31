@@ -30,6 +30,7 @@ export const useInfiniteOfferFeed = ({
       take,
       skip: 0,
     },
+    fetchPolicy: 'network-only',
   });
 
   useInfiniteScroll(
