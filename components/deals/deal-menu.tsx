@@ -6,22 +6,22 @@ import PublicDealMenu from './public-deal-menu';
 import ReportAlertDialog from '../reports/report-alert-dialog';
 
 export default function DealMenu({
-  dealType,
   dealId,
+  dealType,
+  dealStatus,
   authorId,
   privateOnly,
   reportCount,
   reportCommentCount,
-  status,
   isHidden,
 }: {
-  dealType: Deal;
   dealId: string;
+  dealType: Deal;
+  dealStatus: DealStatus;
   authorId: string;
   privateOnly?: boolean;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
   isHidden: boolean;
 }) {
   const { jwtPayload } = React.useContext(AuthContext);
@@ -38,10 +38,10 @@ export default function DealMenu({
     return (
       <div className="mr-[-24px]">
         <PrivateDealMenu
-          dealType={dealType}
           dealId={dealId}
+          dealType={dealType}
+          dealStatus={dealStatus}
           authorId={authorId}
-          status={status}
           isHidden={isHidden}
         />
       </div>

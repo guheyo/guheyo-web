@@ -14,8 +14,9 @@ import DealShippingCost from './deal-shipping-cost';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function DealDetailMain({
-  dealType,
   id,
+  dealType,
+  dealStatus,
   name0,
   name1,
   slug,
@@ -27,10 +28,10 @@ export default function DealDetailMain({
   author,
   reportCount,
   reportCommentCount,
-  status,
 }: {
-  dealType: Deal;
   id: string;
+  dealType: Deal;
+  dealStatus: DealStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -42,7 +43,6 @@ export default function DealDetailMain({
   author: AuthorResponse;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
 }) {
   return (
     <>
@@ -58,12 +58,12 @@ export default function DealDetailMain({
         </div>
         <div className="h-8">
           <DealMenu
-            dealType={dealType}
             dealId={id}
+            dealType={dealType}
+            dealStatus={dealStatus}
             authorId={author.id}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
-            status={status}
             isHidden={false}
           />
         </div>
@@ -76,7 +76,7 @@ export default function DealDetailMain({
           type={dealType}
           slug={slug}
         />
-        <DealDetailName dealStatus={status} name0={name0} name1={name1} />
+        <DealDetailName dealStatus={dealStatus} name0={name0} name1={name1} />
         <div className="grid grid-cols-1 gap-0 items-center">
           <DealDetailPrice price={price} />
           <DealShippingCost

@@ -13,16 +13,16 @@ import { DEAL_CLOSED, DEAL_OPEN } from '@/lib/deal/deal.constants';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 
 export default function PrivateDealMenu({
-  dealType,
   dealId,
+  dealType,
+  dealStatus,
   authorId,
-  status,
   isHidden,
 }: {
-  dealType: Deal;
   dealId: string;
+  dealType: Deal;
+  dealStatus: DealStatus;
   authorId: string;
-  status: DealStatus;
   isHidden: boolean;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -42,14 +42,14 @@ export default function PrivateDealMenu({
 
   const handleChangeDealStatus = async (
     event: React.MouseEvent<HTMLElement>,
-    dealStatus: DealStatus,
+    newDealStatus: DealStatus,
   ) => {
     event.preventDefault();
     const updateDealInput = parseUpdateDealInput({
       dealType,
       input: {
         id: dealId,
-        status: dealStatus,
+        status: newDealStatus,
         source: device,
       },
       authorId,
@@ -135,12 +135,12 @@ export default function PrivateDealMenu({
         <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
           글 수정
         </MenuItem>
-        {!isHidden && status === DEAL_OPEN && (
+        {!isHidden && dealStatus === DEAL_OPEN && (
           <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
             끌올
           </MenuItem>
         )}
-        {!isHidden && status === DEAL_CLOSED && (
+        {!isHidden && dealStatus === DEAL_CLOSED && (
           <MenuItem
             onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
             sx={{ justifyContent: 'center' }}
@@ -148,7 +148,7 @@ export default function PrivateDealMenu({
             거래 가능
           </MenuItem>
         )}
-        {!isHidden && status === DEAL_OPEN && (
+        {!isHidden && dealStatus === DEAL_OPEN && (
           <MenuItem
             onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
             sx={{ justifyContent: 'center' }}

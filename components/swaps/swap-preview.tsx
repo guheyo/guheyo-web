@@ -13,8 +13,9 @@ interface Props {
 export default function SwapPreview({ swap, type }: Props) {
   return (
     <DealPreview
-      deal="swap"
       dealId={swap.id}
+      deal="swap"
+      dealStatus={swap.status as DealStatus}
       authorId={swap.proposer.id}
       type={type}
       thumbnail={swap.thumbnail}
@@ -25,7 +26,6 @@ export default function SwapPreview({ swap, type }: Props) {
       slug={swap.slug!}
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
-      status={swap.status as DealStatus}
       isHidden={swap.isHidden}
     />
   );

@@ -12,8 +12,9 @@ import DealPreviewPrice from './deal-preview-price';
 import DealPreviewName from './deal-preview-name';
 
 interface Props {
-  deal: Deal;
   dealId: string;
+  deal: Deal;
+  dealStatus: DealStatus;
   authorId: string;
   thumbnail?: UserImageResponse | null;
   name: any;
@@ -23,13 +24,13 @@ interface Props {
   slug: string;
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
   isHidden: boolean;
 }
 
 export default function DealThumbnailPreview({
-  deal,
   dealId,
+  deal,
+  dealStatus,
   authorId,
   thumbnail,
   name,
@@ -39,7 +40,6 @@ export default function DealThumbnailPreview({
   slug,
   reportCount,
   reportCommentCount,
-  status,
   isHidden,
 }: Props) {
   return (
@@ -67,19 +67,19 @@ export default function DealThumbnailPreview({
             </div>
             <div className="h-8">
               <DealMenu
-                dealType={deal}
                 dealId={dealId}
+                dealType={deal}
+                dealStatus={dealStatus}
                 authorId={authorId}
                 privateOnly
                 reportCount={reportCount}
                 reportCommentCount={reportCommentCount}
-                status={status}
                 isHidden={isHidden}
               />
             </div>
           </div>
           <div className="flex flex-row justify-between items-center pb-1">
-            <DealPreviewPrice dealStatus={status} totalPrice={totalPrice} />
+            <DealPreviewPrice dealStatus={dealStatus} totalPrice={totalPrice} />
             <div className="absolute bottom-4 right-4 md:right-5">
               <DealAddons
                 bumpedAt={bumpedAt}

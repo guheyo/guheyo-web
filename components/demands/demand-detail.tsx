@@ -18,8 +18,9 @@ export default function DemandDetail({ slug }: { slug: string }) {
 
   return (
     <DealDetail
-      dealType="demand"
       id={demand.id}
+      dealType="demand"
+      dealStatus={demand.status as DealStatus}
       name0={demand.name}
       slug={demand.slug!}
       price={demand.price}
@@ -31,7 +32,6 @@ export default function DemandDetail({ slug }: { slug: string }) {
       images={demand.images}
       reportCount={demand.reportCount}
       reportCommentCount={demand.reportCommentCount}
-      status={demand.status as DealStatus}
     />
   );
 }

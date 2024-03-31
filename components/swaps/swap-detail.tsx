@@ -18,8 +18,9 @@ export default function SwapDetail({ slug }: { slug: string }) {
 
   return (
     <DealDetail
-      dealType="swap"
       id={swap.id}
+      dealType="swap"
+      dealStatus={swap.status as DealStatus}
       name0={swap.name0}
       name1={swap.name1}
       slug={swap.slug!}
@@ -32,7 +33,6 @@ export default function SwapDetail({ slug }: { slug: string }) {
       images={swap.images}
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
-      status={swap.status as DealStatus}
     />
   );
 }

@@ -7,8 +7,9 @@ import PostDetail from '../posts/post-detail';
 import DealDetailMain from './deal-detail-main';
 
 export default function DealDetail({
-  dealType,
   id,
+  dealType,
+  dealStatus,
   name0,
   name1,
   slug,
@@ -21,10 +22,10 @@ export default function DealDetail({
   images,
   reportCount,
   reportCommentCount,
-  status,
 }: {
-  dealType: Deal;
   id: string;
+  dealType: Deal;
+  dealStatus: DealStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -37,7 +38,6 @@ export default function DealDetail({
   images: UserImageResponse[];
   reportCount: number;
   reportCommentCount: number;
-  status: DealStatus;
 }) {
   if (images.length > 0)
     return (
@@ -48,8 +48,9 @@ export default function DealDetail({
 
         <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
           <DealDetailMain
-            dealType={dealType}
             id={id}
+            dealType={dealType}
+            dealStatus={dealStatus}
             name0={name0}
             name1={name1}
             slug={slug}
@@ -61,7 +62,6 @@ export default function DealDetail({
             author={author}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
-            status={status}
           />
         </div>
       </PostDetail>
@@ -71,8 +71,9 @@ export default function DealDetail({
     <PostDetail>
       <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
         <DealDetailMain
-          dealType={dealType}
           id={id}
+          dealType={dealType}
+          dealStatus={dealStatus}
           name0={name0}
           name1={name1}
           slug={slug}
@@ -84,7 +85,6 @@ export default function DealDetail({
           author={author}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          status={status}
         />
       </div>
     </PostDetail>

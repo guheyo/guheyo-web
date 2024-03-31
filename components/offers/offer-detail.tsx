@@ -18,8 +18,9 @@ export default function OfferDetail({ slug }: { slug: string }) {
 
   return (
     <DealDetail
-      dealType="offer"
       id={offer.id}
+      dealType="offer"
+      dealStatus={offer.status as DealStatus}
       name0={offer.name}
       slug={offer.slug!}
       price={offer.price}
@@ -31,7 +32,6 @@ export default function OfferDetail({ slug }: { slug: string }) {
       images={offer.images}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
-      status={offer.status as DealStatus}
     />
   );
 }

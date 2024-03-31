@@ -13,8 +13,9 @@ interface Props {
 export default function DemandPreview({ demand, type }: Props) {
   return (
     <DealPreview
-      deal="demand"
       dealId={demand.id}
+      deal="demand"
+      dealStatus={demand.status as DealStatus}
       authorId={demand.buyer.id}
       type={type}
       name={truncateText(demand.name, 45)}
@@ -24,7 +25,6 @@ export default function DemandPreview({ demand, type }: Props) {
       slug={demand.slug!}
       reportCount={demand.reportCount}
       reportCommentCount={demand.reportCommentCount}
-      status={demand.status as DealStatus}
       isHidden={demand.isHidden}
     />
   );
