@@ -28,3 +28,12 @@ export const REPORT_REASONS: ReportReason[] = [
     content: '거래 과정에서 겪은 불편 사항은 비매너 후기에 작성해 주세요',
   },
 ];
+
+export const PRIVATE_REPORT_OPTIONS = [
+  { value: 'received', label: '받은 신고' },
+  { value: 'submitted', label: '제출한 신고' },
+];
+
+export const PUBLIC_REPORT_OPTIONS = [
+  { value: 'received', label: '받은 신고' },
+];
