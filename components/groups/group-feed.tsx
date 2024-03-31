@@ -4,7 +4,9 @@ import { useFindGroupPreviewsQuery } from '@/generated/graphql';
 import GroupPreview from './group-preview';
 
 export default function GroupFeed({ keyword }: { keyword?: string }) {
-  const { loading, data } = useFindGroupPreviewsQuery();
+  const { loading, data } = useFindGroupPreviewsQuery({
+    fetchPolicy: 'network-only',
+  });
   if (loading) return <div />;
   if (!data?.findGroupPreviews) return <div />;
   const groups = data.findGroupPreviews;
