@@ -12,11 +12,13 @@ export default function PostDeleteDialog({
 }) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen: React.MouseEventHandler = (e) => {
+    e.preventDefault();
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose: React.MouseEventHandler = (e) => {
+    e.preventDefault();
     setOpen(false);
   };
 
