@@ -2,20 +2,13 @@ import _ from 'lodash';
 import { AuthorResponse } from '@/generated/graphql';
 
 export default function Username({ user }: { user: AuthorResponse }) {
-  const isBlacklist = user.members.some((member) =>
+  const isBlocklist = user.members.some((member) =>
     member.roles.find((r) => r.hexColor === '#000001'),
   );
 
-  if (isBlacklist) {
+  if (isBlocklist) {
     return (
-      <div
-        style={{
-          color: '#bbbbbb',
-          backgroundColor: 'black',
-        }}
-      >
-        {user.username}
-      </div>
+      <div className="text-dark-200 bg-black px-1 rounded">{user.username}</div>
     );
   }
   return (

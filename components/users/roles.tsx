@@ -2,7 +2,11 @@ import { RoleResponse } from '@/generated/graphql';
 
 function RoleName({ role }: { role: RoleResponse }) {
   if (role.hexColor === '#000001') {
-    return <div className="bg-black text-white">{role.name}</div>;
+    return (
+      <div className="bg-black text-dark-200 rounded-sm px-0.5">
+        {role.name}
+      </div>
+    );
   }
   return <div>{role.name}</div>;
 }
@@ -21,9 +25,7 @@ export default function Roles({ roles }: { roles?: RoleResponse[] }) {
                 backgroundColor: role.hexColor,
               }}
             />
-            <div>
-              <RoleName role={role} />
-            </div>
+            <RoleName role={role} />
           </div>
         );
       })}

@@ -3,6 +3,7 @@
 import DealReportForm from '@/components/deals/deal-report-form';
 import { useFindVersionPreviewQuery } from '@/generated/graphql';
 import { Deal } from '@/lib/deal/deal.types';
+import { parseReportedDealerId } from '@/lib/deal/parse-reported-dealer-id';
 
 export default function Page({
   params: { type, refId },
@@ -29,6 +30,10 @@ export default function Page({
       dealId={refId}
       refVersionId={version.id}
       dealName={version.values.name}
+      reportedUserId={parseReportedDealerId({
+        dealType: type as Deal,
+        versionValues: version.values,
+      })}
     />
   );
 }

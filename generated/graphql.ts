@@ -19,43 +19,6 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-export type AddBidInput = {
-  auctionId: Scalars['String']['input'];
-  bidderId: Scalars['String']['input'];
-  id: Scalars['ID']['input'];
-  price: Scalars['Int']['input'];
-  priceCurrency: Scalars['String']['input'];
-  source: Scalars['String']['input'];
-};
-
-export type AuctionResponse = {
-  __typename?: 'AuctionResponse';
-  bids: Array<BidResponse>;
-  brandId?: Maybe<Scalars['String']['output']>;
-  businessFunction: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  endedAt: Scalars['DateTime']['output'];
-  groupId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  images: Array<UserImageResponse>;
-  name: Scalars['String']['output'];
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  productCategoryId: Scalars['String']['output'];
-  seller: AuthorResponse;
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type AuctionResponseEdge = {
-  __typename?: 'AuctionResponseEdge';
-  cursor: Scalars['String']['output'];
-  node: AuctionResponse;
-};
-
 export type AuthorResponse = {
   __typename?: 'AuthorResponse';
   about?: Maybe<Scalars['String']['output']>;
@@ -66,19 +29,6 @@ export type AuthorResponse = {
   members: Array<MemberWithRolesResponse>;
   socialAccounts: Array<SocialAccountWithoutAuthResponse>;
   username: Scalars['String']['output'];
-};
-
-export type BidResponse = {
-  __typename?: 'BidResponse';
-  auctionId: Scalars['ID']['output'];
-  bidder: AuthorResponse;
-  canceledAt: Scalars['DateTime']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
 };
 
 export type BumpDemandInput = {
@@ -102,11 +52,6 @@ export type BumpSwapInput = {
   swapId: Scalars['ID']['input'];
 };
 
-export type CancelBidInput = {
-  auctionId: Scalars['String']['input'];
-  bidderId: Scalars['String']['input'];
-};
-
 export type CommentReportInput = {
   authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
@@ -126,28 +71,6 @@ export type CommentResponse = {
   reportId?: Maybe<Scalars['ID']['output']>;
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
-};
-
-export type ConnectRolesInput = {
-  groupId: Scalars['ID']['input'];
-  roleIds: Array<Scalars['ID']['input']>;
-  roleNames: Array<Scalars['String']['input']>;
-  userId: Scalars['ID']['input'];
-};
-
-export type CreateAuctionInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
-  businessFunction: Scalars['String']['input'];
-  createdAt: Scalars['DateTime']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
-  endedAt: Scalars['DateTime']['input'];
-  groupId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
-  name: Scalars['String']['input'];
-  productCategoryId: Scalars['String']['input'];
-  sellerId: Scalars['String']['input'];
-  source: Scalars['String']['input'];
-  status?: Scalars['String']['input'];
 };
 
 export type CreateCommentInput = {
@@ -182,16 +105,11 @@ export type CreateGroupInput = {
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
   position: Scalars['Int']['input'];
+  slug: Scalars['String']['input'];
 };
 
 export type CreateManyUserImageInput = {
   data: Array<CreateUserImageInput>;
-};
-
-export type CreateMemberInput = {
-  groupId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
 };
 
 export type CreateOfferInput = {
@@ -217,6 +135,7 @@ export type CreateReportInput = {
   id: Scalars['ID']['input'];
   refId: Scalars['ID']['input'];
   refVersionId: Scalars['ID']['input'];
+  reportedUserId?: InputMaybe<Scalars['ID']['input']>;
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };
@@ -232,20 +151,6 @@ export type CreateRoleInput = {
 export type CreateSignedUrlInput = {
   filename: Scalars['String']['input'];
   type: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
-};
-
-export type CreateSocialAccountInput = {
-  accessToken?: InputMaybe<Scalars['String']['input']>;
-  expiresAt?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['ID']['input'];
-  idToken?: InputMaybe<Scalars['String']['input']>;
-  provider: Scalars['String']['input'];
-  refreshToken?: InputMaybe<Scalars['String']['input']>;
-  scope?: InputMaybe<Scalars['String']['input']>;
-  sessionState?: InputMaybe<Scalars['String']['input']>;
-  socialId: Scalars['String']['input'];
-  tokenType?: InputMaybe<Scalars['String']['input']>;
   userId: Scalars['String']['input'];
 };
 
@@ -352,12 +257,6 @@ export type DemandResponse = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type DisconnectRolesInput = {
-  id: Scalars['ID']['input'];
-  roleIds: Array<Scalars['ID']['input']>;
-  roleNames: Array<Scalars['String']['input']>;
-};
-
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
   demands: Array<DemandPreviewResponse>;
@@ -413,12 +312,6 @@ export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
 
-export type MemberRoleResponse = {
-  __typename?: 'MemberRoleResponse';
-  groupSlug: Scalars['String']['output'];
-  roleNames: Array<Scalars['String']['output']>;
-};
-
 export type MemberWithRolesResponse = {
   __typename?: 'MemberWithRolesResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -430,59 +323,40 @@ export type MemberWithRolesResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addBid: Scalars['String']['output'];
   bumpDemand: DemandPreviewResponse;
   bumpOffer: OfferPreviewResponse;
   bumpSwap: SwapPreviewResponse;
-  cancelBid: Scalars['String']['output'];
   commentReport: Scalars['String']['output'];
-  connectRoles: Scalars['String']['output'];
-  createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
   createDemand: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
-  createMember: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
-  createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
   createUser: Scalars['String']['output'];
   createUserImage: Scalars['String']['output'];
-  deleteAuction: Scalars['String']['output'];
   deleteDemand: Scalars['String']['output'];
   deleteGroup: Scalars['String']['output'];
-  deleteMember: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
-  deleteSocialAccount: Scalars['String']['output'];
-  deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
   deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
-  disconnectRoles: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
-  updateAuction: Scalars['String']['output'];
   updateComment: CommentResponse;
   updateDemand: DemandPreviewResponse;
   updateGroup: Scalars['String']['output'];
-  updateMember: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
   updateRole: Scalars['String']['output'];
-  updateSocialAccount: Scalars['String']['output'];
   updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
-};
-
-
-export type MutationAddBidArgs = {
-  input: AddBidInput;
 };
 
 
@@ -501,23 +375,8 @@ export type MutationBumpSwapArgs = {
 };
 
 
-export type MutationCancelBidArgs = {
-  input: CancelBidInput;
-};
-
-
 export type MutationCommentReportArgs = {
   input: CommentReportInput;
-};
-
-
-export type MutationConnectRolesArgs = {
-  input: ConnectRolesInput;
-};
-
-
-export type MutationCreateAuctionArgs = {
-  input: CreateAuctionInput;
 };
 
 
@@ -541,11 +400,6 @@ export type MutationCreateManyUserImageArgs = {
 };
 
 
-export type MutationCreateMemberArgs = {
-  input: CreateMemberInput;
-};
-
-
 export type MutationCreateOfferArgs = {
   input: CreateOfferInput;
 };
@@ -566,11 +420,6 @@ export type MutationCreateSignedUrlArgs = {
 };
 
 
-export type MutationCreateSocialAccountArgs = {
-  input: CreateSocialAccountInput;
-};
-
-
 export type MutationCreateSwapArgs = {
   input: CreateSwapInput;
 };
@@ -586,11 +435,6 @@ export type MutationCreateUserImageArgs = {
 };
 
 
-export type MutationDeleteAuctionArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationDeleteDemandArgs = {
   buyerId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
@@ -602,12 +446,6 @@ export type MutationDeleteGroupArgs = {
 };
 
 
-export type MutationDeleteMemberArgs = {
-  id: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
-};
-
-
 export type MutationDeleteOfferArgs = {
   id: Scalars['ID']['input'];
   sellerId: Scalars['ID']['input'];
@@ -616,17 +454,6 @@ export type MutationDeleteOfferArgs = {
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteSocialAccountArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteSocialAccountByProviderArgs = {
-  provider: Scalars['String']['input'];
-  socialId: Scalars['String']['input'];
 };
 
 
@@ -646,18 +473,8 @@ export type MutationDeleteUserImageArgs = {
 };
 
 
-export type MutationDisconnectRolesArgs = {
-  input: DisconnectRolesInput;
-};
-
-
 export type MutationLinkSocialProfileArgs = {
   input: LinkSocialProfileInput;
-};
-
-
-export type MutationUpdateAuctionArgs = {
-  input: UpdateAuctionInput;
 };
 
 
@@ -676,11 +493,6 @@ export type MutationUpdateGroupArgs = {
 };
 
 
-export type MutationUpdateMemberArgs = {
-  input: UpdateMemberInput;
-};
-
-
 export type MutationUpdateOfferArgs = {
   input: UpdateOfferInput;
 };
@@ -688,11 +500,6 @@ export type MutationUpdateOfferArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
-};
-
-
-export type MutationUpdateSocialAccountArgs = {
-  input: UpdateSocialAccountInput;
 };
 
 
@@ -792,12 +599,6 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
 };
 
-export type PaginatedAuctionsResponse = {
-  __typename?: 'PaginatedAuctionsResponse';
-  edges: Array<AuctionResponseEdge>;
-  pageInfo: PageInfo;
-};
-
 export type PaginatedDemandPreviewsResponse = {
   __typename?: 'PaginatedDemandPreviewsResponse';
   edges: Array<DemandPreviewResponseEdge>;
@@ -860,8 +661,6 @@ export type ProductCategoryResponse = {
 
 export type Query = {
   __typename?: 'Query';
-  findAuctionById?: Maybe<AuctionResponse>;
-  findAuctions: PaginatedAuctionsResponse;
   findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
   findDemand?: Maybe<DemandResponse>;
@@ -870,7 +669,6 @@ export type Query = {
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
-  findMember?: Maybe<MemberWithRolesResponse>;
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
@@ -886,20 +684,6 @@ export type Query = {
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
-  getSocialAccountsByUserId: Scalars['String']['output'];
-};
-
-
-export type QueryFindAuctionByIdArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryFindAuctionsArgs = {
-  cursor?: InputMaybe<Scalars['ID']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  skip?: Scalars['Int']['input'];
-  take: Scalars['Int']['input'];
 };
 
 
@@ -952,12 +736,6 @@ export type QueryFindGroupsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-};
-
-
-export type QueryFindMemberArgs = {
-  groupId: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
 };
 
 
@@ -1064,11 +842,6 @@ export type QueryFindVersionArgs = {
 export type QueryFindVersionPreviewArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   refId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryGetSocialAccountsByUserIdArgs = {
-  id: Scalars['ID']['input'];
 };
 
 export type ReportPreviewResponse = {
@@ -1227,15 +1000,6 @@ export type TermResponse = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type UpdateAuctionInput = {
-  brandId?: InputMaybe<Scalars['ID']['input']>;
-  businessFunction?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-};
-
 export type UpdateCommentInput = {
   authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
@@ -1266,11 +1030,7 @@ export type UpdateGroupInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UpdateMemberInput = {
-  id: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateOfferInput = {
@@ -1295,20 +1055,6 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UpdateSocialAccountInput = {
-  accessToken?: InputMaybe<Scalars['String']['input']>;
-  expiresAt?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  idToken?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  refreshToken?: InputMaybe<Scalars['String']['input']>;
-  scope?: InputMaybe<Scalars['String']['input']>;
-  sessionState?: InputMaybe<Scalars['String']['input']>;
-  socialId?: InputMaybe<Scalars['String']['input']>;
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSwapInput = {
@@ -1622,21 +1368,6 @@ export type CommentReportMutation = { __typename?: 'Mutation', commentReport: st
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
 export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
-
-export type CreateSocialAccountMutationVariables = Exact<{
-  input: CreateSocialAccountInput;
-}>;
-
-
-export type CreateSocialAccountMutation = { __typename?: 'Mutation', createSocialAccount: string };
-
-export type DeleteSocialAccountByProviderMutationVariables = Exact<{
-  provider: Scalars['String']['input'];
-  socialId: Scalars['String']['input'];
-}>;
-
-
-export type DeleteSocialAccountByProviderMutation = { __typename?: 'Mutation', deleteSocialAccountByProvider: string };
 
 export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, productCategoryId: string, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
@@ -3258,69 +2989,6 @@ export function useCommentReportMutation(baseOptions?: Apollo.MutationHookOption
 export type CommentReportMutationHookResult = ReturnType<typeof useCommentReportMutation>;
 export type CommentReportMutationResult = Apollo.MutationResult<CommentReportMutation>;
 export type CommentReportMutationOptions = Apollo.BaseMutationOptions<CommentReportMutation, CommentReportMutationVariables>;
-export const CreateSocialAccountDocument = gql`
-    mutation createSocialAccount($input: CreateSocialAccountInput!) {
-  createSocialAccount(input: $input)
-}
-    `;
-export type CreateSocialAccountMutationFn = Apollo.MutationFunction<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>;
-
-/**
- * __useCreateSocialAccountMutation__
- *
- * To run a mutation, you first call `useCreateSocialAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSocialAccountMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSocialAccountMutation, { data, loading, error }] = useCreateSocialAccountMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateSocialAccountMutation(baseOptions?: Apollo.MutationHookOptions<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>(CreateSocialAccountDocument, options);
-      }
-export type CreateSocialAccountMutationHookResult = ReturnType<typeof useCreateSocialAccountMutation>;
-export type CreateSocialAccountMutationResult = Apollo.MutationResult<CreateSocialAccountMutation>;
-export type CreateSocialAccountMutationOptions = Apollo.BaseMutationOptions<CreateSocialAccountMutation, CreateSocialAccountMutationVariables>;
-export const DeleteSocialAccountByProviderDocument = gql`
-    mutation deleteSocialAccountByProvider($provider: String!, $socialId: String!) {
-  deleteSocialAccountByProvider(provider: $provider, socialId: $socialId)
-}
-    `;
-export type DeleteSocialAccountByProviderMutationFn = Apollo.MutationFunction<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
-
-/**
- * __useDeleteSocialAccountByProviderMutation__
- *
- * To run a mutation, you first call `useDeleteSocialAccountByProviderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteSocialAccountByProviderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteSocialAccountByProviderMutation, { data, loading, error }] = useDeleteSocialAccountByProviderMutation({
- *   variables: {
- *      provider: // value for 'provider'
- *      socialId: // value for 'socialId'
- *   },
- * });
- */
-export function useDeleteSocialAccountByProviderMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>(DeleteSocialAccountByProviderDocument, options);
-      }
-export type DeleteSocialAccountByProviderMutationHookResult = ReturnType<typeof useDeleteSocialAccountByProviderMutation>;
-export type DeleteSocialAccountByProviderMutationResult = Apollo.MutationResult<DeleteSocialAccountByProviderMutation>;
-export type DeleteSocialAccountByProviderMutationOptions = Apollo.BaseMutationOptions<DeleteSocialAccountByProviderMutation, DeleteSocialAccountByProviderMutationVariables>;
 export const FindSwapPreviewsDocument = gql`
     query findSwapPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findSwapPreviews(
