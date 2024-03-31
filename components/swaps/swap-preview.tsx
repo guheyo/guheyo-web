@@ -14,7 +14,7 @@ export default function SwapPreview({ swap, type }: Props) {
   return (
     <DealPreview
       dealId={swap.id}
-      deal="swap"
+      dealType="swap"
       dealStatus={swap.status as DealStatus}
       authorId={swap.proposer.id}
       type={type}

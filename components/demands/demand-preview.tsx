@@ -14,7 +14,7 @@ export default function DemandPreview({ demand, type }: Props) {
   return (
     <DealPreview
       dealId={demand.id}
-      deal="demand"
+      dealType="demand"
       dealStatus={demand.status as DealStatus}
       authorId={demand.buyer.id}
       type={type}
