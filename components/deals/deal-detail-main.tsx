@@ -3,7 +3,7 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import DealMenu from './deal-menu';
 import ReportsLink from '../reports/reports-link';
@@ -30,7 +30,7 @@ export default function DealDetailMain({
   reportCommentCount,
 }: {
   id: string;
-  dealType: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   name0: string;
   name1?: string;

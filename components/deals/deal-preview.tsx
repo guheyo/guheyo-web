@@ -1,13 +1,13 @@
 'use client';
 
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import DealTextPreview from './deal-text-preview';
 import DealThumbnailPreview from './deal-thumbnail-preview';
 
 interface Props {
   dealId: string;
-  deal: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   authorId: string;
   type: 'text' | 'thumbnail';
@@ -24,7 +24,7 @@ interface Props {
 
 export default function DealPreview({
   dealId,
-  deal,
+  dealType,
   dealStatus,
   authorId,
   type,
@@ -43,7 +43,7 @@ export default function DealPreview({
       return (
         <DealTextPreview
           dealId={dealId}
-          deal={deal}
+          dealType={dealType}
           dealStatus={dealStatus}
           authorId={authorId}
           name={name}
@@ -61,7 +61,7 @@ export default function DealPreview({
       return (
         <DealThumbnailPreview
           dealId={dealId}
-          deal={deal}
+          dealType={dealType}
           dealStatus={dealStatus}
           authorId={authorId}
           thumbnail={thumbnail}

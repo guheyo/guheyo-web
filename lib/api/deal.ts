@@ -3,7 +3,7 @@ import {
   UpdateOfferInput,
   UpdateSwapInput,
 } from '@/generated/graphql';
-import { Deal } from '../deal/deal.types';
+import { DealType } from '../deal/deal.types';
 import { deleteOffer, updateOffer } from './offer';
 import { deleteDemand, updateDemand } from './demand';
 import { deleteSwap, updateSwap } from './swap';
@@ -12,7 +12,7 @@ export const updateDeal = async ({
   dealType,
   updateDealInput,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   updateDealInput: UpdateOfferInput | UpdateDemandInput | UpdateSwapInput;
 }) => {
   if (dealType === 'offer') {
@@ -29,7 +29,7 @@ export const deleteDeal = async ({
   id,
   authorId,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   id: string;
   authorId: string;
 }) => {

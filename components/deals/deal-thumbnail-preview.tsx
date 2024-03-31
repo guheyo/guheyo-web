@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { UserImageResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
@@ -13,7 +13,7 @@ import DealPreviewName from './deal-preview-name';
 
 interface Props {
   dealId: string;
-  deal: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   authorId: string;
   thumbnail?: UserImageResponse | null;
@@ -29,7 +29,7 @@ interface Props {
 
 export default function DealThumbnailPreview({
   dealId,
-  deal,
+  dealType,
   dealStatus,
   authorId,
   thumbnail,
@@ -45,7 +45,7 @@ export default function DealThumbnailPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
-        href={parseDealDetailLink({ username, deal, slug })}
+        href={parseDealDetailLink({ username, dealType, slug })}
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
@@ -68,7 +68,7 @@ export default function DealThumbnailPreview({
             <div className="h-8">
               <DealMenu
                 dealId={dealId}
-                dealType={deal}
+                dealType={dealType}
                 dealStatus={dealStatus}
                 authorId={authorId}
                 privateOnly

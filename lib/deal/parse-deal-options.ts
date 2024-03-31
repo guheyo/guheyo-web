@@ -1,12 +1,12 @@
 import { ButtonOption } from '@/components/inputs/button-inputs';
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 import { DEAL_OPTIONS } from './deal.constants';
 
 export const parseDealTypeButtonOptions: ({
   dealType,
   multiple,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   multiple: boolean;
 }) => ButtonOption[] = ({ dealType, multiple }) => {
   if (multiple) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { UserImageResponse, useFindAuthorQuery } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import DealVersionDetailMain from './deal-version-detail-main';
@@ -22,7 +22,7 @@ export default function DealVersionDetail({
 }: {
   versionCreatedAt: Date;
   images: UserImageResponse[];
-  dealType: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   name0: string;
   name1?: string;

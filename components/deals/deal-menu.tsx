@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { AuthContext } from '../auth/auth.provider';
 import PrivateDealMenu from './private-deal-menu';
 import PublicDealMenu from './public-deal-menu';
@@ -16,7 +16,7 @@ export default function DealMenu({
   isHidden,
 }: {
   dealId: string;
-  dealType: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   authorId: string;
   privateOnly?: boolean;

@@ -1,5 +1,5 @@
 import { ProductCategoryResponse } from '@/generated/graphql';
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 import { findDealLabel } from './find-deal-label';
 import { findProductCategory } from '../group/find-product-category';
 
@@ -8,7 +8,7 @@ export const parseDealDescriptionPlaceholder = ({
   productCategories,
   productCategoryId,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   productCategories: ProductCategoryResponse[];
   productCategoryId: string;
 }) =>

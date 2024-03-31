@@ -1,10 +1,10 @@
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 
 export const parseReportedDealerId = ({
   dealType,
   versionValues,
 }: {
-  dealType: Deal;
+  dealType: DealType;
   versionValues: any;
 }): string => {
   switch (dealType) {

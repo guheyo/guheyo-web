@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { deleteDeal, updateDeal } from '@/lib/api/deal';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
@@ -20,7 +20,7 @@ export default function PrivateDealMenu({
   isHidden,
 }: {
   dealId: string;
-  dealType: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   authorId: string;
   isHidden: boolean;

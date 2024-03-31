@@ -1,4 +1,4 @@
-import { Deal } from './deal.types';
+import { DealType } from './deal.types';
 
 export const parseDealLink = ({
   action,
@@ -6,6 +6,6 @@ export const parseDealLink = ({
   dealId,
 }: {
   action: 'edit' | 'bump' | 'report';
-  dealType: Deal;
+  dealType: DealType;
   dealId: string;
 }) => `/${action}/${dealType}/${dealId}`;

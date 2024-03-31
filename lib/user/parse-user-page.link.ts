@@ -1,14 +1,14 @@
-import { Deal } from '../deal/deal.types';
+import { DealType } from '../deal/deal.types';
 
 export const parseUserHomeLink = ({ username }: { username: string }) =>
   `/user/${username}`;
 
 export const parseDealDetailLink = ({
   username,
-  deal,
+  dealType,
   slug,
 }: {
   username: string;
-  deal: Deal;
+  dealType: DealType;
   slug: string;
 }) => `/user/${username}/${deal}/${slug}`;

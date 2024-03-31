@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
@@ -10,7 +10,7 @@ import DealPreviewName from './deal-preview-name';
 
 interface Props {
   dealId: string;
-  deal: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   authorId: string;
   name: string;
@@ -25,7 +25,7 @@ interface Props {
 
 export default function DealTextPreview({
   dealId,
-  deal,
+  dealType,
   dealStatus,
   authorId,
   name,
@@ -40,7 +40,7 @@ export default function DealTextPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
-        href={parseDealDetailLink({ username, deal, slug })}
+        href={parseDealDetailLink({ username, dealType, slug })}
         className="w-full text-start"
       >
         <div className="grid grid-cols-1 gap-0">
@@ -51,7 +51,7 @@ export default function DealTextPreview({
             <div className="h-8">
               <DealMenu
                 dealId={dealId}
-                dealType={deal}
+                dealType={dealType}
                 dealStatus={dealStatus}
                 authorId={authorId}
                 privateOnly

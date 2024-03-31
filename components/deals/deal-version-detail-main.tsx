@@ -3,7 +3,7 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
-import { Deal, DealStatus } from '@/lib/deal/deal.types';
+import { DealType, DealStatus } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
@@ -25,7 +25,7 @@ export default function DealVersionDetailMain({
   author,
 }: {
   versionCreatedAt: Date;
-  dealType: Deal;
+  dealType: DealType;
   dealStatus: DealStatus;
   name0: string;
   name1?: string;
