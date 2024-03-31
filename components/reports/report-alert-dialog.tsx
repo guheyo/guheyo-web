@@ -9,10 +9,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 
 export default function ReportAlertDialog({
   reportCount,
-  uncommentedReportCount,
+  reportCommentCount,
 }: {
   reportCount: number;
-  uncommentedReportCount: number;
+  reportCommentCount: number;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -40,7 +40,7 @@ export default function ReportAlertDialog({
           <DialogContentText className="text-base md:text-lg text-dark-500 font-medium">
             [신고 알림] 신고 사유에 대한 소명서를 제출해 주세요
             <br />
-            {`(미응답 ${uncommentedReportCount}건 / 누적 ${reportCount}건)`}
+            {`(신고 누적 ${reportCount}건 / 소명 ${reportCommentCount}건)`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
