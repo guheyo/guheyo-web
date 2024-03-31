@@ -1,6 +1,10 @@
 'use client';
 
 import { useFindOfferQuery } from '@/generated/graphql';
+import {
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
+} from '@/interfaces/report.interfaces';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
 
@@ -16,6 +20,15 @@ export default function OfferReport({ slug }: { slug: string }) {
   if (!data?.findOffer) return <div />;
   const offer = data.findOffer;
 
+  const where: FindReportPreviewsWhereArgs = {
+    type: 'offer',
+    refId: offer.id,
+    reportedUserId: offer.seller.id,
+  };
+  const orderBy: FindReportPreviewsOrderByArgs = {
+    createdAt: 'asc',
+  };
+
   return (
     <>
       <ReportHeader
@@ -24,11 +37,7 @@ export default function OfferReport({ slug }: { slug: string }) {
         author={offer.seller}
         updatedAt={offer.updatedAt}
       />
-      <ReportFeed
-        type="offer"
-        refId={offer.id}
-        reportedUserId={offer.seller.id}
-      />
+      <ReportFeed where={where} orderBy={orderBy} />
     </>
   );
 }

@@ -1,6 +1,10 @@
 'use client';
 
 import { useFindDemandQuery } from '@/generated/graphql';
+import {
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
+} from '@/interfaces/report.interfaces';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
 
@@ -16,6 +20,15 @@ export default function DemandReport({ slug }: { slug: string }) {
   if (!data?.findDemand) return <div />;
   const demand = data.findDemand;
 
+  const where: FindReportPreviewsWhereArgs = {
+    type: 'demand',
+    refId: demand.id,
+    reportedUserId: demand.buyer.id,
+  };
+  const orderBy: FindReportPreviewsOrderByArgs = {
+    createdAt: 'asc',
+  };
+
   return (
     <>
       <ReportHeader
@@ -24,11 +37,7 @@ export default function DemandReport({ slug }: { slug: string }) {
         author={demand.buyer}
         updatedAt={demand.updatedAt}
       />
-      <ReportFeed
-        type="demand"
-        refId={demand.id}
-        reportedUserId={demand.buyer.id}
-      />
+      <ReportFeed where={where} orderBy={orderBy} />
     </>
   );
 }
