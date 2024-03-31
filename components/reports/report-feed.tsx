@@ -2,28 +2,25 @@
 
 import { useInfiniteReports } from '@/hooks/use-infinite-reports';
 import { useRef } from 'react';
+import {
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
+} from '@/interfaces/report.interfaces';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
-  type,
-  refId,
-  reportedUserId,
+  where,
+  orderBy,
 }: {
-  type: string;
-  refId: string;
-  reportedUserId: string;
+  where: FindReportPreviewsWhereArgs;
+  orderBy: FindReportPreviewsOrderByArgs;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { loading, data } = useInfiniteReports({
     ref,
-    where: {
-      type,
-      refId,
-    },
-    orderBy: {
-      createdAt: 'asc',
-    },
+    where,
+    orderBy,
     take: 10,
   });
 
@@ -41,8 +38,8 @@ export default function ReportFeed({
             title={report.node.title}
             content={report.node.content}
             createdAt={report.node.createdAt}
-            reportedUserId={reportedUserId}
-            type={type}
+            reportedUserId={report.node.reportedUserId}
+            type={report.node.type}
             refVersionId={report.node.refVersionId}
           />
         </div>

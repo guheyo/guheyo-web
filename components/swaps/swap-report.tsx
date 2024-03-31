@@ -2,9 +2,12 @@
 
 import { useFindSwapQuery } from '@/generated/graphql';
 import { parseSwapName } from '@/lib/swap/parse-swap-name';
+import {
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
+} from '@/interfaces/report.interfaces';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
-import ReportHomeLayout from '../reports/report-home.layout';
 
 export default function SwapReport({ slug }: { slug: string }) {
   const { loading, data } = useFindSwapQuery({
@@ -18,19 +21,24 @@ export default function SwapReport({ slug }: { slug: string }) {
   if (!data?.findSwap) return <div />;
   const swap = data.findSwap;
 
+  const where: FindReportPreviewsWhereArgs = {
+    type: 'swap',
+    refId: swap.id,
+    reportedUserId: swap.proposer.id,
+  };
+  const orderBy: FindReportPreviewsOrderByArgs = {
+    createdAt: 'asc',
+  };
+
   return (
-    <ReportHomeLayout>
+    <>
       <ReportHeader
         name={parseSwapName({ name0: swap.name0, name1: swap.name1 })}
         price={swap.price}
         author={swap.proposer}
         updatedAt={swap.updatedAt}
       />
-      <ReportFeed
-        type="swap"
-        refId={swap.id}
-        reportedUserId={swap.proposer.id}
-      />
-    </ReportHomeLayout>
+      <ReportFeed where={where} orderBy={orderBy} />
+    </>
   );
 }
