@@ -154,6 +154,20 @@ export type CreateSignedUrlInput = {
   userId: Scalars['String']['input'];
 };
 
+export type CreateSocialAccountInput = {
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiresAt?: InputMaybe<Scalars['Int']['input']>;
+  id: Scalars['ID']['input'];
+  idToken?: InputMaybe<Scalars['String']['input']>;
+  provider: Scalars['String']['input'];
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scope?: InputMaybe<Scalars['String']['input']>;
+  sessionState?: InputMaybe<Scalars['String']['input']>;
+  socialId: Scalars['String']['input'];
+  tokenType?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['String']['input'];
+};
+
 export type CreateSwapInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
@@ -335,6 +349,7 @@ export type Mutation = {
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
+  createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
   createUser: Scalars['String']['output'];
   createUserImage: Scalars['String']['output'];
@@ -342,6 +357,8 @@ export type Mutation = {
   deleteGroup: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
+  deleteSocialAccount: Scalars['String']['output'];
+  deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
   deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
@@ -354,6 +371,7 @@ export type Mutation = {
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
   updateRole: Scalars['String']['output'];
+  updateSocialAccount: Scalars['String']['output'];
   updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
@@ -420,6 +438,11 @@ export type MutationCreateSignedUrlArgs = {
 };
 
 
+export type MutationCreateSocialAccountArgs = {
+  input: CreateSocialAccountInput;
+};
+
+
 export type MutationCreateSwapArgs = {
   input: CreateSwapInput;
 };
@@ -454,6 +477,17 @@ export type MutationDeleteOfferArgs = {
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteSocialAccountArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteSocialAccountByProviderArgs = {
+  provider: Scalars['String']['input'];
+  socialId: Scalars['String']['input'];
 };
 
 
@@ -500,6 +534,11 @@ export type MutationUpdateOfferArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
+};
+
+
+export type MutationUpdateSocialAccountArgs = {
+  input: UpdateSocialAccountInput;
 };
 
 
@@ -684,6 +723,7 @@ export type Query = {
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
+  getSocialAccountsByUserId: Scalars['String']['output'];
 };
 
 
@@ -844,6 +884,11 @@ export type QueryFindVersionPreviewArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
+export type QueryGetSocialAccountsByUserIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type ReportPreviewResponse = {
   __typename?: 'ReportPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
@@ -851,6 +896,7 @@ export type ReportPreviewResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
+  reportedUserId: Scalars['ID']['output'];
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -871,6 +917,7 @@ export type ReportResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
+  reportedUserId: Scalars['ID']['output'];
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -1055,6 +1102,20 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateSocialAccountInput = {
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiresAt?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  idToken?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scope?: InputMaybe<Scalars['String']['input']>;
+  sessionState?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
+  tokenType?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSwapInput = {
@@ -1334,9 +1395,9 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, status: string, title: string, content?: string | null };
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1356,7 +1417,7 @@ export type FindReportPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
@@ -1810,6 +1871,7 @@ export const ReportPreviewFragmentDoc = gql`
   updatedAt
   type
   refVersionId
+  reportedUserId
   status
   title
   content
@@ -1835,6 +1897,7 @@ export const ReportFragmentDoc = gql`
   updatedAt
   type
   refVersionId
+  reportedUserId
   status
   title
   content

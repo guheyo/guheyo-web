@@ -9,9 +9,9 @@ export default function ReportFeed({
   refId,
   reportedUserId,
 }: {
-  type: string;
-  refId: string;
-  reportedUserId: string;
+  type?: string;
+  refId?: string;
+  reportedUserId?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -20,6 +20,7 @@ export default function ReportFeed({
     where: {
       type,
       refId,
+      reportedUserId,
     },
     orderBy: {
       createdAt: 'asc',
@@ -41,8 +42,8 @@ export default function ReportFeed({
             title={report.node.title}
             content={report.node.content}
             createdAt={report.node.createdAt}
-            reportedUserId={reportedUserId}
-            type={type}
+            reportedUserId={report.node.reportedUserId}
+            type={report.node.type}
             refVersionId={report.node.refVersionId}
           />
         </div>
