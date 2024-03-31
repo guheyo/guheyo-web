@@ -76,7 +76,7 @@ export default function DealDetailMain({
           type={dealType}
           slug={slug}
         />
-        <DealDetailName name0={name0} name1={name1} />
+        <DealDetailName dealStatus={status} name0={name0} name1={name1} />
         <div className="grid grid-cols-1 gap-0 items-center">
           <DealDetailPrice price={price} />
           <DealShippingCost

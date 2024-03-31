@@ -3,7 +3,7 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
-import { Deal } from '@/lib/deal/deal.types';
+import { Deal, DealStatus } from '@/lib/deal/deal.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import DealDetailPrice from './deal-detail-price';
 import DealDetailName from './deal-detail-name';
@@ -14,6 +14,7 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 export default function DealVersionDetailMain({
   versionCreatedAt,
   dealType,
+  dealStatus,
   name0,
   name1,
   slug,
@@ -25,6 +26,7 @@ export default function DealVersionDetailMain({
 }: {
   versionCreatedAt: Date;
   dealType: Deal;
+  dealStatus: DealStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -53,7 +55,7 @@ export default function DealVersionDetailMain({
           dealType={dealType}
           slug={slug}
         />
-        <DealDetailName name0={name0} name1={name1} />
+        <DealDetailName dealStatus={dealStatus} name0={name0} name1={name1} />
         <div className="grid grid-cols-1 gap-0 items-center">
           <DealDetailPrice price={price} />
           <DealShippingCost

@@ -26,6 +26,7 @@ function Page({
       versionCreatedAt={version.createdAt}
       images={version.images}
       dealType="demand"
+      dealStatus={version.values.status}
       name0={version.values.name}
       slug={version.values.slug!}
       price={version.values.price}

@@ -26,6 +26,7 @@ function Page({
       versionCreatedAt={version.createdAt}
       images={version.images}
       dealType="swap"
+      dealStatus={version.values.status}
       name0={version.values.name0}
       name1={version.values.name1}
       slug={version.values.slug!}
