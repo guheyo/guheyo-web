@@ -78,6 +78,7 @@ export default function LoginButton() {
           <Link
             href={parseUserHomeLink({ username: jwtPayload.username })}
             onClick={handleCloseMenu}
+            className="flex justify-center w-full"
           >
             <div className="focus:bg-gray-100 hover:bg-gray-100">
               <div className="flex flex-row gap-1 items-center text-sm text-gray-500">
