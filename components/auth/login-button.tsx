@@ -11,8 +11,8 @@ import { useLogoutMutation } from '@/generated/graphql';
 import signIn from '@/lib/auth/sign-in';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { LoadingButton } from '@mui/lab';
-import Avatar from './avatar';
-import { AuthContext } from '../auth/auth.provider';
+import Avatar from '../base/avatar';
+import { AuthContext } from './auth.provider';
 
 export default function LoginButton() {
   const router = useRouter();
