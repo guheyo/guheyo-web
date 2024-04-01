@@ -10,6 +10,7 @@ import { useFindMyUserQuery, useLogoutMutation } from '@/generated/graphql';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { LoadingButton } from '@mui/lab';
 import Avatar from '../base/avatar';
+import LoggedInUserAlertDialog from './logged-in-user-alert-dialog';
 
 export default function LoggedInUserButton({ userId }: { userId: string }) {
   const router = useRouter();
@@ -45,6 +46,7 @@ export default function LoggedInUserButton({ userId }: { userId: string }) {
 
   return (
     <div>
+      <LoggedInUserAlertDialog user={user} />
       <IconButton className="inline-flex items-center" onClick={handleOpenMenu}>
         <Avatar name={user.username} avatarURL={user.avatarURL} />
       </IconButton>
