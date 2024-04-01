@@ -407,6 +407,7 @@ export default function DealForm({
               value: /^\d+$/,
               message: DEAL_PRICE_REQUIRED_MESSAGE,
             },
+            min: 0,
           }}
           textInputProps={{
             label: {
@@ -444,6 +445,7 @@ export default function DealForm({
             value: /^\d+$/,
             message: DEAL_PRICE_REQUIRED_MESSAGE,
           },
+          min: 0,
         }}
         textInputProps={{
           label: {
