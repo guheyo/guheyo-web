@@ -33,6 +33,7 @@ export default function LoginButton() {
   const handleSignIn = async () => {
     setLoading(true);
     await signIn(router, 'discord');
+    setLoading(false);
   };
 
   const handleSignOut = async () => {
@@ -40,6 +41,7 @@ export default function LoginButton() {
     handleCloseMenu();
     logout();
     router.push('/');
+    setLoading(false);
   };
 
   if (!jwtPayload) {

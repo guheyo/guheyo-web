@@ -17,6 +17,7 @@ export default function WriteButton() {
   const handleOnClick = (): void => {
     setLoading(true);
     router.push(`/write/g/${slug}/market`);
+    setLoading(false);
   };
 
   return (
@@ -25,7 +26,7 @@ export default function WriteButton() {
         type="submit"
         loading={loading}
         className="bg-star-500 hover:bg-star-400 text-xs md:text-sm font-bold p-2 rounded text-light-200"
-        name={`${slug} 그룹 마켓에서 글쓰기`}
+        name={`${slug} 그룹 장터에서 글쓰기`}
         onClick={handleOnClick}
       >
         글쓰기
