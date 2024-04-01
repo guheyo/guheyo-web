@@ -3,7 +3,7 @@ import { findMemberRoles } from "./find-member-roles";
 import { ROOT_GROUP_SLUG } from "../group/group.constants";
 import { REPORTED_USER_ROLE_NAME } from "./role.constants";
 
-export const IsReportedUser = ({
+export const hasReportedUserRole = ({
   user,
 }: {
   user: MyUserResponse;
