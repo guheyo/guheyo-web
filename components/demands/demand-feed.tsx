@@ -31,7 +31,6 @@ function DemandFeed({
   const categorySlug = searchParams.get('category');
   const status = parseDealStatus({
     status: searchParams.get('status'),
-    filterByAuthor: !!where?.buyerId,
   });
   const isHidden = searchParams.get('isHidden') === true.toString();
   const distinct = searchParams.get('distinct') !== 'false';
