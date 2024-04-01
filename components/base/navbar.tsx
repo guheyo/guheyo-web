@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import LoginButton from './login-button';
+import LoginButton from '../auth/login-button';
 import Scrollbar from './scrollbar';
 import SearchButton from '../search/search-button';
 import WriteButton from '../write/write-button';

@@ -1,26 +1,32 @@
 'use client';
 
-import Image from 'next/image';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useLogoutMutation } from '@/generated/graphql';
-import signIn from '@/lib/auth/sign-in';
+import { useFindMyUserQuery, useLogoutMutation } from '@/generated/graphql';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { LoadingButton } from '@mui/lab';
-import Avatar from './avatar';
-import { AuthContext } from '../auth/auth.provider';
+import Avatar from '../base/avatar';
+import LoggedInUserAlertDialog from './logged-in-user-alert-dialog';
 
-export default function LoginButton() {
+export default function LoggedInUserButton({ userId }: { userId: string }) {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
   const [loading, setLoading] = useState(false);
-  const { jwtPayload } = useContext(AuthContext);
   const [logout] = useLogoutMutation();
+  const { data, loading: userLoading } = useFindMyUserQuery({
+    variables: {
+      id: userId,
+    },
+  });
+
+  if (userLoading) return <div />;
+  if (!data?.findMyUser) return <div />;
+  const user = data.findMyUser;
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -28,12 +34,6 @@ export default function LoginButton() {
 
   const handleCloseMenu = (): void => {
     setAnchorEl(null);
-  };
-
-  const handleSignIn = async () => {
-    setLoading(true);
-    await signIn(router, 'discord');
-    setLoading(false);
   };
 
   const handleSignOut = async () => {
@@ -44,29 +44,11 @@ export default function LoginButton() {
     setLoading(false);
   };
 
-  if (!jwtPayload) {
-    return (
-      <LoadingButton
-        type="submit"
-        loading={loading}
-        className="inline-flex items-center bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
-        onClick={handleSignIn}
-      >
-        <Image
-          alt="로그인"
-          src="/socials/discord/discord-mark-white.svg"
-          width={20}
-          height={20}
-        />
-        로그인
-      </LoadingButton>
-    );
-  }
-
   return (
     <div>
+      <LoggedInUserAlertDialog user={user} />
       <IconButton className="inline-flex items-center" onClick={handleOpenMenu}>
-        <Avatar name={jwtPayload.username} avatarURL={jwtPayload.avatarURL} />
+        <Avatar name={user.username} avatarURL={user.avatarURL} />
       </IconButton>
       <Menu
         open={menuOpen}
@@ -78,7 +60,7 @@ export default function LoginButton() {
       >
         <MenuItem>
           <Link
-            href={parseUserHomeLink({ username: jwtPayload.username })}
+            href={parseUserHomeLink({ username: user.username })}
             onClick={handleCloseMenu}
             className="flex justify-center w-full"
           >

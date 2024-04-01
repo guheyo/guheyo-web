@@ -12,3 +12,6 @@ export const parseDealDetailLink = ({
   dealType: DealType;
   slug: string;
 }) => `/user/${username}/${dealType}/${slug}`;
+
+export const parseUserReportFeedLink = ({ username }: { username: string }) =>
+  `/user/${username}/report/received`;

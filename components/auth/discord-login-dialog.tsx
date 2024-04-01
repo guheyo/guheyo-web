@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useContext, useState } from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { AuthContext } from './auth.provider';
-import LoginButton from '../base/login-button';
+import LoginButton from './login-button';
 
 export default function DiscordLoginDialog({
   name,
