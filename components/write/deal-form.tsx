@@ -16,6 +16,7 @@ import {
   DEAL_DESCRIPTION_LABEL_NAME,
   DEAL_DESCRIPTION_REQUIRED_MESSAGE,
   DEAL_EDIT_SUBMIT_BUTTON_NAME,
+  DEAL_IMAGE_UPLOAD_LABEL_NAME,
   DEAL_NAME,
   DEAL_NAME_PLACEHOLDER,
   DEAL_NAME_REQUIRED_MESSAGE,
@@ -32,10 +33,7 @@ import {
   getInputTextFontSize,
   getInputTextMinWidth,
 } from '@/lib/input/input.props';
-import {
-  IMAGE_UPLOAD_LABEL_NAME,
-  IMAGE_UPLOAD_REQUIRED_MESSAGE,
-} from '@/lib/image/image.constants';
+import { IMAGE_UPLOAD_REQUIRED_MESSAGE } from '@/lib/image/image.constants';
 import { v4 as uuid4 } from 'uuid';
 import {
   SWAP_NAME0_LABEL_NAME,
@@ -236,7 +234,7 @@ export default function DealForm({
         }}
         imagesInputProps={{
           label: {
-            name: IMAGE_UPLOAD_LABEL_NAME,
+            name: DEAL_IMAGE_UPLOAD_LABEL_NAME,
             style: MOBILE_FILE_INPUT_LABEL_STYLE,
           },
           icon: {

@@ -20,6 +20,9 @@ export const DEAL_OPEN = 'open';
 export const DEAL_CLOSED = 'closed';
 export const DEAL_IS_HIDDEN = 'isHidden';
 
+export const DEAL_IMAGE_UPLOAD_LABEL_NAME =
+  '이미지 업로드 (아이디 인증 메모가 보이도록 사진을 찍어주세요)';
+
 export const DEAL_NAME = '제목';
 export const DEAL_NAME_PLACEHOLDER = '제목';
 export const DEAL_NAME_REQUIRED_MESSAGE = '제목을 입력해 주세요';
