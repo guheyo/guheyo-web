@@ -48,9 +48,11 @@ function OfferFeed({
       status,
       isHidden,
       sellerId: where?.sellerId,
-      bumpedAt: period ? {
-        gt: convertPeriodToDateString(period),
-      } : undefined,
+      bumpedAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',

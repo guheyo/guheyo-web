@@ -35,7 +35,10 @@ export default function SettingAboutForm({
     },
   });
 
-  const handleSubmitError: SubmitErrorHandler<AboutFormValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<AboutFormValues> = (
+    errors,
+    event,
+  ) => {
     // TODO
   };
 

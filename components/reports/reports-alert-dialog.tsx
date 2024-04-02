@@ -10,11 +10,7 @@ import { MyUserResponse } from '@/generated/graphql';
 import { useRouter } from 'next/navigation';
 import { parseUserReportFeedLink } from '@/lib/user/parse-user-page.link';
 
-export default function ReportsAlertDialog({
-  user,
-}: {
-  user: MyUserResponse;
-}) {
+export default function ReportsAlertDialog({ user }: { user: MyUserResponse }) {
   const [open, setOpen] = React.useState(true);
   const router = useRouter();
 
@@ -44,7 +40,8 @@ export default function ReportsAlertDialog({
             [신고 알림]
             <br />
             {`${user.username}`}님에게 신고가 접수되었어요
-            <br /><br />
+            <br />
+            <br />
             소명 댓글을 달지 않을 경우
             <br />
             이용 제한과 페널티가 부여되니

@@ -204,7 +204,10 @@ export default function DealForm({
     remove(position);
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealFormValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<DealFormValues> = (
+    errors,
+    event,
+  ) => {
     // TODO
   };
 

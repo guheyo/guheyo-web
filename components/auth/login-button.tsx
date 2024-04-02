@@ -38,5 +38,5 @@ export default function LoginButton() {
     );
   }
 
-  return <LoggedInUserButton userId={jwtPayload.id} />
+  return <LoggedInUserButton userId={jwtPayload.id} />;
 }
