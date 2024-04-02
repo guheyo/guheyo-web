@@ -82,22 +82,10 @@ query findAuthor(
   }
 }
 
-query findMyUser(
-  $id: ID
-  $username: String
-) {
-  findMyUser(
-    id: $id
-    username: $username
-  ) {
+query findMyUser {
+  findMyUser {
     ...myUser
   }
-}
-
-mutation createUser(
-  $input: CreateUserInput!
-) {
-  createUser(input: $input) 
 }
 
 mutation updateUser(
@@ -106,9 +94,11 @@ mutation updateUser(
   updateUser(input: $input)
 }
 
-mutation deleteUser($id: ID!) {
-  deleteUser(id: $id)
-}
+# NOTE
+# createUser -> signInUser
+
+# TODO
+# deleteUser
 
 mutation linkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)

@@ -8,10 +8,8 @@ export const convertPeriodToDateString = (period: string | null) => {
     case '1m': {
       return dayjs().subtract(1, 'M').toDate().toDateString();
     }
-    case '1y': {
+    default: {
       return dayjs().subtract(1, 'y').toDate().toDateString();
     }
-    default:
-      return dayjs().subtract(100, 'y').toDate().toDateString();
   }
 };

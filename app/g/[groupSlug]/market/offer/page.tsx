@@ -1,6 +1,7 @@
 'use client';
 
 import OfferFeed from '@/components/offers/offer-feed';
+import { useSearchParams } from 'next/navigation';
 
 export interface OffersPageProps {
   params: {
@@ -9,7 +10,10 @@ export interface OffersPageProps {
 }
 
 function OffersPage({ params: { groupSlug } }: OffersPageProps) {
-  return <OfferFeed type="thumbnail" />;
+  const searchParams = useSearchParams();
+  const distinct = searchParams.get('distinct') !== 'false';
+
+  return <OfferFeed type="thumbnail" distinct={distinct} />;
 }
 
 export default OffersPage;

@@ -18,11 +18,7 @@ export default function LoggedInUserButton({ userId }: { userId: string }) {
   const menuOpen = Boolean(anchorEl);
   const [loading, setLoading] = useState(false);
   const [logout] = useLogoutMutation();
-  const { data, loading: userLoading } = useFindMyUserQuery({
-    variables: {
-      id: userId,
-    },
-  });
+  const { data, loading: userLoading } = useFindMyUserQuery();
 
   if (userLoading) return <div />;
   if (!data?.findMyUser) return <div />;

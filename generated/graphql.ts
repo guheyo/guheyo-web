@@ -154,20 +154,6 @@ export type CreateSignedUrlInput = {
   userId: Scalars['String']['input'];
 };
 
-export type CreateSocialAccountInput = {
-  accessToken?: InputMaybe<Scalars['String']['input']>;
-  expiresAt?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['ID']['input'];
-  idToken?: InputMaybe<Scalars['String']['input']>;
-  provider: Scalars['String']['input'];
-  refreshToken?: InputMaybe<Scalars['String']['input']>;
-  scope?: InputMaybe<Scalars['String']['input']>;
-  sessionState?: InputMaybe<Scalars['String']['input']>;
-  socialId: Scalars['String']['input'];
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  userId: Scalars['String']['input'];
-};
-
 export type CreateSwapInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
@@ -201,14 +187,6 @@ export type CreateUserImageInput = {
   url: Scalars['String']['input'];
   userId: Scalars['ID']['input'];
   width?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CreateUserInput = {
-  avatarURL?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  username: Scalars['String']['input'];
 };
 
 export type DemandPreviewResponse = {
@@ -349,18 +327,12 @@ export type Mutation = {
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
-  createSocialAccount: Scalars['String']['output'];
   createSwap: Scalars['String']['output'];
-  createUser: Scalars['String']['output'];
   createUserImage: Scalars['String']['output'];
   deleteDemand: Scalars['String']['output'];
-  deleteGroup: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
-  deleteSocialAccount: Scalars['String']['output'];
-  deleteSocialAccountByProvider: Scalars['String']['output'];
   deleteSwap: Scalars['String']['output'];
-  deleteUser: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
@@ -371,7 +343,6 @@ export type Mutation = {
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
   updateRole: Scalars['String']['output'];
-  updateSocialAccount: Scalars['String']['output'];
   updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
@@ -438,18 +409,8 @@ export type MutationCreateSignedUrlArgs = {
 };
 
 
-export type MutationCreateSocialAccountArgs = {
-  input: CreateSocialAccountInput;
-};
-
-
 export type MutationCreateSwapArgs = {
   input: CreateSwapInput;
-};
-
-
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
 };
 
 
@@ -460,11 +421,6 @@ export type MutationCreateUserImageArgs = {
 
 export type MutationDeleteDemandArgs = {
   buyerId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteGroupArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -480,25 +436,9 @@ export type MutationDeleteRoleArgs = {
 };
 
 
-export type MutationDeleteSocialAccountArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteSocialAccountByProviderArgs = {
-  provider: Scalars['String']['input'];
-  socialId: Scalars['String']['input'];
-};
-
-
 export type MutationDeleteSwapArgs = {
   id: Scalars['ID']['input'];
   proposerId: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteUserArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
@@ -534,11 +474,6 @@ export type MutationUpdateOfferArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
-};
-
-
-export type MutationUpdateSocialAccountArgs = {
-  input: UpdateSocialAccountInput;
 };
 
 
@@ -723,7 +658,6 @@ export type Query = {
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
-  getSocialAccountsByUserId: Scalars['String']['output'];
 };
 
 
@@ -779,12 +713,6 @@ export type QueryFindGroupsArgs = {
 };
 
 
-export type QueryFindMyUserArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  username?: InputMaybe<Scalars['String']['input']>;
-};
-
-
 export type QueryFindOfferArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -803,10 +731,7 @@ export type QueryFindOfferPreviewsArgs = {
 
 
 export type QueryFindReportArgs = {
-  authorId?: InputMaybe<Scalars['ID']['input']>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  refId?: InputMaybe<Scalars['ID']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -884,11 +809,6 @@ export type QueryFindVersionPreviewArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
-
-export type QueryGetSocialAccountsByUserIdArgs = {
-  id: Scalars['ID']['input'];
-};
-
 export type ReportPreviewResponse = {
   __typename?: 'ReportPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
@@ -896,7 +816,7 @@ export type ReportPreviewResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
-  reportedUserId: Scalars['ID']['output'];
+  reportedUserId?: Maybe<Scalars['ID']['output']>;
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -917,7 +837,7 @@ export type ReportResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
-  reportedUserId: Scalars['ID']['output'];
+  reportedUserId?: Maybe<Scalars['ID']['output']>;
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -1102,20 +1022,6 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UpdateSocialAccountInput = {
-  accessToken?: InputMaybe<Scalars['String']['input']>;
-  expiresAt?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  idToken?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<Scalars['String']['input']>;
-  refreshToken?: InputMaybe<Scalars['String']['input']>;
-  scope?: InputMaybe<Scalars['String']['input']>;
-  sessionState?: InputMaybe<Scalars['String']['input']>;
-  socialId?: InputMaybe<Scalars['String']['input']>;
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateSwapInput = {
@@ -1395,9 +1301,9 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null };
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1417,7 +1323,7 @@ export type FindReportPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
@@ -1544,20 +1450,10 @@ export type FindAuthorQueryVariables = Exact<{
 
 export type FindAuthorQuery = { __typename?: 'Query', findAuthor?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
 
-export type FindMyUserQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']['input']>;
-  username?: InputMaybe<Scalars['String']['input']>;
-}>;
+export type FindMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
-
-export type CreateUserMutationVariables = Exact<{
-  input: CreateUserInput;
-}>;
-
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: string };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInput;
@@ -1565,13 +1461,6 @@ export type UpdateUserMutationVariables = Exact<{
 
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: string };
-
-export type DeleteUserMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
 export type LinkSocialProfileMutationVariables = Exact<{
   input: LinkSocialProfileInput;
@@ -3525,8 +3414,8 @@ export type FindAuthorLazyQueryHookResult = ReturnType<typeof useFindAuthorLazyQ
 export type FindAuthorSuspenseQueryHookResult = ReturnType<typeof useFindAuthorSuspenseQuery>;
 export type FindAuthorQueryResult = Apollo.QueryResult<FindAuthorQuery, FindAuthorQueryVariables>;
 export const FindMyUserDocument = gql`
-    query findMyUser($id: ID, $username: String) {
-  findMyUser(id: $id, username: $username) {
+    query findMyUser {
+  findMyUser {
     ...myUser
   }
 }
@@ -3544,8 +3433,6 @@ export const FindMyUserDocument = gql`
  * @example
  * const { data, loading, error } = useFindMyUserQuery({
  *   variables: {
- *      id: // value for 'id'
- *      username: // value for 'username'
  *   },
  * });
  */
@@ -3565,37 +3452,6 @@ export type FindMyUserQueryHookResult = ReturnType<typeof useFindMyUserQuery>;
 export type FindMyUserLazyQueryHookResult = ReturnType<typeof useFindMyUserLazyQuery>;
 export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserSuspenseQuery>;
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
-export const CreateUserDocument = gql`
-    mutation createUser($input: CreateUserInput!) {
-  createUser(input: $input)
-}
-    `;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
-
-/**
- * __useCreateUserMutation__
- *
- * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
-export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const UpdateUserDocument = gql`
     mutation updateUser($input: UpdateUserInput!) {
   updateUser(input: $input)
@@ -3627,37 +3483,6 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
-export const DeleteUserDocument = gql`
-    mutation deleteUser($id: ID!) {
-  deleteUser(id: $id)
-}
-    `;
-export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
-
-/**
- * __useDeleteUserMutation__
- *
- * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
-      }
-export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
 export const LinkSocialProfileDocument = gql`
     mutation linkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)

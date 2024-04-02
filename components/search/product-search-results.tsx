@@ -1,11 +1,15 @@
 import DemandFeed from '@/components/demands/demand-feed';
 import OfferFeed from '../offers/offer-feed';
+import { useSearchParams } from 'next/navigation';
 
 export default function ProductSearchResults({
   keyword,
 }: {
   keyword?: string;
 }) {
+  const searchParams = useSearchParams();
+  const distinct = searchParams.get('distinct') !== 'false';
+
   return (
     <div className="grid grid-cols-2 gap-4 md:gap-4 w-full">
       <div>
@@ -21,6 +25,7 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
+              distinct={distinct}
             />
           ) : (
             <div className="text-sm md:text-base">검색 결과가 없어요</div>
@@ -40,6 +45,7 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
+              distinct={distinct}
             />
           ) : (
             <div className="text-sm md:text-base">검색 결과가 없어요</div>

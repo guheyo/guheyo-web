@@ -19,11 +19,13 @@ function SwapFeed({
   orderBy,
   keyword,
   type,
+  distinct,
 }: {
   where?: FindSwapsWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
+  distinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
@@ -33,12 +35,10 @@ function SwapFeed({
     status: searchParams.get('status'),
   });
   const isHidden = searchParams.get('isHidden') === true.toString();
-  const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
-  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteSwapFeed({
     ref,
@@ -48,9 +48,9 @@ function SwapFeed({
       status,
       isHidden,
       proposerId: where?.proposerId,
-      bumpedAt: {
-        gt: from,
-      },
+      bumpedAt: period ? {
+        gt: convertPeriodToDateString(period),
+      } : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',

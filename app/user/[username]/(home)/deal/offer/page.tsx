@@ -24,7 +24,7 @@ function Page({
   const where: FindOffersWhereArgs = {
     sellerId: user.id,
   };
-  return <OfferFeed where={where} type="thumbnail" />;
+  return <OfferFeed where={where} type="thumbnail" distinct={false} />;
 }
 
 export default Page;
