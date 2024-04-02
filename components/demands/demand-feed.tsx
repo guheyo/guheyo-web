@@ -38,7 +38,6 @@ function DemandFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
-  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteDemandFeed({
     ref,
@@ -48,9 +47,9 @@ function DemandFeed({
       status,
       isHidden,
       buyerId: where?.buyerId,
-      bumpedAt: {
-        gt: from,
-      },
+      bumpedAt: period ? {
+        gt: convertPeriodToDateString(period),
+      } : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',

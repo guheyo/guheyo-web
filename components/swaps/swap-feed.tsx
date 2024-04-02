@@ -38,7 +38,6 @@ function SwapFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
-  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteSwapFeed({
     ref,
@@ -48,9 +47,9 @@ function SwapFeed({
       status,
       isHidden,
       proposerId: where?.proposerId,
-      bumpedAt: {
-        gt: from,
-      },
+      bumpedAt: period ? {
+        gt: convertPeriodToDateString(period),
+      } : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',

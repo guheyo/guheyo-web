@@ -38,7 +38,6 @@ function OfferFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
-  const from = convertPeriodToDateString(period);
 
   const { loading, data } = useInfiniteOfferFeed({
     ref,
@@ -48,9 +47,9 @@ function OfferFeed({
       status,
       isHidden,
       sellerId: where?.sellerId,
-      bumpedAt: {
-        gt: from,
-      },
+      bumpedAt: period ? {
+        gt: convertPeriodToDateString(period),
+      } : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',
