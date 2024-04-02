@@ -40,6 +40,7 @@ export default function AccordionInput<
             }
             expandIcon={<ExpandMoreIcon />}
             onClick={() => summaryProps.onClick(index)}
+            disabled={reason.disabled}
           >
             {reason.title}
           </AccordionSummary>
