@@ -24,7 +24,7 @@ function Page({
   const where: FindDemandsWhereArgs = {
     buyerId: user.id,
   };
-  return <DemandFeed where={where} type="text" />;
+  return <DemandFeed where={where} type="text" distinct={false} />;
 }
 
 export default Page;

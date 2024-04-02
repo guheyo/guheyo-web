@@ -24,7 +24,7 @@ function Page({
   const where: FindSwapsWhereArgs = {
     proposerId: user.id,
   };
-  return <SwapFeed where={where} type="thumbnail" />;
+  return <SwapFeed where={where} type="thumbnail" distinct={false} />;
 }
 
 export default Page;

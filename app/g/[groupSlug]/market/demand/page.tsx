@@ -1,6 +1,7 @@
 'use client';
 
 import DemandFeed from '@/components/demands/demand-feed';
+import { useSearchParams } from 'next/navigation';
 
 export interface DemandsPageProps {
   params: {
@@ -9,7 +10,10 @@ export interface DemandsPageProps {
 }
 
 function DemandsPage({ params: { groupSlug } }: DemandsPageProps) {
-  return <DemandFeed type="text" />;
+  const searchParams = useSearchParams();
+  const distinct = searchParams.get('distinct') !== 'false';
+
+  return <DemandFeed type="text" distinct={distinct} />;
 }
 
 export default DemandsPage;

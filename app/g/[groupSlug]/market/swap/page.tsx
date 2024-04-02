@@ -1,6 +1,7 @@
 'use client';
 
 import SwapFeed from '@/components/swaps/swap-feed';
+import { useSearchParams } from 'next/navigation';
 
 export interface SwapsPageProps {
   params: {
@@ -9,7 +10,10 @@ export interface SwapsPageProps {
 }
 
 function SwapsPage({ params: { groupSlug } }: SwapsPageProps) {
-  return <SwapFeed type="thumbnail" />;
+  const searchParams = useSearchParams();
+  const distinct = searchParams.get('distinct') !== 'false';
+
+  return <SwapFeed type="thumbnail" distinct={distinct} />;
 }
 
 export default SwapsPage;

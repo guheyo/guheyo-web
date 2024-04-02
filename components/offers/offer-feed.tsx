@@ -19,11 +19,13 @@ function OfferFeed({
   orderBy,
   keyword,
   type,
+  distinct,
 }: {
   where?: FindOffersWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
+  distinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
@@ -33,7 +35,6 @@ function OfferFeed({
     status: searchParams.get('status'),
   });
   const isHidden = searchParams.get('isHidden') === true.toString();
-  const distinct = searchParams.get('distinct') !== 'false';
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
