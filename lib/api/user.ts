@@ -1,6 +1,5 @@
 import { client } from '@/lib/apollo/client';
 import {
-  DeleteUserDocument,
   LinkSocialProfileDocument,
   LinkSocialProfileInput,
   UpdateUserDocument,
@@ -12,15 +11,6 @@ export async function updateUser(input: UpdateUserInput) {
     mutation: UpdateUserDocument,
     variables: {
       input,
-    },
-  });
-}
-
-export async function deleteUser(id: string) {
-  await client.mutate({
-    mutation: DeleteUserDocument,
-    variables: {
-      id,
     },
   });
 }
