@@ -1,6 +1,6 @@
 import DemandFeed from '@/components/demands/demand-feed';
-import OfferFeed from '../offers/offer-feed';
 import { useSearchParams } from 'next/navigation';
+import OfferFeed from '../offers/offer-feed';
 
 export default function ProductSearchResults({
   keyword,

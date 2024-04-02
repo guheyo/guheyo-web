@@ -73,7 +73,10 @@ export default function DealBumpForm({
     );
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealBumpValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<DealBumpValues> = (
+    errors,
+    event,
+  ) => {
     // TODO
   };
 

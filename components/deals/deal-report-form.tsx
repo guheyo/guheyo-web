@@ -71,7 +71,10 @@ export default function DealReportForm({
     router.back();
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealReportValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<DealReportValues> = (
+    errors,
+    event,
+  ) => {
     // TODO
   };
 

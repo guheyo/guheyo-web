@@ -1,6 +1,6 @@
 import { DealType } from './deal.types';
 
-export const parseDealBumpFormTitle = (dealType: Deal) => {
+export const parseDealBumpFormTitle = (dealType: DealType) => {
   switch (dealType) {
     case 'offer': {
       return `가격을 낮추어 끌어올리면\n빠르게 판매할 수 있어요`;

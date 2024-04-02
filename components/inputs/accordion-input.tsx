@@ -19,12 +19,11 @@ export default function AccordionInput<
   position: number;
   summaryProps: {
     onClick: (position: number) => void;
-  }
+  };
   detailProps: {
     controlProps: UseControllerProps<TFieldValues, TName>;
-  }
+  };
 }) {
-
   return (
     <div>
       {reportReasons.map((reason, index) => (

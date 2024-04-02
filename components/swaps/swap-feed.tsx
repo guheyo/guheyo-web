@@ -48,9 +48,11 @@ function SwapFeed({
       status,
       isHidden,
       proposerId: where?.proposerId,
-      bumpedAt: period ? {
-        gt: convertPeriodToDateString(period),
-      } : undefined,
+      bumpedAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',
