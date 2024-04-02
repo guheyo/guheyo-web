@@ -9,9 +9,6 @@ import SettingButton from '../setting/setting-button';
 
 export default function PrivateUserProfile({ userId }: { userId: string }) {
   const { data, loading } = useFindMyUserQuery({
-    variables: {
-      id: userId,
-    },
     fetchPolicy: 'network-only',
   });
 
