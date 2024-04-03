@@ -20,7 +20,7 @@ export default function ReportCommentCard({
   index: number;
   reportId: string;
   comment?: CommentResponse | null;
-  reportedUserId: string;
+  reportedUserId?: string | null;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const isReportedUser = !!jwtPayload && jwtPayload.id === reportedUserId;

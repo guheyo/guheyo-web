@@ -17,7 +17,7 @@ export default function ReportCard({
   title: string;
   content?: string | null;
   createdAt: Date;
-  reportedUserId: string;
+  reportedUserId?: string | null;
   type: string;
   refVersionId: string;
 }) {
@@ -26,7 +26,7 @@ export default function ReportCard({
       type: 'report',
       refId: id,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   return (

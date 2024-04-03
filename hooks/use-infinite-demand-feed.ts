@@ -30,7 +30,7 @@ export const useInfiniteDemandFeed = ({
       take,
       skip: 0,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   useInfiniteScroll(

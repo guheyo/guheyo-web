@@ -5,7 +5,7 @@ import GroupPreview from './group-preview';
 
 export default function GroupFeed({ keyword }: { keyword?: string }) {
   const { loading, data } = useFindGroupPreviewsQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
   if (loading) return <div />;
   if (!data?.findGroupPreviews) return <div />;
