@@ -33,6 +33,7 @@ export default function SwapDetail({ slug }: { slug: string }) {
       images={swap.images}
       reportCount={swap.reportCount}
       reportCommentCount={swap.reportCommentCount}
+      isHidden={swap.isHidden}
     />
   );
 }
