@@ -11,6 +11,8 @@ import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
 import { DEAL_CLOSED, DEAL_OPEN } from '@/lib/deal/deal.constants';
 import PostDeleteDialog from '../posts/post-delete-dialog';
+import AlertDialog from '../base/alert-dialog';
+import { parseDealStatusLabel } from '@/lib/deal/parse-deal-status-label';
 
 export default function PrivateDealMenu({
   dealId,
@@ -27,6 +29,8 @@ export default function PrivateDealMenu({
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [alertText, setAlertText] = React.useState('');
   const router = useRouter();
   const device = useDeviceDetect();
 
@@ -38,6 +42,7 @@ export default function PrivateDealMenu({
   const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setAnchorEl(null);
+    setOpenAlert(false);
   };
 
   const handleChangeDealStatus = async (
@@ -58,6 +63,8 @@ export default function PrivateDealMenu({
       dealType,
       updateDealInput,
     });
+    setAlertText(`${parseDealStatusLabel(newDealStatus)} 상태로 변경되었어요!`);
+    setOpenAlert(true);
   };
 
   const handleHidden = async (
@@ -78,6 +85,8 @@ export default function PrivateDealMenu({
       dealType,
       updateDealInput,
     });
+    setAlertText(`${newIsHidden ? '보관되었어요!' : '꺼냈어요!'}`);
+    setOpenAlert(true);
   };
 
   const handleEditClick: React.MouseEventHandler = (event) => {
@@ -109,7 +118,8 @@ export default function PrivateDealMenu({
       id: dealId,
       authorId,
     });
-    router.back();
+    setAlertText('삭제되었어요!');
+    setOpenAlert(true);
   };
 
   return (
@@ -176,6 +186,11 @@ export default function PrivateDealMenu({
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
       </Menu>
+      <AlertDialog
+        open={openAlert}
+        text={alertText}
+        handleClose={handleClose}
+      />
     </div>
   );
 }
