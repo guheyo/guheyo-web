@@ -32,6 +32,7 @@ export default function OfferDetail({ slug }: { slug: string }) {
       images={offer.images}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
+      isHidden={offer.isHidden}
     />
   );
 }

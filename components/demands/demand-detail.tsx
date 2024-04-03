@@ -32,6 +32,7 @@ export default function DemandDetail({ slug }: { slug: string }) {
       images={demand.images}
       reportCount={demand.reportCount}
       reportCommentCount={demand.reportCommentCount}
+      isHidden={demand.isHidden}
     />
   );
 }

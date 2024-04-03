@@ -1,5 +1,6 @@
 import DemandFeed from '@/components/demands/demand-feed';
 import { useSearchParams } from 'next/navigation';
+import { parseDealStatus } from '@/lib/deal/parse-deal-status';
 import OfferFeed from '../offers/offer-feed';
 
 export default function ProductSearchResults({
@@ -8,6 +9,9 @@ export default function ProductSearchResults({
   keyword?: string;
 }) {
   const searchParams = useSearchParams();
+  const status = parseDealStatus({
+    status: searchParams.get('status'),
+  });
   const distinct = searchParams.get('distinct') !== 'false';
 
   return (
@@ -25,6 +29,7 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
+              status={status}
               distinct={distinct}
             />
           ) : (
@@ -45,6 +50,7 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
+              status={status}
               distinct={distinct}
             />
           ) : (

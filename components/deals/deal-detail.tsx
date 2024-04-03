@@ -22,6 +22,7 @@ export default function DealDetail({
   images,
   reportCount,
   reportCommentCount,
+  isHidden,
 }: {
   id: string;
   dealType: DealType;
@@ -38,6 +39,7 @@ export default function DealDetail({
   images: UserImageResponse[];
   reportCount: number;
   reportCommentCount: number;
+  isHidden: boolean;
 }) {
   if (images.length > 0)
     return (
@@ -62,6 +64,7 @@ export default function DealDetail({
             author={author}
             reportCount={reportCount}
             reportCommentCount={reportCommentCount}
+            isHidden={isHidden}
           />
         </div>
       </PostDetail>
@@ -85,6 +88,7 @@ export default function DealDetail({
           author={author}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
+          isHidden={isHidden}
         />
       </div>
     </PostDetail>
