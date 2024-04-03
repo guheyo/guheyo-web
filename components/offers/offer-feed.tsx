@@ -12,28 +12,26 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
-import { parseDealStatus } from '@/lib/deal/parse-deal-status';
 
 function OfferFeed({
   where,
   orderBy,
   keyword,
   type,
+  status,
   distinct,
 }: {
   where?: FindOffersWhereArgs;
   orderBy?: FindDealsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
+  status?: string;
   distinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const status = parseDealStatus({
-    status: searchParams.get('status'),
-  });
   const isHidden = searchParams.get('isHidden') === true.toString();
   const period = searchParams.get('period');
   const category = findProductCategory(group?.productCategories, {
