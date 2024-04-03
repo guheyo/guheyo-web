@@ -10,9 +10,9 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
 import { parseDealLink } from '@/lib/deal/parse-deal-link';
 import { DEAL_CLOSED, DEAL_OPEN } from '@/lib/deal/deal.constants';
+import { parseDealStatusLabel } from '@/lib/deal/parse-deal-status-label';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 import AlertDialog from '../base/alert-dialog';
-import { parseDealStatusLabel } from '@/lib/deal/parse-deal-status-label';
 
 export default function PrivateDealMenu({
   dealId,
