@@ -17,7 +17,7 @@ export default function Page({
     variables: {
       refId,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return <div />;

@@ -17,6 +17,7 @@ export default function OfferBumpForm({ id }: { id: string }) {
     variables: {
       id,
     },
+    fetchPolicy: 'cache-and-network',
   });
   const offer = data?.findOffer;
 

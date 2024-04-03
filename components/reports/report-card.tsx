@@ -26,7 +26,7 @@ export default function ReportCard({
       type: 'report',
       refId: id,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   return (

@@ -9,6 +9,7 @@ export default function Term({ name }: { name: string }) {
     variables: {
       name,
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return <div />;

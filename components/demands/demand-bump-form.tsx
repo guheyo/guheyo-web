@@ -17,6 +17,7 @@ export default function DemandBumpForm({ id }: { id: string }) {
     variables: {
       id,
     },
+    nextFetchPolicy: 'cache-and-network',
   });
   const demand = data?.findDemand;
 

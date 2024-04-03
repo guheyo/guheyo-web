@@ -6,7 +6,7 @@ import SettingAboutForm from './setting-about-form';
 
 export default function SettingAbout({ userId }: { userId: string }) {
   const { data, loading } = useFindMyUserQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return <div />;
