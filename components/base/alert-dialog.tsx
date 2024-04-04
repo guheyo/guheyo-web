@@ -13,7 +13,7 @@ export default function AlertDialog({
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
-        <DialogContentText className="text-base md:text-lg text-dark-500 font-medium">
+        <DialogContentText className="text-base md:text-lg text-dark-500 min-w-32 p-2 font-medium">
           {text}
         </DialogContentText>
       </DialogContent>
