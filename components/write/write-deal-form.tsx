@@ -10,11 +10,9 @@ import { useContext, useState } from 'react';
 import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import { findDealCount } from '@/lib/api/deal';
-import { validateDealTerm } from '@/lib/deal/validate-deal-term';
 import { findProductCategory } from '@/lib/group/find-product-category';
 import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
-import { DAY_HOURS } from '@/lib/date/date.constants';
+import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
 import DealForm from './deal-form';
 import { AuthContext } from '../auth/auth.provider';
 import AlertDialog from '../base/alert-dialog';
@@ -32,37 +30,33 @@ export default function WriteDealForm({ group }: { group: GroupResponse }) {
   const handleSubmitValid: SubmitHandler<DealFormValues> = async (values) => {
     if (!jwtPayload) return;
 
-    const count = await findDealCount({
-      dealType: values.dealType,
-      authorId: jwtPayload.id,
-      productCategoryId: values.productCategoryId,
-      fromHours: DAY_HOURS,
-    });
-    if (!validateDealTerm(count)) {
-      const category = findProductCategory(group.productCategories, {
-        id: values.productCategoryId,
-      });
-      if (!category) return;
-
-      const message = parseDealTermAlertMessage({
-        dealType: values.dealType,
-        productCategoryName: category?.name,
-      });
-      setAlertMessage(message);
-      setOpen(true);
-      return;
-    }
     const input = parseCreateDealInput({
       authorId: jwtPayload.id,
       dealFormValues: values,
     });
-    await createDeal({
-      dealType: values.dealType,
-      createDealInput: input,
-    });
 
-    secureLocalStorage.removeItem(localStorageKey);
-    router.back();
+    try {
+      await createDeal({
+        dealType: values.dealType,
+        createDealInput: input,
+      });
+      secureLocalStorage.removeItem(localStorageKey);
+      router.back();
+    } catch (e: any) {
+      if (isPostingLimitExceededError(e.message)) {
+        const category = findProductCategory(group.productCategories, {
+          id: values.productCategoryId,
+        });
+        if (!category) return;
+
+        const message = parseDealTermAlertMessage({
+          dealType: values.dealType,
+          productCategoryName: category.name,
+        });
+        setAlertMessage(message);
+        setOpen(true);
+      }
+    }
   };
 
   const handleOnClickImagePreviewCallback = async (imageId: string) => {
