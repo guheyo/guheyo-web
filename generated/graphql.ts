@@ -132,6 +132,7 @@ export type CreateOfferInput = {
 export type CreateReportInput = {
   authorId: Scalars['ID']['input'];
   content?: InputMaybe<Scalars['String']['input']>;
+  groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   refId: Scalars['ID']['input'];
   refVersionId: Scalars['ID']['input'];
@@ -813,6 +814,7 @@ export type ReportPreviewResponse = {
   __typename?: 'ReportPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['ID']['output'];
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
@@ -834,6 +836,7 @@ export type ReportResponse = {
   comments: Array<CommentResponse>;
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['ID']['output'];
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
@@ -1301,9 +1304,9 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null };
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1323,7 +1326,7 @@ export type FindReportPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
@@ -1761,6 +1764,7 @@ export const ReportPreviewFragmentDoc = gql`
   type
   refVersionId
   reportedUserId
+  groupId
   status
   title
   content
@@ -1787,6 +1791,7 @@ export const ReportFragmentDoc = gql`
   type
   refVersionId
   reportedUserId
+  groupId
   status
   title
   content
