@@ -4,9 +4,9 @@ import {
   UpdateSwapInput,
 } from '@/generated/graphql';
 import { DealType } from '../deal/deal.types';
-import { deleteOffer, updateOffer } from './offer';
-import { deleteDemand, updateDemand } from './demand';
-import { deleteSwap, updateSwap } from './swap';
+import { deleteOffer, findOfferCount, updateOffer } from './offer';
+import { deleteDemand, findDemandCount, updateDemand } from './demand';
+import { deleteSwap, findSwapCount, updateSwap } from './swap';
 
 export const updateDeal = async ({
   dealType,
@@ -40,4 +40,39 @@ export const deleteDeal = async ({
     return deleteDemand(id, authorId);
   }
   return deleteSwap(id, authorId);
+};
+
+export const findDealCount = async ({
+  dealType,
+  authorId,
+  productCategoryId,
+  fromHours,
+}: {
+  dealType: DealType;
+  authorId: string;
+  productCategoryId: string;
+  fromHours: number;
+}) => {
+  if (dealType === 'offer') {
+    const { data } = await findOfferCount({
+      sellerId: authorId,
+      productCategoryId,
+      fromHours,
+    });
+    return data.findOfferCount;
+  }
+  if (dealType === 'demand') {
+    const { data } = await findDemandCount({
+      buyerId: authorId,
+      productCategoryId,
+      fromHours,
+    });
+    return data.findDemandCount;
+  }
+  const { data } = await findSwapCount({
+    proposerId: authorId,
+    productCategoryId,
+    fromHours,
+  });
+  return data.findSwapCount;
 };

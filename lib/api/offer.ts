@@ -7,6 +7,9 @@ import {
   CreateOfferMutation,
   DeleteOfferDocument,
   DeleteOfferMutation,
+  FindOfferCountDocument,
+  FindOfferCountQuery,
+  QueryFindOfferCountArgs,
   UpdateOfferDocument,
   UpdateOfferInput,
   UpdateOfferMutation,
@@ -46,6 +49,15 @@ export async function bumpOffer(input: BumpOfferInput) {
     mutation: BumpOfferDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function findOfferCount(args: QueryFindOfferCountArgs) {
+  return client.query<FindOfferCountQuery>({
+    query: FindOfferCountDocument,
+    variables: {
+      ...args,
     },
   });
 }
