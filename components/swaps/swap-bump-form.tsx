@@ -7,7 +7,7 @@ import { bumpSwap } from '@/lib/api/swap';
 import { parseSwapName } from '@/lib/swap/parse-swap-name';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
-import { validateBump } from '@/lib/deal/validate-bump';
+import { validateCooldown } from '@/lib/date/validate-cooldown';
 import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
 import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
 import { AuthContext } from '../auth/auth.provider';
@@ -31,7 +31,7 @@ export default function SwapBumpForm({ id }: { id: string }) {
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
     if (!jwtPayload) return;
-    if (!validateBump(swap.bumpedAt)) return;
+    if (!validateCooldown(swap.bumpedAt)) return;
 
     const input: BumpSwapInput = {
       id: values.id,

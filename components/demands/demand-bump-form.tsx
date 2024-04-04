@@ -5,7 +5,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { bumpDemand } from '@/lib/api/demand';
 import { useContext, useState } from 'react';
-import { validateBump } from '@/lib/deal/validate-bump';
+import { validateCooldown } from '@/lib/date/validate-cooldown';
 import { useRouter } from 'next/navigation';
 import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
 import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
@@ -31,7 +31,7 @@ export default function DemandBumpForm({ id }: { id: string }) {
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
     if (!jwtPayload) return;
-    if (!validateBump(demand.bumpedAt)) return;
+    if (!validateCooldown(demand.bumpedAt)) return;
 
     const input: BumpDemandInput = {
       id: values.id,

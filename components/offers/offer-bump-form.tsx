@@ -6,7 +6,7 @@ import { bumpOffer } from '@/lib/api/offer';
 import { DealBumpValues } from '@/lib/deal/deal.interfaces';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
-import { validateBump } from '@/lib/deal/validate-bump';
+import { validateCooldown } from '@/lib/date/validate-cooldown';
 import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
 import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
 import DealBumpForm from '../deals/deal-bump-form';
@@ -31,7 +31,7 @@ export default function OfferBumpForm({ id }: { id: string }) {
 
   const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
     if (!jwtPayload) return;
-    if (!validateBump(offer.bumpedAt)) return;
+    if (!validateCooldown(offer.bumpedAt)) return;
 
     const input: BumpOfferInput = {
       id: values.id,
