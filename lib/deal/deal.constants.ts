@@ -44,3 +44,5 @@ export const DEAL_EDIT_SUBMIT_BUTTON_NAME = '수정 완료';
 export const DEAL_AUTO_SAVE_INTERVAL_MS = 60 * 1000;
 
 export const DAILY_DEAL_POSTING_LIMIT = 5;
+
+export const POSTING_LIMIT_EXCEEDED_MESSAGE = 'posting limit exceeded';
