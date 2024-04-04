@@ -24,7 +24,9 @@ fragment demand on DemandResponse {
   group {
     ...groupProfile
   }
-  productCategoryId
+  productCategory {
+    ...productCategory
+  }
   buyer {
     ...author
   }

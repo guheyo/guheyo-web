@@ -24,7 +24,9 @@ fragment offer on OfferResponse {
   group {
     ...groupProfile
   }
-  productCategoryId
+  productCategory {
+    ...productCategory
+  }
   seller {
     ...author
   }
