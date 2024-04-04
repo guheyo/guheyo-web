@@ -62,6 +62,12 @@ query findReportPreviews(
   }
 }
 
+query findLastReport {
+  findLastReport {
+    ...report
+  }
+}
+
 mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input)
 }

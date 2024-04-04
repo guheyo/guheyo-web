@@ -645,6 +645,7 @@ export type Query = {
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
+  findLastReport: ReportResponse;
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
@@ -1371,6 +1372,11 @@ export type FindReportPreviewsQueryVariables = Exact<{
 
 
 export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindLastReportQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
@@ -3070,6 +3076,45 @@ export type FindReportPreviewsQueryHookResult = ReturnType<typeof useFindReportP
 export type FindReportPreviewsLazyQueryHookResult = ReturnType<typeof useFindReportPreviewsLazyQuery>;
 export type FindReportPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindReportPreviewsSuspenseQuery>;
 export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>;
+export const FindLastReportDocument = gql`
+    query findLastReport {
+  findLastReport {
+    ...report
+  }
+}
+    ${ReportFragmentDoc}`;
+
+/**
+ * __useFindLastReportQuery__
+ *
+ * To run a query within a React component, call `useFindLastReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLastReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLastReportQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindLastReportQuery(baseOptions?: Apollo.QueryHookOptions<FindLastReportQuery, FindLastReportQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindLastReportQuery, FindLastReportQueryVariables>(FindLastReportDocument, options);
+      }
+export function useFindLastReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindLastReportQuery, FindLastReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindLastReportQuery, FindLastReportQueryVariables>(FindLastReportDocument, options);
+        }
+export function useFindLastReportSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindLastReportQuery, FindLastReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindLastReportQuery, FindLastReportQueryVariables>(FindLastReportDocument, options);
+        }
+export type FindLastReportQueryHookResult = ReturnType<typeof useFindLastReportQuery>;
+export type FindLastReportLazyQueryHookResult = ReturnType<typeof useFindLastReportLazyQuery>;
+export type FindLastReportSuspenseQueryHookResult = ReturnType<typeof useFindLastReportSuspenseQuery>;
+export type FindLastReportQueryResult = Apollo.QueryResult<FindLastReportQuery, FindLastReportQueryVariables>;
 export const CommentReportDocument = gql`
     mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input)
