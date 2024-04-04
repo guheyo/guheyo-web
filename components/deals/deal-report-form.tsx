@@ -21,12 +21,14 @@ export default function DealReportForm({
   refVersionId,
   dealName,
   reportedUserId,
+  groupId,
 }: {
   dealType: DealType;
   dealId: string;
   refVersionId: string;
   dealName: string;
   reportedUserId: string;
+  groupId: string;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
@@ -66,6 +68,7 @@ export default function DealReportForm({
       title: values.title,
       content: values.content,
       reportedUserId,
+      groupId,
     };
     await createReport(input);
     router.back();

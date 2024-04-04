@@ -34,6 +34,7 @@ export default function Page({
         dealType: type as DealType,
         versionValues: version.values,
       })}
+      groupId={version.values.groupId}
     />
   );
 }
