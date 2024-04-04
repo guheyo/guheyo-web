@@ -1,7 +1,7 @@
 import './globals.css';
 import { Noto_Sans_KR } from 'next/font/google';
-import Script from 'next/script';
 import Navbar from '@/components/base/navbar';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Providers } from './providers';
 
 const notoSansKr = Noto_Sans_KR({
@@ -24,16 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-TWPX7X0128" />
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-TWPX7X0128');
-          `}
-        </Script>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         <link rel="icon" href="/star/star-bg-purple-rounded.ico" sizes="any" />
         <meta property="og:image" content="/star/star-bg-purple-rounded.png" />
         <meta property="og:alt" content="구해요" />
