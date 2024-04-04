@@ -104,6 +104,18 @@ query findOffer(
   }
 }
 
+query findOfferCount(
+  $sellerId: ID!
+  $productCategoryId: ID!
+  $fromHours: Int!
+) {
+  findOfferCount(
+    sellerId: $sellerId
+    productCategoryId: $productCategoryId
+    fromHours: $fromHours
+  )
+}
+
 mutation CreateOffer($input: CreateOfferInput!) {
   createOffer(input: $input)
 }

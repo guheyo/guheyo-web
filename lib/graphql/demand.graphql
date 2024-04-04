@@ -101,6 +101,18 @@ query findDemand(
   }
 }
 
+query findDemandCount(
+  $buyerId: ID!
+  $productCategoryId: ID!
+  $fromHours: Int!
+) {
+  findDemandCount(
+    buyerId: $buyerId
+    productCategoryId: $productCategoryId
+    fromHours: $fromHours
+  )
+}
+
 mutation CreateDemand($input: CreateDemandInput!) {
   createDemand(input: $input)
 }

@@ -107,6 +107,18 @@ query findSwap(
   }
 }
 
+query findSwapCount(
+  $proposerId: ID!
+  $productCategoryId: ID!
+  $fromHours: Int!
+) {
+  findSwapCount(
+    proposerId: $proposerId
+    productCategoryId: $productCategoryId
+    fromHours: $fromHours
+  )
+}
+
 mutation CreateSwap($input: CreateSwapInput!) {
   createSwap(input: $input)
 }
