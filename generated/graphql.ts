@@ -988,8 +988,7 @@ export type TermResponse = {
   content: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  metaDescription: Scalars['String']['output'];
-  metaTitle: Scalars['String']['output'];
+  meta?: Maybe<Scalars['JSON']['output']>;
   name: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1452,14 +1451,14 @@ export type BumpSwapMutationVariables = Exact<{
 
 export type BumpSwapMutation = { __typename?: 'Mutation', bumpSwap: { __typename?: 'SwapPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string };
+export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, meta?: any | null };
 
 export type FindTermQueryVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
 
 
-export type FindTermQuery = { __typename?: 'Query', findTerm?: { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, metaTitle: string, metaDescription: string } | null };
+export type FindTermQuery = { __typename?: 'Query', findTerm?: { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, meta?: any | null } | null };
 
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
 
@@ -1952,8 +1951,7 @@ export const TermFragmentDoc = gql`
   name
   title
   content
-  metaTitle
-  metaDescription
+  meta
 }
     `;
 export const SocialAccountFragmentDoc = gql`
