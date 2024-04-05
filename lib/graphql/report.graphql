@@ -4,7 +4,9 @@ fragment reportPreview on ReportPreviewResponse {
   updatedAt
   type
   refVersionId
-  reportedUserId
+  reportedUser {
+    ...author
+  }
   groupId
   status
   title
@@ -17,7 +19,9 @@ fragment report on ReportResponse {
   updatedAt
   type
   refVersionId
-  reportedUserId
+  reportedUser {
+    ...author
+  }
   groupId
   status
   title

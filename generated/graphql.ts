@@ -849,7 +849,7 @@ export type ReportPreviewResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
-  reportedUserId?: Maybe<Scalars['ID']['output']>;
+  reportedUser?: Maybe<AuthorResponse>;
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -871,7 +871,7 @@ export type ReportResponse = {
   id: Scalars['ID']['output'];
   refId: Scalars['ID']['output'];
   refVersionId: Scalars['ID']['output'];
-  reportedUserId?: Maybe<Scalars['ID']['output']>;
+  reportedUser?: Maybe<AuthorResponse>;
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -1354,9 +1354,9 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null };
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1376,12 +1376,12 @@ export type FindReportPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindLastReportQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, reportedUserId?: string | null, groupId: string, status: string, title: string, content?: string | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } };
+export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
@@ -1838,13 +1838,15 @@ export const ReportPreviewFragmentDoc = gql`
   updatedAt
   type
   refVersionId
-  reportedUserId
+  reportedUser {
+    ...author
+  }
   groupId
   status
   title
   content
 }
-    `;
+    ${AuthorFragmentDoc}`;
 export const CommentFragmentDoc = gql`
     fragment comment on CommentResponse {
   id
@@ -1865,7 +1867,9 @@ export const ReportFragmentDoc = gql`
   updatedAt
   type
   refVersionId
-  reportedUserId
+  reportedUser {
+    ...author
+  }
   groupId
   status
   title
@@ -1874,7 +1878,8 @@ export const ReportFragmentDoc = gql`
     ...comment
   }
 }
-    ${CommentFragmentDoc}`;
+    ${AuthorFragmentDoc}
+${CommentFragmentDoc}`;
 export const SwapFragmentDoc = gql`
     fragment swap on SwapResponse {
   id
