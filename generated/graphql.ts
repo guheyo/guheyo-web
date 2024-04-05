@@ -86,6 +86,7 @@ export type CreateDemandInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
   buyerId: Scalars['ID']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
@@ -97,6 +98,7 @@ export type CreateDemandInput = {
   shippingType: Scalars['String']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreateGroupInput = {
@@ -115,6 +117,7 @@ export type CreateManyUserImageInput = {
 export type CreateOfferInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
@@ -127,6 +130,7 @@ export type CreateOfferInput = {
   shippingType: Scalars['String']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreateReportInput = {
@@ -158,6 +162,7 @@ export type CreateSignedUrlInput = {
 export type CreateSwapInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description0?: InputMaybe<Scalars['String']['input']>;
   description1?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
@@ -172,6 +177,7 @@ export type CreateSwapInput = {
   shippingType: Scalars['String']['input'];
   source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreateUserImageInput = {
