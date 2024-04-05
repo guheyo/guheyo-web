@@ -12,12 +12,10 @@ import CommentCard from '../comments/comment-card';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function ReportCommentCard({
-  index,
   reportId,
   comment,
   reportedUser,
 }: {
-  index: number;
   reportId: string;
   comment?: CommentResponse | null;
   reportedUser: AuthorResponse;

@@ -32,10 +32,9 @@ export default function ReportFeed({
     <div className="flex flex-col gap-8 w-full">
       {reports
         .filter((report) => report.node.reportedUser)
-        .map((report, index) => (
+        .map((report) => (
           <div key={report.node.id} className="flex flex-col gap-2">
             <ReportCard
-              index={index}
               id={report.node.id}
               title={report.node.title}
               content={report.node.content}

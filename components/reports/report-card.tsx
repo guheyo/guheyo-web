@@ -3,7 +3,6 @@ import ReportPreview from './report-preview';
 import ReportCommentCard from './report-comment-card';
 
 export default function ReportCard({
-  index,
   id,
   title,
   content,
@@ -12,7 +11,6 @@ export default function ReportCard({
   type,
   refVersionId,
 }: {
-  index: number;
   id: string;
   title: string;
   content?: string | null;
@@ -32,7 +30,6 @@ export default function ReportCard({
   return (
     <div key={id} className="flex flex-col gap-2">
       <ReportPreview
-        index={index}
         title={title}
         content={content}
         createdAt={createdAt}
@@ -40,7 +37,6 @@ export default function ReportCard({
         refVersionId={refVersionId}
       />
       <ReportCommentCard
-        index={index}
         reportId={id}
         reportedUser={reportedUser}
         comment={data?.findComment}
