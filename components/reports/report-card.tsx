@@ -1,4 +1,4 @@
-import { useFindCommentQuery } from '@/generated/graphql';
+import { AuthorResponse, useFindCommentQuery } from '@/generated/graphql';
 import ReportPreview from './report-preview';
 import ReportCommentCard from './report-comment-card';
 
@@ -8,7 +8,7 @@ export default function ReportCard({
   title,
   content,
   createdAt,
-  reportedUserId,
+  reportedUser,
   type,
   refVersionId,
 }: {
@@ -17,7 +17,7 @@ export default function ReportCard({
   title: string;
   content?: string | null;
   createdAt: Date;
-  reportedUserId?: string | null;
+  reportedUser: AuthorResponse;
   type: string;
   refVersionId: string;
 }) {
@@ -42,7 +42,7 @@ export default function ReportCard({
       <ReportCommentCard
         index={index}
         reportId={id}
-        reportedUserId={reportedUserId}
+        reportedUser={reportedUser}
         comment={data?.findComment}
       />
     </div>
