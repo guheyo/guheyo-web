@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteDemandFeed } from '@/hooks/use-infinite-demand-feed';
 import DemandPreview from '@/components/demands/demand-preview';
@@ -37,6 +37,8 @@ function DemandFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
+
+  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteDemandFeed({
     ref,
