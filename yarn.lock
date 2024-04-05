@@ -4089,6 +4089,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/third-parties@npm:^14.1.4":
+  version: 14.1.4
+  resolution: "@next/third-parties@npm:14.1.4"
+  dependencies:
+    third-party-capital: 1.0.20
+  peerDependencies:
+    next: ^13.0.0 || ^14.0.0
+    react: ^18.2.0
+  checksum: 7430b596f984006607e975ab37bf791c28594f2812cded0e1e4fe124cd66f5df52aecb5667fcfc261493d682adba024236dbb811e14bc66a5309a6795d13218e
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -11244,6 +11256,7 @@ __metadata:
     "@mui/lab": ^5.0.0-alpha.138
     "@mui/material": ^5.14.1
     "@next/eslint-plugin-next": 13.4.8
+    "@next/third-parties": ^14.1.4
     "@storybook/addon-essentials": 7.0.20
     "@storybook/addon-interactions": 7.0.20
     "@storybook/addon-links": 7.0.20
@@ -17526,6 +17539,13 @@ __metadata:
   dependencies:
     any-promise: ^1.0.0
   checksum: 84e1b804bfec49f3531215f17b4a6e50fd4397b5f7c1bccc427b9c656e1ecfb13ea79d899930184f78bc2f57285c54d9a50a590c8868f4f0cef5c1d9f898b05e
+  languageName: node
+  linkType: hard
+
+"third-party-capital@npm:1.0.20":
+  version: 1.0.20
+  resolution: "third-party-capital@npm:1.0.20"
+  checksum: ef5eae00bdb82b538b9f628a011fc294cd6f4bafdbb46d88f3d1a72e8c3b9e2cc2a547fdb62bc16bdd847e9da3dac2df676b154c64914f6c90ea15aac6ce0a6a
   languageName: node
   linkType: hard
 

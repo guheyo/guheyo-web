@@ -7,6 +7,9 @@ import {
   CreateDemandMutation,
   DeleteDemandDocument,
   DeleteDemandMutation,
+  FindDemandCountDocument,
+  FindDemandCountQuery,
+  QueryFindDemandCountArgs,
   UpdateDemandDocument,
   UpdateDemandInput,
   UpdateDemandMutation,
@@ -46,6 +49,15 @@ export async function bumpDemand(input: BumpDemandInput) {
     mutation: BumpDemandDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function findDemandCount(args: QueryFindDemandCountArgs) {
+  return client.query<FindDemandCountQuery>({
+    query: FindDemandCountDocument,
+    variables: {
+      ...args,
     },
   });
 }

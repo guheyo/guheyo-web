@@ -1,7 +1,7 @@
 'use client';
 
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { MouseEventHandler, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { DealReportValues } from '@/lib/deal/deal.interfaces';
 import { useRouter } from 'next/navigation';
@@ -12,8 +12,8 @@ import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { CreateReportInput } from '@/generated/graphql';
 import { createReport } from '@/lib/api/report';
 import { AuthContext } from '../auth/auth.provider';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
 import AccordionInput from '../inputs/accordion-input';
+import ReportSubmitButton from '../reports/report-submit-button';
 
 export default function DealReportForm({
   dealType,
@@ -21,12 +21,14 @@ export default function DealReportForm({
   refVersionId,
   dealName,
   reportedUserId,
+  groupId,
 }: {
   dealType: DealType;
   dealId: string;
   refVersionId: string;
   dealName: string;
   reportedUserId: string;
+  groupId: string;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
@@ -66,6 +68,7 @@ export default function DealReportForm({
       title: values.title,
       content: values.content,
       reportedUserId,
+      groupId,
     };
     await createReport(input);
     router.back();
@@ -76,14 +79,6 @@ export default function DealReportForm({
     event,
   ) => {
     // TODO
-  };
-
-  const handleAuthorization: MouseEventHandler = () => {
-    // Do nothing
-  };
-
-  const handleOnAuthorization: MouseEventHandler = (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -110,11 +105,7 @@ export default function DealReportForm({
       />
 
       <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
-        <DiscordLoginDialog
-          name="신고하기"
-          onAuthorization={handleAuthorization}
-          onUnAuthorization={handleOnAuthorization}
-        />
+        <ReportSubmitButton />
       </div>
     </form>
   );

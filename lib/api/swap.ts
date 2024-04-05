@@ -7,6 +7,9 @@ import {
   CreateSwapMutation,
   DeleteSwapDocument,
   DeleteSwapMutation,
+  FindSwapCountDocument,
+  FindSwapCountQuery,
+  QueryFindSwapCountArgs,
   UpdateSwapDocument,
   UpdateSwapInput,
   UpdateSwapMutation,
@@ -46,6 +49,15 @@ export async function bumpSwap(input: BumpSwapInput) {
     mutation: BumpSwapDocument,
     variables: {
       input,
+    },
+  });
+}
+
+export async function findSwapCount(args: QueryFindSwapCountArgs) {
+  return client.query<FindSwapCountQuery>({
+    query: FindSwapCountDocument,
+    variables: {
+      ...args,
     },
   });
 }

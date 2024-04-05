@@ -24,7 +24,9 @@ fragment offer on OfferResponse {
   group {
     ...groupProfile
   }
-  productCategoryId
+  productCategory {
+    ...productCategory
+  }
   seller {
     ...author
   }
@@ -102,6 +104,18 @@ query findOffer(
   ) {
     ...offer
   }
+}
+
+query findOfferCount(
+  $sellerId: ID!
+  $productCategoryId: ID!
+  $fromHours: Int!
+) {
+  findOfferCount(
+    sellerId: $sellerId
+    productCategoryId: $productCategoryId
+    fromHours: $fromHours
+  )
 }
 
 mutation CreateOffer($input: CreateOfferInput!) {

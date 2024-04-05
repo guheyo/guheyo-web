@@ -1,3 +1,10 @@
+fragment productCategory on ProductCategoryResponse {
+  id
+  name
+  slug
+  position
+}
+
 fragment group on GroupResponse {
   id
   name
@@ -13,10 +20,7 @@ fragment group on GroupResponse {
     groupId
   }
   productCategories {
-    id
-    name
-    slug
-    position
+    ...productCategory
   }
   postCategories {
     id

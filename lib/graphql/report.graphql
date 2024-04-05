@@ -5,6 +5,7 @@ fragment reportPreview on ReportPreviewResponse {
   type
   refVersionId
   reportedUserId
+  groupId
   status
   title
   content
@@ -17,6 +18,7 @@ fragment report on ReportResponse {
   type
   refVersionId
   reportedUserId
+  groupId
   status
   title
   content
@@ -57,6 +59,12 @@ query findReportPreviews(
       endCursor
       hasNextPage
     }
+  }
+}
+
+query findLastReport {
+  findLastReport {
+    ...report
   }
 }
 
