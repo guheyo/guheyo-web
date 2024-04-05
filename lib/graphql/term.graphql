@@ -5,8 +5,7 @@ fragment term on TermResponse {
   name
   title
   content
-  metaTitle
-  metaDescription
+  meta
 }
 
 query findTerm(
