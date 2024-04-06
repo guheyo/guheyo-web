@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteSwapFeed } from '@/hooks/use-infinite-swap-feed';
 import SwapPreview from '@/components/swaps/swap-preview';
@@ -37,6 +37,8 @@ function SwapFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
+
+  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteSwapFeed({
     ref,

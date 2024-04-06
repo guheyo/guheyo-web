@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
@@ -37,6 +37,8 @@ function OfferFeed({
   const category = findProductCategory(group?.productCategories, {
     slug: categorySlug,
   });
+
+  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteOfferFeed({
     ref,

@@ -30,7 +30,7 @@ export const useInfiniteSwapFeed = ({
       take,
       skip: 0,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   });
 
   useInfiniteScroll(

@@ -1,23 +1,21 @@
-import { useFindCommentQuery } from '@/generated/graphql';
+import { AuthorResponse, useFindCommentQuery } from '@/generated/graphql';
 import ReportPreview from './report-preview';
 import ReportCommentCard from './report-comment-card';
 
 export default function ReportCard({
-  index,
   id,
   title,
   content,
   createdAt,
-  reportedUserId,
+  reportedUser,
   type,
   refVersionId,
 }: {
-  index: number;
   id: string;
   title: string;
   content?: string | null;
   createdAt: Date;
-  reportedUserId?: string | null;
+  reportedUser: AuthorResponse;
   type: string;
   refVersionId: string;
 }) {
@@ -32,7 +30,6 @@ export default function ReportCard({
   return (
     <div key={id} className="flex flex-col gap-2">
       <ReportPreview
-        index={index}
         title={title}
         content={content}
         createdAt={createdAt}
@@ -40,9 +37,8 @@ export default function ReportCard({
         refVersionId={refVersionId}
       />
       <ReportCommentCard
-        index={index}
         reportId={id}
-        reportedUserId={reportedUserId}
+        reportedUser={reportedUser}
         comment={data?.findComment}
       />
     </div>
