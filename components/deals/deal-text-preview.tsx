@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { DealType, DealStatus } from '@/lib/deal/deal.types';
-import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
+import { parseDealDetailLink } from '@/lib/deal/parse-deal-detail-link';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
 import DealPreviewPrice from './deal-preview-price';
@@ -16,7 +16,6 @@ interface Props {
   name: string;
   totalPrice: number;
   bumpedAt: Date;
-  username: string;
   slug: string;
   reportCount: number;
   reportCommentCount: number;
@@ -31,7 +30,6 @@ export default function DealTextPreview({
   name,
   totalPrice,
   bumpedAt,
-  username,
   slug,
   reportCount,
   reportCommentCount,
@@ -40,7 +38,7 @@ export default function DealTextPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
-        href={parseDealDetailLink({ username, dealType, slug })}
+        href={parseDealDetailLink({ dealType, slug })}
         className="w-full text-start"
       >
         <div className="grid grid-cols-1 gap-0">

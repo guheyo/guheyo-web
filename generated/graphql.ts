@@ -140,7 +140,7 @@ export type CreateReportInput = {
   id: Scalars['ID']['input'];
   refId: Scalars['ID']['input'];
   refVersionId: Scalars['ID']['input'];
-  reportedUserId?: InputMaybe<Scalars['ID']['input']>;
+  reportedUserId: Scalars['ID']['input'];
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };

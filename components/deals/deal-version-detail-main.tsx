@@ -51,7 +51,6 @@ export default function DealVersionDetailMain({
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
         <RecentVersionLink
           versionCreatedAt={versionCreatedAt}
-          username={author.username}
           dealType={dealType}
           slug={slug}
         />
