@@ -6,13 +6,11 @@ import { parseReportFeedLink } from '@/lib/report/parse-report-feed-link';
 export default function ReportsLink({
   reportCount,
   reportCommentCount,
-  username,
   type,
   slug,
 }: {
   reportCount: number;
   reportCommentCount: number;
-  username: string;
   type: string;
   slug: string;
 }) {
@@ -22,7 +20,6 @@ export default function ReportsLink({
   const handleClick = () => {
     router.push(
       parseReportFeedLink({
-        username,
         type,
         slug,
       }),

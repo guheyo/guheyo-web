@@ -15,7 +15,6 @@ interface Props {
   name: any;
   totalPrice: number;
   bumpedAt: Date;
-  username: string;
   slug: string;
   reportCount: number;
   reportCommentCount: number;
@@ -32,7 +31,6 @@ export default function DealPreview({
   name,
   totalPrice,
   bumpedAt,
-  username,
   slug,
   reportCount,
   reportCommentCount,
@@ -49,7 +47,6 @@ export default function DealPreview({
           name={name}
           totalPrice={totalPrice}
           bumpedAt={bumpedAt}
-          username={username}
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
@@ -68,7 +65,6 @@ export default function DealPreview({
           name={name}
           totalPrice={totalPrice}
           bumpedAt={bumpedAt}
-          username={username}
           slug={slug}
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}

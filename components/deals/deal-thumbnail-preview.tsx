@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { UserImageResponse } from '@/generated/graphql';
 import { DealType, DealStatus } from '@/lib/deal/deal.types';
-import { parseDealDetailLink } from '@/lib/user/parse-user-page.link';
+import { parseDealDetailLink } from '@/lib/deal/parse-deal-detail-link';
 import Thumbnail from '../base/thumbnail';
 import DealMenu from './deal-menu';
 import DealAddons from './deal-addons';
@@ -20,7 +20,6 @@ interface Props {
   name: any;
   totalPrice: number;
   bumpedAt: Date;
-  username: string;
   slug: string;
   reportCount: number;
   reportCommentCount: number;
@@ -36,7 +35,6 @@ export default function DealThumbnailPreview({
   name,
   totalPrice,
   bumpedAt,
-  username,
   slug,
   reportCount,
   reportCommentCount,
@@ -45,7 +43,7 @@ export default function DealThumbnailPreview({
   return (
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
-        href={parseDealDetailLink({ username, dealType, slug })}
+        href={parseDealDetailLink({ dealType, slug })}
         className="flex flex-row w-full md:flex-col text-start"
       >
         {thumbnail && (
