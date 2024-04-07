@@ -22,7 +22,6 @@ export default function OfferPreview({ offer, type }: Props) {
       name={truncateText(offer.name, 42)}
       totalPrice={offer.totalPrice}
       bumpedAt={offer.bumpedAt}
-      username={offer.seller.username}
       slug={offer.slug!}
       reportCount={offer.reportCount}
       reportCommentCount={offer.reportCommentCount}
