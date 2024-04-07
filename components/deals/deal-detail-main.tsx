@@ -74,7 +74,6 @@ export default function DealDetailMain({
         <ReportsLink
           reportCount={reportCount}
           reportCommentCount={reportCommentCount}
-          username={author.username}
           type={dealType}
           slug={slug}
         />
