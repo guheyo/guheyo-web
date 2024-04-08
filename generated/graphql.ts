@@ -82,6 +82,19 @@ export type CreateCommentInput = {
   type: Scalars['String']['input'];
 };
 
+export type CreateDealReviewInput = {
+  authorId: Scalars['ID']['input'];
+  content?: InputMaybe<Scalars['String']['input']>;
+  groupId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
+  mannerTagIds: Array<Scalars['String']['input']>;
+  refId: Scalars['ID']['input'];
+  refVersionId: Scalars['ID']['input'];
+  revieweeId: Scalars['ID']['input'];
+  title: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+};
+
 export type CreateDemandInput = {
   brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
@@ -311,6 +324,15 @@ export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
 
+export type MannerTagResponse = {
+  __typename?: 'MannerTagResponse';
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  isPositive: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+};
+
 export type MemberWithRolesResponse = {
   __typename?: 'MemberWithRolesResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -327,6 +349,7 @@ export type Mutation = {
   bumpSwap: SwapPreviewResponse;
   commentReport: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
+  createDealReview: Scalars['String']['output'];
   createDemand: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
@@ -378,6 +401,11 @@ export type MutationCommentReportArgs = {
 
 export type MutationCreateCommentArgs = {
   input: CreateCommentInput;
+};
+
+
+export type MutationCreateDealReviewArgs = {
+  input: CreateDealReviewInput;
 };
 
 
@@ -652,6 +680,7 @@ export type Query = {
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
   findLastReport: ReportResponse;
+  findMannerTags: Array<MannerTagResponse>;
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
@@ -1291,6 +1320,13 @@ export type FindGroupPreviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> }> };
 
+export type MannerTagFragment = { __typename?: 'MannerTagResponse', id: string, name: string, description?: string | null, isPositive: boolean, position: number };
+
+export type FindMannerTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindMannerTagsQuery = { __typename?: 'Query', findMannerTags: Array<{ __typename?: 'MannerTagResponse', id: string, name: string, description?: string | null, isPositive: boolean, position: number }> };
+
 export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
 export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
@@ -1792,6 +1828,15 @@ export const GroupPreviewFragmentDoc = gql`
 }
     ${OfferPreviewFragmentDoc}
 ${DemandPreviewFragmentDoc}`;
+export const MannerTagFragmentDoc = gql`
+    fragment mannerTag on MannerTagResponse {
+  id
+  name
+  description
+  isPositive
+  position
+}
+    `;
 export const OfferFragmentDoc = gql`
     fragment offer on OfferResponse {
   id
@@ -2701,6 +2746,45 @@ export type FindGroupPreviewsQueryHookResult = ReturnType<typeof useFindGroupPre
 export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGroupPreviewsLazyQuery>;
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
+export const FindMannerTagsDocument = gql`
+    query findMannerTags {
+  findMannerTags {
+    ...mannerTag
+  }
+}
+    ${MannerTagFragmentDoc}`;
+
+/**
+ * __useFindMannerTagsQuery__
+ *
+ * To run a query within a React component, call `useFindMannerTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMannerTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMannerTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindMannerTagsQuery(baseOptions?: Apollo.QueryHookOptions<FindMannerTagsQuery, FindMannerTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMannerTagsQuery, FindMannerTagsQueryVariables>(FindMannerTagsDocument, options);
+      }
+export function useFindMannerTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMannerTagsQuery, FindMannerTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMannerTagsQuery, FindMannerTagsQueryVariables>(FindMannerTagsDocument, options);
+        }
+export function useFindMannerTagsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindMannerTagsQuery, FindMannerTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindMannerTagsQuery, FindMannerTagsQueryVariables>(FindMannerTagsDocument, options);
+        }
+export type FindMannerTagsQueryHookResult = ReturnType<typeof useFindMannerTagsQuery>;
+export type FindMannerTagsLazyQueryHookResult = ReturnType<typeof useFindMannerTagsLazyQuery>;
+export type FindMannerTagsSuspenseQueryHookResult = ReturnType<typeof useFindMannerTagsSuspenseQuery>;
+export type FindMannerTagsQueryResult = Apollo.QueryResult<FindMannerTagsQuery, FindMannerTagsQueryVariables>;
 export const FindOfferPreviewsDocument = gql`
     query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
