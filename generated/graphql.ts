@@ -1217,6 +1217,13 @@ export type FindCommentQueryVariables = Exact<{
 
 export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } | null };
 
+export type CreateDealReviewMutationVariables = Exact<{
+  input: CreateDealReviewInput;
+}>;
+
+
+export type CreateDealReviewMutation = { __typename?: 'Mutation', createDealReview: string };
+
 export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
 export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
@@ -2275,6 +2282,37 @@ export type FindCommentQueryHookResult = ReturnType<typeof useFindCommentQuery>;
 export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLazyQuery>;
 export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
 export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
+export const CreateDealReviewDocument = gql`
+    mutation createDealReview($input: CreateDealReviewInput!) {
+  createDealReview(input: $input)
+}
+    `;
+export type CreateDealReviewMutationFn = Apollo.MutationFunction<CreateDealReviewMutation, CreateDealReviewMutationVariables>;
+
+/**
+ * __useCreateDealReviewMutation__
+ *
+ * To run a mutation, you first call `useCreateDealReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDealReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDealReviewMutation, { data, loading, error }] = useCreateDealReviewMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateDealReviewMutation(baseOptions?: Apollo.MutationHookOptions<CreateDealReviewMutation, CreateDealReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateDealReviewMutation, CreateDealReviewMutationVariables>(CreateDealReviewDocument, options);
+      }
+export type CreateDealReviewMutationHookResult = ReturnType<typeof useCreateDealReviewMutation>;
+export type CreateDealReviewMutationResult = Apollo.MutationResult<CreateDealReviewMutation>;
+export type CreateDealReviewMutationOptions = Apollo.BaseMutationOptions<CreateDealReviewMutation, CreateDealReviewMutationVariables>;
 export const FindDemandPreviewsDocument = gql`
     query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
   findDemandPreviews(
