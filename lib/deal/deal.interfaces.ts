@@ -1,3 +1,4 @@
+import { MannerTagResponse } from '@/generated/graphql';
 import { UserImage } from '../image/image.interfaces';
 import { ShippingType } from '../shipping/shipping.types';
 import { DealType } from './deal.types';
@@ -28,4 +29,15 @@ export type DealReportValues = {
   position: number;
   title: string;
   content?: string;
+};
+
+export type MannerTagOption = {
+  isSelected: boolean;
+} & MannerTagResponse;
+
+export type DealReviewValues = {
+  id: string;
+  title: string;
+  content?: string;
+  mannerTagOptions: MannerTagOption[];
 };

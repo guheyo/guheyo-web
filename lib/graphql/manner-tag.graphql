@@ -1,0 +1,13 @@
+fragment mannerTag on MannerTagResponse {
+  id
+  name
+  description
+  isPositive
+  position
+}
+
+query findMannerTags {
+  findMannerTags {
+    ...mannerTag
+  }
+}

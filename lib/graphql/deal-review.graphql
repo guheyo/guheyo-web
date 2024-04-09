@@ -1,0 +1,3 @@
+mutation createDealReview($input: CreateDealReviewInput!) {
+  createDealReview(input: $input)
+}

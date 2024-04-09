@@ -1,6 +1,6 @@
 import { DealType } from './deal.types';
 
-export const parseReportedDealerId = ({
+export const parseDealerId = ({
   dealType,
   versionValues,
 }: {
