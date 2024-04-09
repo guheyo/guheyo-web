@@ -88,6 +88,7 @@ export type CreateDealReviewInput = {
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
   mannerTagIds: Array<Scalars['String']['input']>;
+  rating: Scalars['Float']['input'];
   refId: Scalars['ID']['input'];
   refVersionId: Scalars['ID']['input'];
   revieweeId: Scalars['ID']['input'];
