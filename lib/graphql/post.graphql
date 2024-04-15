@@ -1,0 +1,45 @@
+fragment post on PostResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  content
+  categoryId
+  reportCount
+  reportCommentCount
+  thumbnail
+  user {
+    ...user
+  }
+  group {
+    ...groupProfile
+  }
+  images {
+    ...image
+  }
+  
+}
+
+fragment postPreview on PostPreviewResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  content
+  groupId
+  categoryId
+  reportCount
+  reportCommentCount
+  thumbnail
+  user {
+    ...user
+  }
+}

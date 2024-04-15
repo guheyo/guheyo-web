@@ -3,14 +3,13 @@ fragment reportPreview on ReportPreviewResponse {
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
   groupId
   status
-  title
-  content
+  reason
+  description
 }
 
 fragment report on ReportResponse {
@@ -18,14 +17,13 @@ fragment report on ReportResponse {
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
   groupId
   status
-  title
-  content
+  reason
+  description
   comments {
     ...comment
   }
@@ -39,7 +37,6 @@ query findReportPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
-  $distinct: Boolean
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -48,7 +45,6 @@ query findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
-    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
