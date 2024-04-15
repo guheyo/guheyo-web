@@ -2,11 +2,8 @@ fragment comment on CommentResponse {
   id
   createdAt
   updatedAt
-  type
   parentId
   postId
-  reportId
-  auctionId
   content
 }
 
@@ -22,13 +19,11 @@ mutation UpdateComment($input: UpdateCommentInput!) {
 
 query FindComment(
   $id: ID
-  $type: String
-  $refId: ID
+  $postId: ID
 ) {
   findComment(
     id: $id
-    type: $type
-    refId: $refId
+    postId: $postId
   ) {
     ...comment
   }

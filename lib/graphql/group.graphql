@@ -1,5 +1,6 @@
-fragment productCategory on ProductCategoryResponse {
+fragment category on CategoryResponse {
   id
+  type
   name
   slug
   position
@@ -19,15 +20,8 @@ fragment group on GroupResponse {
     hexColor
     groupId
   }
-  productCategories {
-    ...productCategory
-  }
-  postCategories {
-    id
-    name
-    slug
-    description
-    position
+  categories {
+    ...category
   }
 }
 
@@ -45,11 +39,11 @@ fragment groupPreview on GroupPreviewResponse {
   description
   icon
   position
-  offers {
+  sells {
     ...offerPreview
   }
-  demands {
-    ...demandPreview
+  buys {
+    ...offerPreview
   }
 }
 
