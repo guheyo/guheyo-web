@@ -11,7 +11,9 @@ fragment post on PostResponse {
   title
   slug
   content
-  categoryId
+  category {
+    ...category
+  }
   reportCount
   reportCommentCount
   thumbnail

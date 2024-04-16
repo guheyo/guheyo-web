@@ -13,7 +13,6 @@ fragment image on UserImageResponse {
   type
   refId
   userId
-  source
 }
 
 mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
