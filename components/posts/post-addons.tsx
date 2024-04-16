@@ -2,12 +2,12 @@ import dayjs from 'dayjs';
 import ReportCommentsCount from '../reports/report-comments-count';
 import ReportsCount from '../reports/reports-count';
 
-export default function DealAddons({
-  bumpedAt,
+export default function PostAddons({
+  createdAt,
   reportCount,
   reportCommentCount,
 }: {
-  bumpedAt: Date;
+  createdAt: Date;
   reportCount: number;
   reportCommentCount: number;
 }) {
@@ -22,7 +22,7 @@ export default function DealAddons({
         <div />
       )}
       <div className="text-[10px] md:text-sm text-gray-500 md:text-gray-400">
-        {dayjs(bumpedAt).fromNow()}
+        {dayjs(createdAt).fromNow()}
       </div>
     </div>
   );

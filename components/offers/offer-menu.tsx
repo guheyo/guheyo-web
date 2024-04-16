@@ -1,32 +1,32 @@
 import * as React from 'react';
-import { DealType, DealStatus } from '@/lib/deal/deal.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import { AuthContext } from '../auth/auth.provider';
-import PrivateDealMenu from './private-deal-menu';
-import PublicDealMenu from './public-deal-menu';
 import ReportAlertDialog from '../reports/report-alert-dialog';
+import PrivateOfferMenu from './private-offer-menu';
+import PublicReportMenu from '../reports/public-report-menu';
 
-export default function DealMenu({
-  dealId,
-  dealType,
-  dealStatus,
-  authorId,
+export default function OfferMenu({
+  offerId,
+  postId,
+  offerStatus,
+  userId,
   privateOnly,
   reportCount,
   reportCommentCount,
-  isHidden,
+  archivedAt,
 }: {
-  dealId: string;
-  dealType: DealType;
-  dealStatus: DealStatus;
-  authorId: string;
+  offerId: string;
+  postId: string;
+  offerStatus: OfferStatus;
+  userId: string;
   privateOnly?: boolean;
   reportCount: number;
   reportCommentCount: number;
-  isHidden: boolean;
+  archivedAt?: Date;
 }) {
   const { jwtPayload } = React.useContext(AuthContext);
 
-  if (jwtPayload?.id === authorId) {
+  if (jwtPayload?.id === userId) {
     const uncommentedReportCount = reportCount - reportCommentCount;
     if (uncommentedReportCount > 0)
       return (
@@ -37,12 +37,10 @@ export default function DealMenu({
       );
     return (
       <div className="mr-[-24px]">
-        <PrivateDealMenu
-          dealId={dealId}
-          dealType={dealType}
-          dealStatus={dealStatus}
-          authorId={authorId}
-          isHidden={isHidden}
+        <PrivateOfferMenu
+          offerId={offerId}
+          offerStatus={offerStatus}
+          archivedAt={archivedAt}
         />
       </div>
     );
@@ -52,7 +50,7 @@ export default function DealMenu({
 
   return (
     <div className="mr-[-24px]">
-      <PublicDealMenu dealType={dealType} dealId={dealId} />
+      <PublicReportMenu type="post" refId={postId} />
     </div>
   );
 }

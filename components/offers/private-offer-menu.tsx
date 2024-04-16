@@ -4,35 +4,28 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
-import { DealType, DealStatus } from '@/lib/deal/deal.types';
-import { deleteDeal, updateDeal } from '@/lib/api/deal';
-import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { parseUpdateDealInput } from '@/lib/deal/parse-update-deal-input';
-import { parseDealLink } from '@/lib/deal/parse-deal-link';
-import { DEAL_CLOSED, DEAL_OPEN } from '@/lib/deal/deal.constants';
-import { parseDealStatusLabel } from '@/lib/deal/parse-deal-status-label';
+import { OFFER_OPEN, OFFER_CLOSED } from '@/lib/offer/offer.constants';
+import { parseOfferStatusLabel } from '@/lib/offer/parse-offer-status-label';
+import { deleteOffer, updateOffer } from '@/lib/api/offer';
+import { OfferStatus } from '@/lib/offer/offer.types';
+import { parseOfferLink } from '@/lib/offer/parse-offer-link';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 import AlertDialog from '../base/alert-dialog';
 
-export default function PrivateDealMenu({
-  dealId,
-  dealType,
-  dealStatus,
-  authorId,
-  isHidden,
+export default function PrivateOfferMenu({
+  offerId,
+  offerStatus,
+  archivedAt,
 }: {
-  dealId: string;
-  dealType: DealType;
-  dealStatus: DealStatus;
-  authorId: string;
-  isHidden: boolean;
+  offerId: string;
+  offerStatus: OfferStatus;
+  archivedAt?: Date;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const router = useRouter();
-  const device = useDeviceDetect();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -45,57 +38,43 @@ export default function PrivateDealMenu({
     setOpenAlert(false);
   };
 
-  const handleChangeDealStatus = async (
+  const handleChangeOfferStatus = async (
     event: React.MouseEvent<HTMLElement>,
-    newDealStatus: DealStatus,
+    newOfferStatus: OfferStatus,
   ) => {
     event.preventDefault();
-    const updateDealInput = parseUpdateDealInput({
-      dealType,
-      input: {
-        id: dealId,
-        status: newDealStatus,
-        source: device,
-      },
-      authorId,
+    await updateOffer({
+      id: offerId,
+      status: newOfferStatus,
+      post: {},
     });
-    await updateDeal({
-      dealType,
-      updateDealInput,
-    });
-    setAlertText(`${parseDealStatusLabel(newDealStatus)} 상태로 변경되었어요!`);
+    setAlertText(
+      `${parseOfferStatusLabel(newOfferStatus)} 상태로 변경되었어요!`,
+    );
     setOpenAlert(true);
   };
 
   const handleHidden = async (
     event: React.MouseEvent<HTMLElement>,
-    newIsHidden: boolean,
+    isArchived: boolean,
   ) => {
     event.preventDefault();
-    const updateDealInput = parseUpdateDealInput({
-      dealType,
-      input: {
-        id: dealId,
-        isHidden: newIsHidden,
-        source: device,
+    await updateOffer({
+      id: offerId,
+      post: {
+        archivedAt: isArchived ? new Date() : undefined,
       },
-      authorId,
     });
-    await updateDeal({
-      dealType,
-      updateDealInput,
-    });
-    setAlertText(`${newIsHidden ? '보관되었어요!' : '꺼냈어요!'}`);
+    setAlertText(`${isArchived ? '보관되었어요!' : '꺼냈어요!'}`);
     setOpenAlert(true);
   };
 
   const handleEditClick: React.MouseEventHandler = (event) => {
     event.preventDefault();
     router.push(
-      parseDealLink({
+      parseOfferLink({
         action: 'edit',
-        dealType,
-        dealId,
+        offerId,
       }),
     );
   };
@@ -103,21 +82,16 @@ export default function PrivateDealMenu({
   const handleBumpClick: React.MouseEventHandler = async (event) => {
     event.preventDefault();
     router.push(
-      parseDealLink({
+      parseOfferLink({
         action: 'bump',
-        dealType,
-        dealId,
+        offerId,
       }),
     );
   };
 
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
-    await deleteDeal({
-      dealType,
-      id: dealId,
-      authorId,
-    });
+    await deleteOffer(offerId);
     setAlertText('삭제되었어요!');
     setOpenAlert(true);
   };
@@ -145,28 +119,28 @@ export default function PrivateDealMenu({
         <MenuItem onClick={handleEditClick} sx={{ justifyContent: 'center' }}>
           글 수정
         </MenuItem>
-        {!isHidden && dealStatus === DEAL_OPEN && (
+        {!archivedAt && offerStatus === OFFER_OPEN && (
           <MenuItem onClick={handleBumpClick} sx={{ justifyContent: 'center' }}>
             끌올
           </MenuItem>
         )}
-        {!isHidden && dealStatus === DEAL_CLOSED && (
+        {!archivedAt && offerStatus === OFFER_CLOSED && (
           <MenuItem
-            onClick={(e) => handleChangeDealStatus(e, DEAL_OPEN)}
+            onClick={(e) => handleChangeOfferStatus(e, OFFER_OPEN)}
             sx={{ justifyContent: 'center' }}
           >
             거래 가능
           </MenuItem>
         )}
-        {!isHidden && dealStatus === DEAL_OPEN && (
+        {!archivedAt && offerStatus === OFFER_OPEN && (
           <MenuItem
-            onClick={(e) => handleChangeDealStatus(e, DEAL_CLOSED)}
+            onClick={(e) => handleChangeOfferStatus(e, OFFER_CLOSED)}
             sx={{ justifyContent: 'center' }}
           >
             거래 완료
           </MenuItem>
         )}
-        {!isHidden && (
+        {!archivedAt && (
           <MenuItem
             onClick={(e) => handleHidden(e, true)}
             sx={{ justifyContent: 'center' }}
@@ -174,7 +148,7 @@ export default function PrivateDealMenu({
             보관
           </MenuItem>
         )}
-        {isHidden && (
+        {archivedAt && (
           <MenuItem
             onClick={(e) => handleHidden(e, false)}
             sx={{ justifyContent: 'center' }}

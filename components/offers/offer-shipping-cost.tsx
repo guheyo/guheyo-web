@@ -1,7 +1,7 @@
 import { parseShippingCost } from '@/lib/shipping/parse-shipping-cost';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 
-export default function DealShippingCost({
+export default function OfferShippingCost({
   shippingCost,
   shippingType,
 }: {

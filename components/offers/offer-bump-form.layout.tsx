@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-export default function DealBumpFormLayout({
+export default function OfferBumpFormLayout({
   children,
 }: {
   children: ReactNode;

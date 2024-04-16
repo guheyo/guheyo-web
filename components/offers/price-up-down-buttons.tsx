@@ -1,7 +1,7 @@
 import {
   PRICE_DOWN_BUTTON_STYLE,
   PRICE_UP_BUTTON_STYLE,
-} from '@/lib/deal/deal.styles';
+} from '@/lib/offer/offer.styles';
 import { MouseEventHandler } from 'react';
 
 export const UP_DOWN_PRICE_UNIT = 5000;

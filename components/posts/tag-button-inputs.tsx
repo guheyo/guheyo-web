@@ -1,17 +1,17 @@
 'use client';
 
-import { MannerTagOption } from '@/lib/deal/deal.interfaces';
+import { TagOption } from '@/lib/offer/offer.interfaces';
 
-export default function MannerTagButtonInputs({
-  mannerTagOptions,
+export default function TagButtonInputs({
+  tagOptions,
   handleClick,
 }: {
-  mannerTagOptions: MannerTagOption[];
+  tagOptions: TagOption[];
   handleClick: (index: number) => void;
 }) {
   return (
     <div className="grid grid-cols-12 gap-2">
-      {mannerTagOptions.map((tag, index) => (
+      {tagOptions.map((tag, index) => (
         <button
           type="button"
           key={tag.id}

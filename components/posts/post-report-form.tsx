@@ -3,10 +3,9 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useContext, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
-import { DealReportValues } from '@/lib/deal/deal.interfaces';
+import { ReportFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
-import { DealType } from '@/lib/deal/deal.types';
-import { parseDealReportFormTitle } from '@/lib/deal/parse-deal-report-form-title';
+import { parseReportFormTitle } from '@/lib/post/parse-report-form-title';
 import { REPORT_REASONS } from '@/lib/report/report.constants';
 import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { CreateReportInput } from '@/generated/graphql';
@@ -15,34 +14,30 @@ import { AuthContext } from '../auth/auth.provider';
 import AccordionInput from '../inputs/accordion-input';
 import ReportSubmitButton from '../reports/report-submit-button';
 
-export default function DealReportForm({
-  dealType,
-  dealId,
-  refVersionId,
-  dealName,
+export default function PostReportForm({
+  reportedPostId,
+  title,
   reportedUserId,
   groupId,
 }: {
-  dealType: DealType;
-  dealId: string;
-  refVersionId: string;
-  dealName: string;
+  reportedPostId: string;
+  title: string;
   reportedUserId: string;
   groupId: string;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
 
-  const { handleSubmit, control, setValue, watch } = useForm<DealReportValues>({
+  const { handleSubmit, control, setValue, watch } = useForm<ReportFormValues>({
     defaultValues: {
       id: '',
       position: undefined,
-      title: '',
-      content: '',
+      reason: '',
+      description: '',
     },
   });
 
-  // Init DealReportValues
+  // Init OfferReportFormValues
   useEffect(() => {
     if (!jwtPayload) return;
 
@@ -52,29 +47,27 @@ export default function DealReportForm({
 
   const onClickTitle = (position: number) => {
     setValue('position', position);
-    setValue('title', REPORT_REASONS[position].title);
-    setValue('content', REPORT_REASONS[position].content);
+    setValue('reason', REPORT_REASONS[position].reason);
+    setValue('description', REPORT_REASONS[position].description);
   };
 
-  const handleSubmitValid: SubmitHandler<DealReportValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<ReportFormValues> = async (values) => {
     if (!jwtPayload) return;
 
     const input: CreateReportInput = {
       id: values.id,
-      type: dealType,
-      refId: dealId,
-      refVersionId,
-      authorId: jwtPayload.id,
-      title: values.title,
-      content: values.content,
+      type: 'post',
+      reportedPostId,
       reportedUserId,
+      reason: values.reason,
+      description: values.description,
       groupId,
     };
     await createReport(input);
     router.back();
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealReportValues> = (
+  const handleSubmitError: SubmitErrorHandler<ReportFormValues> = (
     errors,
     event,
   ) => {
@@ -87,7 +80,7 @@ export default function DealReportForm({
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-xl text-light-200 font-bold">
-        {parseDealReportFormTitle(dealName)}
+        {parseReportFormTitle(title)}
       </div>
 
       <AccordionInput
@@ -98,7 +91,7 @@ export default function DealReportForm({
         }}
         detailProps={{
           controlProps: {
-            name: 'content',
+            name: 'description',
             control,
           },
         }}
