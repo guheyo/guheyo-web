@@ -5,28 +5,26 @@ fragment post on PostResponse {
   archivedAt
   pending
   type
-  offerId
-  auctionId
-  userReviewId
   title
   slug
   content
-  category {
-    ...category
-  }
+  thumbnail
   reportCount
   reportCommentCount
-  thumbnail
-  user {
-    ...author
-  }
-  group {
-    ...groupProfile
-  }
   images {
     ...image
   }
-  
+  groupId
+  group {
+    ...groupProfile
+  }
+  categoryId
+  category {
+    ...category
+  }
+  user {
+    ...author
+  }
 }
 
 fragment postPreview on PostPreviewResponse {
@@ -36,17 +34,14 @@ fragment postPreview on PostPreviewResponse {
   archivedAt
   pending
   type
-  offerId
-  auctionId
-  userReviewId
   title
   slug
   content
+  thumbnail
   groupId
   categoryId
   reportCount
   reportCommentCount
-  thumbnail
   user {
     ...user
   }
