@@ -5,6 +5,9 @@ fragment post on PostResponse {
   archivedAt
   pending
   type
+  offerId
+  auctionId
+  userReviewId
   title
   slug
   content
@@ -13,7 +16,7 @@ fragment post on PostResponse {
   reportCommentCount
   thumbnail
   user {
-    ...user
+    ...author
   }
   group {
     ...groupProfile
@@ -31,6 +34,9 @@ fragment postPreview on PostPreviewResponse {
   archivedAt
   pending
   type
+  offerId
+  auctionId
+  userReviewId
   title
   slug
   content
@@ -41,5 +47,15 @@ fragment postPreview on PostPreviewResponse {
   thumbnail
   user {
     ...user
+  }
+}
+
+query findPostPreview(
+  $id: ID!
+) {
+  findPostPreview(
+    id: $id
+  ) {
+    ...postPreview
   }
 }
