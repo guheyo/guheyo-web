@@ -9,22 +9,20 @@ import {
 } from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, WheelEventHandler, useEffect } from 'react';
-import { findDefaultProductCategory } from '@/lib/group/find-default-product-category';
 import {
-  DEAL_AUTO_SAVE_INTERVAL_MS,
-  DEAL_CATEGORY_LABEL_NAME,
-  DEAL_DESCRIPTION_LABEL_NAME,
-  DEAL_DESCRIPTION_REQUIRED_MESSAGE,
-  DEAL_EDIT_SUBMIT_BUTTON_NAME,
-  DEAL_IMAGE_UPLOAD_LABEL_NAME,
-  DEAL_NAME,
-  DEAL_NAME_PLACEHOLDER,
-  DEAL_NAME_REQUIRED_MESSAGE,
-  DEAL_PRICE_REQUIRED_MESSAGE,
-  DEAL_TYPE_LABEL_NAME,
-  DEAL_WRITE_SUBMIT_BUTTON_NAME,
-} from '@/lib/deal/deal.constants';
-import { parseDealDescriptionPlaceholder } from '@/lib/deal/parse-deal-description-placeholder';
+  OFFER_AUTO_SAVE_INTERVAL_MS,
+  OFFER_CATEGORY_LABEL_NAME,
+  OFFER_DESCRIPTION_LABEL_NAME,
+  OFFER_DESCRIPTION_REQUIRED_MESSAGE,
+  OFFER_EDIT_SUBMIT_BUTTON_NAME,
+  OFFER_IMAGE_UPLOAD_LABEL_NAME,
+  OFFER_NAME,
+  OFFER_NAME_PLACEHOLDER,
+  OFFER_NAME_REQUIRED_MESSAGE,
+  OFFER_PRICE_REQUIRED_MESSAGE,
+  OFFER_TYPE_LABEL_NAME,
+  OFFER_WRITE_SUBMIT_BUTTON_NAME,
+} from '@/lib/offer/offer.constants';
 import {
   DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
   DEFAULT_INPUT_TEXT_COLOR,
@@ -43,19 +41,21 @@ import {
   SWAP_NAME1_PLACEHOLDER,
   SWAP_NAME1_REQUIRED_MESSAGE,
 } from '@/lib/swap/swap.constants';
-import { DealFormValues } from '@/lib/deal/deal.interfaces';
 import secureLocalStorage from 'react-secure-storage';
 import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
-import { parseDealTypeButtonOptions } from '@/lib/deal/parse-deal-options';
 import { GroupResponse } from '@/generated/graphql';
-import { parseDealPriceName } from '@/lib/deal/parse-deal-price-name';
 import {
   SHIPPING_COST_LABEL_NAME,
   SHIPPING_FREE,
   SHIPPING_TYPE_LABEL_NAME,
   SHIPPING_TYPE_OPTIONS,
 } from '@/lib/shipping/shipping.constants';
+import { OfferFormValues } from '@/lib/offer/offer.interfaces';
+import { findDefaultCategory } from '@/lib/group/find-default-category';
+import { parseBusinessFunctionButtonOptions } from '@/lib/offer/parse-offer-options';
+import { parseOfferPriceName } from '@/lib/offer/parse-offer-price-name';
+import { parseOfferContentPlaceholder } from '@/lib/offer/parse-offer-content-placeholder';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -69,37 +69,38 @@ import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
-export default function DealForm({
+export default function OfferForm({
   localStorageKey,
-  authorId,
+  userId,
   group,
   prevFormValues,
   handleSubmitValid,
   onClickImagePreviewCallback,
 }: {
   localStorageKey: string;
-  authorId?: string;
+  userId?: string;
   group: GroupResponse;
-  prevFormValues?: DealFormValues;
-  handleSubmitValid: SubmitHandler<DealFormValues>;
+  prevFormValues?: OfferFormValues;
+  handleSubmitValid: SubmitHandler<OfferFormValues>;
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
   const device = useDeviceDetect();
 
   const { handleSubmit, control, watch, setValue, reset } =
-    useForm<DealFormValues>({
+    useForm<OfferFormValues>({
       defaultValues: {
         id: '',
         groupId: group.id,
         images: [],
-        name0: '',
-        dealType: 'offer',
-        productCategoryId: '',
+        title: undefined,
+        content: undefined,
+        name0: undefined,
+        name1: undefined,
+        businessFunction: 'sell',
+        categoryId: '',
         price: undefined,
         shippingCost: 0,
         shippingType: SHIPPING_FREE,
-        description: '',
-        source: '',
       },
     });
 
@@ -108,48 +109,44 @@ export default function DealForm({
     name: 'images',
   });
 
-  const dealId = watch('id');
+  const offerId = watch('id');
   const images = watch('images');
-  const dealType = watch('dealType');
-  const productCategoryId = watch('productCategoryId');
+  const businessFunction = watch('businessFunction');
+  const categoryId = watch('categoryId');
   const shippingType = watch('shippingType');
 
-  // Init DealFormValues
+  // Init OfferFormValues
   useEffect(() => {
-    if (dealId || !authorId) return;
+    if (offerId || !userId) return;
 
     const tempValues = secureLocalStorage.getItem(
       localStorageKey,
-    ) as DealFormValues | null;
+    ) as OfferFormValues | null;
     if (tempValues) {
       reset(tempValues);
     } else if (prevFormValues) {
       reset(prevFormValues);
     } else {
       setValue('groupId', group.id);
-      setValue('source', device);
       const newId = uuid4();
       setValue('id', newId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, authorId, prevFormValues]);
+  }, [offerId, userId, prevFormValues]);
 
-  // Init default productCategoryId
+  // Init default categoryId
   useEffect(() => {
-    if (!productCategoryId)
-      setValue(
-        'productCategoryId',
-        findDefaultProductCategory(group.productCategories)?.id || '',
-      );
+    if (!categoryId)
+      setValue('categoryId', findDefaultCategory(group.categories)?.id || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group.productCategories]);
+  }, [group.categories]);
 
   const updateValues = () => {
-    if (!dealId || !authorId) return;
+    if (!offerId || !userId) return;
 
     const tempValues = secureLocalStorage.getItem(
       localStorageKey,
-    ) as DealFormValues | null;
+    ) as OfferFormValues | null;
     const currentValues = watch();
     const notChanged =
       JSON.stringify(tempValues) === JSON.stringify(currentValues);
@@ -159,23 +156,23 @@ export default function DealForm({
   };
 
   useEffect(() => {
-    const intervalId = setInterval(updateValues, DEAL_AUTO_SAVE_INTERVAL_MS);
+    const intervalId = setInterval(updateValues, OFFER_AUTO_SAVE_INTERVAL_MS);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dealId, authorId, localStorageKey]);
+  }, [offerId, userId, localStorageKey]);
 
   if (!group) return <div />;
 
   const handleChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
-      e.target.name as FieldPath<DealFormValues>,
+      e.target.name as FieldPath<OfferFormValues>,
       parseInt(e.target.value, 10),
     );
   };
 
   const handleChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
-    if (!authorId) return;
+    if (!userId) return;
 
     const uploadedImages = parseUploadedImages({
       files,
@@ -184,10 +181,9 @@ export default function DealForm({
 
     const userImages = await uploadAndSaveImages({
       uploadedImages,
-      type: dealType,
-      userId: authorId,
-      dealId,
-      device,
+      type: businessFunction,
+      refId: offerId,
+      userId,
     });
 
     userImages.map((userImage) =>
@@ -204,7 +200,7 @@ export default function DealForm({
     remove(position);
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealFormValues> = (
+  const handleSubmitError: SubmitErrorHandler<OfferFormValues> = (
     errors,
     event,
   ) => {
@@ -233,11 +229,11 @@ export default function DealForm({
         control={control}
         rules={{
           required:
-            dealType === 'demand' ? false : IMAGE_UPLOAD_REQUIRED_MESSAGE,
+            businessFunction === 'buy' ? false : IMAGE_UPLOAD_REQUIRED_MESSAGE,
         }}
         imagesInputProps={{
           label: {
-            name: DEAL_IMAGE_UPLOAD_LABEL_NAME,
+            name: OFFER_IMAGE_UPLOAD_LABEL_NAME,
             style: MOBILE_FILE_INPUT_LABEL_STYLE,
           },
           icon: {
@@ -258,20 +254,20 @@ export default function DealForm({
         }}
       />
 
-      {dealType !== 'swap' ? (
+      {businessFunction !== 'swap' ? (
         <TextInput
           name="name0"
           control={control}
-          rules={{ required: DEAL_NAME_REQUIRED_MESSAGE }}
+          rules={{ required: OFFER_NAME_REQUIRED_MESSAGE }}
           textInputProps={{
             label: {
-              name: DEAL_NAME,
+              name: OFFER_NAME,
               style: DEFAULT_LABEL_STYLE,
             },
           }}
           textFieldProps={{
             variant: 'outlined',
-            placeholder: DEAL_NAME_PLACEHOLDER,
+            placeholder: OFFER_NAME_PLACEHOLDER,
             InputProps: {
               sx: {
                 color: DEFAULT_INPUT_TEXT_COLOR,
@@ -340,16 +336,16 @@ export default function DealForm({
       )}
 
       <ButtonInputs
-        name="dealType"
+        name="businessFunction"
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
-          options: parseDealTypeButtonOptions({
-            dealType,
+          options: parseBusinessFunctionButtonOptions({
+            businessFunction,
             multiple: !prevFormValues,
           }),
           label: {
-            name: DEAL_TYPE_LABEL_NAME,
+            name: OFFER_TYPE_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
           button: {
@@ -360,17 +356,17 @@ export default function DealForm({
       />
 
       <ButtonInputs
-        name="productCategoryId"
+        name="categoryId"
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
-          options: group.productCategories.map((category) => ({
+          options: group.categories.map((category) => ({
             value: category.id,
             label: category.name,
-            selected: productCategoryId === category.id,
+            selected: categoryId === category.id,
           })),
           label: {
-            name: DEAL_CATEGORY_LABEL_NAME,
+            name: OFFER_CATEGORY_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
           button: {
@@ -405,10 +401,10 @@ export default function DealForm({
           name="shippingCost"
           control={control}
           rules={{
-            required: DEAL_PRICE_REQUIRED_MESSAGE,
+            required: OFFER_PRICE_REQUIRED_MESSAGE,
             pattern: {
               value: /^\d+$/,
-              message: DEAL_PRICE_REQUIRED_MESSAGE,
+              message: OFFER_PRICE_REQUIRED_MESSAGE,
             },
             min: 0,
           }}
@@ -443,16 +439,16 @@ export default function DealForm({
         name="price"
         control={control}
         rules={{
-          required: DEAL_PRICE_REQUIRED_MESSAGE,
+          required: OFFER_PRICE_REQUIRED_MESSAGE,
           pattern: {
             value: /^\d+$/,
-            message: DEAL_PRICE_REQUIRED_MESSAGE,
+            message: OFFER_PRICE_REQUIRED_MESSAGE,
           },
           min: 0,
         }}
         textInputProps={{
           label: {
-            name: parseDealPriceName(dealType),
+            name: parseOfferPriceName(businessFunction),
             style: DEFAULT_LABEL_STYLE,
           },
           onChange: handleChangeNumberInput,
@@ -460,7 +456,7 @@ export default function DealForm({
         textFieldProps={{
           type: 'number',
           variant: 'outlined',
-          placeholder: parseDealPriceName(dealType),
+          placeholder: parseOfferPriceName(businessFunction),
           InputProps: {
             startAdornment: <div className="pr-2">₩</div>,
             sx: {
@@ -477,21 +473,21 @@ export default function DealForm({
       />
 
       <TextInput
-        name="description"
+        name="content"
         control={control}
-        rules={{ required: DEAL_DESCRIPTION_REQUIRED_MESSAGE }}
+        rules={{ required: OFFER_DESCRIPTION_REQUIRED_MESSAGE }}
         textInputProps={{
           label: {
-            name: DEAL_DESCRIPTION_LABEL_NAME,
+            name: OFFER_DESCRIPTION_LABEL_NAME,
             style: DEFAULT_LABEL_STYLE,
           },
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: parseDealDescriptionPlaceholder({
-            dealType,
-            productCategories: group.productCategories,
-            productCategoryId,
+          placeholder: parseOfferContentPlaceholder({
+            businessFunction,
+            categories: group.categories,
+            categoryId,
           }),
           InputProps: {
             sx: {
@@ -511,7 +507,7 @@ export default function DealForm({
       {prevFormValues ? (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
-            name={DEAL_EDIT_SUBMIT_BUTTON_NAME}
+            name={OFFER_EDIT_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}
           />
@@ -519,7 +515,7 @@ export default function DealForm({
       ) : (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialog
-            name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
+            name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}
           />

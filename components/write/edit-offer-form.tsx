@@ -1,22 +1,22 @@
 'use client';
 
 import { SubmitHandler } from 'react-hook-form';
-import { DealFormValues } from '@/lib/deal/deal.interfaces';
+import { OfferFormValues } from '@/lib/offer/offer.interfaces';
 import { deleteUserImage } from '@/lib/api/user-image';
-import { parseUpdateDealInputFromFormValues } from '@/lib/deal/parse-update-deal-input';
 import { useFindGroupQuery } from '@/generated/graphql';
-import { updateDeal } from '@/lib/api/deal';
 import { useContext } from 'react';
-import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
+import { parseTempOfferFormKey } from '@/lib/offer/parse-temp-offer-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import DealForm from './deal-form';
+import { updateOffer } from '@/lib/api/offer';
+import parseUpdateOfferInput from '@/lib/offer/parse-update-offer-input';
 import { AuthContext } from '../auth/auth.provider';
+import OfferForm from './offer-form';
 
-export default function EditDealForm({
+export default function EditOfferForm({
   prevFormValues,
 }: {
-  prevFormValues: DealFormValues;
+  prevFormValues: OfferFormValues;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
@@ -26,22 +26,18 @@ export default function EditDealForm({
     },
   });
 
-  const localStorageKey = parseTempDealFormKey({
+  const localStorageKey = parseTempOfferFormKey({
     userId: jwtPayload?.id || 'ghost',
-    prevDealId: prevFormValues.id,
+    offerId: prevFormValues.id,
   });
 
-  const handleSubmitValid: SubmitHandler<DealFormValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<OfferFormValues> = async (values) => {
     if (!jwtPayload) return;
 
-    const input = parseUpdateDealInputFromFormValues({
-      authorId: jwtPayload.id,
-      dealFormValues: values,
+    const input = parseUpdateOfferInput({
+      offerFormValues: values,
     });
-    await updateDeal({
-      dealType: values.dealType,
-      updateDealInput: input,
-    });
+    await updateOffer(input);
 
     secureLocalStorage.removeItem(localStorageKey);
     router.back();
@@ -55,9 +51,9 @@ export default function EditDealForm({
   if (!data?.findGroup) return <div />;
 
   return (
-    <DealForm
+    <OfferForm
       localStorageKey={localStorageKey}
-      authorId={jwtPayload?.id}
+      userId={jwtPayload?.id}
       group={data.findGroup}
       prevFormValues={prevFormValues}
       handleSubmitValid={handleSubmitValid}

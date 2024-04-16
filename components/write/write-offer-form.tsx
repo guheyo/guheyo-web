@@ -1,57 +1,53 @@
 'use client';
 
 import { SubmitHandler } from 'react-hook-form';
-import { DealFormValues } from '@/lib/deal/deal.interfaces';
-import parseCreateDealInput from '@/lib/deal/parse-create-deal-input';
-import createDeal from '@/lib/deal/create-deal';
+import { OfferFormValues } from '@/lib/offer/offer.interfaces';
 import { deleteUserImage } from '@/lib/api/user-image';
 import { GroupResponse } from '@/generated/graphql';
 import { useContext, useState } from 'react';
-import { parseTempDealFormKey } from '@/lib/deal/parse-temp-deal-form-key';
+import { parseTempOfferFormKey } from '@/lib/offer/parse-temp-offer-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import { findProductCategory } from '@/lib/group/find-product-category';
-import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
-import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
-import DealForm from './deal-form';
+import { findCategory } from '@/lib/group/find-category';
+import { parseOfferTermAlertMessage } from '@/lib/offer/parse-offer-term-alert-message';
+import { isPostingLimitExceededError } from '@/lib/post/is-posting-limit-exceeded-error';
+import parseCreateOfferInput from '@/lib/offer/parse-create-offer-input';
+import { createOffer } from '@/lib/api/offer';
 import { AuthContext } from '../auth/auth.provider';
 import AlertDialog from '../base/alert-dialog';
+import OfferForm from './offer-form';
 
-export default function WriteDealForm({ group }: { group: GroupResponse }) {
+export default function WriteOfferForm({ group }: { group: GroupResponse }) {
   const { jwtPayload } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const router = useRouter();
-  const localStorageKey = parseTempDealFormKey({
+  const localStorageKey = parseTempOfferFormKey({
     userId: jwtPayload?.id || 'ghost',
     groupSlug: group.slug,
   });
 
-  const handleSubmitValid: SubmitHandler<DealFormValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<OfferFormValues> = async (values) => {
     if (!jwtPayload) return;
 
-    const input = parseCreateDealInput({
-      authorId: jwtPayload.id,
-      dealFormValues: values,
+    const input = parseCreateOfferInput({
+      offerFormValues: values,
     });
 
     try {
-      await createDeal({
-        dealType: values.dealType,
-        createDealInput: input,
-      });
+      await createOffer(input);
       secureLocalStorage.removeItem(localStorageKey);
       router.back();
     } catch (e: any) {
       if (isPostingLimitExceededError(e.message)) {
-        const category = findProductCategory(group.productCategories, {
-          id: values.productCategoryId,
+        const category = findCategory(group.categories, {
+          id: values.categoryId,
         });
         if (!category) return;
 
-        const message = parseDealTermAlertMessage({
-          dealType: values.dealType,
-          productCategoryName: category.name,
+        const message = parseOfferTermAlertMessage({
+          businessFunction: values.businessFunction,
+          categoryName: category.name,
         });
         setAlertMessage(message);
         setOpen(true);
@@ -69,9 +65,9 @@ export default function WriteDealForm({ group }: { group: GroupResponse }) {
 
   return (
     <>
-      <DealForm
+      <OfferForm
         localStorageKey={localStorageKey}
-        authorId={jwtPayload?.id}
+        userId={jwtPayload?.id}
         group={group}
         handleSubmitValid={handleSubmitValid}
         onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
