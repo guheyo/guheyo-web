@@ -1,15 +1,12 @@
-import { DealType } from '@/lib/deal/deal.types';
-import { parseDealDetailLink } from '@/lib/deal/parse-deal-detail-link';
+import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 
 export default function RecentVersionLink({
   versionCreatedAt,
-  dealType,
   slug,
 }: {
   versionCreatedAt: Date;
-  dealType: DealType;
   slug: string;
 }) {
   return (
@@ -20,8 +17,7 @@ export default function RecentVersionLink({
         )} 수정)을 보고 있어요`}
       </div>
       <Link
-        href={parseDealDetailLink({
-          dealType,
+        href={parseOfferDetailLink({
           slug,
         })}
         className="text-star-500 font-semibold"

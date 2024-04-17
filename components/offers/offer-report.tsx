@@ -23,7 +23,7 @@ export default function OfferReport({ slug }: { slug: string }) {
   const where: FindReportPreviewsWhereArgs = {
     type: 'offer',
     refId: offer.id,
-    reportedUserId: offer.seller.id,
+    reportedUserId: offer.post.user.id,
   };
   const orderBy: FindReportPreviewsOrderByArgs = {
     createdAt: 'asc',
@@ -32,9 +32,9 @@ export default function OfferReport({ slug }: { slug: string }) {
   return (
     <>
       <ReportHeader
-        name={offer.name}
+        title={offer.post.title}
         price={offer.price}
-        author={offer.seller}
+        author={offer.post.user}
         updatedAt={offer.updatedAt}
       />
       <ReportFeed where={where} orderBy={orderBy} />

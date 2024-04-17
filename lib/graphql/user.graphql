@@ -62,7 +62,6 @@ fragment myUser on MyUserResponse {
 query findUser(
   $provider: String
   $socialId: String
-  $ionToken: String
   $username: String
 ) {
   findUser(provider: $provider, socialId: $socialId, username: $username) {

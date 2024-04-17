@@ -5,11 +5,10 @@ import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutline
 import PaidIcon from '@mui/icons-material/Paid';
 import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
-import { parseGroupMarketLink } from '@/lib/deal/parse-group-market-link';
+import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
 import GroupInfo from './group-info';
 import GroupJoinButton from './gorup-join-button';
 import OfferPreview from '../offers/offer-preview';
-import DemandPreview from '../demands/demand-preview';
 
 interface Props {
   group: GroupPreviewFragment;
@@ -28,7 +27,7 @@ export default function GroupPreview({ group }: Props) {
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
-            dealType: 'offer',
+            businessFunction: 'sell',
           })}
         >
           <span className="flex flex-row items-center gap-1">
@@ -38,15 +37,15 @@ export default function GroupPreview({ group }: Props) {
         </Link>
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
-        {group.offers.map((offer) => (
-          <OfferPreview key={offer.id} offer={offer} type="thumbnail" />
+        {group.sells.map((sellOffer) => (
+          <OfferPreview key={sellOffer.id} offer={sellOffer} type="thumbnail" />
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
-            dealType: 'offer',
+            businessFunction: 'sell',
           })}
         >
           <span className="flex flex-row items-center gap-1">
@@ -63,7 +62,7 @@ export default function GroupPreview({ group }: Props) {
           <Link
             href={parseGroupMarketLink({
               groupSlug: group.slug!,
-              dealType: 'demand',
+              businessFunction: 'buy',
             })}
           >
             {group.name} 삽니다
@@ -71,15 +70,15 @@ export default function GroupPreview({ group }: Props) {
         </div>
       </div>
       <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
-        {group.demands.map((demand) => (
-          <DemandPreview key={demand.id} demand={demand} type="text" />
+        {group.buys.map((buyOffer) => (
+          <OfferPreview key={buyOffer.id} offer={buyOffer} type="text" />
         ))}
       </div>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
-            dealType: 'demand',
+            businessFunction: 'buy',
           })}
         >
           <span className="flex flex-row items-center gap-1">
