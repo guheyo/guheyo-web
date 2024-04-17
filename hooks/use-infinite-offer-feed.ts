@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 import {
   FindOffersWhereArgs,
   FindOffersOrderByArgs,
-} from '@/interfaces/deal.interfaces';
+} from '@/interfaces/offer.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteOfferFeed = ({
