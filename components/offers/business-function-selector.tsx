@@ -33,7 +33,7 @@ export default function BusinessFunctionSelector({
 
   return (
     <BaseSelector
-      name="deal"
+      name="offer"
       selectedValue={businessFunction}
       options={OFFER_OPTIONS}
       inputClassName="className: 'px-3 py-2 text-xs md:text-base"

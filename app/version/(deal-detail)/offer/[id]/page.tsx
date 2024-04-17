@@ -1,6 +1,6 @@
 'use client';
 
-import DealVersionDetail from '@/components/deals/deal-version-detail';
+import OfferVersionDetail from '@/components/deals/deal-version-detail';
 import { useFindVersionQuery } from '@/generated/graphql';
 
 function Page({
@@ -22,10 +22,10 @@ function Page({
   const version = data.findVersion;
 
   return (
-    <DealVersionDetail
+    <OfferVersionDetail
       versionCreatedAt={version.createdAt}
       images={version.images}
-      dealType="offer"
+      businessFunction="offer"
       dealStatus={version.values.status}
       name0={version.values.name}
       slug={version.values.slug!}

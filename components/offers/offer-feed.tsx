@@ -7,7 +7,7 @@ import OfferPreview from '@/components/offers/offer-preview';
 import {
   FindOffersOrderByArgs,
   FindOffersWhereArgs,
-} from '@/interfaces/deal.interfaces';
+} from '@/interfaces/offer.interfaces';
 import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
@@ -37,7 +37,7 @@ function OfferFeed({
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
-
+console.log(where);
   useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteOfferFeed({
