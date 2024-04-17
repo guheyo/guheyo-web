@@ -8,47 +8,42 @@ import {
 } from 'react-hook-form';
 import { MouseEventHandler, useContext, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
-import { DealReviewValues } from '@/lib/deal/deal.interfaces';
+import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
-import { DealType } from '@/lib/deal/deal.types';
 import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
-import { MannerTagResponse } from '@/generated/graphql';
-import { parseDealReviewFormTitle } from '@/lib/deal/parse-deal-review-form-title';
-import { DEAL_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/deal/deal.constants';
+import { TagResponse } from '@/generated/graphql';
+import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-form-title';
+import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
-import MannerTagButtonInputs from './manner-tag-button-inputs';
+import TagButtonInputs from '../posts/tag-button-inputs';
 
-export default function DealReviewForm({
-  dealType,
-  dealId,
-  refVersionId,
+export default function UserReviewForm({
+  offerId,
   dealName,
-  revieweeId,
+  reviewedUserId,
   groupId,
-  mannerTags,
+  tags,
 }: {
-  dealType: DealType;
-  dealId: string;
-  refVersionId: string;
+  offerId: string;
   dealName: string;
-  revieweeId: string;
+  reviewedUserId: string;
   groupId: string;
-  mannerTags: MannerTagResponse[];
+  tags: TagResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
 
   const { handleSubmit, setValue, getValues, control } =
-    useForm<DealReviewValues>({
+    useForm<UserReviewFormValues>({
       defaultValues: {
         id: '',
         title: '',
         content: '',
-        mannerTagOptions: mannerTags.map((tag) => ({
+        tagOptions: tags.map((tag) => ({
           id: tag.id,
+          type: tag.type,
           name: tag.name,
-          isPositive: tag.isPositive,
           isSelected: false,
         })),
       },
@@ -56,11 +51,11 @@ export default function DealReviewForm({
 
   const { update } = useFieldArray({
     control,
-    name: 'mannerTagOptions',
+    name: 'tagOptions',
   });
 
-  const mannerTagOptions = getValues('mannerTagOptions');
-  // Init DealReportValues
+  const tagOptions = getValues('tagOptions');
+  // Init OfferReportFormValues
   useEffect(() => {
     if (!jwtPayload) return;
 
@@ -68,14 +63,16 @@ export default function DealReviewForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jwtPayload]);
 
-  const handleSubmitValid: SubmitHandler<DealReviewValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<UserReviewFormValues> = async (
+    values,
+  ) => {
     if (!jwtPayload) return;
 
     // TODO
     router.back();
   };
 
-  const handleSubmitError: SubmitErrorHandler<DealReviewValues> = (
+  const handleSubmitError: SubmitErrorHandler<UserReviewFormValues> = (
     errors,
     event,
   ) => {
@@ -83,7 +80,7 @@ export default function DealReviewForm({
   };
 
   const handleTagClick = (index: number) => {
-    const tag = getValues(`mannerTagOptions.${index}`);
+    const tag = getValues(`tagOptions.${index}`);
     update(index, {
       ...tag,
       isSelected: !tag.isSelected,
@@ -104,17 +101,14 @@ export default function DealReviewForm({
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-xl text-light-200 font-bold">
-        {parseDealReviewFormTitle(dealName)}
+        {parseUserReviewFormTitle(dealName)}
       </div>
 
-      <MannerTagButtonInputs
-        mannerTagOptions={mannerTagOptions}
-        handleClick={handleTagClick}
-      />
+      <TagButtonInputs tagOptions={tagOptions} handleClick={handleTagClick} />
 
       <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialog
-          name={DEAL_WRITE_SUBMIT_BUTTON_NAME}
+          name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
           onAuthorization={handleAuthorization}
           onUnAuthorization={handleUnAuthorization}
         />

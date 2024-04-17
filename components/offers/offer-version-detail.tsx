@@ -1,16 +1,15 @@
 'use client';
 
 import { UserImageResponse, useFindAuthorQuery } from '@/generated/graphql';
-import { DealType, DealStatus } from '@/lib/deal/deal.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
-import DealVersionDetailMain from './deal-version-detail-main';
+import OfferVersionDetailMain from './offer-version-detail-main';
 
-export default function DealVersionDetail({
+export default function OfferVersionDetail({
   versionCreatedAt,
   images,
-  dealType,
-  dealStatus,
+  offerStatus,
   name0,
   name1,
   slug,
@@ -22,8 +21,7 @@ export default function DealVersionDetail({
 }: {
   versionCreatedAt: Date;
   images: UserImageResponse[];
-  dealType: DealType;
-  dealStatus: DealStatus;
+  offerStatus: OfferStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -51,10 +49,9 @@ export default function DealVersionDetail({
         </div>
 
         <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
-          <DealVersionDetailMain
+          <OfferVersionDetailMain
             versionCreatedAt={versionCreatedAt}
-            dealType={dealType}
-            dealStatus={dealStatus}
+            offerStatus={offerStatus}
             name0={name0}
             name1={name1}
             slug={slug}
@@ -71,10 +68,9 @@ export default function DealVersionDetail({
   return (
     <PostDetail>
       <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
-        <DealVersionDetailMain
+        <OfferVersionDetailMain
           versionCreatedAt={versionCreatedAt}
-          dealType={dealType}
-          dealStatus={dealStatus}
+          offerStatus={offerStatus}
           name0={name0}
           name1={name1}
           slug={slug}

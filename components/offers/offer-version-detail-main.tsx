@@ -3,18 +3,17 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AuthorResponse } from '@/generated/graphql';
-import { DealType, DealStatus } from '@/lib/deal/deal.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
-import DealDetailPrice from './deal-detail-price';
-import DealDetailName from './deal-detail-name';
-import DealShippingCost from './deal-shipping-cost';
+import OfferDetailPrice from './offer-detail-price';
+import OfferDetailName from './offer-detail-name';
+import OfferShippingCost from './offer-shipping-cost';
 import RecentVersionLink from '../version/recent-version-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
-export default function DealVersionDetailMain({
+export default function OfferVersionDetailMain({
   versionCreatedAt,
-  dealType,
-  dealStatus,
+  offerStatus,
   name0,
   name1,
   slug,
@@ -25,8 +24,7 @@ export default function DealVersionDetailMain({
   author,
 }: {
   versionCreatedAt: Date;
-  dealType: DealType;
-  dealStatus: DealStatus;
+  offerStatus: OfferStatus;
   name0: string;
   name1?: string;
   slug: string;
@@ -49,15 +47,15 @@ export default function DealVersionDetailMain({
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        <RecentVersionLink
-          versionCreatedAt={versionCreatedAt}
-          dealType={dealType}
-          slug={slug}
+        <RecentVersionLink versionCreatedAt={versionCreatedAt} slug={slug} />
+        <OfferDetailName
+          offerStatus={offerStatus}
+          name0={name0}
+          name1={name1}
         />
-        <DealDetailName dealStatus={dealStatus} name0={name0} name1={name1} />
         <div className="grid grid-cols-1 gap-0 items-center">
-          <DealDetailPrice price={price} />
-          <DealShippingCost
+          <OfferDetailPrice price={price} />
+          <OfferShippingCost
             shippingCost={shippingCost}
             shippingType={shippingType as ShippingType}
           />
