@@ -37,7 +37,7 @@ function OfferFeed({
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
-console.log(where);
+
   useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteOfferFeed({

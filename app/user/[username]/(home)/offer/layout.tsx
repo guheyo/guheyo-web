@@ -1,8 +1,8 @@
 'use client';
 
 import { AuthContext } from '@/components/auth/auth.provider';
-import PrivateUserDealFeedLayout from '@/components/deals/private-user-deal-feed.layout';
-import PublicUserDealFeedLayout from '@/components/deals/public-user-deal-feed.layout';
+import PrivateUserOfferFeedLayout from '@/components/offers/private-user-offer-feed.layout';
+import PublicUserOfferFeedLayout from '@/components/offers/public-user-offer-feed.layout';
 import { ReactNode, useContext } from 'react';
 
 interface Props {
@@ -16,8 +16,8 @@ function Layout({ children, params }: Props) {
   const { jwtPayload } = useContext(AuthContext);
 
   if (jwtPayload?.username !== params.username)
-    return <PublicUserDealFeedLayout>{children}</PublicUserDealFeedLayout>;
-  return <PrivateUserDealFeedLayout>{children}</PrivateUserDealFeedLayout>;
+    return <PublicUserOfferFeedLayout>{children}</PublicUserOfferFeedLayout>;
+  return <PrivateUserOfferFeedLayout>{children}</PrivateUserOfferFeedLayout>;
 }
 
 export default Layout;
