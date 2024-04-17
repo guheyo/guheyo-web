@@ -35,9 +35,7 @@ fragment reportComment on ReportCommentResponse {
   updatedAt
   reportId
   content
-  user {
-    ...author
-  }
+  userId
 }
 
 mutation CreateReport($input: CreateReportInput!) {
@@ -90,9 +88,13 @@ query findReportComment(
 }
 
 mutation CommentReport($input: CommentReportInput!) {
-  commentReport(input: $input)
+  commentReport(input: $input) {
+    ...reportComment
+  }
 }
 
 mutation UpdateReportComment($input: UpdateReportCommentInput!) {
-  updateReportComment(input: $input)
+  updateReportComment(input: $input) {
+    ...reportComment
+  }
 }
