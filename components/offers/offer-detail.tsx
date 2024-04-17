@@ -1,38 +1,32 @@
 'use client';
 
-import { useFindOfferQuery } from '@/generated/graphql';
-import { DealStatus } from '@/lib/deal/deal.types';
-import DealDetail from '../deals/deal-detail';
+import { OfferResponse } from '@/generated/graphql';
+import ImageSlider from '../base/image-slider';
+import PostDetail from '../posts/post-detail';
+import OfferDetailMain from './offer-detail-main';
 
-export default function OfferDetail({ slug }: { slug: string }) {
-  const { loading, data } = useFindOfferQuery({
-    variables: {
-      slug: decodeURI(slug),
-    },
-    fetchPolicy: 'cache-and-network',
-  });
+export default function OfferDetail({ offer }: { offer: OfferResponse }) {
+  if (offer.post.images.length > 0)
+    return (
+      <PostDetail>
+        <div className="w-full md:w-[45%]">
+          <ImageSlider
+            images={offer.post.images}
+            sizes="h-[360px] md:h-[524px]"
+          />
+        </div>
 
-  if (loading) return <div />;
-  if (!data?.findOffer) return <div />;
-  const offer = data.findOffer;
+        <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
+          <OfferDetailMain offer={offer} />
+        </div>
+      </PostDetail>
+    );
 
   return (
-    <DealDetail
-      id={offer.id}
-      dealType="offer"
-      dealStatus={offer.status as DealStatus}
-      name0={offer.name}
-      slug={offer.slug!}
-      price={offer.price}
-      shippingCost={offer.shippingCost}
-      shippingType={offer.shippingType}
-      description={offer.description}
-      bumpedAt={offer.bumpedAt}
-      author={offer.seller}
-      images={offer.images}
-      reportCount={offer.reportCount}
-      reportCommentCount={offer.reportCommentCount}
-      isHidden={offer.isHidden}
-    />
+    <PostDetail>
+      <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
+        <OfferDetailMain offer={offer} />
+      </div>
+    </PostDetail>
   );
 }

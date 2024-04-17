@@ -4,5 +4,5 @@ import { redirect, usePathname } from 'next/navigation';
 
 export default function Page() {
   const pathname = usePathname();
-  return redirect(`${pathname}/deal/offer`);
+  return redirect(`${pathname}/offer/sell`);
 }

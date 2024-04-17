@@ -1,11 +1,11 @@
 'use client';
 
-import WriteDealForm from '@/components/write/write-deal-form';
+import WriteOfferForm from '@/components/write/write-offer-form';
 import { useGroup } from '@/hooks/use-group';
 
 export default function Page() {
   const { group } = useGroup();
   if (!group) return <div />;
 
-  return <WriteDealForm group={group} />;
+  return <WriteOfferForm group={group} />;
 }

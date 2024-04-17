@@ -5,7 +5,7 @@ import { useGroup } from '@/hooks/use-group';
 import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
-import DealSelector from '../deals/deal-selector';
+import OfferSelector from '../offers/business-function-selector';
 import { Mocks } from '../mock/mock';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -43,7 +43,7 @@ export default function CategoriesNavbar({
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
-  const categories = group.productCategories;
+  const { categories } = group;
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
@@ -52,7 +52,7 @@ export default function CategoriesNavbar({
           <div />
         ) : (
           <div className="flex-none text-xs md:text-base bg-dark-200 rounded">
-            <DealSelector categorySlug={categorySlug} />
+            <OfferSelector categorySlug={categorySlug} />
           </div>
         )}
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">

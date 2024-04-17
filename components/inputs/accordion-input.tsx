@@ -28,7 +28,7 @@ export default function AccordionInput<
     <div>
       {reportReasons.map((reason, index) => (
         <Accordion
-          key={reason.title}
+          key={reason.reason}
           className="text-light-200 text-sm md:text-base bg-dark-400"
         >
           <AccordionSummary
@@ -41,10 +41,10 @@ export default function AccordionInput<
             onClick={() => summaryProps.onClick(index)}
             disabled={reason.disabled}
           >
-            {reason.title}
+            {reason.reason}
           </AccordionSummary>
           <AccordionDetails className="text-xs md:text-sm">
-            {reason.content}
+            {reason.description}
           </AccordionDetails>
         </Accordion>
       ))}

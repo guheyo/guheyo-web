@@ -8,20 +8,23 @@ fragment post on PostResponse {
   title
   slug
   content
-  categoryId
+  thumbnail
   reportCount
   reportCommentCount
-  thumbnail
-  user {
-    ...user
-  }
-  group {
-    ...groupProfile
-  }
   images {
     ...image
   }
-  
+  groupId
+  group {
+    ...groupProfile
+  }
+  categoryId
+  category {
+    ...category
+  }
+  user {
+    ...author
+  }
 }
 
 fragment postPreview on PostPreviewResponse {
@@ -34,12 +37,22 @@ fragment postPreview on PostPreviewResponse {
   title
   slug
   content
+  thumbnail
   groupId
   categoryId
   reportCount
   reportCommentCount
-  thumbnail
   user {
     ...user
+  }
+}
+
+query findPostPreview(
+  $id: ID!
+) {
+  findPostPreview(
+    id: $id
+  ) {
+    ...postPreview
   }
 }

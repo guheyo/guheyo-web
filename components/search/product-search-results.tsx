@@ -1,6 +1,5 @@
-import DemandFeed from '@/components/demands/demand-feed';
 import { useSearchParams } from 'next/navigation';
-import { parseDealStatus } from '@/lib/deal/parse-deal-status';
+import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
 import OfferFeed from '../offers/offer-feed';
 
 export default function ProductSearchResults({
@@ -9,7 +8,7 @@ export default function ProductSearchResults({
   keyword?: string;
 }) {
   const searchParams = useSearchParams();
-  const status = parseDealStatus({
+  const status = parseOfferStatus({
     status: searchParams.get('status'),
   });
   const distinct = searchParams.get('distinct') !== 'false';
@@ -23,6 +22,9 @@ export default function ProductSearchResults({
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <OfferFeed
+              where={{
+                businessFunction: 'sell',
+              }}
               orderBy={{
                 price: 'asc',
                 bumpedAt: 'desc',
@@ -43,7 +45,10 @@ export default function ProductSearchResults({
         </div>
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
-            <DemandFeed
+            <OfferFeed
+              where={{
+                businessFunction: 'buy',
+              }}
               orderBy={{
                 price: 'desc',
                 bumpedAt: 'desc',
