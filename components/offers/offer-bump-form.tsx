@@ -56,13 +56,14 @@ export default function OfferBumpForm({
 }) {
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, setValue, getValues } = useForm<BumpFormValues>({
-    defaultValues: {
-      id: uuid4(),
-      offerId,
-      price,
-    },
-  });
+  const { handleSubmit, control, setValue, getValues } =
+    useForm<BumpFormValues>({
+      defaultValues: {
+        id: uuid4(),
+        offerId,
+        price,
+      },
+    });
 
   const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
@@ -71,7 +72,10 @@ export default function OfferBumpForm({
     );
   };
 
-  const handleSubmitError: SubmitErrorHandler<BumpFormValues> = (errors, event) => {
+  const handleSubmitError: SubmitErrorHandler<BumpFormValues> = (
+    errors,
+    event,
+  ) => {
     // TODO
   };
 

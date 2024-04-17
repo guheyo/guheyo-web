@@ -55,7 +55,7 @@ function Page({
         distinct={false}
       />
     </ThumbnailFeedLayout>
-  )
+  );
 }
 
 export default Page;
