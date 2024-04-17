@@ -35,13 +35,12 @@ export default function ReportFeed({
         .map((report) => (
           <div key={report.node.id} className="flex flex-col gap-2">
             <ReportCard
-              id={report.node.id}
-              title={report.node.title}
-              content={report.node.content}
+              reportId={report.node.id}
+              reason={report.node.reason}
+              description={report.node.description}
               createdAt={report.node.createdAt}
               reportedUser={report.node.reportedUser!}
               type={report.node.type}
-              refVersionId={report.node.refVersionId}
             />
           </div>
         ))}

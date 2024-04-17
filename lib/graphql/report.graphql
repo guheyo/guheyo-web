@@ -25,7 +25,18 @@ fragment report on ReportResponse {
   reason
   description
   comments {
-    ...comment
+    ...reportComment
+  }
+}
+
+fragment reportComment on ReportCommentResponse {
+  id
+  createdAt
+  updatedAt
+  reportId
+  content
+  user {
+    ...author
   }
 }
 
@@ -68,6 +79,20 @@ query findLastReport {
   }
 }
 
+query findReportComment(
+  $reportId: ID!
+) {
+  findReportComment(
+    reportId: $reportId
+  ) {
+    ...reportComment
+  }
+}
+
 mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input)
+}
+
+mutation UpdateReportComment($input: UpdateReportCommentInput!) {
+  updateReportComment(input: $input)
 }
