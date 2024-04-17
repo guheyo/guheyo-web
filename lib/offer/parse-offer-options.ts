@@ -16,13 +16,13 @@ export const parseBusinessFunctionButtonOptions: ({
     }));
   }
 
-  const dealOption = OFFER_OPTIONS.find(
+  const offerOption = OFFER_OPTIONS.find(
     (option) => option.value === businessFunction,
   );
-  return dealOption
+  return offerOption
     ? [
         {
-          ...dealOption,
+          ...offerOption,
           selected: true,
         },
       ]
