@@ -23,7 +23,7 @@ function Page({
     variables: {
       username,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
   });
   const user = data?.findUser;
 
