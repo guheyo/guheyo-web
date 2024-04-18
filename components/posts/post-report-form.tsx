@@ -53,6 +53,7 @@ export default function PostReportForm({
 
   const handleSubmitValid: SubmitHandler<ReportFormValues> = async (values) => {
     if (!jwtPayload) return;
+    if (!values.reason) return;
 
     const input: CreateReportInput = {
       id: values.id,
