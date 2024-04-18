@@ -6,6 +6,8 @@ fragment reportPreview on ReportPreviewResponse {
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
   reason
@@ -20,6 +22,8 @@ fragment report on ReportResponse {
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
   reason
