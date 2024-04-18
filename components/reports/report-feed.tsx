@@ -6,6 +6,7 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { ReportType } from '@/lib/report/report.types';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
@@ -40,7 +41,7 @@ export default function ReportFeed({
               description={report.node.description}
               createdAt={report.node.createdAt}
               reportedUser={report.node.reportedUser!}
-              type={report.node.type}
+              type={report.node.type as ReportType}
             />
           </div>
         ))}

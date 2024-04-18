@@ -1,4 +1,5 @@
 import { AuthorResponse, useFindReportCommentQuery } from '@/generated/graphql';
+import { ReportType } from '@/lib/report/report.types';
 import ReportPreview from './report-preview';
 import ReportCommentCard from './report-comment-card';
 
@@ -15,7 +16,7 @@ export default function ReportCard({
   description?: string | null;
   createdAt: Date;
   reportedUser: AuthorResponse;
-  type: string;
+  type: ReportType;
 }) {
   const { data } = useFindReportCommentQuery({
     variables: {

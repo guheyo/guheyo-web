@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import Link from 'next/link';
-import { parseVersionLink } from '@/lib/version/parse-version-page.link';
+import { parseReportTypeName } from '@/lib/report/parse-report-type-name';
+import { ReportType } from '@/lib/report/report.types';
 
 export default function ReportPreview({
   reason,
@@ -12,12 +13,12 @@ export default function ReportPreview({
   reason: string;
   description?: string | null;
   createdAt: Date;
-  type: string;
+  type: ReportType;
 }) {
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
       <div className="text-red-500 text-sm md:text-base font-semibold">
-        {`[신고] ${reason}`}
+        {`[${parseReportTypeName(type)} 신고] ${reason}`}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between w-full">
