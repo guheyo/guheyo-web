@@ -57,9 +57,9 @@ export default function OfferVersionDetailMain({
         </div>
       </div>
       <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
-        {post.content && (
+        {offer.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
+            {offer.content}
           </ReactMarkdown>
         )}
       </div>
