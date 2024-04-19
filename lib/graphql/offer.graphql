@@ -8,6 +8,7 @@ fragment offer on OfferResponse {
   bumpedAt
   name0
   name1
+  content
   price
   priceCurrency
   totalPrice
@@ -28,6 +29,7 @@ fragment offerPreview on OfferPreviewResponse {
   bumpedAt
   name0
   name1
+  content
   price
   priceCurrency
   shippingCost
@@ -90,6 +92,7 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
     status
     name0
     name1
+    content
     price
     shippingCost
     shippingType

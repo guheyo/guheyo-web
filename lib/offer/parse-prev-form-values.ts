@@ -11,7 +11,7 @@ export const parsePrevOfferFormValues: (
   categoryId: prevOffer.post.categoryId,
   images: prevOffer.post.images,
   title: prevOffer.post.title,
-  content: prevOffer.post.content || '',
+  content: prevOffer.content || '',
   name0: prevOffer.name0 || '',
   name1: prevOffer.name1 || '',
   businessFunction: prevOffer.businessFunction as BusinessFunction,

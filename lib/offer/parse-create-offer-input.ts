@@ -12,7 +12,6 @@ const parseCreateOfferInput = ({
     title: offerFormValues.name1
       ? `${offerFormValues.name0} - ${offerFormValues.name1}`
       : offerFormValues.name0,
-    content: offerFormValues.content,
     groupId: offerFormValues.groupId,
     categoryId: offerFormValues.categoryId,
     tagIds: [],
@@ -23,6 +22,7 @@ const parseCreateOfferInput = ({
     businessFunction: offerFormValues.businessFunction,
     name0: offerFormValues.name0,
     name1: offerFormValues.name1,
+    content: offerFormValues.content,
     priceCurrency: 'krw',
     price: offerFormValues.price,
     shippingCost:

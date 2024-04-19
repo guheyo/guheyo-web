@@ -11,7 +11,6 @@ const parseUpdateOfferInput = ({
     title: offerFormValues.name1
       ? `${offerFormValues.name0} - ${offerFormValues.name1}`
       : offerFormValues.name0,
-    content: offerFormValues.content,
     categoryId: offerFormValues.categoryId,
   };
   const offerInput = {
@@ -19,6 +18,7 @@ const parseUpdateOfferInput = ({
     id: offerFormValues.id,
     name0: offerFormValues.name0,
     name1: offerFormValues.name1,
+    content: offerFormValues.content,
     priceCurrency: 'krw',
     price: offerFormValues.price,
     shippingCost:
