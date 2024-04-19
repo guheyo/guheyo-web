@@ -12,7 +12,7 @@ function OfferPage({
 }) {
   const { data, loading } = useFindOfferQuery({
     variables: {
-      slug,
+      slug: decodeURI(slug),
     },
     fetchPolicy: 'cache-and-network',
   });

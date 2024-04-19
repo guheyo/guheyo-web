@@ -207,6 +207,12 @@ export type JwtResponse = {
   refreshToken: Scalars['String']['output'];
 };
 
+export type LastReportResponse = {
+  __typename?: 'LastReportResponse';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+};
+
 export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
@@ -223,7 +229,7 @@ export type MemberWithRolesResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   bumpOffer: OfferPreviewResponse;
-  commentReport: Scalars['String']['output'];
+  commentReport: ReportCommentResponse;
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
@@ -243,6 +249,7 @@ export type Mutation = {
   updateComment: CommentResponse;
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
+  updateReportComment: ReportCommentResponse;
   updateRole: Scalars['String']['output'];
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
@@ -336,6 +343,11 @@ export type MutationUpdateGroupArgs = {
 
 export type MutationUpdateOfferArgs = {
   input: UpdateOfferInput;
+};
+
+
+export type MutationUpdateReportCommentArgs = {
+  input: UpdateReportCommentInput;
 };
 
 
@@ -494,13 +506,14 @@ export type Query = {
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
-  findLastReport: ReportResponse;
+  findLastReport: LastReportResponse;
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findPostPreview: PostPreviewResponse;
   findReport: ReportResponse;
+  findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findTags: Array<TagResponse>;
@@ -581,6 +594,11 @@ export type QueryFindReportArgs = {
 };
 
 
+export type QueryFindReportCommentArgs = {
+  reportId: Scalars['ID']['input'];
+};
+
+
 export type QueryFindReportPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
@@ -636,6 +654,16 @@ export type QueryFindVersionPreviewArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ReportCommentResponse = {
+  __typename?: 'ReportCommentResponse';
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  reportId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['String']['output'];
+};
+
 export type ReportPreviewResponse = {
   __typename?: 'ReportPreviewResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -645,7 +673,7 @@ export type ReportPreviewResponse = {
   reason: Scalars['String']['output'];
   reportedCommentId?: Maybe<Scalars['ID']['output']>;
   reportedPostId?: Maybe<Scalars['ID']['output']>;
-  reportedUser?: Maybe<AuthorResponse>;
+  reportedUser: AuthorResponse;
   status: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -659,7 +687,7 @@ export type ReportPreviewResponseEdge = {
 
 export type ReportResponse = {
   __typename?: 'ReportResponse';
-  comments: Array<CommentResponse>;
+  comments: Array<ReportCommentResponse>;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   groupId: Scalars['ID']['output'];
@@ -667,10 +695,11 @@ export type ReportResponse = {
   reason: Scalars['String']['output'];
   reportedCommentId?: Maybe<Scalars['ID']['output']>;
   reportedPostId?: Maybe<Scalars['ID']['output']>;
-  reportedUser?: Maybe<AuthorResponse>;
+  reportedUser: AuthorResponse;
   status: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  version: VersionResponse;
 };
 
 export type RoleResponse = {
@@ -742,7 +771,6 @@ export type TermResponse = {
 export type UpdateCommentInput = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
 };
 
 export type UpdateGroupInput = {
@@ -772,6 +800,12 @@ export type UpdatePostInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateReportCommentInput = {
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  reportId: Scalars['ID']['input'];
 };
 
 export type UpdateRoleInput = {
@@ -994,9 +1028,13 @@ export type FindPostPreviewQueryVariables = Exact<{
 
 export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, content?: string | null, thumbnail?: string | null, groupId: string, categoryId: string, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, groupId: string, status: string, reason: string, description?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, groupId: string, status: string, reason: string, description?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string }> };
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
+
+export type ReportCommentFragment = { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1015,19 +1053,40 @@ export type FindReportPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, groupId: string, status: string, reason: string, description?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindLastReportQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, groupId: string, status: string, reason: string, description?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string }> } };
+export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'LastReportResponse', id: string, createdAt: any } };
+
+export type FindReportQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
+
+export type FindReportCommentQueryVariables = Exact<{
+  reportId: Scalars['ID']['input'];
+}>;
+
+
+export type FindReportCommentQuery = { __typename?: 'Query', findReportComment: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
 }>;
 
 
-export type CommentReportMutation = { __typename?: 'Mutation', commentReport: string };
+export type CommentReportMutation = { __typename?: 'Mutation', commentReport: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
+
+export type UpdateReportCommentMutationVariables = Exact<{
+  input: UpdateReportCommentInput;
+}>;
+
+
+export type UpdateReportCommentMutation = { __typename?: 'Mutation', updateReportComment: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
 
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
@@ -1144,6 +1203,16 @@ export type FindVersionQueryVariables = Exact<{
 
 export type FindVersionQuery = { __typename?: 'Query', findVersion?: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } | null };
 
+export const CommentFragmentDoc = gql`
+    fragment comment on CommentResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+}
+    `;
 export const CategoryFragmentDoc = gql`
     fragment category on CategoryResponse {
   id
@@ -1369,6 +1438,12 @@ export const OfferFragmentDoc = gql`
   status
 }
     ${PostFragmentDoc}`;
+export const LastReportFragmentDoc = gql`
+    fragment lastReport on LastReportResponse {
+  id
+  createdAt
+}
+    `;
 export const ReportPreviewFragmentDoc = gql`
     fragment reportPreview on ReportPreviewResponse {
   id
@@ -1378,22 +1453,38 @@ export const ReportPreviewFragmentDoc = gql`
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
   reason
   description
 }
     ${AuthorFragmentDoc}`;
-export const CommentFragmentDoc = gql`
-    fragment comment on CommentResponse {
+export const ReportCommentFragmentDoc = gql`
+    fragment reportComment on ReportCommentResponse {
   id
   createdAt
   updatedAt
-  parentId
-  postId
+  reportId
   content
+  userId
 }
     `;
+export const VersionFragmentDoc = gql`
+    fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+  images {
+    ...image
+  }
+}
+    ${ImageFragmentDoc}`;
 export const ReportFragmentDoc = gql`
     fragment report on ReportResponse {
   id
@@ -1403,16 +1494,22 @@ export const ReportFragmentDoc = gql`
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
   reason
   description
   comments {
-    ...comment
+    ...reportComment
+  }
+  version {
+    ...version
   }
 }
     ${AuthorFragmentDoc}
-${CommentFragmentDoc}`;
+${ReportCommentFragmentDoc}
+${VersionFragmentDoc}`;
 export const TagFragmentDoc = gql`
     fragment Tag on TagResponse {
   id
@@ -1479,20 +1576,6 @@ export const VersionPreviewFragmentDoc = gql`
   values
 }
     `;
-export const VersionFragmentDoc = gql`
-    fragment version on VersionResponse {
-  id
-  createdAt
-  schemaName
-  tableName
-  op
-  refId
-  values
-  images {
-    ...image
-  }
-}
-    ${ImageFragmentDoc}`;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {
@@ -2257,10 +2340,10 @@ export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreview
 export const FindLastReportDocument = gql`
     query findLastReport {
   findLastReport {
-    ...report
+    ...lastReport
   }
 }
-    ${ReportFragmentDoc}`;
+    ${LastReportFragmentDoc}`;
 
 /**
  * __useFindLastReportQuery__
@@ -2293,11 +2376,93 @@ export type FindLastReportQueryHookResult = ReturnType<typeof useFindLastReportQ
 export type FindLastReportLazyQueryHookResult = ReturnType<typeof useFindLastReportLazyQuery>;
 export type FindLastReportSuspenseQueryHookResult = ReturnType<typeof useFindLastReportSuspenseQuery>;
 export type FindLastReportQueryResult = Apollo.QueryResult<FindLastReportQuery, FindLastReportQueryVariables>;
+export const FindReportDocument = gql`
+    query findReport($id: ID!) {
+  findReport(id: $id) {
+    ...report
+  }
+}
+    ${ReportFragmentDoc}`;
+
+/**
+ * __useFindReportQuery__
+ *
+ * To run a query within a React component, call `useFindReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReportQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindReportQuery(baseOptions: Apollo.QueryHookOptions<FindReportQuery, FindReportQueryVariables> & ({ variables: FindReportQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+      }
+export function useFindReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportQuery, FindReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+        }
+export function useFindReportSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportQuery, FindReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+        }
+export type FindReportQueryHookResult = ReturnType<typeof useFindReportQuery>;
+export type FindReportLazyQueryHookResult = ReturnType<typeof useFindReportLazyQuery>;
+export type FindReportSuspenseQueryHookResult = ReturnType<typeof useFindReportSuspenseQuery>;
+export type FindReportQueryResult = Apollo.QueryResult<FindReportQuery, FindReportQueryVariables>;
+export const FindReportCommentDocument = gql`
+    query findReportComment($reportId: ID!) {
+  findReportComment(reportId: $reportId) {
+    ...reportComment
+  }
+}
+    ${ReportCommentFragmentDoc}`;
+
+/**
+ * __useFindReportCommentQuery__
+ *
+ * To run a query within a React component, call `useFindReportCommentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportCommentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReportCommentQuery({
+ *   variables: {
+ *      reportId: // value for 'reportId'
+ *   },
+ * });
+ */
+export function useFindReportCommentQuery(baseOptions: Apollo.QueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables> & ({ variables: FindReportCommentQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+      }
+export function useFindReportCommentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+        }
+export function useFindReportCommentSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+        }
+export type FindReportCommentQueryHookResult = ReturnType<typeof useFindReportCommentQuery>;
+export type FindReportCommentLazyQueryHookResult = ReturnType<typeof useFindReportCommentLazyQuery>;
+export type FindReportCommentSuspenseQueryHookResult = ReturnType<typeof useFindReportCommentSuspenseQuery>;
+export type FindReportCommentQueryResult = Apollo.QueryResult<FindReportCommentQuery, FindReportCommentQueryVariables>;
 export const CommentReportDocument = gql`
     mutation CommentReport($input: CommentReportInput!) {
-  commentReport(input: $input)
+  commentReport(input: $input) {
+    ...reportComment
+  }
 }
-    `;
+    ${ReportCommentFragmentDoc}`;
 export type CommentReportMutationFn = Apollo.MutationFunction<CommentReportMutation, CommentReportMutationVariables>;
 
 /**
@@ -2324,6 +2489,39 @@ export function useCommentReportMutation(baseOptions?: Apollo.MutationHookOption
 export type CommentReportMutationHookResult = ReturnType<typeof useCommentReportMutation>;
 export type CommentReportMutationResult = Apollo.MutationResult<CommentReportMutation>;
 export type CommentReportMutationOptions = Apollo.BaseMutationOptions<CommentReportMutation, CommentReportMutationVariables>;
+export const UpdateReportCommentDocument = gql`
+    mutation UpdateReportComment($input: UpdateReportCommentInput!) {
+  updateReportComment(input: $input) {
+    ...reportComment
+  }
+}
+    ${ReportCommentFragmentDoc}`;
+export type UpdateReportCommentMutationFn = Apollo.MutationFunction<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
+
+/**
+ * __useUpdateReportCommentMutation__
+ *
+ * To run a mutation, you first call `useUpdateReportCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateReportCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateReportCommentMutation, { data, loading, error }] = useUpdateReportCommentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateReportCommentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>(UpdateReportCommentDocument, options);
+      }
+export type UpdateReportCommentMutationHookResult = ReturnType<typeof useUpdateReportCommentMutation>;
+export type UpdateReportCommentMutationResult = Apollo.MutationResult<UpdateReportCommentMutation>;
+export type UpdateReportCommentMutationOptions = Apollo.BaseMutationOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
 export const FindTagsDocument = gql`
     query findTags {
   findTags {

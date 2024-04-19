@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import { OfferResponse } from '@/generated/graphql';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
+import { OFFER } from '@/lib/offer/offer.constants';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import OfferDetailBumpedAt from './offer-detail-bumped-at';
@@ -42,7 +43,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
         <ReportsLink
           reportCount={offer.post.reportCount}
           reportCommentCount={offer.post.reportCommentCount}
-          type="post"
+          type={OFFER}
           slug={offer.post.slug!}
         />
         <OfferDetailName

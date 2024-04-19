@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { OfferPreviewResponse } from '@/generated/graphql';
-import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import Thumbnail from '../base/thumbnail';
 import PostPreviewTitle from '../posts/post-preview-title';
@@ -20,7 +20,6 @@ export default function OfferThumbnailPreview({ offer }: Props) {
     <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
         href={parseOfferDetailLink({
-          businessFunction: offer.businessFunction as BusinessFunction,
           slug: offer.post.slug!,
         })}
         className="flex flex-row w-full md:flex-col text-start"

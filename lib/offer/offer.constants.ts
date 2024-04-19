@@ -1,3 +1,5 @@
+export const OFFER = 'offer';
+
 export const OFFER_OPTIONS = [
   { value: 'sell', label: '판매' },
   { value: 'buy', label: '구매' },

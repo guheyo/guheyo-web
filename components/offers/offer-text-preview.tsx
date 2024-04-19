@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import { OfferPreviewResponse } from '@/generated/graphql';
 import PostPreviewTitle from '../posts/post-preview-title';
@@ -18,7 +18,6 @@ export default function OfferTextPreview({ offer }: Props) {
     <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
         href={parseOfferDetailLink({
-          businessFunction: offer.businessFunction as BusinessFunction,
           slug: offer.post.slug!,
         })}
         className="w-full text-start"

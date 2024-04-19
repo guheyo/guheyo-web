@@ -1,45 +1,43 @@
-import { AuthorResponse, useFindCommentQuery } from '@/generated/graphql';
+import { AuthorResponse, useFindReportCommentQuery } from '@/generated/graphql';
+import { ReportType } from '@/lib/report/report.types';
 import ReportPreview from './report-preview';
 import ReportCommentCard from './report-comment-card';
 
 export default function ReportCard({
-  id,
-  title,
-  content,
+  reportId,
+  reason,
+  description,
   createdAt,
   reportedUser,
   type,
-  refVersionId,
 }: {
-  id: string;
-  title: string;
-  content?: string | null;
+  reportId: string;
+  reason: string;
+  description?: string | null;
   createdAt: Date;
   reportedUser: AuthorResponse;
-  type: string;
-  refVersionId: string;
+  type: ReportType;
 }) {
-  const { data } = useFindCommentQuery({
+  const { data } = useFindReportCommentQuery({
     variables: {
-      type: 'report',
-      refId: id,
+      reportId,
     },
     fetchPolicy: 'cache-and-network',
   });
 
   return (
-    <div key={id} className="flex flex-col gap-2">
+    <div key={reportId} className="flex flex-col gap-2">
       <ReportPreview
-        title={title}
-        content={content}
+        reportId={reportId}
+        reason={reason}
+        description={description}
         createdAt={createdAt}
         type={type}
-        refVersionId={refVersionId}
       />
       <ReportCommentCard
-        reportId={id}
+        reportId={reportId}
         reportedUser={reportedUser}
-        comment={data?.findComment}
+        comment={data?.findReportComment}
       />
     </div>
   );

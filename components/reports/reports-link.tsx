@@ -2,6 +2,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { useRouter } from 'next/navigation';
 import { parseReportFeedLink } from '@/lib/report/parse-report-feed-link';
+import { ReportFeedType } from '@/lib/report/report.types';
 
 export default function ReportsLink({
   reportCount,
@@ -11,7 +12,7 @@ export default function ReportsLink({
 }: {
   reportCount: number;
   reportCommentCount: number;
-  type: string;
+  type: ReportFeedType;
   slug: string;
 }) {
   const router = useRouter();
