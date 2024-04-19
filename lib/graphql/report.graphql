@@ -1,3 +1,8 @@
+fragment lastReport on LastReportResponse {
+  id
+  createdAt
+}
+
 fragment reportPreview on ReportPreviewResponse {
   id
   createdAt
@@ -30,6 +35,9 @@ fragment report on ReportResponse {
   description
   comments {
     ...reportComment
+  }
+  version {
+    ...version
   }
 }
 
@@ -77,6 +85,14 @@ query findReportPreviews(
 
 query findLastReport {
   findLastReport {
+    ...lastReport
+  }
+}
+
+query findReport(
+  $id: ID!
+) {
+  findReport(id: $id) {
     ...report
   }
 }
