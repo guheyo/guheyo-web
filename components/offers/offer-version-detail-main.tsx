@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import {
   AuthorResponse,
   OfferPreviewResponse,
-  PostPreviewResponse,
+  PostPreviewWithoutUserResponse,
 } from '@/generated/graphql';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import { OfferStatus } from '@/lib/offer/offer.types';
@@ -23,7 +23,7 @@ export default function OfferVersionDetailMain({
 }: {
   versionCreatedAt: Date;
   user: AuthorResponse;
-  post: Omit<PostPreviewResponse, 'user'>;
+  post: PostPreviewWithoutUserResponse;
   offer: OfferPreviewResponse;
 }) {
   return (

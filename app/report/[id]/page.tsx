@@ -25,7 +25,7 @@ export default function Page({
   const report = data.findReport;
 
   if (report.type === POST) {
-    if (report.version.values.post.type === OFFER) {
+    if (report.reportedPost?.type === OFFER) {
       return (
         <div className="flex flex-col gap-12">
           <OfferVersionDetail
@@ -33,7 +33,7 @@ export default function Page({
             images={report.version.images}
             user={report.reportedUser}
             offer={report.version.values}
-            post={report.version.values.post}
+            post={report.reportedPost}
           />
           <ReportCard
             reportId={report.id}

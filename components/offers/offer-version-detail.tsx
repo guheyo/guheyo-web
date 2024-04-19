@@ -3,7 +3,7 @@
 import {
   AuthorResponse,
   OfferPreviewResponse,
-  PostPreviewResponse,
+  PostPreviewWithoutUserResponse,
   UserImageResponse,
 } from '@/generated/graphql';
 import ImageSlider from '../base/image-slider';
@@ -20,7 +20,7 @@ export default function OfferVersionDetail({
   images: UserImageResponse[];
   versionCreatedAt: Date;
   user: AuthorResponse;
-  post: Omit<PostPreviewResponse, 'user'>;
+  post: PostPreviewWithoutUserResponse;
   offer: OfferPreviewResponse;
 }) {
   if (images.length > 0)
