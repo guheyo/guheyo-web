@@ -40,7 +40,7 @@ export default function ReportFeed({
               reason={report.node.reason}
               description={report.node.description}
               createdAt={report.node.createdAt}
-              reportedUser={report.node.reportedUser!}
+              reportedUser={report.node.reportedUser}
               type={report.node.type as ReportType}
             />
           </div>
