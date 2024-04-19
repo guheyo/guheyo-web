@@ -2,9 +2,13 @@
 
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { AuthorResponse } from '@/generated/graphql';
-import { OfferStatus } from '@/lib/offer/offer.types';
+import {
+  AuthorResponse,
+  OfferPreviewResponse,
+  PostPreviewResponse,
+} from '@/generated/graphql';
 import { ShippingType } from '@/lib/shipping/shipping.types';
+import { OfferStatus } from '@/lib/offer/offer.types';
 import OfferDetailPrice from './offer-detail-price';
 import OfferDetailName from './offer-detail-name';
 import OfferShippingCost from './offer-shipping-cost';
@@ -13,33 +17,21 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function OfferVersionDetailMain({
   versionCreatedAt,
-  offerStatus,
-  name0,
-  name1,
-  slug,
-  price,
-  shippingCost,
-  shippingType,
-  description,
-  author,
+  user,
+  post,
+  offer,
 }: {
   versionCreatedAt: Date;
-  offerStatus: OfferStatus;
-  name0: string;
-  name1?: string;
-  slug: string;
-  price: number;
-  shippingCost: number;
-  shippingType: string;
-  description?: string | null;
-  author: AuthorResponse;
+  user: AuthorResponse;
+  post: Omit<PostPreviewResponse, 'user'>;
+  offer: OfferPreviewResponse;
 }) {
   return (
     <>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
-            user={author}
+            user={user}
             displayAvatar
             displayUsername
             mode="standard"
@@ -47,24 +39,27 @@ export default function OfferVersionDetailMain({
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        <RecentVersionLink versionCreatedAt={versionCreatedAt} slug={slug} />
+        <RecentVersionLink
+          versionCreatedAt={versionCreatedAt}
+          slug={post.slug!}
+        />
         <OfferDetailName
-          offerStatus={offerStatus}
-          name0={name0}
-          name1={name1}
+          offerStatus={offer.status as OfferStatus}
+          name0={offer.name0!}
+          name1={offer.name1}
         />
         <div className="grid grid-cols-1 gap-0 items-center">
-          <OfferDetailPrice price={price} />
+          <OfferDetailPrice price={offer.price} />
           <OfferShippingCost
-            shippingCost={shippingCost}
-            shippingType={shippingType as ShippingType}
+            shippingCost={offer.shippingCost}
+            shippingType={offer.shippingType as ShippingType}
           />
         </div>
       </div>
       <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
-        {description && (
+        {post.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {description}
+            {post.content}
           </ReactMarkdown>
         )}
       </div>

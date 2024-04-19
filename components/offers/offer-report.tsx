@@ -5,6 +5,7 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { POST } from '@/lib/post/post.constants';
 import ReportFeed from '../reports/report-feed';
 import ReportHeader from '../reports/report-header';
 
@@ -21,8 +22,8 @@ export default function OfferReport({ slug }: { slug: string }) {
   const offer = data.findOffer;
 
   const where: FindReportPreviewsWhereArgs = {
-    type: 'offer',
-    refId: offer.id,
+    type: POST,
+    refId: offer.post.id,
     reportedUserId: offer.post.user.id,
   };
   const orderBy: FindReportPreviewsOrderByArgs = {

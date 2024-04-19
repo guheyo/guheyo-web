@@ -9,7 +9,7 @@ export default function OfferDetailName({
 }: {
   offerStatus: OfferStatus;
   name0: string;
-  name1?: string;
+  name1?: string | null;
 }) {
   return (
     <div className="flex flex-row gap-2 items-center text-base md:text-lg font-semibold">

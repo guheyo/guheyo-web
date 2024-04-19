@@ -6,14 +6,16 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
-import { CommentResponse } from '@/generated/graphql';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 
 export default function CommentCard({
   displayMenu,
   defaultMode,
-  comment,
+  commentId,
+  content,
+  createdAt,
+  updatedAt,
   textFieldProps,
   handleWrite,
   handleEdit,
@@ -21,7 +23,10 @@ export default function CommentCard({
 }: {
   displayMenu: boolean;
   defaultMode: CRUD;
-  comment?: CommentResponse | null;
+  commentId?: string;
+  content?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
@@ -43,14 +48,14 @@ export default function CommentCard({
   }, [defaultMode]);
 
   useEffect(() => {
-    if (!comment) {
+    if (!commentId) {
       setValue('id', uuid4());
     } else {
-      setValue('id', comment.id);
-      setValue('content', comment.content);
+      setValue('id', commentId);
+      setValue('content', content || '');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comment]);
+  }, [commentId, content]);
 
   const handleMenuClick = (newMode: CRUD) => {
     if (newMode === 'delete') {
@@ -95,9 +100,9 @@ export default function CommentCard({
 
   return (
     <CommentOutput
-      content={comment?.content}
-      createdAt={comment?.createdAt}
-      updatedAt={comment?.updatedAt}
+      content={content}
+      createdAt={createdAt}
+      updatedAt={updatedAt}
       displayMenu={displayMenu}
       handleMenuClick={handleMenuClick}
     />
