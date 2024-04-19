@@ -28,6 +28,7 @@ export default function ReportCard({
   return (
     <div key={reportId} className="flex flex-col gap-2">
       <ReportPreview
+        reportId={reportId}
         reason={reason}
         description={description}
         createdAt={createdAt}

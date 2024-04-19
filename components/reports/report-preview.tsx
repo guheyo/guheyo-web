@@ -5,11 +5,13 @@ import { parseReportTypeName } from '@/lib/report/parse-report-type-name';
 import { ReportType } from '@/lib/report/report.types';
 
 export default function ReportPreview({
+  reportId,
   reason,
   description,
   createdAt,
   type,
 }: {
+  reportId: string;
   reason: string;
   description?: string | null;
   createdAt: Date;
@@ -26,7 +28,7 @@ export default function ReportPreview({
             {description}
           </div>
           <div className="mr-2">
-            <Link href="/version">
+            <Link href={`/report/${reportId}`}>
               <HistoryEduIcon />
             </Link>
           </div>
