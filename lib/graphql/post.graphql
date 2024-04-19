@@ -7,7 +7,6 @@ fragment post on PostResponse {
   type
   title
   slug
-  content
   thumbnail
   reportCount
   reportCommentCount
@@ -27,6 +26,22 @@ fragment post on PostResponse {
   }
 }
 
+fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  reportCount
+  reportCommentCount
+}
+
 fragment postPreview on PostPreviewResponse {
   id
   createdAt
@@ -36,7 +51,6 @@ fragment postPreview on PostPreviewResponse {
   type
   title
   slug
-  content
   thumbnail
   groupId
   categoryId

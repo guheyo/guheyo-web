@@ -60,9 +60,9 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
         </div>
       </div>
       <div className="pt-4 text-base md:text-base md:h-fit overflow-y-auto pb-20">
-        {offer.post.content && (
+        {offer.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {offer.post.content}
+            {offer.content}
           </ReactMarkdown>
         )}
       </div>

@@ -28,6 +28,9 @@ fragment report on ReportResponse {
     ...author
   }
   reportedPostId
+  reportedPost {
+    ...postPreviewWithoutUser
+  }
   reportedCommentId
   groupId
   status
