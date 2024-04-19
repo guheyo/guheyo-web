@@ -6,4 +6,4 @@ export const parseReportFeedLink = ({
 }: {
   type: ReportFeedType;
   slug: string;
-}) => `/${type}/${slug}/report`;
+}) => `/${type}/${decodeURI(slug)}/report`;
