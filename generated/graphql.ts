@@ -478,6 +478,23 @@ export type PostPreviewResponse = {
   user: UserResponse;
 };
 
+export type PostPreviewWithoutUserResponse = {
+  __typename?: 'PostPreviewWithoutUserResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  categoryId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
+  reportCommentCount: Scalars['Int']['output'];
+  reportCount: Scalars['Int']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type PostResponse = {
   __typename?: 'PostResponse';
   archivedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -695,6 +712,7 @@ export type ReportResponse = {
   id: Scalars['ID']['output'];
   reason: Scalars['String']['output'];
   reportedCommentId?: Maybe<Scalars['ID']['output']>;
+  reportedPost?: Maybe<PostPreviewWithoutUserResponse>;
   reportedPostId?: Maybe<Scalars['ID']['output']>;
   reportedUser: AuthorResponse;
   status: Scalars['String']['output'];
@@ -1020,6 +1038,8 @@ export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typena
 
 export type PostFragment = { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId: string, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
+export type PostPreviewWithoutUserFragment = { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId: string, reportCount: number, reportCommentCount: number };
+
 export type PostPreviewFragment = { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId: string, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
 
 export type FindPostPreviewQueryVariables = Exact<{
@@ -1033,7 +1053,7 @@ export type LastReportFragment = { __typename?: 'LastReportResponse', id: string
 
 export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId: string, reportCount: number, reportCommentCount: number } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
 
 export type ReportCommentFragment = { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string };
 
@@ -1066,7 +1086,7 @@ export type FindReportQueryVariables = Exact<{
 }>;
 
 
-export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
+export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId: string, reportCount: number, reportCommentCount: number } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
 
 export type FindReportCommentQueryVariables = Exact<{
   reportId: Scalars['ID']['input'];
@@ -1462,6 +1482,23 @@ export const ReportPreviewFragmentDoc = gql`
   description
 }
     ${AuthorFragmentDoc}`;
+export const PostPreviewWithoutUserFragmentDoc = gql`
+    fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  reportCount
+  reportCommentCount
+}
+    `;
 export const ReportCommentFragmentDoc = gql`
     fragment reportComment on ReportCommentResponse {
   id
@@ -1496,6 +1533,9 @@ export const ReportFragmentDoc = gql`
     ...author
   }
   reportedPostId
+  reportedPost {
+    ...postPreviewWithoutUser
+  }
   reportedCommentId
   groupId
   status
@@ -1509,6 +1549,7 @@ export const ReportFragmentDoc = gql`
   }
 }
     ${AuthorFragmentDoc}
+${PostPreviewWithoutUserFragmentDoc}
 ${ReportCommentFragmentDoc}
 ${VersionFragmentDoc}`;
 export const TagFragmentDoc = gql`
