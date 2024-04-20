@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'none',
     },
   },
-  hideMobile: {
+  hideTablet: {
     [theme.breakpoints.down('lg')]: {
       display: 'none',
     },
@@ -54,7 +54,7 @@ export default function BottomNavbar() {
   return (
     <nav
       className={`${classes.bottomNavbar} ${
-        showComponent ? '' : classes.hideMobile
+        showComponent ? '' : classes.hideTablet
       }`}
     >
       <div className="flex flex-row gap-0 text-dark-200 bg-dark-500 text-xs md:text-sm w-screen py-2 px-4 justify-between">
