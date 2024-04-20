@@ -8,6 +8,8 @@ import {
   FindUsersWhereArgs,
 } from '@/interfaces/user.interfaces';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
+import Link from 'next/link';
+import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import UserPreview from './user-preview';
 
 function UserFeed({
@@ -41,12 +43,17 @@ function UserFeed({
   return (
     <>
       {edges.map((edge) => (
-        <UserPreview
+        <Link
           key={edge.node.id}
-          username={edge.node.username}
-          avatarURL={edge.node.avatarURL}
-          about={edge.node.about}
-        />
+          href={parseUserHomeLink({ username: edge.node.username })}
+        >
+          <UserPreview
+            key={edge.node.id}
+            username={edge.node.username}
+            avatarURL={edge.node.avatarURL}
+            about={edge.node.about}
+          />
+        </Link>
       ))}
       <div ref={ref} />
     </>
