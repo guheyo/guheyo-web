@@ -87,6 +87,35 @@ query findMyUser {
   }
 }
 
+query findUsers(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findUsers(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
 mutation updateUser(
   $input: UpdateUserInput!
 ) {

@@ -16,7 +16,7 @@ export default function WriteButton() {
 
   const handleOnClick = (): void => {
     setLoading(true);
-    router.push(`/write/g/${slug}/market`);
+    router.push(`/write/g/${slug}/offer`);
     setLoading(false);
   };
 

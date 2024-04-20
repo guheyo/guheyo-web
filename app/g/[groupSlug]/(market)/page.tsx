@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 
 function Page() {
-  return redirect(`market/sell`);
+  return redirect(`sell`);
 }
 
 export default Page;

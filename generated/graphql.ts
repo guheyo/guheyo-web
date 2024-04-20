@@ -657,8 +657,11 @@ export type QueryFindUserImagesOfRefArgs = {
 
 export type QueryFindUsersArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1190,6 +1193,18 @@ export type FindMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+
+export type FindUsersQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindUsersQuery = { __typename?: 'Query', findUsers: { __typename?: 'PaginatedUsersResponse', edges: Array<{ __typename?: 'UserResponseEdge', cursor: string, node: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInput;
@@ -2893,6 +2908,67 @@ export type FindMyUserQueryHookResult = ReturnType<typeof useFindMyUserQuery>;
 export type FindMyUserLazyQueryHookResult = ReturnType<typeof useFindMyUserLazyQuery>;
 export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserSuspenseQuery>;
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
+export const FindUsersDocument = gql`
+    query findUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findUsers(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${UserFragmentDoc}`;
+
+/**
+ * __useFindUsersQuery__
+ *
+ * To run a query within a React component, call `useFindUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUsersQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindUsersQuery(baseOptions: Apollo.QueryHookOptions<FindUsersQuery, FindUsersQueryVariables> & ({ variables: FindUsersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+      }
+export function useFindUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUsersQuery, FindUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+        }
+export function useFindUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUsersQuery, FindUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+        }
+export type FindUsersQueryHookResult = ReturnType<typeof useFindUsersQuery>;
+export type FindUsersLazyQueryHookResult = ReturnType<typeof useFindUsersLazyQuery>;
+export type FindUsersSuspenseQueryHookResult = ReturnType<typeof useFindUsersSuspenseQuery>;
+export type FindUsersQueryResult = Apollo.QueryResult<FindUsersQuery, FindUsersQueryVariables>;
 export const UpdateUserDocument = gql`
     mutation updateUser($input: UpdateUserInput!) {
   updateUser(input: $input)

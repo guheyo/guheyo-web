@@ -6,20 +6,20 @@ import { groupVar } from '@/lib/apollo/cache';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 
 const findLocation = (pathname: string) => {
-  if (pathname === '/') return 'home';
-  if (/^\/g\/[\w-]*\/market/.test(pathname)) return 'guild';
+  if (pathname === '/') return 'group';
+  if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'product';
   if (/^\/user\//.test(pathname)) return 'user';
   if (/^\/search$/.test(pathname)) return 'search-guild';
-  if (/^\/search\/g\/[\w-]*\/market/.test(pathname)) return 'search-product';
+  if (/^\/search\/g\/[\w-]*\/product/.test(pathname)) return 'search-product';
   return 'none';
 };
 
 const findHideButton = (location: string): boolean =>
-  !['home', 'guild'].includes(location);
+  /^search-.*/.test(location);
 
 const findPlaceholder = (location: string): string => {
-  if (location === 'home') return '그룹';
-  if (location === 'guild') return '제품';
+  if (location === 'group') return '그룹';
+  if (location === 'product') return '제품';
   return '';
 };
 
@@ -32,9 +32,9 @@ export default function SearchButton() {
   const device = useDeviceDetect();
 
   const handleClick = (): void => {
-    if (location === 'home') router.push('/search');
-    else if (location === 'guild')
-      router.push(`/search/g/${group?.slug}/market`);
+    if (location === 'group') router.push('/search');
+    else if (location === 'product')
+      router.push(`/search/g/${group?.slug}/product`);
   };
 
   if (hideButton) return <div />;
