@@ -9,7 +9,7 @@ function UserProfile({ username }: { username: string }) {
   const { jwtPayload } = useContext(AuthContext);
   if (jwtPayload?.username !== username)
     return <PublicUserProfile username={username} />;
-  return <PrivateUserProfile userId={jwtPayload.id} />;
+  return <PrivateUserProfile />;
 }
 
 export default UserProfile;
