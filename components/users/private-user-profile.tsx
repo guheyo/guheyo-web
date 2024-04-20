@@ -7,7 +7,7 @@ import Roles from './roles';
 import Username from './user-name';
 import SettingButton from '../setting/setting-button';
 
-export default function PrivateUserProfile({ userId }: { userId: string }) {
+export default function PrivateUserProfile() {
   const { data, loading } = useFindMyUserQuery({
     fetchPolicy: 'cache-and-network',
   });
