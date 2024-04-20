@@ -10,7 +10,7 @@ export default function GroupJoinButton({ slug }: { slug: string }) {
 
   const join = (): void => {
     setLoading(true);
-    router.push(`g/${slug}`);
+    router.push(`g/${slug}/sell`);
     setLoading(false);
   };
 
