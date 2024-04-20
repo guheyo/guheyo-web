@@ -6,4 +6,4 @@ export const parseGroupMarketLink = ({
 }: {
   groupSlug: string;
   businessFunction: BusinessFunction;
-}) => `/g/${groupSlug}/market/${businessFunction}`;
+}) => `/g/${groupSlug}/${businessFunction}`;
