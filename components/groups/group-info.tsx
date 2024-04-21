@@ -21,7 +21,7 @@ export default function GroupInfo({
           className="rounded-lg"
         />
       </div>
-      <div className="text-star-500 text-base md:text-lg font-bold">{`g/${name}`}</div>
+      <div className="text-star-500 tex/t-sm md:text-base font-semibold">{`g/${name}`}</div>
     </div>
   );
 }
