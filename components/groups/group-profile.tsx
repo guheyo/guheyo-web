@@ -13,7 +13,7 @@ export default function GroupProfile({
   icon?: string | null;
 }) {
   return (
-    <div className="flex flex-row gap-2 justify-between p-4 md:p-4 items-center">
+    <div className="flex flex-row gap-2 justify-between p-2 md:p-4 items-center">
       <div>
         <Link href={`g/${slug}`}>
           <GroupInfo name={name} icon={icon} />

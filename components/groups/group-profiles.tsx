@@ -16,7 +16,7 @@ export default function GroupProfiles({ keyword }: { keyword?: string }) {
 
   const groups = data.findGroupProfiles.edges;
   return (
-    <div className="grid gap-x-0 md:gap-x-4 gap-y-2 lg:gap-y-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-x-0 md:gap-x-4 gap-y-1 lg:gap-y-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {groups.map((group) => (
         <div key={group.node.name} className="rounded-lg bg-dark-400">
           <GroupProfile
