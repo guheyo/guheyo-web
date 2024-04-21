@@ -19,7 +19,7 @@ const findLocation = (pathname: string) => {
 };
 
 const findHideButton = (location: string): boolean =>
-  /^search-.*/.test(location);
+  !['group', 'product', 'member'].includes(location);
 
 const findPlaceholder = (location: string): string => {
   if (location === 'group') return '그룹을 검색해보세요';
