@@ -65,7 +65,7 @@ export default function BottomNavbar() {
         </NavbarIconLayout>
         <NavbarIconLayout>
           <GroupIcon />
-          멤버생활
+          커뮤니티
         </NavbarIconLayout>
       </div>
     </nav>
