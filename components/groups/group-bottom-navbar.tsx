@@ -4,7 +4,9 @@ import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import NavbarIconLayout from '../base/navbar-icon.layout';
+import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
+import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
+import BottomNavbarItem from '../base/bottom-navbar-item';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bottomNavbar: {
@@ -24,7 +26,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function GroupBottomNavbar() {
+export default function GroupBottomNavbar({
+  groupSlug,
+}: {
+  groupSlug: string;
+}) {
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -48,25 +54,46 @@ export default function GroupBottomNavbar() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollTop]);
-
   return (
     <nav
       className={`${classes.bottomNavbar} ${
         showComponent ? '' : classes.hideTablet
       }`}
     >
-      <div className="flex flex-row gap-0 text-dark-200 bg-dark-500 text-xs md:text-sm w-screen py-2 px-4 justify-between">
-        <NavbarIconLayout>
-          <HomeIcon />홈
-        </NavbarIconLayout>
-        <NavbarIconLayout>
-          <ShoppingBagIcon />
-          장터
-        </NavbarIconLayout>
-        <NavbarIconLayout>
-          <GroupIcon />
-          커뮤니티
-        </NavbarIconLayout>
+      <div className="grid grid-rows grid-cols-12 gap-0 bg-dark-500 w-screen py-2 px-4">
+        <div className="col-span-4">
+          <BottomNavbarItem
+            href="/"
+            icon={
+              <HomeIcon fontSize="small" className="hover:text-light-200" />
+            }
+            text="홈"
+          />
+        </div>
+        <div className="col-span-4">
+          <BottomNavbarItem
+            href={parseGroupMarketLink({ groupSlug, businessFunction: 'sell' })}
+            icon={
+              <ShoppingBagIcon
+                fontSize="small"
+                className="hover:text-light-200"
+              />
+            }
+            text="장터"
+          />
+        </div>
+        <div className="col-span-4">
+          <BottomNavbarItem
+            href={parseGroupCommunityLink({
+              groupSlug,
+              communityType: 'member',
+            })}
+            icon={
+              <GroupIcon fontSize="small" className="hover:text-light-200" />
+            }
+            text="커뮤니티"
+          />
+        </div>
       </div>
     </nav>
   );
