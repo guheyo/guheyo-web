@@ -4,7 +4,7 @@ import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import NavbarIconLayout from './navbar-icon.layout';
+import NavbarIconLayout from '../base/navbar-icon.layout';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bottomNavbar: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function BottomNavbar() {
+export default function GroupBottomNavbar() {
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
