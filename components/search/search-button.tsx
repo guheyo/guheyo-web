@@ -1,4 +1,6 @@
-import { InputAdornment, TextField } from '@mui/material';
+'use client';
+
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { SearchRounded } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import { useReactiveVar } from '@apollo/client';
@@ -17,12 +19,12 @@ const findLocation = (pathname: string) => {
 };
 
 const findHideButton = (location: string): boolean =>
-  /^search-.*/.test(location);
+  !['group', 'product', 'member'].includes(location);
 
 const findPlaceholder = (location: string): string => {
-  if (location === 'group') return '그룹';
-  if (location === 'product') return '제품';
-  if (location === 'member') return '멤버';
+  if (location === 'group') return '그룹을 검색해보세요';
+  if (location === 'product') return '제품을 검색해보세요';
+  if (location === 'member') return '멤버를 검색해보세요';
   return '';
 };
 
@@ -43,9 +45,17 @@ export default function SearchButton() {
   };
 
   if (hideButton) return <div />;
+
+  if (device !== 'browser')
+    return (
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label
+      <IconButton type="button" onClick={handleClick}>
+        <SearchRounded className="text-light-200" />
+      </IconButton>
+    );
   return (
     <TextField
-      className="w-28"
+      className="w-96"
       variant="outlined"
       placeholder={findPlaceholder(location)}
       onClick={handleClick}
@@ -61,11 +71,11 @@ export default function SearchButton() {
         ),
         sx: {
           color: '#f2f3ed',
-          borderRadius: 2,
-          fontSize: device === 'mobile' ? '14px' : '16px',
+          borderRadius: 6,
+          fontSize: '14px',
           backgroundColor: '#404146',
-          fontWeight: 600,
-          maxHeight: 36,
+          fontWeight: 500,
+          maxHeight: 42,
         },
       }}
     />
