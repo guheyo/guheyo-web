@@ -27,10 +27,20 @@ export default function WriteButton() {
         type="submit"
         loading={loading}
         className="text-xs md:text-sm font-bold text-light-200"
+        sx={{
+          padding: '6px', // Add padding to match IconButton size
+          minWidth: 0, // Set minimum width to 0
+          width: 'auto', // Adjust width dynamically
+          borderRadius: '50%', // Make the button circular
+          overflow: 'hidden', // Hide overflow content (if any)
+          '&:hover': {
+            backgroundColor: 'transparent', // Match IconButton hover effect
+          },
+        }}
         name={`${slug} 그룹 장터에서 글쓰기`}
         onClick={handleOnClick}
       >
-        <AddIcon />
+        <AddIcon className="text-2xl" />
       </LoadingButton>
     </div>
   );
