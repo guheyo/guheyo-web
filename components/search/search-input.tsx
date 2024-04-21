@@ -64,9 +64,9 @@ export default function SearchInput({
         sx: {
           color: '#f2f3ed',
           borderRadius: 2,
-          fontSize: device === 'mobile' ? '16px' : '18px',
+          fontSize: device === 'mobile' ? '14px' : '16px',
           backgroundColor: '#404146',
-          fontWeight: 600,
+          fontWeight: 500,
           minWidth: 360,
         },
         autoFocus: true,
