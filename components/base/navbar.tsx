@@ -10,27 +10,53 @@ import WriteButton from '../write/write-button';
 export default function Navbar() {
   return (
     <Scrollbar upPosition="top-0" zIndex={50}>
-      <header className="w-full border-b-2 border-dark-600 bg-dark-500 px-2 md:px-0">
-        <div className="grid grid-cols-12 py-0 h-12 items-center">
-          <div className="col-span-2 md:col-span-6 justify-self-start">
+      <header className="w-full border-b-2 border-dark-600 bg-dark-500 px-2 lg:px-4">
+        {/* Desktop layout */}
+        <div className="hidden lg:flex items-center justify-between h-14">
+          {/* Left side logo */}
+          <div className="flex items-center">
             <Link href="/">
-              <div className="flex flex-row gap-2">
-                <Image
-                  alt="guheyo logo"
-                  src="/star/star-bg-purple-rounded.ico"
-                  width={32}
-                  height={32}
-                  className="rounded"
-                />
-              </div>
+              <Image
+                alt="guheyo logo"
+                src="/star/star-bg-purple-rounded.ico"
+                // width={32}
+                // height={32}
+                width={36}
+                height={36}
+                className="rounded"
+              />
             </Link>
           </div>
-          <div className="col-span-10 md:col-span-6 justify-self-end md:justify-self-end">
-            <div className="flex flex-row gap-2 md:gap-8 items-center">
-              <SearchButton />
-              <WriteButton />
-              <LoginButton />
-            </div>
+          {/* Centered SearchButton */}
+          <div className="flex-grow flex justify-center">
+            <SearchButton />
+          </div>
+          {/* Right side buttons */}
+          <div className="flex items-center justify-end space-x-4">
+            <WriteButton />
+            <LoginButton />
+          </div>
+        </div>
+
+        {/* Mobile and tablet layout */}
+        <div className="lg:hidden flex items-center justify-between h-12">
+          {/* Left side logo */}
+          <div>
+            <Link href="/">
+              <Image
+                alt="guheyo logo"
+                src="/star/star-bg-purple-rounded.ico"
+                width={32}
+                height={32}
+                className="rounded"
+              />
+            </Link>
+          </div>
+          {/* Right side buttons */}
+          <div className="flex items-center space-x-4">
+            <SearchButton />
+            <WriteButton />
+            <LoginButton />
           </div>
         </div>
       </header>
