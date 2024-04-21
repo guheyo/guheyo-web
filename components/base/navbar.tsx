@@ -3,14 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import LoginButton from '../auth/login-button';
-import Scrollbar from './scrollbar';
 import SearchButton from '../search/search-button';
 import WriteButton from '../write/write-button';
 
 export default function Navbar() {
   return (
-    <Scrollbar upPosition="top-0" zIndex={50}>
-      <header className="w-full border-b-2 border-dark-600 bg-dark-500 px-2 lg:px-4">
+    <div className="sticky top-0 w-full z-50">
+      <header className="w-full bg-dark-500 px-2 lg:px-4">
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
@@ -19,8 +18,6 @@ export default function Navbar() {
               <Image
                 alt="guheyo logo"
                 src="/star/star-bg-purple-rounded.ico"
-                // width={32}
-                // height={32}
                 width={36}
                 height={36}
                 className="rounded"
@@ -60,6 +57,6 @@ export default function Navbar() {
           </div>
         </div>
       </header>
-    </Scrollbar>
+    </div>
   );
 }
