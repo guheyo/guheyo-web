@@ -3,9 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
-import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import SearchIcon from '@mui/icons-material/Search';
 import NavbarIconLayout from './navbar-icon.layout';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -59,19 +57,15 @@ export default function BottomNavbar() {
     >
       <div className="flex flex-row gap-0 text-dark-200 bg-dark-500 text-xs md:text-sm w-screen py-2 px-4 justify-between">
         <NavbarIconLayout>
-          <HomeIcon />
+          <HomeIcon />홈
         </NavbarIconLayout>
         <NavbarIconLayout>
           <ShoppingBagIcon />
-        </NavbarIconLayout>
-        <NavbarIconLayout>
-          <SearchIcon />
+          장터
         </NavbarIconLayout>
         <NavbarIconLayout>
           <GroupIcon />
-        </NavbarIconLayout>
-        <NavbarIconLayout>
-          <PersonIcon />
+          멤버생활
         </NavbarIconLayout>
       </div>
     </nav>
