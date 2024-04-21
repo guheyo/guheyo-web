@@ -4,7 +4,7 @@ import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 export type Device = 'mobile' | 'tablet' | 'browser';
 
 export const useDeviceDetect = () => {
-  const [device, setDevice] = useState<Device>('browser');
+  const [device, setDevice] = useState<Device>('mobile');
 
   useEffect(() => {
     if (isMobile) {
