@@ -2,7 +2,7 @@
 
 import GroupBottomNavbar from '@/components/groups/group-bottom-navbar';
 import GroupHeader from '@/components/groups/group-header';
-import GroupSidebar from '@/components/groups/group-side-bar';
+import GroupSidebar from '@/components/groups/group-sidebar';
 
 export default function Layout({
   children,
