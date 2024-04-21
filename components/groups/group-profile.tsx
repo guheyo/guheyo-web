@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import GroupInfo from './group-info';
-import GroupJoinButton from './gorup-join-button';
 
 export default function GroupProfile({
   name,
@@ -20,7 +19,6 @@ export default function GroupProfile({
           <GroupInfo name={name} icon={icon} />
         </Link>
       </div>
-      <GroupJoinButton slug={slug} />
     </div>
   );
 }

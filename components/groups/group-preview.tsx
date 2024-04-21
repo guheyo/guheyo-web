@@ -7,7 +7,6 @@ import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
 import GroupInfo from './group-info';
-import GroupJoinButton from './gorup-join-button';
 import OfferPreview from '../offers/offer-preview';
 
 interface Props {
@@ -21,7 +20,6 @@ export default function GroupPreview({ group }: Props) {
         <Link href={`g/${group.slug}`}>
           <GroupInfo name={group.name} icon={group.icon} />
         </Link>
-        <GroupJoinButton slug={group.slug!} />
       </div>
       <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-3 md:pt-5 pb-1">
         <Link
