@@ -19,8 +19,8 @@ export default function GroupProfile({
       icon={
         <Image
           src={!icon ? '/star/star.svg' : icon}
-          width={isMobile ? 36 : 48}
-          height={isMobile ? 36 : 48}
+          width={isMobile ? 30 : 36}
+          height={isMobile ? 30 : 36}
           alt={`${name} logo`}
           className="rounded-lg"
         />

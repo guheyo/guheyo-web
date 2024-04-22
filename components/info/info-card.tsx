@@ -16,11 +16,13 @@ export default function InfoCard({
       {icon}
       {about ? (
         <div className="flex flex-col">
-          <div className="text-sm md:text-base font-bold">{name}</div>
-          <div className="text-xs md:text-sm mt-1 md:mt-2">{about}</div>
+          <div className="text-xs md:text-sm">{name}</div>
+          <div className="text-xs md:text-sm mt-1 md:mt-2 text-gray-500 md:text-gray-400">
+            {about}
+          </div>
         </div>
       ) : (
-        <div className="text-sm md:text-base font-bold">{name}</div>
+        <div className="text-xs md:text-sm">{name}</div>
       )}
     </div>
   );
