@@ -1,24 +1,31 @@
 'use client';
 
-import Link from 'next/link';
-import GroupInfo from './group-info';
+import Image from 'next/image';
+import { isMobile } from 'react-device-detect';
+import InfoCard from '../info/info-card';
 
 export default function GroupProfile({
   name,
-  slug,
   icon,
+  description,
 }: {
   name: string;
-  slug: string;
   icon?: string | null;
+  description?: string | null;
 }) {
   return (
-    <div className="flex flex-row gap-2 justify-between p-4 md:p-4 items-center">
-      <div>
-        <Link href={`g/${slug}`}>
-          <GroupInfo name={name} icon={icon} />
-        </Link>
-      </div>
-    </div>
+    <InfoCard
+      name={name}
+      icon={
+        <Image
+          src={!icon ? '/star/star.svg' : icon}
+          width={isMobile ? 36 : 48}
+          height={isMobile ? 36 : 48}
+          alt={`${name} logo`}
+          className="rounded-lg"
+        />
+      }
+      about={description}
+    />
   );
 }

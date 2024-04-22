@@ -6,7 +6,7 @@ import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
-import UserFeedLayout from '../users/user-feed-layout';
+import InfoFeedLayout from '../info/info-feed-layout';
 
 export default function SearchUsers() {
   const [text, setText] = useState('');
@@ -34,11 +34,9 @@ export default function SearchUsers() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <div className="pt-4">
-        <UserFeedLayout>
-          <UserFeed where={where} orderBy={orderBy} keyword={keyword} />
-        </UserFeedLayout>
-      </div>
+      <InfoFeedLayout>
+        <UserFeed where={where} orderBy={orderBy} keyword={keyword} />
+      </InfoFeedLayout>
     </div>
   );
 }
