@@ -12,6 +12,7 @@ import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
 import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
 import { useGroup } from '@/hooks/use-group';
 import SidebarItem from '../base/sidebar-item';
+import GroupProfileSidebarItems from './group-profile-sidebar-items';
 
 export default function GroupSidebar() {
   const { loading, group } = useGroup();
@@ -26,6 +27,7 @@ export default function GroupSidebar() {
             text="홈"
           />
           <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
+          <GroupProfileSidebarItems />
         </List>
       </div>
     );
@@ -36,6 +38,7 @@ export default function GroupSidebar() {
       <List>
         <SidebarItem href="/" icon={<HomeIcon fontSize="small" />} text="홈" />
         <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
+        <GroupProfileSidebarItems />
         <ListItem className="text-base text-zinc-300 pl-4">장터</ListItem>
         <SidebarItem
           href={parseGroupMarketLink({
