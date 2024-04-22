@@ -1,6 +1,6 @@
 import { Avatar as MuiAvatar } from '@mui/material';
 
-type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 const convertAvatarSize = (avatarSize: Size): string => {
   if (avatarSize === 'xs') return '24px';
