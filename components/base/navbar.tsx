@@ -2,18 +2,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import MenuIcon from '@mui/icons-material/Menu';
 import LoginButton from '../auth/login-button';
 import SearchButton from '../search/search-button';
 import WriteButton from '../write/write-button';
 
-export default function Navbar() {
+export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
   return (
     <div className="sticky top-0 w-full z-50">
       <header className="w-full bg-dark-500">
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
-          <div className="flex items-center h-full w-56 bg-dark-600 pl-8">
+          <div className="flex items-center h-full w-56 bg-dark-600 pl-7">
             <Link href="/">
               <Image
                 alt="guheyo logo"
@@ -29,16 +30,24 @@ export default function Navbar() {
             <SearchButton />
           </div>
           {/* Right side buttons */}
-          <div className="flex items-center justify-end space-x-4 pr-8">
+          <div className="flex items-center justify-end space-x-2 pr-7">
             <WriteButton />
             <LoginButton />
           </div>
         </div>
 
         {/* Mobile and tablet layout */}
-        <div className="lg:hidden flex items-center justify-between h-12 px-2">
-          {/* Left side logo */}
-          <div>
+        <div className="lg:hidden flex items-center justify-between h-12 pl-5 pr-2">
+          {/* Left side menu and logo */}
+          <div className="flex flex-row items-center space-x-4">
+            <button
+              className="lg:hidden"
+              type="button"
+              onClick={toggleMenu}
+              aria-label="Toggle Menu"
+            >
+              <MenuIcon />
+            </button>
             <Link href="/">
               <Image
                 alt="guheyo logo"
@@ -49,8 +58,9 @@ export default function Navbar() {
               />
             </Link>
           </div>
+
           {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-0">
             <SearchButton />
             <WriteButton />
             <LoginButton />
