@@ -19,7 +19,6 @@ export default function GroupPreview({ group }: Props) {
       <GroupJoinSection
         name={group.name}
         icon={group.icon}
-        description={group.description}
         slug={group.slug!}
       />
       <div className="text-sm md:text-base text-light-200 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
