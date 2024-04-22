@@ -25,14 +25,16 @@ export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
               />
             </Link>
           </div>
-          {/* Centered SearchButton */}
-          <div className="flex-grow flex justify-center">
-            <SearchButton />
-          </div>
+
           {/* Right side buttons */}
           <div className="flex items-center justify-end space-x-2 pr-7">
             <WriteButton />
             <LoginButton />
+          </div>
+
+          {/* Centered SearchButton */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <SearchButton />
           </div>
         </div>
 
