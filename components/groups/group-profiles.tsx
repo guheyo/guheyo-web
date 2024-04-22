@@ -2,7 +2,9 @@
 
 import { useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import Link from 'next/link';
 import GroupProfile from './group-profile';
+import SearchResultCardLayout from '../search/search-result-card.layout';
 
 export default function GroupProfiles({ keyword }: { keyword?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,17 +18,19 @@ export default function GroupProfiles({ keyword }: { keyword?: string }) {
 
   const groups = data.findGroupProfiles.edges;
   return (
-    <div className="grid gap-x-0 md:gap-x-4 gap-y-1 lg:gap-y-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <>
       {groups.map((group) => (
-        <div key={group.node.name} className="rounded-lg bg-dark-400">
-          <GroupProfile
-            name={group.node.name}
-            slug={group.node.slug!}
-            icon={group.node.icon}
-          />
-        </div>
+        <Link key={group.node.name} href={`g/${group.node.slug}`}>
+          <SearchResultCardLayout>
+            <GroupProfile
+              name={group.node.name}
+              icon={group.node.icon}
+              description={group.node.description}
+            />
+          </SearchResultCardLayout>
+        </Link>
       ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }

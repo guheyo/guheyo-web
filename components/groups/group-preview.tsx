@@ -6,8 +6,8 @@ import PaidIcon from '@mui/icons-material/Paid';
 import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
-import GroupInfo from './group-info';
 import OfferPreview from '../offers/offer-preview';
+import GroupJoinSection from './group-join-section';
 
 interface Props {
   group: GroupPreviewFragment;
@@ -16,11 +16,12 @@ interface Props {
 export default function GroupPreview({ group }: Props) {
   return (
     <div className="bg-dark-500 rounded-lg">
-      <div className="flex flex-row gap-6 justify-between w-fit px-0 md:px-0 pt-4 mx-2 md:mx-0">
-        <Link href={`g/${group.slug}`}>
-          <GroupInfo name={group.name} icon={group.icon} />
-        </Link>
-      </div>
+      <GroupJoinSection
+        name={group.name}
+        icon={group.icon}
+        description={group.description}
+        slug={group.slug!}
+      />
       <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-3 md:pt-5 pb-1">
         <Link
           href={parseGroupMarketLink({
