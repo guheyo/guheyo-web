@@ -6,12 +6,21 @@ import Image from 'next/image';
 import { isMobile } from 'react-device-detect';
 import SidebarItem from '../base/sidebar-item';
 
-export default function GroupProfileSidebarItems() {
+export default function GroupProfileSidebarItems({
+  onClick,
+}: {
+  onClick: () => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
     take: 1,
   });
+
+  const handleClick = () => {
+    onClick();
+  };
+
   if (loading) return <div />;
   if (!data?.findGroupProfiles) return <div />;
 
@@ -32,6 +41,7 @@ export default function GroupProfileSidebarItems() {
             />
           }
           text={group.node.name}
+          onClick={handleClick}
         />
       ))}
       <div ref={ref} />
