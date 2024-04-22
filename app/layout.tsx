@@ -2,6 +2,7 @@ import './globals.css';
 import { Noto_Sans_KR } from 'next/font/google';
 import Navbar from '@/components/base/navbar';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import GroupSidebar from '@/components/groups/group-sidebar';
 import { Providers } from './providers';
 
 const notoSansKr = Noto_Sans_KR({
@@ -35,6 +36,9 @@ export default function RootLayout({
       <body className={`${notoSansKr.className} text-dark-200 bg-dark-500`}>
         <Providers>
           <Navbar />
+          <div className="hidden lg:block">
+            <GroupSidebar />
+          </div>
           <div className="max-w-5xl mx-auto pb-0">{children}</div>
         </Providers>
       </body>
