@@ -23,7 +23,7 @@ export default function GroupSidebar() {
         <List>
           <SidebarItem
             href="/"
-            icon={<HomeIcon fontSize="small" />}
+            icon={<HomeIcon fontSize="medium" />}
             text="홈"
           />
           <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
@@ -36,7 +36,7 @@ export default function GroupSidebar() {
   return (
     <div className="fixed top-14 left-0 h-screen w-56 bg-dark-600 text-gray-400 pt-4 px-4">
       <List>
-        <SidebarItem href="/" icon={<HomeIcon fontSize="small" />} text="홈" />
+        <SidebarItem href="/" icon={<HomeIcon fontSize="medium" />} text="홈" />
         <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
         <GroupProfileSidebarItems />
         <ListItem className="text-base text-zinc-300 pl-4">장터</ListItem>
@@ -45,7 +45,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             businessFunction: 'sell',
           })}
-          icon={<SellIcon fontSize="small" />}
+          icon={<SellIcon fontSize="medium" />}
           text="판매"
         />
         <SidebarItem
@@ -53,7 +53,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             businessFunction: 'buy',
           })}
-          icon={<ShoppingBagIcon fontSize="small" />}
+          icon={<ShoppingBagIcon fontSize="medium" />}
           text="구매"
         />
         <SidebarItem
@@ -61,7 +61,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             businessFunction: 'swap',
           })}
-          icon={<SwapHorizIcon fontSize="small" />}
+          icon={<SwapHorizIcon fontSize="medium" />}
           text="교환"
         />
         <ListItem className="text-base text-zinc-300 pl-4">커뮤니티</ListItem>
@@ -70,7 +70,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             communityType: 'member',
           })}
-          icon={<GroupIcon fontSize="small" />}
+          icon={<GroupIcon fontSize="medium" />}
           text="멤버"
         />
         <SidebarItem
@@ -78,7 +78,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             communityType: 'user-review',
           })}
-          icon={<StickyNote2Icon fontSize="small" />}
+          icon={<StickyNote2Icon fontSize="medium" />}
           text="거래 후기"
         />
         <SidebarItem
@@ -86,7 +86,7 @@ export default function GroupSidebar() {
             groupSlug: group.slug,
             communityType: 'report',
           })}
-          icon={<FlagIcon fontSize="small" />}
+          icon={<FlagIcon fontSize="medium" />}
           text="신고"
         />
       </List>

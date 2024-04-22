@@ -25,8 +25,8 @@ export default function GroupProfileSidebarItems() {
           icon={
             <Image
               src={!group.node.icon ? '/star/star.svg' : group.node.icon}
-              width={isMobile ? 16 : 20}
-              height={isMobile ? 16 : 20}
+              width={isMobile ? 20 : 24}
+              height={isMobile ? 20 : 24}
               alt={`${group.node.name} logo`}
               className="rounded-lg"
             />
