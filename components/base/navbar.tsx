@@ -13,7 +13,7 @@ export default function Navbar() {
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
-          <div className="flex items-center h-full w-56 bg-dark-600 pl-4">
+          <div className="flex items-center h-full w-56 bg-dark-600 pl-8">
             <Link href="/">
               <Image
                 alt="guheyo logo"
@@ -29,7 +29,7 @@ export default function Navbar() {
             <SearchButton />
           </div>
           {/* Right side buttons */}
-          <div className="flex items-center justify-end space-x-4 pr-4">
+          <div className="flex items-center justify-end space-x-4 pr-8">
             <WriteButton />
             <LoginButton />
           </div>
