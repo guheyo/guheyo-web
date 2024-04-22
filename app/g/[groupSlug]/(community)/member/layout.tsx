@@ -1,4 +1,4 @@
-import UserFeedLayout from '@/components/users/user-feed-layout';
+import InfoFeedLayout from '@/components/info/info-feed-layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -9,7 +9,7 @@ function Layout({ children }: Props) {
   return (
     <div className="flex justify-center">
       <div className="grid max-w-3xl w-full">
-        <UserFeedLayout>{children}</UserFeedLayout>
+        <InfoFeedLayout>{children}</InfoFeedLayout>
       </div>
     </div>
   );

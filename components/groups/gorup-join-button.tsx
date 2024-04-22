@@ -19,7 +19,7 @@ export default function GroupJoinButton({ slug }: { slug: string }) {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="bg-star-500 hover:bg-star-400 text-sm font-bold px-2 py-1.5 rounded text-light-200"
+        className="bg-gray-500 hover:bg-dark-200 text-xs lg:text-sm font-bold px-0 py-1.5 rounded text-light-200"
         name={`${slug} 그룹에 입장하기`}
         onClick={() => join()}
       >
