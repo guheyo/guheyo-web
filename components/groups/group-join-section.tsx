@@ -16,7 +16,7 @@ export default function GroupJoinSection({
 }) {
   return (
     <div className="flex flex-row gap-8 items-center text-star-500">
-      <GroupProfile name={`g/${name}`} icon={icon} description={description} />
+      <GroupProfile name={name} icon={icon} description={description} />
       <GroupJoinButton slug={slug} />
     </div>
   );

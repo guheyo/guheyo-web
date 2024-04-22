@@ -19,7 +19,9 @@ export default function GroupHeader({ slug }: { slug: string }) {
         alt={`${group.name} logo`}
         className="rounded-lg"
       />
-      <div className="text-star-500 text-base md:text-lg font-bold">{`g/${group.name}`}</div>
+      <div className="text-star-500 text-base md:text-lg font-bold">
+        {group.name}
+      </div>
     </div>
   );
 }
