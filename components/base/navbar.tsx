@@ -9,11 +9,11 @@ import WriteButton from '../write/write-button';
 export default function Navbar() {
   return (
     <div className="sticky top-0 w-full z-50">
-      <header className="w-full bg-dark-500 px-2 lg:px-4">
+      <header className="w-full bg-dark-500">
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
-          <div className="flex items-center">
+          <div className="flex items-center h-full w-56 bg-dark-600 pl-4">
             <Link href="/">
               <Image
                 alt="guheyo logo"
@@ -29,14 +29,14 @@ export default function Navbar() {
             <SearchButton />
           </div>
           {/* Right side buttons */}
-          <div className="flex items-center justify-end space-x-4">
+          <div className="flex items-center justify-end space-x-4 pr-4">
             <WriteButton />
             <LoginButton />
           </div>
         </div>
 
         {/* Mobile and tablet layout */}
-        <div className="lg:hidden flex items-center justify-between h-12">
+        <div className="lg:hidden flex items-center justify-between h-12 px-2">
           {/* Left side logo */}
           <div>
             <Link href="/">

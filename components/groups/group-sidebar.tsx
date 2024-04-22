@@ -12,7 +12,7 @@ import SidebarItem from '../base/sidebar-item';
 
 export default function GroupSidebar({ groupSlug }: { groupSlug: string }) {
   return (
-    <div className="fixed top-14 left-0 h-screen text-gray-400 pt-6 px-2 bg-dark-600">
+    <div className="fixed top-14 left-0 h-screen w-56 bg-dark-600 text-gray-400 pt-6 px-2">
       <List>
         <SidebarItem href="/" icon={<HomeIcon fontSize="small" />} text="홈" />
         <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
