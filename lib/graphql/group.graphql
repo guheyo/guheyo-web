@@ -29,6 +29,7 @@ fragment groupProfile on GroupProfileResponse {
   id
   name
   slug
+  description
   icon
 }
 
