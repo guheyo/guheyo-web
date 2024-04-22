@@ -9,7 +9,7 @@ export const metadata = {
 function Page() {
   return (
     <>
-      <div className="mt-0 md:mt-2 min-h-screen mb-12">
+      <div className="min-h-screen pt-4 mb-12 px-2 md:px-0">
         <GroupFeed />
       </div>
       <HomeFooter />
