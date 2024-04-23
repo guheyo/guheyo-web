@@ -1,9 +1,9 @@
 import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
-import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-link';
+import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
-export default function OtherUserReviewDialog({
+export default function SelectUserReviewTargetOfferDialog({
   username,
 }: {
   username: string;

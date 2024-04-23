@@ -8,7 +8,7 @@ import UserAvatar from './user-avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
 import Username from './user-name';
-import OtherUserReviewDialog from '../user-review/other-user-review-dialog';
+import SelectUserReviewTargetOfferDialog from '../user-review/select-user-review-target-offer-dialog';
 
 export default function PublicUserProfile({ username }: { username: string }) {
   const { data, loading } = useFindAuthorQuery({
@@ -53,7 +53,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
       </div>
       <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
         <div className="grow w-44">
-          <OtherUserReviewDialog username={username} />
+          <SelectUserReviewTargetOfferDialog username={username} />
         </div>
         <div className="grow w-44">
           <DmDialog
