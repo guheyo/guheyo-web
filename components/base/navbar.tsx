@@ -9,7 +9,7 @@ import WriteButton from '../write/write-button';
 
 export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
   return (
-    <div className="sticky top-0 w-full z-50">
+    <div className="sticky top-0 w-full z-40">
       <header className="w-full bg-dark-500">
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
