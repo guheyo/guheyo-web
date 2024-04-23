@@ -10,6 +10,8 @@ import {
 } from '@/interfaces/offer.interfaces';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
+import { Control, useController } from 'react-hook-form';
+import { OfferCheckboxFormValues } from '@/lib/offer/offer.interfaces';
 
 const {
   theme: { colors },
@@ -22,6 +24,8 @@ function OfferCheckboxResults({
   type,
   status,
   distinct,
+  control,
+  handleOfferSelection,
 }: {
   where: FindOffersWhereArgs;
   orderBy?: FindOffersOrderByArgs;
@@ -29,9 +33,11 @@ function OfferCheckboxResults({
   type: 'text' | 'thumbnail';
   status?: string;
   distinct: boolean;
+  control: Control<OfferCheckboxFormValues>;
+  handleOfferSelection: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-
+  const { field } = useController({ name: 'selectedId', control });
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     where: {
@@ -48,6 +54,10 @@ function OfferCheckboxResults({
     take: 12,
   });
 
+  const handleClick = (offerId: string) => {
+    handleOfferSelection(offerId);
+  };
+
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
   if (!data?.findOfferPreviews) return <div />;
 
@@ -59,7 +69,11 @@ function OfferCheckboxResults({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-row">
-          <Checkbox style={{ color: colors['light-200'] }} />
+          <Checkbox
+            style={{ color: colors['light-200'] }}
+            checked={edge.node.id === field.value}
+            onChange={() => handleClick(edge.node.id)}
+          />
           <div className="w-full">
             <OfferPreview offer={edge.node} type={type} />
           </div>
