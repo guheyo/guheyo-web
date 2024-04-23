@@ -11,13 +11,11 @@ interface Props {
 
 function Layout({ children, params }: Props) {
   return (
-    <div className="pb-4 md:pb-6 px-2 md:px-0">
-      <div className="pt-6">
-        <div className="px-2 pb-6">
-          <UserProfile username={params.username} />
-        </div>
-        <UserHomeNavbar username={params.username} />
+    <div className="pt-6 pb-4 md:pb-6 px-2 lg:px-0">
+      <div className="px-2 pb-6">
+        <UserProfile username={params.username} />
       </div>
+      <UserHomeNavbar username={params.username} />
       {children}
     </div>
   );
