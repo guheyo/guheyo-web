@@ -44,5 +44,5 @@ export type UserReviewFormValues = {
 };
 
 export type OfferCheckboxFormValues = {
-  offerId: string;
+  selectedId: string;
 };
