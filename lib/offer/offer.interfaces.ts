@@ -42,3 +42,7 @@ export type UserReviewFormValues = {
   content?: string;
   tagOptions: TagOption[];
 };
+
+export type OfferCheckboxFormValues = {
+  offerId: string;
+};
