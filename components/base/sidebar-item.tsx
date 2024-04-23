@@ -5,14 +5,20 @@ export default function SidebarItem({
   href,
   icon,
   text,
+  onClick,
 }: {
   href: string;
   icon: React.ReactNode;
   text: string;
+  onClick: () => void;
 }) {
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
     <Link href={href}>
-      <ListItem>
+      <ListItem onClick={handleClick}>
         <ListItemIcon
           className="text-gray-400"
           style={{ minWidth: 'unset', width: 'auto', marginRight: '12px' }}

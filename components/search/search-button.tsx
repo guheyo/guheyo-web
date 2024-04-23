@@ -48,8 +48,11 @@ export default function SearchButton() {
 
   if (device !== 'browser')
     return (
-      // eslint-disable-next-line jsx-a11y/control-has-associated-label
-      <IconButton type="button" onClick={handleClick}>
+      <IconButton
+        type="button"
+        onClick={handleClick}
+        aria-label="Search Button"
+      >
         <SearchRounded className="text-light-200" />
       </IconButton>
     );
