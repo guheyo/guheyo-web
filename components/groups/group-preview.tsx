@@ -19,10 +19,9 @@ export default function GroupPreview({ group }: Props) {
       <GroupJoinSection
         name={group.name}
         icon={group.icon}
-        description={group.description}
         slug={group.slug!}
       />
-      <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-3 md:pt-5 pb-1">
+      <div className="text-sm md:text-base text-light-200 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
@@ -35,12 +34,12 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
+      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
         {group.sells.map((sellOffer) => (
           <OfferPreview key={sellOffer.id} offer={sellOffer} type="thumbnail" />
         ))}
       </div>
-      <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
+      <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-0 md:mx-1 pt-2">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
@@ -55,7 +54,7 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
-      <div className="text-sm md:text-base text-light-200 font-medium mx-2 md:mx-3 pt-0 md:pt-5 pb-1">
+      <div className="text-sm md:text-base text-light-200 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
         <div className="flex flex-row items-center gap-1">
           <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
           <Link
@@ -68,12 +67,12 @@ export default function GroupPreview({ group }: Props) {
           </Link>
         </div>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0 mx-2 md:mx-0">
+      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
         {group.buys.map((buyOffer) => (
           <OfferPreview key={buyOffer.id} offer={buyOffer} type="text" />
         ))}
       </div>
-      <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-2 md:mx-3 pt-2">
+      <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-0 md:mx-1 pt-2">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,

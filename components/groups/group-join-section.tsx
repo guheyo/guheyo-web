@@ -1,22 +1,20 @@
 'use client';
 
-import GroupProfile from './group-profile';
 import GroupJoinButton from './gorup-join-button';
+import GroupHeaderItem from './group-header-item';
 
 export default function GroupJoinSection({
   name,
   icon,
-  description,
   slug,
 }: {
   name: string;
   icon?: string | null;
-  description?: string | null;
   slug: string;
 }) {
   return (
     <div className="flex flex-row gap-8 items-center text-star-500">
-      <GroupProfile name={`g/${name}`} icon={icon} description={description} />
+      <GroupHeaderItem name={name} icon={icon} />
       <GroupJoinButton slug={slug} />
     </div>
   );

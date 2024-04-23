@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'fixed',
     bottom: 0,
     left: 0,
-    zIndex: 1000,
+    zIndex: 40,
     transition: 'transform 0.3s ease-out',
     [theme.breakpoints.up('lg')]: {
       display: 'none',
