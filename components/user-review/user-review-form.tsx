@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation';
 import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-form-title';
 import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
+import { TagResponse } from '@/generated/graphql';
+import { RATING_OPTIONS } from '@/lib/user-review/user-review.constants';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import TagButtonInputs from '../posts/tag-button-inputs';
@@ -22,10 +24,12 @@ export default function UserReviewForm({
   offerId,
   title,
   reviewedUserId,
+  tags,
 }: {
   offerId: string;
   title: string;
   reviewedUserId: string;
+  tags: TagResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
@@ -36,7 +40,7 @@ export default function UserReviewForm({
         id: '',
         title: '',
         content: '',
-        rating: 0,
+        rating: undefined,
         tagOptions: [],
       },
     });
@@ -97,7 +101,7 @@ export default function UserReviewForm({
       </div>
 
       <div className="flex justify-between items-center text-dark-200 text-5xl px-4 py-0 h-fit">
-        <RatingInputs />
+        <RatingInputs control={control} ratingOptions={RATING_OPTIONS} />
       </div>
 
       <TagButtonInputs tagOptions={tagOptions} handleClick={handleTagClick} />
