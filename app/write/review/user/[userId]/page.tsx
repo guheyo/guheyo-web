@@ -5,7 +5,6 @@ import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
 import TextFeedLayout from '@/components/posts/text-feed.layout';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
-import { useFindUserQuery } from '@/generated/graphql';
 import { OfferCheckboxFormValues } from '@/lib/offer/offer.interfaces';
 import { parseUserReviewTargetOfferFormLink } from '@/lib/user-review/parse-user-review-target-offer-form-link';
 import { useRouter } from 'next/navigation';
@@ -14,10 +13,10 @@ import { useForm } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
 
 export default function Page({
-  params: { username },
+  params: { userId },
 }: {
   params: {
-    username: string;
+    userId: string;
   };
 }) {
   const [text, setText] = useState('');
@@ -29,15 +28,6 @@ export default function Page({
       selectedId: '',
     },
   });
-
-  const { loading, data } = useFindUserQuery({
-    variables: { username },
-    fetchPolicy: 'cache-first',
-  });
-  const user = data?.findUser;
-
-  if (loading) return <div />;
-  if (!user) return <div />;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -56,7 +46,7 @@ export default function Page({
     if (!selectedId) return;
 
     router.push(
-      parseUserReviewTargetOfferFormLink({ username, offerId: selectedId }),
+      parseUserReviewTargetOfferFormLink({ userId, offerId: selectedId }),
     );
   };
 
@@ -65,7 +55,7 @@ export default function Page({
   };
 
   const where = {
-    userId: user.id,
+    userId,
   };
 
   return (

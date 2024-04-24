@@ -1,7 +1,7 @@
 export const parseUserReviewTargetOfferFormLink = ({
-  username,
+  userId,
   offerId,
 }: {
-  username: string;
+  userId: string;
   offerId: string;
-}) => `/write/review/user/${username}/offer/${offerId}`;
+}) => `/write/review/user/${userId}/offer/${offerId}`;

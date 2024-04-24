@@ -53,7 +53,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
       </div>
       <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
         <div className="grow w-44">
-          <SelectUserReviewTargetOfferDialog username={username} />
+          <SelectUserReviewTargetOfferDialog userId={user.id} />
         </div>
         <div className="grow w-44">
           <DmDialog

@@ -4,15 +4,15 @@ import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-for
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function SelectUserReviewTargetOfferDialog({
-  username,
+  userId,
 }: {
-  username: string;
+  userId: string;
 }) {
   const router = useRouter();
 
   const handleOnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
-    router.push(parseUserReviewFormLink({ username }));
+    router.push(parseUserReviewFormLink({ userId }));
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {

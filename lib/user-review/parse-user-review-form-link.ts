@@ -1,11 +1,11 @@
 export const parseUserReviewFormLink = ({
-  username,
+  userId,
   offerId,
 }: {
-  username?: string;
+  userId?: string;
   offerId?: string;
 }) => {
-  if (username) return `/write/review/user/${username}`;
+  if (userId) return `/write/review/user/${userId}`;
   if (offerId) return `/write/review/offer/${offerId}`;
   return '/';
 };
