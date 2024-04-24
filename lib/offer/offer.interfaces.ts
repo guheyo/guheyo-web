@@ -40,6 +40,7 @@ export type UserReviewFormValues = {
   id: string;
   title: string;
   content?: string;
+  rating: number;
   tagOptions: TagOption[];
 };
 
