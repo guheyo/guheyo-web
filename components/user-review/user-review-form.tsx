@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  SubmitErrorHandler,
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-} from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { MouseEventHandler, useContext, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
@@ -15,6 +10,7 @@ import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-fo
 import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
 import { TagResponse } from '@/generated/graphql';
 import { RATING_OPTIONS } from '@/lib/user-review/user-review.constants';
+import { parseRatingResultTitle } from '@/lib/user-review/parse-rating-result-title';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import TagButtonInputs from '../posts/tag-button-inputs';
@@ -34,23 +30,30 @@ export default function UserReviewForm({
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
 
-  const { handleSubmit, setValue, getValues, control } =
+  const { handleSubmit, setValue, watch, control } =
     useForm<UserReviewFormValues>({
       defaultValues: {
         id: '',
         title: '',
         content: '',
         rating: undefined,
-        tagOptions: [],
+        mannerTagOptions: tags
+          .filter((tag) => tag.type === 'manner')
+          .map((tag) => ({
+            ...tag,
+            isSelected: false,
+          })),
+        badMannerTagOptions: tags
+          .filter((tag) => tag.type === 'badManner')
+          .map((tag) => ({
+            ...tag,
+            isSelected: true,
+          })),
       },
     });
 
-  const { update } = useFieldArray({
-    control,
-    name: 'tagOptions',
-  });
+  const rating = watch('rating');
 
-  const tagOptions = getValues('tagOptions');
   // Init OfferReportFormValues
   useEffect(() => {
     if (!jwtPayload) return;
@@ -75,14 +78,6 @@ export default function UserReviewForm({
     // TODO
   };
 
-  const handleTagClick = (index: number) => {
-    const tag = getValues(`tagOptions.${index}`);
-    update(index, {
-      ...tag,
-      isSelected: !tag.isSelected,
-    });
-  };
-
   const handleAuthorization: MouseEventHandler = (e) => {
     // Do nothing
   };
@@ -93,7 +88,7 @@ export default function UserReviewForm({
 
   return (
     <form
-      className="flex flex-col gap-12 w-full md:w-fit"
+      className="flex flex-col gap-12 w-full md:w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-xl text-light-200 font-bold">
@@ -104,15 +99,33 @@ export default function UserReviewForm({
         <RatingInputs control={control} ratingOptions={RATING_OPTIONS} />
       </div>
 
-      <TagButtonInputs tagOptions={tagOptions} handleClick={handleTagClick} />
+      {rating === 1 && (
+        <div className="flex flex-col gap-4">
+          <div className="text-base text-lg text-light-200">
+            {parseRatingResultTitle({ rating })}
+          </div>
+          <TagButtonInputs control={control} name="badMannerTagOptions" />
+        </div>
+      )}
 
-      <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
-        <DiscordLoginDialog
-          name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
-          onAuthorization={handleAuthorization}
-          onUnAuthorization={handleUnAuthorization}
-        />
-      </div>
+      {rating > 1 && (
+        <div className="flex flex-col gap-4">
+          <div className="text-base text-lg text-light-200">
+            {parseRatingResultTitle({ rating })}
+          </div>
+          <TagButtonInputs control={control} name="mannerTagOptions" />
+        </div>
+      )}
+
+      {rating > 0 && (
+        <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
+          <DiscordLoginDialog
+            name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
+            onAuthorization={handleAuthorization}
+            onUnAuthorization={handleUnAuthorization}
+          />
+        </div>
+      )}
     </form>
   );
 }
