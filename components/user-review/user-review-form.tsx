@@ -11,25 +11,21 @@ import { v4 as uuid4 } from 'uuid';
 import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
 import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
-import { TagResponse } from '@/generated/graphql';
 import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-form-title';
 import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import TagButtonInputs from '../posts/tag-button-inputs';
+import RatingInputs from './rating-inputs';
 
 export default function UserReviewForm({
   offerId,
-  dealName,
+  title,
   reviewedUserId,
-  groupId,
-  tags,
 }: {
   offerId: string;
-  dealName: string;
+  title: string;
   reviewedUserId: string;
-  groupId: string;
-  tags: TagResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
@@ -40,12 +36,8 @@ export default function UserReviewForm({
         id: '',
         title: '',
         content: '',
-        tagOptions: tags.map((tag) => ({
-          id: tag.id,
-          type: tag.type,
-          name: tag.name,
-          isSelected: false,
-        })),
+        rating: 0,
+        tagOptions: [],
       },
     });
 
@@ -101,7 +93,11 @@ export default function UserReviewForm({
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-xl text-light-200 font-bold">
-        {parseUserReviewFormTitle(dealName)}
+        {parseUserReviewFormTitle(title)}
+      </div>
+
+      <div className="flex justify-between items-center text-dark-200 text-5xl px-4 py-0 h-fit">
+        <RatingInputs />
       </div>
 
       <TagButtonInputs tagOptions={tagOptions} handleClick={handleTagClick} />
