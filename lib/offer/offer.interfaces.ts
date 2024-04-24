@@ -41,7 +41,8 @@ export type UserReviewFormValues = {
   title: string;
   content?: string;
   rating: number;
-  tagOptions: TagOption[];
+  mannerTagOptions: TagOption[];
+  badMannerTagOptions: TagOption[];
 };
 
 export type OfferCheckboxFormValues = {
