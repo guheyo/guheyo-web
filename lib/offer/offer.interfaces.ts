@@ -43,6 +43,7 @@ export type UserReviewFormValues = {
   rating: number;
   mannerTagOptions: TagOption[];
   badMannerTagOptions: TagOption[];
+  images: UserImage[];
 };
 
 export type OfferCheckboxFormValues = {

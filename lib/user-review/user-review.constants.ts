@@ -1,5 +1,7 @@
 import { RatingOption } from './user-review.types';
 
+export const USER_REVIEW = 'userReview';
+
 export const RATING_OPTIONS: RatingOption[] = [
   {
     ratingValue: 1,
