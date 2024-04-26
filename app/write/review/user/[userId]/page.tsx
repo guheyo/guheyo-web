@@ -5,7 +5,7 @@ import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
 import TextFeedLayout from '@/components/posts/text-feed.layout';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
-import { OfferCheckboxFormValues } from '@/lib/offer/offer.interfaces';
+import { CheckboxFormValues } from '@/lib/search/search.types';
 import { parseUserReviewTargetOfferFormLink } from '@/lib/user-review/parse-user-review-target-offer-form-link';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, useState } from 'react';
@@ -23,7 +23,7 @@ export default function Page({
   const [keyword] = useDebounce(text, DEBOUNCE);
   const router = useRouter();
 
-  const { setValue, getValues, control } = useForm<OfferCheckboxFormValues>({
+  const { setValue, getValues, control } = useForm<CheckboxFormValues>({
     defaultValues: {
       selectedId: '',
     },
