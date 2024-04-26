@@ -35,7 +35,7 @@ export default function RatingInputs({
                     src={`${process.env.NEXT_PUBLIC_S3_URL}/${ratingOption.emojiPath}`}
                     width={56}
                     height={56}
-                    alt={ratingOption.label}
+                    alt={ratingOption.alt}
                   />
                 }
                 label={ratingOption.label}
