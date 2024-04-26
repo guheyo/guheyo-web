@@ -11,7 +11,7 @@ import {
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
-import { OfferCheckboxFormValues } from '@/lib/offer/offer.interfaces';
+import { CheckboxFormValues } from '@/lib/search/search.types';
 
 const {
   theme: { colors },
@@ -33,7 +33,7 @@ function OfferCheckboxResults({
   type: 'text' | 'thumbnail';
   status?: string;
   distinct: boolean;
-  control: Control<OfferCheckboxFormValues>;
+  control: Control<CheckboxFormValues>;
   handleOfferSelection: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);

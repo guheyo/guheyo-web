@@ -45,7 +45,3 @@ export type UserReviewFormValues = {
   badMannerTagOptions: TagOption[];
   images: UserImage[];
 };
-
-export type OfferCheckboxFormValues = {
-  selectedId: string;
-};
