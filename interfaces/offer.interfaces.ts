@@ -12,7 +12,7 @@ export interface FindOffersWhereArgs {
   isArchived?: boolean;
 
   // offer
-  businessFunction: BusinessFunction;
+  businessFunction?: BusinessFunction;
 
   status?: string;
 

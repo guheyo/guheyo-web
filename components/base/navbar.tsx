@@ -14,7 +14,7 @@ export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
-          <div className="flex items-center h-full w-56 bg-dark-600 pl-7">
+          <div className="flex items-center h-full w-64 bg-dark-600 pl-7">
             <Link href="/">
               <Image
                 alt="guheyo logo"

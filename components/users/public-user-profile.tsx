@@ -8,6 +8,7 @@ import UserAvatar from './user-avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
 import Username from './user-name';
+import SelectUserReviewTargetOfferDialog from '../user-review/select-user-review-target-offer-dialog';
 
 export default function PublicUserProfile({ username }: { username: string }) {
   const { data, loading } = useFindAuthorQuery({
@@ -29,36 +30,40 @@ export default function PublicUserProfile({ username }: { username: string }) {
           size="lg"
         />
       </div>
-      <div className="col-span-9 md:col-span-9">
-        <div className="grid grid-cols-12 gap-2">
+      <div className="col-span-9 md:col-span-6">
+        <div className="grid grid-cols-12 gap-0">
           <span className="col-span-9 md:col-span-9 text-light-200 text-lg font-bold justify-self-start">
             <Username user={user} />
           </span>
-          <div className="col-span-3 md:col-span-3">
-            <DmDialog
-              url={parseDiscordDmLink(
-                getSocialID({
-                  socialAccounts: user.socialAccounts,
-                  provider: 'discord',
-                }),
-              )}
-            />
+          <div className="col-span-9 pb-2">
+            {parseUserAbout({
+              username: user.username,
+              about: user.about,
+            })}
+          </div>
+          <div className="col-span-3" />
+          <div className="col-span-9 flex flex-col justify-self-start items-center">
+            <div className="text-xs md:text-sm">
+              {user.members.map((member) => (
+                <Roles key={member.id} roles={member.roles} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-      <div className="col-span-3" />
-      <div className="col-span-9 pb-2">
-        {parseUserAbout({
-          username: user.username,
-          about: user.about,
-        })}
-      </div>
-      <div className="col-span-3" />
-      <div className="col-span-9 flex flex-col justify-self-start items-center">
-        <div className="text-xs md:text-sm">
-          {user.members.map((member) => (
-            <Roles key={member.id} roles={member.roles} />
-          ))}
+      <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
+        <div className="grow w-44">
+          <SelectUserReviewTargetOfferDialog userId={user.id} />
+        </div>
+        <div className="grow w-44">
+          <DmDialog
+            url={parseDiscordDmLink(
+              getSocialID({
+                socialAccounts: user.socialAccounts,
+                provider: 'discord',
+              }),
+            )}
+          />
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ export default function GroupSidebar({
         )}
         <div
           ref={sidebarRef}
-          className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-56 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
+          className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-64 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
             isMenuOpen ? 'block' : 'hidden'
           } lg:block`}
         >
@@ -111,7 +111,7 @@ export default function GroupSidebar({
       )}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-56 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
+        className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-64 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
           isMenuOpen ? 'block' : 'hidden'
         } lg:block`}
       >

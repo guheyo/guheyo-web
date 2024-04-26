@@ -8,7 +8,7 @@ export const parsePrevOfferFormValues: (
 ) => OfferFormValues = (prevOffer) => ({
   id: prevOffer.id,
   groupId: prevOffer.post.group.id,
-  categoryId: prevOffer.post.categoryId,
+  categoryId: prevOffer.post.categoryId!,
   images: prevOffer.post.images,
   title: prevOffer.post.title,
   content: prevOffer.content || '',
