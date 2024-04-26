@@ -1,10 +1,18 @@
 import { MouseEventHandler } from 'react';
+import { useRouter } from 'next/navigation';
+import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
-export default function DmDialog({ url }: { url: string }) {
+export default function SelectUserReviewTargetOfferDialog({
+  userId,
+}: {
+  userId: string;
+}) {
+  const router = useRouter();
+
   const handleOnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
-    window.open(url, '_blank');
+    router.push(parseUserReviewFormLink({ userId }));
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {
@@ -12,9 +20,9 @@ export default function DmDialog({ url }: { url: string }) {
   };
 
   return (
-    <div className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-light-200">
+    <div className="bg-star-500 hover:bg-star-400 text-sm font-bold p-2 rounded text-light-200">
       <DiscordLoginDialog
-        name="DM"
+        name="매너 평가"
         onAuthorization={handleOnAuthorization}
         onUnAuthorization={handleOnUnAuthorization}
       />

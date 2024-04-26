@@ -54,7 +54,7 @@ function Page({
       if (isPostingLimitExceededError(e.message)) {
         const message = parseOfferTermAlertMessage({
           businessFunction: offer.businessFunction as BusinessFunction,
-          categoryName: offer.post.category.name,
+          categoryName: offer.post.category?.name!,
         });
         setAlertMessage(message);
         setOpen(true);
