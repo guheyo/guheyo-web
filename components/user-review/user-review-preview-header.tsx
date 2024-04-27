@@ -18,7 +18,7 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
             displayUsername
             mode="light"
           />
-          <div className="text-dark-200 pr-2 md:pr-2">님이</div>
+          <div className="text-dark-200 pr-2 md:pr-3">님이</div>
           <UserProfileRedirectButton
             user={userReview.reviewedUser}
             displayAvatar
