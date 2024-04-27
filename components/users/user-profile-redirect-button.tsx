@@ -23,7 +23,11 @@ export default function UserProfileRedirectButton({
   return (
     <Link href={parseUserHomeLink({ username: user.username })}>
       {device === 'mobile' && (
-        <div className="flex gap-2 items-center font-medium text-base">
+        <div
+          className={`flex gap-2 items-center font-medium ${
+            mode === 'standard' ? 'text-base' : 'text-sm'
+          }`}
+        >
           {displayAvatar && (
             <UserAvatar
               username={user.username}
@@ -35,7 +39,11 @@ export default function UserProfileRedirectButton({
         </div>
       )}
       {device === 'browser' && (
-        <div className="flex gap-3 items-center font-medium text-lg">
+        <div
+          className={`flex gap-3 items-center font-medium ${
+            mode === 'standard' ? 'text-lg' : 'text-base'
+          }`}
+        >
           {displayAvatar && (
             <UserAvatar
               username={user.username}
