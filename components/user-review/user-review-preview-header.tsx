@@ -27,7 +27,7 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
           />
           <div className="text-dark-200">님께</div>
         </div>
-        <div className="col-span-12 text-dark-200">
+        <div className="col-span-12 text-dark-200 pt-2 font-semibold">
           {userReview.post.title} 거래 후기를 남겼어요
         </div>
       </div>
