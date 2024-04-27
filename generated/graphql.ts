@@ -392,7 +392,7 @@ export type OfferPreviewResponse = {
   id: Scalars['ID']['output'];
   name0?: Maybe<Scalars['String']['output']>;
   name1?: Maybe<Scalars['String']['output']>;
-  post: PostPreviewResponse;
+  post: PostPreviewWithUserResponse;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   shippingCost: Scalars['Int']['output'];
@@ -458,14 +458,20 @@ export type PaginatedReportPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedUserReviewPreviewsResponse = {
+  __typename?: 'PaginatedUserReviewPreviewsResponse';
+  edges: Array<UserReviewPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedUsersResponse = {
   __typename?: 'PaginatedUsersResponse';
   edges: Array<UserResponseEdge>;
   pageInfo: PageInfo;
 };
 
-export type PostPreviewResponse = {
-  __typename?: 'PostPreviewResponse';
+export type PostPreviewWithAuthorResponse = {
+  __typename?: 'PostPreviewWithAuthorResponse';
   archivedAt?: Maybe<Scalars['DateTime']['output']>;
   categoryId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -475,6 +481,26 @@ export type PostPreviewResponse = {
   reportCommentCount: Scalars['Int']['output'];
   reportCount: Scalars['Int']['output'];
   slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
+};
+
+export type PostPreviewWithUserResponse = {
+  __typename?: 'PostPreviewWithUserResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
+  reportCommentCount: Scalars['Int']['output'];
+  reportCount: Scalars['Int']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -493,6 +519,7 @@ export type PostPreviewWithoutUserResponse = {
   reportCommentCount: Scalars['Int']['output'];
   reportCount: Scalars['Int']['output'];
   slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -513,6 +540,7 @@ export type PostResponse = {
   reportCommentCount: Scalars['Int']['output'];
   reportCount: Scalars['Int']['output'];
   slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -533,7 +561,7 @@ export type Query = {
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
   findOfferPreviews: PaginatedOfferPreviewsResponse;
-  findPostPreview: PostPreviewResponse;
+  findPostPreview: PostPreviewWithUserResponse;
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
@@ -543,6 +571,7 @@ export type Query = {
   findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
+  findUserReviewPreviews: PaginatedUserReviewPreviewsResponse;
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
@@ -656,6 +685,16 @@ export type QueryFindUserImageByIdArgs = {
 export type QueryFindUserImagesOfRefArgs = {
   refId: Scalars['ID']['input'];
   type: Scalars['String']['input'];
+};
+
+
+export type QueryFindUserReviewPreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -890,6 +929,27 @@ export type UserResponseEdge = {
   node: UserResponse;
 };
 
+export type UserReviewPreviewResponse = {
+  __typename?: 'UserReviewPreviewResponse';
+  auctionId?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['String']['output']>;
+  post: PostPreviewWithAuthorResponse;
+  rating: Scalars['Int']['output'];
+  reviewedUser: AuthorResponse;
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type UserReviewPreviewResponseEdge = {
+  __typename?: 'UserReviewPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: UserReviewPreviewResponse;
+};
+
 export type VersionPreviewResponse = {
   __typename?: 'VersionPreviewResponse';
   createdAt: Scalars['DateTime']['output'];
@@ -958,7 +1018,7 @@ export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: st
 
 export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null };
 
-export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }> };
+export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }> };
 
 export type FindGroupsQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['ID']['input']>;
@@ -990,11 +1050,11 @@ export type FindGroupQuery = { __typename?: 'Query', findGroup?: { __typename?: 
 export type FindGroupPreviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }> }> };
+export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }> }> };
 
-export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } };
+export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
-export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } };
+export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1006,7 +1066,7 @@ export type FindOfferPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindOfferQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1014,7 +1074,7 @@ export type FindOfferQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } } | null };
+export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
 
 export type CreateOfferMutationVariables = Exact<{
   input: CreateOfferInput;
@@ -1044,24 +1104,26 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type PostFragment = { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type PostFragment = { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
-export type PostPreviewWithoutUserFragment = { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number };
+export type PostPreviewWithoutUserFragment = { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
-export type PostPreviewFragment = { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
+export type PostPreviewWithUserFragment = { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
+
+export type PostPreviewWithAuthorFragment = { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
 export type FindPostPreviewQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } };
+export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
 export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
 
 export type ReportCommentFragment = { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string };
 
@@ -1094,7 +1156,7 @@ export type FindReportQueryVariables = Exact<{
 }>;
 
 
-export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
+export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
 
 export type FindReportCommentQueryVariables = Exact<{
   reportId: Scalars['ID']['input'];
@@ -1159,6 +1221,20 @@ export type DeleteUserImageMutationVariables = Exact<{
 
 
 export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage: string };
+
+export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
+export type FindUserReviewPreviewsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindUserReviewPreviewsQuery = { __typename?: 'Query', findUserReviewPreviews: { __typename?: 'PaginatedUserReviewPreviewsResponse', edges: Array<{ __typename?: 'UserReviewPreviewResponseEdge', cursor: string, node: { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateUserReviewMutationVariables = Exact<{
   input: CreateUserReviewInput;
@@ -1293,8 +1369,17 @@ export const UserFragmentDoc = gql`
   bot
 }
     `;
-export const PostPreviewFragmentDoc = gql`
-    fragment postPreview on PostPreviewResponse {
+export const TagFragmentDoc = gql`
+    fragment tag on TagResponse {
+  id
+  type
+  name
+  description
+  position
+}
+    `;
+export const PostPreviewWithUserFragmentDoc = gql`
+    fragment postPreviewWithUser on PostPreviewWithUserResponse {
   id
   createdAt
   updatedAt
@@ -1311,12 +1396,16 @@ export const PostPreviewFragmentDoc = gql`
   user {
     ...user
   }
+  tags {
+    ...tag
+  }
 }
-    ${UserFragmentDoc}`;
+    ${UserFragmentDoc}
+${TagFragmentDoc}`;
 export const OfferPreviewFragmentDoc = gql`
     fragment offerPreview on OfferPreviewResponse {
   post {
-    ...postPreview
+    ...postPreviewWithUser
   }
   id
   createdAt
@@ -1334,7 +1423,7 @@ export const OfferPreviewFragmentDoc = gql`
   status
   hasSubmittedReview
 }
-    ${PostPreviewFragmentDoc}`;
+    ${PostPreviewWithUserFragmentDoc}`;
 export const GroupPreviewFragmentDoc = gql`
     fragment groupPreview on GroupPreviewResponse {
   id
@@ -1454,11 +1543,15 @@ export const PostFragmentDoc = gql`
   user {
     ...author
   }
+  tags {
+    ...tag
+  }
 }
     ${ImageFragmentDoc}
 ${GroupProfileFragmentDoc}
 ${CategoryFragmentDoc}
-${AuthorFragmentDoc}`;
+${AuthorFragmentDoc}
+${TagFragmentDoc}`;
 export const OfferFragmentDoc = gql`
     fragment offer on OfferResponse {
   post {
@@ -1519,8 +1612,11 @@ export const PostPreviewWithoutUserFragmentDoc = gql`
   categoryId
   reportCount
   reportCommentCount
+  tags {
+    ...tag
+  }
 }
-    `;
+    ${TagFragmentDoc}`;
 export const ReportCommentFragmentDoc = gql`
     fragment reportComment on ReportCommentResponse {
   id
@@ -1574,15 +1670,6 @@ export const ReportFragmentDoc = gql`
 ${PostPreviewWithoutUserFragmentDoc}
 ${ReportCommentFragmentDoc}
 ${VersionFragmentDoc}`;
-export const TagFragmentDoc = gql`
-    fragment Tag on TagResponse {
-  id
-  type
-  name
-  description
-  position
-}
-    `;
 export const TermFragmentDoc = gql`
     fragment term on TermResponse {
   id
@@ -1594,6 +1681,50 @@ export const TermFragmentDoc = gql`
   meta
 }
     `;
+export const PostPreviewWithAuthorFragmentDoc = gql`
+    fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  reportCount
+  reportCommentCount
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+}
+    ${AuthorFragmentDoc}
+${TagFragmentDoc}`;
+export const UserReviewPreviewFragmentDoc = gql`
+    fragment userReviewPreview on UserReviewPreviewResponse {
+  post {
+    ...postPreviewWithAuthor
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+    ${PostPreviewWithAuthorFragmentDoc}
+${AuthorFragmentDoc}`;
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
   id
@@ -2273,10 +2404,10 @@ export type BumpOfferMutationOptions = Apollo.BaseMutationOptions<BumpOfferMutat
 export const FindPostPreviewDocument = gql`
     query findPostPreview($id: ID!) {
   findPostPreview(id: $id) {
-    ...postPreview
+    ...postPreviewWithUser
   }
 }
-    ${PostPreviewFragmentDoc}`;
+    ${PostPreviewWithUserFragmentDoc}`;
 
 /**
  * __useFindPostPreviewQuery__
@@ -2590,7 +2721,7 @@ export type UpdateReportCommentMutationOptions = Apollo.BaseMutationOptions<Upda
 export const FindTagsDocument = gql`
     query findTags {
   findTags {
-    ...Tag
+    ...tag
   }
 }
     ${TagFragmentDoc}`;
@@ -2762,6 +2893,67 @@ export function useDeleteUserImageMutation(baseOptions?: Apollo.MutationHookOpti
 export type DeleteUserImageMutationHookResult = ReturnType<typeof useDeleteUserImageMutation>;
 export type DeleteUserImageMutationResult = Apollo.MutationResult<DeleteUserImageMutation>;
 export type DeleteUserImageMutationOptions = Apollo.BaseMutationOptions<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
+export const FindUserReviewPreviewsDocument = gql`
+    query findUserReviewPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findUserReviewPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...userReviewPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${UserReviewPreviewFragmentDoc}`;
+
+/**
+ * __useFindUserReviewPreviewsQuery__
+ *
+ * To run a query within a React component, call `useFindUserReviewPreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserReviewPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserReviewPreviewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindUserReviewPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables> & ({ variables: FindUserReviewPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+      }
+export function useFindUserReviewPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+        }
+export function useFindUserReviewPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+        }
+export type FindUserReviewPreviewsQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsQuery>;
+export type FindUserReviewPreviewsLazyQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsLazyQuery>;
+export type FindUserReviewPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsSuspenseQuery>;
+export type FindUserReviewPreviewsQueryResult = Apollo.QueryResult<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>;
 export const CreateUserReviewDocument = gql`
     mutation createUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)

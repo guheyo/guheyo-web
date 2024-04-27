@@ -21,7 +21,7 @@ fragment offer on OfferResponse {
 
 fragment offerPreview on OfferPreviewResponse {
   post {
-    ...postPreview
+    ...postPreviewWithUser
   }
   id
   createdAt
