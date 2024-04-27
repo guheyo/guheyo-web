@@ -10,11 +10,11 @@ interface Props {
 export default function UserReviewPreviewFooter({ userReview }: Props) {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-row gap-2 items-center text-[10px] md:text-xs">
+      <div className="flex flex-row gap-2 items-center">
         {userReview.post.tags.map((tag) => (
           <div
             key={tag.id}
-            className={`rounded px-1 py-0.5 ${
+            className={`rounded px-1 py-0.5 text-xs md:text-sm ${
               userReview.rating === 1
                 ? 'bg-rose-800 text-light-200'
                 : 'bg-green-800 text-light-200'
