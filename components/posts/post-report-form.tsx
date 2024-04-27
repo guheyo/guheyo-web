@@ -30,20 +30,12 @@ export default function PostReportForm({
 
   const { handleSubmit, control, setValue, watch } = useForm<ReportFormValues>({
     defaultValues: {
-      id: '',
+      id: uuid4(),
       position: undefined,
       reason: '',
       description: '',
     },
   });
-
-  // Init OfferReportFormValues
-  useEffect(() => {
-    if (!jwtPayload) return;
-
-    setValue('id', uuid4());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwtPayload]);
 
   const onClickTitle = (position: number) => {
     setValue('position', position);
