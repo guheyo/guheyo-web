@@ -1,7 +1,7 @@
 import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
-import { parseOfferReviewsLink } from '@/lib/offer/parse-offer-reviews';
+import { parseOfferReviewsLink } from '@/lib/offer/parse-offer-reviews-link';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function ReceivedUserReviewsDialog({
