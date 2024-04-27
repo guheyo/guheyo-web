@@ -12,7 +12,7 @@ export default function OfferPreviewPrice({
   return (
     <div className="flex flex-row gap-2 items-center text-sm md:text-base font-semibold">
       {offerStatus !== 'open' && (
-        <div className="text-light-200 bg-dark-200 px-1.5 rounded">
+        <div className="text-light-200 bg-dark-200 px-1 py-0.5 rounded text-xs md:text-sm">
           {parseOfferStatusLabel(offerStatus)}
         </div>
       )}

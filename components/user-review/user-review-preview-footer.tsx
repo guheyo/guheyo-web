@@ -10,7 +10,7 @@ interface Props {
 export default function UserReviewPreviewFooter({ userReview }: Props) {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-row gap-2 items-center text-xs md:text-sm">
+      <div className="flex flex-row gap-2 items-center text-[10px] md:text-xs">
         {userReview.post.tags.map((tag) => (
           <div
             key={tag.id}
