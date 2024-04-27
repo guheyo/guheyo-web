@@ -126,7 +126,10 @@ export default function UserReviewImagesAndContentInput({
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: ratingField.value === 1 ? '(필수)' : '(선택)',
+          placeholder:
+            ratingField.value === 1
+              ? '일주일 째 택배 발송을 미루고 있어요'
+              : '꼼꼼하게 포장해 주셔서 감사해요',
           InputProps: {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,

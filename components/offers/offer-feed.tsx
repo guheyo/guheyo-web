@@ -12,6 +12,8 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
+import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
+import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
 function OfferFeed({
   where,
@@ -70,10 +72,23 @@ function OfferFeed({
   const edges = data.findOfferPreviews.edges.filter((edge) =>
     status ? edge.node.status === status : true,
   );
+
   return (
     <>
       {edges.map((edge) => (
-        <OfferPreview key={edge.node.id} offer={edge.node} type={type} />
+        <div key={edge.node.id} className="flex flex-col gap-0">
+          <OfferPreview offer={edge.node} type={type} />
+          {edge.node.hasSubmittedReview === false && (
+            <div className="pb-2">
+              <SelectUserReviewTargetUserDialog offerId={edge.node.id} />
+            </div>
+          )}
+          {edge.node.hasSubmittedReview === true && (
+            <div className="pb-2">
+              <ReceivedUserReviewsDialog offerSlug={edge.node.post.slug!} />
+            </div>
+          )}
+        </div>
       ))}
       <div ref={ref} />
     </>
