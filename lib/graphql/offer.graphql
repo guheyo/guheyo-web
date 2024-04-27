@@ -37,6 +37,7 @@ fragment offerPreview on OfferPreviewResponse {
   totalPrice
   businessFunction
   status
+  hasSubmittedReview
 }
 
 query findOfferPreviews(

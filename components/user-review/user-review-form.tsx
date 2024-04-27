@@ -42,35 +42,26 @@ export default function UserReviewForm({
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
 
-  const { handleSubmit, setValue, watch, control } =
-    useForm<UserReviewFormValues>({
-      defaultValues: {
-        id: undefined,
-        title,
-        content: undefined,
-        rating: undefined,
-        mannerTagOptions: createTagOptionsFromTags({
-          tags,
-          tagType: 'manner',
-          selectFirst: false,
-        }),
-        badMannerTagOptions: createTagOptionsFromTags({
-          tags,
-          tagType: 'badManner',
-          selectFirst: true,
-        }),
-      },
-    });
+  const { handleSubmit, watch, control } = useForm<UserReviewFormValues>({
+    defaultValues: {
+      id: uuid4(),
+      title,
+      content: undefined,
+      rating: undefined,
+      mannerTagOptions: createTagOptionsFromTags({
+        tags,
+        tagType: 'manner',
+        selectFirst: false,
+      }),
+      badMannerTagOptions: createTagOptionsFromTags({
+        tags,
+        tagType: 'badManner',
+        selectFirst: true,
+      }),
+    },
+  });
 
   const rating = watch('rating');
-
-  // Init OfferReportFormValues
-  useEffect(() => {
-    if (!jwtPayload) return;
-
-    setValue('id', uuid4());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwtPayload]);
 
   const handleSubmitValid: SubmitHandler<UserReviewFormValues> = async (
     values,
@@ -94,7 +85,7 @@ export default function UserReviewForm({
       content: values.content,
       rating: values.rating,
     };
-    if (!input.post.tagIds.length) return;
+    if (!input.post.tagIds?.length) return;
 
     await createUserReview(input);
     router.back();

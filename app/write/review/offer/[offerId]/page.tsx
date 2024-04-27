@@ -63,7 +63,7 @@ export default function Page({
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="매너 평가할 멤버를 선택해 주세요"
+        placeholder="어떤 멤버와 거래했나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
