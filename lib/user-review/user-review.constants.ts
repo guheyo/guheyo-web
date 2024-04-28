@@ -22,3 +22,18 @@ export const RATING_OPTIONS: RatingOption[] = [
     alt: 'Emoji created by Doraemon10x. Licensed under CC BY 4.0 License. Source: https://emoji.gg/user/842563221440430111',
   },
 ];
+
+export const MANNER_TAG_TYPE_OPTIONS = [
+  { value: 'manner', label: '매너' },
+  { value: 'badManner', label: '비매너' },
+];
+
+export const PRIVATE_USER_REVIEW_OPTIONS = [
+  { value: 'received', label: '받은 거래 후기' },
+  { value: 'submitted', label: '보낸 거래 후기' },
+];
+
+export const PUBLIC_USER_REVIEW_OPTIONS = [
+  { value: 'received', label: '받은 거래 후기' },
+  { value: 'submitted', label: '보낸 거래 후기' },
+];
