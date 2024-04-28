@@ -8,6 +8,6 @@ export default function SearchCardResultLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="p-3 bg-dark-400 rounded-lg text-light-200 ">{children}</div>
+    <div className="p-4 bg-dark-400 rounded-lg text-light-200 ">{children}</div>
   );
 }

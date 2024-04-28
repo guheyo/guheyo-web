@@ -1,4 +1,4 @@
-fragment Tag on TagResponse {
+fragment tag on TagResponse {
   id
   type
   name
@@ -8,6 +8,6 @@ fragment Tag on TagResponse {
 
 query findTags {
   findTags {
-    ...Tag
+    ...tag
   }
 }

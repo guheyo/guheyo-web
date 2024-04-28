@@ -1,28 +1,34 @@
+import { FontSize } from '@/lib/font/font.types';
 import { Avatar as MuiAvatar } from '@mui/material';
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+const convertAvatarSize = (fontSize: FontSize): string => {
+  if (fontSize === 'text-xs') return '24px';
+  if (fontSize === 'text-sm') return '28px';
+  if (fontSize === 'text-base') return '32px';
+  if (fontSize === 'text-lg') return '36px';
+  if (fontSize === 'text-xl') return '40px';
+  if (fontSize === 'text-2xl') return '44px';
+  if (fontSize === 'text-3xl') return '48px';
+  if (fontSize === 'text-4xl') return '52px';
+  if (fontSize === 'text-5xl') return '56px';
+  if (fontSize === 'text-6xl') return '60px';
+  if (fontSize === 'text-7xl') return '64px';
+  if (fontSize === 'text-8xl') return '68px';
+  if (fontSize === 'text-9xl') return '72px';
 
-const convertAvatarSize = (avatarSize: Size): string => {
-  if (avatarSize === 'xs') return '24px';
-  if (avatarSize === 'sm') return '36px';
-  if (avatarSize === 'md') return '48px';
-  if (avatarSize === 'lg') return '60px';
-  if (avatarSize === 'xl') return '72px';
-  if (avatarSize === 'xxl') return '84px';
-
-  return '24px';
+  return '32px';
 };
 
 export default function UserAvatar({
   username,
   avatarURL,
-  size,
+  fontSize,
 }: {
   username: string;
   avatarURL?: string;
-  size: Size;
+  fontSize: FontSize;
 }) {
-  const avatarSize = convertAvatarSize(size);
+  const avatarSize = convertAvatarSize(fontSize);
 
   return (
     <MuiAvatar
