@@ -18,7 +18,7 @@ export default function Page() {
     groupId: group.id,
   };
   const orderBy: FindUserReviewsOrderByArgs = {
-    createdAt: 'asc',
+    createdAt: 'desc',
   };
 
   return (
