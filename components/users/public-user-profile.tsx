@@ -4,6 +4,7 @@ import { useFindAuthorQuery } from '@/generated/graphql';
 import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
 import { getSocialID } from '@/lib/user/get-discord-id';
 import { parseUserAbout } from '@/lib/user/parse-user-about';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import UserAvatar from './user-avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
@@ -11,6 +12,7 @@ import Username from './user-name';
 import SelectUserReviewTargetOfferDialog from '../user-review/select-user-review-target-offer-dialog';
 
 export default function PublicUserProfile({ username }: { username: string }) {
+  const device = useDeviceDetect();
   const { data, loading } = useFindAuthorQuery({
     variables: {
       username,
@@ -27,7 +29,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
         <UserAvatar
           username={user.username}
           avatarURL={user.avatarURL || undefined}
-          size="lg"
+          fontSize={device === 'mobile' ? 'text-6xl' : 'text-9xl'}
         />
       </div>
       <div className="col-span-9 md:col-span-6">
