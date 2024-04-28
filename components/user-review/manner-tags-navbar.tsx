@@ -3,7 +3,7 @@
 import { MouseEvent } from 'react';
 import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { MANNER_TAG_OPTIONS } from '@/lib/user-review/user-review.constants';
+import { MANNER_TAG_TYPE_OPTIONS } from '@/lib/user-review/user-review.constants';
 import Scrollbar from '../base/scrollbar';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -44,17 +44,17 @@ export default function MannerTagsNavbar() {
           >
             <span className="font-bold text-xs md:text-base">전체</span>
           </button>
-          {MANNER_TAG_OPTIONS?.map((tagOption) => (
+          {MANNER_TAG_TYPE_OPTIONS?.map((tagTypeOption) => (
             <button
               type="button"
-              key={tagOption.type}
+              key={tagTypeOption.value}
               className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
-                tagOption.type === tagType,
+                tagTypeOption.value === tagType,
               )}`}
-              onClick={(e) => handleClick(e, tagOption.type)}
+              onClick={(e) => handleClick(e, tagTypeOption.value)}
             >
               <span className="font-bold text-xs md:text-base">
-                {tagOption.label}
+                {tagTypeOption.label}
               </span>
             </button>
           ))}
