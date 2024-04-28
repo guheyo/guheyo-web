@@ -8,6 +8,7 @@ import {
   FindUserReviewsWhereArgs,
 } from '@/interfaces/user-review.interfaces';
 import { useInfiniteUserReviewFeed } from '@/hooks/use-infinite-user-review-feed';
+import { useSearchParams } from 'next/navigation';
 import UserReviewPreview from './user-review-preview';
 
 function UserReviewFeed({
@@ -25,12 +26,16 @@ function UserReviewFeed({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
+  const searchParams = useSearchParams();
+  const tagType = searchParams.get('tagType') || undefined;
 
   const { loading, data } = useInfiniteUserReviewFeed({
     ref,
     where: {
       groupId: group?.id,
       userId: where?.userId,
+      tagType,
+      reviewedUserId: where.reviewedUserId,
     },
     orderBy: {
       createdAt: orderBy?.createdAt || 'desc',
