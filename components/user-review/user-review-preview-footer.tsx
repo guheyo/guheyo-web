@@ -14,10 +14,10 @@ export default function UserReviewPreviewFooter({ userReview }: Props) {
         {userReview.post.tags.map((tag) => (
           <div
             key={tag.id}
-            className={`rounded px-1 py-0.5 text-xs md:text-sm ${
+            className={`rounded px-1 py-0.5 text-[10px] md:text-xs ${
               userReview.rating === 1
-                ? 'bg-rose-800 text-light-200'
-                : 'bg-green-800 text-light-200'
+                ? 'bg-rose-700 text-light-200'
+                : 'bg-green-700 text-light-200'
             }`}
           >
             {tag.name}
