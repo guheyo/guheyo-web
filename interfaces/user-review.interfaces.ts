@@ -7,6 +7,9 @@ export interface FindUserReviewsWhereArgs {
   userId?: string;
 
   tagType?: string;
+
+  // user review
+  reviewedUserId?: string;
 }
 
 export interface FindUserReviewsOrderByArgs {

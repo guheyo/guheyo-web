@@ -35,6 +35,7 @@ function UserReviewFeed({
       groupId: group?.id,
       userId: where?.userId,
       tagType,
+      reviewedUserId: where.reviewedUserId,
     },
     orderBy: {
       createdAt: orderBy?.createdAt || 'desc',
