@@ -165,7 +165,7 @@ export default function GroupSidebar({
           <SidebarItem
             href={parseGroupCommunityLink({
               groupSlug: group?.slug,
-              communityType: 'user-review',
+              communityType: 'review',
             })}
             icon={<StickyNote2Icon fontSize="medium" />}
             text="거래 후기"

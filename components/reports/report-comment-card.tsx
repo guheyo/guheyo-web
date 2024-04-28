@@ -5,6 +5,7 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
 import { AuthorResponse, ReportCommentResponse } from '@/generated/graphql';
 import { commentReport, updateReportComment } from '@/lib/api/report';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuthContext } from '../auth/auth.provider';
 import CommentCard from '../comments/comment-card';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -24,6 +25,7 @@ export default function ReportCommentCard({
     isReportedUser,
     content: comment?.content,
   });
+  const device = useDeviceDetect();
 
   const handleWrite = async (values: CommentValues) => {
     if (!isReportedUser || !values.content) return;
@@ -55,7 +57,7 @@ export default function ReportCommentCard({
         user={reportedUser}
         displayAvatar
         displayUsername
-        mode="standard"
+        fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
       />
       <CommentCard
         displayMenu={isReportedUser}

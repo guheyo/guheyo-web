@@ -1,6 +1,7 @@
 import { AuthorResponse } from '@/generated/graphql';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function ReportHeader({
@@ -15,6 +16,7 @@ export default function ReportHeader({
   updatedAt: Date;
 }) {
   const router = useRouter();
+  const device = useDeviceDetect();
 
   const handleClick = () => {
     router.back();
@@ -27,7 +29,7 @@ export default function ReportHeader({
           user={author}
           displayAvatar
           displayUsername
-          mode="standard"
+          fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
         />
         <div className="grid grid-cols-1 gap-1 justify-items-start">
           <div className="text-light-200 text-base font-semibold">{title}</div>

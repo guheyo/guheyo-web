@@ -2,6 +2,7 @@
 
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { OfferResponse } from '@/generated/graphql';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
@@ -15,6 +16,8 @@ import OfferDetailPrice from './offer-detail-price';
 import OfferShippingCost from './offer-shipping-cost';
 
 export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
+  const device = useDeviceDetect();
+
   return (
     <>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
@@ -23,7 +26,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             user={offer.post.user}
             displayAvatar
             displayUsername
-            mode="standard"
+            fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
           <OfferDetailBumpedAt bumpedAt={offer.bumpedAt} />
         </div>
