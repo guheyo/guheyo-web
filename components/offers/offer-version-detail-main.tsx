@@ -9,6 +9,7 @@ import {
 } from '@/generated/graphql';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import { OfferStatus } from '@/lib/offer/offer.types';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import OfferDetailPrice from './offer-detail-price';
 import OfferDetailName from './offer-detail-name';
 import OfferShippingCost from './offer-shipping-cost';
@@ -26,6 +27,8 @@ export default function OfferVersionDetailMain({
   post: PostPreviewWithoutUserResponse;
   offer: OfferPreviewResponse;
 }) {
+  const device = useDeviceDetect();
+
   return (
     <>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
@@ -34,7 +37,7 @@ export default function OfferVersionDetailMain({
             user={user}
             displayAvatar
             displayUsername
-            mode="standard"
+            fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
         </div>
       </div>
