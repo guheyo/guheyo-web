@@ -21,9 +21,7 @@ export default function PostAddons({
       ) : (
         <div />
       )}
-      <div className="text-[10px] md:text-xs text-gray-500 md:text-gray-400">
-        {dayjs(createdAt).fromNow()}
-      </div>
+      <div className="text-gray-500">{dayjs(createdAt).fromNow()}</div>
     </div>
   );
 }
