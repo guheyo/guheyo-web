@@ -6,6 +6,7 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuthorResponse } from '@/generated/graphql';
 import { getSocialID } from '@/lib/user/get-discord-id';
 import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
+import { FontSize } from '@/lib/font/font.types';
 import UserAvatar from './user-avatar';
 import Roles from './roles';
 import SocialJoinDates from '../socials/social-join-dates';
@@ -18,13 +19,13 @@ export default function UserProfilePopper({
   displayAvatar,
   displayUsername,
   displayDM,
-  mode,
+  fontSize,
 }: {
   user: AuthorResponse;
   displayAvatar: boolean;
   displayUsername: boolean;
   displayDM: boolean;
-  mode: 'light' | 'standard';
+  fontSize: FontSize;
 }) {
   const device = useDeviceDetect();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -48,7 +49,7 @@ export default function UserProfilePopper({
               <UserAvatar
                 username={user.username}
                 avatarURL={user.avatarURL || undefined}
-                size={mode === 'standard' ? 'sm' : 'xs'}
+                fontSize={fontSize}
               />
             )}
             {displayUsername && <Username user={user} />}
@@ -60,7 +61,7 @@ export default function UserProfilePopper({
               <UserAvatar
                 username={user.username}
                 avatarURL={user.avatarURL || undefined}
-                size="sm"
+                fontSize={fontSize}
               />
             )}
             {displayUsername && <Username user={user} />}
@@ -77,7 +78,7 @@ export default function UserProfilePopper({
             <UserAvatar
               username={user.username}
               avatarURL={user.avatarURL || undefined}
-              size="md"
+              fontSize={fontSize}
             />
             {displayDM && (
               <DmDialog
