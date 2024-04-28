@@ -5,6 +5,8 @@ export interface FindUserReviewsWhereArgs {
   groupId?: string;
 
   userId?: string;
+
+  tagType?: string;
 }
 
 export interface FindUserReviewsOrderByArgs {

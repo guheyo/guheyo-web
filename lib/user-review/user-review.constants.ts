@@ -22,3 +22,8 @@ export const RATING_OPTIONS: RatingOption[] = [
     alt: 'Emoji created by Doraemon10x. Licensed under CC BY 4.0 License. Source: https://emoji.gg/user/842563221440430111',
   },
 ];
+
+export const MANNER_TAG_OPTIONS = [
+  { type: 'manner', label: '매너' },
+  { type: 'badManner', label: '비매너' },
+];
