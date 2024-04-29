@@ -1,13 +1,10 @@
-import dayjs from 'dayjs';
 import ReportCommentsCount from '../reports/report-comments-count';
 import ReportsCount from '../reports/reports-count';
 
 export default function PostAddons({
-  createdAt,
   reportCount,
   reportCommentCount,
 }: {
-  createdAt: Date;
   reportCount: number;
   reportCommentCount: number;
 }) {
@@ -21,7 +18,6 @@ export default function PostAddons({
       ) : (
         <div />
       )}
-      <div className="text-gray-500">{dayjs(createdAt).fromNow()}</div>
     </div>
   );
 }
