@@ -11,7 +11,7 @@ function Layout({ children }: Props) {
   return (
     <div>
       <MannerTagsNavbar />
-      <div className="grid gap-1 grid-cols-1">{children}</div>
+      {children}
     </div>
   );
 }
