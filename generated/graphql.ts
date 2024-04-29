@@ -63,11 +63,27 @@ export type CommentResponse = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type CommentWithAuthorResponse = {
+  __typename?: 'CommentWithAuthorResponse';
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  parentId?: Maybe<Scalars['ID']['output']>;
+  postId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
+};
+
+export type CommentWithAuthorResponseEdge = {
+  __typename?: 'CommentWithAuthorResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: CommentWithAuthorResponse;
+};
+
 export type CreateCommentInput = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
   postId: Scalars['ID']['input'];
-  userId: Scalars['ID']['input'];
 };
 
 export type CreateGroupInput = {
@@ -159,6 +175,15 @@ export type CreateUserReviewInput = {
   type: Scalars['String']['input'];
 };
 
+export type DeleteCommentInput = {
+  id: Scalars['ID']['input'];
+};
+
+export type DeleteCommentResult = {
+  __typename?: 'DeleteCommentResult';
+  id: Scalars['ID']['output'];
+};
+
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
   buys: Array<OfferPreviewResponse>;
@@ -242,6 +267,7 @@ export type Mutation = {
   createSignedUrl: SignedUrlResponse;
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
+  deleteComment: DeleteCommentResult;
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
@@ -311,6 +337,11 @@ export type MutationCreateUserImageArgs = {
 
 export type MutationCreateUserReviewArgs = {
   input: CreateUserReviewInput;
+};
+
+
+export type MutationDeleteCommentArgs = {
+  input: DeleteCommentInput;
 };
 
 
@@ -434,6 +465,12 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
 };
 
+export type PaginatedCommentsResponse = {
+  __typename?: 'PaginatedCommentsResponse';
+  edges: Array<CommentWithAuthorResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedGroupProfilesResponse = {
   __typename?: 'PaginatedGroupProfilesResponse';
   edges: Array<GroupProfileResponseEdge>;
@@ -552,6 +589,7 @@ export type Query = {
   __typename?: 'Query';
   findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
+  findComments: PaginatedCommentsResponse;
   findGroup?: Maybe<GroupResponse>;
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
@@ -588,6 +626,16 @@ export type QueryFindAuthorArgs = {
 export type QueryFindCommentArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindCommentsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1012,6 +1060,10 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: '
 
 export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string };
 
+export type CommentWithAuthorFragment = { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
+export type DeleteCommentResultFragment = { __typename?: 'DeleteCommentResult', id: string };
+
 export type CreateCommentMutationVariables = Exact<{
   input: CreateCommentInput;
 }>;
@@ -1026,6 +1078,13 @@ export type UpdateCommentMutationVariables = Exact<{
 
 export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string } };
 
+export type DeleteCommentMutationVariables = Exact<{
+  input: DeleteCommentInput;
+}>;
+
+
+export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: { __typename?: 'DeleteCommentResult', id: string } };
+
 export type FindCommentQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
   postId?: InputMaybe<Scalars['ID']['input']>;
@@ -1033,6 +1092,18 @@ export type FindCommentQueryVariables = Exact<{
 
 
 export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string } | null };
+
+export type FindCommentsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindCommentsQuery = { __typename?: 'Query', findComments: { __typename?: 'PaginatedCommentsResponse', edges: Array<{ __typename?: 'CommentWithAuthorResponseEdge', cursor: string, node: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -1362,6 +1433,82 @@ export const CommentFragmentDoc = gql`
   content
 }
     `;
+export const SocialAccountWithoutAuthFragmentDoc = gql`
+    fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
+  id
+  createdAt
+  provider
+  socialId
+  userId
+}
+    `;
+export const GroupProfileFragmentDoc = gql`
+    fragment groupProfile on GroupProfileResponse {
+  id
+  name
+  slug
+  description
+  icon
+}
+    `;
+export const RoleFragmentDoc = gql`
+    fragment role on RoleResponse {
+  id
+  name
+  position
+  hexColor
+  groupId
+}
+    `;
+export const MemberFragmentDoc = gql`
+    fragment member on MemberWithRolesResponse {
+  id
+  createdAt
+  userId
+  group {
+    ...groupProfile
+  }
+  roles {
+    ...role
+  }
+}
+    ${GroupProfileFragmentDoc}
+${RoleFragmentDoc}`;
+export const AuthorFragmentDoc = gql`
+    fragment author on AuthorResponse {
+  id
+  createdAt
+  username
+  about
+  avatarURL
+  bot
+  socialAccounts {
+    ...socialAccountWithoutAuth
+  }
+  members {
+    ...member
+  }
+}
+    ${SocialAccountWithoutAuthFragmentDoc}
+${MemberFragmentDoc}`;
+export const CommentWithAuthorFragmentDoc = gql`
+    fragment commentWithAuthor on CommentWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  user {
+    ...author
+  }
+}
+    ${AuthorFragmentDoc}`;
+export const DeleteCommentResultFragmentDoc = gql`
+    fragment deleteCommentResult on DeleteCommentResult {
+  id
+}
+    `;
 export const CategoryFragmentDoc = gql`
     fragment category on CategoryResponse {
   id
@@ -1490,64 +1637,6 @@ export const ImageFragmentDoc = gql`
   userId
 }
     `;
-export const GroupProfileFragmentDoc = gql`
-    fragment groupProfile on GroupProfileResponse {
-  id
-  name
-  slug
-  description
-  icon
-}
-    `;
-export const SocialAccountWithoutAuthFragmentDoc = gql`
-    fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
-  id
-  createdAt
-  provider
-  socialId
-  userId
-}
-    `;
-export const RoleFragmentDoc = gql`
-    fragment role on RoleResponse {
-  id
-  name
-  position
-  hexColor
-  groupId
-}
-    `;
-export const MemberFragmentDoc = gql`
-    fragment member on MemberWithRolesResponse {
-  id
-  createdAt
-  userId
-  group {
-    ...groupProfile
-  }
-  roles {
-    ...role
-  }
-}
-    ${GroupProfileFragmentDoc}
-${RoleFragmentDoc}`;
-export const AuthorFragmentDoc = gql`
-    fragment author on AuthorResponse {
-  id
-  createdAt
-  username
-  about
-  avatarURL
-  bot
-  socialAccounts {
-    ...socialAccountWithoutAuth
-  }
-  members {
-    ...member
-  }
-}
-    ${SocialAccountWithoutAuthFragmentDoc}
-${MemberFragmentDoc}`;
 export const PostFragmentDoc = gql`
     fragment post on PostResponse {
   id
@@ -1986,6 +2075,39 @@ export function useUpdateCommentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateCommentMutationHookResult = ReturnType<typeof useUpdateCommentMutation>;
 export type UpdateCommentMutationResult = Apollo.MutationResult<UpdateCommentMutation>;
 export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<UpdateCommentMutation, UpdateCommentMutationVariables>;
+export const DeleteCommentDocument = gql`
+    mutation DeleteComment($input: DeleteCommentInput!) {
+  deleteComment(input: $input) {
+    ...deleteCommentResult
+  }
+}
+    ${DeleteCommentResultFragmentDoc}`;
+export type DeleteCommentMutationFn = Apollo.MutationFunction<DeleteCommentMutation, DeleteCommentMutationVariables>;
+
+/**
+ * __useDeleteCommentMutation__
+ *
+ * To run a mutation, you first call `useDeleteCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCommentMutation, { data, loading, error }] = useDeleteCommentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteCommentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCommentMutation, DeleteCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DeleteCommentDocument, options);
+      }
+export type DeleteCommentMutationHookResult = ReturnType<typeof useDeleteCommentMutation>;
+export type DeleteCommentMutationResult = Apollo.MutationResult<DeleteCommentMutation>;
+export type DeleteCommentMutationOptions = Apollo.BaseMutationOptions<DeleteCommentMutation, DeleteCommentMutationVariables>;
 export const FindCommentDocument = gql`
     query FindComment($id: ID, $postId: ID) {
   findComment(id: $id, postId: $postId) {
@@ -2027,6 +2149,67 @@ export type FindCommentQueryHookResult = ReturnType<typeof useFindCommentQuery>;
 export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLazyQuery>;
 export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
 export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
+export const FindCommentsDocument = gql`
+    query findComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findComments(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...commentWithAuthor
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${CommentWithAuthorFragmentDoc}`;
+
+/**
+ * __useFindCommentsQuery__
+ *
+ * To run a query within a React component, call `useFindCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCommentsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindCommentsQuery(baseOptions: Apollo.QueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables> & ({ variables: FindCommentsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
+      }
+export function useFindCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
+        }
+export function useFindCommentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
+        }
+export type FindCommentsQueryHookResult = ReturnType<typeof useFindCommentsQuery>;
+export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsLazyQuery>;
+export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
+export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
