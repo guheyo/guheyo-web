@@ -7,6 +7,22 @@ fragment comment on CommentResponse {
   content
 }
 
+fragment commentWithAuthor on CommentWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  user {
+    ...author
+  }
+}
+
+fragment deleteCommentResult on DeleteCommentResult {
+  id
+}
+
 mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
 }
@@ -14,6 +30,12 @@ mutation CreateComment($input: CreateCommentInput!) {
 mutation UpdateComment($input: UpdateCommentInput!) {
   updateComment(input: $input) {
     ...comment
+  }
+}
+
+mutation DeleteComment($input: DeleteCommentInput!) {
+  deleteComment(input: $input) {
+    ...deleteCommentResult
   }
 }
 
@@ -26,5 +48,34 @@ query FindComment(
     postId: $postId
   ) {
     ...comment
+  }
+}
+
+query findComments(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findComments(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...commentWithAuthor
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }

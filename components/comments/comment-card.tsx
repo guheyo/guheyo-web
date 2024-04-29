@@ -6,10 +6,16 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
+import { AuthorResponse } from '@/generated/graphql';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import UserAvatar from '../users/user-avatar';
 
 export default function CommentCard({
+  user,
+  isCurrentUser,
   displayMenu,
   defaultMode,
   commentId,
@@ -21,6 +27,8 @@ export default function CommentCard({
   handleEdit,
   handleDelete,
 }: {
+  user?: AuthorResponse;
+  isCurrentUser: boolean;
   displayMenu: boolean;
   defaultMode: CRUD;
   commentId?: string;
@@ -33,6 +41,7 @@ export default function CommentCard({
   handleDelete: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CRUD>('read');
+  const device = useDeviceDetect();
 
   const { handleSubmit, control, getValues, setValue } = useForm<CommentValues>(
     {
@@ -82,24 +91,44 @@ export default function CommentCard({
 
   if (mode === 'create' || mode === 'update') {
     return (
-      <form onSubmit={handleSubmit(handleSubmitValid)}>
-        <CommentInput
-          controllerProps={{
-            name: 'content',
-            control,
-            rules: { required: '댓글을 입력해 주세요' },
-          }}
-          textFieldProps={{
-            ...textFieldProps,
-            onKeyDown: handleKeyDown,
-          }}
-        />
-      </form>
+      <div className="flex flex-row gap-4 items-center">
+        {!user ? (
+          <UserAvatar
+            username="guest"
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+          />
+        ) : (
+          <UserProfileRedirectButton
+            user={user}
+            displayAvatar
+            displayUsername={false}
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+          />
+        )}
+        <div className="w-full">
+          <form onSubmit={handleSubmit(handleSubmitValid)}>
+            <CommentInput
+              controllerProps={{
+                name: 'content',
+                control,
+                rules: { required: '메시지를 입력해 주세요' },
+              }}
+              textFieldProps={{
+                ...textFieldProps,
+                onKeyDown: handleKeyDown,
+              }}
+            />
+          </form>
+        </div>
+      </div>
     );
   }
 
+  if (!user) return <div />;
   return (
     <CommentOutput
+      user={user}
+      isCurrentUser={isCurrentUser}
       content={content}
       createdAt={createdAt}
       updatedAt={updatedAt}
