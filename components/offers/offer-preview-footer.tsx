@@ -18,7 +18,6 @@ export default function OfferPreviewFooter({ offer }: Props) {
       />
       <div className="absolute bottom-4 right-4 md:right-5">
         <PostAddons
-          createdAt={offer.bumpedAt}
           reportCount={offer.post.reportCount}
           reportCommentCount={offer.post.reportCommentCount}
         />
