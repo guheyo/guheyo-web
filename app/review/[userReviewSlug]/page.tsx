@@ -34,9 +34,11 @@ function Page({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-12">
       <UserReviewDetail userReview={userReview} />
-      <CommentFeed where={where} orderBy={orderBy} />
+      <div className="px-4 md:px-2">
+        <CommentFeed where={where} orderBy={orderBy} />
+      </div>
     </div>
   );
 }
