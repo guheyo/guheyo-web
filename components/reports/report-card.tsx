@@ -26,7 +26,7 @@ export default function ReportCard({
   });
 
   return (
-    <div key={reportId} className="flex flex-col gap-2">
+    <div key={reportId} className="flex flex-col gap-2 w-full">
       <ReportPreview
         reportId={reportId}
         reason={reason}
@@ -34,11 +34,13 @@ export default function ReportCard({
         createdAt={createdAt}
         type={type}
       />
-      <ReportCommentCard
-        reportId={reportId}
-        reportedUser={reportedUser}
-        comment={data?.findReportComment}
-      />
+      <div className="px-2 md:px-2">
+        <ReportCommentCard
+          reportId={reportId}
+          reportedUser={reportedUser}
+          comment={data?.findReportComment}
+        />
+      </div>
     </div>
   );
 }
