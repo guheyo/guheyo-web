@@ -15,6 +15,7 @@ import UserAvatar from '../users/user-avatar';
 
 export default function CommentCard({
   user,
+  isCurrentUser,
   displayMenu,
   defaultMode,
   commentId,
@@ -27,6 +28,7 @@ export default function CommentCard({
   handleDelete,
 }: {
   user?: AuthorResponse;
+  isCurrentUser: boolean;
   displayMenu: boolean;
   defaultMode: CRUD;
   commentId?: string;
@@ -126,6 +128,7 @@ export default function CommentCard({
   return (
     <CommentOutput
       user={user}
+      isCurrentUser={isCurrentUser}
       content={content}
       createdAt={createdAt}
       updatedAt={updatedAt}

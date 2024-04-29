@@ -9,6 +9,7 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function CommentOutput({
   user,
+  isCurrentUser,
   content,
   createdAt,
   updatedAt,
@@ -16,6 +17,7 @@ export default function CommentOutput({
   handleMenuClick,
 }: {
   user: AuthorResponse;
+  isCurrentUser: boolean;
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -41,7 +43,7 @@ export default function CommentOutput({
           <div className="mr-[-18px]">
             {displayMenu && (
               <CommentMenu
-                allowDelete={false}
+                isCurrentUser={isCurrentUser}
                 handleMenuClick={handleMenuClick}
               />
             )}

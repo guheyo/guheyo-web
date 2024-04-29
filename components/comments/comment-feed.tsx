@@ -68,6 +68,7 @@ export default function CommentFeed({
     <div className="flex flex-col gap-4 w-full">
       <CommentCard
         user={user || undefined}
+        isCurrentUser
         displayMenu
         defaultMode="create"
         textFieldProps={{
@@ -84,6 +85,7 @@ export default function CommentFeed({
         <CommentCard
           key={comment.node.id}
           user={comment.node.user}
+          isCurrentUser={jwtPayload?.id === comment.node.user.id}
           displayMenu
           defaultMode="read"
           commentId={comment.node.id}
