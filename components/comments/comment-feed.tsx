@@ -8,10 +8,9 @@ import {
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, updateComment } from '@/lib/api/comment';
-import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { useFindAuthorQuery } from '@/generated/graphql';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
-import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function CommentFeed({
   where,
@@ -22,19 +21,25 @@ export default function CommentFeed({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const device = useDeviceDetect();
 
-  const { loading, data } = useInfiniteComments({
+  const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref,
     where,
     orderBy,
     take: 10,
   });
 
-  if (loading) return <div />;
-  if (!data?.findComments) return <div />;
+  const { loading: userLoading, data: UserData } = useFindAuthorQuery({
+    variables: {
+      id: jwtPayload?.id,
+    },
+  });
 
-  const comments = data.findComments.edges;
+  if (commentsLoading || userLoading) return <div />;
+  if (!commentsData?.findComments) return <div />;
+
+  const comments = commentsData.findComments.edges;
+  const user = UserData?.findAuthor;
 
   const handleWrite = async (values: CommentValues) => {
     if (!jwtPayload || !where.postId || !values.content) return;
@@ -60,8 +65,9 @@ export default function CommentFeed({
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-4 w-full">
       <CommentCard
+        user={user || undefined}
         displayMenu
         defaultMode="create"
         textFieldProps={{
@@ -75,31 +81,25 @@ export default function CommentFeed({
         handleDelete={handleDelete}
       />
       {comments.map((comment) => (
-        <div key={comment.node.id} className="flex flex-col gap-2 rounded p-2">
-          <UserProfileRedirectButton
-            user={comment.node.user}
-            displayAvatar
-            displayUsername
-            fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
-          />
-          <CommentCard
-            displayMenu
-            defaultMode="read"
-            commentId={comment.node.id}
-            content={comment.node.content}
-            createdAt={comment.node.createdAt}
-            updatedAt={comment.node.updatedAt}
-            textFieldProps={{
-              multiline: true,
-              placeholder: '메시지 보내기',
-              minRows: 1,
-              size: 'small',
-            }}
-            handleWrite={handleWrite}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        </div>
+        <CommentCard
+          key={comment.node.id}
+          user={comment.node.user}
+          displayMenu
+          defaultMode="read"
+          commentId={comment.node.id}
+          content={comment.node.content}
+          createdAt={comment.node.createdAt}
+          updatedAt={comment.node.updatedAt}
+          textFieldProps={{
+            multiline: true,
+            placeholder: '메시지 보내기',
+            minRows: 1,
+            size: 'small',
+          }}
+          handleWrite={handleWrite}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
       ))}
       <div ref={ref} />
     </div>
