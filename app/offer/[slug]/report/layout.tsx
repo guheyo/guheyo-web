@@ -1,7 +1,5 @@
 'use client';
 
-import ReportFeedLayout from '@/components/reports/report-feed.layout';
-
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <ReportFeedLayout>{children}</ReportFeedLayout>;
+  return <div className="mx-2 md:mx-0">{children}</div>;
 }
