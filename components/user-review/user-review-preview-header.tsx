@@ -32,7 +32,6 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
           />
           <PostCreatedAt createdAt={userReview.createdAt} />
         </div>
-        <div className="col-span-12">{userReview.post.title}</div>
       </div>
       {/* Menu */}
     </div>
