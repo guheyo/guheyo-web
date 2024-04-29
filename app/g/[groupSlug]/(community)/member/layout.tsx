@@ -1,3 +1,4 @@
+import MemberRolesNavbar from '@/components/member/member-roles-navbar';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -5,7 +6,12 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return children;
+  return (
+    <div>
+      <MemberRolesNavbar />
+      {children}
+    </div>
+  );
 }
 
 export default Layout;
