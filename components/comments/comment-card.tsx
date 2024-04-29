@@ -109,7 +109,7 @@ export default function CommentCard({
               controllerProps={{
                 name: 'content',
                 control,
-                rules: { required: '댓글을 입력해 주세요' },
+                rules: { required: '메시지를 입력해 주세요' },
               }}
               textFieldProps={{
                 ...textFieldProps,
