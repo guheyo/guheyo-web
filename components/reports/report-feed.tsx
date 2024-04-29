@@ -30,20 +30,19 @@ export default function ReportFeed({
 
   const reports = data.findReportPreviews.edges;
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-4">
       {reports
         .filter((report) => report.node.reportedUser)
         .map((report) => (
-          <div key={report.node.id} className="flex flex-col gap-2">
-            <ReportCard
-              reportId={report.node.id}
-              reason={report.node.reason}
-              description={report.node.description}
-              createdAt={report.node.createdAt}
-              reportedUser={report.node.reportedUser}
-              type={report.node.type as ReportType}
-            />
-          </div>
+          <ReportCard
+            key={report.node.id}
+            reportId={report.node.id}
+            reason={report.node.reason}
+            description={report.node.description}
+            createdAt={report.node.createdAt}
+            reportedUser={report.node.reportedUser}
+            type={report.node.type as ReportType}
+          />
         ))}
       <div ref={ref} />
     </div>
