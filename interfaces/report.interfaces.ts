@@ -9,6 +9,8 @@ export interface FindReportPreviewsWhereArgs {
 
   reportedUserId?: string;
 
+  groupId?: string;
+
   status?: string;
 
   createdAt?: {
