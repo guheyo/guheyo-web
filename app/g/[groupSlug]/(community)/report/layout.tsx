@@ -1,5 +1,6 @@
 'use client';
 
+import ReportTypeNavbar from '@/components/reports/report-type-navbar';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div>
-      {/* ref type navbar */}
+      <ReportTypeNavbar />
       {children}
     </div>
   );
