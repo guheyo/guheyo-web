@@ -571,6 +571,7 @@ export type Query = {
   findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
+  findUserReview?: Maybe<UserReviewResponse>;
   findUserReviewPreviews: PaginatedUserReviewPreviewsResponse;
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
@@ -685,6 +686,12 @@ export type QueryFindUserImageByIdArgs = {
 export type QueryFindUserImagesOfRefArgs = {
   refId: Scalars['ID']['input'];
   type: Scalars['String']['input'];
+};
+
+
+export type QueryFindUserReviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -948,6 +955,21 @@ export type UserReviewPreviewResponseEdge = {
   __typename?: 'UserReviewPreviewResponseEdge';
   cursor: Scalars['String']['output'];
   node: UserReviewPreviewResponse;
+};
+
+export type UserReviewResponse = {
+  __typename?: 'UserReviewResponse';
+  auctionId?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['String']['output']>;
+  post: PostResponse;
+  rating: Scalars['Int']['output'];
+  reviewedUser: AuthorResponse;
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type VersionPreviewResponse = {
@@ -1224,6 +1246,8 @@ export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage
 
 export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
 
+export type UserReviewFragment = { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+
 export type FindUserReviewPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
@@ -1235,6 +1259,14 @@ export type FindUserReviewPreviewsQueryVariables = Exact<{
 
 
 export type FindUserReviewPreviewsQuery = { __typename?: 'Query', findUserReviewPreviews: { __typename?: 'PaginatedUserReviewPreviewsResponse', edges: Array<{ __typename?: 'UserReviewPreviewResponseEdge', cursor: string, node: { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindUserReviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindUserReviewQuery = { __typename?: 'Query', findUserReview?: { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
 
 export type CreateUserReviewMutationVariables = Exact<{
   input: CreateUserReviewInput;
@@ -1724,6 +1756,26 @@ export const UserReviewPreviewFragmentDoc = gql`
   status
 }
     ${PostPreviewWithAuthorFragmentDoc}
+${AuthorFragmentDoc}`;
+export const UserReviewFragmentDoc = gql`
+    fragment userReview on UserReviewResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+    ${PostFragmentDoc}
 ${AuthorFragmentDoc}`;
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
@@ -2954,6 +3006,47 @@ export type FindUserReviewPreviewsQueryHookResult = ReturnType<typeof useFindUse
 export type FindUserReviewPreviewsLazyQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsLazyQuery>;
 export type FindUserReviewPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsSuspenseQuery>;
 export type FindUserReviewPreviewsQueryResult = Apollo.QueryResult<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>;
+export const FindUserReviewDocument = gql`
+    query findUserReview($id: ID, $slug: String) {
+  findUserReview(id: $id, slug: $slug) {
+    ...userReview
+  }
+}
+    ${UserReviewFragmentDoc}`;
+
+/**
+ * __useFindUserReviewQuery__
+ *
+ * To run a query within a React component, call `useFindUserReviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserReviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserReviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindUserReviewQuery(baseOptions?: Apollo.QueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+      }
+export function useFindUserReviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+        }
+export function useFindUserReviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+        }
+export type FindUserReviewQueryHookResult = ReturnType<typeof useFindUserReviewQuery>;
+export type FindUserReviewLazyQueryHookResult = ReturnType<typeof useFindUserReviewLazyQuery>;
+export type FindUserReviewSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewSuspenseQuery>;
+export type FindUserReviewQueryResult = Apollo.QueryResult<FindUserReviewQuery, FindUserReviewQueryVariables>;
 export const CreateUserReviewDocument = gql`
     mutation createUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)

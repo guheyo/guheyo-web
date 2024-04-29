@@ -23,7 +23,11 @@ export default function OfferThumbnailPreview({ offer }: Props) {
       >
         {offer.post.thumbnail && (
           <div className="flex relative w-[38.5%] md:w-fit">
-            <Thumbnail url={offer.post.thumbnail} name={offer.post.title} />
+            <Thumbnail
+              url={offer.post.thumbnail}
+              name={offer.post.title}
+              thumbnailSize="large"
+            />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <ChatBubbleOvalLeftIcon
                 color="white"
