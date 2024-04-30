@@ -9,7 +9,7 @@ function Layout({ children }: Props) {
   return (
     <div>
       <MemberRolesNavbar />
-      {children}
+      <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
 }

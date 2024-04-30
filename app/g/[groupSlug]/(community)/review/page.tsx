@@ -1,6 +1,5 @@
 'use client';
 
-import TextFeedLayout from '@/components/posts/text-feed.layout';
 import UserReviewFeed from '@/components/user-review/user-review-feed';
 import { useGroup } from '@/hooks/use-group';
 import {
@@ -21,9 +20,5 @@ export default function Page() {
     createdAt: 'desc',
   };
 
-  return (
-    <TextFeedLayout>
-      <UserReviewFeed type="text" where={where} orderBy={orderBy} />
-    </TextFeedLayout>
-  );
+  return <UserReviewFeed type="text" where={where} orderBy={orderBy} />;
 }

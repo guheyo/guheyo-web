@@ -20,7 +20,7 @@ export default function Layout({ children, params }: Props) {
       <div className="flex flex-col justify-start pb-4">
         <ReportSubmitterNavbar isPublic={isPublic} />
       </div>
-      <div className="grid gap-1 grid-cols-1">{children}</div>
+      <div className="grid gap-6 grid-cols-1">{children}</div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ function Layout({ children }: Props) {
   return (
     <div>
       <ReportTypeNavbar />
-      {children}
+      <div className="grid gap-6 grid-cols-1">{children}</div>
     </div>
   );
 }

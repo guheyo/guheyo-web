@@ -36,7 +36,7 @@ export default function ReportFeed({
 
   const reports = data.findReportPreviews.edges;
   return (
-    <div className="flex flex-col gap-4">
+    <>
       {reports
         .filter((report) => report.node.reportedUser)
         .map((report) => (
@@ -51,6 +51,6 @@ export default function ReportFeed({
           />
         ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }
