@@ -2,7 +2,6 @@
 
 import NextDialog from '@/components/auth/next-dialog';
 import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
-import TextFeedLayout from '@/components/posts/text-feed.layout';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
 import { CheckboxFormValues } from '@/lib/search/search.types';
@@ -59,7 +58,7 @@ export default function Page({
   };
 
   return (
-    <div className="grid max-w-3xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}
@@ -68,17 +67,15 @@ export default function Page({
         handleChange={handleChange}
       />
       <div className="pt-4 overflow-y-scroll">
-        <div style={{ maxHeight: '75vh' }}>
-          <TextFeedLayout>
-            <OfferCheckboxResults
-              where={where}
-              type="text"
-              keyword={keyword}
-              distinct={false}
-              control={control}
-              handleOfferSelection={handleOfferSelection}
-            />
-          </TextFeedLayout>
+        <div style={{ maxHeight: '75vh' }} className="grid gap-2">
+          <OfferCheckboxResults
+            where={where}
+            type="text"
+            keyword={keyword}
+            distinct={false}
+            control={control}
+            handleOfferSelection={handleOfferSelection}
+          />
         </div>
       </div>
       <div className="pt-4" />

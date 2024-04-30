@@ -44,3 +44,8 @@ export const PRIVATE_REPORT_OPTIONS = [
 export const PUBLIC_REPORT_OPTIONS = [
   { value: 'received', label: '받은 신고' },
 ];
+
+export const REPORT_TYPE_OPTIONS = [
+  { value: 'post', label: '게시글 신고' },
+  { value: 'comment', label: '댓글 신고' },
+];

@@ -31,7 +31,7 @@ export default function OfferReport({ slug }: { slug: string }) {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <ReportHeader
         title={offer.post.title}
         price={offer.price}
@@ -39,6 +39,6 @@ export default function OfferReport({ slug }: { slug: string }) {
         updatedAt={offer.updatedAt}
       />
       <ReportFeed where={where} orderBy={orderBy} />
-    </>
+    </div>
   );
 }

@@ -26,7 +26,7 @@ export default function SearchUsers() {
   };
 
   return (
-    <div className="grid max-w-3xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}

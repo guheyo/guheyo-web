@@ -41,7 +41,7 @@ export default function RootLayout({
         <Providers>
           <Navbar toggleMenu={toggleMenu} />
           <GroupSidebar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <div className="max-w-5xl mx-auto pb-0">{children}</div>
+          <div className="max-w-2xl mx-auto pb-0 w-full">{children}</div>
         </Providers>
       </body>
     </html>

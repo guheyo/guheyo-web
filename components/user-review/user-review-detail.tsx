@@ -4,6 +4,7 @@ import { UserReviewResponse } from '@/generated/graphql';
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import UserReviewDetailMain from './user-review-detail-main';
+import PostDetailMainLayout from '../posts/post-detail-main.layout';
 
 export default function UserReviewDetail({
   userReview,
@@ -13,24 +14,21 @@ export default function UserReviewDetail({
   if (userReview.post.images.length > 0)
     return (
       <PostDetail>
-        <div className="w-full md:w-[45%]">
-          <ImageSlider
-            images={userReview.post.images}
-            sizes="h-[360px] md:h-[524px]"
-          />
-        </div>
-
-        <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
+        <ImageSlider
+          images={userReview.post.images}
+          sizes="h-[360px] md:h-[500px]"
+        />
+        <PostDetailMainLayout>
           <UserReviewDetailMain userReview={userReview} />
-        </div>
+        </PostDetailMainLayout>
       </PostDetail>
     );
 
   return (
     <PostDetail>
-      <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
+      <PostDetailMainLayout>
         <UserReviewDetailMain userReview={userReview} />
-      </div>
+      </PostDetailMainLayout>
     </PostDetail>
   );
 }

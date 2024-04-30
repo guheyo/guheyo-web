@@ -1,7 +1,7 @@
 'use client';
 
+import ReportTypeNavbar from '@/components/reports/report-type-navbar';
 import { ReactNode } from 'react';
-import MannerTagsNavbar from '@/components/user-review/manner-tags-navbar';
 
 interface Props {
   children: ReactNode;
@@ -10,8 +10,8 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div>
-      <MannerTagsNavbar />
-      <div className="grid gap-2 grid-cols-1">{children}</div>
+      <ReportTypeNavbar />
+      <div className="grid gap-6 grid-cols-1">{children}</div>
     </div>
   );
 }

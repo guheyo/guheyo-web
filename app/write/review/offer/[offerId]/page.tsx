@@ -2,7 +2,6 @@
 
 import { AuthContext } from '@/components/auth/auth.provider';
 import NextDialog from '@/components/auth/next-dialog';
-import TextFeedLayout from '@/components/posts/text-feed.layout';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
 import UserCheckboxResults from '@/components/users/user-checkbox-results';
@@ -59,7 +58,7 @@ export default function Page({
   const where = {};
 
   return (
-    <div className="grid max-w-3xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}
@@ -68,16 +67,14 @@ export default function Page({
         handleChange={handleChange}
       />
       <div className="pt-4 overflow-y-scroll">
-        <div style={{ maxHeight: '75vh' }}>
-          <TextFeedLayout>
-            <UserCheckboxResults
-              where={where}
-              keyword={keyword}
-              userIdToExclude={jwtPayload?.id}
-              control={control}
-              handleOfferSelection={handleOfferSelection}
-            />
-          </TextFeedLayout>
+        <div style={{ maxHeight: '75vh' }} className="grid gap-2">
+          <UserCheckboxResults
+            where={where}
+            keyword={keyword}
+            userIdToExclude={jwtPayload?.id}
+            control={control}
+            handleOfferSelection={handleOfferSelection}
+          />
         </div>
       </div>
       <div className="pt-4" />
