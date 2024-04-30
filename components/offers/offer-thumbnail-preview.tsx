@@ -22,7 +22,7 @@ export default function OfferThumbnailPreview({ offer }: Props) {
         className="flex flex-row w-full md:flex-col text-start"
       >
         {offer.post.thumbnail && (
-          <div className="flex relative w-[38.5%] md:w-fit">
+          <div className="flex relative w-[32%] md:w-fit">
             <Thumbnail
               url={offer.post.thumbnail}
               name={offer.post.title}
@@ -37,7 +37,7 @@ export default function OfferThumbnailPreview({ offer }: Props) {
             </div>
           </div>
         )}
-        <div className="w-[61.5%] md:w-full px-4 md:px-2 pt-2 pb-1">
+        <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <OfferPreviewHeader offer={offer} />
           <OfferPreviewFooter offer={offer} />
         </div>

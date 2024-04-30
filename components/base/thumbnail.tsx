@@ -13,7 +13,7 @@ export default function Thumbnail({
 }) {
   if (thumbnailSize === 'large') {
     return (
-      <div className="flex justify-center items-center relative overflow-hidden w-fit h-32 md:h-48 lg:h-52 rounded-md">
+      <div className="flex justify-center items-center relative overflow-hidden w-fit h-24 md:h-48 lg:h-52 rounded-md">
         <Image src={url} alt={name} width={320} height={320} />
       </div>
     );
