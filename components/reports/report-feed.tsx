@@ -7,6 +7,7 @@ import {
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import { ReportType } from '@/lib/report/report.types';
+import { useSearchParams } from 'next/navigation';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
@@ -17,10 +18,15 @@ export default function ReportFeed({
   orderBy: FindReportPreviewsOrderByArgs;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type') || undefined;
 
   const { loading, data } = useInfiniteReports({
     ref,
-    where,
+    where: {
+      ...where,
+      type,
+    },
     orderBy,
     take: 10,
   });
@@ -30,7 +36,7 @@ export default function ReportFeed({
 
   const reports = data.findReportPreviews.edges;
   return (
-    <div className="flex flex-col gap-4">
+    <>
       {reports
         .filter((report) => report.node.reportedUser)
         .map((report) => (
@@ -45,6 +51,6 @@ export default function ReportFeed({
           />
         ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }

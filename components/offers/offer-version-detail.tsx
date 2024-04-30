@@ -9,6 +9,7 @@ import {
 import ImageSlider from '../base/image-slider';
 import PostDetail from '../posts/post-detail';
 import OfferVersionDetailMain from './offer-version-detail-main';
+import PostDetailMainLayout from '../posts/post-detail-main.layout';
 
 export default function OfferVersionDetail({
   images,
@@ -26,31 +27,28 @@ export default function OfferVersionDetail({
   if (images.length > 0)
     return (
       <PostDetail>
-        <div className="w-full md:w-[45%]">
-          <ImageSlider images={images} sizes="h-[360px] md:h-[524px]" />
-        </div>
-
-        <div className="flex-none line-break w-full md:w-[45%] px-4 md:px-0 py-4 md:py-0">
+        <ImageSlider images={images} sizes="h-[360px] md:h-[500px]" />
+        <PostDetailMainLayout>
           <OfferVersionDetailMain
             versionCreatedAt={versionCreatedAt}
             user={user}
             post={post}
             offer={offer}
           />
-        </div>
+        </PostDetailMainLayout>
       </PostDetail>
     );
 
   return (
     <PostDetail>
-      <div className="flex-none line-break w-full md:w-[90%] px-4 md:px-0 py-4 md:py-0">
+      <PostDetailMainLayout>
         <OfferVersionDetailMain
           versionCreatedAt={versionCreatedAt}
           user={user}
           post={post}
           offer={offer}
         />
-      </div>
+      </PostDetailMainLayout>
     </PostDetail>
   );
 }

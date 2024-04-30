@@ -34,7 +34,7 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
+      <div className="grid gap-x-0 md:gap-x-4 gap-y-2 grid-cols-1 md:grid-cols-2 px-0 md:px-0">
         {group.sells.map((sellOffer) => (
           <OfferPreview key={sellOffer.id} offer={sellOffer} type="thumbnail" />
         ))}
@@ -67,7 +67,7 @@ export default function GroupPreview({ group }: Props) {
           </Link>
         </div>
       </div>
-      <div className="grid gap-x-0 md:gap-x-6 gap-y-1 lg:gap-y-14 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-0 md:px-0">
+      <div className="grid gap-x-0 md:gap-x-4 gap-y-2 grid-cols-1 md:grid-cols-2 px-0 md:px-0">
         {group.buys.map((buyOffer) => (
           <OfferPreview key={buyOffer.id} offer={buyOffer} type="text" />
         ))}

@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       <div className="flex-1" />
-      <div className="max-w-7xl">{children}</div>
+      <div className="max-w-2xl">{children}</div>
       <div className="flex-1" />
     </div>
   );
