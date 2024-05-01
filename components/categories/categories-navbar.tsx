@@ -12,7 +12,7 @@ const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
     return `text-dark-200 hover:text-gray-300`;
   }
-  return `border-b-2 border-light-200 text-gray-300`;
+  return `border-b-2 border-gray-300 text-gray-300`;
 };
 
 export default function CategoriesNavbar({
