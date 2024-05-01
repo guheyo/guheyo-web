@@ -32,11 +32,15 @@ export default function ReportHeader({
           fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
         />
         <div className="grid grid-cols-1 gap-1 justify-items-start">
-          <div className="text-gray-300 text-base font-semibold">{title}</div>
-          <div className="text-gray-300 text-sm font-normal">{price}원</div>
-          <div className="text-dark-200 text-sm font-normal">
-            최근 수정 : {dayjs(updatedAt).fromNow()}
+          <div className="flex flex-row gap-2">
+            <div className="flex-1 text-gray-300 text-base font-semibold">
+              {title}
+            </div>
+            <div className="felx-none text-dark-200 text-sm font-normal">
+              최근 수정 : {dayjs(updatedAt).fromNow()}
+            </div>
           </div>
+          <div className="text-gray-300 text-sm font-normal">{price}원</div>
         </div>
       </div>
     </button>
