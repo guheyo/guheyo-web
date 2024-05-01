@@ -1,3 +1,4 @@
+import { truncateText } from '@/lib/text/truncate-text';
 import SwapName from '../swaps/swap-name';
 
 export default function PostPreviewTitle({
@@ -16,6 +17,8 @@ export default function PostPreviewTitle({
     );
   }
   return (
-    <div className="text-xs md:text-sm font-medium text-gray-300">{name0}</div>
+    <div className="text-xs md:text-sm font-medium text-gray-300">
+      {truncateText(name0, 45)}
+    </div>
   );
 }

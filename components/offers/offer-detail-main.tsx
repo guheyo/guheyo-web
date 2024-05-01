@@ -20,7 +20,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
 
   return (
     <>
-      <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
+      <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-start justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
             user={offer.post.user}

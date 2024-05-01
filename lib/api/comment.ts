@@ -29,7 +29,7 @@ export async function updateComment(input: UpdateCommentInput) {
   });
 }
 
-export async function deleteReportComment(input: DeleteCommentInput) {
+export async function deleteComment(input: DeleteCommentInput) {
   return client.mutate<DeleteCommentMutation>({
     mutation: DeleteCommentDocument,
     variables: {

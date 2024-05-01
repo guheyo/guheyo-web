@@ -1,11 +1,11 @@
 'use client';
 
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CRUD } from '@/lib/crud/crud.types';
 import { useState } from 'react';
+import { IconButton } from '@mui/material';
 
 export default function CommentMenu({
   isCurrentUser,
@@ -29,7 +29,7 @@ export default function CommentMenu({
 
   return (
     <div>
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -37,7 +37,7 @@ export default function CommentMenu({
         onClick={handleClick}
       >
         <MoreVertIcon className="text-xl md:text-2xl text-dark-200" />
-      </Button>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

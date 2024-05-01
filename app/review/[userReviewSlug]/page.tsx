@@ -36,7 +36,7 @@ function Page({
   return (
     <div className="flex flex-col gap-16 md:gap-16">
       <UserReviewDetail userReview={userReview} />
-      <div className="px-4 md:px-2">
+      <div className="px-4 md:px-0">
         <CommentFeed where={where} orderBy={orderBy} />
       </div>
     </div>
