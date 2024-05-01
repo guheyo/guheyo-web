@@ -19,8 +19,8 @@ export default function Thumbnail({
     );
   }
   return (
-    <div className="flex justify-center items-center relative overflow-hidden w-fit h-16 rounded-md">
-      <Image src={url} alt={name} width={72} height={64} />
+    <div className="flex justify-center items-center relative overflow-hidden w-fit h-20 rounded-md">
+      <Image src={url} alt={name} width={96} height={80} />
     </div>
   );
 }
