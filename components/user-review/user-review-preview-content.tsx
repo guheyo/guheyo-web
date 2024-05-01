@@ -12,10 +12,12 @@ export default function UserReviewPreviewContent({ userReview }: Props) {
   return (
     <div className="grid grid-cols-12 gap-1 items-start justify-between gap-4">
       <div className="col-span-9 flex flex-col gap-2 text-xs md:text-sm ">
-        <div className="text-dark-200">{userReview.post.title}</div>
+        <div className="text-dark-200">
+          {truncateText(userReview.post.title, 25)}
+        </div>
         {userReview.content && (
           <div className="text-gray-300">
-            {truncateText(userReview.content, 24)}
+            {truncateText(userReview.content, 25)}
           </div>
         )}
       </div>
@@ -30,5 +32,4 @@ export default function UserReviewPreviewContent({ userReview }: Props) {
       </div>
     </div>
   );
-
 }
