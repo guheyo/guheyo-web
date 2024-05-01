@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import FeedHomeLayout from '@/components/offers/feed-home.layout';
+import OfferFeedHomeLayout from '@/components/offers/offer-feed-home.layout';
 import { OffersPageProps } from './page';
 
 interface Props extends OffersPageProps {
@@ -7,7 +7,7 @@ interface Props extends OffersPageProps {
 }
 
 function OffersLayout({ params, children }: Props) {
-  return <FeedHomeLayout>{children}</FeedHomeLayout>;
+  return <OfferFeedHomeLayout>{children}</OfferFeedHomeLayout>;
 }
 
 export default OffersLayout;
