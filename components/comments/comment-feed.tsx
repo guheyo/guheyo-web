@@ -1,16 +1,17 @@
 'use client';
 
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import {
   FindCommentsOrderByArgs,
   FindCommentsWhereArgs,
 } from '@/interfaces/comment.interfaces';
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
-import { createComment, updateComment } from '@/lib/api/comment';
+import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
 import { useFindAuthorQuery } from '@/generated/graphql';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
+import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 
 export default function CommentFeed({
   where,
@@ -21,6 +22,10 @@ export default function CommentFeed({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
+    null,
+  );
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref,
@@ -60,12 +65,27 @@ export default function CommentFeed({
     });
   };
 
-  const handleDelete = (values: CommentValues) => {
-    // TODO
+  const handleDeleteConfirmation = (comment: CommentValues) => {
+    setCommentToDelete(comment);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setCommentToDelete(null);
+    setDeleteDialogOpen(false);
+  };
+
+  const handleDelete = async (values: CommentValues) => {
+    if (!values.id) return;
+
+    await deleteComment({
+      id: values.id,
+    });
+    handleCloseDeleteDialog();
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-5 w-full">
       <CommentCard
         user={user || undefined}
         isCurrentUser
@@ -100,9 +120,15 @@ export default function CommentFeed({
           }}
           handleWrite={handleWrite}
           handleEdit={handleEdit}
-          handleDelete={handleDelete}
+          handleDelete={handleDeleteConfirmation}
         />
       ))}
+      <DeleteConfirmationDialog
+        open={deleteDialogOpen}
+        dialogTitle="댓글을 삭제할까요?"
+        onClose={handleCloseDeleteDialog}
+        onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
+      />
       <div ref={ref} />
     </div>
   );
