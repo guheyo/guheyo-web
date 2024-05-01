@@ -40,6 +40,7 @@ const tailwindConfig = {
       'star-600': '#C43176',
       'star-700': '#B42D6C',
       'light-200': '#f2f3ed',
+      'dark-100': '#C6CBD2',
       'dark-200': '#7f838e', // icon-gray
       'dark-400': '#404146', // clicked-post
       'dark-500': '#323338', // channel-bg
