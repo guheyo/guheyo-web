@@ -8,9 +8,9 @@ import Scrollbar from '../base/scrollbar';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
-    return `text-dark-200 hover:text-light-200`;
+    return `text-dark-200 hover:text-gray-300`;
   }
-  return `border-b-2 border-light-200 text-light-200`;
+  return `border-b-2 border-light-200 text-gray-300`;
 };
 
 export default function MannerTagsNavbar() {

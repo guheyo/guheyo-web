@@ -16,7 +16,7 @@ export default function ProductSearchResults({
   return (
     <div className="grid grid-cols-2 gap-4 md:gap-4 w-full">
       <div>
-        <div className="text-light-200 text-sm md:text-base font-bold m-2">
+        <div className="text-gray-300 text-sm md:text-base font-bold m-2">
           팝니다
         </div>
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
@@ -40,7 +40,7 @@ export default function ProductSearchResults({
         </div>
       </div>
       <div>
-        <div className="text-light-200 text-sm md:text-base font-bold m-2">
+        <div className="text-gray-300 text-sm md:text-base font-bold m-2">
           삽니다
         </div>
         <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">

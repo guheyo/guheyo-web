@@ -26,7 +26,7 @@ export default function RatingInputs({
               className={
                 ratingOption.ratingValue !== field.value
                   ? `text-xs md:text-sm text-dark-200`
-                  : `text-xs md:text-sm text-light-200`
+                  : `text-xs md:text-sm text-gray-300`
               }
             >
               <RatingIcon

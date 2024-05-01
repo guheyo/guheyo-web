@@ -12,7 +12,7 @@ interface Props {
 export default function OfferPreviewHeader({ offer }: Props) {
   return (
     <div className="flex flex-row justify-between items-center">
-      <PostPreviewTitle title={offer.post.title} />
+      <PostPreviewTitle name0={offer.name0!} name1={offer.name1 || undefined} />
       <div className="h-8">
         <OfferMenu
           offerId={offer.id}

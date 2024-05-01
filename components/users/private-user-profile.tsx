@@ -29,7 +29,7 @@ export default function PrivateUserProfile() {
       </div>
       <div className="col-span-9 md:col-span-9">
         <div className="grid grid-cols-12 gap-2">
-          <span className="col-span-9 md:col-span-9 text-light-200 text-lg font-bold justify-self-start">
+          <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
             <Username user={user as AuthorResponse} />
           </span>
           <div className="col-span-3 md:col-span-3 justify-self-end">

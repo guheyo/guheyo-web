@@ -26,7 +26,7 @@ export default function WriteButton() {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="text-xs md:text-sm font-bold text-light-200"
+        className="text-xs md:text-sm font-bold text-gray-300"
         sx={{
           padding: '6px', // Add padding to match IconButton size
           minWidth: 0, // Set minimum width to 0

@@ -25,7 +25,7 @@ export default function SidebarItem({
         >
           {icon}
         </ListItemIcon>
-        <Typography className="text-base">{text}</Typography>
+        <Typography className="text-sm lg:text-sm">{text}</Typography>
       </ListItem>
     </Link>
   );

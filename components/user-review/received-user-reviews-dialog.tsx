@@ -21,7 +21,7 @@ export default function ReceivedUserReviewsDialog({
   };
 
   return (
-    <div className="bg-gray-500 hover:bg-dark-200 text-sm font-bold p-2 rounded text-light-200">
+    <div className="bg-gray-500 hover:bg-dark-200 text-sm font-bold p-2 rounded text-gray-300">
       <DiscordLoginDialog
         name="받은 후기 보기"
         icon={<StickyNote2Icon fontSize="small" />}

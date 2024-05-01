@@ -24,7 +24,7 @@ export default function ReportPreview({
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between w-full">
-          <div className="text-light-200 font-light text-xs md:text-sm">
+          <div className="text-gray-300 font-light text-xs md:text-sm">
             {description}
           </div>
           <div className="mr-2">

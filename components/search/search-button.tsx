@@ -53,7 +53,7 @@ export default function SearchButton() {
         onClick={handleClick}
         aria-label="Search Button"
       >
-        <SearchRounded className="text-light-200" />
+        <SearchRounded className="text-gray-300" />
       </IconButton>
     );
   return (

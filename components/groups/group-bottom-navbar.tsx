@@ -65,7 +65,7 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href="/"
             icon={
-              <HomeIcon fontSize="small" className="hover:text-light-200" />
+              <HomeIcon fontSize="small" className="hover:text-gray-300" />
             }
             text="홈"
           />
@@ -76,7 +76,7 @@ export default function GroupBottomNavbar({
             icon={
               <ShoppingBagIcon
                 fontSize="small"
-                className="hover:text-light-200"
+                className="hover:text-gray-300"
               />
             }
             text="장터"
@@ -89,7 +89,7 @@ export default function GroupBottomNavbar({
               communityType: 'member',
             })}
             icon={
-              <GroupIcon fontSize="small" className="hover:text-light-200" />
+              <GroupIcon fontSize="small" className="hover:text-gray-300" />
             }
             text="커뮤니티"
           />

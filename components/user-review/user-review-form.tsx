@@ -111,7 +111,7 @@ export default function UserReviewForm({
       className="flex flex-col gap-12 w-full md:w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
-      <div className="text-xl text-light-200 font-bold">
+      <div className="text-xl text-gray-300 font-bold">
         {parseUserReviewFormTitle(title)}
       </div>
 
@@ -122,7 +122,7 @@ export default function UserReviewForm({
       {rating > 0 && (
         <>
           <div className="flex flex-col gap-4">
-            <div className="text-base text-light-200 font-bold">
+            <div className="text-base text-gray-300 font-bold">
               {parseRatingResultTitle({ rating })}
             </div>
             {rating === 1 && (

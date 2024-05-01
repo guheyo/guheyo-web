@@ -37,7 +37,7 @@ export default function CommentOutput({
       <div className="flex flex-col gap-0 w-full">
         <div className="flex justify-between items-center text-xs md:text-sm">
           <div className="flex flex-row gap-2">
-            <div className="text-light-200">{user.username}</div>
+            <div className="text-gray-300">{user.username}</div>
             <div>{parseCommentDate({ createdAt, updatedAt })}</div>
           </div>
           <div className="mr-[-18px]">
@@ -49,7 +49,7 @@ export default function CommentOutput({
             )}
           </div>
         </div>
-        <div className="flex text-sm md:text-base text-gray-400">{content}</div>
+        <div className="flex text-sm md:text-base text-dark-100">{content}</div>
       </div>
     </div>
   );

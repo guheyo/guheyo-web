@@ -23,7 +23,7 @@ export default function NaverAccount({
         <div className="text-red-400">네이버 미인증</div>
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-400 text-sm font-bold p-2 rounded text-light-200"
+          className="bg-green-500 hover:bg-green-400 text-sm font-bold p-2 rounded text-gray-300"
           onClick={() => signIn(router, 'naver')}
         >
           네이버 인증하기

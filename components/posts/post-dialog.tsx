@@ -43,10 +43,10 @@ export default function PostDialog({
         },
       }}
     >
-      <DialogContent className="p-0 overflow-auto md:overflow-hidden bg-dark-400 text-light-200 rounded-none md:rounded-lg">
+      <DialogContent className="p-0 overflow-auto md:overflow-hidden bg-dark-400 text-gray-300 rounded-none md:rounded-lg">
         <div className="flex justify-end">
           <IconButton onClick={handleClose}>
-            <XMarkIcon className="w-6 md:w-9 text-dark-200 hover:text-light-200 bg-dark-400 rounded-lg" />
+            <XMarkIcon className="w-6 md:w-9 text-dark-200 hover:text-gray-300 bg-dark-400 rounded-lg" />
           </IconButton>
         </div>
         {children}

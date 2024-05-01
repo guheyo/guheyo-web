@@ -29,7 +29,7 @@ export default function AccordionInput<
       {reportReasons.map((reason, index) => (
         <Accordion
           key={reason.reason}
-          className="text-light-200 text-sm md:text-base bg-dark-400"
+          className="text-gray-300 text-sm md:text-base bg-dark-400"
         >
           <AccordionSummary
             className={

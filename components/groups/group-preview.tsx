@@ -21,7 +21,7 @@ export default function GroupPreview({ group }: Props) {
         icon={group.icon}
         slug={group.slug!}
       />
-      <div className="text-sm md:text-base text-light-200 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
+      <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
         <Link
           href={parseGroupMarketLink({
             groupSlug: group.slug!,
@@ -54,7 +54,7 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
-      <div className="text-sm md:text-base text-light-200 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
+      <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
         <div className="flex flex-row items-center gap-1">
           <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
           <Link
