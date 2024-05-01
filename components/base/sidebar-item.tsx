@@ -22,14 +22,14 @@ export default function SidebarItem({
     <Link href={href}>
       <ListItem onClick={handleClick}>
         <ListItemIcon
-          className={isActive ? 'text-star-300 font-medium' : 'text-gray-400'}
+          className={isActive ? 'text-star-300 font-semibold' : 'text-gray-400'}
           style={{ minWidth: 'unset', width: 'auto', marginRight: '12px' }}
         >
           {icon}
         </ListItemIcon>
         <Typography
           className={`text-sm lg:text-sm ${
-            isActive ? 'text-star-300 font-medium' : 'text-gray-400'
+            isActive ? 'text-star-300 font-semibold' : 'text-gray-400'
           }`}
         >
           {text}
