@@ -19,12 +19,12 @@ export default function ReportPreview({
 }) {
   return (
     <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
-      <div className="text-red-500 text-sm md:text-base font-semibold">
+      <div className="text-gray-300 text-xs md:text-sm font-semibold">
         {`[${parseReportTypeName(type)} 신고] ${reason}`}
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex justify-between w-full">
-          <div className="text-gray-300 font-light text-xs md:text-sm">
+          <div className="text-dark-100 font-light text-xs md:text-sm">
             {description}
           </div>
           <div className="mr-2">
