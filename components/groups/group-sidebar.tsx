@@ -11,7 +11,8 @@ import FlagIcon from '@mui/icons-material/Flag';
 import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
 import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
 import { useGroup } from '@/hooks/use-group';
-import { MouseEventHandler, useEffect, useRef } from 'react';
+import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 
@@ -24,6 +25,14 @@ export default function GroupSidebar({
 }) {
   const { loading, group } = useGroup();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const [activeItem, setActiveItem] = useState('');
+
+  useEffect(() => {
+    const pathSegments = pathname.split('/');
+    const lastSegment = pathSegments[pathSegments.length - 1];
+    setActiveItem(lastSegment);
+  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -83,6 +92,7 @@ export default function GroupSidebar({
               href="/"
               icon={<HomeIcon fontSize="medium" />}
               text="홈"
+              isActive={activeItem === ''}
               onClick={toggleMenu}
             />
             <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
@@ -122,6 +132,7 @@ export default function GroupSidebar({
             href="/"
             icon={<HomeIcon fontSize="medium" />}
             text="홈"
+            isActive={activeItem === ''}
             onClick={toggleMenu}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
@@ -138,6 +149,7 @@ export default function GroupSidebar({
             })}
             icon={<SellIcon fontSize="medium" />}
             text="판매"
+            isActive={activeItem === 'sell'}
             onClick={toggleMenu}
           />
           <SidebarItem
@@ -147,6 +159,7 @@ export default function GroupSidebar({
             })}
             icon={<ShoppingBagIcon fontSize="medium" />}
             text="구매"
+            isActive={activeItem === 'buy'}
             onClick={toggleMenu}
           />
           <SidebarItem
@@ -156,6 +169,7 @@ export default function GroupSidebar({
             })}
             icon={<SwapHorizIcon fontSize="medium" />}
             text="교환"
+            isActive={activeItem === 'swap'}
             onClick={toggleMenu}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
@@ -168,6 +182,7 @@ export default function GroupSidebar({
             })}
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
+            isActive={activeItem === 'member'}
             onClick={toggleMenu}
           />
           <SidebarItem
@@ -177,6 +192,7 @@ export default function GroupSidebar({
             })}
             icon={<StickyNote2Icon fontSize="medium" />}
             text="거래 후기"
+            isActive={activeItem === 'review'}
             onClick={toggleMenu}
           />
           <SidebarItem
@@ -186,6 +202,7 @@ export default function GroupSidebar({
             })}
             icon={<FlagIcon fontSize="medium" />}
             text="신고"
+            isActive={activeItem === 'report'}
             onClick={toggleMenu}
           />
         </List>
