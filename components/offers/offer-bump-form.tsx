@@ -106,7 +106,7 @@ export default function OfferBumpForm({
       className="flex flex-col gap-12"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
-      <div className="text-xl text-light-200 font-bold">
+      <div className="text-xl text-gray-300 font-bold">
         {parseOfferBumpFormTitle(businessFunction)}
       </div>
       <div className="flex flex-row gap-2 items-center">
@@ -122,8 +122,8 @@ export default function OfferBumpForm({
           <div />
         )}
         <div className="flex flex-col">
-          <div className="text-sm text-light-200">{title}</div>
-          <div className="text-base text-light-200 font-bold">{price}</div>
+          <div className="text-sm text-gray-300">{title}</div>
+          <div className="text-base text-gray-300 font-bold">{price}</div>
         </div>
       </div>
       <div className="flex flex-col gap-2 md-0 md:mb-8">
@@ -166,7 +166,7 @@ export default function OfferBumpForm({
           handleUpButtonClick={handleUpButtonClick}
           handleDownButtonClick={handleDownButtonClick}
         />
-        <div className="text-base text-light-200 font-bold">
+        <div className="text-base text-gray-300 font-bold">
           {OFFER_BUMP_INFO_MESSAGE}
         </div>
       </div>

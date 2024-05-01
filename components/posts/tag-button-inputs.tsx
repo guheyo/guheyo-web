@@ -29,7 +29,7 @@ export default function TagButtonInputs({
               className={
                 field.value
                   ? `col-span-6 md:col-span-4 text-xs md:text-sm text-dark-700 bg-light-200 hover:bg-light-200 font-bold rounded-lg p-2`
-                  : `col-span-6 md:col-span-4 text-xs md:text-sm text-light-200 bg-dark-400 hover:bg-dark-200 font-bold rounded-lg p-2`
+                  : `col-span-6 md:col-span-4 text-xs md:text-sm text-gray-300 bg-dark-400 hover:bg-dark-200 font-bold rounded-lg p-2`
               }
             >
               {tag.name}

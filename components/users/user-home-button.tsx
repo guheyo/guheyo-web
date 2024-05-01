@@ -19,7 +19,7 @@ export default function UserHomeButton({ username }: { username: string }) {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="bg-dark-200 hover:bg-zinc-400 text-xs md:text-sm font-bold px-2 py-1.5 rounded text-light-200"
+        className="bg-dark-200 hover:bg-zinc-400 text-xs md:text-sm font-bold px-2 py-1.5 rounded text-gray-300"
         name={`${username} 프로필`}
         onClick={() => join()}
       >

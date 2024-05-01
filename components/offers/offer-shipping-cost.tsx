@@ -9,7 +9,7 @@ export default function OfferShippingCost({
   shippingType: ShippingType;
 }) {
   return (
-    <div className="text-sm md:text-base items-center font-thin text-light-200">
+    <div className="text-sm md:text-base items-center font-thin text-gray-300">
       {parseShippingCost({ shippingCost, shippingType })}
     </div>
   );

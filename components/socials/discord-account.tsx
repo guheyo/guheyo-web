@@ -23,7 +23,7 @@ export default function DiscordAccount({
         <div className="text-red-400">디스코드 미연동</div>
         <button
           type="submit"
-          className="bg-indigo-500 hover:bg-indigo-400 text-sm font-bold p-2 rounded text-light-200"
+          className="bg-indigo-500 hover:bg-indigo-400 text-sm font-bold p-2 rounded text-gray-300"
           onClick={() => signIn(router, 'discord')}
         >
           디스코드 연동하기

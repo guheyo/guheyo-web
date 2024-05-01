@@ -34,7 +34,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
       </div>
       <div className="col-span-9 md:col-span-6">
         <div className="grid grid-cols-12 gap-0">
-          <span className="col-span-9 md:col-span-9 text-light-200 text-lg font-bold justify-self-start">
+          <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
             <Username user={user} />
           </span>
           <div className="col-span-9 pb-2">

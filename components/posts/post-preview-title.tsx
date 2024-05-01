@@ -10,12 +10,12 @@ export default function PostPreviewTitle({
   if (!name0 && !name1) return <div />;
   if (name1) {
     return (
-      <div className="text-xs md:text-sm font-medium text-light-200">
+      <div className="text-xs md:text-sm font-medium text-gray-300">
         <SwapName name0={name0} name1={name1} />
       </div>
     );
   }
   return (
-    <div className="text-xs md:text-sm font-medium text-light-200">{name0}</div>
+    <div className="text-xs md:text-sm font-medium text-gray-300">{name0}</div>
   );
 }

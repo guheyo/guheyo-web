@@ -44,7 +44,7 @@ export default function PostDeleteDialog({
             <Button
               onClick={handleDelete}
               autoFocus
-              className="bg-star-500 hover:bg-star-400 text-light-200 font-semibold"
+              className="bg-star-500 hover:bg-star-400 text-gray-300 font-semibold"
             >
               삭제
             </Button>
