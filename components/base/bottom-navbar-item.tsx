@@ -12,7 +12,7 @@ export default function BottomNavbarItem({
 }) {
   return (
     <Link href={href}>
-      <ListItem className="flex flex-col items-center justify-center text-dark-200 hover:text-light-200 p-0">
+      <ListItem className="flex flex-col items-center justify-center text-dark-200 hover:text-gray-300 p-0">
         <ListItemIcon
           className="text-gray-400"
           style={{

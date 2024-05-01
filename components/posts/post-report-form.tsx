@@ -72,7 +72,7 @@ export default function PostReportForm({
       className="flex flex-col gap-12"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
-      <div className="text-xl text-light-200 font-bold">
+      <div className="text-xl text-gray-300 font-bold">
         {parseReportFormTitle(title)}
       </div>
 

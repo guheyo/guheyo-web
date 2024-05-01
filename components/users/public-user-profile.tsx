@@ -34,7 +34,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
       </div>
       <div className="col-span-9 md:col-span-6">
         <div className="grid grid-cols-12 gap-0">
-          <span className="col-span-9 md:col-span-9 text-light-200 text-lg font-bold justify-self-start">
+          <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
             <Username user={user} />
           </span>
           <div className="col-span-9 pb-2">
@@ -54,10 +54,10 @@ export default function PublicUserProfile({ username }: { username: string }) {
         </div>
       </div>
       <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
-        <div className="grow w-44">
+        <div className="grow w-32">
           <SelectUserReviewTargetOfferDialog userId={user.id} />
         </div>
-        <div className="grow w-44">
+        <div className="grow w-32">
           <DmDialog
             url={parseDiscordDmLink(
               getSocialID({

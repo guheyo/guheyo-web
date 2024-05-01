@@ -14,7 +14,7 @@ export default function UserReviewPreviewContent({ userReview }: Props) {
       <div className="col-span-9 flex flex-col gap-2 text-xs md:text-sm ">
         <div className="text-dark-200">{userReview.post.title}</div>
         {userReview.content && (
-          <div className="text-light-200">
+          <div className="text-gray-300">
             {truncateText(userReview.content, 24)}
           </div>
         )}

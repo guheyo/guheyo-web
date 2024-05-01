@@ -11,7 +11,7 @@ export default function NextDialog({
   onUnAuthorization: MouseEventHandler;
 }) {
   return (
-    <div className="p-3 text-light-200 bg-star-500 hover:bg-star-400 text-lg font-bold rounded-lg absolute md:relative m-2 md:m-0 bottom-0 left-0 right-0">
+    <div className="p-3 text-gray-300 bg-star-500 hover:bg-star-400 text-lg font-bold rounded-lg absolute md:relative m-2 md:m-0 bottom-0 left-0 right-0">
       <DiscordLoginDialog
         name="다음"
         onAuthorization={onAuthorization}

@@ -85,7 +85,9 @@ export default function GroupSidebar({
               text="홈"
               onClick={toggleMenu}
             />
-            <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
+            <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+              그룹
+            </ListItem>
             <GroupProfileSidebarItems onClick={toggleMenu} />
           </List>
         </div>
@@ -122,9 +124,13 @@ export default function GroupSidebar({
             text="홈"
             onClick={toggleMenu}
           />
-          <ListItem className="text-base text-zinc-300 pl-4">그룹</ListItem>
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+            그룹
+          </ListItem>
           <GroupProfileSidebarItems onClick={toggleMenu} />
-          <ListItem className="text-base text-zinc-300 pl-4">장터</ListItem>
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+            장터
+          </ListItem>
           <SidebarItem
             href={parseGroupMarketLink({
               groupSlug: group?.slug,
@@ -152,7 +158,9 @@ export default function GroupSidebar({
             text="교환"
             onClick={toggleMenu}
           />
-          <ListItem className="text-base text-zinc-300 pl-4">커뮤니티</ListItem>
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+            커뮤니티
+          </ListItem>
           <SidebarItem
             href={parseGroupCommunityLink({
               groupSlug: group?.slug,

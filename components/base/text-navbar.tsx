@@ -3,9 +3,9 @@ import { Option } from '@/interfaces/selector.interfaces';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
-    return `text-dark-200 hover:text-light-200`;
+    return `text-dark-200 hover:text-gray-300`;
   }
-  return `border-b-2 border-dark-200 text-light-200`;
+  return `border-b-2 border-dark-200 text-gray-300`;
 };
 
 export default function TextNavbar({
