@@ -12,7 +12,7 @@ interface Props {
 
 export default function OfferPreviewHeader({ offer }: Props) {
   return (
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-row justify-between items-start">
       <div className="flex flex-col md:flex-row gap-1 md:gap-2 md:items-start">
         <div className="flex-1">
           <PostPreviewTitle
@@ -24,18 +24,16 @@ export default function OfferPreviewHeader({ offer }: Props) {
           <PostCreatedAt createdAt={offer.bumpedAt} />
         </div>
       </div>
-      <div className="h-8">
-        <OfferMenu
-          offerId={offer.id}
-          postId={offer.post.id}
-          offerStatus={offer.status as OfferStatus}
-          userId={offer.post.user.id}
-          privateOnly
-          reportCount={offer.post.reportCount}
-          reportCommentCount={offer.post.reportCommentCount}
-          archivedAt={offer.post.archivedAt}
-        />
-      </div>
+      <OfferMenu
+        offerId={offer.id}
+        postId={offer.post.id}
+        offerStatus={offer.status as OfferStatus}
+        userId={offer.post.user.id}
+        privateOnly
+        reportCount={offer.post.reportCount}
+        reportCommentCount={offer.post.reportCommentCount}
+        archivedAt={offer.post.archivedAt}
+      />
     </div>
   );
 }
