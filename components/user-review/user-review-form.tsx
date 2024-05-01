@@ -1,7 +1,7 @@
 'use client';
 
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { MouseEventHandler, useContext, useEffect } from 'react';
+import { MouseEventHandler, useContext } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
