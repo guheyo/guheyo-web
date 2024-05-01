@@ -14,7 +14,7 @@ interface Props {
 
 export default function OfferThumbnailPreview({ offer }: Props) {
   return (
-    <div className="relative overflow-hidden line-break bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
+    <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
         href={parseOfferDetailLink({
           slug: offer.post.slug!,

@@ -37,7 +37,9 @@ export default function RootLayout({
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
       </head>
-      <body className={`${notoSansKr.className} text-dark-200 bg-dark-500`}>
+      <body
+        className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break`}
+      >
         <Providers>
           <Navbar toggleMenu={toggleMenu} />
           <GroupSidebar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
