@@ -65,7 +65,7 @@ export default function CommentFeed({
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-4 w-full">
       <CommentCard
         user={user || undefined}
         isCurrentUser
