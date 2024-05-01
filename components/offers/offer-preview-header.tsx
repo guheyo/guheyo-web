@@ -13,7 +13,7 @@ interface Props {
 export default function OfferPreviewHeader({ offer }: Props) {
   return (
     <div className="flex flex-row justify-between items-center">
-      <div className="flex flex-col md:flex-row gap-1 md:gap-2 md:items-cetner">
+      <div className="flex flex-col md:flex-row gap-1 md:gap-2 md:items-start">
         <div className="flex-1">
           <PostPreviewTitle
             name0={offer.name0!}
