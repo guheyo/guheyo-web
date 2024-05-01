@@ -19,7 +19,9 @@ export default function GroupHeaderItem({
         alt={`${name} logo`}
         className="rounded-lg"
       />
-      <div className="text-star-500 text-base md:text-lg font-bold">{name}</div>
+      <div className="text-star-500 text-base md:text-lg font-semibold">
+        {name}
+      </div>
     </div>
   );
 }
