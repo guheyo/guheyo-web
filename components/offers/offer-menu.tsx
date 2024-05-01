@@ -36,7 +36,7 @@ export default function OfferMenu({
         />
       );
     return (
-      <div className="mr-[-24px]">
+      <div className="mr-[-18px]">
         <PrivateOfferMenu
           offerId={offerId}
           offerStatus={offerStatus}
@@ -49,7 +49,7 @@ export default function OfferMenu({
   if (privateOnly) return <div />;
 
   return (
-    <div className="mr-[-24px]">
+    <div className="mr-[-18px]">
       <PublicReportMenu type="post" refId={postId} />
     </div>
   );

@@ -34,7 +34,7 @@ export default function AccordionInput<
           <AccordionSummary
             className={
               position === index
-                ? 'bg-star-500 font-semibold'
+                ? 'bg-red-800 font-semibold'
                 : 'bg-dark-400 font-normal'
             }
             expandIcon={<ExpandMoreIcon />}

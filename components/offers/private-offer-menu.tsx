@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -9,6 +8,7 @@ import { parseOfferStatusLabel } from '@/lib/offer/parse-offer-status-label';
 import { deleteOffer, updateOffer } from '@/lib/api/offer';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferLink } from '@/lib/offer/parse-offer-link';
+import { IconButton } from '@mui/material';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 import AlertDialog from '../base/alert-dialog';
 
@@ -98,7 +98,9 @@ export default function PrivateOfferMenu({
 
   return (
     <div>
-      <Button
+      <IconButton
+        type="button"
+        aria-label="private offer menu button"
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -106,7 +108,7 @@ export default function PrivateOfferMenu({
         onClick={handleClick}
       >
         <MoreVertIcon className="text-xl md:text-2xl text-dark-200" />
-      </Button>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

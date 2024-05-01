@@ -13,7 +13,7 @@ interface Props {
 
 export default function UserReviewPreview({ userReview }: Props) {
   return (
-    <div className="relative overflow-hidden line-break bg-dark-400 px-4 md:px-5 rounded-lg">
+    <div className="relative overflow-hidden bg-dark-400 px-4 md:px-5 rounded-lg">
       <Link
         href={parseUserReviewDetailLink({
           slug: userReview.post.slug!,

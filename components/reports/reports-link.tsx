@@ -38,9 +38,7 @@ export default function ReportsLink({
         {`해당 게시글에 ${reportCount}건의 신고 기록이 있어요`}
       </div>
       <div className="flex flex-row gap-2 items-center text-yellow-500 font-semibold">
-        <div className="animate-spin">
-          <NewReleasesIcon fontSize="medium" />
-        </div>
+        <NewReleasesIcon fontSize="medium" />
         {`작성자의 소명서 ${reportCommentCount}개를 확인해 주세요`}
       </div>
     </button>

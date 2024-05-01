@@ -1,13 +1,13 @@
 'use client';
 
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { ReportFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
 import { parseReportFormTitle } from '@/lib/post/parse-report-form-title';
 import { REPORT_REASONS } from '@/lib/report/report.constants';
-import { ABSOLUTE_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
+import { FIXED_SUBMIT_BUTTON_RED_STYLE } from '@/lib/input/input.styles';
 import { CreateReportInput } from '@/generated/graphql';
 import { createReport } from '@/lib/api/report';
 import { AuthContext } from '../auth/auth.provider';
@@ -90,7 +90,7 @@ export default function PostReportForm({
         }}
       />
 
-      <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
+      <div className={FIXED_SUBMIT_BUTTON_RED_STYLE}>
         <ReportSubmitButton />
       </div>
     </form>

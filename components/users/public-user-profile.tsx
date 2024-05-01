@@ -32,7 +32,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
           fontSize={device === 'mobile' ? 'text-6xl' : 'text-9xl'}
         />
       </div>
-      <div className="col-span-9 md:col-span-6">
+      <div className="col-span-9 md:col-span-7">
         <div className="grid grid-cols-12 gap-0">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
             <Username user={user} />
@@ -53,7 +53,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
           </div>
         </div>
       </div>
-      <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
+      <div className="col-span-12 md:col-span-2 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
         <div className="grow w-32">
           <SelectUserReviewTargetOfferDialog userId={user.id} />
         </div>

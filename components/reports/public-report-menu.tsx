@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
 import { parseReportPageLink } from '@/lib/report/parse-report-page-link';
+import { IconButton } from '@mui/material';
 
 export default function PublicReportMenu({
   type,
@@ -38,7 +38,7 @@ export default function PublicReportMenu({
 
   return (
     <div>
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -46,7 +46,7 @@ export default function PublicReportMenu({
         onClick={handleClick}
       >
         <MoreVertIcon className="text-xl md:text-2xl text-dark-200" />
-      </Button>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

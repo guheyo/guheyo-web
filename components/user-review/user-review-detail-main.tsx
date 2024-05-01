@@ -4,6 +4,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { UserReviewResponse } from '@/generated/graphql';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailTitle from '../posts/post-detail-name';
 import UserReviewTags from './user-review-tags';
@@ -22,6 +23,13 @@ export default function UserReviewDetailMain({
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
             user={userReview.post.user}
+            displayAvatar
+            displayUsername
+            fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
+          />
+          <ArrowRightAltIcon className="text-dark-200" />
+          <UserProfileRedirectButton
+            user={userReview.reviewedUser}
             displayAvatar
             displayUsername
             fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}

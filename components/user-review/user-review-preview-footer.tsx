@@ -19,7 +19,6 @@ export default function UserReviewPreviewFooter({ userReview }: Props) {
       </div>
       <div className="absolute bottom-4 right-4 md:right-5">
         <PostAddons
-          createdAt={userReview.createdAt}
           reportCount={userReview.post.reportCount}
           reportCommentCount={userReview.post.reportCommentCount}
         />

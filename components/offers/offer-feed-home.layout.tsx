@@ -2,14 +2,16 @@
 
 import { ReactNode } from 'react';
 import OfferSelectors from '../selectors/offer-selectors';
+import CategoriesNavbar from '../categories/categories-navbar';
 
 interface Props {
   children: ReactNode;
 }
 
-function FeedHomeLayout({ children }: Props) {
+function OfferFeedHomeLayout({ children }: Props) {
   return (
     <div>
+      <CategoriesNavbar hideSelector />
       <div className="flex justify-end pb-2">
         <OfferSelectors />
       </div>
@@ -18,4 +20,4 @@ function FeedHomeLayout({ children }: Props) {
   );
 }
 
-export default FeedHomeLayout;
+export default OfferFeedHomeLayout;
