@@ -19,7 +19,7 @@ export default function OfferTextPreview({ offer }: Props) {
         })}
         className="w-full text-start"
       >
-        <div className="grid grid-cols-1 gap-0 pt-4 pb-4">
+        <div className="flex flex-col gap-1 pt-4 pb-4">
           <OfferPreviewHeader offer={offer} />
           <OfferPreviewFooter offer={offer} />
         </div>
