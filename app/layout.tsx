@@ -5,7 +5,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import Navbar from '@/components/base/navbar';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import GroupSidebar from '@/components/groups/group-sidebar';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Providers } from './providers';
 
 const notoSansKr = Noto_Sans_KR({
@@ -21,8 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const feedRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => {
+  const handleMenuToggle = () => {
+    if (isMenuOpen && feedRef.current) {
+      feedRef.current.focus();
+    }
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -41,9 +45,14 @@ export default function RootLayout({
         className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break`}
       >
         <Providers>
-          <Navbar toggleMenu={toggleMenu} />
-          <GroupSidebar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <div className="max-w-2xl mx-auto pb-0 w-full">{children}</div>
+          <Navbar handleMenuToggle={handleMenuToggle} />
+          <GroupSidebar
+            isMenuOpen={isMenuOpen}
+            handleMenuToggle={handleMenuToggle}
+          />
+          <div ref={feedRef} className="max-w-2xl mx-auto pb-0 w-full">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

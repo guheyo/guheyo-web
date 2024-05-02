@@ -1,5 +1,6 @@
 import { ListItem, ListItemIcon, Typography } from '@mui/material';
 import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 
 export default function SidebarItem({
   href,
@@ -12,15 +13,11 @@ export default function SidebarItem({
   icon: React.ReactNode;
   text: string;
   isActive: boolean;
-  onClick: () => void;
+  onClick: MouseEventHandler;
 }) {
-  const handleClick = () => {
-    onClick();
-  };
-
   return (
     <Link href={href}>
-      <ListItem onClick={handleClick}>
+      <ListItem onClick={onClick}>
         <ListItemIcon
           className={isActive ? 'text-star-400 font-semibold' : 'text-gray-400'}
           style={{ minWidth: 'unset', width: 'auto', marginRight: '12px' }}

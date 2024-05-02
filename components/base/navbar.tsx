@@ -7,7 +7,11 @@ import LoginButton from '../auth/login-button';
 import SearchButton from '../search/search-button';
 import WriteButton from '../write/write-button';
 
-export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
+export default function Navbar({
+  handleMenuToggle,
+}: {
+  handleMenuToggle: () => void;
+}) {
   return (
     <div className="sticky top-0 w-full z-40">
       <header className="w-full bg-dark-500">
@@ -45,7 +49,7 @@ export default function Navbar({ toggleMenu }: { toggleMenu: () => void }) {
             <button
               className="lg:hidden"
               type="button"
-              onClick={toggleMenu}
+              onClick={handleMenuToggle}
               aria-label="Toggle Menu"
             >
               <MenuIcon />
