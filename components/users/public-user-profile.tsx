@@ -46,9 +46,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
           <div className="col-span-3" />
           <div className="col-span-9 flex flex-col justify-self-start items-center">
             <div className="text-xs md:text-sm">
-              {user.members.map((member) => (
-                <Roles key={member.id} roles={member.roles} />
-              ))}
+              <Roles key={user.id} roles={user.roles} />
             </div>
           </div>
         </div>
