@@ -11,7 +11,11 @@ import {
   OFFER,
   OFFER_WRITE_SUBMIT_BUTTON_NAME,
 } from '@/lib/offer/offer.constants';
-import { CreateUserReviewInput, TagResponse } from '@/generated/graphql';
+import {
+  CreateUserReviewInput,
+  TagResponse,
+  useFindGroupQuery,
+} from '@/generated/graphql';
 import {
   RATING_OPTIONS,
   USER_REVIEW,
@@ -20,6 +24,7 @@ import { parseRatingResultTitle } from '@/lib/user-review/parse-rating-result-ti
 import { createUserReview } from '@/lib/api/user-review';
 import { getSelectedTagIds } from '@/lib/post/get-selected-tag-ids';
 import { createTagOptionsFromTags } from '@/lib/post/create-tag-options-from-tags';
+import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import TagButtonInputs from '../posts/tag-button-inputs';
@@ -41,6 +46,12 @@ export default function UserReviewForm({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
+  const { data: groupData } = useFindGroupQuery({
+    variables: {
+      id: groupId,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
 
   const { handleSubmit, watch, control } = useForm<UserReviewFormValues>({
     defaultValues: {
@@ -88,7 +99,14 @@ export default function UserReviewForm({
     if (!input.post.tagIds?.length) return;
 
     await createUserReview(input);
-    router.back();
+    const groupSlug = groupData?.findGroup?.slug;
+    const url = groupSlug
+      ? parseGroupCommunityLink({
+          groupSlug,
+          communityType: 'review',
+        })
+      : '/';
+    router.push(url);
   };
 
   const handleSubmitError: SubmitErrorHandler<UserReviewFormValues> = (

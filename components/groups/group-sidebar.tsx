@@ -18,10 +18,10 @@ import GroupProfileSidebarItems from './group-profile-sidebar-items';
 
 export default function GroupSidebar({
   isMenuOpen,
-  toggleMenu,
+  handleMenuToggle,
 }: {
   isMenuOpen: boolean;
-  toggleMenu: () => void;
+  handleMenuToggle: () => void;
 }) {
   const { loading, group } = useGroup();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -35,32 +35,19 @@ export default function GroupSidebar({
   }, [pathname]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isMenuOpen &&
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        toggleMenu();
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isMenuOpen, toggleMenu]);
-
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+    // break point: lg
+    if (isMenuOpen && window.innerWidth < 1024) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }, [isMenuOpen]);
 
   const handleBackdropClick: MouseEventHandler = (event) => {
     // Prevent propagation of click event to background component
     event.stopPropagation();
     event.preventDefault();
-    toggleMenu();
+    handleMenuToggle();
   };
 
   if (loading || !group?.slug) {
@@ -72,7 +59,7 @@ export default function GroupSidebar({
             onClick={handleBackdropClick}
             onKeyDown={(event) => {
               if (event.key === 'Escape') {
-                toggleMenu();
+                handleMenuToggle();
               }
             }}
             role="button" // Add role="button" to make it accessible for screen reader users
@@ -93,12 +80,12 @@ export default function GroupSidebar({
               icon={<HomeIcon fontSize="medium" />}
               text="홈"
               isActive={activeItem === ''}
-              onClick={toggleMenu}
+              onClick={handleMenuToggle}
             />
             <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
               그룹
             </ListItem>
-            <GroupProfileSidebarItems onClick={toggleMenu} />
+            <GroupProfileSidebarItems onClick={handleMenuToggle} />
           </List>
         </div>
       </>
@@ -113,7 +100,7 @@ export default function GroupSidebar({
           onClick={handleBackdropClick}
           onKeyDown={(event) => {
             if (event.key === 'Escape') {
-              toggleMenu();
+              handleMenuToggle();
             }
           }}
           role="button" // Add role="button" to make it accessible for screen reader users
@@ -133,12 +120,15 @@ export default function GroupSidebar({
             icon={<HomeIcon fontSize="medium" />}
             text="홈"
             isActive={activeItem === ''}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
             그룹
           </ListItem>
-          <GroupProfileSidebarItems onClick={toggleMenu} />
+          <GroupProfileSidebarItems
+            currentGroupId={group.id}
+            onClick={handleMenuToggle}
+          />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
             장터
           </ListItem>
@@ -150,7 +140,7 @@ export default function GroupSidebar({
             icon={<SellIcon fontSize="medium" />}
             text="판매"
             isActive={activeItem === 'sell'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <SidebarItem
             href={parseGroupMarketLink({
@@ -160,7 +150,7 @@ export default function GroupSidebar({
             icon={<ShoppingBagIcon fontSize="medium" />}
             text="구매"
             isActive={activeItem === 'buy'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <SidebarItem
             href={parseGroupMarketLink({
@@ -170,7 +160,7 @@ export default function GroupSidebar({
             icon={<SwapHorizIcon fontSize="medium" />}
             text="교환"
             isActive={activeItem === 'swap'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
             커뮤니티
@@ -183,7 +173,7 @@ export default function GroupSidebar({
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
             isActive={activeItem === 'member'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <SidebarItem
             href={parseGroupCommunityLink({
@@ -193,7 +183,7 @@ export default function GroupSidebar({
             icon={<StickyNote2Icon fontSize="medium" />}
             text="거래 후기"
             isActive={activeItem === 'review'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
           <SidebarItem
             href={parseGroupCommunityLink({
@@ -203,7 +193,7 @@ export default function GroupSidebar({
             icon={<FlagIcon fontSize="medium" />}
             text="신고"
             isActive={activeItem === 'report'}
-            onClick={toggleMenu}
+            onClick={handleMenuToggle}
           />
         </List>
       </div>

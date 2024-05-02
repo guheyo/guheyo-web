@@ -1,25 +1,23 @@
 'use client';
 
-import { useRef } from 'react';
+import { MouseEventHandler, useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import Image from 'next/image';
 import { isMobile } from 'react-device-detect';
 import SidebarItem from '../base/sidebar-item';
 
 export default function GroupProfileSidebarItems({
+  currentGroupId,
   onClick,
 }: {
-  onClick: () => void;
+  currentGroupId?: string;
+  onClick: MouseEventHandler;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
     take: 1,
   });
-
-  const handleClick = () => {
-    onClick();
-  };
 
   if (loading) return <div />;
   if (!data?.findGroupProfiles) return <div />;
@@ -41,7 +39,8 @@ export default function GroupProfileSidebarItems({
             />
           }
           text={group.node.name}
-          onClick={handleClick}
+          isActive={currentGroupId === group.node.id}
+          onClick={onClick}
         />
       ))}
       <div ref={ref} />
