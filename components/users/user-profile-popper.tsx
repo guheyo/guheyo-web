@@ -108,9 +108,7 @@ export default function UserProfilePopper({
             </div>
             <div className="mt-1">
               <div className="font-semibold">역할</div>
-              {user.members.map((member) => (
-                <Roles key={member.id} roles={member.roles} />
-              ))}
+              <Roles key={user.id} roles={user.roles} />
             </div>
           </Typography>
         </div>

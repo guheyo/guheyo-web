@@ -6,12 +6,10 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function ReportHeader({
   title,
-  price,
   author,
   updatedAt,
 }: {
   title: string;
-  price: number;
   author: AuthorResponse;
   updatedAt: Date;
 }) {
@@ -24,7 +22,7 @@ export default function ReportHeader({
 
   return (
     <button type="button" onClick={handleClick}>
-      <div className="flex flex-col gap-4 px-4 py-4 bg-dark-400 rounded w-full">
+      <div className="flex flex-col gap-4">
         <UserProfileRedirectButton
           user={author}
           displayAvatar
@@ -40,7 +38,6 @@ export default function ReportHeader({
               최근 수정 : {dayjs(updatedAt).fromNow()}
             </div>
           </div>
-          <div className="text-gray-300 text-sm font-normal">{price}원</div>
         </div>
       </div>
     </button>

@@ -6,18 +6,6 @@ fragment role on RoleResponse {
   groupId
 }
 
-fragment member on MemberWithRolesResponse {
-  id
-  createdAt
-  userId
-  group {
-    ...groupProfile
-  }
-  roles {
-    ...role
-  }
-}
-
 fragment user on UserResponse {
   id
   createdAt
@@ -37,8 +25,8 @@ fragment author on AuthorResponse {
   socialAccounts {
     ...socialAccountWithoutAuth
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
 
@@ -54,8 +42,8 @@ fragment myUser on MyUserResponse {
   socialAccounts {
     ...socialAccount
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
 

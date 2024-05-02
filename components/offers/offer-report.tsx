@@ -34,11 +34,12 @@ export default function OfferReport({ slug }: { slug: string }) {
     <div className="flex flex-col gap-8">
       <ReportHeader
         title={offer.post.title}
-        price={offer.price}
         author={offer.post.user}
         updatedAt={offer.updatedAt}
       />
-      <ReportFeed where={where} orderBy={orderBy} />
+      <div className="flex flex-col gap-2">
+        <ReportFeed where={where} orderBy={orderBy} />
+      </div>
     </div>
   );
 }
