@@ -18,7 +18,7 @@ export default function ReportPreview({
   type: ReportType;
 }) {
   return (
-    <div className="flex flex-col gap-2 rounded bg-dark-400 p-4">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center text-gray-300 text-xs md:text-sm font-semibold">
         <div className="flex-1">
           {`[${parseReportTypeName(type)} 신고] ${reason}`}
