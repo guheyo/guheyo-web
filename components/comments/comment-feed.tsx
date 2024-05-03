@@ -21,14 +21,14 @@ export default function CommentFeed({
   orderBy: FindCommentsOrderByArgs;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const ref = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
   );
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
-    ref,
+    ref: sentinelRef,
     where,
     orderBy,
     take: 10,
@@ -85,33 +85,38 @@ export default function CommentFeed({
   };
 
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <CommentCard
-        user={user || undefined}
-        isCurrentUser
-        displayMenu
-        defaultMode="create"
-        textFieldProps={{
-          multiline: true,
-          placeholder: '메시지 보내기',
-          minRows: 1,
-          size: 'small',
-        }}
-        handleWrite={handleWrite}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-      {comments.map((comment) => (
+    <div className="flex flex-col relative pb-20 lg:pb-32">
+      <div className="flex-1 flex flex-col gap-5 overflow-x-hidden overflow-y-auto max-h-[50vh] lg:max-h-[60vh]">
+        {comments.map((comment) => (
+          <CommentCard
+            key={comment.node.id}
+            user={comment.node.user}
+            isCurrentUser={jwtPayload?.id === comment.node.user.id}
+            displayMenu
+            defaultMode="read"
+            commentId={comment.node.id}
+            content={comment.node.content}
+            createdAt={comment.node.createdAt}
+            updatedAt={comment.node.updatedAt}
+            textFieldProps={{
+              multiline: true,
+              placeholder: '메시지 보내기',
+              minRows: 1,
+              size: 'small',
+            }}
+            handleWrite={handleWrite}
+            handleEdit={handleEdit}
+            handleDelete={handleDeleteConfirmation}
+          />
+        ))}
+        <div ref={sentinelRef} />
+      </div>
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
         <CommentCard
-          key={comment.node.id}
-          user={comment.node.user}
-          isCurrentUser={jwtPayload?.id === comment.node.user.id}
+          user={user || undefined}
+          isCurrentUser
           displayMenu
-          defaultMode="read"
-          commentId={comment.node.id}
-          content={comment.node.content}
-          createdAt={comment.node.createdAt}
-          updatedAt={comment.node.updatedAt}
+          defaultMode="create"
           textFieldProps={{
             multiline: true,
             placeholder: '메시지 보내기',
@@ -120,16 +125,15 @@ export default function CommentFeed({
           }}
           handleWrite={handleWrite}
           handleEdit={handleEdit}
-          handleDelete={handleDeleteConfirmation}
+          handleDelete={handleDelete}
         />
-      ))}
+      </div>
       <DeleteConfirmationDialog
         open={deleteDialogOpen}
         dialogTitle="댓글을 삭제할까요?"
         onClose={handleCloseDeleteDialog}
         onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
       />
-      <div ref={ref} />
     </div>
   );
 }
