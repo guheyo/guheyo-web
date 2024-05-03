@@ -54,14 +54,12 @@ export default function CommentOutput({
             <div className="text-gray-300 font-semibold">{user.username}</div>
             <div>{parseCommentDate({ createdAt, updatedAt })}</div>
           </div>
-          <div className="mr-[-18px]">
-            {displayMenu && isHovered && (
-              <CommentMenu
-                isCurrentUser={isCurrentUser}
-                handleMenuClick={handleMenuClick}
-              />
-            )}
-          </div>
+          {displayMenu && isHovered && (
+            <CommentMenu
+              isCurrentUser={isCurrentUser}
+              handleMenuClick={handleMenuClick}
+            />
+          )}
         </div>
         <div className="flex text-xs md:text-sm text-dark-100 font-thin">
           {content}
