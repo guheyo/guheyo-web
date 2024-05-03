@@ -38,7 +38,6 @@ export default function UserAvatar({
         width: avatarSize,
         height: avatarSize,
       }}
-      className="bg-zinc-200"
     />
   );
 }
