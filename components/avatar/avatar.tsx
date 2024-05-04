@@ -19,21 +19,21 @@ const convertAvatarSize = (fontSize: FontSize): string => {
   return '32px';
 };
 
-export default function UserAvatar({
-  username,
-  avatarURL,
+export default function Avatar({
+  name,
+  src,
   fontSize,
 }: {
-  username: string;
-  avatarURL?: string;
+  name: string;
+  src?: string | null;
   fontSize: FontSize;
 }) {
   const avatarSize = convertAvatarSize(fontSize);
 
   return (
     <MuiAvatar
-      alt={`${username} avatar`}
-      src={avatarURL || '/dongwang/dongwang-gray.svg'}
+      alt={`${name}`}
+      src={src || '/dongwang/dongwang-gray.svg'}
       sx={{
         width: avatarSize,
         height: avatarSize,
