@@ -4,6 +4,8 @@ fragment reactionSummary on ReactionSummaryResponse {
   }
   count
   me
+  postId
+  commentId
 }
 
 mutation CreateReaction($input: CreateReactionInput!) {
