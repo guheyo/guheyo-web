@@ -23,10 +23,12 @@ export default function Avatar({
   name,
   src,
   fontSize,
+  variant = 'circular',
 }: {
   name: string;
   src?: string | null;
   fontSize: FontSize;
+  variant?: 'circular' | 'rounded' | 'square';
 }) {
   const avatarSize = convertAvatarSize(fontSize);
 
@@ -38,6 +40,7 @@ export default function Avatar({
         width: avatarSize,
         height: avatarSize,
       }}
+      variant={variant}
     />
   );
 }
