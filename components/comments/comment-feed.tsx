@@ -86,7 +86,7 @@ export default function CommentFeed({
 
   return (
     <div className="flex flex-col relative pb-0 lg:pb-32">
-      <div className="flex-1 flex flex-col gap-5 overflow-x-hidden overflow-y-auto max-h-[50vh] lg:max-h-[75vh]">
+      <div className="flex-1 flex flex-col gap-5 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]">
         {comments.map((comment) => (
           <CommentCard
             key={comment.node.id}
