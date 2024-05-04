@@ -2,9 +2,9 @@
 
 import { EmojiResponse, useFindEmojisQuery } from '@/generated/graphql';
 import { IconButton } from '@mui/material';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import Avatar from '../avatar/avatar';
 
 export default function ReactionButton() {
   const { data, loading } = useFindEmojisQuery({
@@ -39,12 +39,7 @@ export default function ReactionButton() {
           {emojis.map((emoji) => (
             <IconButton key={emoji.id} onClick={() => handleEmojiClick(emoji)}>
               {emoji.url && (
-                <Image
-                  src={emoji.url}
-                  width={32}
-                  height={32}
-                  alt={emoji.name}
-                />
+                <Avatar src={emoji.url} name={emoji.name} fontSize="text-xxs" />
               )}
             </IconButton>
           ))}
