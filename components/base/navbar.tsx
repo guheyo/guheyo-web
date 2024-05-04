@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LoginButton from '../auth/login-button';
 import SearchButton from '../search/search-button';
 import WriteButton from '../write/write-button';
+import Avatar from '../avatar/avatar';
 
 export default function Navbar({
   handleMenuToggle,
@@ -19,15 +20,12 @@ export default function Navbar({
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
           <div className="flex items-center h-full w-64 bg-dark-600 pl-7">
-            <Link href="/">
-              <Image
-                alt="guheyo logo"
-                src="/star/star-bg-purple-rounded.ico"
-                width={36}
-                height={36}
-                className="rounded"
-              />
-            </Link>
+            <Avatar
+              name="guheyo logo"
+              src="/star/star-bg-purple-rounded.ico"
+              fontSize="text-base"
+              variant="rounded"
+            />
           </div>
 
           {/* Right side buttons */}

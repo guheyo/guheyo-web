@@ -64,9 +64,7 @@ export default function GroupBottomNavbar({
         <div className="col-span-4">
           <BottomNavbarItem
             href="/"
-            icon={
-              <HomeIcon fontSize="small" className="hover:text-gray-300" />
-            }
+            icon={<HomeIcon fontSize="small" className="hover:text-gray-300" />}
             text="홈"
           />
         </div>

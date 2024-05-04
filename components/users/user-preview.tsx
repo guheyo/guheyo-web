@@ -4,7 +4,7 @@ import { parseUserAbout } from '@/lib/user/parse-user-about';
 import Link from 'next/link';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import UserAvatar from './user-avatar';
+import Avatar from '../avatar/avatar';
 import InfoCard from '../info/info-card';
 import SearchResultCardLayout from '../search/search-result-card.layout';
 
@@ -25,9 +25,9 @@ export default function UserPreview({
         <InfoCard
           name={username}
           icon={
-            <UserAvatar
-              username={username}
-              avatarURL={avatarURL || undefined}
+            <Avatar
+              name={username}
+              src={avatarURL || undefined}
               fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
             />
           }

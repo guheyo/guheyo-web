@@ -4,7 +4,7 @@ import { AuthorResponse } from '@/generated/graphql';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Link from 'next/link';
 import { FontSize } from '@/lib/font/font.types';
-import UserAvatar from './user-avatar';
+import Avatar from '../avatar/avatar';
 import Username from './user-name';
 
 export default function UserProfileRedirectButton({
@@ -24,9 +24,9 @@ export default function UserProfileRedirectButton({
         className={`flex gap-2 md:gap-3 items-center font-medium ${fontSize}`}
       >
         {displayAvatar && (
-          <UserAvatar
-            username={user.username}
-            avatarURL={user.avatarURL || undefined}
+          <Avatar
+            name={user.username}
+            src={user.avatarURL || undefined}
             fontSize={fontSize}
           />
         )}
