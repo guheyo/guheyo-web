@@ -9,6 +9,7 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailTitle from '../posts/post-detail-name';
 import UserReviewTags from './user-review-tags';
 import PostCreatedAt from '../posts/post-created-at';
+import ReactionBar from '../reaction/reaction-bar';
 
 export default function UserReviewDetailMain({
   userReview,
@@ -55,6 +56,12 @@ export default function UserReviewDetailMain({
             {userReview.content}
           </ReactMarkdown>
         )}
+      </div>
+      <div className="pt-4">
+        <ReactionBar
+          postId={userReview.post.id}
+          reactionSummaries={userReview.post.reactions}
+        />
       </div>
     </>
   );

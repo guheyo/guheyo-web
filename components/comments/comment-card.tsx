@@ -11,7 +11,7 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
-import UserAvatar from '../users/user-avatar';
+import Avatar from '../avatar/avatar';
 
 export default function CommentCard({
   user,
@@ -93,8 +93,8 @@ export default function CommentCard({
     return (
       <div className="flex flex-row gap-4 items-center">
         {!user ? (
-          <UserAvatar
-            username="guest"
+          <Avatar
+            name="guest"
             fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
           />
         ) : (

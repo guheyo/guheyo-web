@@ -7,7 +7,7 @@ import { AuthorResponse } from '@/generated/graphql';
 import { getSocialID } from '@/lib/user/get-discord-id';
 import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
 import { FontSize } from '@/lib/font/font.types';
-import UserAvatar from './user-avatar';
+import Avatar from '../avatar/avatar';
 import Roles from './roles';
 import SocialJoinDates from '../socials/social-join-dates';
 import DmDialog from '../dm/dm-dialog';
@@ -46,9 +46,9 @@ export default function UserProfilePopper({
         {device === 'mobile' && (
           <div className="flex gap-2 items-center font-medium text-base">
             {displayAvatar && (
-              <UserAvatar
-                username={user.username}
-                avatarURL={user.avatarURL || undefined}
+              <Avatar
+                name={user.username}
+                src={user.avatarURL}
                 fontSize={fontSize}
               />
             )}
@@ -58,9 +58,9 @@ export default function UserProfilePopper({
         {device === 'browser' && (
           <div className="flex gap-3 items-center font-medium text-lg">
             {displayAvatar && (
-              <UserAvatar
-                username={user.username}
-                avatarURL={user.avatarURL || undefined}
+              <Avatar
+                name={user.username}
+                src={user.avatarURL}
                 fontSize={fontSize}
               />
             )}
@@ -75,9 +75,9 @@ export default function UserProfilePopper({
       >
         <div className="max-w-xs bg-light-200 p-4 rounded-lg">
           <div className="mb-2 flex items-center justify-between gap-4">
-            <UserAvatar
-              username={user.username}
-              avatarURL={user.avatarURL || undefined}
+            <Avatar
+              name={user.username}
+              src={user.avatarURL}
               fontSize={fontSize}
             />
             {displayDM && (

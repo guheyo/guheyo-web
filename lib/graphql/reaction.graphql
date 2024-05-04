@@ -1,0 +1,17 @@
+fragment reactionSummary on ReactionSummaryResponse {
+  emoji {
+    ...emoji
+  }
+  count
+  me
+  postId
+  commentId
+}
+
+mutation CreateReaction($input: CreateReactionInput!) {
+  createReaction(input: $input)
+}
+
+mutation CancelReaction($input: CancelReactionInput!) {
+  cancelReaction(input: $input)
+}

@@ -9,8 +9,8 @@ import { useRouter } from 'next/navigation';
 import { useFindMyUserQuery, useLogoutMutation } from '@/generated/graphql';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { LoadingButton } from '@mui/lab';
-import Avatar from '../base/avatar';
 import LoggedInUserAlertDialog from './logged-in-user-alert-dialog';
+import Avatar from '../avatar/avatar';
 
 export default function LoggedInUserButton({ userId }: { userId: string }) {
   const router = useRouter();
@@ -44,7 +44,11 @@ export default function LoggedInUserButton({ userId }: { userId: string }) {
     <div>
       <LoggedInUserAlertDialog user={user} />
       <IconButton className="inline-flex items-center" onClick={handleOpenMenu}>
-        <Avatar name={user.username} avatarURL={user.avatarURL} />
+        <Avatar
+          name={user.username}
+          src={user.avatarURL}
+          fontSize="text-base"
+        />
       </IconButton>
       <Menu
         open={menuOpen}

@@ -3,7 +3,7 @@
 import { AuthorResponse, useFindMyUserQuery } from '@/generated/graphql';
 import { parseUserAbout } from '@/lib/user/parse-user-about';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import UserAvatar from './user-avatar';
+import Avatar from '../avatar/avatar';
 import Roles from './roles';
 import Username from './user-name';
 import SettingButton from '../setting/setting-button';
@@ -21,9 +21,9 @@ export default function PrivateUserProfile() {
   return (
     <div className="grid grid-cols-12 gap-0 text-sm md:text-base items-center">
       <div className="col-span-3 md:col-span-3">
-        <UserAvatar
-          username={user.username}
-          avatarURL={user.avatarURL || undefined}
+        <Avatar
+          name={user.username}
+          src={user.avatarURL || undefined}
           fontSize={device === 'mobile' ? 'text-6xl' : 'text-9xl'}
         />
       </div>
