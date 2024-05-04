@@ -29,7 +29,7 @@ fragment post on PostResponse {
   }
 }
 
-fragment postWithReactionCounts on PostWithReactionCountsResponse {
+fragment postWithReactions on PostWithReactionsResponse {
   id
   createdAt
   updatedAt
@@ -58,8 +58,8 @@ fragment postWithReactionCounts on PostWithReactionCountsResponse {
   tags {
     ...tag
   }
-  reactionCounts {
-    ...reactionCount
+  reactions {
+    ...reactionSummary
   }
 }
 

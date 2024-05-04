@@ -1,5 +1,4 @@
-fragment reactionCount on ReactionCountResponse {
-  reactionId
+fragment reactionSummary on ReactionSummaryResponse {
   emoji {
     ...emoji
   }
