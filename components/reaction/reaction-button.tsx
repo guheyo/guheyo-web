@@ -1,12 +1,16 @@
 'use client';
 
-import { EmojiResponse, useFindEmojisQuery } from '@/generated/graphql';
+import { useFindEmojisQuery } from '@/generated/graphql';
 import { IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import Avatar from '../avatar/avatar';
 
-export default function ReactionButton() {
+export default function ReactionButton({
+  onEmojiClick,
+}: {
+  onEmojiClick: (selectedEmojiId: string) => void;
+}) {
   const { data, loading } = useFindEmojisQuery({
     fetchPolicy: 'cache-first',
   });
@@ -20,15 +24,15 @@ export default function ReactionButton() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleEmojiClick = (emoji: EmojiResponse) => {
+  const handleEmojiClick = (emojiId: string) => {
     setIsDropdownOpen(false); // Close the dropdown after selecting an emoji
-    // TODO
+    onEmojiClick(emojiId);
   };
 
   return (
     <div className="flex flex-row gap-2 justify-start items-center h-2">
       <IconButton
-        className="reaction-button text-gray-300"
+        className="reaction-button text-gray-300 hover:text-gray-100"
         onClick={handleReactionButtonClick}
       >
         <AddReactionIcon />
@@ -37,7 +41,11 @@ export default function ReactionButton() {
       {isDropdownOpen && (
         <div className="bg-gray-600 rounded-lg p-0.5 w-full z-50">
           {emojis.map((emoji) => (
-            <IconButton key={emoji.id} onClick={() => handleEmojiClick(emoji)}>
+            <IconButton
+              key={emoji.id}
+              onClick={() => handleEmojiClick(emoji.id)}
+              className="hover:bg-gray-500"
+            >
               {emoji.url && (
                 <Avatar src={emoji.url} name={emoji.name} fontSize="text-xxs" />
               )}
