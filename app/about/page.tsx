@@ -45,7 +45,7 @@ export default async function Page() {
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">소개</div>
               </button>
@@ -70,7 +70,7 @@ export default async function Page() {
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">기술 스택</div>
               </button>
@@ -97,7 +97,7 @@ export default async function Page() {
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">팀</div>
               </button>
