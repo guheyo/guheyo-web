@@ -1,0 +1,8 @@
+fragment reactionCount on ReactionCountResponse {
+  reactionId
+  emoji {
+    ...emoji
+  }
+  count
+  me
+}

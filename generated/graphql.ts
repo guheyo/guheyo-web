@@ -37,6 +37,10 @@ export type BumpOfferInput = {
   offerId: Scalars['ID']['input'];
 };
 
+export type CancelReactionInput = {
+  reactionId: Scalars['ID']['input'];
+};
+
 export type CategoryResponse = {
   __typename?: 'CategoryResponse';
   description?: Maybe<Scalars['String']['output']>;
@@ -123,6 +127,13 @@ export type CreatePostInput = {
   type: Scalars['String']['input'];
 };
 
+export type CreateReactionInput = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  emojiId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
+  postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type CreateReportInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
@@ -182,6 +193,15 @@ export type DeleteCommentInput = {
 export type DeleteCommentResult = {
   __typename?: 'DeleteCommentResult';
   id: Scalars['ID']['output'];
+};
+
+export type EmojiResponse = {
+  __typename?: 'EmojiResponse';
+  groupId?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type GroupPreviewResponse = {
@@ -248,11 +268,13 @@ export type LinkSocialProfileInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   bumpOffer: OfferPreviewResponse;
+  cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
+  createReaction: Scalars['String']['output'];
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
@@ -281,6 +303,11 @@ export type MutationBumpOfferArgs = {
 };
 
 
+export type MutationCancelReactionArgs = {
+  input: CancelReactionInput;
+};
+
+
 export type MutationCommentReportArgs = {
   input: CommentReportInput;
 };
@@ -303,6 +330,11 @@ export type MutationCreateManyUserImageArgs = {
 
 export type MutationCreateOfferArgs = {
   input: CreateOfferInput;
+};
+
+
+export type MutationCreateReactionArgs = {
+  input: CreateReactionInput;
 };
 
 
@@ -576,11 +608,35 @@ export type PostResponse = {
   user: AuthorResponse;
 };
 
+export type PostWithReactionCountsResponse = {
+  __typename?: 'PostWithReactionCountsResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  category?: Maybe<CategoryResponse>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  group: GroupProfileResponse;
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  images: Array<UserImageResponse>;
+  pending?: Maybe<Scalars['String']['output']>;
+  reactionCounts: Array<ReactionCountResponse>;
+  reportCommentCount: Scalars['Int']['output'];
+  reportCount: Scalars['Int']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
+};
+
 export type Query = {
   __typename?: 'Query';
   findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
   findComments: PaginatedCommentsResponse;
+  findEmojis: Array<EmojiResponse>;
   findGroup?: Maybe<GroupResponse>;
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
@@ -627,6 +683,11 @@ export type QueryFindCommentsArgs = {
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
   where?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+
+export type QueryFindEmojisArgs = {
+  groupId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -762,6 +823,14 @@ export type QueryFindVersionArgs = {
 export type QueryFindVersionPreviewArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   refId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ReactionCountResponse = {
+  __typename?: 'ReactionCountResponse';
+  count: Scalars['Int']['output'];
+  emoji: EmojiResponse;
+  me: Scalars['Boolean']['output'];
+  reactionId: Scalars['ID']['output'];
 };
 
 export type ReportCommentResponse = {
@@ -1003,7 +1072,7 @@ export type UserReviewResponse = {
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   offerId?: Maybe<Scalars['String']['output']>;
-  post: PostResponse;
+  post: PostWithReactionCountsResponse;
   rating: Scalars['Int']['output'];
   reviewedUser: AuthorResponse;
   status: Scalars['String']['output'];
@@ -1095,6 +1164,15 @@ export type FindCommentsQueryVariables = Exact<{
 
 
 export type FindCommentsQuery = { __typename?: 'Query', findComments: { __typename?: 'PaginatedCommentsResponse', edges: Array<{ __typename?: 'CommentWithAuthorResponseEdge', cursor: string, node: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type EmojiFragment = { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null };
+
+export type FindEmojisQueryVariables = Exact<{
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindEmojisQuery = { __typename?: 'Query', findEmojis: Array<{ __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null }> };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -1190,6 +1268,8 @@ export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typena
 
 export type PostFragment = { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
+export type PostWithReactionCountsFragment = { __typename?: 'PostWithReactionCountsResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, reactionCounts: Array<{ __typename?: 'ReactionCountResponse', reactionId: string, count: number, me: boolean, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+
 export type PostPreviewWithoutUserFragment = { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
 export type PostPreviewWithUserFragment = { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
@@ -1202,6 +1282,8 @@ export type FindPostPreviewQueryVariables = Exact<{
 
 
 export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type ReactionCountFragment = { __typename?: 'ReactionCountResponse', reactionId: string, count: number, me: boolean, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
 
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
@@ -1308,7 +1390,7 @@ export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage
 
 export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
 
-export type UserReviewFragment = { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
+export type UserReviewFragment = { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostWithReactionCountsResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, reactionCounts: Array<{ __typename?: 'ReactionCountResponse', reactionId: string, count: number, me: boolean, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
 
 export type FindUserReviewPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1328,7 +1410,7 @@ export type FindUserReviewQueryVariables = Exact<{
 }>;
 
 
-export type FindUserReviewQuery = { __typename?: 'Query', findUserReview?: { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } | null };
+export type FindUserReviewQuery = { __typename?: 'Query', findUserReview?: { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostWithReactionCountsResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, reportCommentCount: number, groupId: string, categoryId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, reactionCounts: Array<{ __typename?: 'ReactionCountResponse', reactionId: string, count: number, me: boolean, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } | null };
 
 export type CreateUserReviewMutationVariables = Exact<{
   input: CreateUserReviewInput;
@@ -1821,10 +1903,69 @@ export const UserReviewPreviewFragmentDoc = gql`
 }
     ${PostPreviewWithAuthorFragmentDoc}
 ${AuthorFragmentDoc}`;
+export const EmojiFragmentDoc = gql`
+    fragment emoji on EmojiResponse {
+  id
+  name
+  url
+  position
+  groupId
+}
+    `;
+export const ReactionCountFragmentDoc = gql`
+    fragment reactionCount on ReactionCountResponse {
+  reactionId
+  emoji {
+    ...emoji
+  }
+  count
+  me
+}
+    ${EmojiFragmentDoc}`;
+export const PostWithReactionCountsFragmentDoc = gql`
+    fragment postWithReactionCounts on PostWithReactionCountsResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  reportCount
+  reportCommentCount
+  images {
+    ...image
+  }
+  groupId
+  group {
+    ...groupProfile
+  }
+  categoryId
+  category {
+    ...category
+  }
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  reactionCounts {
+    ...reactionCount
+  }
+}
+    ${ImageFragmentDoc}
+${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}
+${AuthorFragmentDoc}
+${TagFragmentDoc}
+${ReactionCountFragmentDoc}`;
 export const UserReviewFragmentDoc = gql`
     fragment userReview on UserReviewResponse {
   post {
-    ...post
+    ...postWithReactionCounts
   }
   id
   createdAt
@@ -1839,7 +1980,7 @@ export const UserReviewFragmentDoc = gql`
   rating
   status
 }
-    ${PostFragmentDoc}
+    ${PostWithReactionCountsFragmentDoc}
 ${AuthorFragmentDoc}`;
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
@@ -2185,6 +2326,46 @@ export type FindCommentsQueryHookResult = ReturnType<typeof useFindCommentsQuery
 export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsLazyQuery>;
 export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
 export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
+export const FindEmojisDocument = gql`
+    query FindEmojis($groupId: ID) {
+  findEmojis(groupId: $groupId) {
+    ...emoji
+  }
+}
+    ${EmojiFragmentDoc}`;
+
+/**
+ * __useFindEmojisQuery__
+ *
+ * To run a query within a React component, call `useFindEmojisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindEmojisQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindEmojisQuery({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *   },
+ * });
+ */
+export function useFindEmojisQuery(baseOptions?: Apollo.QueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
+      }
+export function useFindEmojisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
+        }
+export function useFindEmojisSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
+        }
+export type FindEmojisQueryHookResult = ReturnType<typeof useFindEmojisQuery>;
+export type FindEmojisLazyQueryHookResult = ReturnType<typeof useFindEmojisLazyQuery>;
+export type FindEmojisSuspenseQueryHookResult = ReturnType<typeof useFindEmojisSuspenseQuery>;
+export type FindEmojisQueryResult = Apollo.QueryResult<FindEmojisQuery, FindEmojisQueryVariables>;
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
