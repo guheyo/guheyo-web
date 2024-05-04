@@ -1285,6 +1285,20 @@ export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __
 
 export type ReactionCountFragment = { __typename?: 'ReactionCountResponse', reactionId: string, count: number, me: boolean, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
 
+export type CreateReactionMutationVariables = Exact<{
+  input: CreateReactionInput;
+}>;
+
+
+export type CreateReactionMutation = { __typename?: 'Mutation', createReaction: string };
+
+export type CancelReactionMutationVariables = Exact<{
+  input: CancelReactionInput;
+}>;
+
+
+export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: string };
+
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
 export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
@@ -2832,6 +2846,68 @@ export type FindPostPreviewQueryHookResult = ReturnType<typeof useFindPostPrevie
 export type FindPostPreviewLazyQueryHookResult = ReturnType<typeof useFindPostPreviewLazyQuery>;
 export type FindPostPreviewSuspenseQueryHookResult = ReturnType<typeof useFindPostPreviewSuspenseQuery>;
 export type FindPostPreviewQueryResult = Apollo.QueryResult<FindPostPreviewQuery, FindPostPreviewQueryVariables>;
+export const CreateReactionDocument = gql`
+    mutation CreateReaction($input: CreateReactionInput!) {
+  createReaction(input: $input)
+}
+    `;
+export type CreateReactionMutationFn = Apollo.MutationFunction<CreateReactionMutation, CreateReactionMutationVariables>;
+
+/**
+ * __useCreateReactionMutation__
+ *
+ * To run a mutation, you first call `useCreateReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReactionMutation, { data, loading, error }] = useCreateReactionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateReactionMutation(baseOptions?: Apollo.MutationHookOptions<CreateReactionMutation, CreateReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateReactionMutation, CreateReactionMutationVariables>(CreateReactionDocument, options);
+      }
+export type CreateReactionMutationHookResult = ReturnType<typeof useCreateReactionMutation>;
+export type CreateReactionMutationResult = Apollo.MutationResult<CreateReactionMutation>;
+export type CreateReactionMutationOptions = Apollo.BaseMutationOptions<CreateReactionMutation, CreateReactionMutationVariables>;
+export const CancelReactionDocument = gql`
+    mutation CancelReaction($input: CancelReactionInput!) {
+  cancelReaction(input: $input)
+}
+    `;
+export type CancelReactionMutationFn = Apollo.MutationFunction<CancelReactionMutation, CancelReactionMutationVariables>;
+
+/**
+ * __useCancelReactionMutation__
+ *
+ * To run a mutation, you first call `useCancelReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCancelReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [cancelReactionMutation, { data, loading, error }] = useCancelReactionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCancelReactionMutation(baseOptions?: Apollo.MutationHookOptions<CancelReactionMutation, CancelReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CancelReactionMutation, CancelReactionMutationVariables>(CancelReactionDocument, options);
+      }
+export type CancelReactionMutationHookResult = ReturnType<typeof useCancelReactionMutation>;
+export type CancelReactionMutationResult = Apollo.MutationResult<CancelReactionMutation>;
+export type CancelReactionMutationOptions = Apollo.BaseMutationOptions<CancelReactionMutation, CancelReactionMutationVariables>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)

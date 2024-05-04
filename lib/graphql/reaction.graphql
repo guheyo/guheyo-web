@@ -6,3 +6,11 @@ fragment reactionCount on ReactionCountResponse {
   count
   me
 }
+
+mutation CreateReaction($input: CreateReactionInput!) {
+  createReaction(input: $input)
+}
+
+mutation CancelReaction($input: CancelReactionInput!) {
+  cancelReaction(input: $input)
+}
