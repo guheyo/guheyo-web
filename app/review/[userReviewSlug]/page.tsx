@@ -37,12 +37,6 @@ function Page({
   return (
     <div className="flex flex-col gap-16 md:gap-16">
       <UserReviewDetail userReview={userReview} />
-      <div className="w-full px-4 md:px-0">
-        <ReactionBar
-          postId={userReview.post.id}
-          reactionSummaries={userReview.post.reactions}
-        />
-      </div>
       <div className="px-4 md:px-0">
         <CommentFeed where={where} orderBy={orderBy} />
       </div>
