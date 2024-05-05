@@ -60,7 +60,7 @@ export default function UserReviewDetailMain({
       <div className="pt-4">
         <ReactionBar
           postId={userReview.post.id}
-          reactionSummaries={userReview.post.reactions}
+          reactions={userReview.post.reactions}
         />
       </div>
     </>

@@ -1,7 +1,8 @@
-import { ReactionSummaryResponse } from '@/generated/graphql';
+import { ReactionResponse } from '@/generated/graphql';
 import { useContext } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { cancelReaction, createReaction } from '@/lib/api/reaction';
+import { ReactionSummary } from '@/lib/reaction/reaction.interfaces';
 import EmojiReaction from './emoji-reaction';
 import { AuthContext } from '../auth/auth.provider';
 import ReactionButton from './reaction-button';
@@ -9,21 +10,40 @@ import ReactionButton from './reaction-button';
 export default function ReactionBar({
   postId,
   commentId,
-  reactionSummaries,
+  reactions,
 }: {
   postId?: string | null;
   commentId?: string | null;
-  reactionSummaries: ReactionSummaryResponse[];
+  reactions: ReactionResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
+
+  const reactionCountsByEmoji = reactions.reduce(
+    (acc, reaction) => {
+      const { emoji } = reaction;
+      if (!acc[emoji.id]) {
+        acc[emoji.id] = {
+          emoji,
+          count: 0,
+          me: false,
+          postId: reaction.postId,
+          commentId: reaction.commentId,
+        };
+      }
+      acc[emoji.id].count += 1;
+      if (reaction.userId === jwtPayload?.id) {
+        acc[emoji.id].me = true;
+      }
+      return acc;
+    },
+    {} as Record<string, ReactionSummary>,
+  );
 
   const handleEmojiClick = (selectedEmojiId: string, cancellable: boolean) => {
     if (!jwtPayload) return;
 
-    const selectedReactionSummary = reactionSummaries.find(
-      (reactionSummary) => reactionSummary.emoji.id === selectedEmojiId,
-    );
-    if (!selectedReactionSummary?.me) {
+    const selectedReactionSummary = reactionCountsByEmoji[selectedEmojiId]?.me;
+    if (!selectedReactionSummary) {
       createReaction({
         id: uuid4(),
         emojiId: selectedEmojiId,
@@ -41,16 +61,18 @@ export default function ReactionBar({
 
   return (
     <div className="flex flex-row gap-1 items-center">
-      {reactionSummaries.map((reactionSummary) => (
-        <EmojiReaction
-          key={reactionSummary.emoji.id}
-          emoji={reactionSummary.emoji}
-          count={reactionSummary.count}
-          onEmojiClick={(selectedEmojiId) =>
-            handleEmojiClick(selectedEmojiId, true)
-          }
-        />
-      ))}
+      {Object.entries(reactionCountsByEmoji).map(
+        ([emojiid, reactionSummary]) => (
+          <EmojiReaction
+            key={reactionSummary.emoji.id}
+            emoji={reactionSummary.emoji}
+            count={reactionSummary.count}
+            onEmojiClick={(selectedEmojiId) =>
+              handleEmojiClick(selectedEmojiId, true)
+            }
+          />
+        ),
+      )}
       <ReactionButton
         onEmojiClick={(selectedEmojiId) =>
           handleEmojiClick(selectedEmojiId, false)
