@@ -1,5 +1,6 @@
 export type FontSize =
-  | 'text-xxs'
+  | 'text-3xs'
+  | 'text-2xs'
   | 'text-xs'
   | 'text-sm'
   | 'text-base'

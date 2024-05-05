@@ -2,7 +2,8 @@ import { FontSize } from '@/lib/font/font.types';
 import { Avatar as MuiAvatar } from '@mui/material';
 
 const convertAvatarSize = (fontSize: FontSize): string => {
-  if (fontSize === 'text-xxs') return '20px';
+  if (fontSize === 'text-3xs') return '16px';
+  if (fontSize === 'text-2xs') return '20px';
   if (fontSize === 'text-xs') return '24px';
   if (fontSize === 'text-sm') return '28px';
   if (fontSize === 'text-base') return '32px';
