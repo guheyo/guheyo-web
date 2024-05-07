@@ -1,9 +1,12 @@
-fragment reactionSummary on ReactionSummaryResponse {
+fragment reaction on ReactionResponse {
+  id
+  createdAt
+  updatedAt
+  canceledAt
   emoji {
     ...emoji
   }
-  count
-  me
+  userId
   postId
   commentId
 }

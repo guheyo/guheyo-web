@@ -37,7 +37,6 @@ export default function GroupBottomNavbar({
 
   useEffect(() => {
     const handleScroll = () => {
-      // const st = window.pageYOffset || document.documentElement.scrollTop;
       const st = window.scrollY || document.documentElement.scrollTop;
       if (st > lastScrollTop) {
         // Scroll down

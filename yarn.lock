@@ -11539,6 +11539,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql-ws@npm:^5.16.0":
+  version: 5.16.0
+  resolution: "graphql-ws@npm:5.16.0"
+  peerDependencies:
+    graphql: ">=0.11 <=16"
+  checksum: e3e077ec187a92be3fd5dfae49e23af11a82711d3537064384f6861c2b5ceb339f60dc1871d0026b47ff05e4ed3c941404812a8086347e454688e0e6ef0e69f3
+  languageName: node
+  linkType: hard
+
 "graphql@npm:^16.8.1":
   version: 16.8.1
   resolution: "graphql@npm:16.8.1"
@@ -11599,6 +11608,7 @@ __metadata:
     eslint-plugin-storybook: ^0.6.12
     graphql: ^16.8.1
     graphql-codegen-apollo-next-ssr: ^1.7.4
+    graphql-ws: ^5.16.0
     jwt-decode: ^4.0.0
     keen-slider: ^6.8.5
     lexical: ^0.12.6

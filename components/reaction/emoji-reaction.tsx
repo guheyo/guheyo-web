@@ -16,7 +16,7 @@ export default function EmojiReaction({
       onClick={() => onEmojiClick(emoji.id)}
       className="flex flex-row gap-2 text-gray-300 bg-gray-700 rounded-lg p-1 text-xs md:text-xs font-semibold"
     >
-      <Avatar src={emoji.url} name={emoji.name} fontSize="text-xxs" />
+      <Avatar src={emoji.url} name={emoji.name} fontSize="text-2xs" />
       {count}
     </button>
   );

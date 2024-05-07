@@ -38,6 +38,7 @@
     "axios": "^1.6.0",
     "dayjs": "^1.11.9",
     "graphql": "^16.8.1",
+    "graphql-ws": "^5.16.0",
     "jwt-decode": "^4.0.0",
     "keen-slider": "^6.8.5",
     "lexical": "^0.12.6",

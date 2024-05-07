@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   FindCommentsOrderByArgs,
   FindCommentsWhereArgs,
@@ -8,7 +8,12 @@ import {
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
-import { useFindAuthorQuery } from '@/generated/graphql';
+import {
+  CommentCreatedDocument,
+  CommentWithAuthorResponse,
+  useFindAuthorQuery,
+} from '@/generated/graphql';
+import { useSubscription } from '@apollo/client';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
@@ -26,6 +31,54 @@ export default function CommentFeed({
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
   );
+  const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const commentsContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    const container = commentsContainerRef.current;
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = commentsContainerRef.current;
+      if (container) {
+        const newIsAtBottom =
+          container.scrollHeight - container.clientHeight <=
+          container.scrollTop + 1;
+        setIsAtBottom(newIsAtBottom);
+      }
+    };
+
+    const container = commentsContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    }
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (isAtBottom) {
+      scrollToBottom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comments]);
+
+  useSubscription(CommentCreatedDocument, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const newComment = subscriptionData.data.commentCreated;
+      setComments([...comments, newComment]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref: sentinelRef,
@@ -40,10 +93,16 @@ export default function CommentFeed({
     },
   });
 
+  // Load comments if not loading and comments data is available
+  useEffect(() => {
+    if (!commentsLoading && commentsData?.findComments) {
+      setComments(commentsData.findComments.edges.map((edge) => edge.node));
+    }
+  }, [commentsLoading, commentsData]);
+
   if (commentsLoading || userLoading) return <div />;
   if (!commentsData?.findComments) return <div />;
 
-  const comments = commentsData.findComments.edges;
   const user = UserData?.findAuthor;
 
   const handleWrite = async (values: CommentValues) => {
@@ -54,6 +113,7 @@ export default function CommentFeed({
       content: values.content,
       postId: where.postId,
     });
+    scrollToBottom();
   };
 
   const handleEdit = async (values: CommentValues) => {
@@ -86,18 +146,21 @@ export default function CommentFeed({
 
   return (
     <div className="flex flex-col relative pb-0 lg:pb-32">
-      <div className="flex-1 flex flex-col gap-5 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]">
+      <div
+        className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]"
+        ref={commentsContainerRef}
+      >
         {comments.map((comment) => (
           <CommentCard
-            key={comment.node.id}
-            user={comment.node.user}
-            isCurrentUser={jwtPayload?.id === comment.node.user.id}
+            key={comment.id}
+            user={comment.user}
+            isCurrentUser={jwtPayload?.id === comment.user.id}
             displayMenu
             defaultMode="read"
-            commentId={comment.node.id}
-            content={comment.node.content}
-            createdAt={comment.node.createdAt}
-            updatedAt={comment.node.updatedAt}
+            commentId={comment.id}
+            content={comment.content}
+            createdAt={comment.createdAt}
+            updatedAt={comment.updatedAt}
             textFieldProps={{
               multiline: true,
               placeholder: '메시지 보내기',
