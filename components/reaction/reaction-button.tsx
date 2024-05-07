@@ -2,9 +2,10 @@
 
 import { useFindEmojisQuery } from '@/generated/graphql';
 import { IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import Avatar from '../avatar/avatar';
+import BackDrop from '../base/back-drop';
 
 export default function ReactionButton({
   onEmojiClick,
@@ -29,13 +30,26 @@ export default function ReactionButton({
     onEmojiClick(emojiId);
   };
 
+  const handleBackdropClick: MouseEventHandler = (event) => {
+    // Prevent propagation of click event to background component
+    event.stopPropagation();
+    event.preventDefault();
+    handleReactionButtonClick();
+  };
+
   return (
     <div className="flex flex-row gap-2 justify-start items-center h-2">
+      {isDropdownOpen && (
+        <BackDrop
+          handleBackdropClick={handleBackdropClick}
+          handleToggle={handleReactionButtonClick}
+        />
+      )}
       <IconButton
-        className="reaction-button text-gray-300 hover:text-gray-100"
+        className="reaction-button text-gray-500 hover:text-gray-300"
         onClick={handleReactionButtonClick}
       >
-        <AddReactionIcon />
+        <AddReactionIcon className="text-lg" />
       </IconButton>
       {/* Dropdown menu for selecting emojis */}
       {isDropdownOpen && (
@@ -47,7 +61,7 @@ export default function ReactionButton({
               className="hover:bg-gray-500"
             >
               {emoji.url && (
-                <Avatar src={emoji.url} name={emoji.name} fontSize="text-xxs" />
+                <Avatar src={emoji.url} name={emoji.name} fontSize="text-2xs" />
               )}
             </IconButton>
           ))}

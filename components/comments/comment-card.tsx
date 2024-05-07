@@ -43,23 +43,20 @@ export default function CommentCard({
   const [mode, setMode] = useState<CRUD>('read');
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, getValues, setValue } = useForm<CommentValues>(
-    {
+  const { handleSubmit, control, getValues, setValue, reset } =
+    useForm<CommentValues>({
       defaultValues: {
-        id: undefined,
-        content: undefined,
+        id: '',
+        content: '',
       },
-    },
-  );
+    });
 
   useEffect(() => {
     setMode(defaultMode);
   }, [defaultMode]);
 
   useEffect(() => {
-    if (!commentId) {
-      setValue('id', uuid4());
-    } else {
+    if (commentId) {
       setValue('id', commentId);
       setValue('content', content || '');
     }
@@ -75,11 +72,15 @@ export default function CommentCard({
 
   const handleSubmitValid: SubmitHandler<CommentValues> = (values) => {
     if (mode === 'create') {
-      handleWrite(values);
+      handleWrite({
+        ...values,
+        id: uuid4(),
+      });
+      reset();
     } else if (mode === 'update') {
       handleEdit(values);
+      setMode('read');
     }
-    setMode('read');
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
@@ -124,7 +125,7 @@ export default function CommentCard({
     );
   }
 
-  if (!user) return <div />;
+  if (!user || !commentId) return <div />;
   return (
     <CommentOutput
       user={user}
@@ -133,6 +134,7 @@ export default function CommentCard({
       createdAt={createdAt}
       updatedAt={updatedAt}
       displayMenu={displayMenu}
+      commentId={commentId}
       handleMenuClick={handleMenuClick}
     />
   );

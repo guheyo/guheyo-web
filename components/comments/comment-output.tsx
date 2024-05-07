@@ -7,6 +7,7 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useState } from 'react';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import ReactionBar from '../reaction/reaction-bar';
 
 export default function CommentOutput({
   user,
@@ -15,6 +16,7 @@ export default function CommentOutput({
   createdAt,
   updatedAt,
   displayMenu,
+  commentId,
   handleMenuClick,
 }: {
   user: AuthorResponse;
@@ -23,6 +25,7 @@ export default function CommentOutput({
   createdAt?: Date;
   updatedAt?: Date;
   displayMenu: boolean;
+  commentId: string;
   handleMenuClick: (mode: CRUD) => void;
 }) {
   const device = useDeviceDetect();
@@ -63,6 +66,9 @@ export default function CommentOutput({
         </div>
         <div className="flex text-xs md:text-sm text-dark-100 font-thin">
           {content}
+        </div>
+        <div className="pt-1 ml-[-10px]">
+          <ReactionBar commentId={commentId} reactions={[]} />
         </div>
       </div>
     </div>

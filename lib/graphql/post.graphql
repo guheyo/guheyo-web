@@ -59,7 +59,7 @@ fragment postWithReactions on PostWithReactionsResponse {
     ...tag
   }
   reactions {
-    ...reactionSummary
+    ...reaction
   }
 }
 
