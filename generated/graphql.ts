@@ -1327,6 +1327,11 @@ export type ReactionCreatedSubscriptionVariables = Exact<{ [key: string]: never;
 
 export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
 
+export type ReactionCanceledSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReactionCanceledSubscription = { __typename?: 'Subscription', reactionCanceled: { __typename?: 'CanceledReactionResponse', id: string } };
+
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
 export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
@@ -2998,6 +3003,35 @@ export function useReactionCreatedSubscription(baseOptions?: Apollo.Subscription
       }
 export type ReactionCreatedSubscriptionHookResult = ReturnType<typeof useReactionCreatedSubscription>;
 export type ReactionCreatedSubscriptionResult = Apollo.SubscriptionResult<ReactionCreatedSubscription>;
+export const ReactionCanceledDocument = gql`
+    subscription ReactionCanceled {
+  reactionCanceled {
+    id
+  }
+}
+    `;
+
+/**
+ * __useReactionCanceledSubscription__
+ *
+ * To run a query within a React component, call `useReactionCanceledSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useReactionCanceledSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReactionCanceledSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReactionCanceledSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables>(ReactionCanceledDocument, options);
+      }
+export type ReactionCanceledSubscriptionHookResult = ReturnType<typeof useReactionCanceledSubscription>;
+export type ReactionCanceledSubscriptionResult = Apollo.SubscriptionResult<ReactionCanceledSubscription>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)

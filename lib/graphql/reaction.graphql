@@ -24,3 +24,9 @@ subscription ReactionCreated {
     ...reaction
   }
 }
+
+subscription ReactionCanceled {
+  reactionCanceled {
+    id
+  }
+}

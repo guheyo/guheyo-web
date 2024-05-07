@@ -4,6 +4,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import {
+  ReactionCanceledDocument,
   ReactionCreatedDocument,
   ReactionResponse,
   UserReviewResponse,
@@ -29,6 +30,16 @@ export default function UserReviewDetailMain({
     onData: ({ data }) => {
       const newReaction = data.data.reactionCreated;
       setPostReactions((prevReactions) => [...prevReactions, newReaction]);
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setPostReactions((prevReactions) =>
+        prevReactions.filter((reaction) => reaction.id !== canceledReaction.id),
+      );
     },
     shouldResubscribe: true,
   });
