@@ -288,7 +288,6 @@ export type Mutation = {
   deleteUserImage: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
-  publishGreeting: Scalars['String']['output'];
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
   updateComment: CommentResponse;
@@ -938,7 +937,6 @@ export type SocialUserResponse = {
 export type Subscription = {
   __typename?: 'Subscription';
   commentCreated: CommentWithAuthorResponse;
-  greetings?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagResponse = {

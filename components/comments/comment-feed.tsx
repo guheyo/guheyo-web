@@ -32,6 +32,51 @@ export default function CommentFeed({
     null,
   );
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const commentsContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    const container = commentsContainerRef.current;
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = commentsContainerRef.current;
+      if (container) {
+        const newIsAtBottom =
+          container.scrollHeight - container.clientHeight <=
+          container.scrollTop + 1;
+        setIsAtBottom(newIsAtBottom);
+      }
+    };
+
+    const container = commentsContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+      };
+    }
+    return () => {};
+  }, [comments]);
+
+  // Subscribe to new comments when user is at the bottom
+  useSubscription(CommentCreatedDocument, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const newComment = subscriptionData.data.commentCreated;
+      setComments([...comments, newComment]);
+
+      if (isAtBottom) {
+        scrollToBottom();
+      }
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref: sentinelRef,
@@ -40,21 +85,11 @@ export default function CommentFeed({
     take: 10,
   });
 
-  const { data: newCommentData } = useSubscription(CommentCreatedDocument);
-
   const { loading: userLoading, data: UserData } = useFindAuthorQuery({
     variables: {
       id: jwtPayload?.id,
     },
   });
-
-  useEffect(() => {
-    // If new reaction data is received and comments are loaded
-    if (newCommentData) {
-      setComments([...comments, newCommentData.commentCreated]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newCommentData]);
 
   // Load comments if not loading and comments data is available
   useEffect(() => {
@@ -76,6 +111,7 @@ export default function CommentFeed({
       content: values.content,
       postId: where.postId,
     });
+    scrollToBottom();
   };
 
   const handleEdit = async (values: CommentValues) => {
@@ -108,7 +144,10 @@ export default function CommentFeed({
 
   return (
     <div className="flex flex-col relative pb-0 lg:pb-32">
-      <div className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]">
+      <div
+        className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]"
+        ref={commentsContainerRef}
+      >
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}
