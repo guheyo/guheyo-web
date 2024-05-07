@@ -43,6 +43,11 @@ export type CancelReactionInput = {
   postId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type CanceledReactionResponse = {
+  __typename?: 'CanceledReactionResponse';
+  id: Scalars['ID']['output'];
+};
+
 export type CategoryResponse = {
   __typename?: 'CategoryResponse';
   description?: Maybe<Scalars['String']['output']>;
@@ -937,6 +942,8 @@ export type SocialUserResponse = {
 export type Subscription = {
   __typename?: 'Subscription';
   commentCreated: CommentWithAuthorResponse;
+  reactionCanceled: CanceledReactionResponse;
+  reactionCreated: ReactionResponse;
 };
 
 export type TagResponse = {
@@ -1314,6 +1321,11 @@ export type CancelReactionMutationVariables = Exact<{
 
 
 export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: string };
+
+export type ReactionCreatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
 
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
@@ -2957,6 +2969,35 @@ export function useCancelReactionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CancelReactionMutationHookResult = ReturnType<typeof useCancelReactionMutation>;
 export type CancelReactionMutationResult = Apollo.MutationResult<CancelReactionMutation>;
 export type CancelReactionMutationOptions = Apollo.BaseMutationOptions<CancelReactionMutation, CancelReactionMutationVariables>;
+export const ReactionCreatedDocument = gql`
+    subscription ReactionCreated {
+  reactionCreated {
+    ...reaction
+  }
+}
+    ${ReactionFragmentDoc}`;
+
+/**
+ * __useReactionCreatedSubscription__
+ *
+ * To run a query within a React component, call `useReactionCreatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useReactionCreatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReactionCreatedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReactionCreatedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables>(ReactionCreatedDocument, options);
+      }
+export type ReactionCreatedSubscriptionHookResult = ReturnType<typeof useReactionCreatedSubscription>;
+export type ReactionCreatedSubscriptionResult = Apollo.SubscriptionResult<ReactionCreatedSubscription>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)

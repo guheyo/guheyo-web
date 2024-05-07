@@ -18,3 +18,9 @@ mutation CreateReaction($input: CreateReactionInput!) {
 mutation CancelReaction($input: CancelReactionInput!) {
   cancelReaction(input: $input)
 }
+
+subscription ReactionCreated {
+  reactionCreated {
+    ...reaction
+  }
+}
