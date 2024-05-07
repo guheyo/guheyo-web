@@ -79,3 +79,9 @@ query findComments(
     }
   }
 }
+
+subscription CommentCreated {
+  commentCreated {
+    ...commentWithAuthor
+  }
+}
