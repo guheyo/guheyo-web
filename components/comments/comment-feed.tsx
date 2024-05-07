@@ -63,17 +63,19 @@ export default function CommentFeed({
       };
     }
     return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (isAtBottom) {
+      scrollToBottom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments]);
 
-  // Subscribe to new comments when user is at the bottom
   useSubscription(CommentCreatedDocument, {
     onSubscriptionData: ({ subscriptionData }) => {
       const newComment = subscriptionData.data.commentCreated;
       setComments([...comments, newComment]);
-
-      if (isAtBottom) {
-        scrollToBottom();
-      }
     },
     shouldResubscribe: true, // Always resubscribe
   });
