@@ -30,7 +30,7 @@ function Page({
     postId: userReview.post.id,
   };
   const orderBy: FindCommentsOrderByArgs = {
-    createdAt: 'desc',
+    createdAt: 'asc',
   };
 
   return (
