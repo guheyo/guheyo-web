@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   FindCommentsOrderByArgs,
   FindCommentsWhereArgs,
@@ -8,7 +8,12 @@ import {
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
-import { useFindAuthorQuery } from '@/generated/graphql';
+import {
+  CommentCreatedDocument,
+  CommentWithAuthorResponse,
+  useFindAuthorQuery,
+} from '@/generated/graphql';
+import { useSubscription } from '@apollo/client';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
@@ -26,6 +31,7 @@ export default function CommentFeed({
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
   );
+  const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref: sentinelRef,
@@ -34,16 +40,32 @@ export default function CommentFeed({
     take: 10,
   });
 
+  const { data: newCommentData } = useSubscription(CommentCreatedDocument);
+
   const { loading: userLoading, data: UserData } = useFindAuthorQuery({
     variables: {
       id: jwtPayload?.id,
     },
   });
 
+  useEffect(() => {
+    // If new reaction data is received and comments are loaded
+    if (newCommentData) {
+      setComments([...comments, newCommentData.commentCreated]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newCommentData]);
+
+  // Load comments if not loading and comments data is available
+  useEffect(() => {
+    if (!commentsLoading && commentsData?.findComments) {
+      setComments(commentsData.findComments.edges.map((edge) => edge.node));
+    }
+  }, [commentsLoading, commentsData]);
+
   if (commentsLoading || userLoading) return <div />;
   if (!commentsData?.findComments) return <div />;
 
-  const comments = commentsData.findComments.edges;
   const user = UserData?.findAuthor;
 
   const handleWrite = async (values: CommentValues) => {
@@ -89,15 +111,15 @@ export default function CommentFeed({
       <div className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]">
         {comments.map((comment) => (
           <CommentCard
-            key={comment.node.id}
-            user={comment.node.user}
-            isCurrentUser={jwtPayload?.id === comment.node.user.id}
+            key={comment.id}
+            user={comment.user}
+            isCurrentUser={jwtPayload?.id === comment.user.id}
             displayMenu
             defaultMode="read"
-            commentId={comment.node.id}
-            content={comment.node.content}
-            createdAt={comment.node.createdAt}
-            updatedAt={comment.node.updatedAt}
+            commentId={comment.id}
+            content={comment.content}
+            createdAt={comment.createdAt}
+            updatedAt={comment.updatedAt}
             textFieldProps={{
               multiline: true,
               placeholder: '메시지 보내기',
