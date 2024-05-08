@@ -73,8 +73,11 @@ export default function CommentFeed({
   }, [comments]);
 
   useSubscription(CommentCreatedDocument, {
-    onSubscriptionData: ({ subscriptionData }) => {
-      const newComment = subscriptionData.data.commentCreated;
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const newComment = data.data.commentCreated;
       setComments([...comments, newComment]);
     },
     shouldResubscribe: true, // Always resubscribe
@@ -147,7 +150,7 @@ export default function CommentFeed({
   return (
     <div className="flex flex-col relative pb-0 lg:pb-32">
       <div
-        className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]"
+        className="flex-1 flex flex-col gap-6 overflow-x-hidden"
         ref={commentsContainerRef}
       >
         {comments.map((comment) => (
