@@ -40,12 +40,14 @@ export type BumpOfferInput = {
 export type CancelReactionInput = {
   commentId?: InputMaybe<Scalars['ID']['input']>;
   emojiId: Scalars['ID']['input'];
-  postId?: InputMaybe<Scalars['ID']['input']>;
+  postId: Scalars['ID']['input'];
 };
 
 export type CanceledReactionResponse = {
   __typename?: 'CanceledReactionResponse';
+  commentId?: Maybe<Scalars['ID']['output']>;
   id: Scalars['ID']['output'];
+  postId: Scalars['ID']['output'];
 };
 
 export type CategoryResponse = {
@@ -138,7 +140,7 @@ export type CreateReactionInput = {
   commentId?: InputMaybe<Scalars['ID']['input']>;
   emojiId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
-  postId?: InputMaybe<Scalars['ID']['input']>;
+  postId: Scalars['ID']['input'];
 };
 
 export type CreateReportInput = {
@@ -823,7 +825,7 @@ export type ReactionResponse = {
   createdAt: Scalars['DateTime']['output'];
   emoji: EmojiResponse;
   id: Scalars['ID']['output'];
-  postId?: Maybe<Scalars['ID']['output']>;
+  postId: Scalars['ID']['output'];
   updatedAt: Scalars['DateTime']['output'];
   userId: Scalars['ID']['output'];
 };
@@ -937,14 +939,14 @@ export type SubscriptionCommentCreatedArgs = {
 
 
 export type SubscriptionReactionCanceledArgs = {
-  commentId?: InputMaybe<Scalars['ID']['input']>;
-  postId?: InputMaybe<Scalars['ID']['input']>;
+  postId: Scalars['ID']['input'];
+  type: Scalars['String']['input'];
 };
 
 
 export type SubscriptionReactionCreatedArgs = {
-  commentId?: InputMaybe<Scalars['ID']['input']>;
-  postId?: InputMaybe<Scalars['ID']['input']>;
+  postId: Scalars['ID']['input'];
+  type: Scalars['String']['input'];
 };
 
 export type TagResponse = {
@@ -1307,7 +1309,7 @@ export type FindPostPreviewQueryVariables = Exact<{
 
 export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, reportCount: number, reportCommentCount: number, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
-export type ReactionFragment = { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
+export type ReactionFragment = { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
 
 export type CreateReactionMutationVariables = Exact<{
   input: CreateReactionInput;
@@ -1329,23 +1331,23 @@ export type FindReactionsQueryVariables = Exact<{
 }>;
 
 
-export type FindReactionsQuery = { __typename?: 'Query', findReactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+export type FindReactionsQuery = { __typename?: 'Query', findReactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
 export type ReactionCreatedSubscriptionVariables = Exact<{
-  postId?: InputMaybe<Scalars['ID']['input']>;
-  commentId?: InputMaybe<Scalars['ID']['input']>;
+  type: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
 }>;
 
 
-export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
+export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
 
 export type ReactionCanceledSubscriptionVariables = Exact<{
-  postId?: InputMaybe<Scalars['ID']['input']>;
-  commentId?: InputMaybe<Scalars['ID']['input']>;
+  type: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
 }>;
 
 
-export type ReactionCanceledSubscription = { __typename?: 'Subscription', reactionCanceled: { __typename?: 'CanceledReactionResponse', id: string } };
+export type ReactionCanceledSubscription = { __typename?: 'Subscription', reactionCanceled: { __typename?: 'CanceledReactionResponse', id: string, postId: string, commentId?: string | null } };
 
 export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
 
@@ -2992,8 +2994,8 @@ export type FindReactionsLazyQueryHookResult = ReturnType<typeof useFindReaction
 export type FindReactionsSuspenseQueryHookResult = ReturnType<typeof useFindReactionsSuspenseQuery>;
 export type FindReactionsQueryResult = Apollo.QueryResult<FindReactionsQuery, FindReactionsQueryVariables>;
 export const ReactionCreatedDocument = gql`
-    subscription ReactionCreated($postId: ID, $commentId: ID) {
-  reactionCreated(postId: $postId, commentId: $commentId) {
+    subscription ReactionCreated($type: String!, $postId: ID!) {
+  reactionCreated(type: $type, postId: $postId) {
     ...reaction
   }
 }
@@ -3011,21 +3013,23 @@ export const ReactionCreatedDocument = gql`
  * @example
  * const { data, loading, error } = useReactionCreatedSubscription({
  *   variables: {
+ *      type: // value for 'type'
  *      postId: // value for 'postId'
- *      commentId: // value for 'commentId'
  *   },
  * });
  */
-export function useReactionCreatedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables>) {
+export function useReactionCreatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables> & ({ variables: ReactionCreatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables>(ReactionCreatedDocument, options);
       }
 export type ReactionCreatedSubscriptionHookResult = ReturnType<typeof useReactionCreatedSubscription>;
 export type ReactionCreatedSubscriptionResult = Apollo.SubscriptionResult<ReactionCreatedSubscription>;
 export const ReactionCanceledDocument = gql`
-    subscription ReactionCanceled($postId: ID, $commentId: ID) {
-  reactionCanceled(postId: $postId, commentId: $commentId) {
+    subscription ReactionCanceled($type: String!, $postId: ID!) {
+  reactionCanceled(type: $type, postId: $postId) {
     id
+    postId
+    commentId
   }
 }
     `;
@@ -3042,12 +3046,12 @@ export const ReactionCanceledDocument = gql`
  * @example
  * const { data, loading, error } = useReactionCanceledSubscription({
  *   variables: {
+ *      type: // value for 'type'
  *      postId: // value for 'postId'
- *      commentId: // value for 'commentId'
  *   },
  * });
  */
-export function useReactionCanceledSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables>) {
+export function useReactionCanceledSubscription(baseOptions: Apollo.SubscriptionHookOptions<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables> & ({ variables: ReactionCanceledSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables>(ReactionCanceledDocument, options);
       }

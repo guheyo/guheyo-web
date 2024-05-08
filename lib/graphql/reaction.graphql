@@ -32,25 +32,27 @@ query findReactions(
 }
 
 subscription ReactionCreated(
-  $postId: ID
-  $commentId: ID
+  $type: String!
+  $postId: ID!
 ) {
   reactionCreated(
+    type: $type
     postId: $postId
-    commentId: $commentId
   ) {
     ...reaction
   }
 }
 
 subscription ReactionCanceled(
-  $postId: ID
-  $commentId: ID
+  $type: String!
+  $postId: ID!
 ) {
   reactionCanceled(
+    type: $type
     postId: $postId
-    commentId: $commentId
   ) {
     id
+    postId
+    commentId
   }
 }

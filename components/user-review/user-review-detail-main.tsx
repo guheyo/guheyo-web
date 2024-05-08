@@ -36,6 +36,7 @@ export default function UserReviewDetailMain({
 
   useSubscription(ReactionCreatedDocument, {
     variables: {
+      type: 'post',
       postId: userReview.post.id,
     },
     onData: ({ data }) => {
@@ -47,6 +48,7 @@ export default function UserReviewDetailMain({
 
   useSubscription(ReactionCanceledDocument, {
     variables: {
+      type: 'post',
       postId: userReview.post.id,
     },
     onData: ({ data }) => {
