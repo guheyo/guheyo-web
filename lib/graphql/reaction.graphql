@@ -19,6 +19,18 @@ mutation CancelReaction($input: CancelReactionInput!) {
   cancelReaction(input: $input)
 }
 
+query findReactions(
+  $postId: ID
+  $commentId: ID
+) {
+  findReactions(
+    postId: $postId
+    commentId: $commentId
+  ) {
+    ...reaction
+  }
+}
+
 subscription ReactionCreated {
   reactionCreated {
     ...reaction

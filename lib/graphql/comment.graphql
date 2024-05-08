@@ -80,8 +80,8 @@ query findComments(
   }
 }
 
-subscription CommentCreated {
-  commentCreated {
+subscription CommentCreated($postId: ID!) {
+  commentCreated(postId: $postId) {
     ...commentWithAuthor
   }
 }

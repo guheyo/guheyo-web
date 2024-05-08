@@ -631,6 +631,7 @@ export type Query = {
   findOfferCount: Scalars['Float']['output'];
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findPostPreview: PostPreviewWithUserResponse;
+  findReactions: Array<ReactionResponse>;
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
@@ -722,6 +723,12 @@ export type QueryFindOfferPreviewsArgs = {
 
 export type QueryFindPostPreviewArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindReactionsArgs = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -921,6 +928,11 @@ export type Subscription = {
   commentCreated: CommentWithAuthorResponse;
   reactionCanceled: CanceledReactionResponse;
   reactionCreated: ReactionResponse;
+};
+
+
+export type SubscriptionCommentCreatedArgs = {
+  postId: Scalars['ID']['input'];
 };
 
 export type TagResponse = {
@@ -1160,7 +1172,9 @@ export type FindCommentsQueryVariables = Exact<{
 
 export type FindCommentsQuery = { __typename?: 'Query', findComments: { __typename?: 'PaginatedCommentsResponse', edges: Array<{ __typename?: 'CommentWithAuthorResponseEdge', cursor: string, node: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type CommentCreatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type CommentCreatedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
 
 
 export type CommentCreatedSubscription = { __typename?: 'Subscription', commentCreated: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } };
@@ -1296,6 +1310,14 @@ export type CancelReactionMutationVariables = Exact<{
 
 
 export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: string };
+
+export type FindReactionsQueryVariables = Exact<{
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindReactionsQuery = { __typename?: 'Query', findReactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
 export type ReactionCreatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -2313,8 +2335,8 @@ export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsL
 export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
 export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
 export const CommentCreatedDocument = gql`
-    subscription CommentCreated {
-  commentCreated {
+    subscription CommentCreated($postId: ID!) {
+  commentCreated(postId: $postId) {
     ...commentWithAuthor
   }
 }
@@ -2332,10 +2354,11 @@ export const CommentCreatedDocument = gql`
  * @example
  * const { data, loading, error } = useCommentCreatedSubscription({
  *   variables: {
+ *      postId: // value for 'postId'
  *   },
  * });
  */
-export function useCommentCreatedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<CommentCreatedSubscription, CommentCreatedSubscriptionVariables>) {
+export function useCommentCreatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentCreatedSubscription, CommentCreatedSubscriptionVariables> & ({ variables: CommentCreatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<CommentCreatedSubscription, CommentCreatedSubscriptionVariables>(CommentCreatedDocument, options);
       }
@@ -2909,6 +2932,47 @@ export function useCancelReactionMutation(baseOptions?: Apollo.MutationHookOptio
 export type CancelReactionMutationHookResult = ReturnType<typeof useCancelReactionMutation>;
 export type CancelReactionMutationResult = Apollo.MutationResult<CancelReactionMutation>;
 export type CancelReactionMutationOptions = Apollo.BaseMutationOptions<CancelReactionMutation, CancelReactionMutationVariables>;
+export const FindReactionsDocument = gql`
+    query findReactions($postId: ID, $commentId: ID) {
+  findReactions(postId: $postId, commentId: $commentId) {
+    ...reaction
+  }
+}
+    ${ReactionFragmentDoc}`;
+
+/**
+ * __useFindReactionsQuery__
+ *
+ * To run a query within a React component, call `useFindReactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReactionsQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      commentId: // value for 'commentId'
+ *   },
+ * });
+ */
+export function useFindReactionsQuery(baseOptions?: Apollo.QueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+      }
+export function useFindReactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+        }
+export function useFindReactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+        }
+export type FindReactionsQueryHookResult = ReturnType<typeof useFindReactionsQuery>;
+export type FindReactionsLazyQueryHookResult = ReturnType<typeof useFindReactionsLazyQuery>;
+export type FindReactionsSuspenseQueryHookResult = ReturnType<typeof useFindReactionsSuspenseQuery>;
+export type FindReactionsQueryResult = Apollo.QueryResult<FindReactionsQuery, FindReactionsQueryVariables>;
 export const ReactionCreatedDocument = gql`
     subscription ReactionCreated {
   reactionCreated {
