@@ -8,6 +8,7 @@ import {
   ReactionCreatedDocument,
   ReactionResponse,
   UserReviewResponse,
+  useFindReactionsQuery,
 } from '@/generated/graphql';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { useSubscription } from '@apollo/client';
@@ -26,7 +27,17 @@ export default function UserReviewDetailMain({
   const device = useDeviceDetect();
   const [postReactions, setPostReactions] = useState<ReactionResponse[]>([]);
 
+  const { loading, data: postReactionsData } = useFindReactionsQuery({
+    variables: {
+      postId: userReview.post.id,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+
   useSubscription(ReactionCreatedDocument, {
+    variables: {
+      postId: userReview.post.id,
+    },
     onData: ({ data }) => {
       const newReaction = data.data.reactionCreated;
       setPostReactions((prevReactions) => [...prevReactions, newReaction]);
@@ -35,6 +46,9 @@ export default function UserReviewDetailMain({
   });
 
   useSubscription(ReactionCanceledDocument, {
+    variables: {
+      postid: userReview.post.id,
+    },
     onData: ({ data }) => {
       const canceledReaction = data.data.reactionCanceled;
       setPostReactions((prevReactions) =>
@@ -45,8 +59,10 @@ export default function UserReviewDetailMain({
   });
 
   useEffect(() => {
-    setPostReactions(userReview.post.reactions);
-  }, [userReview.post.reactions]);
+    if (!loading && postReactionsData) {
+      setPostReactions(postReactionsData.findReactions);
+    }
+  }, [loading, postReactionsData]);
 
   return (
     <>
