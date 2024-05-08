@@ -935,6 +935,18 @@ export type SubscriptionCommentCreatedArgs = {
   postId: Scalars['ID']['input'];
 };
 
+
+export type SubscriptionReactionCanceledArgs = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type SubscriptionReactionCreatedArgs = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type TagResponse = {
   __typename?: 'TagResponse';
   description?: Maybe<Scalars['String']['output']>;
@@ -1319,12 +1331,18 @@ export type FindReactionsQueryVariables = Exact<{
 
 export type FindReactionsQuery = { __typename?: 'Query', findReactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
-export type ReactionCreatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type ReactionCreatedSubscriptionVariables = Exact<{
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+}>;
 
 
 export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId?: string | null, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
 
-export type ReactionCanceledSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type ReactionCanceledSubscriptionVariables = Exact<{
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+}>;
 
 
 export type ReactionCanceledSubscription = { __typename?: 'Subscription', reactionCanceled: { __typename?: 'CanceledReactionResponse', id: string } };
@@ -2974,8 +2992,8 @@ export type FindReactionsLazyQueryHookResult = ReturnType<typeof useFindReaction
 export type FindReactionsSuspenseQueryHookResult = ReturnType<typeof useFindReactionsSuspenseQuery>;
 export type FindReactionsQueryResult = Apollo.QueryResult<FindReactionsQuery, FindReactionsQueryVariables>;
 export const ReactionCreatedDocument = gql`
-    subscription ReactionCreated {
-  reactionCreated {
+    subscription ReactionCreated($postId: ID, $commentId: ID) {
+  reactionCreated(postId: $postId, commentId: $commentId) {
     ...reaction
   }
 }
@@ -2993,6 +3011,8 @@ export const ReactionCreatedDocument = gql`
  * @example
  * const { data, loading, error } = useReactionCreatedSubscription({
  *   variables: {
+ *      postId: // value for 'postId'
+ *      commentId: // value for 'commentId'
  *   },
  * });
  */
@@ -3003,8 +3023,8 @@ export function useReactionCreatedSubscription(baseOptions?: Apollo.Subscription
 export type ReactionCreatedSubscriptionHookResult = ReturnType<typeof useReactionCreatedSubscription>;
 export type ReactionCreatedSubscriptionResult = Apollo.SubscriptionResult<ReactionCreatedSubscription>;
 export const ReactionCanceledDocument = gql`
-    subscription ReactionCanceled {
-  reactionCanceled {
+    subscription ReactionCanceled($postId: ID, $commentId: ID) {
+  reactionCanceled(postId: $postId, commentId: $commentId) {
     id
   }
 }
@@ -3022,6 +3042,8 @@ export const ReactionCanceledDocument = gql`
  * @example
  * const { data, loading, error } = useReactionCanceledSubscription({
  *   variables: {
+ *      postId: // value for 'postId'
+ *      commentId: // value for 'commentId'
  *   },
  * });
  */

@@ -31,14 +31,26 @@ query findReactions(
   }
 }
 
-subscription ReactionCreated {
-  reactionCreated {
+subscription ReactionCreated(
+  $postId: ID
+  $commentId: ID
+) {
+  reactionCreated(
+    postId: $postId
+    commentId: $commentId
+  ) {
     ...reaction
   }
 }
 
-subscription ReactionCanceled {
-  reactionCanceled {
+subscription ReactionCanceled(
+  $postId: ID
+  $commentId: ID
+) {
+  reactionCanceled(
+    postId: $postId
+    commentId: $commentId
+  ) {
     id
   }
 }
