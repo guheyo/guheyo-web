@@ -16,6 +16,7 @@ import Avatar from '../avatar/avatar';
 export default function CommentCard({
   user,
   isCurrentUser,
+  postId,
   displayMenu,
   defaultMode,
   commentId,
@@ -29,6 +30,7 @@ export default function CommentCard({
 }: {
   user?: AuthorResponse;
   isCurrentUser: boolean;
+  postId?: string;
   displayMenu: boolean;
   defaultMode: CRUD;
   commentId?: string;
@@ -125,11 +127,12 @@ export default function CommentCard({
     );
   }
 
-  if (!user || !commentId) return <div />;
+  if (!user || !postId || !commentId) return <div />;
   return (
     <CommentOutput
       user={user}
       isCurrentUser={isCurrentUser}
+      postId={postId}
       content={content}
       createdAt={createdAt}
       updatedAt={updatedAt}

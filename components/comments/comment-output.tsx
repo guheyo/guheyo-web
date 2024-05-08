@@ -2,9 +2,16 @@
 
 import { CRUD } from '@/lib/crud/crud.types';
 import { parseCommentDate } from '@/lib/comment/parse-comment-date';
-import { AuthorResponse } from '@/generated/graphql';
+import {
+  AuthorResponse,
+  ReactionCanceledDocument,
+  ReactionCreatedDocument,
+  ReactionResponse,
+  useFindReactionsQuery,
+} from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSubscription } from '@apollo/client';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import ReactionBar from '../reaction/reaction-bar';
@@ -12,6 +19,7 @@ import ReactionBar from '../reaction/reaction-bar';
 export default function CommentOutput({
   user,
   isCurrentUser,
+  postId,
   content,
   createdAt,
   updatedAt,
@@ -21,6 +29,7 @@ export default function CommentOutput({
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
+  postId: string;
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -30,6 +39,14 @@ export default function CommentOutput({
 }) {
   const device = useDeviceDetect();
   const [isHovered, setIsHovered] = useState(false);
+  const [reactions, setReactions] = useState<ReactionResponse[]>([]);
+
+  const { loading, data: reactionsData } = useFindReactionsQuery({
+    variables: {
+      commentId,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -38,6 +55,40 @@ export default function CommentOutput({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  useEffect(() => {
+    if (!loading && reactionsData?.findReactions) {
+      setReactions(reactionsData.findReactions);
+    }
+  }, [loading, reactionsData?.findReactions]);
+
+  useSubscription(ReactionCreatedDocument, {
+    variables: {
+      type: 'comment',
+      postId,
+    },
+    onData: ({ data }) => {
+      const newReaction = data.data.reactionCreated;
+      if (newReaction.commentId === commentId) {
+        setReactions((prevReactions) => [...prevReactions, newReaction]);
+      }
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    variables: {
+      type: 'comment',
+      postId,
+    },
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setReactions((prevReactions) =>
+        prevReactions.filter((reaction) => reaction.id !== canceledReaction.id),
+      );
+    },
+    shouldResubscribe: true,
+  });
 
   return (
     <div
@@ -68,7 +119,11 @@ export default function CommentOutput({
           {content}
         </div>
         <div className="pt-1 ml-[-10px]">
-          <ReactionBar commentId={commentId} reactions={[]} />
+          <ReactionBar
+            postId={postId}
+            commentId={commentId}
+            reactions={reactions}
+          />
         </div>
       </div>
     </div>

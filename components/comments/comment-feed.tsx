@@ -158,6 +158,7 @@ export default function CommentFeed({
             key={comment.id}
             user={comment.user}
             isCurrentUser={jwtPayload?.id === comment.user.id}
+            postId={comment.postId}
             displayMenu
             defaultMode="read"
             commentId={comment.id}
