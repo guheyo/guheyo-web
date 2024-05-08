@@ -14,6 +14,7 @@ import {
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useSubscription } from '@apollo/client';
+import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
@@ -33,36 +34,61 @@ export default function CommentFeed({
   );
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
   const [isAtBottom, setIsAtBottom] = useState(false);
-  const commentsContainerRef = useRef<HTMLDivElement>(null);
+  const buffer = 50;
 
-  // Scroll to bottom function
-  const scrollToBottom = () => {
-    const container = commentsContainerRef.current;
+  // Event handler for scrolling
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const { scrollHeight } = document.documentElement;
+    const { clientHeight } = document.documentElement;
+    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
+  };
 
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-    }
+  const handleWrite = async (values: CommentValues) => {
+    if (!jwtPayload || !where.postId || !values.content) return;
+
+    await createComment({
+      id: values.id,
+      content: values.content,
+      postId: where.postId,
+    });
+    scrollToBottom();
+  };
+
+  const handleEdit = async (values: CommentValues) => {
+    if (!values.content) return;
+
+    await updateComment({
+      id: values.id,
+      content: values.content,
+    });
+  };
+
+  const handleDeleteConfirmation = (comment: CommentValues) => {
+    setCommentToDelete(comment);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setCommentToDelete(null);
+    setDeleteDialogOpen(false);
+  };
+
+  const handleDelete = async (values: CommentValues) => {
+    if (!values.id) return;
+
+    await deleteComment({
+      id: values.id,
+    });
+    handleCloseDeleteDialog();
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const container = commentsContainerRef.current;
-      if (container) {
-        const newIsAtBottom =
-          container.scrollHeight - container.clientHeight <=
-          container.scrollTop + 1;
-        setIsAtBottom(newIsAtBottom);
-      }
-    };
+    window.addEventListener('scroll', handleScroll);
 
-    const container = commentsContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => {
-        container.removeEventListener('scroll', handleScroll);
-      };
-    }
-    return () => {};
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -104,55 +130,13 @@ export default function CommentFeed({
   }, [commentsLoading, commentsData]);
 
   if (commentsLoading || userLoading) return <div />;
-  if (!commentsData?.findComments) return <div />;
+  if (!comments.length) return <div />;
 
   const user = UserData?.findAuthor;
 
-  const handleWrite = async (values: CommentValues) => {
-    if (!jwtPayload || !where.postId || !values.content) return;
-
-    await createComment({
-      id: values.id,
-      content: values.content,
-      postId: where.postId,
-    });
-    scrollToBottom();
-  };
-
-  const handleEdit = async (values: CommentValues) => {
-    if (!values.content) return;
-
-    await updateComment({
-      id: values.id,
-      content: values.content,
-    });
-  };
-
-  const handleDeleteConfirmation = (comment: CommentValues) => {
-    setCommentToDelete(comment);
-    setDeleteDialogOpen(true);
-  };
-
-  const handleCloseDeleteDialog = () => {
-    setCommentToDelete(null);
-    setDeleteDialogOpen(false);
-  };
-
-  const handleDelete = async (values: CommentValues) => {
-    if (!values.id) return;
-
-    await deleteComment({
-      id: values.id,
-    });
-    handleCloseDeleteDialog();
-  };
-
   return (
-    <div className="flex flex-col relative pb-0 lg:pb-32">
-      <div
-        className="flex-1 flex flex-col gap-6 overflow-x-hidden"
-        ref={commentsContainerRef}
-      >
+    <div className="flex flex-col relative pb-16 lg:pb-32">
+      <div className="flex-1 flex flex-col gap-6">
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}
