@@ -12,7 +12,7 @@ export default function ReactionBar({
   commentId,
   reactions,
 }: {
-  postId?: string | null;
+  postId: string;
   commentId?: string | null;
   reactions: ReactionResponse[];
 }) {

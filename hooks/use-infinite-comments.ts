@@ -27,7 +27,8 @@ export const useInfiniteComments = ({
       take,
       skip: 0,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-and-network',
   });
 
   useInfiniteScroll(

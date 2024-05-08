@@ -18,7 +18,7 @@ fragment userReviewPreview on UserReviewPreviewResponse {
 
 fragment userReview on UserReviewResponse {
   post {
-    ...postWithReactions
+    ...post
   }
   id
   createdAt

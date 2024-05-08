@@ -14,6 +14,7 @@ import {
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useSubscription } from '@apollo/client';
+import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
@@ -33,77 +34,15 @@ export default function CommentFeed({
   );
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
   const [isAtBottom, setIsAtBottom] = useState(false);
-  const commentsContainerRef = useRef<HTMLDivElement>(null);
+  const buffer = 50;
 
-  // Scroll to bottom function
-  const scrollToBottom = () => {
-    const container = commentsContainerRef.current;
-
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-    }
+  // Event handler for scrolling
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const { scrollHeight } = document.documentElement;
+    const { clientHeight } = document.documentElement;
+    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const container = commentsContainerRef.current;
-      if (container) {
-        const newIsAtBottom =
-          container.scrollHeight - container.clientHeight <=
-          container.scrollTop + 1;
-        setIsAtBottom(newIsAtBottom);
-      }
-    };
-
-    const container = commentsContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => {
-        container.removeEventListener('scroll', handleScroll);
-      };
-    }
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    if (isAtBottom) {
-      scrollToBottom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments]);
-
-  useSubscription(CommentCreatedDocument, {
-    onSubscriptionData: ({ subscriptionData }) => {
-      const newComment = subscriptionData.data.commentCreated;
-      setComments([...comments, newComment]);
-    },
-    shouldResubscribe: true, // Always resubscribe
-  });
-
-  const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
-    ref: sentinelRef,
-    where,
-    orderBy,
-    take: 10,
-  });
-
-  const { loading: userLoading, data: UserData } = useFindAuthorQuery({
-    variables: {
-      id: jwtPayload?.id,
-    },
-  });
-
-  // Load comments if not loading and comments data is available
-  useEffect(() => {
-    if (!commentsLoading && commentsData?.findComments) {
-      setComments(commentsData.findComments.edges.map((edge) => edge.node));
-    }
-  }, [commentsLoading, commentsData]);
-
-  if (commentsLoading || userLoading) return <div />;
-  if (!commentsData?.findComments) return <div />;
-
-  const user = UserData?.findAuthor;
 
   const handleWrite = async (values: CommentValues) => {
     if (!jwtPayload || !where.postId || !values.content) return;
@@ -144,17 +83,66 @@ export default function CommentFeed({
     handleCloseDeleteDialog();
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isAtBottom) {
+      scrollToBottom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comments]);
+
+  useSubscription(CommentCreatedDocument, {
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const newComment = data.data.commentCreated;
+      setComments([...comments, newComment]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
+  const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
+    ref: sentinelRef,
+    where,
+    orderBy,
+    take: 10,
+  });
+
+  const { loading: userLoading, data: UserData } = useFindAuthorQuery({
+    variables: {
+      id: jwtPayload?.id,
+    },
+  });
+
+  // Load comments if not loading and comments data is available
+  useEffect(() => {
+    if (!commentsLoading && commentsData?.findComments) {
+      setComments(commentsData.findComments.edges.map((edge) => edge.node));
+    }
+  }, [commentsLoading, commentsData]);
+
+  if (commentsLoading || userLoading) return <div />;
+  if (!comments.length) return <div />;
+
+  const user = UserData?.findAuthor;
+
   return (
-    <div className="flex flex-col relative pb-0 lg:pb-32">
-      <div
-        className="flex-1 flex flex-col gap-6 overflow-x-hidden overflow-y-auto max-h-[60vh] lg:max-h-[75vh]"
-        ref={commentsContainerRef}
-      >
+    <div className="flex flex-col relative pb-16 lg:pb-32">
+      <div className="flex-1 flex flex-col gap-6">
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}
             user={comment.user}
             isCurrentUser={jwtPayload?.id === comment.user.id}
+            postId={comment.postId}
             displayMenu
             defaultMode="read"
             commentId={comment.id}

@@ -3,8 +3,16 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { UserReviewResponse } from '@/generated/graphql';
+import {
+  ReactionCanceledDocument,
+  ReactionCreatedDocument,
+  ReactionResponse,
+  UserReviewResponse,
+  useFindReactionsQuery,
+} from '@/generated/graphql';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import { useSubscription } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailTitle from '../posts/post-detail-name';
 import UserReviewTags from './user-review-tags';
@@ -17,6 +25,46 @@ export default function UserReviewDetailMain({
   userReview: UserReviewResponse;
 }) {
   const device = useDeviceDetect();
+  const [postReactions, setPostReactions] = useState<ReactionResponse[]>([]);
+
+  const { loading, data: postReactionsData } = useFindReactionsQuery({
+    variables: {
+      postId: userReview.post.id,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  useSubscription(ReactionCreatedDocument, {
+    variables: {
+      type: 'post',
+      postId: userReview.post.id,
+    },
+    onData: ({ data }) => {
+      const newReaction = data.data.reactionCreated;
+      setPostReactions((prevReactions) => [...prevReactions, newReaction]);
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    variables: {
+      type: 'post',
+      postId: userReview.post.id,
+    },
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setPostReactions((prevReactions) =>
+        prevReactions.filter((reaction) => reaction.id !== canceledReaction.id),
+      );
+    },
+    shouldResubscribe: true,
+  });
+
+  useEffect(() => {
+    if (!loading && postReactionsData) {
+      setPostReactions(postReactionsData.findReactions);
+    }
+  }, [loading, postReactionsData]);
 
   return (
     <>
@@ -58,10 +106,7 @@ export default function UserReviewDetailMain({
         )}
       </div>
       <div className="pt-4">
-        <ReactionBar
-          postId={userReview.post.id}
-          reactions={userReview.post.reactions}
-        />
+        <ReactionBar postId={userReview.post.id} reactions={postReactions} />
       </div>
     </>
   );
