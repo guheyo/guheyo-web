@@ -47,7 +47,7 @@ export default function UserReviewDetailMain({
 
   useSubscription(ReactionCanceledDocument, {
     variables: {
-      postid: userReview.post.id,
+      postId: userReview.post.id,
     },
     onData: ({ data }) => {
       const canceledReaction = data.data.reactionCanceled;
