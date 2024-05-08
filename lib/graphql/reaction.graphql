@@ -18,3 +18,41 @@ mutation CreateReaction($input: CreateReactionInput!) {
 mutation CancelReaction($input: CancelReactionInput!) {
   cancelReaction(input: $input)
 }
+
+query findReactions(
+  $postId: ID
+  $commentId: ID
+) {
+  findReactions(
+    postId: $postId
+    commentId: $commentId
+  ) {
+    ...reaction
+  }
+}
+
+subscription ReactionCreated(
+  $type: String!
+  $postId: ID!
+) {
+  reactionCreated(
+    type: $type
+    postId: $postId
+  ) {
+    ...reaction
+  }
+}
+
+subscription ReactionCanceled(
+  $type: String!
+  $postId: ID!
+) {
+  reactionCanceled(
+    type: $type
+    postId: $postId
+  ) {
+    id
+    postId
+    commentId
+  }
+}

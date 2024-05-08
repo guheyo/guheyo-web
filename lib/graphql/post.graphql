@@ -29,40 +29,6 @@ fragment post on PostResponse {
   }
 }
 
-fragment postWithReactions on PostWithReactionsResponse {
-  id
-  createdAt
-  updatedAt
-  archivedAt
-  pending
-  type
-  title
-  slug
-  thumbnail
-  reportCount
-  reportCommentCount
-  images {
-    ...image
-  }
-  groupId
-  group {
-    ...groupProfile
-  }
-  categoryId
-  category {
-    ...category
-  }
-  user {
-    ...author
-  }
-  tags {
-    ...tag
-  }
-  reactions {
-    ...reaction
-  }
-}
-
 fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   id
   createdAt
