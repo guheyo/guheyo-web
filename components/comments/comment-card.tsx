@@ -6,7 +6,7 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
-import { AuthorResponse } from '@/generated/graphql';
+import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
@@ -23,6 +23,7 @@ export default function CommentCard({
   content,
   createdAt,
   updatedAt,
+  commentReactions,
   textFieldProps,
   handleWrite,
   handleEdit,
@@ -37,6 +38,7 @@ export default function CommentCard({
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  commentReactions: ReactionResponse[];
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
@@ -138,6 +140,7 @@ export default function CommentCard({
       updatedAt={updatedAt}
       displayMenu={displayMenu}
       commentId={commentId}
+      commentReactions={commentReactions}
       handleMenuClick={handleMenuClick}
     />
   );

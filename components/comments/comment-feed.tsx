@@ -149,6 +149,7 @@ export default function CommentFeed({
             content={comment.content}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
+            commentReactions={comment.reactions}
             textFieldProps={{
               multiline: true,
               placeholder: '메시지 보내기',
@@ -168,6 +169,7 @@ export default function CommentFeed({
           isCurrentUser
           displayMenu
           defaultMode="create"
+          commentReactions={[]}
           textFieldProps={{
             multiline: true,
             placeholder: '메시지 보내기',
