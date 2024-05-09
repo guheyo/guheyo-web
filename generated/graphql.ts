@@ -201,8 +201,8 @@ export type DeleteCommentInput = {
   id: Scalars['ID']['input'];
 };
 
-export type DeleteCommentResult = {
-  __typename?: 'DeleteCommentResult';
+export type DeletedCommentResponse = {
+  __typename?: 'DeletedCommentResponse';
   id: Scalars['ID']['output'];
 };
 
@@ -291,7 +291,7 @@ export type Mutation = {
   createSignedUrl: SignedUrlResponse;
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
-  deleteComment: DeleteCommentResult;
+  deleteComment: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
@@ -299,7 +299,7 @@ export type Mutation = {
   logout: SocialUserResponse;
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
-  updateComment: CommentResponse;
+  updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
   updateReportComment: ReportCommentResponse;
@@ -934,12 +934,24 @@ export type SocialUserResponse = {
 export type Subscription = {
   __typename?: 'Subscription';
   commentCreated: CommentWithAuthorResponse;
+  commentDeleted: DeletedCommentResponse;
+  commentUpdated: UpdatedCommentResponse;
   reactionCanceled: CanceledReactionResponse;
   reactionCreated: ReactionResponse;
 };
 
 
 export type SubscriptionCommentCreatedArgs = {
+  postId: Scalars['ID']['input'];
+};
+
+
+export type SubscriptionCommentDeletedArgs = {
+  postId: Scalars['ID']['input'];
+};
+
+
+export type SubscriptionCommentUpdatedArgs = {
   postId: Scalars['ID']['input'];
 };
 
@@ -1035,6 +1047,13 @@ export type UpdateUserInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatedCommentResponse = {
+  __typename?: 'UpdatedCommentResponse';
+  content: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserImageResponse = {
@@ -1149,7 +1168,9 @@ export type CommentFragment = { __typename?: 'CommentResponse', id: string, crea
 
 export type CommentWithAuthorFragment = { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
-export type DeleteCommentResultFragment = { __typename?: 'DeleteCommentResult', id: string };
+export type UpdatedCommentResponseFragment = { __typename?: 'UpdatedCommentResponse', id: string, updatedAt: any, content: string };
+
+export type DeletedCommentResponseFragment = { __typename?: 'DeletedCommentResponse', id: string };
 
 export type CreateCommentMutationVariables = Exact<{
   input: CreateCommentInput;
@@ -1163,14 +1184,14 @@ export type UpdateCommentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } };
+export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: string };
 
 export type DeleteCommentMutationVariables = Exact<{
   input: DeleteCommentInput;
 }>;
 
 
-export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: { __typename?: 'DeleteCommentResult', id: string } };
+export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: string };
 
 export type FindCommentQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1198,6 +1219,20 @@ export type CommentCreatedSubscriptionVariables = Exact<{
 
 
 export type CommentCreatedSubscription = { __typename?: 'Subscription', commentCreated: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } };
+
+export type CommentUpdatedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type CommentUpdatedSubscription = { __typename?: 'Subscription', commentUpdated: { __typename?: 'UpdatedCommentResponse', id: string, updatedAt: any, content: string } };
+
+export type CommentDeletedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type CommentDeletedSubscription = { __typename?: 'Subscription', commentDeleted: { __typename?: 'DeletedCommentResponse', id: string } };
 
 export type EmojiFragment = { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null };
 
@@ -1652,8 +1687,15 @@ export const CommentWithAuthorFragmentDoc = gql`
 }
     ${AuthorFragmentDoc}
 ${ReactionFragmentDoc}`;
-export const DeleteCommentResultFragmentDoc = gql`
-    fragment deleteCommentResult on DeleteCommentResult {
+export const UpdatedCommentResponseFragmentDoc = gql`
+    fragment updatedCommentResponse on UpdatedCommentResponse {
+  id
+  updatedAt
+  content
+}
+    `;
+export const DeletedCommentResponseFragmentDoc = gql`
+    fragment deletedCommentResponse on DeletedCommentResponse {
   id
 }
     `;
@@ -2205,11 +2247,9 @@ export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMut
 export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const UpdateCommentDocument = gql`
     mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input) {
-    ...comment
-  }
+  updateComment(input: $input)
 }
-    ${CommentFragmentDoc}`;
+    `;
 export type UpdateCommentMutationFn = Apollo.MutationFunction<UpdateCommentMutation, UpdateCommentMutationVariables>;
 
 /**
@@ -2238,11 +2278,9 @@ export type UpdateCommentMutationResult = Apollo.MutationResult<UpdateCommentMut
 export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<UpdateCommentMutation, UpdateCommentMutationVariables>;
 export const DeleteCommentDocument = gql`
     mutation DeleteComment($input: DeleteCommentInput!) {
-  deleteComment(input: $input) {
-    ...deleteCommentResult
-  }
+  deleteComment(input: $input)
 }
-    ${DeleteCommentResultFragmentDoc}`;
+    `;
 export type DeleteCommentMutationFn = Apollo.MutationFunction<DeleteCommentMutation, DeleteCommentMutationVariables>;
 
 /**
@@ -2401,6 +2439,66 @@ export function useCommentCreatedSubscription(baseOptions: Apollo.SubscriptionHo
       }
 export type CommentCreatedSubscriptionHookResult = ReturnType<typeof useCommentCreatedSubscription>;
 export type CommentCreatedSubscriptionResult = Apollo.SubscriptionResult<CommentCreatedSubscription>;
+export const CommentUpdatedDocument = gql`
+    subscription CommentUpdated($postId: ID!) {
+  commentUpdated(postId: $postId) {
+    ...updatedCommentResponse
+  }
+}
+    ${UpdatedCommentResponseFragmentDoc}`;
+
+/**
+ * __useCommentUpdatedSubscription__
+ *
+ * To run a query within a React component, call `useCommentUpdatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCommentUpdatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCommentUpdatedSubscription({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useCommentUpdatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentUpdatedSubscription, CommentUpdatedSubscriptionVariables> & ({ variables: CommentUpdatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<CommentUpdatedSubscription, CommentUpdatedSubscriptionVariables>(CommentUpdatedDocument, options);
+      }
+export type CommentUpdatedSubscriptionHookResult = ReturnType<typeof useCommentUpdatedSubscription>;
+export type CommentUpdatedSubscriptionResult = Apollo.SubscriptionResult<CommentUpdatedSubscription>;
+export const CommentDeletedDocument = gql`
+    subscription CommentDeleted($postId: ID!) {
+  commentDeleted(postId: $postId) {
+    ...deletedCommentResponse
+  }
+}
+    ${DeletedCommentResponseFragmentDoc}`;
+
+/**
+ * __useCommentDeletedSubscription__
+ *
+ * To run a query within a React component, call `useCommentDeletedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCommentDeletedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCommentDeletedSubscription({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useCommentDeletedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentDeletedSubscription, CommentDeletedSubscriptionVariables> & ({ variables: CommentDeletedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<CommentDeletedSubscription, CommentDeletedSubscriptionVariables>(CommentDeletedDocument, options);
+      }
+export type CommentDeletedSubscriptionHookResult = ReturnType<typeof useCommentDeletedSubscription>;
+export type CommentDeletedSubscriptionResult = Apollo.SubscriptionResult<CommentDeletedSubscription>;
 export const FindEmojisDocument = gql`
     query FindEmojis($groupId: ID) {
   findEmojis(groupId: $groupId) {

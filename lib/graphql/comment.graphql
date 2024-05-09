@@ -25,7 +25,13 @@ fragment commentWithAuthor on CommentWithAuthorResponse {
   }
 }
 
-fragment deleteCommentResult on DeleteCommentResult {
+fragment updatedCommentResponse on UpdatedCommentResponse {
+  id
+  updatedAt
+  content
+}
+
+fragment deletedCommentResponse on DeletedCommentResponse {
   id
 }
 
@@ -34,15 +40,11 @@ mutation CreateComment($input: CreateCommentInput!) {
 }
 
 mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input) {
-    ...comment
-  }
+  updateComment(input: $input)
 }
 
 mutation DeleteComment($input: DeleteCommentInput!) {
-  deleteComment(input: $input) {
-    ...deleteCommentResult
-  }
+  deleteComment(input: $input)
 }
 
 query FindComment(
@@ -89,5 +91,17 @@ query findComments(
 subscription CommentCreated($postId: ID!) {
   commentCreated(postId: $postId) {
     ...commentWithAuthor
+  }
+}
+
+subscription CommentUpdated($postId: ID!) {
+  commentUpdated(postId: $postId) {
+    ...updatedCommentResponse
+  }
+}
+
+subscription CommentDeleted($postId: ID!) {
+  commentDeleted(postId: $postId) {
+    ...deletedCommentResponse
   }
 }
