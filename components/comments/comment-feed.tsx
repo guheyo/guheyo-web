@@ -13,6 +13,8 @@ import {
   CommentDeletedDocument,
   CommentUpdatedDocument,
   CommentWithAuthorResponse,
+  ReactionCanceledDocument,
+  ReactionCreatedDocument,
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useSubscription } from '@apollo/client';
@@ -143,6 +145,52 @@ export default function CommentFeed({
       );
     },
     shouldResubscribe: true, // Always resubscribe
+  });
+
+  useSubscription(ReactionCreatedDocument, {
+    variables: {
+      type: 'comment',
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const newReaction = data.data.reactionCreated;
+      setComments(
+        comments.map((comment) => {
+          if (comment.id === newReaction.commentId) {
+            return {
+              ...comment,
+              reactions: [...comment.reactions, newReaction],
+            };
+          }
+          return comment;
+        }),
+      );
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    variables: {
+      type: 'comment',
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setComments(
+        comments.map((comment) => {
+          if (comment.id === canceledReaction.commentId) {
+            return {
+              ...comment,
+              reactions: comment.reactions.filter(
+                (reaction) => reaction.id !== canceledReaction.id,
+              ),
+            };
+          }
+          return comment;
+        }),
+      );
+    },
+    shouldResubscribe: true,
   });
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
