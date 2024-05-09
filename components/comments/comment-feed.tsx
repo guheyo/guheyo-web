@@ -166,7 +166,6 @@ export default function CommentFeed({
   }, [commentsLoading, commentsData]);
 
   if (commentsLoading || userLoading) return <div />;
-  if (!comments.length) return <div />;
 
   const user = UserData?.findAuthor;
 
