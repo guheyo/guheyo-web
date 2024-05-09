@@ -5,6 +5,9 @@ fragment comment on CommentResponse {
   parentId
   postId
   content
+  reactions {
+    ...reaction
+  }
 }
 
 fragment commentWithAuthor on CommentWithAuthorResponse {
@@ -16,6 +19,9 @@ fragment commentWithAuthor on CommentWithAuthorResponse {
   content
   user {
     ...author
+  }
+  reactions {
+    ...reaction
   }
 }
 
