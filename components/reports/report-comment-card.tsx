@@ -58,6 +58,7 @@ export default function ReportCommentCard({
       content={comment?.content}
       createdAt={comment?.createdAt}
       updatedAt={comment?.updatedAt}
+      commentReactions={[]}
       textFieldProps={{
         multiline: true,
         placeholder: '메시지 보내기',
