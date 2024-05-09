@@ -21,14 +21,14 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
             user={userReview.post.user}
             displayAvatar
             displayUsername
-            fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
           />
           <ArrowRightAltIcon className="text-dark-200" />
           <UserProfileRedirectButton
             user={userReview.reviewedUser}
             displayAvatar
             displayUsername
-            fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
           />
           <PostCreatedAt createdAt={userReview.createdAt} />
         </div>

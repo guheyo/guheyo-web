@@ -10,19 +10,18 @@ interface Props {
 
 export default function UserReviewPreviewFooter({ userReview }: Props) {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex flex-row gap-2 items-center">
+    <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row gap-1 md:gap-2 items-center">
         <UserReviewTags
           tags={userReview.post.tags}
           rating={userReview.rating}
         />
       </div>
-      <div className="absolute bottom-4 right-4 md:right-5">
-        <PostAddons
-          reportCount={userReview.post.reportCount}
-          reportCommentCount={userReview.post.reportCommentCount}
-        />
-      </div>
+      <PostAddons
+        reportCount={userReview.post.reportCount}
+        reportCommentCount={userReview.post.reportCommentCount}
+        postCommentCount={userReview.post.commentCount}
+      />
     </div>
   );
 }

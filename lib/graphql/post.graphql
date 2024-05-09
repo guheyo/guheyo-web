@@ -27,6 +27,7 @@ fragment post on PostResponse {
   tags {
     ...tag
   }
+  commentCount
 }
 
 fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
@@ -46,6 +47,7 @@ fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   tags {
     ...tag
   }
+  commentCount
 }
 
 fragment postPreviewWithUser on PostPreviewWithUserResponse {
@@ -68,6 +70,7 @@ fragment postPreviewWithUser on PostPreviewWithUserResponse {
   tags {
     ...tag
   }
+  commentCount
 }
 
 fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
@@ -90,6 +93,7 @@ fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
   tags {
     ...tag
   }
+  commentCount
 }
 
 query findPostPreview(

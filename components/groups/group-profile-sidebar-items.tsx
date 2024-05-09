@@ -2,9 +2,9 @@
 
 import { MouseEventHandler, useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
-import Image from 'next/image';
-import { isMobile } from 'react-device-detect';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import SidebarItem from '../base/sidebar-item';
+import Avatar from '../avatar/avatar';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
@@ -13,6 +13,7 @@ export default function GroupProfileSidebarItems({
   currentGroupId?: string;
   onClick: MouseEventHandler;
 }) {
+  const device = useDeviceDetect();
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
@@ -30,12 +31,10 @@ export default function GroupProfileSidebarItems({
           key={group.node.name}
           href={`/g/${group.node.slug}`}
           icon={
-            <Image
+            <Avatar
+              name={group.node.name}
               src={!group.node.icon ? '/star/star.svg' : group.node.icon}
-              width={isMobile ? 20 : 24}
-              height={isMobile ? 20 : 24}
-              alt={`${group.node.name} logo`}
-              className="rounded-lg"
+              fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
             />
           }
           text={group.node.name}
