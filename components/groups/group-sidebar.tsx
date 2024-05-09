@@ -77,7 +77,7 @@ export default function GroupSidebar({
               isActive={activeItem === ''}
               onClick={handleMenuToggle}
             />
-            <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+            <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
               그룹
             </ListItem>
             <GroupProfileSidebarItems onClick={handleMenuToggle} />
@@ -117,14 +117,14 @@ export default function GroupSidebar({
             isActive={activeItem === ''}
             onClick={handleMenuToggle}
           />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             그룹
           </ListItem>
           <GroupProfileSidebarItems
             currentGroupId={group.id}
             onClick={handleMenuToggle}
           />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             장터
           </ListItem>
           <SidebarItem
@@ -157,7 +157,7 @@ export default function GroupSidebar({
             isActive={activeItem === 'swap'}
             onClick={handleMenuToggle}
           />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pl-4">
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             커뮤니티
           </ListItem>
           <SidebarItem

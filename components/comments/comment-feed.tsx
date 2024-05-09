@@ -10,6 +10,8 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
 import {
   CommentCreatedDocument,
+  CommentDeletedDocument,
+  CommentUpdatedDocument,
   CommentWithAuthorResponse,
   useFindAuthorQuery,
 } from '@/generated/graphql';
@@ -109,6 +111,40 @@ export default function CommentFeed({
     shouldResubscribe: true, // Always resubscribe
   });
 
+  useSubscription(CommentUpdatedDocument, {
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const updatedComment = data.data.commentUpdated;
+      setComments(
+        comments.map((comment) => {
+          if (comment.id === updatedComment.id)
+            return {
+              ...comment,
+              updatedAt: updatedComment.updatedAt,
+              content: updatedComment.content,
+            };
+          return comment;
+        }),
+      );
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
+  useSubscription(CommentDeletedDocument, {
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const deletedComment = data.data.commentDeleted;
+      setComments(
+        comments.filter((comment) => comment.id !== deletedComment.id),
+      );
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref: sentinelRef,
     where,
@@ -130,7 +166,6 @@ export default function CommentFeed({
   }, [commentsLoading, commentsData]);
 
   if (commentsLoading || userLoading) return <div />;
-  if (!comments.length) return <div />;
 
   const user = UserData?.findAuthor;
 
@@ -149,6 +184,7 @@ export default function CommentFeed({
             content={comment.content}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
+            commentReactions={comment.reactions}
             textFieldProps={{
               multiline: true,
               placeholder: '메시지 보내기',
@@ -168,6 +204,7 @@ export default function CommentFeed({
           isCurrentUser
           displayMenu
           defaultMode="create"
+          commentReactions={[]}
           textFieldProps={{
             multiline: true,
             placeholder: '메시지 보내기',

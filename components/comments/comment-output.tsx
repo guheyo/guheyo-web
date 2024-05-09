@@ -7,7 +7,6 @@ import {
   ReactionCanceledDocument,
   ReactionCreatedDocument,
   ReactionResponse,
-  useFindReactionsQuery,
 } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
@@ -25,6 +24,7 @@ export default function CommentOutput({
   updatedAt,
   displayMenu,
   commentId,
+  commentReactions,
   handleMenuClick,
 }: {
   user: AuthorResponse;
@@ -35,18 +35,12 @@ export default function CommentOutput({
   updatedAt?: Date;
   displayMenu: boolean;
   commentId: string;
+  commentReactions: ReactionResponse[];
   handleMenuClick: (mode: CRUD) => void;
 }) {
   const device = useDeviceDetect();
   const [isHovered, setIsHovered] = useState(false);
   const [reactions, setReactions] = useState<ReactionResponse[]>([]);
-
-  const { loading, data: reactionsData } = useFindReactionsQuery({
-    variables: {
-      commentId,
-    },
-    fetchPolicy: 'cache-and-network',
-  });
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -57,10 +51,8 @@ export default function CommentOutput({
   };
 
   useEffect(() => {
-    if (!loading && reactionsData?.findReactions) {
-      setReactions(reactionsData.findReactions);
-    }
-  }, [loading, reactionsData?.findReactions]);
+    setReactions(commentReactions);
+  }, [commentReactions]);
 
   useSubscription(ReactionCreatedDocument, {
     variables: {
