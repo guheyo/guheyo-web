@@ -129,7 +129,7 @@ export default function CommentCard({
     );
   }
 
-  if (!user || !postId || !commentId) return <div />;
+  if (!user || !commentId) return <div />;
   return (
     <CommentOutput
       user={user}
