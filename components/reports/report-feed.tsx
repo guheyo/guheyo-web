@@ -30,7 +30,7 @@ export default function ReportFeed({
 
   const reports = data.findReportPreviews.edges;
   return (
-    <>
+    <div className="grid gap-2 grid-cols-1">
       {reports
         .filter((report) => report.node.reportedUser)
         .map((report) => (
@@ -45,6 +45,6 @@ export default function ReportFeed({
           />
         ))}
       <div ref={ref} />
-    </>
+    </div>
   );
 }

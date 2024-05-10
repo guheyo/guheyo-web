@@ -37,9 +37,7 @@ export default function OfferReport({ slug }: { slug: string }) {
         author={offer.post.user}
         updatedAt={offer.updatedAt}
       />
-      <div className="flex flex-col gap-2">
-        <ReportFeed where={where} orderBy={orderBy} />
-      </div>
+      <ReportFeed where={where} orderBy={orderBy} />
     </div>
   );
 }
