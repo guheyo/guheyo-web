@@ -2,15 +2,9 @@
 
 import { CRUD } from '@/lib/crud/crud.types';
 import { parseCommentDate } from '@/lib/comment/parse-comment-date';
-import {
-  AuthorResponse,
-  ReactionCanceledDocument,
-  ReactionCreatedDocument,
-  ReactionResponse,
-} from '@/generated/graphql';
+import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
-import { useSubscription } from '@apollo/client';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import ReactionBar from '../reaction/reaction-bar';
@@ -29,7 +23,7 @@ export default function CommentOutput({
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
-  postId: string;
+  postId?: string;
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -53,34 +47,6 @@ export default function CommentOutput({
   useEffect(() => {
     setReactions(commentReactions);
   }, [commentReactions]);
-
-  useSubscription(ReactionCreatedDocument, {
-    variables: {
-      type: 'comment',
-      postId,
-    },
-    onData: ({ data }) => {
-      const newReaction = data.data.reactionCreated;
-      if (newReaction.commentId === commentId) {
-        setReactions((prevReactions) => [...prevReactions, newReaction]);
-      }
-    },
-    shouldResubscribe: true,
-  });
-
-  useSubscription(ReactionCanceledDocument, {
-    variables: {
-      type: 'comment',
-      postId,
-    },
-    onData: ({ data }) => {
-      const canceledReaction = data.data.reactionCanceled;
-      setReactions((prevReactions) =>
-        prevReactions.filter((reaction) => reaction.id !== canceledReaction.id),
-      );
-    },
-    shouldResubscribe: true,
-  });
 
   return (
     <div
@@ -110,13 +76,15 @@ export default function CommentOutput({
         <div className="flex text-xs md:text-sm text-dark-100 font-thin">
           {content}
         </div>
-        <div className="pt-1 ml-[-10px]">
-          <ReactionBar
-            postId={postId}
-            commentId={commentId}
-            reactions={reactions}
-          />
-        </div>
+        {postId && (
+          <div className="pt-1 ml-[-10px]">
+            <ReactionBar
+              postId={postId}
+              commentId={commentId}
+              reactions={reactions}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

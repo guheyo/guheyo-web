@@ -30,8 +30,6 @@ export default function OfferPreviewHeader({ offer }: Props) {
         offerStatus={offer.status as OfferStatus}
         userId={offer.post.user.id}
         privateOnly
-        reportCount={offer.post.reportCount}
-        reportCommentCount={offer.post.reportCommentCount}
         archivedAt={offer.post.archivedAt}
       />
     </div>

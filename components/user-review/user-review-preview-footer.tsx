@@ -17,11 +17,7 @@ export default function UserReviewPreviewFooter({ userReview }: Props) {
           rating={userReview.rating}
         />
       </div>
-      <PostAddons
-        reportCount={userReview.post.reportCount}
-        reportCommentCount={userReview.post.reportCommentCount}
-        postCommentCount={userReview.post.commentCount}
-      />
+      <PostAddons postCommentCount={userReview.post.commentCount} />
     </div>
   );
 }
