@@ -9,7 +9,6 @@ fragment post on PostResponse {
   slug
   thumbnail
   reportCount
-  reportCommentCount
   images {
     ...image
   }
@@ -42,8 +41,6 @@ fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   thumbnail
   groupId
   categoryId
-  reportCount
-  reportCommentCount
   tags {
     ...tag
   }
@@ -62,8 +59,6 @@ fragment postPreviewWithUser on PostPreviewWithUserResponse {
   thumbnail
   groupId
   categoryId
-  reportCount
-  reportCommentCount
   user {
     ...user
   }
@@ -85,8 +80,6 @@ fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
   thumbnail
   groupId
   categoryId
-  reportCount
-  reportCommentCount
   user {
     ...author
   }

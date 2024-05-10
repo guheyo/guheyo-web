@@ -6,7 +6,6 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { OfferResponse } from '@/generated/graphql';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
-import { OFFER } from '@/lib/offer/offer.constants';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import OfferDetailBumpedAt from './offer-detail-bumped-at';
@@ -36,19 +35,12 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             postId={offer.post.id}
             offerStatus={offer.status as OfferStatus}
             userId={offer.post.user.id}
-            reportCount={offer.post.reportCount}
-            reportCommentCount={offer.post.reportCommentCount}
             archivedAt={offer.post.archivedAt}
           />
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        <ReportsLink
-          reportCount={offer.post.reportCount}
-          reportCommentCount={offer.post.reportCommentCount}
-          type={OFFER}
-          slug={offer.post.slug!}
-        />
+        <ReportsLink reportCount={offer.post.reportCount} />
         <OfferDetailName
           offerStatus={offer.status as OfferStatus}
           name0={offer.name0!}

@@ -35,14 +35,16 @@ export default function Page({
             offer={report.version.values}
             post={report.reportedPost}
           />
-          <ReportCard
-            reportId={report.id}
-            reason={report.reason}
-            description={report.description}
-            createdAt={report.createdAt}
-            reportedUser={report.reportedUser}
-            type={report.type}
-          />
+          <div className="px-2 md:px-0">
+            <ReportCard
+              reportId={report.id}
+              reason={report.reason}
+              description={report.description}
+              createdAt={report.createdAt}
+              reportedUser={report.reportedUser}
+              type={report.type}
+            />
+          </div>
         </div>
       );
     }
