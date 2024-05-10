@@ -12,6 +12,7 @@ import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import Avatar from '../avatar/avatar';
+import NoCommentOutput from './no-comment-output';
 
 export default function CommentCard({
   user,
@@ -129,7 +130,12 @@ export default function CommentCard({
     );
   }
 
-  if (!user || !commentId) return <div />;
+  if (!user) return <div />;
+
+  if (!commentId) {
+    return <NoCommentOutput user={user} />;
+  }
+
   return (
     <CommentOutput
       user={user}
