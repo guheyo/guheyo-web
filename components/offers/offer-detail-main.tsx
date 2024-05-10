@@ -36,8 +36,6 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             postId={offer.post.id}
             offerStatus={offer.status as OfferStatus}
             userId={offer.post.user.id}
-            reportCount={offer.post.reportCount}
-            reportCommentCount={offer.post.reportCommentCount}
             archivedAt={offer.post.archivedAt}
           />
         </div>
@@ -45,7 +43,6 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
         <ReportsLink
           reportCount={offer.post.reportCount}
-          reportCommentCount={offer.post.reportCommentCount}
           type={OFFER}
           slug={offer.post.slug!}
         />
