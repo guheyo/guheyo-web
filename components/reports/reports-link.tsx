@@ -1,27 +1,12 @@
 import WarningIcon from '@mui/icons-material/Warning';
 import { useRouter } from 'next/navigation';
-import { parseReportFeedLink } from '@/lib/report/parse-report-feed-link';
-import { ReportFeedType } from '@/lib/report/report.types';
 
-export default function ReportsLink({
-  reportCount,
-  type,
-  slug,
-}: {
-  reportCount: number;
-  type: ReportFeedType;
-  slug: string;
-}) {
+export default function ReportsLink({ reportCount }: { reportCount: number }) {
   const router = useRouter();
   if (!reportCount) return <div />;
 
   const handleClick = () => {
-    router.push(
-      parseReportFeedLink({
-        type,
-        slug,
-      }),
-    );
+    router.push('#report');
   };
 
   return (
