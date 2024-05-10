@@ -7,7 +7,6 @@ import {
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import { ReportType } from '@/lib/report/report.types';
-import { useSearchParams } from 'next/navigation';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
@@ -18,15 +17,10 @@ export default function ReportFeed({
   orderBy: FindReportPreviewsOrderByArgs;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type') || undefined;
 
   const { loading, data } = useInfiniteReports({
     ref,
-    where: {
-      ...where,
-      type,
-    },
+    where,
     orderBy,
     take: 10,
   });
