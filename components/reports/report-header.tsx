@@ -1,20 +1,20 @@
 import { AuthorResponse } from '@/generated/graphql';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
 export default function ReportHeader({
-  name,
-  price,
+  title,
   author,
   updatedAt,
 }: {
-  name: string;
-  price: number;
+  title: string;
   author: AuthorResponse;
   updatedAt: Date;
 }) {
   const router = useRouter();
+  const device = useDeviceDetect();
 
   const handleClick = () => {
     router.back();
@@ -22,17 +22,18 @@ export default function ReportHeader({
 
   return (
     <button type="button" onClick={handleClick}>
-      <div className="flex flex-col gap-4 px-4 py-4 bg-dark-400 rounded w-full">
+      <div className="flex flex-col gap-4 items-start">
         <UserProfileRedirectButton
           user={author}
           displayAvatar
           displayUsername
-          mode="standard"
+          fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
         />
-        <div className="grid grid-cols-1 gap-1 justify-items-start">
-          <div className="text-light-200 text-base font-semibold">{name}</div>
-          <div className="text-light-200 text-sm font-normal">{price}원</div>
-          <div className="text-dark-200 text-sm font-normal">
+        <div className="flex flex-row gap-2 items-center">
+          <div className="flex-1 text-gray-300 text-base font-semibold">
+            {title}
+          </div>
+          <div className="felx-none text-dark-200 text-sm font-normal">
             최근 수정 : {dayjs(updatedAt).fromNow()}
           </div>
         </div>

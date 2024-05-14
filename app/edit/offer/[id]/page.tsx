@@ -1,8 +1,8 @@
 'use client';
 
-import EditDealForm from '@/components/write/edit-deal-form';
+import EditOfferForm from '@/components/write/edit-offer-form';
 import { useFindOfferQuery } from '@/generated/graphql';
-import { parsePrevOfferFormValues } from '@/lib/deal/parse-prev-form-values';
+import { parsePrevOfferFormValues } from '@/lib/offer/parse-prev-form-values';
 
 export default function Page({
   params: { id },
@@ -23,5 +23,5 @@ export default function Page({
 
   const prevFormValues = parsePrevOfferFormValues(data.findOffer);
 
-  return <EditDealForm prevFormValues={prevFormValues} />;
+  return <EditOfferForm prevFormValues={prevFormValues} />;
 }

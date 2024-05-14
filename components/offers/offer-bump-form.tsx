@@ -1,76 +1,183 @@
 'use client';
 
-import { BumpOfferInput, useFindOfferQuery } from '@/generated/graphql';
-import { SubmitHandler } from 'react-hook-form';
-import { bumpOffer } from '@/lib/api/offer';
-import { DealBumpValues } from '@/lib/deal/deal.interfaces';
-import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
-import { validateCooldown } from '@/lib/date/validate-cooldown';
-import { parseDealTermAlertMessage } from '@/lib/deal/parse-deal-term-alert-message';
-import { isPostingLimitExceededError } from '@/lib/deal/is-posting-limit-exceeded-error';
-import DealBumpForm from '../deals/deal-bump-form';
-import { AuthContext } from '../auth/auth.provider';
-import AlertDialog from '../base/alert-dialog';
+import {
+  FieldPath,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
+import {
+  ABSOLUTE_SUBMIT_BUTTON_STYLE,
+  DEFAULT_LABEL_STYLE,
+} from '@/lib/input/input.styles';
+import {
+  DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+  DEFAULT_INPUT_TEXT_COLOR,
+} from '@/lib/input/input.colors';
+import {
+  getInputTextFontSize,
+  getInputTextMinWidth,
+} from '@/lib/input/input.props';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { MouseEventHandler, WheelEventHandler } from 'react';
+import Image from 'next/image';
+import { v4 as uuid4 } from 'uuid';
+import { parseOfferBumpFormTitle } from '@/lib/offer/parse-offer-bump-form-title';
+import { parseOfferPriceName } from '@/lib/offer/parse-offer-price-name';
+import { BumpFormValues } from '@/lib/offer/offer.interfaces';
+import { BusinessFunction } from '@/lib/offer/offer.types';
+import {
+  OFFER_BUMP_INFO_MESSAGE,
+  OFFER_PRICE_REQUIRED_MESSAGE,
+} from '@/lib/offer/offer.constants';
+import { parseOfferBumpButtonName } from '@/lib/offer/parse-offer-bump-button-name';
+import TextInput from '../inputs/text-input';
+import DiscordLoginDialog from '../auth/discord-login-dialog';
+import PriceUpDownButtons, {
+  UP_DOWN_PRICE_UNIT,
+} from './price-up-down-buttons';
 
-export default function OfferBumpForm({ id }: { id: string }) {
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const { jwtPayload } = useContext(AuthContext);
-  const { loading, data } = useFindOfferQuery({
-    variables: {
-      id,
-    },
-    fetchPolicy: 'cache-and-network',
-  });
-  const offer = data?.findOffer;
+export default function OfferBumpForm({
+  businessFunction,
+  offerId,
+  title,
+  price,
+  thumbnail,
+  bumpedAt,
+  handleSubmitValid,
+}: {
+  businessFunction: BusinessFunction;
+  offerId: string;
+  title: string;
+  price: number;
+  thumbnail?: string;
+  bumpedAt: Date;
+  handleSubmitValid: SubmitHandler<BumpFormValues>;
+}) {
+  const device = useDeviceDetect();
 
-  if (loading) return <div />;
-  if (!offer) return <div />;
+  const { handleSubmit, control, setValue, getValues } =
+    useForm<BumpFormValues>({
+      defaultValues: {
+        id: uuid4(),
+        offerId,
+        price,
+      },
+    });
 
-  const handleSubmitValid: SubmitHandler<DealBumpValues> = async (values) => {
-    if (!jwtPayload) return;
-    if (!validateCooldown(offer.bumpedAt)) return;
-
-    const input: BumpOfferInput = {
-      id: values.id,
-      offerId: values.dealId,
-      sellerId: jwtPayload.id,
-      newPrice: values.price,
-    };
-
-    try {
-      await bumpOffer(input);
-      router.back();
-    } catch (e: any) {
-      if (isPostingLimitExceededError(e.message)) {
-        const message = parseDealTermAlertMessage({
-          dealType: 'offer',
-          productCategoryName: offer.productCategory.name,
-        });
-        setAlertMessage(message);
-        setOpen(true);
-      }
-    }
+  const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(
+      e.target.name as FieldPath<BumpFormValues>,
+      parseInt(e.target.value, 10),
+    );
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleSubmitError: SubmitErrorHandler<BumpFormValues> = (
+    errors,
+    event,
+  ) => {
+    // TODO
+  };
+
+  const handleAuthorization: MouseEventHandler = () => {
+    // Do nothing
+  };
+
+  const handleOnAuthorization: MouseEventHandler = (e) => {
+    e.preventDefault();
+  };
+
+  const handleUpButtonClick: MouseEventHandler = (e) => {
+    const currentPrice = getValues('price');
+    setValue('price', currentPrice + UP_DOWN_PRICE_UNIT);
+  };
+
+  const handleDownButtonClick: MouseEventHandler = (e) => {
+    const currentPrice = getValues('price');
+    setValue('price', currentPrice - UP_DOWN_PRICE_UNIT);
+  };
+
+  const handleWheel: WheelEventHandler = (e) => {
+    (e.target as HTMLElement).blur();
   };
 
   return (
-    <>
-      <DealBumpForm
-        dealType="offer"
-        dealId={offer.id}
-        dealName={offer.name}
-        price={offer.price}
-        thumbnail={offer.images[0]}
-        bumpedAt={offer.bumpedAt}
-        handleSubmitValid={handleSubmitValid}
-      />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
-    </>
+    <form
+      className="flex flex-col gap-12"
+      onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
+    >
+      <div className="text-xl text-gray-300 font-bold">
+        {parseOfferBumpFormTitle(businessFunction)}
+      </div>
+      <div className="flex flex-row gap-2 items-center">
+        {thumbnail ? (
+          <Image
+            src={thumbnail}
+            alt={title}
+            width={48}
+            height={48}
+            className="rounded"
+          />
+        ) : (
+          <div />
+        )}
+        <div className="flex flex-col">
+          <div className="text-sm text-gray-300">{title}</div>
+          <div className="text-base text-gray-300 font-bold">{price}</div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 md-0 md:mb-8">
+        <TextInput
+          name="price"
+          control={control}
+          rules={{
+            required: OFFER_PRICE_REQUIRED_MESSAGE,
+            pattern: {
+              value: /^\d+$/,
+              message: OFFER_PRICE_REQUIRED_MESSAGE,
+            },
+          }}
+          textInputProps={{
+            label: {
+              name: parseOfferPriceName(businessFunction),
+              style: DEFAULT_LABEL_STYLE,
+            },
+            onChange: onChangeNumberInput,
+          }}
+          textFieldProps={{
+            type: 'number',
+            variant: 'outlined',
+            placeholder: parseOfferPriceName(businessFunction),
+            InputProps: {
+              startAdornment: <div className="pr-2">₩</div>,
+              sx: {
+                color: DEFAULT_INPUT_TEXT_COLOR,
+                borderRadius: 2,
+                fontSize: getInputTextFontSize(device),
+                backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                fontWeight: 600,
+                minWidth: getInputTextMinWidth(device),
+              },
+            },
+            onWheel: handleWheel,
+          }}
+        />
+        <PriceUpDownButtons
+          handleUpButtonClick={handleUpButtonClick}
+          handleDownButtonClick={handleDownButtonClick}
+        />
+        <div className="text-base text-gray-300 font-bold">
+          {OFFER_BUMP_INFO_MESSAGE}
+        </div>
+      </div>
+
+      <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
+        <DiscordLoginDialog
+          name={parseOfferBumpButtonName(bumpedAt)}
+          onAuthorization={handleAuthorization}
+          onUnAuthorization={handleOnAuthorization}
+        />
+      </div>
+    </form>
   );
 }

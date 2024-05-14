@@ -1,4 +1,3 @@
-import { Device } from '@/hooks/use-device-detect';
 import { CreateUserImageInput } from '@/generated/graphql';
 import { UserImage } from './image.interfaces';
 
@@ -6,17 +5,15 @@ const parseCreateUserImageInput = ({
   file,
   userImage,
   type,
-  userId,
   refId,
-  device,
+  userId,
   url,
 }: {
   file: File;
   userImage: UserImage;
   type: string;
-  userId: string;
   refId: string;
-  device: Device;
+  userId: string;
   url: string;
 }): CreateUserImageInput => ({
   contentType: file.type,
@@ -25,9 +22,8 @@ const parseCreateUserImageInput = ({
   id: userImage.id,
   position: userImage.position,
   type,
-  userId,
   refId,
-  source: device as string,
+  userId,
   url,
 });
 

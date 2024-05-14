@@ -5,7 +5,7 @@ import { useDebounce } from 'use-debounce';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
-import DealSelectors from '../selectors/deal-selectors';
+import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
 
 export default function SearchProducts() {
@@ -33,7 +33,7 @@ export default function SearchProducts() {
         <CategoriesNavbar hideSelector />
       </div>
       <div className="pt-4">
-        <DealSelectors />
+        <OfferSelectors />
       </div>
       <div className="pt-4">
         <ProductSearchResults keyword={keyword} />

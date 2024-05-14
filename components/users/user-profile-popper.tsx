@@ -6,7 +6,8 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuthorResponse } from '@/generated/graphql';
 import { getSocialID } from '@/lib/user/get-discord-id';
 import { parseDiscordDmLink } from '@/lib/discord/parse-discord-dm-link';
-import UserAvatar from './user-avatar';
+import { FontSize } from '@/lib/font/font.types';
+import Avatar from '../avatar/avatar';
 import Roles from './roles';
 import SocialJoinDates from '../socials/social-join-dates';
 import DmDialog from '../dm/dm-dialog';
@@ -18,13 +19,13 @@ export default function UserProfilePopper({
   displayAvatar,
   displayUsername,
   displayDM,
-  mode,
+  fontSize,
 }: {
   user: AuthorResponse;
   displayAvatar: boolean;
   displayUsername: boolean;
   displayDM: boolean;
-  mode: 'light' | 'standard';
+  fontSize: FontSize;
 }) {
   const device = useDeviceDetect();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -45,10 +46,10 @@ export default function UserProfilePopper({
         {device === 'mobile' && (
           <div className="flex gap-2 items-center font-medium text-base">
             {displayAvatar && (
-              <UserAvatar
-                username={user.username}
-                avatarURL={user.avatarURL || undefined}
-                size={mode === 'standard' ? 'sm' : 'xs'}
+              <Avatar
+                name={user.username}
+                src={user.avatarURL}
+                fontSize={fontSize}
               />
             )}
             {displayUsername && <Username user={user} />}
@@ -57,10 +58,10 @@ export default function UserProfilePopper({
         {device === 'browser' && (
           <div className="flex gap-3 items-center font-medium text-lg">
             {displayAvatar && (
-              <UserAvatar
-                username={user.username}
-                avatarURL={user.avatarURL || undefined}
-                size="sm"
+              <Avatar
+                name={user.username}
+                src={user.avatarURL}
+                fontSize={fontSize}
               />
             )}
             {displayUsername && <Username user={user} />}
@@ -74,10 +75,10 @@ export default function UserProfilePopper({
       >
         <div className="max-w-xs bg-light-200 p-4 rounded-lg">
           <div className="mb-2 flex items-center justify-between gap-4">
-            <UserAvatar
-              username={user.username}
-              avatarURL={user.avatarURL || undefined}
-              size="md"
+            <Avatar
+              name={user.username}
+              src={user.avatarURL}
+              fontSize={fontSize}
             />
             {displayDM && (
               <DmDialog
@@ -107,9 +108,7 @@ export default function UserProfilePopper({
             </div>
             <div className="mt-1">
               <div className="font-semibold">역할</div>
-              {user.members.map((member) => (
-                <Roles key={member.id} roles={member.roles} />
-              ))}
+              <Roles key={user.id} roles={user.roles} />
             </div>
           </Typography>
         </div>

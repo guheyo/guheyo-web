@@ -36,7 +36,7 @@ export default function ReportsAlertDialog({ user }: { user: MyUserResponse }) {
       </button>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
-          <DialogContentText className="text-base md:text-lg text-dark-500 font-medium">
+          <DialogContentText className="text-sm md:text-base text-dark-500 font-medium">
             [신고 알림]
             <br />
             {`${user.username}`}님에게 신고가 접수되었어요

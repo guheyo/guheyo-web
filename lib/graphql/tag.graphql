@@ -1,0 +1,13 @@
+fragment tag on TagResponse {
+  id
+  type
+  name
+  description
+  position
+}
+
+query findTags {
+  findTags {
+    ...tag
+  }
+}

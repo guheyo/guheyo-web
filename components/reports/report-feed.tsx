@@ -6,6 +6,7 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { ReportType } from '@/lib/report/report.types';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
@@ -29,21 +30,19 @@ export default function ReportFeed({
 
   const reports = data.findReportPreviews.edges;
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="grid gap-2 grid-cols-1">
       {reports
         .filter((report) => report.node.reportedUser)
         .map((report) => (
-          <div key={report.node.id} className="flex flex-col gap-2">
-            <ReportCard
-              id={report.node.id}
-              title={report.node.title}
-              content={report.node.content}
-              createdAt={report.node.createdAt}
-              reportedUser={report.node.reportedUser!}
-              type={report.node.type}
-              refVersionId={report.node.refVersionId}
-            />
-          </div>
+          <ReportCard
+            key={report.node.id}
+            reportId={report.node.id}
+            reason={report.node.reason}
+            description={report.node.description}
+            createdAt={report.node.createdAt}
+            reportedUser={report.node.reportedUser}
+            type={report.node.type as ReportType}
+          />
         ))}
       <div ref={ref} />
     </div>

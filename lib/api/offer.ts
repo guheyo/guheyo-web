@@ -7,9 +7,6 @@ import {
   CreateOfferMutation,
   DeleteOfferDocument,
   DeleteOfferMutation,
-  FindOfferCountDocument,
-  FindOfferCountQuery,
-  QueryFindOfferCountArgs,
   UpdateOfferDocument,
   UpdateOfferInput,
   UpdateOfferMutation,
@@ -34,12 +31,11 @@ export async function updateOffer(input: UpdateOfferInput) {
   });
 }
 
-export async function deleteOffer(id: string, sellerId: string) {
+export async function deleteOffer(id: string) {
   return client.mutate<DeleteOfferMutation>({
     mutation: DeleteOfferDocument,
     variables: {
       id,
-      sellerId,
     },
   });
 }
@@ -49,15 +45,6 @@ export async function bumpOffer(input: BumpOfferInput) {
     mutation: BumpOfferDocument,
     variables: {
       input,
-    },
-  });
-}
-
-export async function findOfferCount(args: QueryFindOfferCountArgs) {
-  return client.query<FindOfferCountQuery>({
-    query: FindOfferCountDocument,
-    variables: {
-      ...args,
     },
   });
 }

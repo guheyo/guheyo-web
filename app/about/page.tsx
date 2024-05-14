@@ -39,13 +39,13 @@ export default async function Page() {
         </div>
       </Scrollbar>
       <div className="z-0 pt-16 px-4 mb-24 text-sm md:text-base">
-        <div className="flex flex-col max-w-2xl gap-8 md:gap-8">
+        <div className="flex flex-col gap-8 md:gap-8">
           <div id="guheyo" className="flex flex-col gap-4">
             <div className="flex items-center justify-center">
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">소개</div>
               </button>
@@ -70,7 +70,7 @@ export default async function Page() {
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">기술 스택</div>
               </button>
@@ -97,7 +97,7 @@ export default async function Page() {
               <button
                 type="button"
                 disabled
-                className="max-w-sm rounded p-1 overflow-hidden shadow-sm bg-black text-white"
+                className="max-w-sm rounded p-1 overflow-hidden shadow-sm text-gray-300"
               >
                 <div className="font-bold">팀</div>
               </button>

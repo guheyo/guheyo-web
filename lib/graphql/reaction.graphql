@@ -1,0 +1,58 @@
+fragment reaction on ReactionResponse {
+  id
+  createdAt
+  updatedAt
+  canceledAt
+  emoji {
+    ...emoji
+  }
+  userId
+  postId
+  commentId
+}
+
+mutation CreateReaction($input: CreateReactionInput!) {
+  createReaction(input: $input)
+}
+
+mutation CancelReaction($input: CancelReactionInput!) {
+  cancelReaction(input: $input)
+}
+
+query findReactions(
+  $postId: ID
+  $commentId: ID
+) {
+  findReactions(
+    postId: $postId
+    commentId: $commentId
+  ) {
+    ...reaction
+  }
+}
+
+subscription ReactionCreated(
+  $type: String!
+  $postId: ID!
+) {
+  reactionCreated(
+    type: $type
+    postId: $postId
+  ) {
+    ...reaction
+  }
+}
+
+subscription ReactionCanceled(
+  $type: String!
+  $postId: ID!
+) {
+  reactionCanceled(
+    type: $type
+    postId: $postId
+  ) {
+    id
+    postId
+    commentId
+  }
+}

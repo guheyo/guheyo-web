@@ -1,5 +1,6 @@
 'use client';
 
+import GroupBottomNavbar from '@/components/groups/group-bottom-navbar';
 import GroupHeader from '@/components/groups/group-header';
 
 export default function Layout({
@@ -13,10 +14,13 @@ export default function Layout({
 }) {
   return (
     <div>
-      <div className="pt-4 pb-2 px-2 md:px-0 mt-0 md:mt-2">
+      <div className="pt-4 pb-2 px-2 md:px-0">
         <GroupHeader slug={params.groupSlug} />
       </div>
       {children}
+      <div className="lg:hidden">
+        <GroupBottomNavbar groupSlug={params.groupSlug} />
+      </div>
     </div>
   );
 }
