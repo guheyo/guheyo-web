@@ -4,6 +4,7 @@ import { useGroup } from '@/hooks/use-group';
 import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function WriteButton() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function WriteButton() {
 
   const handleOnClick = (): void => {
     setLoading(true);
-    router.push(`/write/g/${slug}/market`);
+    router.push(`/write/g/${slug}/offer`);
     setLoading(false);
   };
 
@@ -25,11 +26,21 @@ export default function WriteButton() {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="bg-star-500 hover:bg-star-400 text-xs md:text-sm font-bold p-2 rounded text-light-200"
+        className="text-xs md:text-sm font-bold text-gray-300"
+        sx={{
+          padding: '6px', // Add padding to match IconButton size
+          minWidth: 0, // Set minimum width to 0
+          width: 'auto', // Adjust width dynamically
+          borderRadius: '50%', // Make the button circular
+          overflow: 'hidden', // Hide overflow content (if any)
+          '&:hover': {
+            backgroundColor: 'transparent', // Match IconButton hover effect
+          },
+        }}
         name={`${slug} 그룹 장터에서 글쓰기`}
         onClick={handleOnClick}
       >
-        글쓰기
+        <AddIcon className="text-2xl" />
       </LoadingButton>
     </div>
   );

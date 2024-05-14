@@ -1,7 +1,9 @@
+import { ReportFeedType } from './report.types';
+
 export const parseReportFeedLink = ({
   type,
   slug,
 }: {
-  type: string;
+  type: ReportFeedType;
   slug: string;
-}) => `/${type}/${slug}/report`;
+}) => `/${type}/${decodeURI(slug)}/report`;

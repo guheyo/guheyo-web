@@ -5,6 +5,7 @@ import { useDebounce } from 'use-debounce';
 import SearchInput from './search-input';
 import GroupProfiles from '../groups/group-profiles';
 import { DEBOUNCE } from './search.constants';
+import InfoFeedLayout from '../info/info-feed-layout';
 
 export default function SearchGroups() {
   const [text, setText] = useState('');
@@ -19,7 +20,7 @@ export default function SearchGroups() {
   };
 
   return (
-    <div className="grid gap-8 max-w-4xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}
@@ -27,7 +28,9 @@ export default function SearchGroups() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <GroupProfiles keyword={keyword} />
+      <InfoFeedLayout>
+        <GroupProfiles keyword={keyword} />
+      </InfoFeedLayout>
     </div>
   );
 }

@@ -2,12 +2,37 @@ fragment comment on CommentResponse {
   id
   createdAt
   updatedAt
-  type
   parentId
   postId
-  reportId
-  auctionId
   content
+  reactions {
+    ...reaction
+  }
+}
+
+fragment commentWithAuthor on CommentWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  user {
+    ...author
+  }
+  reactions {
+    ...reaction
+  }
+}
+
+fragment updatedCommentResponse on UpdatedCommentResponse {
+  id
+  updatedAt
+  content
+}
+
+fragment deletedCommentResponse on DeletedCommentResponse {
+  id
 }
 
 mutation CreateComment($input: CreateCommentInput!) {
@@ -15,21 +40,68 @@ mutation CreateComment($input: CreateCommentInput!) {
 }
 
 mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input) {
-    ...comment
-  }
+  updateComment(input: $input)
+}
+
+mutation DeleteComment($input: DeleteCommentInput!) {
+  deleteComment(input: $input)
 }
 
 query FindComment(
   $id: ID
-  $type: String
-  $refId: ID
+  $postId: ID
 ) {
   findComment(
     id: $id
-    type: $type
-    refId: $refId
+    postId: $postId
   ) {
     ...comment
+  }
+}
+
+query findComments(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findComments(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...commentWithAuthor
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+subscription CommentCreated($postId: ID!) {
+  commentCreated(postId: $postId) {
+    ...commentWithAuthor
+  }
+}
+
+subscription CommentUpdated($postId: ID!) {
+  commentUpdated(postId: $postId) {
+    ...updatedCommentResponse
+  }
+}
+
+subscription CommentDeleted($postId: ID!) {
+  commentDeleted(postId: $postId) {
+    ...deletedCommentResponse
   }
 }

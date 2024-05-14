@@ -6,18 +6,6 @@ fragment role on RoleResponse {
   groupId
 }
 
-fragment member on MemberWithRolesResponse {
-  id
-  createdAt
-  userId
-  group {
-    ...groupProfile
-  }
-  roles {
-    ...role
-  }
-}
-
 fragment user on UserResponse {
   id
   createdAt
@@ -37,8 +25,8 @@ fragment author on AuthorResponse {
   socialAccounts {
     ...socialAccountWithoutAuth
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
 
@@ -54,18 +42,17 @@ fragment myUser on MyUserResponse {
   socialAccounts {
     ...socialAccount
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
 
 query findUser(
   $provider: String
   $socialId: String
-  $sessionToken: String
   $username: String
 ) {
-  findUser(provider: $provider, socialId: $socialId, sessionToken: $sessionToken, username: $username) {
+  findUser(provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }
@@ -85,6 +72,35 @@ query findAuthor(
 query findMyUser {
   findMyUser {
     ...myUser
+  }
+}
+
+query findUsers(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findUsers(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }
 

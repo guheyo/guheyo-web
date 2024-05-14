@@ -1,38 +1,14 @@
 'use client';
 
-import { useFindOfferQuery } from '@/generated/graphql';
-import { DealStatus } from '@/lib/deal/deal.types';
-import DealDetail from '../deals/deal-detail';
+import { OfferResponse } from '@/generated/graphql';
+import PostDetail from '../posts/post-detail';
+import OfferDetailMain from './offer-detail-main';
 
-export default function OfferDetail({ slug }: { slug: string }) {
-  const { loading, data } = useFindOfferQuery({
-    variables: {
-      slug: decodeURI(slug),
-    },
-    fetchPolicy: 'cache-and-network',
-  });
-
-  if (loading) return <div />;
-  if (!data?.findOffer) return <div />;
-  const offer = data.findOffer;
-
+export default function OfferDetail({ offer }: { offer: OfferResponse }) {
   return (
-    <DealDetail
-      id={offer.id}
-      dealType="offer"
-      dealStatus={offer.status as DealStatus}
-      name0={offer.name}
-      slug={offer.slug!}
-      price={offer.price}
-      shippingCost={offer.shippingCost}
-      shippingType={offer.shippingType}
-      description={offer.description}
-      bumpedAt={offer.bumpedAt}
-      author={offer.seller}
-      images={offer.images}
-      reportCount={offer.reportCount}
-      reportCommentCount={offer.reportCommentCount}
-      isHidden={offer.isHidden}
+    <PostDetail
+      images={offer.post.images}
+      postDetailMain={<OfferDetailMain offer={offer} />}
     />
   );
 }

@@ -1,0 +1,48 @@
+'use client';
+
+import { MouseEventHandler, useRef } from 'react';
+import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
+import SidebarItem from '../base/sidebar-item';
+import Avatar from '../avatar/avatar';
+
+export default function GroupProfileSidebarItems({
+  currentGroupId,
+  onClick,
+}: {
+  currentGroupId?: string;
+  onClick: MouseEventHandler;
+}) {
+  const device = useDeviceDetect();
+  const ref = useRef<HTMLDivElement>(null);
+  const { loading, data } = useInfiniteGroupProfiles({
+    ref,
+    take: 3,
+  });
+
+  if (loading) return <div />;
+  if (!data?.findGroupProfiles) return <div />;
+
+  const groups = data.findGroupProfiles.edges;
+  return (
+    <>
+      {groups.map((group) => (
+        <SidebarItem
+          key={group.node.name}
+          href={`/g/${group.node.slug}`}
+          icon={
+            <Avatar
+              name={group.node.name}
+              src={!group.node.icon ? '/star/star.svg' : group.node.icon}
+              fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
+            />
+          }
+          text={group.node.name}
+          isActive={currentGroupId === group.node.id}
+          onClick={onClick}
+        />
+      ))}
+      <div ref={ref} />
+    </>
+  );
+}
