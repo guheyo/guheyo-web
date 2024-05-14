@@ -7,7 +7,7 @@ function Page({
     slug: string;
   };
 }) {
-  return <div>Offer Reviews</div>;
+  return <div />;
 }
 
 export default Page;
