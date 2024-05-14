@@ -1,4 +1,4 @@
-import { parsePrice } from '../deal/parse-price';
+import { parsePrice } from '../offer/parse-price';
 import { ShippingType } from './shipping.types';
 
 export const parseShippingCost = ({

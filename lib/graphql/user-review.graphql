@@ -1,0 +1,80 @@
+fragment userReviewPreview on UserReviewPreviewResponse {
+  post {
+    ...postPreviewWithAuthor
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+
+fragment userReview on UserReviewResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+
+query findUserReviewPreviews(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findUserReviewPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...userReviewPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query findUserReview(
+  $id: ID
+  $slug: String
+) {
+  findUserReview(
+    id: $id
+    slug: $slug
+  ) {
+    ...userReview
+  }
+}
+
+mutation createUserReview($input: CreateUserReviewInput!) {
+  createUserReview(input: $input)
+}

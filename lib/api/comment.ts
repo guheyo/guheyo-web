@@ -2,6 +2,9 @@ import {
   CreateCommentDocument,
   CreateCommentInput,
   CreateCommentMutation,
+  DeleteCommentDocument,
+  DeleteCommentInput,
+  DeleteCommentMutation,
   UpdateCommentDocument,
   UpdateCommentInput,
   UpdateCommentMutation,
@@ -20,6 +23,15 @@ export async function createComment(input: CreateCommentInput) {
 export async function updateComment(input: UpdateCommentInput) {
   return client.mutate<UpdateCommentMutation>({
     mutation: UpdateCommentDocument,
+    variables: {
+      input,
+    },
+  });
+}
+
+export async function deleteComment(input: DeleteCommentInput) {
+  return client.mutate<DeleteCommentMutation>({
+    mutation: DeleteCommentDocument,
     variables: {
       input,
     },

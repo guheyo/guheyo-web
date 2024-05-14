@@ -2,8 +2,8 @@ import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { RefObject } from 'react';
 import {
   FindOffersWhereArgs,
-  FindDealsOrderByArgs,
-} from '@/interfaces/deal.interfaces';
+  FindOffersOrderByArgs,
+} from '@/interfaces/offer.interfaces';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteOfferFeed = ({
@@ -16,7 +16,7 @@ export const useInfiniteOfferFeed = ({
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindOffersWhereArgs;
-  orderBy?: FindDealsOrderByArgs;
+  orderBy?: FindOffersOrderByArgs;
   keyword?: string;
   distinct?: boolean;
   take: number;
@@ -26,7 +26,6 @@ export const useInfiniteOfferFeed = ({
       where,
       orderBy,
       keyword,
-      distinct,
       take,
       skip: 0,
     },
@@ -41,7 +40,6 @@ export const useInfiniteOfferFeed = ({
           where,
           orderBy,
           keyword,
-          distinct,
           cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,
           skip: 1,

@@ -8,7 +8,7 @@ export const parseCommentDate = ({
   updatedAt?: Date;
 }) =>
   createdAt && updatedAt
-    ? `${dayjs(updatedAt).fromNow()} ${
+    ? `${dayjs(createdAt).fromNow()} ${
         createdAt !== updatedAt ? '(수정됨)' : ''
       }`
     : undefined;

@@ -28,23 +28,23 @@ export default function AccordionInput<
     <div>
       {reportReasons.map((reason, index) => (
         <Accordion
-          key={reason.title}
-          className="text-light-200 text-sm md:text-base bg-dark-400"
+          key={reason.reason}
+          className="text-gray-300 text-sm md:text-base bg-dark-400"
         >
           <AccordionSummary
             className={
               position === index
-                ? 'bg-star-500 font-semibold'
+                ? 'bg-red-800 font-semibold'
                 : 'bg-dark-400 font-normal'
             }
             expandIcon={<ExpandMoreIcon />}
             onClick={() => summaryProps.onClick(index)}
             disabled={reason.disabled}
           >
-            {reason.title}
+            {reason.reason}
           </AccordionSummary>
           <AccordionDetails className="text-xs md:text-sm">
-            {reason.content}
+            {reason.description}
           </AccordionDetails>
         </Accordion>
       ))}

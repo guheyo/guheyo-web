@@ -1,16 +1,22 @@
+fragment lastReport on LastReportResponse {
+  id
+  createdAt
+}
+
 fragment reportPreview on ReportPreviewResponse {
   id
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
-  title
-  content
+  reason
+  description
 }
 
 fragment report on ReportResponse {
@@ -18,17 +24,33 @@ fragment report on ReportResponse {
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedPost {
+    ...postPreviewWithoutUser
+  }
+  reportedCommentId
   groupId
   status
-  title
-  content
+  reason
+  description
   comments {
-    ...comment
+    ...reportComment
   }
+  version {
+    ...version
+  }
+}
+
+fragment reportComment on ReportCommentResponse {
+  id
+  createdAt
+  updatedAt
+  reportId
+  content
+  userId
 }
 
 mutation CreateReport($input: CreateReportInput!) {
@@ -39,7 +61,6 @@ query findReportPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
-  $distinct: Boolean
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -48,7 +69,6 @@ query findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
-    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -68,10 +88,36 @@ query findReportPreviews(
 
 query findLastReport {
   findLastReport {
+    ...lastReport
+  }
+}
+
+query findReport(
+  $id: ID!
+) {
+  findReport(id: $id) {
     ...report
   }
 }
 
+query findReportComment(
+  $reportId: ID!
+) {
+  findReportComment(
+    reportId: $reportId
+  ) {
+    ...reportComment
+  }
+}
+
 mutation CommentReport($input: CommentReportInput!) {
-  commentReport(input: $input)
+  commentReport(input: $input) {
+    ...reportComment
+  }
+}
+
+mutation UpdateReportComment($input: UpdateReportCommentInput!) {
+  updateReportComment(input: $input) {
+    ...reportComment
+  }
 }

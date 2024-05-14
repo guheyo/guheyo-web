@@ -6,51 +6,67 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
-import { CommentResponse } from '@/generated/graphql';
+import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import Avatar from '../avatar/avatar';
+import NoCommentOutput from './no-comment-output';
 
 export default function CommentCard({
+  user,
+  isCurrentUser,
+  postId,
   displayMenu,
   defaultMode,
-  comment,
+  commentId,
+  content,
+  createdAt,
+  updatedAt,
+  commentReactions,
   textFieldProps,
   handleWrite,
   handleEdit,
   handleDelete,
 }: {
+  user?: AuthorResponse;
+  isCurrentUser: boolean;
+  postId?: string;
   displayMenu: boolean;
   defaultMode: CRUD;
-  comment?: CommentResponse | null;
+  commentId?: string;
+  content?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  commentReactions: ReactionResponse[];
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
   handleDelete: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CRUD>('read');
+  const device = useDeviceDetect();
 
-  const { handleSubmit, control, getValues, setValue } = useForm<CommentValues>(
-    {
+  const { handleSubmit, control, getValues, setValue, reset } =
+    useForm<CommentValues>({
       defaultValues: {
-        id: undefined,
-        content: undefined,
+        id: '',
+        content: '',
       },
-    },
-  );
+    });
 
   useEffect(() => {
     setMode(defaultMode);
   }, [defaultMode]);
 
   useEffect(() => {
-    if (!comment) {
-      setValue('id', uuid4());
-    } else {
-      setValue('id', comment.id);
-      setValue('content', comment.content);
+    if (commentId) {
+      setValue('id', commentId);
+      setValue('content', content || '');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comment]);
+  }, [commentId, content]);
 
   const handleMenuClick = (newMode: CRUD) => {
     if (newMode === 'delete') {
@@ -61,11 +77,15 @@ export default function CommentCard({
 
   const handleSubmitValid: SubmitHandler<CommentValues> = (values) => {
     if (mode === 'create') {
-      handleWrite(values);
+      handleWrite({
+        ...values,
+        id: uuid4(),
+      });
+      reset();
     } else if (mode === 'update') {
       handleEdit(values);
+      setMode('read');
     }
-    setMode('read');
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
@@ -77,28 +97,56 @@ export default function CommentCard({
 
   if (mode === 'create' || mode === 'update') {
     return (
-      <form onSubmit={handleSubmit(handleSubmitValid)}>
-        <CommentInput
-          controllerProps={{
-            name: 'content',
-            control,
-            rules: { required: '댓글을 입력해 주세요' },
-          }}
-          textFieldProps={{
-            ...textFieldProps,
-            onKeyDown: handleKeyDown,
-          }}
-        />
-      </form>
+      <div className="flex flex-row gap-4 items-center">
+        {!user ? (
+          <Avatar
+            name="guest"
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+          />
+        ) : (
+          <UserProfileRedirectButton
+            user={user}
+            displayAvatar
+            displayUsername={false}
+            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+          />
+        )}
+        <div className="w-full">
+          <form onSubmit={handleSubmit(handleSubmitValid)}>
+            <CommentInput
+              controllerProps={{
+                name: 'content',
+                control,
+                rules: { required: '메시지를 입력해 주세요' },
+              }}
+              textFieldProps={{
+                ...textFieldProps,
+                onKeyDown: handleKeyDown,
+              }}
+            />
+          </form>
+        </div>
+      </div>
     );
+  }
+
+  if (!user) return <div />;
+
+  if (!commentId) {
+    return <NoCommentOutput user={user} />;
   }
 
   return (
     <CommentOutput
-      content={comment?.content}
-      createdAt={comment?.createdAt}
-      updatedAt={comment?.updatedAt}
+      user={user}
+      isCurrentUser={isCurrentUser}
+      postId={postId}
+      content={content}
+      createdAt={createdAt}
+      updatedAt={updatedAt}
       displayMenu={displayMenu}
+      commentId={commentId}
+      commentReactions={commentReactions}
       handleMenuClick={handleMenuClick}
     />
   );

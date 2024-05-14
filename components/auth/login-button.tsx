@@ -24,7 +24,7 @@ export default function LoginButton() {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="inline-flex items-center bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-light-200 flex flex-row gap-2"
+        className="inline-flex items-center bg-discord-blue-500 hover:bg-discord-blue-700 text-xs md:text-sm font-bold p-2 rounded text-gray-300 flex flex-row gap-2"
         onClick={handleSignIn}
       >
         <Image

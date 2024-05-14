@@ -1,0 +1,17 @@
+fragment emoji on EmojiResponse {
+  id
+  name
+  url
+  position
+  groupId
+}
+
+query FindEmojis(
+  $groupId: ID
+) {
+  findEmojis(
+    groupId: $groupId
+  ) {
+    ...emoji
+  }
+}

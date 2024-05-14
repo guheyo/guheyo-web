@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
-    return `bg-neutral-white hover:bg-gray-200 text-black`;
+    return `text-gray-300`;
   }
-  return `bg-black hover:bg-gray-700 text-white`;
+  return `bg-gray-500 hover:bg-dark-200 text-gray-100`;
 };
 
 type Tab = {
