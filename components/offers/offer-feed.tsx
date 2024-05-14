@@ -5,13 +5,15 @@ import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
 import {
+  FindOffersOrderByArgs,
   FindOffersWhereArgs,
-  FindDealsOrderByArgs,
-} from '@/interfaces/deal.interfaces';
+} from '@/interfaces/offer.interfaces';
 import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
-import { findProductCategory } from '@/lib/group/find-product-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import { findCategory } from '@/lib/group/find-category';
+import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
+import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
 function OfferFeed({
   where,
@@ -21,8 +23,8 @@ function OfferFeed({
   status,
   distinct,
 }: {
-  where?: FindOffersWhereArgs;
-  orderBy?: FindDealsOrderByArgs;
+  where: FindOffersWhereArgs;
+  orderBy?: FindOffersOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
   status?: string;
@@ -32,9 +34,9 @@ function OfferFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const isHidden = searchParams.get('isHidden') === true.toString();
+  const isArchived = searchParams.get('isArchived') === true.toString();
   const period = searchParams.get('period');
-  const category = findProductCategory(group?.productCategories, {
+  const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
 
@@ -43,11 +45,12 @@ function OfferFeed({
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     where: {
+      businessFunction: where?.businessFunction,
       groupId: group?.id,
-      productCategoryId: category?.id,
+      categoryId: category?.id,
       status,
-      isHidden,
-      sellerId: where?.sellerId,
+      isArchived,
+      userId: where?.userId,
       bumpedAt: period
         ? {
             gt: convertPeriodToDateString(period),
@@ -69,10 +72,23 @@ function OfferFeed({
   const edges = data.findOfferPreviews.edges.filter((edge) =>
     status ? edge.node.status === status : true,
   );
+
   return (
     <>
       {edges.map((edge) => (
-        <OfferPreview key={edge.node.id} offer={edge.node} type={type} />
+        <div key={edge.node.id} className="flex flex-col gap-0">
+          <OfferPreview offer={edge.node} type={type} />
+          {edge.node.hasSubmittedReview === false && (
+            <div className="pb-2">
+              <SelectUserReviewTargetUserDialog offerId={edge.node.id} />
+            </div>
+          )}
+          {edge.node.hasSubmittedReview === true && (
+            <div className="pb-2">
+              <ReceivedUserReviewsDialog offerSlug={edge.node.post.slug!} />
+            </div>
+          )}
+        </div>
       ))}
       <div ref={ref} />
     </>

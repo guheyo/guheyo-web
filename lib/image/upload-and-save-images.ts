@@ -1,4 +1,3 @@
-import { Device } from '@/hooks/use-device-detect';
 import { createUserImage } from '../api/user-image';
 import parseCreateUserImageInput from './parse-create-user-image-input';
 import uploadToS3 from './upload-to-s3';
@@ -7,15 +6,13 @@ import { UploadedImage } from './image.interfaces';
 const uploadAndSaveImages = async ({
   uploadedImages,
   type,
+  refId,
   userId,
-  dealId,
-  device,
 }: {
   uploadedImages: UploadedImage[];
   type: string;
   userId: string;
-  dealId: string;
-  device: Device;
+  refId: string;
 }) => {
   const promises = uploadedImages.map(async (uploadedUserImage) => {
     const url = await uploadToS3({
@@ -27,9 +24,8 @@ const uploadAndSaveImages = async ({
       file: uploadedUserImage.file,
       userImage: uploadedUserImage.userImage,
       type,
+      refId,
       userId,
-      refId: dealId,
-      device,
       url,
     });
     await createUserImage(input);

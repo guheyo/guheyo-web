@@ -1,5 +1,5 @@
 export interface ReportReason {
-  title: string;
-  content?: string;
+  reason: string;
+  description?: string;
   disabled: boolean;
 }

@@ -1,14 +1,21 @@
-import React, { MouseEventHandler, useContext, useState } from 'react';
+import React, {
+  MouseEventHandler,
+  ReactNode,
+  useContext,
+  useState,
+} from 'react';
 import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { AuthContext } from './auth.provider';
 import LoginButton from './login-button';
 
 export default function DiscordLoginDialog({
   name,
+  icon,
   onAuthorization,
   onUnAuthorization,
 }: {
   name: string;
+  icon?: ReactNode;
   onAuthorization: MouseEventHandler;
   onUnAuthorization: MouseEventHandler;
 }) {
@@ -32,7 +39,10 @@ export default function DiscordLoginDialog({
   return (
     <div>
       <button type="submit" onClick={handleOpen} className="w-full">
-        {name}
+        <div className="flex flex-row gap-1 items-center justify-center">
+          {icon}
+          {name}
+        </div>
       </button>
       <Dialog
         open={open}

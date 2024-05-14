@@ -5,7 +5,7 @@ export default function SendButton() {
     // eslint-disable-next-line jsx-a11y/control-has-associated-label
     <button
       type="submit"
-      className="rounded text-light-200 hover:text-white ml-6"
+      className="rounded text-gray-300 hover:text-white ml-6"
     >
       <SendIcon fontSize="inherit" />
     </button>

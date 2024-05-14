@@ -7,7 +7,7 @@ import {
   TimelineSeparator,
 } from '@mui/lab';
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
-import Avatar from './avatar';
+import Avatar from '../avatar/avatar';
 
 type TimelineEvent = {
   title: string;
@@ -36,7 +36,8 @@ export default function TimelineWithIcon({
             <TimelineSeparator>
               <Avatar
                 name={timelineEvent.title}
-                avatarURL={timelineEvent.iconURL}
+                src={timelineEvent.iconURL}
+                fontSize="text-base"
               />
               <TimelineConnector className="mt-2 mb-2 h-[60px] bg-slate-300" />
             </TimelineSeparator>

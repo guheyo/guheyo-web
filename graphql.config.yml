@@ -11,5 +11,6 @@ generates:
     config:
       withResultType: true
       withHooks: true
+      subscriptions: true
     scalars:
       DateTime: Date

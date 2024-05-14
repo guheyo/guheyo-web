@@ -1,0 +1,100 @@
+fragment post on PostResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  reportCount
+  images {
+    ...image
+  }
+  groupId
+  group {
+    ...groupProfile
+  }
+  categoryId
+  category {
+    ...category
+  }
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+
+fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  tags {
+    ...tag
+  }
+  commentCount
+}
+
+fragment postPreviewWithUser on PostPreviewWithUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  user {
+    ...user
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+
+fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+
+query findPostPreview(
+  $id: ID!
+) {
+  findPostPreview(
+    id: $id
+  ) {
+    ...postPreviewWithUser
+  }
+}

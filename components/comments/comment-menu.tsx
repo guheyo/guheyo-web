@@ -1,18 +1,20 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
+'use client';
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CRUD } from '@/lib/crud/crud.types';
+import { useState } from 'react';
+import { IconButton } from '@mui/material';
 
 export default function CommentMenu({
-  allowDelete,
+  isCurrentUser,
   handleMenuClick,
 }: {
-  allowDelete: boolean;
+  isCurrentUser: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,7 +29,7 @@ export default function CommentMenu({
 
   return (
     <div>
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -35,7 +37,7 @@ export default function CommentMenu({
         onClick={handleClick}
       >
         <MoreVertIcon className="text-xl md:text-2xl text-dark-200" />
-      </Button>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -45,9 +47,11 @@ export default function CommentMenu({
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
-        {allowDelete && (
-          <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+        {isCurrentUser && (
+          <>
+            <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
+            <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+          </>
         )}
       </Menu>
     </div>

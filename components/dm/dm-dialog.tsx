@@ -12,7 +12,7 @@ export default function DmDialog({ url }: { url: string }) {
   };
 
   return (
-    <div className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-white">
+    <div className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-gray-300">
       <DiscordLoginDialog
         name="DM"
         onAuthorization={handleOnAuthorization}

@@ -6,7 +6,7 @@ import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function ReportSubmitButton() {
   const { data, loading, error } = useFindLastReportQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   const handleAuthorization: MouseEventHandler = (e) => {

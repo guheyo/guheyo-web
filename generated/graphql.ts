@@ -26,79 +26,79 @@ export type AuthorResponse = {
   bot: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  members: Array<MemberWithRolesResponse>;
+  roles: Array<RoleResponse>;
   socialAccounts: Array<SocialAccountWithoutAuthResponse>;
   username: Scalars['String']['output'];
-};
-
-export type BumpDemandInput = {
-  buyerId: Scalars['ID']['input'];
-  demandId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
-  newPrice: Scalars['Int']['input'];
 };
 
 export type BumpOfferInput = {
   id: Scalars['ID']['input'];
   newPrice: Scalars['Int']['input'];
   offerId: Scalars['ID']['input'];
-  sellerId: Scalars['ID']['input'];
 };
 
-export type BumpSwapInput = {
-  id: Scalars['ID']['input'];
-  newPrice: Scalars['Int']['input'];
-  proposerId: Scalars['ID']['input'];
-  swapId: Scalars['ID']['input'];
+export type CancelReactionInput = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  emojiId: Scalars['ID']['input'];
+  postId: Scalars['ID']['input'];
+};
+
+export type CanceledReactionResponse = {
+  __typename?: 'CanceledReactionResponse';
+  commentId?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
+  postId: Scalars['ID']['output'];
+};
+
+export type CategoryResponse = {
+  __typename?: 'CategoryResponse';
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  position?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type CommentReportInput = {
-  authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
   reportId: Scalars['ID']['input'];
-  source: Scalars['String']['input'];
 };
 
 export type CommentResponse = {
   __typename?: 'CommentResponse';
-  auctionId?: Maybe<Scalars['ID']['output']>;
   content: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   parentId?: Maybe<Scalars['ID']['output']>;
-  postId?: Maybe<Scalars['ID']['output']>;
-  reportId?: Maybe<Scalars['ID']['output']>;
-  type: Scalars['String']['output'];
+  postId: Scalars['ID']['output'];
+  reactions: Array<ReactionResponse>;
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type CreateCommentInput = {
-  authorId: Scalars['ID']['input'];
-  content: Scalars['String']['input'];
-  id: Scalars['ID']['input'];
-  refId: Scalars['ID']['input'];
-  source: Scalars['String']['input'];
-  type: Scalars['String']['input'];
+export type CommentWithAuthorResponse = {
+  __typename?: 'CommentWithAuthorResponse';
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  parentId?: Maybe<Scalars['ID']['output']>;
+  postId: Scalars['ID']['output'];
+  reactions: Array<ReactionResponse>;
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
 };
 
-export type CreateDemandInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
-  businessFunction: Scalars['String']['input'];
-  buyerId: Scalars['ID']['input'];
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  groupId: Scalars['ID']['input'];
+export type CommentWithAuthorResponseEdge = {
+  __typename?: 'CommentWithAuthorResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: CommentWithAuthorResponse;
+};
+
+export type CreateCommentInput = {
+  content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  name: Scalars['String']['input'];
-  price: Scalars['Int']['input'];
-  priceCurrency: Scalars['String']['input'];
-  productCategoryId: Scalars['String']['input'];
-  shippingCost: Scalars['Int']['input'];
-  shippingType: Scalars['String']['input'];
-  source: Scalars['String']['input'];
-  status?: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  postId: Scalars['ID']['input'];
 };
 
 export type CreateGroupInput = {
@@ -115,33 +115,44 @@ export type CreateManyUserImageInput = {
 };
 
 export type CreateOfferInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
   businessFunction: Scalars['String']['input'];
+  content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
-  name: Scalars['String']['input'];
+  name0?: InputMaybe<Scalars['String']['input']>;
+  name1?: InputMaybe<Scalars['String']['input']>;
+  post: CreatePostInput;
   price: Scalars['Int']['input'];
   priceCurrency: Scalars['String']['input'];
-  productCategoryId: Scalars['String']['input'];
-  sellerId: Scalars['ID']['input'];
   shippingCost: Scalars['Int']['input'];
   shippingType: Scalars['String']['input'];
-  source: Scalars['String']['input'];
   status?: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type CreatePostInput = {
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  groupId: Scalars['ID']['input'];
+  tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  title: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+};
+
+export type CreateReactionInput = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  emojiId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
+  postId: Scalars['ID']['input'];
+};
+
 export type CreateReportInput = {
-  authorId: Scalars['ID']['input'];
-  content?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   groupId: Scalars['ID']['input'];
   id: Scalars['ID']['input'];
-  refId: Scalars['ID']['input'];
-  refVersionId: Scalars['ID']['input'];
+  reason: Scalars['String']['input'];
+  reportedCommentId?: InputMaybe<Scalars['ID']['input']>;
+  reportedPostId?: InputMaybe<Scalars['ID']['input']>;
   reportedUserId: Scalars['ID']['input'];
-  title: Scalars['String']['input'];
   type: Scalars['String']['input'];
 };
 
@@ -159,27 +170,6 @@ export type CreateSignedUrlInput = {
   userId: Scalars['String']['input'];
 };
 
-export type CreateSwapInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
-  businessFunction: Scalars['String']['input'];
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  description0?: InputMaybe<Scalars['String']['input']>;
-  description1?: InputMaybe<Scalars['String']['input']>;
-  groupId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
-  name0: Scalars['String']['input'];
-  name1: Scalars['String']['input'];
-  price: Scalars['Int']['input'];
-  priceCurrency: Scalars['String']['input'];
-  productCategoryId: Scalars['String']['input'];
-  proposerId: Scalars['ID']['input'];
-  shippingCost: Scalars['Int']['input'];
-  shippingType: Scalars['String']['input'];
-  source: Scalars['String']['input'];
-  status?: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
 export type CreateUserImageInput = {
   contentType?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -189,87 +179,57 @@ export type CreateUserImageInput = {
   position: Scalars['Int']['input'];
   refId: Scalars['ID']['input'];
   size?: InputMaybe<Scalars['Int']['input']>;
-  source: Scalars['String']['input'];
   type: Scalars['String']['input'];
   url: Scalars['String']['input'];
   userId: Scalars['ID']['input'];
   width?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type DemandPreviewResponse = {
-  __typename?: 'DemandPreviewResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
-  bumpedAt: Scalars['DateTime']['output'];
-  businessFunction: Scalars['String']['output'];
-  buyer: UserResponse;
-  createdAt: Scalars['DateTime']['output'];
-  groupId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  isHidden: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  productCategoryId: Scalars['String']['output'];
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  shippingCost: Scalars['Int']['output'];
-  shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  totalPrice: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+export type CreateUserReviewInput = {
+  auctionId?: InputMaybe<Scalars['ID']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  offerId?: InputMaybe<Scalars['ID']['input']>;
+  post: CreatePostInput;
+  rating: Scalars['Int']['input'];
+  reviewedUserId: Scalars['ID']['input'];
+  status?: Scalars['String']['input'];
+  type: Scalars['String']['input'];
 };
 
-export type DemandPreviewResponseEdge = {
-  __typename?: 'DemandPreviewResponseEdge';
-  cursor: Scalars['String']['output'];
-  node: DemandPreviewResponse;
+export type DeleteCommentInput = {
+  id: Scalars['ID']['input'];
 };
 
-export type DemandResponse = {
-  __typename?: 'DemandResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
-  bumpedAt: Scalars['DateTime']['output'];
-  businessFunction: Scalars['String']['output'];
-  buyer: AuthorResponse;
-  createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  group: GroupProfileResponse;
+export type DeletedCommentResponse = {
+  __typename?: 'DeletedCommentResponse';
   id: Scalars['ID']['output'];
-  images: Array<UserImageResponse>;
-  isHidden: Scalars['Boolean']['output'];
+};
+
+export type EmojiResponse = {
+  __typename?: 'EmojiResponse';
+  groupId?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  productCategory: ProductCategoryResponse;
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  shippingCost: Scalars['Int']['output'];
-  shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  totalPrice: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  position: Scalars['Int']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
-  demands: Array<DemandPreviewResponse>;
+  buys: Array<OfferPreviewResponse>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  offers: Array<OfferPreviewResponse>;
   position: Scalars['Int']['output'];
+  sells: Array<OfferPreviewResponse>;
   slug?: Maybe<Scalars['String']['output']>;
 };
 
 export type GroupProfileResponse = {
   __typename?: 'GroupProfileResponse';
+  description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -284,13 +244,12 @@ export type GroupProfileResponseEdge = {
 
 export type GroupResponse = {
   __typename?: 'GroupResponse';
+  categories: Array<CategoryResponse>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   position?: Maybe<Scalars['Int']['output']>;
-  postCategories: Array<PostCategoryResponse>;
-  productCategories: Array<ProductCategoryResponse>;
   roles: Array<RoleResponse>;
   slug?: Maybe<Scalars['String']['output']>;
 };
@@ -307,57 +266,46 @@ export type JwtResponse = {
   refreshToken: Scalars['String']['output'];
 };
 
+export type LastReportResponse = {
+  __typename?: 'LastReportResponse';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+};
+
 export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
 
-export type MemberWithRolesResponse = {
-  __typename?: 'MemberWithRolesResponse';
-  createdAt: Scalars['DateTime']['output'];
-  group: GroupProfileResponse;
-  id: Scalars['ID']['output'];
-  roles: Array<RoleResponse>;
-  userId: Scalars['String']['output'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  bumpDemand: DemandPreviewResponse;
   bumpOffer: OfferPreviewResponse;
-  bumpSwap: SwapPreviewResponse;
-  commentReport: Scalars['String']['output'];
+  cancelReaction: Scalars['String']['output'];
+  commentReport: ReportCommentResponse;
   createComment: Scalars['String']['output'];
-  createDemand: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
   createOffer: Scalars['String']['output'];
+  createReaction: Scalars['String']['output'];
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
-  createSwap: Scalars['String']['output'];
   createUserImage: Scalars['String']['output'];
-  deleteDemand: Scalars['String']['output'];
+  createUserReview: Scalars['String']['output'];
+  deleteComment: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
-  deleteSwap: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
-  updateComment: CommentResponse;
-  updateDemand: DemandPreviewResponse;
+  updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
+  updateReportComment: ReportCommentResponse;
   updateRole: Scalars['String']['output'];
-  updateSwap: SwapPreviewResponse;
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
-};
-
-
-export type MutationBumpDemandArgs = {
-  input: BumpDemandInput;
 };
 
 
@@ -366,8 +314,8 @@ export type MutationBumpOfferArgs = {
 };
 
 
-export type MutationBumpSwapArgs = {
-  input: BumpSwapInput;
+export type MutationCancelReactionArgs = {
+  input: CancelReactionInput;
 };
 
 
@@ -378,11 +326,6 @@ export type MutationCommentReportArgs = {
 
 export type MutationCreateCommentArgs = {
   input: CreateCommentInput;
-};
-
-
-export type MutationCreateDemandArgs = {
-  input: CreateDemandInput;
 };
 
 
@@ -401,6 +344,11 @@ export type MutationCreateOfferArgs = {
 };
 
 
+export type MutationCreateReactionArgs = {
+  input: CreateReactionInput;
+};
+
+
 export type MutationCreateReportArgs = {
   input: CreateReportInput;
 };
@@ -416,36 +364,28 @@ export type MutationCreateSignedUrlArgs = {
 };
 
 
-export type MutationCreateSwapArgs = {
-  input: CreateSwapInput;
-};
-
-
 export type MutationCreateUserImageArgs = {
   input: CreateUserImageInput;
 };
 
 
-export type MutationDeleteDemandArgs = {
-  buyerId: Scalars['ID']['input'];
-  id: Scalars['ID']['input'];
+export type MutationCreateUserReviewArgs = {
+  input: CreateUserReviewInput;
+};
+
+
+export type MutationDeleteCommentArgs = {
+  input: DeleteCommentInput;
 };
 
 
 export type MutationDeleteOfferArgs = {
   id: Scalars['ID']['input'];
-  sellerId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteSwapArgs = {
-  id: Scalars['ID']['input'];
-  proposerId: Scalars['ID']['input'];
 };
 
 
@@ -464,11 +404,6 @@ export type MutationUpdateCommentArgs = {
 };
 
 
-export type MutationUpdateDemandArgs = {
-  input: UpdateDemandInput;
-};
-
-
 export type MutationUpdateGroupArgs = {
   input: UpdateGroupInput;
 };
@@ -479,13 +414,13 @@ export type MutationUpdateOfferArgs = {
 };
 
 
-export type MutationUpdateRoleArgs = {
-  input: UpdateRoleInput;
+export type MutationUpdateReportCommentArgs = {
+  input: UpdateReportCommentInput;
 };
 
 
-export type MutationUpdateSwapArgs = {
-  input: UpdateSwapInput;
+export type MutationUpdateRoleArgs = {
+  input: UpdateRoleInput;
 };
 
 
@@ -505,36 +440,29 @@ export type MyUserResponse = {
   bot: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  members: Array<MemberWithRolesResponse>;
   name?: Maybe<Scalars['String']['output']>;
   phoneNumber?: Maybe<Scalars['String']['output']>;
+  roles: Array<RoleResponse>;
   socialAccounts: Array<SocialAccountResponse>;
   username: Scalars['String']['output'];
 };
 
 export type OfferPreviewResponse = {
   __typename?: 'OfferPreviewResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
   bumpedAt: Scalars['DateTime']['output'];
   businessFunction: Scalars['String']['output'];
+  content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
-  groupId: Scalars['String']['output'];
+  hasSubmittedReview?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
-  isHidden: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
+  name0?: Maybe<Scalars['String']['output']>;
+  name1?: Maybe<Scalars['String']['output']>;
+  post: PostPreviewWithUserResponse;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
-  productCategoryId: Scalars['String']['output'];
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  seller: UserResponse;
   shippingCost: Scalars['Int']['output'];
   shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
   status: Scalars['String']['output'];
-  thumbnail?: Maybe<UserImageResponse>;
   totalPrice: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -547,29 +475,20 @@ export type OfferPreviewResponseEdge = {
 
 export type OfferResponse = {
   __typename?: 'OfferResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
   bumpedAt: Scalars['DateTime']['output'];
   businessFunction: Scalars['String']['output'];
+  content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  group: GroupProfileResponse;
+  hasSubmittedReview?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
-  images: Array<UserImageResponse>;
-  isHidden: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
+  name0?: Maybe<Scalars['String']['output']>;
+  name1?: Maybe<Scalars['String']['output']>;
+  post: PostResponse;
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
-  productCategory: ProductCategoryResponse;
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  seller: AuthorResponse;
   shippingCost: Scalars['Int']['output'];
   shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
   status: Scalars['String']['output'];
-  thumbnail?: Maybe<UserImageResponse>;
   totalPrice: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -580,9 +499,9 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
 };
 
-export type PaginatedDemandPreviewsResponse = {
-  __typename?: 'PaginatedDemandPreviewsResponse';
-  edges: Array<DemandPreviewResponseEdge>;
+export type PaginatedCommentsResponse = {
+  __typename?: 'PaginatedCommentsResponse';
+  edges: Array<CommentWithAuthorResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -610,9 +529,9 @@ export type PaginatedReportPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
-export type PaginatedSwapPreviewsResponse = {
-  __typename?: 'PaginatedSwapPreviewsResponse';
-  edges: Array<SwapPreviewResponseEdge>;
+export type PaginatedUserReviewPreviewsResponse = {
+  __typename?: 'PaginatedUserReviewPreviewsResponse';
+  edges: Array<UserReviewPreviewResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -622,50 +541,109 @@ export type PaginatedUsersResponse = {
   pageInfo: PageInfo;
 };
 
-export type PostCategoryResponse = {
-  __typename?: 'PostCategoryResponse';
-  description?: Maybe<Scalars['String']['output']>;
+export type PostPreviewWithAuthorResponse = {
+  __typename?: 'PostPreviewWithAuthorResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  commentCount?: Maybe<Scalars['Int']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  position?: Maybe<Scalars['Int']['output']>;
+  pending?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
 };
 
-export type ProductCategoryResponse = {
-  __typename?: 'ProductCategoryResponse';
-  description?: Maybe<Scalars['String']['output']>;
+export type PostPreviewWithUserResponse = {
+  __typename?: 'PostPreviewWithUserResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  commentCount?: Maybe<Scalars['Int']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  position?: Maybe<Scalars['Int']['output']>;
+  pending?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: UserResponse;
+};
+
+export type PostPreviewWithoutUserResponse = {
+  __typename?: 'PostPreviewWithoutUserResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  commentCount?: Maybe<Scalars['Int']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  pending?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type PostResponse = {
+  __typename?: 'PostResponse';
+  archivedAt?: Maybe<Scalars['DateTime']['output']>;
+  category?: Maybe<CategoryResponse>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  commentCount?: Maybe<Scalars['Int']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  group: GroupProfileResponse;
+  groupId: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  images: Array<UserImageResponse>;
+  pending?: Maybe<Scalars['String']['output']>;
+  reportCount: Scalars['Int']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+  tags: Array<TagResponse>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: AuthorResponse;
 };
 
 export type Query = {
   __typename?: 'Query';
   findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
-  findDemand?: Maybe<DemandResponse>;
-  findDemandCount: Scalars['Float']['output'];
-  findDemandPreviews: PaginatedDemandPreviewsResponse;
+  findComments: PaginatedCommentsResponse;
+  findEmojis: Array<EmojiResponse>;
   findGroup?: Maybe<GroupResponse>;
   findGroupPreviews: Array<GroupPreviewResponse>;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
-  findLastReport: ReportResponse;
+  findLastReport: LastReportResponse;
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
   findOfferPreviews: PaginatedOfferPreviewsResponse;
+  findPostPreview: PostPreviewWithUserResponse;
+  findReactions: Array<ReactionResponse>;
   findReport: ReportResponse;
+  findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
-  findSwap?: Maybe<SwapResponse>;
-  findSwapCount: Scalars['Float']['output'];
-  findSwapPreviews: PaginatedSwapPreviewsResponse;
+  findTags: Array<TagResponse>;
   findTerm?: Maybe<TermResponse>;
   findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
   findUserImagesOfRef: Array<UserImageResponse>;
+  findUserReview?: Maybe<UserReviewResponse>;
+  findUserReviewPreviews: PaginatedUserReviewPreviewsResponse;
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
@@ -680,32 +658,22 @@ export type QueryFindAuthorArgs = {
 
 export type QueryFindCommentArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
-  refId?: InputMaybe<Scalars['ID']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
-export type QueryFindDemandArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryFindDemandCountArgs = {
-  buyerId: Scalars['ID']['input'];
-  fromHours: Scalars['Int']['input'];
-  productCategoryId: Scalars['ID']['input'];
-};
-
-
-export type QueryFindDemandPreviewsArgs = {
+export type QueryFindCommentsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
   where?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+
+export type QueryFindEmojisArgs = {
+  groupId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -717,7 +685,6 @@ export type QueryFindGroupArgs = {
 
 export type QueryFindGroupProfilesArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -738,15 +705,15 @@ export type QueryFindOfferArgs = {
 
 
 export type QueryFindOfferCountArgs = {
+  businessFunction: Scalars['String']['input'];
+  categoryId: Scalars['ID']['input'];
   fromHours: Scalars['Int']['input'];
-  productCategoryId: Scalars['ID']['input'];
-  sellerId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 
 export type QueryFindOfferPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
@@ -755,14 +722,29 @@ export type QueryFindOfferPreviewsArgs = {
 };
 
 
+export type QueryFindPostPreviewArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindReactionsArgs = {
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
 export type QueryFindReportArgs = {
   id: Scalars['ID']['input'];
 };
 
 
+export type QueryFindReportCommentArgs = {
+  reportId: Scalars['ID']['input'];
+};
+
+
 export type QueryFindReportPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
@@ -776,30 +758,6 @@ export type QueryFindRoleByIdArgs = {
 };
 
 
-export type QueryFindSwapArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryFindSwapCountArgs = {
-  fromHours: Scalars['Int']['input'];
-  productCategoryId: Scalars['ID']['input'];
-  proposerId: Scalars['ID']['input'];
-};
-
-
-export type QueryFindSwapPreviewsArgs = {
-  cursor?: InputMaybe<Scalars['ID']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
-  skip?: Scalars['Int']['input'];
-  take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-
 export type QueryFindTermArgs = {
   name: Scalars['String']['input'];
 };
@@ -807,7 +765,6 @@ export type QueryFindTermArgs = {
 
 export type QueryFindUserArgs = {
   provider?: InputMaybe<Scalars['String']['input']>;
-  sessionToken?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
@@ -824,10 +781,29 @@ export type QueryFindUserImagesOfRefArgs = {
 };
 
 
-export type QueryFindUsersArgs = {
+export type QueryFindUserReviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindUserReviewPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+
+export type QueryFindUsersArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -841,17 +817,39 @@ export type QueryFindVersionPreviewArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ReactionResponse = {
+  __typename?: 'ReactionResponse';
+  canceledAt?: Maybe<Scalars['DateTime']['output']>;
+  commentId?: Maybe<Scalars['ID']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  emoji: EmojiResponse;
+  id: Scalars['ID']['output'];
+  postId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['ID']['output'];
+};
+
+export type ReportCommentResponse = {
+  __typename?: 'ReportCommentResponse';
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  reportId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['String']['output'];
+};
+
 export type ReportPreviewResponse = {
   __typename?: 'ReportPreviewResponse';
-  content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   groupId: Scalars['ID']['output'];
   id: Scalars['ID']['output'];
-  refId: Scalars['ID']['output'];
-  refVersionId: Scalars['ID']['output'];
-  reportedUser?: Maybe<AuthorResponse>;
+  reason: Scalars['String']['output'];
+  reportedCommentId?: Maybe<Scalars['ID']['output']>;
+  reportedPostId?: Maybe<Scalars['ID']['output']>;
+  reportedUser: AuthorResponse;
   status: Scalars['String']['output'];
-  title: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -864,18 +862,20 @@ export type ReportPreviewResponseEdge = {
 
 export type ReportResponse = {
   __typename?: 'ReportResponse';
-  comments: Array<CommentResponse>;
-  content?: Maybe<Scalars['String']['output']>;
+  comments: Array<ReportCommentResponse>;
   createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   groupId: Scalars['ID']['output'];
   id: Scalars['ID']['output'];
-  refId: Scalars['ID']['output'];
-  refVersionId: Scalars['ID']['output'];
-  reportedUser?: Maybe<AuthorResponse>;
+  reason: Scalars['String']['output'];
+  reportedCommentId?: Maybe<Scalars['ID']['output']>;
+  reportedPost?: Maybe<PostPreviewWithoutUserResponse>;
+  reportedPostId?: Maybe<Scalars['ID']['output']>;
+  reportedUser: AuthorResponse;
   status: Scalars['String']['output'];
-  title: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  version: VersionResponse;
 };
 
 export type RoleResponse = {
@@ -924,69 +924,49 @@ export type SocialUserResponse = {
   socialId: Scalars['String']['output'];
 };
 
-export type SwapPreviewResponse = {
-  __typename?: 'SwapPreviewResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
-  bumpedAt: Scalars['DateTime']['output'];
-  businessFunction: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  groupId: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  isHidden: Scalars['Boolean']['output'];
-  name0: Scalars['String']['output'];
-  name1: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  productCategoryId: Scalars['String']['output'];
-  proposer: UserResponse;
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  shippingCost: Scalars['Int']['output'];
-  shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  thumbnail?: Maybe<UserImageResponse>;
-  totalPrice: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+export type Subscription = {
+  __typename?: 'Subscription';
+  commentCreated: CommentWithAuthorResponse;
+  commentDeleted: DeletedCommentResponse;
+  commentUpdated: UpdatedCommentResponse;
+  reactionCanceled: CanceledReactionResponse;
+  reactionCreated: ReactionResponse;
 };
 
-export type SwapPreviewResponseEdge = {
-  __typename?: 'SwapPreviewResponseEdge';
-  cursor: Scalars['String']['output'];
-  node: SwapPreviewResponse;
+
+export type SubscriptionCommentCreatedArgs = {
+  postId: Scalars['ID']['input'];
 };
 
-export type SwapResponse = {
-  __typename?: 'SwapResponse';
-  brandId?: Maybe<Scalars['String']['output']>;
-  bumpedAt: Scalars['DateTime']['output'];
-  businessFunction: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description0?: Maybe<Scalars['String']['output']>;
-  description1?: Maybe<Scalars['String']['output']>;
-  group: GroupProfileResponse;
+
+export type SubscriptionCommentDeletedArgs = {
+  postId: Scalars['ID']['input'];
+};
+
+
+export type SubscriptionCommentUpdatedArgs = {
+  postId: Scalars['ID']['input'];
+};
+
+
+export type SubscriptionReactionCanceledArgs = {
+  postId: Scalars['ID']['input'];
+  type: Scalars['String']['input'];
+};
+
+
+export type SubscriptionReactionCreatedArgs = {
+  postId: Scalars['ID']['input'];
+  type: Scalars['String']['input'];
+};
+
+export type TagResponse = {
+  __typename?: 'TagResponse';
+  description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  images: Array<UserImageResponse>;
-  isHidden: Scalars['Boolean']['output'];
-  name0: Scalars['String']['output'];
-  name1: Scalars['String']['output'];
-  pending?: Maybe<Scalars['String']['output']>;
-  price: Scalars['Int']['output'];
-  priceCurrency: Scalars['String']['output'];
-  productCategory: ProductCategoryResponse;
-  proposer: AuthorResponse;
-  reportCommentCount: Scalars['Int']['output'];
-  reportCount: Scalars['Int']['output'];
-  shippingCost: Scalars['Int']['output'];
-  shippingType: Scalars['String']['output'];
-  slug?: Maybe<Scalars['String']['output']>;
-  source: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  thumbnail?: Maybe<UserImageResponse>;
-  totalPrice: Scalars['Int']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  type: Scalars['String']['output'];
 };
 
 export type TermResponse = {
@@ -1001,27 +981,8 @@ export type TermResponse = {
 };
 
 export type UpdateCommentInput = {
-  authorId: Scalars['ID']['input'];
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  source: Scalars['String']['input'];
-};
-
-export type UpdateDemandInput = {
-  brandId?: InputMaybe<Scalars['ID']['input']>;
-  businessFunction?: InputMaybe<Scalars['String']['input']>;
-  buyerId: Scalars['ID']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['Int']['input']>;
-  priceCurrency?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  shippingCost?: InputMaybe<Scalars['Int']['input']>;
-  shippingType?: InputMaybe<Scalars['String']['input']>;
-  source: Scalars['String']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateGroupInput = {
@@ -1034,20 +995,30 @@ export type UpdateGroupInput = {
 };
 
 export type UpdateOfferInput = {
-  brandId?: InputMaybe<Scalars['ID']['input']>;
-  businessFunction?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
-  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  name0?: InputMaybe<Scalars['String']['input']>;
+  name1?: InputMaybe<Scalars['String']['input']>;
+  post: UpdatePostInput;
   price?: InputMaybe<Scalars['Int']['input']>;
   priceCurrency?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  sellerId: Scalars['ID']['input'];
   shippingCost?: InputMaybe<Scalars['Int']['input']>;
   shippingType?: InputMaybe<Scalars['String']['input']>;
-  source: Scalars['String']['input'];
   status?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePostInput = {
+  archivedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateReportCommentInput = {
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  reportId: Scalars['ID']['input'];
 };
 
 export type UpdateRoleInput = {
@@ -1055,25 +1026,6 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UpdateSwapInput = {
-  brandId?: InputMaybe<Scalars['String']['input']>;
-  businessFunction?: InputMaybe<Scalars['String']['input']>;
-  description0?: InputMaybe<Scalars['String']['input']>;
-  description1?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  isHidden?: InputMaybe<Scalars['Boolean']['input']>;
-  name0?: InputMaybe<Scalars['String']['input']>;
-  name1?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['Int']['input']>;
-  priceCurrency?: InputMaybe<Scalars['String']['input']>;
-  productCategoryId?: InputMaybe<Scalars['ID']['input']>;
-  proposerId: Scalars['ID']['input'];
-  shippingCost?: InputMaybe<Scalars['Int']['input']>;
-  shippingType?: InputMaybe<Scalars['String']['input']>;
-  source: Scalars['String']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateUserImageInput = {
@@ -1090,6 +1042,13 @@ export type UpdateUserInput = {
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdatedCommentResponse = {
+  __typename?: 'UpdatedCommentResponse';
+  content: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type UserImageResponse = {
   __typename?: 'UserImageResponse';
   contentType?: Maybe<Scalars['String']['output']>;
@@ -1101,7 +1060,6 @@ export type UserImageResponse = {
   position: Scalars['Int']['output'];
   refId: Scalars['ID']['output'];
   size?: Maybe<Scalars['Int']['output']>;
-  source: Scalars['String']['output'];
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   url: Scalars['String']['output'];
@@ -1123,6 +1081,42 @@ export type UserResponseEdge = {
   __typename?: 'UserResponseEdge';
   cursor: Scalars['String']['output'];
   node: UserResponse;
+};
+
+export type UserReviewPreviewResponse = {
+  __typename?: 'UserReviewPreviewResponse';
+  auctionId?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['String']['output']>;
+  post: PostPreviewWithAuthorResponse;
+  rating: Scalars['Int']['output'];
+  reviewedUser: AuthorResponse;
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type UserReviewPreviewResponseEdge = {
+  __typename?: 'UserReviewPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: UserReviewPreviewResponse;
+};
+
+export type UserReviewResponse = {
+  __typename?: 'UserReviewResponse';
+  auctionId?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  offerId?: Maybe<Scalars['String']['output']>;
+  post: PostResponse;
+  rating: Scalars['Int']['output'];
+  reviewedUser: AuthorResponse;
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type VersionPreviewResponse = {
@@ -1163,7 +1157,13 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'SocialUserResponse', provider: string, socialId: string } };
 
-export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string };
+export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+
+export type CommentWithAuthorFragment = { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+
+export type UpdatedCommentResponseFragment = { __typename?: 'UpdatedCommentResponse', id: string, updatedAt: any, content: string };
+
+export type DeletedCommentResponseFragment = { __typename?: 'DeletedCommentResponse', id: string };
 
 export type CreateCommentMutationVariables = Exact<{
   input: CreateCommentInput;
@@ -1177,87 +1177,72 @@ export type UpdateCommentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } };
+export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: string };
 
-export type FindCommentQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  refId?: InputMaybe<Scalars['ID']['input']>;
+export type DeleteCommentMutationVariables = Exact<{
+  input: DeleteCommentInput;
 }>;
 
 
-export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string } | null };
+export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: string };
 
-export type DemandFragment = { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type FindCommentQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+}>;
 
-export type DemandPreviewFragment = { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
 
-export type FindDemandPreviewsQueryVariables = Exact<{
+export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } | null };
+
+export type FindCommentsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
 }>;
 
 
-export type FindDemandPreviewsQuery = { __typename?: 'Query', findDemandPreviews: { __typename?: 'PaginatedDemandPreviewsResponse', edges: Array<{ __typename?: 'DemandPreviewResponseEdge', cursor: string, node: { __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindCommentsQuery = { __typename?: 'Query', findComments: { __typename?: 'PaginatedCommentsResponse', edges: Array<{ __typename?: 'CommentWithAuthorResponseEdge', cursor: string, node: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type FindDemandQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
+export type CommentCreatedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
 }>;
 
 
-export type FindDemandQuery = { __typename?: 'Query', findDemand?: { __typename?: 'DemandResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, buyer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
+export type CommentCreatedSubscription = { __typename?: 'Subscription', commentCreated: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } };
 
-export type FindDemandCountQueryVariables = Exact<{
-  buyerId: Scalars['ID']['input'];
-  productCategoryId: Scalars['ID']['input'];
-  fromHours: Scalars['Int']['input'];
+export type CommentUpdatedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
 }>;
 
 
-export type FindDemandCountQuery = { __typename?: 'Query', findDemandCount: number };
+export type CommentUpdatedSubscription = { __typename?: 'Subscription', commentUpdated: { __typename?: 'UpdatedCommentResponse', id: string, updatedAt: any, content: string } };
 
-export type CreateDemandMutationVariables = Exact<{
-  input: CreateDemandInput;
+export type CommentDeletedSubscriptionVariables = Exact<{
+  postId: Scalars['ID']['input'];
 }>;
 
 
-export type CreateDemandMutation = { __typename?: 'Mutation', createDemand: string };
+export type CommentDeletedSubscription = { __typename?: 'Subscription', commentDeleted: { __typename?: 'DeletedCommentResponse', id: string } };
 
-export type UpdateDemandMutationVariables = Exact<{
-  input: UpdateDemandInput;
+export type EmojiFragment = { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null };
+
+export type FindEmojisQueryVariables = Exact<{
+  groupId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
-export type UpdateDemandMutation = { __typename?: 'Mutation', updateDemand: { __typename?: 'DemandPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type FindEmojisQuery = { __typename?: 'Query', findEmojis: Array<{ __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null }> };
 
-export type DeleteDemandMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-  buyerId: Scalars['ID']['input'];
-}>;
+export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
+export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> };
 
-export type DeleteDemandMutation = { __typename?: 'Mutation', deleteDemand: string };
+export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null };
 
-export type BumpDemandMutationVariables = Exact<{
-  input: BumpDemandInput;
-}>;
-
-
-export type BumpDemandMutation = { __typename?: 'Mutation', bumpDemand: { __typename?: 'DemandPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
-
-export type ProductCategoryFragment = { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null };
-
-export type GroupFragment = { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> };
-
-export type GroupProfileFragment = { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null };
-
-export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> };
+export type GroupPreviewFragment = { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }> };
 
 export type FindGroupsQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['ID']['input']>;
@@ -1266,7 +1251,7 @@ export type FindGroupsQueryVariables = Exact<{
 }>;
 
 
-export type FindGroupsQuery = { __typename?: 'Query', findGroups: { __typename?: 'PaginatedGroupsResponse', edges: Array<{ __typename?: 'GroupResponseEdge', node: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
+export type FindGroupsQuery = { __typename?: 'Query', findGroups: { __typename?: 'PaginatedGroupsResponse', edges: Array<{ __typename?: 'GroupResponseEdge', node: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
 
 export type FindGroupProfilesQueryVariables = Exact<{
   keyword?: InputMaybe<Scalars['String']['input']>;
@@ -1276,7 +1261,7 @@ export type FindGroupProfilesQueryVariables = Exact<{
 }>;
 
 
-export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindGroupQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1284,29 +1269,28 @@ export type FindGroupQueryVariables = Exact<{
 }>;
 
 
-export type FindGroupQuery = { __typename?: 'Query', findGroup?: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, productCategories: Array<{ __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }>, postCategories: Array<{ __typename?: 'PostCategoryResponse', id: string, name: string, slug?: string | null, description?: string | null, position?: number | null }> } | null };
+export type FindGroupQuery = { __typename?: 'Query', findGroup?: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } | null };
 
 export type FindGroupPreviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, offers: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, demands: Array<{ __typename?: 'DemandPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, buyer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> }> };
+export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } }> }> };
 
-export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
-export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
+export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
 }>;
 
 
-export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, seller: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindOfferQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1314,16 +1298,7 @@ export type FindOfferQueryVariables = Exact<{
 }>;
 
 
-export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name: string, slug?: string | null, description?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, seller: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
-
-export type FindOfferCountQueryVariables = Exact<{
-  sellerId: Scalars['ID']['input'];
-  productCategoryId: Scalars['ID']['input'];
-  fromHours: Scalars['Int']['input'];
-}>;
-
-
-export type FindOfferCountQuery = { __typename?: 'Query', findOfferCount: number };
+export type FindOfferQuery = { __typename?: 'Query', findOffer?: { __typename?: 'OfferResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, totalPrice: number, shippingCost: number, shippingType: string, businessFunction: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
 
 export type CreateOfferMutationVariables = Exact<{
   input: CreateOfferInput;
@@ -1337,11 +1312,10 @@ export type UpdateOfferMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, status: string, name0?: string | null, name1?: string | null, content?: string | null, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
 export type DeleteOfferMutationVariables = Exact<{
   id: Scalars['ID']['input'];
-  sellerId: Scalars['ID']['input'];
 }>;
 
 
@@ -1354,9 +1328,68 @@ export type BumpOfferMutationVariables = Exact<{
 
 export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
 
-export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+export type PostFragment = { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
-export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> };
+export type PostPreviewWithoutUserFragment = { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
+
+export type PostPreviewWithUserFragment = { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
+
+export type PostPreviewWithAuthorFragment = { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
+
+export type FindPostPreviewQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type ReactionFragment = { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
+
+export type CreateReactionMutationVariables = Exact<{
+  input: CreateReactionInput;
+}>;
+
+
+export type CreateReactionMutation = { __typename?: 'Mutation', createReaction: string };
+
+export type CancelReactionMutationVariables = Exact<{
+  input: CancelReactionInput;
+}>;
+
+
+export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: string };
+
+export type FindReactionsQueryVariables = Exact<{
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  commentId?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindReactionsQuery = { __typename?: 'Query', findReactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+
+export type ReactionCreatedSubscriptionVariables = Exact<{
+  type: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type ReactionCreatedSubscription = { __typename?: 'Subscription', reactionCreated: { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } } };
+
+export type ReactionCanceledSubscriptionVariables = Exact<{
+  type: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type ReactionCanceledSubscription = { __typename?: 'Subscription', reactionCanceled: { __typename?: 'CanceledReactionResponse', id: string, postId: string, commentId?: string | null } };
+
+export type LastReportFragment = { __typename?: 'LastReportResponse', id: string, createdAt: any };
+
+export type ReportPreviewFragment = { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
+
+export type ReportFragment = { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } };
+
+export type ReportCommentFragment = { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string };
 
 export type CreateReportMutationVariables = Exact<{
   input: CreateReportInput;
@@ -1369,93 +1402,57 @@ export type FindReportPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
 }>;
 
 
-export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindReportPreviewsQuery = { __typename?: 'Query', findReportPreviews: { __typename?: 'PaginatedReportPreviewsResponse', edges: Array<{ __typename?: 'ReportPreviewResponseEdge', cursor: string, node: { __typename?: 'ReportPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindLastReportQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, refVersionId: string, groupId: string, status: string, title: string, content?: string | null, reportedUser?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null, comments: Array<{ __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, type: string, parentId?: string | null, postId?: string | null, reportId?: string | null, auctionId?: string | null, content: string }> } };
+export type FindLastReportQuery = { __typename?: 'Query', findLastReport: { __typename?: 'LastReportResponse', id: string, createdAt: any } };
+
+export type FindReportQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type FindReportQuery = { __typename?: 'Query', findReport: { __typename?: 'ReportResponse', id: string, createdAt: any, updatedAt: any, type: string, reportedPostId?: string | null, reportedCommentId?: string | null, groupId: string, status: string, reason: string, description?: string | null, reportedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reportedPost?: { __typename?: 'PostPreviewWithoutUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } | null, comments: Array<{ __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string }>, version: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } } };
+
+export type FindReportCommentQueryVariables = Exact<{
+  reportId: Scalars['ID']['input'];
+}>;
+
+
+export type FindReportCommentQuery = { __typename?: 'Query', findReportComment: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
 
 export type CommentReportMutationVariables = Exact<{
   input: CommentReportInput;
 }>;
 
 
-export type CommentReportMutation = { __typename?: 'Mutation', commentReport: string };
+export type CommentReportMutation = { __typename?: 'Mutation', commentReport: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
+
+export type UpdateReportCommentMutationVariables = Exact<{
+  input: UpdateReportCommentInput;
+}>;
+
+
+export type UpdateReportCommentMutation = { __typename?: 'Mutation', updateReportComment: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
 
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
 export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
 
-export type SwapFragment = { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } };
+export type TagFragment = { __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number };
 
-export type SwapPreviewFragment = { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
-
-export type FindSwapPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
-  keyword?: InputMaybe<Scalars['String']['input']>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  cursor?: InputMaybe<Scalars['ID']['input']>;
-  skip: Scalars['Int']['input'];
-  take: Scalars['Int']['input'];
-}>;
+export type FindTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindSwapPreviewsQuery = { __typename?: 'Query', findSwapPreviews: { __typename?: 'PaginatedSwapPreviewsResponse', edges: Array<{ __typename?: 'SwapPreviewResponseEdge', cursor: string, node: { __typename?: 'SwapPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, groupId: string, productCategoryId: string, brandId?: string | null, thumbnail?: { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string } | null, proposer: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
-
-export type FindSwapQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type FindSwapQuery = { __typename?: 'Query', findSwap?: { __typename?: 'SwapResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, slug?: string | null, name0: string, name1: string, description0?: string | null, description1?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, isHidden: boolean, pending?: string | null, source: string, reportCount: number, reportCommentCount: number, brandId?: string | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, productCategory: { __typename?: 'ProductCategoryResponse', id: string, name: string, slug?: string | null, position?: number | null }, proposer: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } } | null };
-
-export type FindSwapCountQueryVariables = Exact<{
-  proposerId: Scalars['ID']['input'];
-  productCategoryId: Scalars['ID']['input'];
-  fromHours: Scalars['Int']['input'];
-}>;
-
-
-export type FindSwapCountQuery = { __typename?: 'Query', findSwapCount: number };
-
-export type CreateSwapMutationVariables = Exact<{
-  input: CreateSwapInput;
-}>;
-
-
-export type CreateSwapMutation = { __typename?: 'Mutation', createSwap: string };
-
-export type UpdateSwapMutationVariables = Exact<{
-  input: UpdateSwapInput;
-}>;
-
-
-export type UpdateSwapMutation = { __typename?: 'Mutation', updateSwap: { __typename?: 'SwapPreviewResponse', id: string, status: string, isHidden: boolean, pending?: string | null, name0: string, name1: string, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
-
-export type DeleteSwapMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-  proposerId: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteSwapMutation = { __typename?: 'Mutation', deleteSwap: string };
-
-export type BumpSwapMutationVariables = Exact<{
-  input: BumpSwapInput;
-}>;
-
-
-export type BumpSwapMutation = { __typename?: 'Mutation', bumpSwap: { __typename?: 'SwapPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type FindTagsQuery = { __typename?: 'Query', findTags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> };
 
 export type TermFragment = { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, meta?: any | null };
 
@@ -1466,7 +1463,7 @@ export type FindTermQueryVariables = Exact<{
 
 export type FindTermQuery = { __typename?: 'Query', findTerm?: { __typename?: 'TermResponse', id: string, createdAt: any, updatedAt: any, name: string, title: string, content: string, meta?: any | null } | null };
 
-export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string };
+export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string };
 
 export type CreateSignedUrlMutationVariables = Exact<{
   input: CreateSignedUrlInput;
@@ -1489,20 +1486,48 @@ export type DeleteUserImageMutationVariables = Exact<{
 
 export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage: string };
 
-export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string };
+export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
 
-export type MemberFragment = { __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> };
+export type UserReviewFragment = { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
+
+export type FindUserReviewPreviewsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindUserReviewPreviewsQuery = { __typename?: 'Query', findUserReviewPreviews: { __typename?: 'PaginatedUserReviewPreviewsResponse', edges: Array<{ __typename?: 'UserReviewPreviewResponseEdge', cursor: string, node: { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindUserReviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindUserReviewQuery = { __typename?: 'Query', findUserReview?: { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } | null };
+
+export type CreateUserReviewMutationVariables = Exact<{
+  input: CreateUserReviewInput;
+}>;
+
+
+export type CreateUserReviewMutation = { __typename?: 'Mutation', createUserReview: string };
+
+export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string };
 
 export type UserFragment = { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean };
 
-export type AuthorFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
+export type AuthorFragment = { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> };
 
-export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> };
+export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> };
 
 export type FindUserQueryVariables = Exact<{
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
-  sessionToken?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -1515,12 +1540,24 @@ export type FindAuthorQueryVariables = Exact<{
 }>;
 
 
-export type FindAuthorQuery = { __typename?: 'Query', findAuthor?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+export type FindAuthorQuery = { __typename?: 'Query', findAuthor?: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } | null };
 
 export type FindMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, members: Array<{ __typename?: 'MemberWithRolesResponse', id: string, createdAt: any, userId: string, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, icon?: string | null }, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }> } | null };
+export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } | null };
+
+export type FindUsersQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindUsersQuery = { __typename?: 'Query', findUsers: { __typename?: 'PaginatedUsersResponse', edges: Array<{ __typename?: 'UserResponseEdge', cursor: string, node: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInput;
@@ -1538,7 +1575,7 @@ export type LinkSocialProfileMutation = { __typename?: 'Mutation', linkSocialPro
 
 export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
-export type VersionFragment = { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }> };
+export type VersionFragment = { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> };
 
 export type FindVersionPreviewQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1553,43 +1590,44 @@ export type FindVersionQueryVariables = Exact<{
 }>;
 
 
-export type FindVersionQuery = { __typename?: 'Query', findVersion?: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string, source: string }> } | null };
+export type FindVersionQuery = { __typename?: 'Query', findVersion?: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } | null };
 
-export const ImageFragmentDoc = gql`
-    fragment image on UserImageResponse {
+export const EmojiFragmentDoc = gql`
+    fragment emoji on EmojiResponse {
+  id
+  name
+  url
+  position
+  groupId
+}
+    `;
+export const ReactionFragmentDoc = gql`
+    fragment reaction on ReactionResponse {
   id
   createdAt
   updatedAt
-  name
-  url
-  contentType
-  description
-  size
-  height
-  width
-  position
-  type
-  refId
+  canceledAt
+  emoji {
+    ...emoji
+  }
   userId
-  source
+  postId
+  commentId
 }
-    `;
-export const GroupProfileFragmentDoc = gql`
-    fragment groupProfile on GroupProfileResponse {
+    ${EmojiFragmentDoc}`;
+export const CommentFragmentDoc = gql`
+    fragment comment on CommentResponse {
   id
-  name
-  slug
-  icon
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  reactions {
+    ...reaction
+  }
 }
-    `;
-export const ProductCategoryFragmentDoc = gql`
-    fragment productCategory on ProductCategoryResponse {
-  id
-  name
-  slug
-  position
-}
-    `;
+    ${ReactionFragmentDoc}`;
 export const SocialAccountWithoutAuthFragmentDoc = gql`
     fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
   id
@@ -1608,20 +1646,6 @@ export const RoleFragmentDoc = gql`
   groupId
 }
     `;
-export const MemberFragmentDoc = gql`
-    fragment member on MemberWithRolesResponse {
-  id
-  createdAt
-  userId
-  group {
-    ...groupProfile
-  }
-  roles {
-    ...role
-  }
-}
-    ${GroupProfileFragmentDoc}
-${RoleFragmentDoc}`;
 export const AuthorFragmentDoc = gql`
     fragment author on AuthorResponse {
   id
@@ -1633,51 +1657,50 @@ export const AuthorFragmentDoc = gql`
   socialAccounts {
     ...socialAccountWithoutAuth
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
     ${SocialAccountWithoutAuthFragmentDoc}
-${MemberFragmentDoc}`;
-export const DemandFragmentDoc = gql`
-    fragment demand on DemandResponse {
+${RoleFragmentDoc}`;
+export const CommentWithAuthorFragmentDoc = gql`
+    fragment commentWithAuthor on CommentWithAuthorResponse {
   id
   createdAt
   updatedAt
-  bumpedAt
-  name
-  slug
-  description
-  price
-  priceCurrency
-  shippingCost
-  shippingType
-  totalPrice
-  businessFunction
-  status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  images {
-    ...image
-  }
-  group {
-    ...groupProfile
-  }
-  productCategory {
-    ...productCategory
-  }
-  buyer {
+  parentId
+  postId
+  content
+  user {
     ...author
   }
-  brandId
+  reactions {
+    ...reaction
+  }
 }
-    ${ImageFragmentDoc}
-${GroupProfileFragmentDoc}
-${ProductCategoryFragmentDoc}
-${AuthorFragmentDoc}`;
+    ${AuthorFragmentDoc}
+${ReactionFragmentDoc}`;
+export const UpdatedCommentResponseFragmentDoc = gql`
+    fragment updatedCommentResponse on UpdatedCommentResponse {
+  id
+  updatedAt
+  content
+}
+    `;
+export const DeletedCommentResponseFragmentDoc = gql`
+    fragment deletedCommentResponse on DeletedCommentResponse {
+  id
+}
+    `;
+export const CategoryFragmentDoc = gql`
+    fragment category on CategoryResponse {
+  id
+  type
+  name
+  slug
+  position
+}
+    `;
 export const GroupFragmentDoc = gql`
     fragment group on GroupResponse {
   id
@@ -1693,18 +1716,11 @@ export const GroupFragmentDoc = gql`
     hexColor
     groupId
   }
-  productCategories {
-    ...productCategory
-  }
-  postCategories {
-    id
-    name
-    slug
-    description
-    position
+  categories {
+    ...category
   }
 }
-    ${ProductCategoryFragmentDoc}`;
+    ${CategoryFragmentDoc}`;
 export const UserFragmentDoc = gql`
     fragment user on UserResponse {
   id
@@ -1715,14 +1731,50 @@ export const UserFragmentDoc = gql`
   bot
 }
     `;
+export const TagFragmentDoc = gql`
+    fragment tag on TagResponse {
+  id
+  type
+  name
+  description
+  position
+}
+    `;
+export const PostPreviewWithUserFragmentDoc = gql`
+    fragment postPreviewWithUser on PostPreviewWithUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  user {
+    ...user
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${UserFragmentDoc}
+${TagFragmentDoc}`;
 export const OfferPreviewFragmentDoc = gql`
     fragment offerPreview on OfferPreviewResponse {
+  post {
+    ...postPreviewWithUser
+  }
   id
   createdAt
   updatedAt
   bumpedAt
-  name
-  slug
+  name0
+  name1
+  content
   price
   priceCurrency
   shippingCost
@@ -1730,51 +1782,9 @@ export const OfferPreviewFragmentDoc = gql`
   totalPrice
   businessFunction
   status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  thumbnail {
-    ...image
-  }
-  groupId
-  productCategoryId
-  seller {
-    ...user
-  }
-  brandId
+  hasSubmittedReview
 }
-    ${ImageFragmentDoc}
-${UserFragmentDoc}`;
-export const DemandPreviewFragmentDoc = gql`
-    fragment demandPreview on DemandPreviewResponse {
-  id
-  createdAt
-  updatedAt
-  bumpedAt
-  name
-  slug
-  price
-  priceCurrency
-  shippingCost
-  shippingType
-  totalPrice
-  businessFunction
-  status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  groupId
-  productCategoryId
-  buyer {
-    ...user
-  }
-  brandId
-}
-    ${UserFragmentDoc}`;
+    ${PostPreviewWithUserFragmentDoc}`;
 export const GroupPreviewFragmentDoc = gql`
     fragment groupPreview on GroupPreviewResponse {
   id
@@ -1783,177 +1793,194 @@ export const GroupPreviewFragmentDoc = gql`
   description
   icon
   position
-  offers {
+  sells {
     ...offerPreview
   }
-  demands {
-    ...demandPreview
+  buys {
+    ...offerPreview
   }
 }
-    ${OfferPreviewFragmentDoc}
-${DemandPreviewFragmentDoc}`;
+    ${OfferPreviewFragmentDoc}`;
+export const ImageFragmentDoc = gql`
+    fragment image on UserImageResponse {
+  id
+  createdAt
+  updatedAt
+  name
+  url
+  contentType
+  description
+  size
+  height
+  width
+  position
+  type
+  refId
+  userId
+}
+    `;
+export const GroupProfileFragmentDoc = gql`
+    fragment groupProfile on GroupProfileResponse {
+  id
+  name
+  slug
+  description
+  icon
+}
+    `;
+export const PostFragmentDoc = gql`
+    fragment post on PostResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  reportCount
+  images {
+    ...image
+  }
+  groupId
+  group {
+    ...groupProfile
+  }
+  categoryId
+  category {
+    ...category
+  }
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${ImageFragmentDoc}
+${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}
+${AuthorFragmentDoc}
+${TagFragmentDoc}`;
 export const OfferFragmentDoc = gql`
     fragment offer on OfferResponse {
+  post {
+    ...post
+  }
   id
   createdAt
   updatedAt
   bumpedAt
-  name
-  slug
-  description
+  name0
+  name1
+  content
   price
   priceCurrency
+  totalPrice
   shippingCost
   shippingType
   totalPrice
   businessFunction
   status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  images {
-    ...image
-  }
-  group {
-    ...groupProfile
-  }
-  productCategory {
-    ...productCategory
-  }
-  seller {
-    ...author
-  }
-  brandId
 }
-    ${ImageFragmentDoc}
-${GroupProfileFragmentDoc}
-${ProductCategoryFragmentDoc}
-${AuthorFragmentDoc}`;
+    ${PostFragmentDoc}`;
+export const LastReportFragmentDoc = gql`
+    fragment lastReport on LastReportResponse {
+  id
+  createdAt
+}
+    `;
 export const ReportPreviewFragmentDoc = gql`
     fragment reportPreview on ReportPreviewResponse {
   id
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedCommentId
   groupId
   status
-  title
-  content
+  reason
+  description
 }
     ${AuthorFragmentDoc}`;
-export const CommentFragmentDoc = gql`
-    fragment comment on CommentResponse {
+export const PostPreviewWithoutUserFragmentDoc = gql`
+    fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   id
   createdAt
   updatedAt
+  archivedAt
+  pending
   type
-  parentId
-  postId
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${TagFragmentDoc}`;
+export const ReportCommentFragmentDoc = gql`
+    fragment reportComment on ReportCommentResponse {
+  id
+  createdAt
+  updatedAt
   reportId
-  auctionId
   content
+  userId
 }
     `;
+export const VersionFragmentDoc = gql`
+    fragment version on VersionResponse {
+  id
+  createdAt
+  schemaName
+  tableName
+  op
+  refId
+  values
+  images {
+    ...image
+  }
+}
+    ${ImageFragmentDoc}`;
 export const ReportFragmentDoc = gql`
     fragment report on ReportResponse {
   id
   createdAt
   updatedAt
   type
-  refVersionId
   reportedUser {
     ...author
   }
+  reportedPostId
+  reportedPost {
+    ...postPreviewWithoutUser
+  }
+  reportedCommentId
   groupId
   status
-  title
-  content
+  reason
+  description
   comments {
-    ...comment
+    ...reportComment
+  }
+  version {
+    ...version
   }
 }
     ${AuthorFragmentDoc}
-${CommentFragmentDoc}`;
-export const SwapFragmentDoc = gql`
-    fragment swap on SwapResponse {
-  id
-  createdAt
-  updatedAt
-  bumpedAt
-  slug
-  name0
-  name1
-  description0
-  description1
-  price
-  priceCurrency
-  shippingCost
-  shippingType
-  totalPrice
-  businessFunction
-  status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  images {
-    ...image
-  }
-  group {
-    ...groupProfile
-  }
-  productCategory {
-    ...productCategory
-  }
-  proposer {
-    ...author
-  }
-  brandId
-}
-    ${ImageFragmentDoc}
-${GroupProfileFragmentDoc}
-${ProductCategoryFragmentDoc}
-${AuthorFragmentDoc}`;
-export const SwapPreviewFragmentDoc = gql`
-    fragment swapPreview on SwapPreviewResponse {
-  id
-  createdAt
-  updatedAt
-  bumpedAt
-  slug
-  name0
-  name1
-  price
-  priceCurrency
-  shippingCost
-  shippingType
-  totalPrice
-  businessFunction
-  status
-  isHidden
-  pending
-  source
-  reportCount
-  reportCommentCount
-  thumbnail {
-    ...image
-  }
-  groupId
-  productCategoryId
-  proposer {
-    ...user
-  }
-  brandId
-}
-    ${ImageFragmentDoc}
-${UserFragmentDoc}`;
+${PostPreviewWithoutUserFragmentDoc}
+${ReportCommentFragmentDoc}
+${VersionFragmentDoc}`;
 export const TermFragmentDoc = gql`
     fragment term on TermResponse {
   id
@@ -1965,6 +1992,69 @@ export const TermFragmentDoc = gql`
   meta
 }
     `;
+export const PostPreviewWithAuthorFragmentDoc = gql`
+    fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${AuthorFragmentDoc}
+${TagFragmentDoc}`;
+export const UserReviewPreviewFragmentDoc = gql`
+    fragment userReviewPreview on UserReviewPreviewResponse {
+  post {
+    ...postPreviewWithAuthor
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+    ${PostPreviewWithAuthorFragmentDoc}
+${AuthorFragmentDoc}`;
+export const UserReviewFragmentDoc = gql`
+    fragment userReview on UserReviewResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  type
+  reviewedUser {
+    ...author
+  }
+  offerId
+  auctionId
+  content
+  rating
+  status
+}
+    ${PostFragmentDoc}
+${AuthorFragmentDoc}`;
 export const SocialAccountFragmentDoc = gql`
     fragment socialAccount on SocialAccountResponse {
   id
@@ -1994,12 +2084,12 @@ export const MyUserFragmentDoc = gql`
   socialAccounts {
     ...socialAccount
   }
-  members {
-    ...member
+  roles {
+    ...role
   }
 }
     ${SocialAccountFragmentDoc}
-${MemberFragmentDoc}`;
+${RoleFragmentDoc}`;
 export const VersionPreviewFragmentDoc = gql`
     fragment versionPreview on VersionPreviewResponse {
   id
@@ -2011,20 +2101,6 @@ export const VersionPreviewFragmentDoc = gql`
   values
 }
     `;
-export const VersionFragmentDoc = gql`
-    fragment version on VersionResponse {
-  id
-  createdAt
-  schemaName
-  tableName
-  op
-  refId
-  values
-  images {
-    ...image
-  }
-}
-    ${ImageFragmentDoc}`;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {
@@ -2157,11 +2233,9 @@ export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMut
 export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const UpdateCommentDocument = gql`
     mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input) {
-    ...comment
-  }
+  updateComment(input: $input)
 }
-    ${CommentFragmentDoc}`;
+    `;
 export type UpdateCommentMutationFn = Apollo.MutationFunction<UpdateCommentMutation, UpdateCommentMutationVariables>;
 
 /**
@@ -2188,9 +2262,40 @@ export function useUpdateCommentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateCommentMutationHookResult = ReturnType<typeof useUpdateCommentMutation>;
 export type UpdateCommentMutationResult = Apollo.MutationResult<UpdateCommentMutation>;
 export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<UpdateCommentMutation, UpdateCommentMutationVariables>;
+export const DeleteCommentDocument = gql`
+    mutation DeleteComment($input: DeleteCommentInput!) {
+  deleteComment(input: $input)
+}
+    `;
+export type DeleteCommentMutationFn = Apollo.MutationFunction<DeleteCommentMutation, DeleteCommentMutationVariables>;
+
+/**
+ * __useDeleteCommentMutation__
+ *
+ * To run a mutation, you first call `useDeleteCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCommentMutation, { data, loading, error }] = useDeleteCommentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteCommentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCommentMutation, DeleteCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DeleteCommentDocument, options);
+      }
+export type DeleteCommentMutationHookResult = ReturnType<typeof useDeleteCommentMutation>;
+export type DeleteCommentMutationResult = Apollo.MutationResult<DeleteCommentMutation>;
+export type DeleteCommentMutationOptions = Apollo.BaseMutationOptions<DeleteCommentMutation, DeleteCommentMutationVariables>;
 export const FindCommentDocument = gql`
-    query FindComment($id: ID, $type: String, $refId: ID) {
-  findComment(id: $id, type: $type, refId: $refId) {
+    query FindComment($id: ID, $postId: ID) {
+  findComment(id: $id, postId: $postId) {
     ...comment
   }
 }
@@ -2209,8 +2314,7 @@ export const FindCommentDocument = gql`
  * const { data, loading, error } = useFindCommentQuery({
  *   variables: {
  *      id: // value for 'id'
- *      type: // value for 'type'
- *      refId: // value for 'refId'
+ *      postId: // value for 'postId'
  *   },
  * });
  */
@@ -2230,20 +2334,19 @@ export type FindCommentQueryHookResult = ReturnType<typeof useFindCommentQuery>;
 export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLazyQuery>;
 export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
 export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
-export const FindDemandPreviewsDocument = gql`
-    query findDemandPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
-  findDemandPreviews(
+export const FindCommentsDocument = gql`
+    query findComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findComments(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
-    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
   ) {
     edges {
       node {
-        ...demandPreview
+        ...commentWithAuthor
       }
       cursor
     }
@@ -2253,273 +2356,175 @@ export const FindDemandPreviewsDocument = gql`
     }
   }
 }
-    ${DemandPreviewFragmentDoc}`;
+    ${CommentWithAuthorFragmentDoc}`;
 
 /**
- * __useFindDemandPreviewsQuery__
+ * __useFindCommentsQuery__
  *
- * To run a query within a React component, call `useFindDemandPreviewsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindDemandPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindDemandPreviewsQuery({
+ * const { data, loading, error } = useFindCommentsQuery({
  *   variables: {
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
- *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
  *   },
  * });
  */
-export function useFindDemandPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables> & ({ variables: FindDemandPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindCommentsQuery(baseOptions: Apollo.QueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables> & ({ variables: FindCommentsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>(FindDemandPreviewsDocument, options);
+        return Apollo.useQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
       }
-export function useFindDemandPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>) {
+export function useFindCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>(FindDemandPreviewsDocument, options);
+          return Apollo.useLazyQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
         }
-export function useFindDemandPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>) {
+export function useFindCommentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCommentsQuery, FindCommentsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>(FindDemandPreviewsDocument, options);
+          return Apollo.useSuspenseQuery<FindCommentsQuery, FindCommentsQueryVariables>(FindCommentsDocument, options);
         }
-export type FindDemandPreviewsQueryHookResult = ReturnType<typeof useFindDemandPreviewsQuery>;
-export type FindDemandPreviewsLazyQueryHookResult = ReturnType<typeof useFindDemandPreviewsLazyQuery>;
-export type FindDemandPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindDemandPreviewsSuspenseQuery>;
-export type FindDemandPreviewsQueryResult = Apollo.QueryResult<FindDemandPreviewsQuery, FindDemandPreviewsQueryVariables>;
-export const FindDemandDocument = gql`
-    query findDemand($id: ID, $slug: String) {
-  findDemand(id: $id, slug: $slug) {
-    ...demand
+export type FindCommentsQueryHookResult = ReturnType<typeof useFindCommentsQuery>;
+export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsLazyQuery>;
+export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
+export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
+export const CommentCreatedDocument = gql`
+    subscription CommentCreated($postId: ID!) {
+  commentCreated(postId: $postId) {
+    ...commentWithAuthor
   }
 }
-    ${DemandFragmentDoc}`;
+    ${CommentWithAuthorFragmentDoc}`;
 
 /**
- * __useFindDemandQuery__
+ * __useCommentCreatedSubscription__
  *
- * To run a query within a React component, call `useFindDemandQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindDemandQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCommentCreatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCommentCreatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCommentCreatedSubscription({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useCommentCreatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentCreatedSubscription, CommentCreatedSubscriptionVariables> & ({ variables: CommentCreatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<CommentCreatedSubscription, CommentCreatedSubscriptionVariables>(CommentCreatedDocument, options);
+      }
+export type CommentCreatedSubscriptionHookResult = ReturnType<typeof useCommentCreatedSubscription>;
+export type CommentCreatedSubscriptionResult = Apollo.SubscriptionResult<CommentCreatedSubscription>;
+export const CommentUpdatedDocument = gql`
+    subscription CommentUpdated($postId: ID!) {
+  commentUpdated(postId: $postId) {
+    ...updatedCommentResponse
+  }
+}
+    ${UpdatedCommentResponseFragmentDoc}`;
+
+/**
+ * __useCommentUpdatedSubscription__
+ *
+ * To run a query within a React component, call `useCommentUpdatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCommentUpdatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCommentUpdatedSubscription({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useCommentUpdatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentUpdatedSubscription, CommentUpdatedSubscriptionVariables> & ({ variables: CommentUpdatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<CommentUpdatedSubscription, CommentUpdatedSubscriptionVariables>(CommentUpdatedDocument, options);
+      }
+export type CommentUpdatedSubscriptionHookResult = ReturnType<typeof useCommentUpdatedSubscription>;
+export type CommentUpdatedSubscriptionResult = Apollo.SubscriptionResult<CommentUpdatedSubscription>;
+export const CommentDeletedDocument = gql`
+    subscription CommentDeleted($postId: ID!) {
+  commentDeleted(postId: $postId) {
+    ...deletedCommentResponse
+  }
+}
+    ${DeletedCommentResponseFragmentDoc}`;
+
+/**
+ * __useCommentDeletedSubscription__
+ *
+ * To run a query within a React component, call `useCommentDeletedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCommentDeletedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCommentDeletedSubscription({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useCommentDeletedSubscription(baseOptions: Apollo.SubscriptionHookOptions<CommentDeletedSubscription, CommentDeletedSubscriptionVariables> & ({ variables: CommentDeletedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<CommentDeletedSubscription, CommentDeletedSubscriptionVariables>(CommentDeletedDocument, options);
+      }
+export type CommentDeletedSubscriptionHookResult = ReturnType<typeof useCommentDeletedSubscription>;
+export type CommentDeletedSubscriptionResult = Apollo.SubscriptionResult<CommentDeletedSubscription>;
+export const FindEmojisDocument = gql`
+    query FindEmojis($groupId: ID) {
+  findEmojis(groupId: $groupId) {
+    ...emoji
+  }
+}
+    ${EmojiFragmentDoc}`;
+
+/**
+ * __useFindEmojisQuery__
+ *
+ * To run a query within a React component, call `useFindEmojisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindEmojisQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindDemandQuery({
+ * const { data, loading, error } = useFindEmojisQuery({
  *   variables: {
- *      id: // value for 'id'
- *      slug: // value for 'slug'
+ *      groupId: // value for 'groupId'
  *   },
  * });
  */
-export function useFindDemandQuery(baseOptions?: Apollo.QueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+export function useFindEmojisQuery(baseOptions?: Apollo.QueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+        return Apollo.useQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
       }
-export function useFindDemandLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+export function useFindEmojisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+          return Apollo.useLazyQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
         }
-export function useFindDemandSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindDemandQuery, FindDemandQueryVariables>) {
+export function useFindEmojisSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindEmojisQuery, FindEmojisQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindDemandQuery, FindDemandQueryVariables>(FindDemandDocument, options);
+          return Apollo.useSuspenseQuery<FindEmojisQuery, FindEmojisQueryVariables>(FindEmojisDocument, options);
         }
-export type FindDemandQueryHookResult = ReturnType<typeof useFindDemandQuery>;
-export type FindDemandLazyQueryHookResult = ReturnType<typeof useFindDemandLazyQuery>;
-export type FindDemandSuspenseQueryHookResult = ReturnType<typeof useFindDemandSuspenseQuery>;
-export type FindDemandQueryResult = Apollo.QueryResult<FindDemandQuery, FindDemandQueryVariables>;
-export const FindDemandCountDocument = gql`
-    query findDemandCount($buyerId: ID!, $productCategoryId: ID!, $fromHours: Int!) {
-  findDemandCount(
-    buyerId: $buyerId
-    productCategoryId: $productCategoryId
-    fromHours: $fromHours
-  )
-}
-    `;
-
-/**
- * __useFindDemandCountQuery__
- *
- * To run a query within a React component, call `useFindDemandCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindDemandCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindDemandCountQuery({
- *   variables: {
- *      buyerId: // value for 'buyerId'
- *      productCategoryId: // value for 'productCategoryId'
- *      fromHours: // value for 'fromHours'
- *   },
- * });
- */
-export function useFindDemandCountQuery(baseOptions: Apollo.QueryHookOptions<FindDemandCountQuery, FindDemandCountQueryVariables> & ({ variables: FindDemandCountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindDemandCountQuery, FindDemandCountQueryVariables>(FindDemandCountDocument, options);
-      }
-export function useFindDemandCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindDemandCountQuery, FindDemandCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindDemandCountQuery, FindDemandCountQueryVariables>(FindDemandCountDocument, options);
-        }
-export function useFindDemandCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindDemandCountQuery, FindDemandCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindDemandCountQuery, FindDemandCountQueryVariables>(FindDemandCountDocument, options);
-        }
-export type FindDemandCountQueryHookResult = ReturnType<typeof useFindDemandCountQuery>;
-export type FindDemandCountLazyQueryHookResult = ReturnType<typeof useFindDemandCountLazyQuery>;
-export type FindDemandCountSuspenseQueryHookResult = ReturnType<typeof useFindDemandCountSuspenseQuery>;
-export type FindDemandCountQueryResult = Apollo.QueryResult<FindDemandCountQuery, FindDemandCountQueryVariables>;
-export const CreateDemandDocument = gql`
-    mutation CreateDemand($input: CreateDemandInput!) {
-  createDemand(input: $input)
-}
-    `;
-export type CreateDemandMutationFn = Apollo.MutationFunction<CreateDemandMutation, CreateDemandMutationVariables>;
-
-/**
- * __useCreateDemandMutation__
- *
- * To run a mutation, you first call `useCreateDemandMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateDemandMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createDemandMutation, { data, loading, error }] = useCreateDemandMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateDemandMutation(baseOptions?: Apollo.MutationHookOptions<CreateDemandMutation, CreateDemandMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateDemandMutation, CreateDemandMutationVariables>(CreateDemandDocument, options);
-      }
-export type CreateDemandMutationHookResult = ReturnType<typeof useCreateDemandMutation>;
-export type CreateDemandMutationResult = Apollo.MutationResult<CreateDemandMutation>;
-export type CreateDemandMutationOptions = Apollo.BaseMutationOptions<CreateDemandMutation, CreateDemandMutationVariables>;
-export const UpdateDemandDocument = gql`
-    mutation UpdateDemand($input: UpdateDemandInput!) {
-  updateDemand(input: $input) {
-    id
-    status
-    isHidden
-    pending
-    name
-    price
-    shippingCost
-    shippingType
-    totalPrice
-  }
-}
-    `;
-export type UpdateDemandMutationFn = Apollo.MutationFunction<UpdateDemandMutation, UpdateDemandMutationVariables>;
-
-/**
- * __useUpdateDemandMutation__
- *
- * To run a mutation, you first call `useUpdateDemandMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateDemandMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateDemandMutation, { data, loading, error }] = useUpdateDemandMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateDemandMutation(baseOptions?: Apollo.MutationHookOptions<UpdateDemandMutation, UpdateDemandMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateDemandMutation, UpdateDemandMutationVariables>(UpdateDemandDocument, options);
-      }
-export type UpdateDemandMutationHookResult = ReturnType<typeof useUpdateDemandMutation>;
-export type UpdateDemandMutationResult = Apollo.MutationResult<UpdateDemandMutation>;
-export type UpdateDemandMutationOptions = Apollo.BaseMutationOptions<UpdateDemandMutation, UpdateDemandMutationVariables>;
-export const DeleteDemandDocument = gql`
-    mutation DeleteDemand($id: ID!, $buyerId: ID!) {
-  deleteDemand(id: $id, buyerId: $buyerId)
-}
-    `;
-export type DeleteDemandMutationFn = Apollo.MutationFunction<DeleteDemandMutation, DeleteDemandMutationVariables>;
-
-/**
- * __useDeleteDemandMutation__
- *
- * To run a mutation, you first call `useDeleteDemandMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteDemandMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteDemandMutation, { data, loading, error }] = useDeleteDemandMutation({
- *   variables: {
- *      id: // value for 'id'
- *      buyerId: // value for 'buyerId'
- *   },
- * });
- */
-export function useDeleteDemandMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDemandMutation, DeleteDemandMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteDemandMutation, DeleteDemandMutationVariables>(DeleteDemandDocument, options);
-      }
-export type DeleteDemandMutationHookResult = ReturnType<typeof useDeleteDemandMutation>;
-export type DeleteDemandMutationResult = Apollo.MutationResult<DeleteDemandMutation>;
-export type DeleteDemandMutationOptions = Apollo.BaseMutationOptions<DeleteDemandMutation, DeleteDemandMutationVariables>;
-export const BumpDemandDocument = gql`
-    mutation BumpDemand($input: BumpDemandInput!) {
-  bumpDemand(input: $input) {
-    id
-    bumpedAt
-    price
-    shippingCost
-    shippingType
-    totalPrice
-  }
-}
-    `;
-export type BumpDemandMutationFn = Apollo.MutationFunction<BumpDemandMutation, BumpDemandMutationVariables>;
-
-/**
- * __useBumpDemandMutation__
- *
- * To run a mutation, you first call `useBumpDemandMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useBumpDemandMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [bumpDemandMutation, { data, loading, error }] = useBumpDemandMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useBumpDemandMutation(baseOptions?: Apollo.MutationHookOptions<BumpDemandMutation, BumpDemandMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<BumpDemandMutation, BumpDemandMutationVariables>(BumpDemandDocument, options);
-      }
-export type BumpDemandMutationHookResult = ReturnType<typeof useBumpDemandMutation>;
-export type BumpDemandMutationResult = Apollo.MutationResult<BumpDemandMutation>;
-export type BumpDemandMutationOptions = Apollo.BaseMutationOptions<BumpDemandMutation, BumpDemandMutationVariables>;
+export type FindEmojisQueryHookResult = ReturnType<typeof useFindEmojisQuery>;
+export type FindEmojisLazyQueryHookResult = ReturnType<typeof useFindEmojisLazyQuery>;
+export type FindEmojisSuspenseQueryHookResult = ReturnType<typeof useFindEmojisSuspenseQuery>;
+export type FindEmojisQueryResult = Apollo.QueryResult<FindEmojisQuery, FindEmojisQueryVariables>;
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
@@ -2702,12 +2707,11 @@ export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
 export const FindOfferPreviewsDocument = gql`
-    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
-    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2741,7 +2745,6 @@ export const FindOfferPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
- *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2805,50 +2808,6 @@ export type FindOfferQueryHookResult = ReturnType<typeof useFindOfferQuery>;
 export type FindOfferLazyQueryHookResult = ReturnType<typeof useFindOfferLazyQuery>;
 export type FindOfferSuspenseQueryHookResult = ReturnType<typeof useFindOfferSuspenseQuery>;
 export type FindOfferQueryResult = Apollo.QueryResult<FindOfferQuery, FindOfferQueryVariables>;
-export const FindOfferCountDocument = gql`
-    query findOfferCount($sellerId: ID!, $productCategoryId: ID!, $fromHours: Int!) {
-  findOfferCount(
-    sellerId: $sellerId
-    productCategoryId: $productCategoryId
-    fromHours: $fromHours
-  )
-}
-    `;
-
-/**
- * __useFindOfferCountQuery__
- *
- * To run a query within a React component, call `useFindOfferCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindOfferCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindOfferCountQuery({
- *   variables: {
- *      sellerId: // value for 'sellerId'
- *      productCategoryId: // value for 'productCategoryId'
- *      fromHours: // value for 'fromHours'
- *   },
- * });
- */
-export function useFindOfferCountQuery(baseOptions: Apollo.QueryHookOptions<FindOfferCountQuery, FindOfferCountQueryVariables> & ({ variables: FindOfferCountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindOfferCountQuery, FindOfferCountQueryVariables>(FindOfferCountDocument, options);
-      }
-export function useFindOfferCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindOfferCountQuery, FindOfferCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindOfferCountQuery, FindOfferCountQueryVariables>(FindOfferCountDocument, options);
-        }
-export function useFindOfferCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindOfferCountQuery, FindOfferCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindOfferCountQuery, FindOfferCountQueryVariables>(FindOfferCountDocument, options);
-        }
-export type FindOfferCountQueryHookResult = ReturnType<typeof useFindOfferCountQuery>;
-export type FindOfferCountLazyQueryHookResult = ReturnType<typeof useFindOfferCountLazyQuery>;
-export type FindOfferCountSuspenseQueryHookResult = ReturnType<typeof useFindOfferCountSuspenseQuery>;
-export type FindOfferCountQueryResult = Apollo.QueryResult<FindOfferCountQuery, FindOfferCountQueryVariables>;
 export const CreateOfferDocument = gql`
     mutation CreateOffer($input: CreateOfferInput!) {
   createOffer(input: $input)
@@ -2884,10 +2843,12 @@ export const UpdateOfferDocument = gql`
     mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
     id
+    createdAt
+    updatedAt
     status
-    isHidden
-    pending
-    name
+    name0
+    name1
+    content
     price
     shippingCost
     shippingType
@@ -2922,8 +2883,8 @@ export type UpdateOfferMutationHookResult = ReturnType<typeof useUpdateOfferMuta
 export type UpdateOfferMutationResult = Apollo.MutationResult<UpdateOfferMutation>;
 export type UpdateOfferMutationOptions = Apollo.BaseMutationOptions<UpdateOfferMutation, UpdateOfferMutationVariables>;
 export const DeleteOfferDocument = gql`
-    mutation DeleteOffer($id: ID!, $sellerId: ID!) {
-  deleteOffer(id: $id, sellerId: $sellerId)
+    mutation DeleteOffer($id: ID!) {
+  deleteOffer(id: $id)
 }
     `;
 export type DeleteOfferMutationFn = Apollo.MutationFunction<DeleteOfferMutation, DeleteOfferMutationVariables>;
@@ -2942,7 +2903,6 @@ export type DeleteOfferMutationFn = Apollo.MutationFunction<DeleteOfferMutation,
  * const [deleteOfferMutation, { data, loading, error }] = useDeleteOfferMutation({
  *   variables: {
  *      id: // value for 'id'
- *      sellerId: // value for 'sellerId'
  *   },
  * });
  */
@@ -2991,6 +2951,213 @@ export function useBumpOfferMutation(baseOptions?: Apollo.MutationHookOptions<Bu
 export type BumpOfferMutationHookResult = ReturnType<typeof useBumpOfferMutation>;
 export type BumpOfferMutationResult = Apollo.MutationResult<BumpOfferMutation>;
 export type BumpOfferMutationOptions = Apollo.BaseMutationOptions<BumpOfferMutation, BumpOfferMutationVariables>;
+export const FindPostPreviewDocument = gql`
+    query findPostPreview($id: ID!) {
+  findPostPreview(id: $id) {
+    ...postPreviewWithUser
+  }
+}
+    ${PostPreviewWithUserFragmentDoc}`;
+
+/**
+ * __useFindPostPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindPostPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPostPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPostPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindPostPreviewQuery(baseOptions: Apollo.QueryHookOptions<FindPostPreviewQuery, FindPostPreviewQueryVariables> & ({ variables: FindPostPreviewQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindPostPreviewQuery, FindPostPreviewQueryVariables>(FindPostPreviewDocument, options);
+      }
+export function useFindPostPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPostPreviewQuery, FindPostPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindPostPreviewQuery, FindPostPreviewQueryVariables>(FindPostPreviewDocument, options);
+        }
+export function useFindPostPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindPostPreviewQuery, FindPostPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindPostPreviewQuery, FindPostPreviewQueryVariables>(FindPostPreviewDocument, options);
+        }
+export type FindPostPreviewQueryHookResult = ReturnType<typeof useFindPostPreviewQuery>;
+export type FindPostPreviewLazyQueryHookResult = ReturnType<typeof useFindPostPreviewLazyQuery>;
+export type FindPostPreviewSuspenseQueryHookResult = ReturnType<typeof useFindPostPreviewSuspenseQuery>;
+export type FindPostPreviewQueryResult = Apollo.QueryResult<FindPostPreviewQuery, FindPostPreviewQueryVariables>;
+export const CreateReactionDocument = gql`
+    mutation CreateReaction($input: CreateReactionInput!) {
+  createReaction(input: $input)
+}
+    `;
+export type CreateReactionMutationFn = Apollo.MutationFunction<CreateReactionMutation, CreateReactionMutationVariables>;
+
+/**
+ * __useCreateReactionMutation__
+ *
+ * To run a mutation, you first call `useCreateReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReactionMutation, { data, loading, error }] = useCreateReactionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateReactionMutation(baseOptions?: Apollo.MutationHookOptions<CreateReactionMutation, CreateReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateReactionMutation, CreateReactionMutationVariables>(CreateReactionDocument, options);
+      }
+export type CreateReactionMutationHookResult = ReturnType<typeof useCreateReactionMutation>;
+export type CreateReactionMutationResult = Apollo.MutationResult<CreateReactionMutation>;
+export type CreateReactionMutationOptions = Apollo.BaseMutationOptions<CreateReactionMutation, CreateReactionMutationVariables>;
+export const CancelReactionDocument = gql`
+    mutation CancelReaction($input: CancelReactionInput!) {
+  cancelReaction(input: $input)
+}
+    `;
+export type CancelReactionMutationFn = Apollo.MutationFunction<CancelReactionMutation, CancelReactionMutationVariables>;
+
+/**
+ * __useCancelReactionMutation__
+ *
+ * To run a mutation, you first call `useCancelReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCancelReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [cancelReactionMutation, { data, loading, error }] = useCancelReactionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCancelReactionMutation(baseOptions?: Apollo.MutationHookOptions<CancelReactionMutation, CancelReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CancelReactionMutation, CancelReactionMutationVariables>(CancelReactionDocument, options);
+      }
+export type CancelReactionMutationHookResult = ReturnType<typeof useCancelReactionMutation>;
+export type CancelReactionMutationResult = Apollo.MutationResult<CancelReactionMutation>;
+export type CancelReactionMutationOptions = Apollo.BaseMutationOptions<CancelReactionMutation, CancelReactionMutationVariables>;
+export const FindReactionsDocument = gql`
+    query findReactions($postId: ID, $commentId: ID) {
+  findReactions(postId: $postId, commentId: $commentId) {
+    ...reaction
+  }
+}
+    ${ReactionFragmentDoc}`;
+
+/**
+ * __useFindReactionsQuery__
+ *
+ * To run a query within a React component, call `useFindReactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReactionsQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      commentId: // value for 'commentId'
+ *   },
+ * });
+ */
+export function useFindReactionsQuery(baseOptions?: Apollo.QueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+      }
+export function useFindReactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+        }
+export function useFindReactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReactionsQuery, FindReactionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReactionsQuery, FindReactionsQueryVariables>(FindReactionsDocument, options);
+        }
+export type FindReactionsQueryHookResult = ReturnType<typeof useFindReactionsQuery>;
+export type FindReactionsLazyQueryHookResult = ReturnType<typeof useFindReactionsLazyQuery>;
+export type FindReactionsSuspenseQueryHookResult = ReturnType<typeof useFindReactionsSuspenseQuery>;
+export type FindReactionsQueryResult = Apollo.QueryResult<FindReactionsQuery, FindReactionsQueryVariables>;
+export const ReactionCreatedDocument = gql`
+    subscription ReactionCreated($type: String!, $postId: ID!) {
+  reactionCreated(type: $type, postId: $postId) {
+    ...reaction
+  }
+}
+    ${ReactionFragmentDoc}`;
+
+/**
+ * __useReactionCreatedSubscription__
+ *
+ * To run a query within a React component, call `useReactionCreatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useReactionCreatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReactionCreatedSubscription({
+ *   variables: {
+ *      type: // value for 'type'
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useReactionCreatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables> & ({ variables: ReactionCreatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ReactionCreatedSubscription, ReactionCreatedSubscriptionVariables>(ReactionCreatedDocument, options);
+      }
+export type ReactionCreatedSubscriptionHookResult = ReturnType<typeof useReactionCreatedSubscription>;
+export type ReactionCreatedSubscriptionResult = Apollo.SubscriptionResult<ReactionCreatedSubscription>;
+export const ReactionCanceledDocument = gql`
+    subscription ReactionCanceled($type: String!, $postId: ID!) {
+  reactionCanceled(type: $type, postId: $postId) {
+    id
+    postId
+    commentId
+  }
+}
+    `;
+
+/**
+ * __useReactionCanceledSubscription__
+ *
+ * To run a query within a React component, call `useReactionCanceledSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useReactionCanceledSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReactionCanceledSubscription({
+ *   variables: {
+ *      type: // value for 'type'
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useReactionCanceledSubscription(baseOptions: Apollo.SubscriptionHookOptions<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables> & ({ variables: ReactionCanceledSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ReactionCanceledSubscription, ReactionCanceledSubscriptionVariables>(ReactionCanceledDocument, options);
+      }
+export type ReactionCanceledSubscriptionHookResult = ReturnType<typeof useReactionCanceledSubscription>;
+export type ReactionCanceledSubscriptionResult = Apollo.SubscriptionResult<ReactionCanceledSubscription>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)
@@ -3023,12 +3190,11 @@ export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMu
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
 export const FindReportPreviewsDocument = gql`
-    query findReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
+    query findReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
-    distinct: $distinct
     cursor: $cursor
     skip: $skip
     take: $take
@@ -3062,7 +3228,6 @@ export const FindReportPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
- *      distinct: // value for 'distinct'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -3088,10 +3253,10 @@ export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreview
 export const FindLastReportDocument = gql`
     query findLastReport {
   findLastReport {
-    ...report
+    ...lastReport
   }
 }
-    ${ReportFragmentDoc}`;
+    ${LastReportFragmentDoc}`;
 
 /**
  * __useFindLastReportQuery__
@@ -3124,11 +3289,93 @@ export type FindLastReportQueryHookResult = ReturnType<typeof useFindLastReportQ
 export type FindLastReportLazyQueryHookResult = ReturnType<typeof useFindLastReportLazyQuery>;
 export type FindLastReportSuspenseQueryHookResult = ReturnType<typeof useFindLastReportSuspenseQuery>;
 export type FindLastReportQueryResult = Apollo.QueryResult<FindLastReportQuery, FindLastReportQueryVariables>;
+export const FindReportDocument = gql`
+    query findReport($id: ID!) {
+  findReport(id: $id) {
+    ...report
+  }
+}
+    ${ReportFragmentDoc}`;
+
+/**
+ * __useFindReportQuery__
+ *
+ * To run a query within a React component, call `useFindReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReportQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindReportQuery(baseOptions: Apollo.QueryHookOptions<FindReportQuery, FindReportQueryVariables> & ({ variables: FindReportQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+      }
+export function useFindReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportQuery, FindReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+        }
+export function useFindReportSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportQuery, FindReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReportQuery, FindReportQueryVariables>(FindReportDocument, options);
+        }
+export type FindReportQueryHookResult = ReturnType<typeof useFindReportQuery>;
+export type FindReportLazyQueryHookResult = ReturnType<typeof useFindReportLazyQuery>;
+export type FindReportSuspenseQueryHookResult = ReturnType<typeof useFindReportSuspenseQuery>;
+export type FindReportQueryResult = Apollo.QueryResult<FindReportQuery, FindReportQueryVariables>;
+export const FindReportCommentDocument = gql`
+    query findReportComment($reportId: ID!) {
+  findReportComment(reportId: $reportId) {
+    ...reportComment
+  }
+}
+    ${ReportCommentFragmentDoc}`;
+
+/**
+ * __useFindReportCommentQuery__
+ *
+ * To run a query within a React component, call `useFindReportCommentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReportCommentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReportCommentQuery({
+ *   variables: {
+ *      reportId: // value for 'reportId'
+ *   },
+ * });
+ */
+export function useFindReportCommentQuery(baseOptions: Apollo.QueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables> & ({ variables: FindReportCommentQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+      }
+export function useFindReportCommentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+        }
+export function useFindReportCommentSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindReportCommentQuery, FindReportCommentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindReportCommentQuery, FindReportCommentQueryVariables>(FindReportCommentDocument, options);
+        }
+export type FindReportCommentQueryHookResult = ReturnType<typeof useFindReportCommentQuery>;
+export type FindReportCommentLazyQueryHookResult = ReturnType<typeof useFindReportCommentLazyQuery>;
+export type FindReportCommentSuspenseQueryHookResult = ReturnType<typeof useFindReportCommentSuspenseQuery>;
+export type FindReportCommentQueryResult = Apollo.QueryResult<FindReportCommentQuery, FindReportCommentQueryVariables>;
 export const CommentReportDocument = gql`
     mutation CommentReport($input: CommentReportInput!) {
-  commentReport(input: $input)
+  commentReport(input: $input) {
+    ...reportComment
+  }
 }
-    `;
+    ${ReportCommentFragmentDoc}`;
 export type CommentReportMutationFn = Apollo.MutationFunction<CommentReportMutation, CommentReportMutationVariables>;
 
 /**
@@ -3155,297 +3402,78 @@ export function useCommentReportMutation(baseOptions?: Apollo.MutationHookOption
 export type CommentReportMutationHookResult = ReturnType<typeof useCommentReportMutation>;
 export type CommentReportMutationResult = Apollo.MutationResult<CommentReportMutation>;
 export type CommentReportMutationOptions = Apollo.BaseMutationOptions<CommentReportMutation, CommentReportMutationVariables>;
-export const FindSwapPreviewsDocument = gql`
-    query findSwapPreviews($where: JSON, $orderBy: JSON, $keyword: String, $distinct: Boolean, $cursor: ID, $skip: Int!, $take: Int!) {
-  findSwapPreviews(
-    where: $where
-    orderBy: $orderBy
-    keyword: $keyword
-    distinct: $distinct
-    cursor: $cursor
-    skip: $skip
-    take: $take
-  ) {
-    edges {
-      node {
-        ...swapPreview
-      }
-      cursor
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
+export const UpdateReportCommentDocument = gql`
+    mutation UpdateReportComment($input: UpdateReportCommentInput!) {
+  updateReportComment(input: $input) {
+    ...reportComment
   }
 }
-    ${SwapPreviewFragmentDoc}`;
+    ${ReportCommentFragmentDoc}`;
+export type UpdateReportCommentMutationFn = Apollo.MutationFunction<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
 
 /**
- * __useFindSwapPreviewsQuery__
+ * __useUpdateReportCommentMutation__
  *
- * To run a query within a React component, call `useFindSwapPreviewsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSwapPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindSwapPreviewsQuery({
- *   variables: {
- *      where: // value for 'where'
- *      orderBy: // value for 'orderBy'
- *      keyword: // value for 'keyword'
- *      distinct: // value for 'distinct'
- *      cursor: // value for 'cursor'
- *      skip: // value for 'skip'
- *      take: // value for 'take'
- *   },
- * });
- */
-export function useFindSwapPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables> & ({ variables: FindSwapPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
-      }
-export function useFindSwapPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
-        }
-export function useFindSwapPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>(FindSwapPreviewsDocument, options);
-        }
-export type FindSwapPreviewsQueryHookResult = ReturnType<typeof useFindSwapPreviewsQuery>;
-export type FindSwapPreviewsLazyQueryHookResult = ReturnType<typeof useFindSwapPreviewsLazyQuery>;
-export type FindSwapPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindSwapPreviewsSuspenseQuery>;
-export type FindSwapPreviewsQueryResult = Apollo.QueryResult<FindSwapPreviewsQuery, FindSwapPreviewsQueryVariables>;
-export const FindSwapDocument = gql`
-    query findSwap($id: ID, $slug: String) {
-  findSwap(id: $id, slug: $slug) {
-    ...swap
-  }
-}
-    ${SwapFragmentDoc}`;
-
-/**
- * __useFindSwapQuery__
- *
- * To run a query within a React component, call `useFindSwapQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSwapQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindSwapQuery({
- *   variables: {
- *      id: // value for 'id'
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useFindSwapQuery(baseOptions?: Apollo.QueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
-      }
-export function useFindSwapLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
-        }
-export function useFindSwapSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapQuery, FindSwapQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSwapQuery, FindSwapQueryVariables>(FindSwapDocument, options);
-        }
-export type FindSwapQueryHookResult = ReturnType<typeof useFindSwapQuery>;
-export type FindSwapLazyQueryHookResult = ReturnType<typeof useFindSwapLazyQuery>;
-export type FindSwapSuspenseQueryHookResult = ReturnType<typeof useFindSwapSuspenseQuery>;
-export type FindSwapQueryResult = Apollo.QueryResult<FindSwapQuery, FindSwapQueryVariables>;
-export const FindSwapCountDocument = gql`
-    query findSwapCount($proposerId: ID!, $productCategoryId: ID!, $fromHours: Int!) {
-  findSwapCount(
-    proposerId: $proposerId
-    productCategoryId: $productCategoryId
-    fromHours: $fromHours
-  )
-}
-    `;
-
-/**
- * __useFindSwapCountQuery__
- *
- * To run a query within a React component, call `useFindSwapCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSwapCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindSwapCountQuery({
- *   variables: {
- *      proposerId: // value for 'proposerId'
- *      productCategoryId: // value for 'productCategoryId'
- *      fromHours: // value for 'fromHours'
- *   },
- * });
- */
-export function useFindSwapCountQuery(baseOptions: Apollo.QueryHookOptions<FindSwapCountQuery, FindSwapCountQueryVariables> & ({ variables: FindSwapCountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindSwapCountQuery, FindSwapCountQueryVariables>(FindSwapCountDocument, options);
-      }
-export function useFindSwapCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSwapCountQuery, FindSwapCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindSwapCountQuery, FindSwapCountQueryVariables>(FindSwapCountDocument, options);
-        }
-export function useFindSwapCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSwapCountQuery, FindSwapCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindSwapCountQuery, FindSwapCountQueryVariables>(FindSwapCountDocument, options);
-        }
-export type FindSwapCountQueryHookResult = ReturnType<typeof useFindSwapCountQuery>;
-export type FindSwapCountLazyQueryHookResult = ReturnType<typeof useFindSwapCountLazyQuery>;
-export type FindSwapCountSuspenseQueryHookResult = ReturnType<typeof useFindSwapCountSuspenseQuery>;
-export type FindSwapCountQueryResult = Apollo.QueryResult<FindSwapCountQuery, FindSwapCountQueryVariables>;
-export const CreateSwapDocument = gql`
-    mutation CreateSwap($input: CreateSwapInput!) {
-  createSwap(input: $input)
-}
-    `;
-export type CreateSwapMutationFn = Apollo.MutationFunction<CreateSwapMutation, CreateSwapMutationVariables>;
-
-/**
- * __useCreateSwapMutation__
- *
- * To run a mutation, you first call `useCreateSwapMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSwapMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateReportCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateReportCommentMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createSwapMutation, { data, loading, error }] = useCreateSwapMutation({
+ * const [updateReportCommentMutation, { data, loading, error }] = useUpdateReportCommentMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useCreateSwapMutation(baseOptions?: Apollo.MutationHookOptions<CreateSwapMutation, CreateSwapMutationVariables>) {
+export function useUpdateReportCommentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSwapMutation, CreateSwapMutationVariables>(CreateSwapDocument, options);
+        return Apollo.useMutation<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>(UpdateReportCommentDocument, options);
       }
-export type CreateSwapMutationHookResult = ReturnType<typeof useCreateSwapMutation>;
-export type CreateSwapMutationResult = Apollo.MutationResult<CreateSwapMutation>;
-export type CreateSwapMutationOptions = Apollo.BaseMutationOptions<CreateSwapMutation, CreateSwapMutationVariables>;
-export const UpdateSwapDocument = gql`
-    mutation UpdateSwap($input: UpdateSwapInput!) {
-  updateSwap(input: $input) {
-    id
-    status
-    isHidden
-    pending
-    name0
-    name1
-    price
-    shippingCost
-    shippingType
-    totalPrice
+export type UpdateReportCommentMutationHookResult = ReturnType<typeof useUpdateReportCommentMutation>;
+export type UpdateReportCommentMutationResult = Apollo.MutationResult<UpdateReportCommentMutation>;
+export type UpdateReportCommentMutationOptions = Apollo.BaseMutationOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
+export const FindTagsDocument = gql`
+    query findTags {
+  findTags {
+    ...tag
   }
 }
-    `;
-export type UpdateSwapMutationFn = Apollo.MutationFunction<UpdateSwapMutation, UpdateSwapMutationVariables>;
+    ${TagFragmentDoc}`;
 
 /**
- * __useUpdateSwapMutation__
+ * __useFindTagsQuery__
  *
- * To run a mutation, you first call `useUpdateSwapMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateSwapMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useFindTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [updateSwapMutation, { data, loading, error }] = useUpdateSwapMutation({
+ * const { data, loading, error } = useFindTagsQuery({
  *   variables: {
- *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdateSwapMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSwapMutation, UpdateSwapMutationVariables>) {
+export function useFindTagsQuery(baseOptions?: Apollo.QueryHookOptions<FindTagsQuery, FindTagsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateSwapMutation, UpdateSwapMutationVariables>(UpdateSwapDocument, options);
+        return Apollo.useQuery<FindTagsQuery, FindTagsQueryVariables>(FindTagsDocument, options);
       }
-export type UpdateSwapMutationHookResult = ReturnType<typeof useUpdateSwapMutation>;
-export type UpdateSwapMutationResult = Apollo.MutationResult<UpdateSwapMutation>;
-export type UpdateSwapMutationOptions = Apollo.BaseMutationOptions<UpdateSwapMutation, UpdateSwapMutationVariables>;
-export const DeleteSwapDocument = gql`
-    mutation DeleteSwap($id: ID!, $proposerId: ID!) {
-  deleteSwap(id: $id, proposerId: $proposerId)
-}
-    `;
-export type DeleteSwapMutationFn = Apollo.MutationFunction<DeleteSwapMutation, DeleteSwapMutationVariables>;
-
-/**
- * __useDeleteSwapMutation__
- *
- * To run a mutation, you first call `useDeleteSwapMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteSwapMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteSwapMutation, { data, loading, error }] = useDeleteSwapMutation({
- *   variables: {
- *      id: // value for 'id'
- *      proposerId: // value for 'proposerId'
- *   },
- * });
- */
-export function useDeleteSwapMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSwapMutation, DeleteSwapMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteSwapMutation, DeleteSwapMutationVariables>(DeleteSwapDocument, options);
-      }
-export type DeleteSwapMutationHookResult = ReturnType<typeof useDeleteSwapMutation>;
-export type DeleteSwapMutationResult = Apollo.MutationResult<DeleteSwapMutation>;
-export type DeleteSwapMutationOptions = Apollo.BaseMutationOptions<DeleteSwapMutation, DeleteSwapMutationVariables>;
-export const BumpSwapDocument = gql`
-    mutation BumpSwap($input: BumpSwapInput!) {
-  bumpSwap(input: $input) {
-    id
-    bumpedAt
-    price
-    shippingCost
-    shippingType
-    totalPrice
-  }
-}
-    `;
-export type BumpSwapMutationFn = Apollo.MutationFunction<BumpSwapMutation, BumpSwapMutationVariables>;
-
-/**
- * __useBumpSwapMutation__
- *
- * To run a mutation, you first call `useBumpSwapMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useBumpSwapMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [bumpSwapMutation, { data, loading, error }] = useBumpSwapMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useBumpSwapMutation(baseOptions?: Apollo.MutationHookOptions<BumpSwapMutation, BumpSwapMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<BumpSwapMutation, BumpSwapMutationVariables>(BumpSwapDocument, options);
-      }
-export type BumpSwapMutationHookResult = ReturnType<typeof useBumpSwapMutation>;
-export type BumpSwapMutationResult = Apollo.MutationResult<BumpSwapMutation>;
-export type BumpSwapMutationOptions = Apollo.BaseMutationOptions<BumpSwapMutation, BumpSwapMutationVariables>;
+export function useFindTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindTagsQuery, FindTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindTagsQuery, FindTagsQueryVariables>(FindTagsDocument, options);
+        }
+export function useFindTagsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindTagsQuery, FindTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindTagsQuery, FindTagsQueryVariables>(FindTagsDocument, options);
+        }
+export type FindTagsQueryHookResult = ReturnType<typeof useFindTagsQuery>;
+export type FindTagsLazyQueryHookResult = ReturnType<typeof useFindTagsLazyQuery>;
+export type FindTagsSuspenseQueryHookResult = ReturnType<typeof useFindTagsSuspenseQuery>;
+export type FindTagsQueryResult = Apollo.QueryResult<FindTagsQuery, FindTagsQueryVariables>;
 export const FindTermDocument = gql`
     query findTerm($name: String!) {
   findTerm(name: $name) {
@@ -3582,14 +3610,142 @@ export function useDeleteUserImageMutation(baseOptions?: Apollo.MutationHookOpti
 export type DeleteUserImageMutationHookResult = ReturnType<typeof useDeleteUserImageMutation>;
 export type DeleteUserImageMutationResult = Apollo.MutationResult<DeleteUserImageMutation>;
 export type DeleteUserImageMutationOptions = Apollo.BaseMutationOptions<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
-export const FindUserDocument = gql`
-    query findUser($provider: String, $socialId: String, $sessionToken: String, $username: String) {
-  findUser(
-    provider: $provider
-    socialId: $socialId
-    sessionToken: $sessionToken
-    username: $username
+export const FindUserReviewPreviewsDocument = gql`
+    query findUserReviewPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findUserReviewPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
   ) {
+    edges {
+      node {
+        ...userReviewPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${UserReviewPreviewFragmentDoc}`;
+
+/**
+ * __useFindUserReviewPreviewsQuery__
+ *
+ * To run a query within a React component, call `useFindUserReviewPreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserReviewPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserReviewPreviewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindUserReviewPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables> & ({ variables: FindUserReviewPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+      }
+export function useFindUserReviewPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+        }
+export function useFindUserReviewPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>(FindUserReviewPreviewsDocument, options);
+        }
+export type FindUserReviewPreviewsQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsQuery>;
+export type FindUserReviewPreviewsLazyQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsLazyQuery>;
+export type FindUserReviewPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsSuspenseQuery>;
+export type FindUserReviewPreviewsQueryResult = Apollo.QueryResult<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>;
+export const FindUserReviewDocument = gql`
+    query findUserReview($id: ID, $slug: String) {
+  findUserReview(id: $id, slug: $slug) {
+    ...userReview
+  }
+}
+    ${UserReviewFragmentDoc}`;
+
+/**
+ * __useFindUserReviewQuery__
+ *
+ * To run a query within a React component, call `useFindUserReviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserReviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserReviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindUserReviewQuery(baseOptions?: Apollo.QueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+      }
+export function useFindUserReviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+        }
+export function useFindUserReviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUserReviewQuery, FindUserReviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUserReviewQuery, FindUserReviewQueryVariables>(FindUserReviewDocument, options);
+        }
+export type FindUserReviewQueryHookResult = ReturnType<typeof useFindUserReviewQuery>;
+export type FindUserReviewLazyQueryHookResult = ReturnType<typeof useFindUserReviewLazyQuery>;
+export type FindUserReviewSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewSuspenseQuery>;
+export type FindUserReviewQueryResult = Apollo.QueryResult<FindUserReviewQuery, FindUserReviewQueryVariables>;
+export const CreateUserReviewDocument = gql`
+    mutation createUserReview($input: CreateUserReviewInput!) {
+  createUserReview(input: $input)
+}
+    `;
+export type CreateUserReviewMutationFn = Apollo.MutationFunction<CreateUserReviewMutation, CreateUserReviewMutationVariables>;
+
+/**
+ * __useCreateUserReviewMutation__
+ *
+ * To run a mutation, you first call `useCreateUserReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserReviewMutation, { data, loading, error }] = useCreateUserReviewMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateUserReviewMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserReviewMutation, CreateUserReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserReviewMutation, CreateUserReviewMutationVariables>(CreateUserReviewDocument, options);
+      }
+export type CreateUserReviewMutationHookResult = ReturnType<typeof useCreateUserReviewMutation>;
+export type CreateUserReviewMutationResult = Apollo.MutationResult<CreateUserReviewMutation>;
+export type CreateUserReviewMutationOptions = Apollo.BaseMutationOptions<CreateUserReviewMutation, CreateUserReviewMutationVariables>;
+export const FindUserDocument = gql`
+    query findUser($provider: String, $socialId: String, $username: String) {
+  findUser(provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }
@@ -3609,7 +3765,6 @@ export const FindUserDocument = gql`
  *   variables: {
  *      provider: // value for 'provider'
  *      socialId: // value for 'socialId'
- *      sessionToken: // value for 'sessionToken'
  *      username: // value for 'username'
  *   },
  * });
@@ -3710,6 +3865,67 @@ export type FindMyUserQueryHookResult = ReturnType<typeof useFindMyUserQuery>;
 export type FindMyUserLazyQueryHookResult = ReturnType<typeof useFindMyUserLazyQuery>;
 export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserSuspenseQuery>;
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
+export const FindUsersDocument = gql`
+    query findUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findUsers(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${UserFragmentDoc}`;
+
+/**
+ * __useFindUsersQuery__
+ *
+ * To run a query within a React component, call `useFindUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUsersQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindUsersQuery(baseOptions: Apollo.QueryHookOptions<FindUsersQuery, FindUsersQueryVariables> & ({ variables: FindUsersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+      }
+export function useFindUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUsersQuery, FindUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+        }
+export function useFindUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUsersQuery, FindUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUsersQuery, FindUsersQueryVariables>(FindUsersDocument, options);
+        }
+export type FindUsersQueryHookResult = ReturnType<typeof useFindUsersQuery>;
+export type FindUsersLazyQueryHookResult = ReturnType<typeof useFindUsersLazyQuery>;
+export type FindUsersSuspenseQueryHookResult = ReturnType<typeof useFindUsersSuspenseQuery>;
+export type FindUsersQueryResult = Apollo.QueryResult<FindUsersQuery, FindUsersQueryVariables>;
 export const UpdateUserDocument = gql`
     mutation updateUser($input: UpdateUserInput!) {
   updateUser(input: $input)
