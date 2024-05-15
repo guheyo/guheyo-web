@@ -14,7 +14,7 @@ export default function Layout({
 }) {
   return (
     <div>
-      <div className="pt-4 pb-2 px-2 md:px-0">
+      <div className="pt-4 pb-2 px-4 md:px-0">
         <GroupHeader slug={params.groupSlug} />
       </div>
       {children}
