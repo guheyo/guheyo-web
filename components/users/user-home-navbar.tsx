@@ -20,7 +20,7 @@ export default function UserHomeNavbar({ username }: { username: string }) {
         options={PUBLIC_USER_HOME_OPTIONS}
         selectedValue={selectedValue}
         parseNewURL={(value) => `/user/${username}/${value}`}
-        size="large"
+        size="medium"
       />
     );
   return (
@@ -28,7 +28,7 @@ export default function UserHomeNavbar({ username }: { username: string }) {
       options={PRIVATE_USER_HOME_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => `/user/${username}/${value}`}
-      size="large"
+      size="medium"
     />
   );
 }
