@@ -49,7 +49,7 @@ export default function CategoriesNavbar({
     <Scrollbar upPosition="top-12" zIndex={40}>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-6 bg-dark-500">
         {!hideSelector && (
-          <div className="flex-none text-xs md:text-base bg-dark-200 rounded">
+          <div className="flex-none text-sm md:text-base bg-dark-200 rounded">
             <OfferSelector categorySlug={categorySlug} />
           </div>
         )}
@@ -62,7 +62,7 @@ export default function CategoriesNavbar({
             )}`}
             onClick={(e) => handleClick(e, null)}
           >
-            <span className="font-bold text-xs md:text-base">전체</span>
+            <span className="font-bold text-sm md:text-base">전체</span>
           </button>
           {categories?.map((category) => (
             <button
@@ -73,7 +73,7 @@ export default function CategoriesNavbar({
               )}`}
               onClick={(e) => handleClick(e, category.slug)}
             >
-              <span className="font-bold text-xs md:text-base">
+              <span className="font-bold text-sm md:text-base">
                 {category.name}
               </span>
             </button>
