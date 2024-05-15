@@ -89,7 +89,7 @@ export default function UserReviewDetailMain({
           UserReviewMenu
         </div> */}
       </div>
-      <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
+      <div className="flex flex-col gap-2 md:gap-2 mt-4 md:mt-6">
         <PostDetailTitle title={`${userReview.post.title} 거래 후기`} />
         <div className="flex flex-row gap-2">
           <UserReviewTags

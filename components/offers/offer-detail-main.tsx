@@ -40,7 +40,9 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        <ReportsLink reportCount={offer.post.reportCount} />
+        {offer.post.reportCount > 0 && (
+          <ReportsLink reportCount={offer.post.reportCount} />
+        )}
         <OfferDetailName
           offerStatus={offer.status as OfferStatus}
           name0={offer.name0!}
@@ -54,7 +56,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
           />
         </div>
       </div>
-      <div className="pt-4 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
+      <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {offer.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {offer.content}
