@@ -18,7 +18,7 @@ export default function OfferDetailName({
           {parseOfferStatusLabel(offerStatus)}
         </div>
       )}
-      {name1 ? <SwapName name0={name0} name1={name1} /> : name0}
+      {name1 ? <SwapName name0={name0} name1={name1} length={100} /> : name0}
     </div>
   );
 }
