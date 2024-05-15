@@ -98,7 +98,7 @@ export default function UserReviewDetailMain({
           />
         </div>
       </div>
-      <div className="pt-8 text-base md:text-base md:h-fit overflow-y-auto text-dark-100">
+      <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {userReview.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {userReview.content}
