@@ -12,7 +12,7 @@ export default function PostPreviewTitle({
   if (name1) {
     return (
       <div className="text-xs md:text-sm font-medium text-gray-300">
-        <SwapName name0={name0} name1={name1} />
+        <SwapName name0={name0} name1={name1} length={25} />
       </div>
     );
   }
