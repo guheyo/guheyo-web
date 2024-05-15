@@ -50,7 +50,10 @@ export default function RootLayout({
             isMenuOpen={isMenuOpen}
             handleMenuToggle={handleMenuToggle}
           />
-          <div ref={feedRef} className="max-w-2xl mx-auto pb-0 w-full">
+          <div
+            ref={feedRef}
+            className="max-w-2xl mx-auto pb-0 w-full overflow-x-hidden"
+          >
             {children}
           </div>
         </Providers>
