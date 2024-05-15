@@ -5,19 +5,21 @@ import WestIcon from '@mui/icons-material/West';
 export default function SwapName({
   name0,
   name1,
+  length,
 }: {
   name0: string;
   name1: string;
+  length: number;
 }) {
   return (
     <div className="grid grid-cols-1 gap-1">
       <div className="flex flex-row gap-2 items-center">
         <EastIcon fontSize="small" className="text-dark-200 rounded" />
-        <div>{truncateText(name0, 25)}</div>
+        <div>{truncateText(name0, length)}</div>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <WestIcon fontSize="small" className="text-dark-200  rounded" />
-        <div>{truncateText(name1, 25)}</div>
+        <div>{truncateText(name1, length)}</div>
       </div>
     </div>
   );

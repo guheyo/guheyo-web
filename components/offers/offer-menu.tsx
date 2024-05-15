@@ -23,21 +23,15 @@ export default function OfferMenu({
 
   if (jwtPayload?.id === userId) {
     return (
-      <div className="mr-[-18px]">
-        <PrivateOfferMenu
-          offerId={offerId}
-          offerStatus={offerStatus}
-          archivedAt={archivedAt}
-        />
-      </div>
+      <PrivateOfferMenu
+        offerId={offerId}
+        offerStatus={offerStatus}
+        archivedAt={archivedAt}
+      />
     );
   }
 
   if (privateOnly) return <div />;
 
-  return (
-    <div className="mr-[-18px]">
-      <PublicReportMenu type="post" refId={postId} />
-    </div>
-  );
+  return <PublicReportMenu type="post" refId={postId} />;
 }
