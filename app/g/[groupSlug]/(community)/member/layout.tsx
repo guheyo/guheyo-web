@@ -8,7 +8,9 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div>
-      <MemberRolesNavbar />
+      <div className="px-2.5 md:px-1">
+        <MemberRolesNavbar />
+      </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
