@@ -10,7 +10,9 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div>
-      <ReportTypeNavbar />
+      <div className="px-2.5 md:px-1">
+        <ReportTypeNavbar />
+      </div>
       {children}
     </div>
   );

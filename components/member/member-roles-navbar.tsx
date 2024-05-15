@@ -41,7 +41,7 @@ export default function MemberRolesNavbar() {
             )}`}
             onClick={(e) => handleClick(e, null)}
           >
-            <span className="font-bold text-xs md:text-base">전체</span>
+            <span className="font-bold text-sm md:text-base">전체</span>
           </button>
         </div>
       </div>

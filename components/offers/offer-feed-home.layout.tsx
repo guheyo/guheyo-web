@@ -11,7 +11,9 @@ interface Props {
 function OfferFeedHomeLayout({ children }: Props) {
   return (
     <div>
-      <CategoriesNavbar hideSelector />
+      <div className="px-2.5 md:px-1">
+        <CategoriesNavbar hideSelector />
+      </div>
       <div className="flex justify-end pb-2">
         <OfferSelectors />
       </div>

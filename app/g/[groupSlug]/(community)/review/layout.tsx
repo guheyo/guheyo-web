@@ -10,7 +10,9 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div>
-      <MannerTagsNavbar />
+      <div className="px-2.5 md:px-1">
+        <MannerTagsNavbar />
+      </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
