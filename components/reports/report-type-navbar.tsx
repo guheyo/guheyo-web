@@ -42,7 +42,7 @@ export default function ReportTypeNavbar() {
             )}`}
             onClick={(e) => handleClick(e, null)}
           >
-            <span className="font-bold text-xs md:text-base">전체</span>
+            <span className="font-bold text-sm md:text-base">전체</span>
           </button>
           {REPORT_TYPE_OPTIONS?.map((typeOption) => (
             <button
@@ -53,7 +53,7 @@ export default function ReportTypeNavbar() {
               )}`}
               onClick={(e) => handleClick(e, typeOption.value)}
             >
-              <span className="font-bold text-xs md:text-base">
+              <span className="font-bold text-sm md:text-base">
                 {typeOption.label}
               </span>
             </button>

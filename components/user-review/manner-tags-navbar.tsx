@@ -42,7 +42,7 @@ export default function MannerTagsNavbar() {
             )}`}
             onClick={(e) => handleClick(e, null)}
           >
-            <span className="font-bold text-xs md:text-base">전체</span>
+            <span className="font-bold text-sm md:text-base">전체</span>
           </button>
           {MANNER_TAG_TYPE_OPTIONS?.map((tagTypeOption) => (
             <button
@@ -53,7 +53,7 @@ export default function MannerTagsNavbar() {
               )}`}
               onClick={(e) => handleClick(e, tagTypeOption.value)}
             >
-              <span className="font-bold text-xs md:text-base">
+              <span className="font-bold text-sm md:text-base">
                 {tagTypeOption.label}
               </span>
             </button>
