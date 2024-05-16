@@ -29,7 +29,7 @@ export default function SearchProducts() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <div className="pt-4">
+      <div className="pt-4 mx-2.5 md:mx-1 w-full">
         <CategoriesNavbar hideSelector />
       </div>
       <div className="pt-4">
