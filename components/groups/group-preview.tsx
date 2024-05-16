@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
-import PaidIcon from '@mui/icons-material/Paid';
+import SellIcon from '@mui/icons-material/Sell';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { GroupPreviewFragment } from '@/generated/graphql';
 import { isMobile } from 'react-device-detect';
 import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
@@ -16,11 +17,13 @@ interface Props {
 export default function GroupPreview({ group }: Props) {
   return (
     <div className="bg-dark-500 rounded-lg">
-      <GroupJoinSection
-        name={group.name}
-        icon={group.icon}
-        slug={group.slug!}
-      />
+      <div className="px-2 md:px-0">
+        <GroupJoinSection
+          name={group.name}
+          icon={group.icon}
+          slug={group.slug!}
+        />
+      </div>
       <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
         <Link
           href={parseGroupMarketLink({
@@ -28,8 +31,8 @@ export default function GroupPreview({ group }: Props) {
             businessFunction: 'sell',
           })}
         >
-          <span className="flex flex-row items-center gap-1">
-            <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
+          <span className="flex flex-row items-center gap-1 px-3 md:px-0">
+            <SellIcon fontSize={isMobile ? 'small' : 'medium'} />
             {group.name} 팝니다
           </span>
         </Link>
@@ -55,8 +58,8 @@ export default function GroupPreview({ group }: Props) {
         </Link>
       </div>
       <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
-        <div className="flex flex-row items-center gap-1">
-          <PaidIcon fontSize={isMobile ? 'small' : 'medium'} />
+        <div className="flex flex-row items-center gap-1 px-3 md:px-0">
+          <ShoppingBagIcon fontSize={isMobile ? 'small' : 'medium'} />
           <Link
             href={parseGroupMarketLink({
               groupSlug: group.slug!,

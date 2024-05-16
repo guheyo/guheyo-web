@@ -9,7 +9,7 @@ export default function BackDrop({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50"
+      className="fixed inset-0 z-50 bg-black opacity-50"
       onClick={handleBackdropClick}
       onKeyDown={(event) => {
         if (event.key === 'Escape') {

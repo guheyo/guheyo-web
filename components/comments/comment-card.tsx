@@ -5,9 +5,10 @@ import { KeyboardEventHandler, useEffect, useState } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
-import { TextFieldProps } from '@mui/material';
+import { IconButton, TextFieldProps } from '@mui/material';
 import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -111,8 +112,11 @@ export default function CommentCard({
             fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
           />
         )}
-        <div className="w-full">
-          <form onSubmit={handleSubmit(handleSubmitValid)}>
+        <form
+          onSubmit={handleSubmit(handleSubmitValid)}
+          className="w-full flex items-end pr-6 md:pr-0"
+        >
+          <div className="w-full">
             <CommentInput
               controllerProps={{
                 name: 'content',
@@ -124,8 +128,11 @@ export default function CommentCard({
                 onKeyDown: handleKeyDown,
               }}
             />
-          </form>
-        </div>
+          </div>
+          <IconButton type="submit">
+            <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
+          </IconButton>
+        </form>
       </div>
     );
   }

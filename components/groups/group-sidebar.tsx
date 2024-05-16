@@ -55,7 +55,7 @@ export default function GroupSidebar({
     return (
       <>
         {isMenuOpen && (
-          <div className="lg:hidden bg-black opacity-50">
+          <div className="lg:hidden">
             <BackDrop
               handleBackdropClick={handleBackdropClick}
               handleToggle={handleMenuToggle}
@@ -90,18 +90,12 @@ export default function GroupSidebar({
   return (
     <>
       {isMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-50 bg-black opacity-50"
-          onClick={handleBackdropClick}
-          onKeyDown={(event) => {
-            if (event.key === 'Escape') {
-              handleMenuToggle();
-            }
-          }}
-          role="button" // Add role="button" to make it accessible for screen reader users
-          aria-label="Toggle Menu"
-          tabIndex={0} // Ensure element can receive keyboard focus
-        />
+        <div className="lg:hidden">
+          <BackDrop
+            handleBackdropClick={handleBackdropClick}
+            handleToggle={handleMenuToggle}
+          />
+        </div>
       )}
       <div
         ref={sidebarRef}
