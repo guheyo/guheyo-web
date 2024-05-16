@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/Menu';
 import LoginButton from '../auth/login-button';
 import SearchButton from '../search/search-button';
@@ -20,12 +19,14 @@ export default function Navbar({
         <div className="hidden lg:flex items-center justify-between h-14">
           {/* Left side logo */}
           <div className="flex items-center h-full w-64 bg-dark-600 pl-7">
-            <Avatar
-              name="guheyo logo"
-              src="/star/star-bg-purple-rounded.ico"
-              fontSize="text-base"
-              variant="rounded"
-            />
+            <Link href="/">
+              <Avatar
+                name="guheyo logo"
+                src="/star/star-bg-purple-rounded.ico"
+                fontSize="text-base"
+                variant="rounded"
+              />
+            </Link>
           </div>
 
           {/* Right side buttons */}
@@ -53,12 +54,11 @@ export default function Navbar({
               <MenuIcon />
             </button>
             <Link href="/">
-              <Image
-                alt="guheyo logo"
+              <Avatar
+                name="guheyo logo"
                 src="/star/star-bg-purple-rounded.ico"
-                width={32}
-                height={32}
-                className="rounded"
+                fontSize="text-base"
+                variant="rounded"
               />
             </Link>
           </div>
