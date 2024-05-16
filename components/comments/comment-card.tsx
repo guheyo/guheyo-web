@@ -130,7 +130,7 @@ export default function CommentCard({
             />
           </div>
           <IconButton type="submit">
-            <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-full" />
+            <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
           </IconButton>
         </form>
       </div>
