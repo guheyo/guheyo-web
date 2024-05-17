@@ -1,7 +1,7 @@
 'use client';
 
 import { UserReviewPreviewResponse } from '@/generated/graphql';
-import PostAddons from '../posts/post-addons';
+import PostPreviewAddons from '../posts/post-preview-addons';
 import UserReviewTags from './user-review-tags';
 
 interface Props {
@@ -17,7 +17,7 @@ export default function UserReviewPreviewFooter({ userReview }: Props) {
           rating={userReview.rating}
         />
       </div>
-      <PostAddons postCommentCount={userReview.post.commentCount} />
+      <PostPreviewAddons postCommentCount={userReview.post.commentCount} />
     </div>
   );
 }
