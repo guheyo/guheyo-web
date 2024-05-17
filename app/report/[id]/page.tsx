@@ -27,7 +27,7 @@ export default function Page({
   if (report.type === POST) {
     if (report.reportedPost?.type === OFFER) {
       return (
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-4">
           <OfferVersionDetail
             versionCreatedAt={report.version.createdAt}
             images={report.version.images}
