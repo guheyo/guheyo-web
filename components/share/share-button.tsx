@@ -18,9 +18,7 @@ export default function ShareButton() {
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
-        setMessage(
-          `${currentUrl}\n\n페이지 주소가 복사되었어요! Ctrl+V로 바로 사용하세요`,
-        );
+        setMessage(`페이지 주소가 복사되었어요! Ctrl+V로 바로 공유하세요`);
         setOpen(true);
       })
       .catch((err) => {
@@ -44,8 +42,10 @@ export default function ShareButton() {
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>공유하기</DialogTitle>
-        <DialogContent>{message}</DialogContent>
+        <DialogTitle className="text-lg md:text-xl">공유하기</DialogTitle>
+        <DialogContent className="overflow-x-hidden px-6">
+          {message}
+        </DialogContent>
         <DialogActions>
           <Button
             onClick={handleClose}
