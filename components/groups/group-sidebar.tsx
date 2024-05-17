@@ -57,6 +57,7 @@ export default function GroupSidebar({
         {isMenuOpen && (
           <div className="lg:hidden">
             <BackDrop
+              opacity={0.5}
               handleBackdropClick={handleBackdropClick}
               handleToggle={handleMenuToggle}
             />
@@ -92,6 +93,7 @@ export default function GroupSidebar({
       {isMenuOpen && (
         <div className="lg:hidden">
           <BackDrop
+            opacity={0.5}
             handleBackdropClick={handleBackdropClick}
             handleToggle={handleMenuToggle}
           />
