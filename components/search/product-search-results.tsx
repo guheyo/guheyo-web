@@ -19,7 +19,7 @@ export default function ProductSearchResults({
         <div className="text-gray-300 text-sm md:text-base font-bold m-2">
           팝니다
         </div>
-        <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
+        <div className="grid gap-2 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <OfferFeed
               where={{
@@ -43,7 +43,7 @@ export default function ProductSearchResults({
         <div className="text-gray-300 text-sm md:text-base font-bold m-2">
           삽니다
         </div>
-        <div className="grid gap-1 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
+        <div className="grid gap-2 grid-cols-1 max-h-[470px] md:max-h-[800px] overflow-y-scroll">
           {keyword ? (
             <OfferFeed
               where={{

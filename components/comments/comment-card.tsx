@@ -90,6 +90,7 @@ export default function CommentCard({
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
+    if (event.nativeEvent.isComposing) return;
     if (event.code === 'Enter') {
       event.preventDefault();
       handleSubmitValid(getValues(), event);

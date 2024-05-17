@@ -66,16 +66,14 @@ export default function Page({
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <div className="pt-4 overflow-y-scroll">
-        <div style={{ maxHeight: '75vh' }} className="grid gap-2">
-          <UserCheckboxResults
-            where={where}
-            keyword={keyword}
-            userIdToExclude={jwtPayload?.id}
-            control={control}
-            handleOfferSelection={handleOfferSelection}
-          />
-        </div>
+      <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
+        <UserCheckboxResults
+          where={where}
+          keyword={keyword}
+          userIdToExclude={jwtPayload?.id}
+          control={control}
+          handleOfferSelection={handleOfferSelection}
+        />
       </div>
       <div className="pt-4" />
       <NextDialog
