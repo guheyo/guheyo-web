@@ -6,6 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
 
 export default function ShareButton() {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function ShareButton() {
       .writeText(currentUrl)
       .then(() => {
         setMessage(
-          `${currentUrl}\n\n페이지 주소가 복사되었어요! Ctrl + V로 바로 사용하세요`,
+          `${currentUrl}\n\n페이지 주소가 복사되었어요! Ctrl+V로 바로 사용하세요`,
         );
         setOpen(true);
       })
@@ -34,12 +35,14 @@ export default function ShareButton() {
 
   return (
     <>
-      <IconButton
-        onClick={handleShare}
-        className="text-gray-400 hover:text-gray-300"
-      >
-        <ReplyIcon className="transform scale-x-[-1]" />
-      </IconButton>
+      <Tooltip title="공유하기" placement="top">
+        <IconButton
+          onClick={handleShare}
+          className="text-gray-400 hover:text-gray-300"
+        >
+          <ReplyIcon className="transform scale-x-[-1]" />
+        </IconButton>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>공유하기</DialogTitle>
         <DialogContent>{message}</DialogContent>
