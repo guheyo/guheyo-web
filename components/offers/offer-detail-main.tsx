@@ -13,6 +13,7 @@ import OfferMenu from './offer-menu';
 import OfferDetailName from './offer-detail-name';
 import OfferDetailPrice from './offer-detail-price';
 import OfferShippingCost from './offer-shipping-cost';
+import PostDetailAddons from '../posts/post-detail-addons';
 
 export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
   const device = useDeviceDetect();
@@ -62,6 +63,9 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             {offer.content}
           </ReactMarkdown>
         )}
+      </div>
+      <div className="pt-0 text-base md:text-lg text-gray-300 font-bold">
+        <PostDetailAddons />
       </div>
     </>
   );
