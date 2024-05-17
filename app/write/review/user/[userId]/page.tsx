@@ -66,17 +66,15 @@ export default function Page({
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <div className="pt-4 overflow-y-scroll">
-        <div style={{ maxHeight: '75vh' }} className="grid gap-2">
-          <OfferCheckboxResults
-            where={where}
-            type="text"
-            keyword={keyword}
-            distinct={false}
-            control={control}
-            handleOfferSelection={handleOfferSelection}
-          />
-        </div>
+      <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
+        <OfferCheckboxResults
+          where={where}
+          type="text"
+          keyword={keyword}
+          distinct={false}
+          control={control}
+          handleOfferSelection={handleOfferSelection}
+        />
       </div>
       <div className="pt-4" />
       <NextDialog

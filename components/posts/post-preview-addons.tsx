@@ -1,7 +1,7 @@
 import { isNumber } from 'lodash';
 import PostCommentCount from './post-comment-count';
 
-export default function PostAddons({
+export default function PostPreviewAddons({
   postCommentCount,
 }: {
   postCommentCount?: number | null;

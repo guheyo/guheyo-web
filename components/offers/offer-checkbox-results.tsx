@@ -79,7 +79,7 @@ function OfferCheckboxResults({
           </div>
         </div>
       ))}
-      <div ref={ref} />
+      <div ref={ref} className="h-1" />
     </>
   );
 }
