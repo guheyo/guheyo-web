@@ -67,7 +67,7 @@ export default function OfferVersionDetailMain({
           </ReactMarkdown>
         )}
       </div>
-      <div className="pt-8 text-base md:text-lg text-gray-300 font-bold">
+      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
         <PostDetailAddons />
       </div>
     </>
