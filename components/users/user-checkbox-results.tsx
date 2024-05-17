@@ -73,7 +73,8 @@ function UserCheckboxResults({
           </div>
         </div>
       ))}
-      <div ref={ref} />
+      {/* gap-2 */}
+      <div ref={ref} className="h-2" />
     </>
   );
 }
