@@ -40,7 +40,7 @@ fragment offerPreview on OfferPreviewResponse {
   hasSubmittedReview
 }
 
-query findOfferPreviews(
+query FindOfferPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
@@ -69,7 +69,7 @@ query findOfferPreviews(
   }
 }
 
-query findOffer(
+query FindOffer(
   $id: ID
   $slug: String
 ) {

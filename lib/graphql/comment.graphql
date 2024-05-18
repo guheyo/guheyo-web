@@ -59,7 +59,7 @@ query FindComment(
   }
 }
 
-query findComments(
+query FindComments(
   $where: JSON
   $orderBy: JSON
   $keyword: String

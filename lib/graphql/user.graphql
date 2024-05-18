@@ -47,7 +47,7 @@ fragment myUser on MyUserResponse {
   }
 }
 
-query findUser(
+query FindUser(
   $provider: String
   $socialId: String
   $username: String
@@ -57,7 +57,7 @@ query findUser(
   }
 }
 
-query findAuthor(
+query FindAuthor(
   $id: ID
   $username: String
 ) {
@@ -69,13 +69,13 @@ query findAuthor(
   }
 }
 
-query findMyUser {
+query FindMyUser {
   findMyUser {
     ...myUser
   }
 }
 
-query findUsers(
+query FindUsers(
   $where: JSON
   $orderBy: JSON
   $keyword: String
@@ -104,7 +104,7 @@ query findUsers(
   }
 }
 
-mutation updateUser(
+mutation UpdateUser(
   $input: UpdateUserInput!
 ) {
   updateUser(input: $input)
@@ -116,6 +116,6 @@ mutation updateUser(
 # TODO
 # deleteUser
 
-mutation linkSocialProfile($input: LinkSocialProfileInput!) {
+mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)
 }

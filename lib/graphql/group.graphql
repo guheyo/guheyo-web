@@ -76,13 +76,13 @@ query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: I
   }
 }
 
-query findGroup($id: ID, $slug: String) {
+query FindGroup($id: ID, $slug: String) {
   findGroup(id: $id, slug: $slug) {
     ...group
   }
 }
 
-query findGroupPreviews {
+query FindGroupPreviews {
   findGroupPreviews {
     ...groupPreview
   }
