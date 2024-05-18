@@ -1,6 +1,6 @@
 export const metadata = {
   title: '소개 | 구해요',
-  description: '구해요를 알아보세요',
+  description: '구해요에 대해 더 알아보세요',
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
