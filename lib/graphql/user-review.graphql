@@ -78,3 +78,11 @@ query findUserReview(
 mutation createUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)
 }
+
+mutation DeleteUserReview(
+  $id: ID!
+) {
+  deleteUserReview(
+    id: $id
+  )
+}

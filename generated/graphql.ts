@@ -97,8 +97,10 @@ export type CommentWithAuthorResponseEdge = {
 
 export type CreateCommentInput = {
   content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id: Scalars['ID']['input'];
   postId: Scalars['ID']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreateGroupInput = {
@@ -117,7 +119,6 @@ export type CreateManyUserImageInput = {
 export type CreateOfferInput = {
   businessFunction: Scalars['String']['input'];
   content?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id: Scalars['ID']['input'];
   name0?: InputMaybe<Scalars['String']['input']>;
   name1?: InputMaybe<Scalars['String']['input']>;
@@ -127,15 +128,17 @@ export type CreateOfferInput = {
   shippingCost: Scalars['Int']['input'];
   shippingType: Scalars['String']['input'];
   status?: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreatePostInput = {
   categoryId?: InputMaybe<Scalars['ID']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   groupId: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
   tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   title: Scalars['String']['input'];
   type: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CreateReactionInput = {
@@ -295,6 +298,7 @@ export type Mutation = {
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
+  deleteUserReview: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   reGenerateTokens: JwtResponse;
@@ -390,6 +394,11 @@ export type MutationDeleteRoleArgs = {
 
 
 export type MutationDeleteUserImageArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteUserReviewArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1516,6 +1525,13 @@ export type CreateUserReviewMutationVariables = Exact<{
 
 
 export type CreateUserReviewMutation = { __typename?: 'Mutation', createUserReview: string };
+
+export type DeleteUserReviewMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteUserReviewMutation = { __typename?: 'Mutation', deleteUserReview: string };
 
 export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string };
 
@@ -3743,6 +3759,37 @@ export function useCreateUserReviewMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateUserReviewMutationHookResult = ReturnType<typeof useCreateUserReviewMutation>;
 export type CreateUserReviewMutationResult = Apollo.MutationResult<CreateUserReviewMutation>;
 export type CreateUserReviewMutationOptions = Apollo.BaseMutationOptions<CreateUserReviewMutation, CreateUserReviewMutationVariables>;
+export const DeleteUserReviewDocument = gql`
+    mutation DeleteUserReview($id: ID!) {
+  deleteUserReview(id: $id)
+}
+    `;
+export type DeleteUserReviewMutationFn = Apollo.MutationFunction<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
+
+/**
+ * __useDeleteUserReviewMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserReviewMutation, { data, loading, error }] = useDeleteUserReviewMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUserReviewMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>(DeleteUserReviewDocument, options);
+      }
+export type DeleteUserReviewMutationHookResult = ReturnType<typeof useDeleteUserReviewMutation>;
+export type DeleteUserReviewMutationResult = Apollo.MutationResult<DeleteUserReviewMutation>;
+export type DeleteUserReviewMutationOptions = Apollo.BaseMutationOptions<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
 export const FindUserDocument = gql`
     query findUser($provider: String, $socialId: String, $username: String) {
   findUser(provider: $provider, socialId: $socialId, username: $username) {
