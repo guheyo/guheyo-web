@@ -1,7 +1,14 @@
-'use client';
-
 import GroupBottomNavbar from '@/components/groups/group-bottom-navbar';
 import GroupHeader from '@/components/groups/group-header';
+
+export async function generateMetadata({ params }: { params: any }) {
+  const { groupSlug } = params;
+
+  return {
+    title: `${groupSlug} | 구해요`,
+    Description: `${groupSlug} 전문 거래 장터`,
+  };
+}
 
 export default function Layout({
   children,

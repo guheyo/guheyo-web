@@ -57,7 +57,7 @@ mutation CreateReport($input: CreateReportInput!) {
   createReport(input: $input)
 }
 
-query findReportPreviews(
+query FindReportPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
@@ -86,13 +86,13 @@ query findReportPreviews(
   }
 }
 
-query findLastReport {
+query FindLastReport {
   findLastReport {
     ...lastReport
   }
 }
 
-query findReport(
+query FindReport(
   $id: ID!
 ) {
   findReport(id: $id) {
@@ -100,7 +100,7 @@ query findReport(
   }
 }
 
-query findReportComment(
+query FindReportComment(
   $reportId: ID!
 ) {
   findReportComment(

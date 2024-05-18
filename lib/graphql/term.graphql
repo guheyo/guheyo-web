@@ -8,7 +8,7 @@ fragment term on TermResponse {
   meta
 }
 
-query findTerm(
+query FindTerm(
   $name: String!
 ) {
   findTerm(

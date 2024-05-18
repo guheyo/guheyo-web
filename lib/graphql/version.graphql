@@ -21,7 +21,7 @@ fragment version on VersionResponse {
   }
 }
 
-query findVersionPreview(
+query FindVersionPreview(
   $id: ID
   $refId: ID
 ) {
@@ -33,7 +33,7 @@ query findVersionPreview(
   }
 }
 
-query findVersion(
+query FindVersion(
   $id: ID!
 ) {
   findVersion(

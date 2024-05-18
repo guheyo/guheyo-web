@@ -19,6 +19,7 @@ import UserReviewTags from './user-review-tags';
 import PostCreatedAt from '../posts/post-created-at';
 import ReactionBar from '../reaction/reaction-bar';
 import PostDetailAddons from '../posts/post-detail-addons';
+import UserReviewMenu from './user-review-menu';
 
 export default function UserReviewDetailMain({
   userReview,
@@ -86,9 +87,13 @@ export default function UserReviewDetailMain({
           />
           <PostCreatedAt createdAt={userReview.createdAt} />
         </div>
-        {/* <div className="h-8">
-          UserReviewMenu
-        </div> */}
+        <div className="h-8">
+          <UserReviewMenu
+            userReviewId={userReview.id}
+            userId={userReview.post.user.id}
+            privateOnly
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-2 md:gap-2 mt-4 md:mt-6">
         <PostDetailTitle title={`${userReview.post.title} 거래 후기`} />
