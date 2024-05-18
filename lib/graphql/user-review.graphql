@@ -34,7 +34,7 @@ fragment userReview on UserReviewResponse {
   status
 }
 
-query findUserReviewPreviews(
+query FindUserReviewPreviews(
   $where: JSON
   $orderBy: JSON
   $keyword: String
@@ -63,7 +63,7 @@ query findUserReviewPreviews(
   }
 }
 
-query findUserReview(
+query FindUserReview(
   $id: ID
   $slug: String
 ) {
@@ -75,7 +75,7 @@ query findUserReview(
   }
 }
 
-mutation createUserReview($input: CreateUserReviewInput!) {
+mutation CreateUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)
 }
 

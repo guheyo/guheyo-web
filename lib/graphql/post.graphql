@@ -89,7 +89,7 @@ fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
   commentCount
 }
 
-query findPostPreview(
+query FindPostPreview(
   $id: ID!
 ) {
   findPostPreview(

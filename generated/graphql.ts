@@ -2351,7 +2351,7 @@ export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLaz
 export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
 export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
 export const FindCommentsDocument = gql`
-    query findComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findComments(
     where: $where
     orderBy: $orderBy
@@ -2643,7 +2643,7 @@ export type FindGroupProfilesLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFindGroupProfilesSuspenseQuery>;
 export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
 export const FindGroupDocument = gql`
-    query findGroup($id: ID, $slug: String) {
+    query FindGroup($id: ID, $slug: String) {
   findGroup(id: $id, slug: $slug) {
     ...group
   }
@@ -2684,7 +2684,7 @@ export type FindGroupLazyQueryHookResult = ReturnType<typeof useFindGroupLazyQue
 export type FindGroupSuspenseQueryHookResult = ReturnType<typeof useFindGroupSuspenseQuery>;
 export type FindGroupQueryResult = Apollo.QueryResult<FindGroupQuery, FindGroupQueryVariables>;
 export const FindGroupPreviewsDocument = gql`
-    query findGroupPreviews {
+    query FindGroupPreviews {
   findGroupPreviews {
     ...groupPreview
   }
@@ -2723,7 +2723,7 @@ export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGrou
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
 export const FindOfferPreviewsDocument = gql`
-    query findOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy
@@ -2784,7 +2784,7 @@ export type FindOfferPreviewsLazyQueryHookResult = ReturnType<typeof useFindOffe
 export type FindOfferPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindOfferPreviewsSuspenseQuery>;
 export type FindOfferPreviewsQueryResult = Apollo.QueryResult<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>;
 export const FindOfferDocument = gql`
-    query findOffer($id: ID, $slug: String) {
+    query FindOffer($id: ID, $slug: String) {
   findOffer(id: $id, slug: $slug) {
     ...offer
   }
@@ -2968,7 +2968,7 @@ export type BumpOfferMutationHookResult = ReturnType<typeof useBumpOfferMutation
 export type BumpOfferMutationResult = Apollo.MutationResult<BumpOfferMutation>;
 export type BumpOfferMutationOptions = Apollo.BaseMutationOptions<BumpOfferMutation, BumpOfferMutationVariables>;
 export const FindPostPreviewDocument = gql`
-    query findPostPreview($id: ID!) {
+    query FindPostPreview($id: ID!) {
   findPostPreview(id: $id) {
     ...postPreviewWithUser
   }
@@ -3070,7 +3070,7 @@ export type CancelReactionMutationHookResult = ReturnType<typeof useCancelReacti
 export type CancelReactionMutationResult = Apollo.MutationResult<CancelReactionMutation>;
 export type CancelReactionMutationOptions = Apollo.BaseMutationOptions<CancelReactionMutation, CancelReactionMutationVariables>;
 export const FindReactionsDocument = gql`
-    query findReactions($postId: ID, $commentId: ID) {
+    query FindReactions($postId: ID, $commentId: ID) {
   findReactions(postId: $postId, commentId: $commentId) {
     ...reaction
   }
@@ -3206,7 +3206,7 @@ export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMu
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
 export const FindReportPreviewsDocument = gql`
-    query findReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findReportPreviews(
     where: $where
     orderBy: $orderBy
@@ -3267,7 +3267,7 @@ export type FindReportPreviewsLazyQueryHookResult = ReturnType<typeof useFindRep
 export type FindReportPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindReportPreviewsSuspenseQuery>;
 export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>;
 export const FindLastReportDocument = gql`
-    query findLastReport {
+    query FindLastReport {
   findLastReport {
     ...lastReport
   }
@@ -3306,7 +3306,7 @@ export type FindLastReportLazyQueryHookResult = ReturnType<typeof useFindLastRep
 export type FindLastReportSuspenseQueryHookResult = ReturnType<typeof useFindLastReportSuspenseQuery>;
 export type FindLastReportQueryResult = Apollo.QueryResult<FindLastReportQuery, FindLastReportQueryVariables>;
 export const FindReportDocument = gql`
-    query findReport($id: ID!) {
+    query FindReport($id: ID!) {
   findReport(id: $id) {
     ...report
   }
@@ -3346,7 +3346,7 @@ export type FindReportLazyQueryHookResult = ReturnType<typeof useFindReportLazyQ
 export type FindReportSuspenseQueryHookResult = ReturnType<typeof useFindReportSuspenseQuery>;
 export type FindReportQueryResult = Apollo.QueryResult<FindReportQuery, FindReportQueryVariables>;
 export const FindReportCommentDocument = gql`
-    query findReportComment($reportId: ID!) {
+    query FindReportComment($reportId: ID!) {
   findReportComment(reportId: $reportId) {
     ...reportComment
   }
@@ -3452,7 +3452,7 @@ export type UpdateReportCommentMutationHookResult = ReturnType<typeof useUpdateR
 export type UpdateReportCommentMutationResult = Apollo.MutationResult<UpdateReportCommentMutation>;
 export type UpdateReportCommentMutationOptions = Apollo.BaseMutationOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
 export const FindTagsDocument = gql`
-    query findTags {
+    query FindTags {
   findTags {
     ...tag
   }
@@ -3491,7 +3491,7 @@ export type FindTagsLazyQueryHookResult = ReturnType<typeof useFindTagsLazyQuery
 export type FindTagsSuspenseQueryHookResult = ReturnType<typeof useFindTagsSuspenseQuery>;
 export type FindTagsQueryResult = Apollo.QueryResult<FindTagsQuery, FindTagsQueryVariables>;
 export const FindTermDocument = gql`
-    query findTerm($name: String!) {
+    query FindTerm($name: String!) {
   findTerm(name: $name) {
     ...term
   }
@@ -3627,7 +3627,7 @@ export type DeleteUserImageMutationHookResult = ReturnType<typeof useDeleteUserI
 export type DeleteUserImageMutationResult = Apollo.MutationResult<DeleteUserImageMutation>;
 export type DeleteUserImageMutationOptions = Apollo.BaseMutationOptions<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
 export const FindUserReviewPreviewsDocument = gql`
-    query findUserReviewPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUserReviewPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUserReviewPreviews(
     where: $where
     orderBy: $orderBy
@@ -3688,7 +3688,7 @@ export type FindUserReviewPreviewsLazyQueryHookResult = ReturnType<typeof useFin
 export type FindUserReviewPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsSuspenseQuery>;
 export type FindUserReviewPreviewsQueryResult = Apollo.QueryResult<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>;
 export const FindUserReviewDocument = gql`
-    query findUserReview($id: ID, $slug: String) {
+    query FindUserReview($id: ID, $slug: String) {
   findUserReview(id: $id, slug: $slug) {
     ...userReview
   }
@@ -3729,7 +3729,7 @@ export type FindUserReviewLazyQueryHookResult = ReturnType<typeof useFindUserRev
 export type FindUserReviewSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewSuspenseQuery>;
 export type FindUserReviewQueryResult = Apollo.QueryResult<FindUserReviewQuery, FindUserReviewQueryVariables>;
 export const CreateUserReviewDocument = gql`
-    mutation createUserReview($input: CreateUserReviewInput!) {
+    mutation CreateUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)
 }
     `;
@@ -3791,7 +3791,7 @@ export type DeleteUserReviewMutationHookResult = ReturnType<typeof useDeleteUser
 export type DeleteUserReviewMutationResult = Apollo.MutationResult<DeleteUserReviewMutation>;
 export type DeleteUserReviewMutationOptions = Apollo.BaseMutationOptions<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
 export const FindUserDocument = gql`
-    query findUser($provider: String, $socialId: String, $username: String) {
+    query FindUser($provider: String, $socialId: String, $username: String) {
   findUser(provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
@@ -3833,7 +3833,7 @@ export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const FindAuthorDocument = gql`
-    query findAuthor($id: ID, $username: String) {
+    query FindAuthor($id: ID, $username: String) {
   findAuthor(id: $id, username: $username) {
     ...author
   }
@@ -3874,7 +3874,7 @@ export type FindAuthorLazyQueryHookResult = ReturnType<typeof useFindAuthorLazyQ
 export type FindAuthorSuspenseQueryHookResult = ReturnType<typeof useFindAuthorSuspenseQuery>;
 export type FindAuthorQueryResult = Apollo.QueryResult<FindAuthorQuery, FindAuthorQueryVariables>;
 export const FindMyUserDocument = gql`
-    query findMyUser {
+    query FindMyUser {
   findMyUser {
     ...myUser
   }
@@ -3913,7 +3913,7 @@ export type FindMyUserLazyQueryHookResult = ReturnType<typeof useFindMyUserLazyQ
 export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserSuspenseQuery>;
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
 export const FindUsersDocument = gql`
-    query findUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUsers(
     where: $where
     orderBy: $orderBy
@@ -3974,7 +3974,7 @@ export type FindUsersLazyQueryHookResult = ReturnType<typeof useFindUsersLazyQue
 export type FindUsersSuspenseQueryHookResult = ReturnType<typeof useFindUsersSuspenseQuery>;
 export type FindUsersQueryResult = Apollo.QueryResult<FindUsersQuery, FindUsersQueryVariables>;
 export const UpdateUserDocument = gql`
-    mutation updateUser($input: UpdateUserInput!) {
+    mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input)
 }
     `;
@@ -4005,7 +4005,7 @@ export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutati
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const LinkSocialProfileDocument = gql`
-    mutation linkSocialProfile($input: LinkSocialProfileInput!) {
+    mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)
 }
     `;
@@ -4036,7 +4036,7 @@ export type LinkSocialProfileMutationHookResult = ReturnType<typeof useLinkSocia
 export type LinkSocialProfileMutationResult = Apollo.MutationResult<LinkSocialProfileMutation>;
 export type LinkSocialProfileMutationOptions = Apollo.BaseMutationOptions<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>;
 export const FindVersionPreviewDocument = gql`
-    query findVersionPreview($id: ID, $refId: ID) {
+    query FindVersionPreview($id: ID, $refId: ID) {
   findVersionPreview(id: $id, refId: $refId) {
     ...versionPreview
   }
@@ -4077,7 +4077,7 @@ export type FindVersionPreviewLazyQueryHookResult = ReturnType<typeof useFindVer
 export type FindVersionPreviewSuspenseQueryHookResult = ReturnType<typeof useFindVersionPreviewSuspenseQuery>;
 export type FindVersionPreviewQueryResult = Apollo.QueryResult<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>;
 export const FindVersionDocument = gql`
-    query findVersion($id: ID!) {
+    query FindVersion($id: ID!) {
   findVersion(id: $id) {
     ...version
   }

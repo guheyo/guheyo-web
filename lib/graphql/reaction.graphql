@@ -19,7 +19,7 @@ mutation CancelReaction($input: CancelReactionInput!) {
   cancelReaction(input: $input)
 }
 
-query findReactions(
+query FindReactions(
   $postId: ID
   $commentId: ID
 ) {

@@ -6,7 +6,7 @@ fragment tag on TagResponse {
   position
 }
 
-query findTags {
+query FindTags {
   findTags {
     ...tag
   }
