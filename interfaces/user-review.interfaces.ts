@@ -10,6 +10,8 @@ export interface FindUserReviewsWhereArgs {
 
   // user review
   reviewedUserId?: string;
+
+  status?: string;
 }
 
 export interface FindUserReviewsOrderByArgs {
