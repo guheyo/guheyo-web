@@ -62,7 +62,7 @@ export default function PrivateOfferMenu({
     await updateOffer({
       id: offerId,
       post: {
-        archivedAt: isArchived ? new Date() : undefined,
+        archivedAt: isArchived ? new Date() : null,
       },
     });
     setAlertText(`${isArchived ? '보관되었어요!' : '꺼냈어요!'}`);
