@@ -5,7 +5,7 @@ export interface FindReportPreviewsWhereArgs {
 
   refId?: string;
 
-  authorId?: string;
+  userId?: string;
 
   reportedUserId?: string;
 
