@@ -1,8 +1,8 @@
 import { Device } from '@/hooks/use-device-detect';
 
-const DEFAULT_INPUT_TEXT_MOBILE_FONT_SIZE = '16px';
+const DEFAULT_INPUT_TEXT_MOBILE_FONT_SIZE = '14px';
 
-const DEFAULT_INPUT_TEXT_BROWSER_FONT_SIZE = '18px';
+const DEFAULT_INPUT_TEXT_BROWSER_FONT_SIZE = '16px';
 
 const DEFAULT_INPUT_TEXT_MOBILE_MIN_WIDTH = 360;
 
