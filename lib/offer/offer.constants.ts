@@ -13,7 +13,6 @@ export const OFFER_STATUS_OPTIONS = [
 ];
 
 export const PRIVATE_USER_OFFER_STATUS_OPTIONS = [
-  { value: 'all', label: '모든 상태' },
   { value: 'open', label: '거래 가능' },
   { value: 'closed', label: '거래 완료' },
   { value: 'isArchived', label: '보관' },
