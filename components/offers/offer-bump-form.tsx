@@ -106,7 +106,7 @@ export default function OfferBumpForm({
       className="flex flex-col gap-12"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
-      <div className="text-xl text-gray-300 font-bold">
+      <div className="text-base md:text-lg text-gray-300 font-bold">
         {parseOfferBumpFormTitle(businessFunction)}
       </div>
       <div className="flex flex-row gap-2 items-center">

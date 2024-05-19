@@ -129,7 +129,7 @@ export default function UserReviewForm({
       className="flex flex-col gap-12 w-full md:w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
-      <div className="text-xl text-gray-300 font-bold">
+      <div className="text-base md:text-lg text-gray-300 font-bold">
         {parseUserReviewFormTitle(title)}
       </div>
 
