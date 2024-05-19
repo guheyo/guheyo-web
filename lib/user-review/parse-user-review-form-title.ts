@@ -1,2 +1,2 @@
 export const parseUserReviewFormTitle = (title: string) =>
-  `${title}\n 거래는 어떠셨나요?`;
+  `${title}\n거래는 어떠셨나요?`;
