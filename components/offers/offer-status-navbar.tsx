@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { OFFER_IS_ARCHIVED } from '@/lib/offer/offer.constants';
+import { OFFER_IS_ARCHIVED, OFFER_OPEN } from '@/lib/offer/offer.constants';
 import createQueryString from '@/lib/query-string/create-query-string';
 import { Option } from '@/interfaces/selector.interfaces';
 import TextNavbar from '../base/text-navbar';
@@ -12,7 +12,7 @@ export default function OfferStatusNavbar({ options }: { options: Option[] }) {
   const selectedValue =
     searchParams.get('isArchived') === true.toString()
       ? OFFER_IS_ARCHIVED
-      : searchParams.get('status') || 'all';
+      : searchParams.get('status') || OFFER_OPEN;
 
   const parseNewURL = (newValue?: string) => {
     let queryString = createQueryString({
