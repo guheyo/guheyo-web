@@ -22,6 +22,7 @@ function Page({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const searchParams = useSearchParams();
+  const isArchived = searchParams.get('isArchived') === true.toString();
   const { loading, data } = useFindUserQuery({
     variables: {
       username,
@@ -36,12 +37,13 @@ function Page({
   const status = parseOfferStatus({
     status:
       searchParams.get('status') ||
-      (jwtPayload?.id === user.id ? OFFER_OPEN : 'all'),
+      (jwtPayload?.id === user.id && !isArchived ? OFFER_OPEN : 'all'),
   });
   const where: FindOffersWhereArgs = {
     businessFunction,
     userId: user.id,
     status,
+    isArchived,
   };
 
   if (businessFunction === 'buy') {

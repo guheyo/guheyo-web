@@ -32,7 +32,6 @@ function OfferFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const isArchived = searchParams.get('isArchived') === true.toString();
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
     slug: categorySlug,
@@ -47,7 +46,7 @@ function OfferFeed({
       groupId: group?.id,
       categoryId: category?.id,
       status: where.status,
-      isArchived,
+      isArchived: where.isArchived,
       userId: where?.userId,
       bumpedAt: period
         ? {
