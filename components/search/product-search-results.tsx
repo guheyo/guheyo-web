@@ -24,6 +24,7 @@ export default function ProductSearchResults({
             <OfferFeed
               where={{
                 businessFunction: 'sell',
+                status,
               }}
               orderBy={{
                 price: 'asc',
@@ -31,7 +32,6 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
-              status={status}
               distinct={distinct}
             />
           ) : (
@@ -48,6 +48,7 @@ export default function ProductSearchResults({
             <OfferFeed
               where={{
                 businessFunction: 'buy',
+                status,
               }}
               orderBy={{
                 price: 'desc',
@@ -55,7 +56,6 @@ export default function ProductSearchResults({
               }}
               keyword={keyword}
               type="text"
-              status={status}
               distinct={distinct}
             />
           ) : (

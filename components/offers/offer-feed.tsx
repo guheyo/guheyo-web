@@ -20,14 +20,12 @@ function OfferFeed({
   orderBy,
   keyword,
   type,
-  status,
   distinct,
 }: {
   where: FindOffersWhereArgs;
   orderBy?: FindOffersOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
-  status?: string;
   distinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,7 +46,7 @@ function OfferFeed({
       businessFunction: where?.businessFunction,
       groupId: group?.id,
       categoryId: category?.id,
-      status,
+      status: where.status,
       isArchived,
       userId: where?.userId,
       bumpedAt: period
@@ -70,7 +68,7 @@ function OfferFeed({
   if (!data?.findOfferPreviews) return <div />;
 
   const edges = data.findOfferPreviews.edges.filter((edge) =>
-    status ? edge.node.status === status : true,
+    where.status ? edge.node.status === where.status : true,
   );
 
   return (

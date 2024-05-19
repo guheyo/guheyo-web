@@ -22,7 +22,6 @@ function OfferCheckboxResults({
   orderBy,
   keyword,
   type,
-  status,
   distinct,
   control,
   handleOfferSelection,
@@ -31,7 +30,6 @@ function OfferCheckboxResults({
   orderBy?: FindOffersOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
-  status?: string;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
   handleOfferSelection: (seletedId: string) => void;
@@ -41,9 +39,9 @@ function OfferCheckboxResults({
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     where: {
-      businessFunction: where?.businessFunction,
-      status,
-      userId: where?.userId,
+      businessFunction: where.businessFunction,
+      status: where.status,
+      userId: where.userId,
     },
     orderBy: {
       bumpedAt: orderBy?.bumpedAt || 'desc',
@@ -62,7 +60,7 @@ function OfferCheckboxResults({
   if (!data?.findOfferPreviews) return <div />;
 
   const edges = data.findOfferPreviews.edges.filter((edge) =>
-    status ? edge.node.status === status : true,
+    where.status ? edge.node.status === where.status : true,
   );
 
   return (

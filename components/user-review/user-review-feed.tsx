@@ -16,13 +16,11 @@ function UserReviewFeed({
   orderBy,
   keyword,
   type,
-  status,
 }: {
   where: FindUserReviewsWhereArgs;
   orderBy?: FindUserReviewsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
-  status?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
@@ -48,7 +46,7 @@ function UserReviewFeed({
   if (!data?.findUserReviewPreviews) return <div />;
 
   const edges = data.findUserReviewPreviews.edges.filter((edge) =>
-    status ? edge.node.status === status : true,
+    where.status ? edge.node.status === where.status : true,
   );
 
   return (
