@@ -5,7 +5,6 @@ import TextFeedLayout from '@/components/posts/text-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { useFindUserQuery } from '@/generated/graphql';
 import { FindOffersWhereArgs } from '@/interfaces/offer.interfaces';
-import { OFFER_OPEN } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
 import { useSearchParams } from 'next/navigation';
@@ -30,30 +29,25 @@ function Page({
   if (loading) return <div />;
   if (!user) return <div />;
 
+  const status = parseOfferStatus({
+    status: searchParams.get('status'),
+  });
   const where: FindOffersWhereArgs = {
     businessFunction,
     userId: user.id,
+    status,
   };
-  const status =
-    parseOfferStatus({
-      status: searchParams.get('status'),
-    }) || OFFER_OPEN;
 
   if (businessFunction === 'buy') {
     return (
       <TextFeedLayout>
-        <OfferFeed where={where} type="text" status={status} distinct={false} />
+        <OfferFeed where={where} type="text" distinct={false} />
       </TextFeedLayout>
     );
   }
   return (
     <ThumbnailFeedLayout>
-      <OfferFeed
-        where={where}
-        type="thumbnail"
-        status={status}
-        distinct={false}
-      />
+      <OfferFeed where={where} type="thumbnail" distinct={false} />
     </ThumbnailFeedLayout>
   );
 }
