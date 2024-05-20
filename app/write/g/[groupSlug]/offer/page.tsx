@@ -1,6 +1,6 @@
 'use client';
 
-import WriteOfferForm from '@/components/write/write-offer-form';
+import WriteOfferForm from '@/components/offers/write-offer-form';
 import { useGroup } from '@/hooks/use-group';
 
 export default function Page() {

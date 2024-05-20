@@ -4,7 +4,7 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import LoginButton from '../auth/login-button';
 import SearchButton from '../search/search-button';
-import WriteButton from '../write/write-button';
+import WriteButton from '../offers/write-button';
 import Avatar from '../avatar/avatar';
 
 export default function Navbar({
