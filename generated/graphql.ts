@@ -19,6 +19,54 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type AddBidInput = {
+  auctionId: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  price: Scalars['Int']['input'];
+  priceCurrency: Scalars['String']['input'];
+};
+
+export type AuctionPreviewResponse = {
+  __typename?: 'AuctionPreviewResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  currentBidPrice: Scalars['Int']['output'];
+  extendedEndDate: Scalars['DateTime']['output'];
+  extensionCount: Scalars['Int']['output'];
+  hammerPrice: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  originalEndDate: Scalars['DateTime']['output'];
+  post: PostPreviewWithUserResponse;
+  shippingCost: Scalars['Int']['output'];
+  shippingType: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type AuctionPreviewResponseEdge = {
+  __typename?: 'AuctionPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: AuctionPreviewResponse;
+};
+
+export type AuctionResponse = {
+  __typename?: 'AuctionResponse';
+  bids: Array<BidResponse>;
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  currentBidPrice: Scalars['Int']['output'];
+  extendedEndDate: Scalars['DateTime']['output'];
+  extensionCount: Scalars['Int']['output'];
+  hammerPrice: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  originalEndDate: Scalars['DateTime']['output'];
+  post: PostResponse;
+  shippingCost: Scalars['Int']['output'];
+  shippingType: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type AuthorResponse = {
   __typename?: 'AuthorResponse';
   about?: Maybe<Scalars['String']['output']>;
@@ -31,10 +79,27 @@ export type AuthorResponse = {
   username: Scalars['String']['output'];
 };
 
+export type BidResponse = {
+  __typename?: 'BidResponse';
+  auctionId: Scalars['ID']['output'];
+  bidder: AuthorResponse;
+  canceledAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  price: Scalars['Int']['output'];
+  priceCurrency: Scalars['String']['output'];
+  source: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+};
+
 export type BumpOfferInput = {
   id: Scalars['ID']['input'];
   newPrice: Scalars['Int']['input'];
   offerId: Scalars['ID']['input'];
+};
+
+export type CancelBidInput = {
+  auctionId: Scalars['String']['input'];
 };
 
 export type CancelReactionInput = {
@@ -93,6 +158,17 @@ export type CommentWithAuthorResponseEdge = {
   __typename?: 'CommentWithAuthorResponseEdge';
   cursor: Scalars['String']['output'];
   node: CommentWithAuthorResponse;
+};
+
+export type CreateAuctionInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  createdAt: Scalars['DateTime']['input'];
+  id: Scalars['ID']['input'];
+  originalEndDate: Scalars['DateTime']['input'];
+  post: CreatePostInput;
+  shippingCost: Scalars['Float']['input'];
+  shippingType: Scalars['String']['input'];
+  status?: Scalars['String']['input'];
 };
 
 export type CreateCommentInput = {
@@ -281,9 +357,12 @@ export type LinkSocialProfileInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addBid: Scalars['String']['output'];
   bumpOffer: OfferPreviewResponse;
+  cancelBid: Scalars['String']['output'];
   cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
+  createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
@@ -294,6 +373,7 @@ export type Mutation = {
   createSignedUrl: SignedUrlResponse;
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
+  deleteAuction: Scalars['String']['output'];
   deleteComment: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
@@ -303,6 +383,7 @@ export type Mutation = {
   logout: SocialUserResponse;
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
+  updateAuction: Scalars['String']['output'];
   updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
   updateOffer: OfferPreviewResponse;
@@ -313,8 +394,18 @@ export type Mutation = {
 };
 
 
+export type MutationAddBidArgs = {
+  input: AddBidInput;
+};
+
+
 export type MutationBumpOfferArgs = {
   input: BumpOfferInput;
+};
+
+
+export type MutationCancelBidArgs = {
+  input: CancelBidInput;
 };
 
 
@@ -325,6 +416,11 @@ export type MutationCancelReactionArgs = {
 
 export type MutationCommentReportArgs = {
   input: CommentReportInput;
+};
+
+
+export type MutationCreateAuctionArgs = {
+  input: CreateAuctionInput;
 };
 
 
@@ -378,6 +474,11 @@ export type MutationCreateUserReviewArgs = {
 };
 
 
+export type MutationDeleteAuctionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationDeleteCommentArgs = {
   input: DeleteCommentInput;
 };
@@ -405,6 +506,11 @@ export type MutationDeleteUserReviewArgs = {
 
 export type MutationLinkSocialProfileArgs = {
   input: LinkSocialProfileInput;
+};
+
+
+export type MutationUpdateAuctionArgs = {
+  input: UpdateAuctionInput;
 };
 
 
@@ -506,6 +612,12 @@ export type PageInfo = {
   __typename?: 'PageInfo';
   endCursor?: Maybe<Scalars['String']['output']>;
   hasNextPage: Scalars['Boolean']['output'];
+};
+
+export type PaginatedAuctionPreviewsResponse = {
+  __typename?: 'PaginatedAuctionPreviewsResponse';
+  edges: Array<AuctionPreviewResponseEdge>;
+  pageInfo: PageInfo;
 };
 
 export type PaginatedCommentsResponse = {
@@ -627,6 +739,8 @@ export type PostResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  findAuction?: Maybe<AuctionResponse>;
+  findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
   findComment?: Maybe<CommentResponse>;
   findComments: PaginatedCommentsResponse;
@@ -656,6 +770,22 @@ export type Query = {
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
+};
+
+
+export type QueryFindAuctionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindAuctionPreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -989,6 +1119,12 @@ export type TermResponse = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type UpdateAuctionInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  post: UpdatePostInput;
+};
+
 export type UpdateCommentInput = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
@@ -1150,6 +1286,37 @@ export type VersionResponse = {
   tableName: Scalars['String']['output'];
   values: Scalars['JSON']['output'];
 };
+
+export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type FindAuctionPreviewsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindAuctionQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
+
+export type CreateAuctionMutationVariables = Exact<{
+  input: CreateAuctionInput;
+}>;
+
+
+export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: string };
 
 export type RefreshTokensMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1608,42 +1775,42 @@ export type FindVersionQueryVariables = Exact<{
 
 export type FindVersionQuery = { __typename?: 'Query', findVersion?: { __typename?: 'VersionResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } | null };
 
-export const EmojiFragmentDoc = gql`
-    fragment emoji on EmojiResponse {
+export const ImageFragmentDoc = gql`
+    fragment image on UserImageResponse {
   id
+  createdAt
+  updatedAt
   name
   url
+  contentType
+  description
+  size
+  height
+  width
   position
-  groupId
+  type
+  refId
+  userId
 }
     `;
-export const ReactionFragmentDoc = gql`
-    fragment reaction on ReactionResponse {
+export const GroupProfileFragmentDoc = gql`
+    fragment groupProfile on GroupProfileResponse {
   id
-  createdAt
-  updatedAt
-  canceledAt
-  emoji {
-    ...emoji
-  }
-  userId
-  postId
-  commentId
+  name
+  slug
+  description
+  icon
 }
-    ${EmojiFragmentDoc}`;
-export const CommentFragmentDoc = gql`
-    fragment comment on CommentResponse {
+    `;
+export const CategoryFragmentDoc = gql`
+    fragment category on CategoryResponse {
   id
-  createdAt
-  updatedAt
-  parentId
-  postId
-  content
-  reactions {
-    ...reaction
-  }
+  type
+  name
+  slug
+  position
 }
-    ${ReactionFragmentDoc}`;
+    `;
 export const SocialAccountWithoutAuthFragmentDoc = gql`
     fragment socialAccountWithoutAuth on SocialAccountWithoutAuthResponse {
   id
@@ -1679,74 +1846,6 @@ export const AuthorFragmentDoc = gql`
 }
     ${SocialAccountWithoutAuthFragmentDoc}
 ${RoleFragmentDoc}`;
-export const CommentWithAuthorFragmentDoc = gql`
-    fragment commentWithAuthor on CommentWithAuthorResponse {
-  id
-  createdAt
-  updatedAt
-  parentId
-  postId
-  content
-  user {
-    ...author
-  }
-  reactions {
-    ...reaction
-  }
-}
-    ${AuthorFragmentDoc}
-${ReactionFragmentDoc}`;
-export const UpdatedCommentResponseFragmentDoc = gql`
-    fragment updatedCommentResponse on UpdatedCommentResponse {
-  id
-  updatedAt
-  content
-}
-    `;
-export const DeletedCommentResponseFragmentDoc = gql`
-    fragment deletedCommentResponse on DeletedCommentResponse {
-  id
-}
-    `;
-export const CategoryFragmentDoc = gql`
-    fragment category on CategoryResponse {
-  id
-  type
-  name
-  slug
-  position
-}
-    `;
-export const GroupFragmentDoc = gql`
-    fragment group on GroupResponse {
-  id
-  name
-  slug
-  description
-  icon
-  position
-  roles {
-    id
-    name
-    position
-    hexColor
-    groupId
-  }
-  categories {
-    ...category
-  }
-}
-    ${CategoryFragmentDoc}`;
-export const UserFragmentDoc = gql`
-    fragment user on UserResponse {
-  id
-  createdAt
-  username
-  about
-  avatarURL
-  bot
-}
-    `;
 export const TagFragmentDoc = gql`
     fragment tag on TagResponse {
   id
@@ -1754,94 +1853,6 @@ export const TagFragmentDoc = gql`
   name
   description
   position
-}
-    `;
-export const PostPreviewWithUserFragmentDoc = gql`
-    fragment postPreviewWithUser on PostPreviewWithUserResponse {
-  id
-  createdAt
-  updatedAt
-  archivedAt
-  pending
-  type
-  title
-  slug
-  thumbnail
-  groupId
-  categoryId
-  user {
-    ...user
-  }
-  tags {
-    ...tag
-  }
-  commentCount
-}
-    ${UserFragmentDoc}
-${TagFragmentDoc}`;
-export const OfferPreviewFragmentDoc = gql`
-    fragment offerPreview on OfferPreviewResponse {
-  post {
-    ...postPreviewWithUser
-  }
-  id
-  createdAt
-  updatedAt
-  bumpedAt
-  name0
-  name1
-  content
-  price
-  priceCurrency
-  shippingCost
-  shippingType
-  totalPrice
-  businessFunction
-  status
-  hasSubmittedReview
-}
-    ${PostPreviewWithUserFragmentDoc}`;
-export const GroupPreviewFragmentDoc = gql`
-    fragment groupPreview on GroupPreviewResponse {
-  id
-  name
-  slug
-  description
-  icon
-  position
-  sells {
-    ...offerPreview
-  }
-  buys {
-    ...offerPreview
-  }
-}
-    ${OfferPreviewFragmentDoc}`;
-export const ImageFragmentDoc = gql`
-    fragment image on UserImageResponse {
-  id
-  createdAt
-  updatedAt
-  name
-  url
-  contentType
-  description
-  size
-  height
-  width
-  position
-  type
-  refId
-  userId
-}
-    `;
-export const GroupProfileFragmentDoc = gql`
-    fragment groupProfile on GroupProfileResponse {
-  id
-  name
-  slug
-  description
-  icon
 }
     `;
 export const PostFragmentDoc = gql`
@@ -1880,6 +1891,200 @@ ${GroupProfileFragmentDoc}
 ${CategoryFragmentDoc}
 ${AuthorFragmentDoc}
 ${TagFragmentDoc}`;
+export const AuctionFragmentDoc = gql`
+    fragment auction on AuctionResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  originalEndDate
+  extendedEndDate
+  extensionCount
+  content
+  currentBidPrice
+  hammerPrice
+  shippingCost
+  shippingType
+  status
+}
+    ${PostFragmentDoc}`;
+export const UserFragmentDoc = gql`
+    fragment user on UserResponse {
+  id
+  createdAt
+  username
+  about
+  avatarURL
+  bot
+}
+    `;
+export const PostPreviewWithUserFragmentDoc = gql`
+    fragment postPreviewWithUser on PostPreviewWithUserResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  groupId
+  categoryId
+  user {
+    ...user
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${UserFragmentDoc}
+${TagFragmentDoc}`;
+export const AuctionPreviewFragmentDoc = gql`
+    fragment auctionPreview on AuctionPreviewResponse {
+  post {
+    ...postPreviewWithUser
+  }
+  id
+  createdAt
+  updatedAt
+  originalEndDate
+  extendedEndDate
+  extensionCount
+  content
+  currentBidPrice
+  hammerPrice
+  shippingCost
+  shippingType
+  status
+}
+    ${PostPreviewWithUserFragmentDoc}`;
+export const EmojiFragmentDoc = gql`
+    fragment emoji on EmojiResponse {
+  id
+  name
+  url
+  position
+  groupId
+}
+    `;
+export const ReactionFragmentDoc = gql`
+    fragment reaction on ReactionResponse {
+  id
+  createdAt
+  updatedAt
+  canceledAt
+  emoji {
+    ...emoji
+  }
+  userId
+  postId
+  commentId
+}
+    ${EmojiFragmentDoc}`;
+export const CommentFragmentDoc = gql`
+    fragment comment on CommentResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  reactions {
+    ...reaction
+  }
+}
+    ${ReactionFragmentDoc}`;
+export const CommentWithAuthorFragmentDoc = gql`
+    fragment commentWithAuthor on CommentWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  parentId
+  postId
+  content
+  user {
+    ...author
+  }
+  reactions {
+    ...reaction
+  }
+}
+    ${AuthorFragmentDoc}
+${ReactionFragmentDoc}`;
+export const UpdatedCommentResponseFragmentDoc = gql`
+    fragment updatedCommentResponse on UpdatedCommentResponse {
+  id
+  updatedAt
+  content
+}
+    `;
+export const DeletedCommentResponseFragmentDoc = gql`
+    fragment deletedCommentResponse on DeletedCommentResponse {
+  id
+}
+    `;
+export const GroupFragmentDoc = gql`
+    fragment group on GroupResponse {
+  id
+  name
+  slug
+  description
+  icon
+  position
+  roles {
+    id
+    name
+    position
+    hexColor
+    groupId
+  }
+  categories {
+    ...category
+  }
+}
+    ${CategoryFragmentDoc}`;
+export const OfferPreviewFragmentDoc = gql`
+    fragment offerPreview on OfferPreviewResponse {
+  post {
+    ...postPreviewWithUser
+  }
+  id
+  createdAt
+  updatedAt
+  bumpedAt
+  name0
+  name1
+  content
+  price
+  priceCurrency
+  shippingCost
+  shippingType
+  totalPrice
+  businessFunction
+  status
+  hasSubmittedReview
+}
+    ${PostPreviewWithUserFragmentDoc}`;
+export const GroupPreviewFragmentDoc = gql`
+    fragment groupPreview on GroupPreviewResponse {
+  id
+  name
+  slug
+  description
+  icon
+  position
+  sells {
+    ...offerPreview
+  }
+  buys {
+    ...offerPreview
+  }
+}
+    ${OfferPreviewFragmentDoc}`;
 export const OfferFragmentDoc = gql`
     fragment offer on OfferResponse {
   post {
@@ -2117,6 +2322,139 @@ export const VersionPreviewFragmentDoc = gql`
   values
 }
     `;
+export const FindAuctionPreviewsDocument = gql`
+    query FindAuctionPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findAuctionPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...auctionPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${AuctionPreviewFragmentDoc}`;
+
+/**
+ * __useFindAuctionPreviewsQuery__
+ *
+ * To run a query within a React component, call `useFindAuctionPreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuctionPreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuctionPreviewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindAuctionPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables> & ({ variables: FindAuctionPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>(FindAuctionPreviewsDocument, options);
+      }
+export function useFindAuctionPreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>(FindAuctionPreviewsDocument, options);
+        }
+export function useFindAuctionPreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>(FindAuctionPreviewsDocument, options);
+        }
+export type FindAuctionPreviewsQueryHookResult = ReturnType<typeof useFindAuctionPreviewsQuery>;
+export type FindAuctionPreviewsLazyQueryHookResult = ReturnType<typeof useFindAuctionPreviewsLazyQuery>;
+export type FindAuctionPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindAuctionPreviewsSuspenseQuery>;
+export type FindAuctionPreviewsQueryResult = Apollo.QueryResult<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>;
+export const FindAuctionDocument = gql`
+    query FindAuction($id: ID, $slug: String) {
+  findAuction(id: $id, slug: $slug) {
+    ...auction
+  }
+}
+    ${AuctionFragmentDoc}`;
+
+/**
+ * __useFindAuctionQuery__
+ *
+ * To run a query within a React component, call `useFindAuctionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuctionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuctionQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindAuctionQuery(baseOptions?: Apollo.QueryHookOptions<FindAuctionQuery, FindAuctionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuctionQuery, FindAuctionQueryVariables>(FindAuctionDocument, options);
+      }
+export function useFindAuctionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuctionQuery, FindAuctionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuctionQuery, FindAuctionQueryVariables>(FindAuctionDocument, options);
+        }
+export function useFindAuctionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuctionQuery, FindAuctionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuctionQuery, FindAuctionQueryVariables>(FindAuctionDocument, options);
+        }
+export type FindAuctionQueryHookResult = ReturnType<typeof useFindAuctionQuery>;
+export type FindAuctionLazyQueryHookResult = ReturnType<typeof useFindAuctionLazyQuery>;
+export type FindAuctionSuspenseQueryHookResult = ReturnType<typeof useFindAuctionSuspenseQuery>;
+export type FindAuctionQueryResult = Apollo.QueryResult<FindAuctionQuery, FindAuctionQueryVariables>;
+export const CreateAuctionDocument = gql`
+    mutation CreateAuction($input: CreateAuctionInput!) {
+  createAuction(input: $input)
+}
+    `;
+export type CreateAuctionMutationFn = Apollo.MutationFunction<CreateAuctionMutation, CreateAuctionMutationVariables>;
+
+/**
+ * __useCreateAuctionMutation__
+ *
+ * To run a mutation, you first call `useCreateAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAuctionMutation, { data, loading, error }] = useCreateAuctionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAuctionMutation(baseOptions?: Apollo.MutationHookOptions<CreateAuctionMutation, CreateAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAuctionMutation, CreateAuctionMutationVariables>(CreateAuctionDocument, options);
+      }
+export type CreateAuctionMutationHookResult = ReturnType<typeof useCreateAuctionMutation>;
+export type CreateAuctionMutationResult = Apollo.MutationResult<CreateAuctionMutation>;
+export type CreateAuctionMutationOptions = Apollo.BaseMutationOptions<CreateAuctionMutation, CreateAuctionMutationVariables>;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {

@@ -1,0 +1,80 @@
+fragment auction on AuctionResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  originalEndDate
+  extendedEndDate
+  extensionCount
+  content
+  currentBidPrice
+  hammerPrice
+  shippingCost
+  shippingType
+  status
+}
+
+fragment auctionPreview on AuctionPreviewResponse {
+  post {
+    ...postPreviewWithUser
+  }
+  id
+  createdAt
+  updatedAt
+  originalEndDate
+  extendedEndDate
+  extensionCount
+  content
+  currentBidPrice
+  hammerPrice
+  shippingCost
+  shippingType
+  status
+}
+
+query FindAuctionPreviews(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findAuctionPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...auctionPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindAuction(
+  $id: ID
+  $slug: String
+) {
+  findAuction(
+    id: $id
+    slug: $slug
+  ) {
+    ...auction
+  }
+}
+
+mutation CreateAuction($input: CreateAuctionInput!) {
+  createAuction(input: $input)
+}
