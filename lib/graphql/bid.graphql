@@ -1,0 +1,12 @@
+fragment bid on BidResponse {
+  id
+  createdAt
+  canceledAt
+  price
+  priceCurrency
+  auctionId
+  bidder {
+    ...author
+  }
+  status
+}
