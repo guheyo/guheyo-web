@@ -88,7 +88,6 @@ export type BidResponse = {
   id: Scalars['ID']['output'];
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
-  source: Scalars['String']['output'];
   status: Scalars['String']['output'];
 };
 
@@ -161,12 +160,12 @@ export type CommentWithAuthorResponseEdge = {
 };
 
 export type CreateAuctionInput = {
-  content?: InputMaybe<Scalars['String']['input']>;
+  content: Scalars['String']['input'];
   createdAt: Scalars['DateTime']['input'];
   id: Scalars['ID']['input'];
   originalEndDate: Scalars['DateTime']['input'];
   post: CreatePostInput;
-  shippingCost: Scalars['Float']['input'];
+  shippingCost: Scalars['Int']['input'];
   shippingType: Scalars['String']['input'];
   status?: Scalars['String']['input'];
 };
@@ -373,7 +372,6 @@ export type Mutation = {
   createSignedUrl: SignedUrlResponse;
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
-  deleteAuction: Scalars['String']['output'];
   deleteComment: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
@@ -471,11 +469,6 @@ export type MutationCreateUserImageArgs = {
 
 export type MutationCreateUserReviewArgs = {
   input: CreateUserReviewInput;
-};
-
-
-export type MutationDeleteAuctionArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
