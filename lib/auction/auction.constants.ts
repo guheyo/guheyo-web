@@ -1,7 +1,7 @@
 export const AUCTION = 'auction';
 
 export const AUCTION_STATUS_OPTIONS = [
-  { value: 'all', label: '모든 경매' },
+  { value: 'all', label: '모든 상태' },
   { value: 'live', label: '진행중' },
   { value: 'closed', label: '종료' },
 ];
