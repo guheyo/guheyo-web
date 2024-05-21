@@ -34,12 +34,11 @@ export default function EditOfferForm({
   const handleSubmitValid: SubmitHandler<OfferFormValues> = async (values) => {
     if (!jwtPayload) return;
 
+    secureLocalStorage.removeItem(localStorageKey);
     const input = parseUpdateOfferInput({
       offerFormValues: values,
     });
     await updateOffer(input);
-
-    secureLocalStorage.removeItem(localStorageKey);
     router.back();
   };
 

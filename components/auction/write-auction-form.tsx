@@ -26,11 +26,11 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
   ) => {
     if (!jwtPayload) return;
 
+    secureLocalStorage.removeItem(localStorageKey);
     const input = parseCreateAuctionInput({
       auctionFormValues: values,
     });
     await createAuction(input);
-    secureLocalStorage.removeItem(localStorageKey);
     router.back();
   };
 

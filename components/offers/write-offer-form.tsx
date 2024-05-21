@@ -30,13 +30,13 @@ export default function WriteOfferForm({ group }: { group: GroupResponse }) {
   const handleSubmitValid: SubmitHandler<OfferFormValues> = async (values) => {
     if (!jwtPayload) return;
 
+    secureLocalStorage.removeItem(localStorageKey);
     const input = parseCreateOfferInput({
       offerFormValues: values,
     });
 
     try {
       await createOffer(input);
-      secureLocalStorage.removeItem(localStorageKey);
       router.back();
     } catch (e: any) {
       if (isPostingLimitExceededError(e.message)) {
