@@ -17,7 +17,7 @@ const parseCreateAuctionInput = ({
   };
   const createdAt = new Date();
   const originalEndDate = dayjs(createdAt)
-    .add(auctionFormValues.duration, 'D')
+    .add(auctionFormValues.duration, 'd')
     .toDate();
   const auctionInput: CreateAuctionInput = {
     post: postInput,
