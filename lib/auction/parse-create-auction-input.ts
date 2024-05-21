@@ -2,7 +2,7 @@ import { CreateAuctionInput, CreatePostInput } from '@/generated/graphql';
 import { SHIPPING_FREE } from '@/lib/shipping/shipping.constants';
 import dayjs from 'dayjs';
 import { AUCTION_LIVE } from '@/lib/auction/auction.constants';
-import { AuctionFormValues } from './auction.interfaces';
+import { AuctionFormValues } from './auction.types';
 
 const parseCreateAuctionInput = ({
   auctionFormValues,
@@ -17,7 +17,7 @@ const parseCreateAuctionInput = ({
   };
   const createdAt = new Date();
   const originalEndDate = dayjs(createdAt)
-    .add(auctionFormValues.duration, 'D')
+    .add(auctionFormValues.duration, 'd')
     .toDate();
   const auctionInput: CreateAuctionInput = {
     post: postInput,
