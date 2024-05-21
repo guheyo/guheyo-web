@@ -8,9 +8,9 @@ import { parseTempOfferFormKey } from '@/lib/offer/parse-temp-offer-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { createAuction } from '@/lib/api/auction';
+import { AuctionFormValues } from '@/lib/auction/auction.types';
 import { AuthContext } from '../auth/auth.provider';
-import { AuctionFormValues } from './auction.interfaces';
-import parseCreateAuctionInput from './parse-create-auction-input';
+import parseCreateAuctionInput from '../../lib/auction/parse-create-auction-input';
 import AuctionForm from './auction-form';
 
 export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
