@@ -23,7 +23,7 @@ export const OFFER_CLOSED = 'closed';
 export const OFFER_IS_ARCHIVED = 'isArchived';
 
 export const OFFER_IMAGE_UPLOAD_LABEL_NAME =
-  '이미지 업로드 (아이디 인증 메모가 보이도록 사진을 찍어주세요)';
+  '이미지 업로드\n(아이디 인증 메모가 보이도록 사진을 찍어주세요)';
 
 export const OFFER_NAME = '제목';
 export const OFFER_NAME_PLACEHOLDER = '제목';
