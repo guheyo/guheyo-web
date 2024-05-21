@@ -39,7 +39,10 @@ import { SHIPPING_FREE } from '@/lib/shipping/shipping.constants';
 import { findDefaultCategory } from '@/lib/group/find-default-category';
 import { parseAuctionContentPlaceholder } from '@/lib/auction/parse-auction-content-placeholder';
 import { parseAuctionDurationButtonOptions } from '@/lib/auction/parse-auction-duration-options';
-import { AUCTION_DURATION_LABEL_NAME } from '@/lib/auction/auction.constants';
+import {
+  AUCTION,
+  AUCTION_DURATION_LABEL_NAME,
+} from '@/lib/auction/auction.constants';
 import { AuctionFormValues } from '@/lib/auction/auction.types';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
@@ -157,7 +160,7 @@ export default function AuctionForm({
 
     const userImages = await uploadAndSaveImages({
       uploadedImages,
-      type: OFFER,
+      type: AUCTION,
       refId: auctionId,
       userId,
     });
