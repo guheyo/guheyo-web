@@ -16,7 +16,7 @@ export interface FindAuctionsWhereArgs {
 }
 
 export interface FindAuctionsOrderByArgs {
-  price?: SortOrder;
+  currentBidPrice?: SortOrder;
 
   createdAt?: SortOrder;
 }
