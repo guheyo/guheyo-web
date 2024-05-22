@@ -1,11 +1,16 @@
 'use client';
 
 import { v4 as uuid4 } from 'uuid';
-import { KeyboardEventHandler, useEffect, useState } from 'react';
+import {
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
-import { IconButton, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -14,6 +19,7 @@ import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import Avatar from '../avatar/avatar';
 import NoCommentOutput from './no-comment-output';
+import DiscordLoginDialog from '../auth/discord-login-dialog';
 
 export default function CommentCard({
   user,
@@ -97,6 +103,14 @@ export default function CommentCard({
     }
   };
 
+  const handleAuthorization: MouseEventHandler = () => {
+    // Do nothing
+  };
+
+  const handleOnAuthorization: MouseEventHandler = (e) => {
+    e.preventDefault();
+  };
+
   if (mode === 'create' || mode === 'update') {
     return (
       <div className="flex flex-row gap-4 items-center">
@@ -115,7 +129,7 @@ export default function CommentCard({
         )}
         <form
           onSubmit={handleSubmit(handleSubmitValid)}
-          className="w-full flex items-end pr-6 md:pr-0"
+          className="w-full flex gap-4 items-end pr-9 md:pr-0"
         >
           <div className="w-full">
             <CommentInput
@@ -130,9 +144,15 @@ export default function CommentCard({
               }}
             />
           </div>
-          <IconButton type="submit">
-            <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
-          </IconButton>
+          <div className="flex-none">
+            <DiscordLoginDialog
+              icon={
+                <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
+              }
+              onAuthorization={handleAuthorization}
+              onUnAuthorization={handleOnAuthorization}
+            />
+          </div>
         </form>
       </div>
     );
