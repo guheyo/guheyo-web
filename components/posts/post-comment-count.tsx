@@ -8,7 +8,7 @@ export default function PostCommentCount({
   return (
     <div className="flex flex-row gap-0.5 text-gray-400 items-center">
       <div>
-        <ChatBubbleOvalLeftIcon color="gray" fill="gray" className="w-4" />
+        <ChatBubbleOvalLeftIcon color="gray" fill="gray" className="w-5" />
       </div>
       <div>{comentCount}</div>
     </div>
