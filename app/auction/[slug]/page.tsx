@@ -64,7 +64,7 @@ function Page({
           </div>
         </div>
       )}
-      <div className="px-2 md:px-0">
+      <div className="px-4 md:px-0">
         <BidFeed where={bidsWhere} orderBy={bidsOrderBy} />
       </div>
     </div>
