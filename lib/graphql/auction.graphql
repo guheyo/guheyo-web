@@ -2,9 +2,6 @@ fragment auction on AuctionResponse {
   post {
     ...post
   }
-  bids {
-    ...bid
-  }
   id
   createdAt
   updatedAt
