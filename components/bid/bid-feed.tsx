@@ -12,7 +12,7 @@ import { useInfiniteBids } from '@/hooks/use-infinite-bids';
 import { BidValues } from '@/lib/bid/bid.types';
 import { AuthContext } from '../auth/auth.provider';
 import BidOutput from './bid-output';
-import PlaceBidButton from './place-bid-button';
+import BidInput from './bid-input';
 
 export default function BidFeed({
   where,
@@ -103,8 +103,12 @@ export default function BidFeed({
         ))}
         <div ref={sentinelRef} />
       </div>
-      <div>
-        <PlaceBidButton price={0} handleSubmitValid={handleAdd} />
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
+        <BidInput
+          user={user || undefined}
+          price={0}
+          handleSubmitValid={handleAdd}
+        />
       </div>
     </div>
   );
