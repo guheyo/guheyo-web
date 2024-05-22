@@ -54,8 +54,9 @@ export default function BidOutput({
             <div>{parseBidDate({ createdAt, canceledAt })}</div>
           </div>
         </div>
-        <div className="flex text-xs md:text-sm text-dark-100 font-thin">
-          {parsePrice(price)}
+        <div className="flex gap-2 text-xs md:text-sm w-fit bg-zinc-600 px-2 py-1.5 rounded-lg">
+          <div className="text-gray-400 font-thin">입찰</div>
+          <div className="text-gray-200 font-semibold">{parsePrice(price)}</div>
         </div>
       </div>
     </div>
