@@ -14,6 +14,7 @@ fragment auction on AuctionResponse {
   shippingCost
   shippingType
   status
+  bidCount
 }
 
 fragment auctionPreview on AuctionPreviewResponse {
