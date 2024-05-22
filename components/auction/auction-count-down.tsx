@@ -1,0 +1,48 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+
+function AuctionCountdown({ targetDate }: { targetDate: Date }) {
+  const [timeLeft, setTimeLeft] = useState('');
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timer;
+
+    const updateCountdown = () => {
+      const now = dayjs();
+      const end = dayjs(targetDate);
+      const diff = end.diff(now);
+
+      if (diff <= 0) {
+        setTimeLeft('경매 종료');
+        clearInterval(intervalId);
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const formattedTimeLeft = `${hours.toString().padStart(2, '0')}:${minutes
+        .toString()
+        .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      setTimeLeft(`남은 시간: ${formattedTimeLeft}`);
+    };
+
+    updateCountdown(); // Initial call
+    intervalId = setInterval(updateCountdown, 1000); // Update every second
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, [targetDate]);
+
+  return (
+    <div className="flex flex-row gap-1 items-center">
+      <ScheduleIcon className="text-gray-500" />
+      {timeLeft}
+    </div>
+  );
+};
+
+export default AuctionCountdown;
