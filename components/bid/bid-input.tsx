@@ -6,31 +6,29 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
-import { DEFAULT_LABEL_STYLE } from '@/lib/input/input.styles';
-import {
-  DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
-  DEFAULT_INPUT_TEXT_COLOR,
-} from '@/lib/input/input.colors';
-import {
-  getInputTextFontSize,
-  getInputTextMinWidth,
-} from '@/lib/input/input.props';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { DEFAULT_INPUT_TEXT_COLOR } from '@/lib/input/input.colors';
+import { getInputTextFontSize } from '@/lib/input/input.props';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, WheelEventHandler } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { OFFER_PRICE_REQUIRED_MESSAGE } from '@/lib/offer/offer.constants';
 import { BidValues } from '@/lib/bid/bid.types';
-import { PLACE_BID_BUTTON_STYLE } from '@/lib/bid/bid.styles';
+import { AuthorResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
 import PriceUpDownButtons, {
   UP_DOWN_PRICE_UNIT,
 } from '../offers/price-up-down-buttons';
+import Avatar from '../avatar/avatar';
+import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 
-export default function PlaceBidButton({
+export default function BidInput({
+  user,
   price,
   handleSubmitValid,
 }: {
+  user?: AuthorResponse;
   price: number;
   handleSubmitValid: SubmitHandler<BidValues>;
 }) {
@@ -77,11 +75,24 @@ export default function PlaceBidButton({
   };
 
   return (
-    <form
-      className="flex flex-col gap-0"
-      onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
-    >
-      <div className="flex flex-col gap-2 mb-0 md:mb-8">
+    <div className="flex flex-row gap-4 items-center">
+      {!user ? (
+        <Avatar
+          name="guest"
+          fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+        />
+      ) : (
+        <UserProfileRedirectButton
+          user={user}
+          displayAvatar
+          displayUsername={false}
+          fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+        />
+      )}
+      <form
+        onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
+        className="w-full flex flex-row gap-4 items-end pr-6 md:pr-0"
+      >
         <div className="w-full">
           <TextInput
             name="price"
@@ -94,45 +105,40 @@ export default function PlaceBidButton({
               },
             }}
             textInputProps={{
-              label: {
-                name: '입찰',
-                style: DEFAULT_LABEL_STYLE,
-              },
               onChange: onChangeNumberInput,
             }}
             textFieldProps={{
               type: 'number',
-              variant: 'outlined',
+              variant: 'standard',
               placeholder: '입찰 금액',
               InputProps: {
                 startAdornment: <div className="pr-2">₩</div>,
                 sx: {
                   color: DEFAULT_INPUT_TEXT_COLOR,
-                  borderRadius: 2,
                   fontSize: getInputTextFontSize(device),
-                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
                   fontWeight: 600,
-                  minWidth: getInputTextMinWidth(device),
                 },
               },
               onWheel: handleWheel,
             }}
           />
         </div>
-        <div className="flex justify-between">
+        <div className="flex-none">
           <PriceUpDownButtons
             handleUpButtonClick={handleUpButtonClick}
             handleDownButtonClick={handleDownButtonClick}
           />
-          <div className={PLACE_BID_BUTTON_STYLE}>
-            <DiscordLoginDialog
-              name="입찰하기"
-              onAuthorization={handleAuthorization}
-              onUnAuthorization={handleOnAuthorization}
-            />
-          </div>
         </div>
-      </div>
-    </form>
+        <div className="flex-none">
+          <DiscordLoginDialog
+            icon={
+              <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
+            }
+            onAuthorization={handleAuthorization}
+            onUnAuthorization={handleOnAuthorization}
+          />
+        </div>
+      </form>
+    </div>
   );
 }
