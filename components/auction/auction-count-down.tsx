@@ -43,6 +43,6 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
       {timeLeft}
     </div>
   );
-};
+}
 
 export default AuctionCountdown;
