@@ -8,7 +8,7 @@ import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
-import OfferDetailBumpedAt from './offer-detail-bumped-at';
+import PostDetailDate from '../posts/post-detail-date';
 import OfferMenu from './offer-menu';
 import OfferDetailName from './offer-detail-name';
 import OfferDetailPrice from './offer-detail-price';
@@ -28,7 +28,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             displayUsername
             fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
-          <OfferDetailBumpedAt bumpedAt={offer.bumpedAt} />
+          <PostDetailDate date={offer.bumpedAt} />
         </div>
         <div className="h-8">
           <OfferMenu
