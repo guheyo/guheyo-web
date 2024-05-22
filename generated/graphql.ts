@@ -19,13 +19,6 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-export type AddBidInput = {
-  auctionId: Scalars['String']['input'];
-  id: Scalars['ID']['input'];
-  price: Scalars['Int']['input'];
-  priceCurrency: Scalars['String']['input'];
-};
-
 export type AuctionPreviewResponse = {
   __typename?: 'AuctionPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
@@ -82,13 +75,19 @@ export type AuthorResponse = {
 export type BidResponse = {
   __typename?: 'BidResponse';
   auctionId: Scalars['ID']['output'];
-  bidder: AuthorResponse;
   canceledAt: Scalars['DateTime']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   price: Scalars['Int']['output'];
   priceCurrency: Scalars['String']['output'];
   status: Scalars['String']['output'];
+  user: AuthorResponse;
+};
+
+export type BidResponseEdge = {
+  __typename?: 'BidResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: BidResponse;
 };
 
 export type BumpOfferInput = {
@@ -356,7 +355,6 @@ export type LinkSocialProfileInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addBid: Scalars['String']['output'];
   bumpOffer: OfferPreviewResponse;
   cancelBid: Scalars['String']['output'];
   cancelReaction: Scalars['String']['output'];
@@ -379,6 +377,7 @@ export type Mutation = {
   deleteUserReview: Scalars['String']['output'];
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
+  placeBid: Scalars['String']['output'];
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
   updateAuction: Scalars['String']['output'];
@@ -389,11 +388,6 @@ export type Mutation = {
   updateRole: Scalars['String']['output'];
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
-};
-
-
-export type MutationAddBidArgs = {
-  input: AddBidInput;
 };
 
 
@@ -499,6 +493,11 @@ export type MutationDeleteUserReviewArgs = {
 
 export type MutationLinkSocialProfileArgs = {
   input: LinkSocialProfileInput;
+};
+
+
+export type MutationPlaceBidArgs = {
+  input: PlaceBidInput;
 };
 
 
@@ -613,6 +612,12 @@ export type PaginatedAuctionPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedBidsResponse = {
+  __typename?: 'PaginatedBidsResponse';
+  edges: Array<BidResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedCommentsResponse = {
   __typename?: 'PaginatedCommentsResponse';
   edges: Array<CommentWithAuthorResponseEdge>;
@@ -653,6 +658,13 @@ export type PaginatedUsersResponse = {
   __typename?: 'PaginatedUsersResponse';
   edges: Array<UserResponseEdge>;
   pageInfo: PageInfo;
+};
+
+export type PlaceBidInput = {
+  auctionId: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  price: Scalars['Int']['input'];
+  priceCurrency: Scalars['String']['input'];
 };
 
 export type PostPreviewWithAuthorResponse = {
@@ -735,6 +747,7 @@ export type Query = {
   findAuction?: Maybe<AuctionResponse>;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
+  findBids: PaginatedBidsResponse;
   findComment?: Maybe<CommentResponse>;
   findComments: PaginatedCommentsResponse;
   findEmojis: Array<EmojiResponse>;
@@ -785,6 +798,16 @@ export type QueryFindAuctionPreviewsArgs = {
 export type QueryFindAuthorArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindBidsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1280,7 +1303,7 @@ export type VersionResponse = {
   values: Scalars['JSON']['output'];
 };
 
-export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, bids: Array<{ __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, bidder: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } }> };
+export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, bids: Array<{ __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } }> };
 
 export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
@@ -1302,7 +1325,7 @@ export type FindAuctionQueryVariables = Exact<{
 }>;
 
 
-export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, bids: Array<{ __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, bidder: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } }> } | null };
+export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, bids: Array<{ __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } }> } | null };
 
 export type CreateAuctionMutationVariables = Exact<{
   input: CreateAuctionInput;
@@ -1326,7 +1349,33 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'SocialUserResponse', provider: string, socialId: string } };
 
-export type BidFragment = { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, bidder: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
+export type BidFragment = { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
+
+export type FindBidsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindBidsQuery = { __typename?: 'Query', findBids: { __typename?: 'PaginatedBidsResponse', edges: Array<{ __typename?: 'BidResponseEdge', cursor: string, node: { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt: any, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type PlaceBidMutationVariables = Exact<{
+  input: PlaceBidInput;
+}>;
+
+
+export type PlaceBidMutation = { __typename?: 'Mutation', placeBid: string };
+
+export type CancelBidMutationVariables = Exact<{
+  input: CancelBidInput;
+}>;
+
+
+export type CancelBidMutation = { __typename?: 'Mutation', cancelBid: string };
 
 export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
@@ -1894,7 +1943,7 @@ export const BidFragmentDoc = gql`
   price
   priceCurrency
   auctionId
-  bidder {
+  user {
     ...author
   }
   status
@@ -2567,6 +2616,129 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const FindBidsDocument = gql`
+    query FindBids($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findBids(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...bid
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${BidFragmentDoc}`;
+
+/**
+ * __useFindBidsQuery__
+ *
+ * To run a query within a React component, call `useFindBidsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindBidsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindBidsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindBidsQuery(baseOptions: Apollo.QueryHookOptions<FindBidsQuery, FindBidsQueryVariables> & ({ variables: FindBidsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBidsQuery, FindBidsQueryVariables>(FindBidsDocument, options);
+      }
+export function useFindBidsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBidsQuery, FindBidsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBidsQuery, FindBidsQueryVariables>(FindBidsDocument, options);
+        }
+export function useFindBidsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBidsQuery, FindBidsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBidsQuery, FindBidsQueryVariables>(FindBidsDocument, options);
+        }
+export type FindBidsQueryHookResult = ReturnType<typeof useFindBidsQuery>;
+export type FindBidsLazyQueryHookResult = ReturnType<typeof useFindBidsLazyQuery>;
+export type FindBidsSuspenseQueryHookResult = ReturnType<typeof useFindBidsSuspenseQuery>;
+export type FindBidsQueryResult = Apollo.QueryResult<FindBidsQuery, FindBidsQueryVariables>;
+export const PlaceBidDocument = gql`
+    mutation PlaceBid($input: PlaceBidInput!) {
+  placeBid(input: $input)
+}
+    `;
+export type PlaceBidMutationFn = Apollo.MutationFunction<PlaceBidMutation, PlaceBidMutationVariables>;
+
+/**
+ * __usePlaceBidMutation__
+ *
+ * To run a mutation, you first call `usePlaceBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePlaceBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [placeBidMutation, { data, loading, error }] = usePlaceBidMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePlaceBidMutation(baseOptions?: Apollo.MutationHookOptions<PlaceBidMutation, PlaceBidMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PlaceBidMutation, PlaceBidMutationVariables>(PlaceBidDocument, options);
+      }
+export type PlaceBidMutationHookResult = ReturnType<typeof usePlaceBidMutation>;
+export type PlaceBidMutationResult = Apollo.MutationResult<PlaceBidMutation>;
+export type PlaceBidMutationOptions = Apollo.BaseMutationOptions<PlaceBidMutation, PlaceBidMutationVariables>;
+export const CancelBidDocument = gql`
+    mutation CancelBid($input: CancelBidInput!) {
+  cancelBid(input: $input)
+}
+    `;
+export type CancelBidMutationFn = Apollo.MutationFunction<CancelBidMutation, CancelBidMutationVariables>;
+
+/**
+ * __useCancelBidMutation__
+ *
+ * To run a mutation, you first call `useCancelBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCancelBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [cancelBidMutation, { data, loading, error }] = useCancelBidMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCancelBidMutation(baseOptions?: Apollo.MutationHookOptions<CancelBidMutation, CancelBidMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CancelBidMutation, CancelBidMutationVariables>(CancelBidDocument, options);
+      }
+export type CancelBidMutationHookResult = ReturnType<typeof useCancelBidMutation>;
+export type CancelBidMutationResult = Apollo.MutationResult<CancelBidMutation>;
+export type CancelBidMutationOptions = Apollo.BaseMutationOptions<CancelBidMutation, CancelBidMutationVariables>;
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
