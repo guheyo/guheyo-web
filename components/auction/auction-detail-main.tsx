@@ -4,14 +4,16 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuctionResponse } from '@/generated/graphql';
-import { ShippingType } from '@/lib/shipping/shipping.types';
 import { AuctionStatus } from '@/lib/auction/auction.types';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailAddons from '../posts/post-detail-addons';
 import AuctionDetailName from './auction-detail-name';
 import AuctionDetailPrice from './auction-detail-price';
-import OfferShippingCost from '../offers/offer-shipping-cost';
+import AuctionCountdown from './auction-count-down';
+import PostDetailDate from '../posts/post-detail-date';
+import AuctionBidCount from './auction-bid-count';
+import AuctionCommentCount from './auction-comment-count';
 
 export default function AuctionDetailMain({
   auction,
@@ -30,7 +32,7 @@ export default function AuctionDetailMain({
             displayUsername
             fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
-          {/* <OfferDetailBumpedAt bumpedAt={auction.bumpedAt} /> */}
+          <PostDetailDate date={auction.createdAt} />
         </div>
         <div className="h-8">{/* AuctionMenu */}</div>
       </div>
@@ -42,15 +44,20 @@ export default function AuctionDetailMain({
           auctionStatus={auction.status as AuctionStatus}
           title={auction.post.title}
         />
-        <div className="grid grid-cols-1 gap-0 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center bg-zinc-600 rounded-lg p-3 text-sm md:text-base">
+          <AuctionCountdown targetDate={auction.extendedEndDate} />
           <AuctionDetailPrice
             auctionStatus={auction.status as AuctionStatus}
             currentBidPrice={auction.currentBidPrice}
           />
-          <OfferShippingCost
-            shippingCost={auction.shippingCost}
-            shippingType={auction.shippingType as ShippingType}
-          />
+          <div className="hidden md:flex">
+            <AuctionBidCount bidCount={auction.bids.length} />
+          </div>
+          <div className="hidden md:flex">
+            <AuctionCommentCount
+              commentCount={auction.post.commentCount || 0}
+            />
+          </div>
         </div>
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
