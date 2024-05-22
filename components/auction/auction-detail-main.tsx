@@ -7,13 +7,13 @@ import { AuctionResponse } from '@/generated/graphql';
 import { AuctionStatus } from '@/lib/auction/auction.types';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
-import PostDetailAddons from '../posts/post-detail-addons';
 import AuctionDetailName from './auction-detail-name';
 import AuctionDetailPrice from './auction-detail-price';
 import AuctionCountdown from './auction-count-down';
 import PostDetailDate from '../posts/post-detail-date';
 import AuctionBidCount from './auction-bid-count';
 import AuctionCommentCount from './auction-comment-count';
+import AuctionDetailAddons from './auction-detail-addons';
 
 export default function AuctionDetailMain({
   auction,
@@ -68,7 +68,10 @@ export default function AuctionDetailMain({
         )}
       </div>
       <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <PostDetailAddons />
+        <AuctionDetailAddons
+          bidCount={auction.bids.length}
+          commentCount={auction.post.commentCount || 0}
+        />
       </div>
     </>
   );
