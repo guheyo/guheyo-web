@@ -12,7 +12,7 @@ interface MuiProps {
 
 interface TextInputProps {
   textInputProps: {
-    label: {
+    label?: {
       name: string;
       style: string;
     };
@@ -32,9 +32,11 @@ export default function TextInput<
 
   return (
     <div className="flex flex-col gap-2">
-      <div className={`${textInputProps.label.style}`}>
-        {textInputProps.label.name}
-      </div>
+      {textInputProps.label && (
+        <div className={`${textInputProps.label.style}`}>
+          {textInputProps.label.name}
+        </div>
+      )}
       <TextField
         {...textFieldProps}
         {...field}
