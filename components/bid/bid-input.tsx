@@ -25,20 +25,21 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 export default function BidInput({
   user,
   price,
-  handleSubmitValid,
+  handlePlaceBid,
 }: {
   user?: AuthorResponse;
   price: number;
-  handleSubmitValid: SubmitHandler<BidValues>;
+  handlePlaceBid: (values: BidValues) => void;
 }) {
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, setValue, getValues } = useForm<BidValues>({
-    defaultValues: {
-      id: uuid4(),
-      price,
-    },
-  });
+  const { handleSubmit, control, setValue, getValues, reset } =
+    useForm<BidValues>({
+      defaultValues: {
+        id: '',
+        price,
+      },
+    });
 
   const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
@@ -71,6 +72,14 @@ export default function BidInput({
 
   const handleWheel: WheelEventHandler = (e) => {
     (e.target as HTMLElement).blur();
+  };
+
+  const handleSubmitValid: SubmitHandler<BidValues> = (values) => {
+    handlePlaceBid({
+      ...values,
+      id: uuid4(),
+    });
+    reset();
   };
 
   return (
