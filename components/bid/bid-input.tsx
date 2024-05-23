@@ -16,12 +16,11 @@ import { BidValues } from '@/lib/bid/bid.types';
 import { AuthorResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
-import PriceUpDownButtons, {
-  UP_DOWN_PRICE_UNIT,
-} from '../offers/price-up-down-buttons';
+import { UP_DOWN_PRICE_UNIT } from '../offers/price-up-down-buttons';
 import Avatar from '../avatar/avatar';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PriceUpDownIconButtons from '../offers/price-up-down-icon-buttons';
+import NextBidPriceButton from './next-bid-price-button';
 
 export default function BidInput({
   user,
@@ -38,7 +37,7 @@ export default function BidInput({
     useForm<BidValues>({
       defaultValues: {
         id: '',
-        price: undefined,
+        price: 0,
       },
     });
 
@@ -61,6 +60,10 @@ export default function BidInput({
     e.preventDefault();
   };
 
+  const handleNextBidPriceButtonClick = (nextBidPrice: number) => {
+    setValue('price', nextBidPrice);
+  };
+
   const handleUpButtonClick: MouseEventHandler = (e) => {
     const currentPrice = getValues('price');
     setValue('price', currentPrice + UP_DOWN_PRICE_UNIT);
@@ -80,7 +83,10 @@ export default function BidInput({
       ...values,
       id: uuid4(),
     });
-    reset();
+    reset({
+      id: '',
+      price: 0,
+    });
   };
 
   return (
@@ -133,18 +139,16 @@ export default function BidInput({
           />
         </div>
         <div className="flex-none">
-          <div className="hidden lg:flex">
-            <PriceUpDownButtons
-              handleUpButtonClick={handleUpButtonClick}
-              handleDownButtonClick={handleDownButtonClick}
-            />
-          </div>
-          <div className="lg:hidden">
-            <PriceUpDownIconButtons
-              handleUpButtonClick={handleUpButtonClick}
-              handleDownButtonClick={handleDownButtonClick}
-            />
-          </div>
+          <NextBidPriceButton
+            currentBidPrice={currentBidPrice}
+            handleButtonClick={handleNextBidPriceButtonClick}
+          />
+        </div>
+        <div className="flex-none">
+          <PriceUpDownIconButtons
+            handleUpButtonClick={handleUpButtonClick}
+            handleDownButtonClick={handleDownButtonClick}
+          />
         </div>
         <div className="flex-none">
           <DiscordLoginDialog
