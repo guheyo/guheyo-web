@@ -6,7 +6,6 @@ import {
   BidResponse,
   useFindAuthorQuery,
 } from '@/generated/graphql';
-import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
 import {
   FindBidsOrderByArgs,
   FindBidsWhereArgs,
@@ -29,16 +28,6 @@ export default function BidFeed({
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [bids, setBids] = useState<BidResponse[]>([]); // State to store bids
-  const [isAtBottom, setIsAtBottom] = useState(false);
-  const buffer = 50;
-
-  // Event handler for scrolling
-  const handleScroll = () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const { scrollHeight } = document.documentElement;
-    const { clientHeight } = document.documentElement;
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
-  };
 
   const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
@@ -49,23 +38,7 @@ export default function BidFeed({
       price: values.price,
       priceCurrency: 'krw',
     });
-    scrollToBottom();
   };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isAtBottom) {
-      scrollToBottom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bids]);
 
   const { loading: bidsLoading, data: bidsData } = useInfiniteBids({
     ref: sentinelRef,
