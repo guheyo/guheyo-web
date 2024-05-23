@@ -57,5 +57,6 @@ subscription BidPlaced($auctionId: ID!) {
 subscription BidCanceled($auctionId: ID!) {
   bidCanceled(auctionId: $auctionId) {
     id
+    canceledAt
   }
 }

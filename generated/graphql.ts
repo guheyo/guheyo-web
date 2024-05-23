@@ -103,6 +103,7 @@ export type CancelBidInput = {
 
 export type CancelBidResponse = {
   __typename?: 'CancelBidResponse';
+  canceledAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
 };
 
@@ -1407,7 +1408,7 @@ export type BidCanceledSubscriptionVariables = Exact<{
 }>;
 
 
-export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string } };
+export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string, canceledAt: any } };
 
 export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
@@ -2802,6 +2803,7 @@ export const BidCanceledDocument = gql`
     subscription BidCanceled($auctionId: ID!) {
   bidCanceled(auctionId: $auctionId) {
     id
+    canceledAt
   }
 }
     `;
