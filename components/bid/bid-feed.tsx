@@ -1,7 +1,11 @@
 'use client';
 
 import { useContext, useEffect, useRef, useState } from 'react';
-import { BidResponse, useFindAuthorQuery } from '@/generated/graphql';
+import {
+  BidPlacedDocument,
+  BidResponse,
+  useFindAuthorQuery,
+} from '@/generated/graphql';
 import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
 import {
   FindBidsOrderByArgs,
@@ -10,6 +14,7 @@ import {
 import { placeBid } from '@/lib/api/bid';
 import { useInfiniteBids } from '@/hooks/use-infinite-bids';
 import { BidValues } from '@/lib/bid/bid.types';
+import { useSubscription } from '@apollo/client';
 import { AuthContext } from '../auth/auth.provider';
 import BidOutput from './bid-output';
 import BidInput from './bid-input';
@@ -35,7 +40,7 @@ export default function BidFeed({
     setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
   };
 
-  const handleAdd = async (values: BidValues) => {
+  const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
 
     await placeBid({
@@ -82,6 +87,18 @@ export default function BidFeed({
     }
   }, [bidsLoading, bidsData]);
 
+  useSubscription(BidPlacedDocument, {
+    variables: {
+      auctionId: where.auctionId,
+    },
+    onData: ({ data }) => {
+      console.log(data);
+      const newBid = data.data.bidPlaced;
+      setBids([newBid, ...bids]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
   if (bidsLoading || userLoading) return <div />;
 
   const user = UserData?.findAuthor;
@@ -107,7 +124,7 @@ export default function BidFeed({
         <BidInput
           user={user || undefined}
           price={0}
-          handleSubmitValid={handleAdd}
+          handlePlaceBid={handlePlaceBid}
         />
       </div>
     </div>
