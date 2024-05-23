@@ -6,15 +6,17 @@ import { useState } from 'react';
 import { parsePrice } from '@/lib/offer/parse-price';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import { parseBidDate } from './parse-bid-date';
+import BidMenu from './bid-menu';
 
 export default function BidOutput({
   user,
   isCurrentUser,
-  price,
-  createdAt,
-  canceledAt,
   displayMenu,
   bidId,
+  createdAt,
+  canceledAt,
+  price,
+  handleMenuClick,
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
@@ -23,6 +25,7 @@ export default function BidOutput({
   canceledAt?: Date;
   displayMenu: boolean;
   bidId: string;
+  handleMenuClick: (bidId: string) => void;
 }) {
   const device = useDeviceDetect();
   const [isHovered, setIsHovered] = useState(false);
@@ -53,6 +56,12 @@ export default function BidOutput({
             <div className="text-gray-300 font-semibold">{user.username}</div>
             <div>{parseBidDate({ createdAt, canceledAt })}</div>
           </div>
+          {isHovered && (
+            <BidMenu
+              isCurrentUser={isCurrentUser}
+              handleMenuClick={() => handleMenuClick(bidId)}
+            />
+          )}
         </div>
         <div className="flex gap-2 text-xs md:text-sm w-fit bg-zinc-600 px-2 py-1.5 rounded-lg">
           <div className="text-gray-400 font-thin">입찰</div>
