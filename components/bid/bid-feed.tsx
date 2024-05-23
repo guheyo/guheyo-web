@@ -1,8 +1,11 @@
 'use client';
 
 import { useContext, useEffect, useRef, useState } from 'react';
-import { BidResponse, useFindAuthorQuery } from '@/generated/graphql';
-import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
+import {
+  BidPlacedDocument,
+  BidResponse,
+  useFindAuthorQuery,
+} from '@/generated/graphql';
 import {
   FindBidsOrderByArgs,
   FindBidsWhereArgs,
@@ -10,6 +13,7 @@ import {
 import { placeBid } from '@/lib/api/bid';
 import { useInfiniteBids } from '@/hooks/use-infinite-bids';
 import { BidValues } from '@/lib/bid/bid.types';
+import { useSubscription } from '@apollo/client';
 import { AuthContext } from '../auth/auth.provider';
 import BidOutput from './bid-output';
 import BidInput from './bid-input';
@@ -24,18 +28,8 @@ export default function BidFeed({
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [bids, setBids] = useState<BidResponse[]>([]); // State to store bids
-  const [isAtBottom, setIsAtBottom] = useState(false);
-  const buffer = 50;
 
-  // Event handler for scrolling
-  const handleScroll = () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const { scrollHeight } = document.documentElement;
-    const { clientHeight } = document.documentElement;
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
-  };
-
-  const handleAdd = async (values: BidValues) => {
+  const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
 
     await placeBid({
@@ -44,23 +38,7 @@ export default function BidFeed({
       price: values.price,
       priceCurrency: 'krw',
     });
-    scrollToBottom();
   };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isAtBottom) {
-      scrollToBottom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bids]);
 
   const { loading: bidsLoading, data: bidsData } = useInfiniteBids({
     ref: sentinelRef,
@@ -81,6 +59,17 @@ export default function BidFeed({
       setBids(bidsData.findBids.edges.map((edge) => edge.node));
     }
   }, [bidsLoading, bidsData]);
+
+  useSubscription(BidPlacedDocument, {
+    variables: {
+      auctionId: where.auctionId,
+    },
+    onData: ({ data }) => {
+      const newBid = data.data.bidPlaced;
+      setBids([newBid, ...bids]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
 
   if (bidsLoading || userLoading) return <div />;
 
@@ -106,8 +95,8 @@ export default function BidFeed({
       <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
         <BidInput
           user={user || undefined}
-          price={0}
-          handleSubmitValid={handleAdd}
+          currentBidPrice={bids[0]?.price || 0}
+          handlePlaceBid={handlePlaceBid}
         />
       </div>
     </div>

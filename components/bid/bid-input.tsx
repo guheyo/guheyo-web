@@ -16,29 +16,30 @@ import { BidValues } from '@/lib/bid/bid.types';
 import { AuthorResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
 import DiscordLoginDialog from '../auth/discord-login-dialog';
-import PriceUpDownButtons, {
-  UP_DOWN_PRICE_UNIT,
-} from '../offers/price-up-down-buttons';
+import { UP_DOWN_PRICE_UNIT } from '../offers/price-up-down-buttons';
 import Avatar from '../avatar/avatar';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import PriceUpDownIconButtons from '../offers/price-up-down-icon-buttons';
+import NextBidPriceButton from './next-bid-price-button';
 
 export default function BidInput({
   user,
-  price,
-  handleSubmitValid,
+  currentBidPrice,
+  handlePlaceBid,
 }: {
   user?: AuthorResponse;
-  price: number;
-  handleSubmitValid: SubmitHandler<BidValues>;
+  currentBidPrice: number;
+  handlePlaceBid: (values: BidValues) => void;
 }) {
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, setValue, getValues } = useForm<BidValues>({
-    defaultValues: {
-      id: uuid4(),
-      price,
-    },
-  });
+  const { handleSubmit, control, setValue, getValues, reset } =
+    useForm<BidValues>({
+      defaultValues: {
+        id: '',
+        price: 0,
+      },
+    });
 
   const onChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(
@@ -59,6 +60,10 @@ export default function BidInput({
     e.preventDefault();
   };
 
+  const handleNextBidPriceButtonClick = (nextBidPrice: number) => {
+    setValue('price', nextBidPrice);
+  };
+
   const handleUpButtonClick: MouseEventHandler = (e) => {
     const currentPrice = getValues('price');
     setValue('price', currentPrice + UP_DOWN_PRICE_UNIT);
@@ -71,6 +76,17 @@ export default function BidInput({
 
   const handleWheel: WheelEventHandler = (e) => {
     (e.target as HTMLElement).blur();
+  };
+
+  const handleSubmitValid: SubmitHandler<BidValues> = (values) => {
+    handlePlaceBid({
+      ...values,
+      id: uuid4(),
+    });
+    reset({
+      id: '',
+      price: 0,
+    });
   };
 
   return (
@@ -90,7 +106,7 @@ export default function BidInput({
       )}
       <form
         onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
-        className="w-full flex flex-row gap-2 items-end pr-9 md:pr-0"
+        className="w-full flex flex-row gap-2 items-center pr-9 md:pr-0"
       >
         <div className="w-full">
           <TextInput
@@ -123,7 +139,13 @@ export default function BidInput({
           />
         </div>
         <div className="flex-none">
-          <PriceUpDownButtons
+          <NextBidPriceButton
+            currentBidPrice={currentBidPrice}
+            handleButtonClick={handleNextBidPriceButtonClick}
+          />
+        </div>
+        <div className="flex-none">
+          <PriceUpDownIconButtons
             handleUpButtonClick={handleUpButtonClick}
             handleDownButtonClick={handleDownButtonClick}
           />
