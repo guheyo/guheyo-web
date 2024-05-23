@@ -6,7 +6,4 @@ export const parseBidDate = ({
 }: {
   createdAt: Date;
   canceledAt?: Date;
-}) =>
-  `${dayjs(createdAt).fromNow()}${
-    canceledAt ? `입찰 취소 (${dayjs(canceledAt).fromNow()})` : ''
-  }`;
+}) => `${dayjs(createdAt).fromNow()}${canceledAt ? ` (입찰 취소)` : ''}`;
