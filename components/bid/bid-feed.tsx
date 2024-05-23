@@ -92,7 +92,6 @@ export default function BidFeed({
       auctionId: where.auctionId,
     },
     onData: ({ data }) => {
-      console.log(data);
       const newBid = data.data.bidPlaced;
       setBids([newBid, ...bids]);
     },
@@ -123,7 +122,7 @@ export default function BidFeed({
       <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
         <BidInput
           user={user || undefined}
-          price={0}
+          currentBidPrice={bids[0]?.price || 0}
           handlePlaceBid={handlePlaceBid}
         />
       </div>

@@ -21,14 +21,15 @@ import PriceUpDownButtons, {
 } from '../offers/price-up-down-buttons';
 import Avatar from '../avatar/avatar';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import PriceUpDownIconButtons from '../offers/price-up-down-icon-buttons';
 
 export default function BidInput({
   user,
-  price,
+  currentBidPrice,
   handlePlaceBid,
 }: {
   user?: AuthorResponse;
-  price: number;
+  currentBidPrice: number;
   handlePlaceBid: (values: BidValues) => void;
 }) {
   const device = useDeviceDetect();
@@ -37,7 +38,7 @@ export default function BidInput({
     useForm<BidValues>({
       defaultValues: {
         id: '',
-        price,
+        price: undefined,
       },
     });
 
@@ -99,7 +100,7 @@ export default function BidInput({
       )}
       <form
         onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
-        className="w-full flex flex-row gap-2 items-end pr-9 md:pr-0"
+        className="w-full flex flex-row gap-2 items-center pr-9 md:pr-0"
       >
         <div className="w-full">
           <TextInput
@@ -132,10 +133,18 @@ export default function BidInput({
           />
         </div>
         <div className="flex-none">
-          <PriceUpDownButtons
-            handleUpButtonClick={handleUpButtonClick}
-            handleDownButtonClick={handleDownButtonClick}
-          />
+          <div className="hidden lg:flex">
+            <PriceUpDownButtons
+              handleUpButtonClick={handleUpButtonClick}
+              handleDownButtonClick={handleDownButtonClick}
+            />
+          </div>
+          <div className="lg:hidden">
+            <PriceUpDownIconButtons
+              handleUpButtonClick={handleUpButtonClick}
+              handleDownButtonClick={handleDownButtonClick}
+            />
+          </div>
         </div>
         <div className="flex-none">
           <DiscordLoginDialog
