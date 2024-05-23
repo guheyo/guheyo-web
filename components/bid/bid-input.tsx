@@ -6,7 +6,6 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { DEFAULT_INPUT_TEXT_COLOR } from '@/lib/input/input.colors';
 import { getInputTextFontSize } from '@/lib/input/input.props';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
@@ -132,7 +131,9 @@ export default function BidInput({
         <div className="flex-none">
           <DiscordLoginDialog
             icon={
-              <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
+              <div className="bg-zinc-600 text-gray-300 hover:text-gray-200 rounded-lg text-xs md:text-sm p-2 font-semibold">
+                입찰
+              </div>
             }
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleOnAuthorization}
