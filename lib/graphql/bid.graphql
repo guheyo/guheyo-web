@@ -47,3 +47,9 @@ mutation PlaceBid($input: PlaceBidInput!) {
 mutation CancelBid($input: CancelBidInput!) {
   cancelBid(input: $input)
 }
+
+subscription BidPlaced($auctionId: ID!) {
+  bidPlaced(auctionId: $auctionId) {
+    ...bid
+  }
+}
