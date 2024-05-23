@@ -90,7 +90,7 @@ export default function BidInput({
       )}
       <form
         onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
-        className="w-full flex flex-row gap-4 items-end pr-9 md:pr-0"
+        className="w-full flex flex-row gap-2 items-end pr-9 md:pr-0"
       >
         <div className="w-full">
           <TextInput
