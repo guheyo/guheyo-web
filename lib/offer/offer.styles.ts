@@ -1,5 +1,5 @@
 export const PRICE_UP_BUTTON_STYLE =
-  'p-2 text-gray-300 bg-green-700 hover:bg-green-600 text-sm md:text-base font-bold rounded-lg';
+  'p-2 text-gray-300 hover:text-gray-200 bg-green-700 text-xs md:text-sm font-bold rounded-lg';
 
 export const PRICE_DOWN_BUTTON_STYLE =
-  'p-2 text-gray-300 bg-red-700 hover:bg-red-600 text-sm md:text-base font-bold rounded-lg';
+  'p-2 text-gray-300 hover:text-gray-200 bg-rose-700 text-xs md:text-sm font-bold rounded-lg';
