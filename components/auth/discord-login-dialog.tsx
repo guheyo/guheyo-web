@@ -14,7 +14,7 @@ export default function DiscordLoginDialog({
   onAuthorization,
   onUnAuthorization,
 }: {
-  name: string;
+  name?: string;
   icon?: ReactNode;
   onAuthorization: MouseEventHandler;
   onUnAuthorization: MouseEventHandler;

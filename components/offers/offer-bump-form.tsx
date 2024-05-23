@@ -126,7 +126,7 @@ export default function OfferBumpForm({
           <div className="text-base text-gray-300 font-bold">{price}</div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 md-0 md:mb-8">
+      <div className="flex flex-col gap-2 mb-0 md:mb-8">
         <TextInput
           name="price"
           control={control}
