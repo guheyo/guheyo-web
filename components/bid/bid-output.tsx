@@ -2,6 +2,7 @@
 
 import { AuthorResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import FlagIcon from '@mui/icons-material/Flag';
 import { useState } from 'react';
 import { parsePrice } from '@/lib/offer/parse-price';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -63,10 +64,24 @@ export default function BidOutput({
             />
           )}
         </div>
-        <div className="flex gap-2 text-xs md:text-sm w-fit bg-zinc-600 px-2 py-1.5 rounded-lg">
-          <div className="text-gray-400 font-thin">입찰</div>
-          <div className="text-gray-200 font-semibold">{parsePrice(price)}</div>
-        </div>
+        {canceledAt ? (
+          <div className="flex gap-2 text-xs md:text-sm w-fit bg-zinc-900 px-2 py-1.5 rounded-lg">
+            <div className="flex flex-row gap-1 items-center text-gray-400 font-thin">
+              <FlagIcon fontSize="inherit" />
+              입찰 취소
+            </div>
+            <div className="text-gray-200 font-semibold">
+              {parsePrice(price)}
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-2 text-xs md:text-sm w-fit bg-zinc-600 px-2 py-1.5 rounded-lg">
+            <div className="text-gray-400 font-thin">입찰</div>
+            <div className="text-gray-200 font-semibold">
+              {parsePrice(price)}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
