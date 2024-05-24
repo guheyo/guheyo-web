@@ -57,7 +57,7 @@ export default function BidOutput({
             <div className="text-gray-300 font-semibold">{user.username}</div>
             <div>{parseBidDate({ createdAt, canceledAt })}</div>
           </div>
-          {isHovered && (
+          {displayMenu && isCurrentUser && (
             <BidMenu
               isCurrentUser={isCurrentUser}
               handleMenuClick={() => handleMenuClick(bidId)}
