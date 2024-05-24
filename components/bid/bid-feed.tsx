@@ -2,6 +2,7 @@
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import {
+  BidCanceledDocument,
   BidPlacedDocument,
   BidResponse,
   useFindAuthorQuery,
@@ -10,7 +11,7 @@ import {
   FindBidsOrderByArgs,
   FindBidsWhereArgs,
 } from '@/lib/bid/bid.interfaces';
-import { placeBid } from '@/lib/api/bid';
+import { cancelBid, placeBid } from '@/lib/api/bid';
 import { useInfiniteBids } from '@/hooks/use-infinite-bids';
 import { BidValues } from '@/lib/bid/bid.types';
 import { useSubscription } from '@apollo/client';
@@ -37,6 +38,15 @@ export default function BidFeed({
       auctionId: where.auctionId,
       price: values.price,
       priceCurrency: 'krw',
+    });
+  };
+
+  const handleCancelBid = async (bidId: string) => {
+    if (!jwtPayload || !where.auctionId) return;
+
+    await cancelBid({
+      auctionId: where.auctionId,
+      bidId,
     });
   };
 
@@ -71,6 +81,25 @@ export default function BidFeed({
     shouldResubscribe: true, // Always resubscribe
   });
 
+  useSubscription(BidCanceledDocument, {
+    variables: {
+      auctionId: where.auctionId,
+    },
+    onData: ({ data }) => {
+      const canceledBid = data.data.bidCanceled;
+      setBids(
+        bids.map((bid) => {
+          if (bid.id !== canceledBid.id) return bid;
+          return {
+            ...bid,
+            canceledAt: canceledBid.canceledAt,
+          };
+        }),
+      );
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
   if (bidsLoading || userLoading) return <div />;
 
   const user = UserData?.findAuthor;
@@ -85,9 +114,10 @@ export default function BidFeed({
             isCurrentUser={jwtPayload?.id === bid.user.id}
             displayMenu
             bidId={bid.id}
-            price={bid.price}
             createdAt={bid.createdAt}
             canceledAt={bid.canceledAt}
+            price={bid.price}
+            handleMenuClick={handleCancelBid}
           />
         ))}
         <div ref={sentinelRef} />

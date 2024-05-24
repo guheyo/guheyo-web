@@ -98,6 +98,13 @@ export type BumpOfferInput = {
 
 export type CancelBidInput = {
   auctionId: Scalars['String']['input'];
+  bidId: Scalars['String']['input'];
+};
+
+export type CancelBidResponse = {
+  __typename?: 'CancelBidResponse';
+  canceledAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
 };
 
 export type CancelReactionInput = {
@@ -1081,12 +1088,18 @@ export type SocialUserResponse = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  bidCanceled: CancelBidResponse;
   bidPlaced: BidResponse;
   commentCreated: CommentWithAuthorResponse;
   commentDeleted: DeletedCommentResponse;
   commentUpdated: UpdatedCommentResponse;
   reactionCanceled: CanceledReactionResponse;
   reactionCreated: ReactionResponse;
+};
+
+
+export type SubscriptionBidCanceledArgs = {
+  auctionId: Scalars['ID']['input'];
 };
 
 
@@ -1389,6 +1402,13 @@ export type BidPlacedSubscriptionVariables = Exact<{
 
 
 export type BidPlacedSubscription = { __typename?: 'Subscription', bidPlaced: { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } };
+
+export type BidCanceledSubscriptionVariables = Exact<{
+  auctionId: Scalars['ID']['input'];
+}>;
+
+
+export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string, canceledAt: any } };
 
 export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
@@ -2779,6 +2799,37 @@ export function useBidPlacedSubscription(baseOptions: Apollo.SubscriptionHookOpt
       }
 export type BidPlacedSubscriptionHookResult = ReturnType<typeof useBidPlacedSubscription>;
 export type BidPlacedSubscriptionResult = Apollo.SubscriptionResult<BidPlacedSubscription>;
+export const BidCanceledDocument = gql`
+    subscription BidCanceled($auctionId: ID!) {
+  bidCanceled(auctionId: $auctionId) {
+    id
+    canceledAt
+  }
+}
+    `;
+
+/**
+ * __useBidCanceledSubscription__
+ *
+ * To run a query within a React component, call `useBidCanceledSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useBidCanceledSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBidCanceledSubscription({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useBidCanceledSubscription(baseOptions: Apollo.SubscriptionHookOptions<BidCanceledSubscription, BidCanceledSubscriptionVariables> & ({ variables: BidCanceledSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<BidCanceledSubscription, BidCanceledSubscriptionVariables>(BidCanceledDocument, options);
+      }
+export type BidCanceledSubscriptionHookResult = ReturnType<typeof useBidCanceledSubscription>;
+export type BidCanceledSubscriptionResult = Apollo.SubscriptionResult<BidCanceledSubscription>;
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
