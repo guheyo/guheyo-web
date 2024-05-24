@@ -9,6 +9,6 @@ export const parseBidDate = ({
 }) =>
   `${dayjs(createdAt).fromNow()}${
     canceledAt
-      ? ` (입찰 취소: ${dayjs(canceledAt).format('YYYY-MM-DD HH:MM:ss')})`
+      ? ` (입찰 취소: ${dayjs(canceledAt).format('MM.DD HH:mm:ss')})`
       : ''
   }`;
