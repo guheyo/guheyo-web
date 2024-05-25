@@ -50,7 +50,7 @@ export default function CommentCard({
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
   handleEdit: (values: CommentValues) => void;
-  handleDelete: (values: CommentValues) => void;
+  handleDelete?: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CRUD>('read');
   const device = useDeviceDetect();
@@ -76,7 +76,7 @@ export default function CommentCard({
   }, [commentId, content]);
 
   const handleMenuClick = (newMode: CRUD) => {
-    if (newMode === 'delete') {
+    if (handleDelete && newMode === 'delete') {
       handleDelete(getValues());
     }
     setMode(newMode);
@@ -175,6 +175,7 @@ export default function CommentCard({
       displayMenu={displayMenu}
       commentId={commentId}
       commentReactions={commentReactions}
+      deletable={!!handleDelete}
       handleMenuClick={handleMenuClick}
     />
   );
