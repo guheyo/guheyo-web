@@ -30,7 +30,7 @@ export interface FindAuctionInteractionItemsWhereArgs {
 
   status?: string;
 
-  type?: string;
+  view?: string;
 }
 
 export interface FindAuctionInteractionItemsOrderByArgs {
