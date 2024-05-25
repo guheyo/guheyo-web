@@ -13,7 +13,6 @@ import AuctionCountdown from './auction-count-down';
 import PostDetailDate from '../posts/post-detail-date';
 import AuctionBidCount from './auction-bid-count';
 import AuctionCommentCount from './auction-comment-count';
-import AuctionDetailAddons from './auction-detail-addons';
 
 export default function AuctionDetailMain({
   auction,
@@ -64,12 +63,6 @@ export default function AuctionDetailMain({
             {auction.content}
           </ReactMarkdown>
         )}
-      </div>
-      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <AuctionDetailAddons
-          bidCount={auction.bidCount}
-          commentCount={auction.post.commentCount || 0}
-        />
       </div>
     </>
   );
