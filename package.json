@@ -13,7 +13,7 @@
     "generate": "graphql-codegen --config graphql.config.yml"
   },
   "author": "keypport",
-  "license": "BUSL-1.1",
+  "license": "Guheyo Community License (GCL)",
   "dependencies": {
     "@apollo/client": "^3.9.5",
     "@apollo/experimental-nextjs-app-support": "^0.8.0",
