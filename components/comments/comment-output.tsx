@@ -19,6 +19,7 @@ export default function CommentOutput({
   displayMenu,
   commentId,
   commentReactions,
+  deletable,
   handleMenuClick,
 }: {
   user: AuthorResponse;
@@ -30,6 +31,7 @@ export default function CommentOutput({
   displayMenu: boolean;
   commentId: string;
   commentReactions: ReactionResponse[];
+  deletable: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
   const device = useDeviceDetect();
@@ -69,6 +71,7 @@ export default function CommentOutput({
           {displayMenu && isHovered && (
             <CommentMenu
               isCurrentUser={isCurrentUser}
+              deletable={deletable}
               handleMenuClick={handleMenuClick}
             />
           )}

@@ -1,6 +1,7 @@
 'use client';
 
 import CommentFeed from '@/components/comments/comment-feed';
+import PostDetailAddons from '@/components/posts/post-detail-addons';
 import UserReviewDetail from '@/components/user-review/user-review-detail';
 import { useFindUserReviewQuery } from '@/generated/graphql';
 import {
@@ -30,12 +31,15 @@ function Page({
     postId: userReview.post.id,
   };
   const orderBy: FindCommentsOrderByArgs = {
-    createdAt: 'asc',
+    createdAt: 'desc',
   };
 
   return (
     <div className="flex flex-col gap-6 md:gap-6">
       <UserReviewDetail userReview={userReview} />
+      <div className="px-4 md:px-0 pt-4 text-base md:text-lg text-gray-300 font-bold">
+        <PostDetailAddons commentCount={userReview.post.commentCount || 0} />
+      </div>
       <div className="px-4 md:px-0">
         <CommentFeed where={where} orderBy={orderBy} />
       </div>

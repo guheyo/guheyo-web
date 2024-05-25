@@ -1,7 +1,9 @@
 'use client';
 
 import AuctionDetail from '@/components/auction/auction-detail';
-import BidFeed from '@/components/bid/bid-feed';
+import AuctionDetailAddons from '@/components/auction/auction-detail-addons';
+import AuctionInteractionItemFeed from '@/components/auction/auction-interaction-item-feed';
+import AuctionInteractionItemsSelector from '@/components/auction/auction-interaction-items-selector';
 import ReportFeed from '@/components/reports/report-feed';
 import { useFindAuctionQuery } from '@/generated/graphql';
 import {
@@ -9,9 +11,11 @@ import {
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import {
-  FindBidsOrderByArgs,
-  FindBidsWhereArgs,
-} from '@/lib/bid/bid.interfaces';
+  FindAuctionInteractionItemsOrderByArgs,
+  FindAuctionInteractionItemsWhereArgs,
+} from '@/lib/auction/auction.interfaces';
+import { parseAuctionInteractionItem } from '@/lib/auction/parse-auction-interaction-item';
+import { useSearchParams } from 'next/navigation';
 
 function Page({
   params: { slug },
@@ -20,6 +24,9 @@ function Page({
     slug: string;
   };
 }) {
+  const searchParams = useSearchParams();
+  const view = parseAuctionInteractionItem({ view: searchParams.get('view') });
+
   const { data, loading } = useFindAuctionQuery({
     variables: {
       slug: decodeURI(slug),
@@ -40,11 +47,12 @@ function Page({
     createdAt: 'desc',
   };
 
-  const bidsWhere: FindBidsWhereArgs = {
+  const where: FindAuctionInteractionItemsWhereArgs = {
     auctionId: auction.id,
+    postId: auction.post.id,
+    view,
   };
-
-  const bidsOrderBy: FindBidsOrderByArgs = {
+  const orderBy: FindAuctionInteractionItemsOrderByArgs = {
     createdAt: 'desc',
   };
 
@@ -64,8 +72,15 @@ function Page({
           </div>
         </div>
       )}
+      <div className="pt-14 px-4 md:px-0 flex flex-row justify-between items-center text-base md:text-lg text-gray-300 font-bold">
+        <AuctionDetailAddons
+          bidCount={auction.bidCount}
+          commentCount={auction.post.commentCount || 0}
+        />
+        <AuctionInteractionItemsSelector />
+      </div>
       <div className="px-4 md:px-0">
-        <BidFeed where={bidsWhere} orderBy={bidsOrderBy} />
+        <AuctionInteractionItemFeed where={where} orderBy={orderBy} />
       </div>
     </div>
   );

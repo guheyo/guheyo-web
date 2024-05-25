@@ -9,9 +9,11 @@ import { IconButton } from '@mui/material';
 
 export default function CommentMenu({
   isCurrentUser,
+  deletable,
   handleMenuClick,
 }: {
   isCurrentUser: boolean;
+  deletable: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,7 +52,11 @@ export default function CommentMenu({
         {isCurrentUser && (
           <>
             <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
-            <MenuItem onClick={() => handleMenuClick('delete')}>삭제</MenuItem>
+            {deletable && (
+              <MenuItem onClick={() => handleMenuClick('delete')}>
+                삭제
+              </MenuItem>
+            )}
           </>
         )}
       </Menu>

@@ -18,7 +18,6 @@ import PostDetailTitle from '../posts/post-detail-name';
 import UserReviewTags from './user-review-tags';
 import PostCreatedAt from '../posts/post-created-at';
 import ReactionBar from '../reaction/reaction-bar';
-import PostDetailAddons from '../posts/post-detail-addons';
 import UserReviewMenu from './user-review-menu';
 
 export default function UserReviewDetailMain({
@@ -113,9 +112,6 @@ export default function UserReviewDetailMain({
       </div>
       <div className="pt-4">
         <ReactionBar postId={userReview.post.id} reactions={postReactions} />
-      </div>
-      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <PostDetailAddons commentCount={userReview.post.commentCount || 0} />
       </div>
     </>
   );

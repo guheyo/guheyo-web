@@ -19,6 +19,14 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type AuctionInteractionItemResponse = BidResponse | CommentWithAuthorResponse;
+
+export type AuctionInteractionItemResponseEdge = {
+  __typename?: 'AuctionInteractionItemResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: AuctionInteractionItemResponse;
+};
+
 export type AuctionPreviewResponse = {
   __typename?: 'AuctionPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
@@ -613,6 +621,12 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean']['output'];
 };
 
+export type PaginatedAuctionInteractionItemsResponse = {
+  __typename?: 'PaginatedAuctionInteractionItemsResponse';
+  edges: Array<AuctionInteractionItemResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedAuctionPreviewsResponse = {
   __typename?: 'PaginatedAuctionPreviewsResponse';
   edges: Array<AuctionPreviewResponseEdge>;
@@ -752,6 +766,7 @@ export type PostResponse = {
 export type Query = {
   __typename?: 'Query';
   findAuction?: Maybe<AuctionResponse>;
+  findAuctionInteractionItems: PaginatedAuctionInteractionItemsResponse;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
   findBids: PaginatedBidsResponse;
@@ -789,6 +804,16 @@ export type Query = {
 export type QueryFindAuctionArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindAuctionInteractionItemsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<Scalars['JSON']['input']>;
 };
 
 
@@ -1345,6 +1370,18 @@ export type FindAuctionQueryVariables = Exact<{
 
 
 export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, bidCount: number, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
+
+export type FindAuctionInteractionItemsQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindAuctionInteractionItemsQuery = { __typename?: 'Query', findAuctionInteractionItems: { __typename?: 'PaginatedAuctionInteractionItemsResponse', edges: Array<{ __typename?: 'AuctionInteractionItemResponseEdge', cursor: string, node: { __typename: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } | { __typename: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateAuctionMutationVariables = Exact<{
   input: CreateAuctionInput;
@@ -2516,6 +2553,74 @@ export type FindAuctionQueryHookResult = ReturnType<typeof useFindAuctionQuery>;
 export type FindAuctionLazyQueryHookResult = ReturnType<typeof useFindAuctionLazyQuery>;
 export type FindAuctionSuspenseQueryHookResult = ReturnType<typeof useFindAuctionSuspenseQuery>;
 export type FindAuctionQueryResult = Apollo.QueryResult<FindAuctionQuery, FindAuctionQueryVariables>;
+export const FindAuctionInteractionItemsDocument = gql`
+    query FindAuctionInteractionItems($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findAuctionInteractionItems(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        __typename
+        ... on BidResponse {
+          ...bid
+        }
+        ... on CommentWithAuthorResponse {
+          ...commentWithAuthor
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${BidFragmentDoc}
+${CommentWithAuthorFragmentDoc}`;
+
+/**
+ * __useFindAuctionInteractionItemsQuery__
+ *
+ * To run a query within a React component, call `useFindAuctionInteractionItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuctionInteractionItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuctionInteractionItemsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindAuctionInteractionItemsQuery(baseOptions: Apollo.QueryHookOptions<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables> & ({ variables: FindAuctionInteractionItemsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>(FindAuctionInteractionItemsDocument, options);
+      }
+export function useFindAuctionInteractionItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>(FindAuctionInteractionItemsDocument, options);
+        }
+export function useFindAuctionInteractionItemsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>(FindAuctionInteractionItemsDocument, options);
+        }
+export type FindAuctionInteractionItemsQueryHookResult = ReturnType<typeof useFindAuctionInteractionItemsQuery>;
+export type FindAuctionInteractionItemsLazyQueryHookResult = ReturnType<typeof useFindAuctionInteractionItemsLazyQuery>;
+export type FindAuctionInteractionItemsSuspenseQueryHookResult = ReturnType<typeof useFindAuctionInteractionItemsSuspenseQuery>;
+export type FindAuctionInteractionItemsQueryResult = Apollo.QueryResult<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>;
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($input: CreateAuctionInput!) {
   createAuction(input: $input)

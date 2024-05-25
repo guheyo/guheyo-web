@@ -20,3 +20,19 @@ export interface FindAuctionsOrderByArgs {
 
   createdAt?: SortOrder;
 }
+
+export interface FindAuctionInteractionItemsWhereArgs {
+  auctionId?: string;
+
+  postId?: string;
+
+  userId?: string;
+
+  status?: string;
+
+  view?: string;
+}
+
+export interface FindAuctionInteractionItemsOrderByArgs {
+  createdAt?: SortOrder;
+}

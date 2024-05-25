@@ -76,6 +76,42 @@ query FindAuction(
   }
 }
 
+query FindAuctionInteractionItems(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findAuctionInteractionItems(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        __typename
+        ...on BidResponse {
+          ...bid
+        }
+        ...on CommentWithAuthorResponse {
+          ...commentWithAuthor
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+
 mutation CreateAuction($input: CreateAuctionInput!) {
   createAuction(input: $input)
 }

@@ -27,7 +27,7 @@ export default function OfferReport({ slug }: { slug: string }) {
     reportedUserId: offer.post.user.id,
   };
   const orderBy: FindReportPreviewsOrderByArgs = {
-    createdAt: 'asc',
+    createdAt: 'desc',
   };
 
   return (
