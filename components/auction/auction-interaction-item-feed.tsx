@@ -5,6 +5,7 @@ import {
   AuctionInteractionItemResponse,
   BidCanceledDocument,
   BidPlacedDocument,
+  BidResponse,
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { cancelBid, placeBid } from '@/lib/api/bid';
@@ -20,6 +21,7 @@ import {
 import { AuthContext } from '../auth/auth.provider';
 import BidOutput from '../bid/bid-output';
 import CommentCard from '../comments/comment-card';
+import BidInput from '../bid/bid-input';
 
 export default function AuctionInteractionItemFeed({
   where,
@@ -33,6 +35,7 @@ export default function AuctionInteractionItemFeed({
   const [auctionInteractionItems, setAuctionInteractionItems] = useState<
     AuctionInteractionItemResponse[]
   >([]); // State to store bids
+  const [currentBidPrice, setCurrentBidPrice] = useState(0);
 
   const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
@@ -102,6 +105,17 @@ export default function AuctionInteractionItemFeed({
       );
     }
   }, [auctionInteractionItemsLoading, auctionInteractionItemsData]);
+
+  useEffect(() => {
+    const lastBid = auctionInteractionItems.find(
+      (interactionItem) =>
+        interactionItem.__typename === 'BidResponse' &&
+        interactionItem.canceledAt === null,
+    ) as BidResponse | null;
+    if (lastBid) {
+      setCurrentBidPrice(lastBid.price);
+    }
+  }, [auctionInteractionItems]);
 
   useSubscription(BidPlacedDocument, {
     variables: {
@@ -192,7 +206,13 @@ export default function AuctionInteractionItemFeed({
         })}
         <div ref={sentinelRef} />
       </div>
-      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10" />
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
+        <BidInput
+          user={user || undefined}
+          currentBidPrice={currentBidPrice}
+          handlePlaceBid={handlePlaceBid}
+        />
+      </div>
     </div>
   );
 }
