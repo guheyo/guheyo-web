@@ -16,8 +16,14 @@ import AuctionCommentCount from './auction-comment-count';
 
 export default function AuctionDetailMain({
   auction,
+  currentBidPrice,
+  bidCount,
+  commentCount,
 }: {
   auction: AuctionResponse;
+  currentBidPrice: number;
+  bidCount: number;
+  commentCount: number;
 }) {
   const device = useDeviceDetect();
 
@@ -27,13 +33,13 @@ export default function AuctionDetailMain({
         <AuctionCountdown targetDate={auction.extendedEndDate} />
         <AuctionDetailPrice
           auctionStatus={auction.status as AuctionStatus}
-          currentBidPrice={auction.currentBidPrice}
+          currentBidPrice={currentBidPrice}
         />
         <div className="hidden md:flex">
-          <AuctionBidCount bidCount={auction.bidCount} />
+          <AuctionBidCount bidCount={bidCount} />
         </div>
         <div className="hidden md:flex">
-          <AuctionCommentCount commentCount={auction.post.commentCount || 0} />
+          <AuctionCommentCount commentCount={commentCount} />
         </div>
       </div>
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-start justify-between mt-4 md:mt-6">

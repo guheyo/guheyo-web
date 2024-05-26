@@ -262,9 +262,23 @@ export default function AuctionDetailContainer({
 
   if (auctionInteractionItemsLoading) return <div />;
 
+  const bidCount = auctionInteractionItems.filter(
+    (interactionItem) => interactionItem.__typename === 'BidResponse',
+  ).length;
+
+  const commentCount = auctionInteractionItems.filter(
+    (interactionItem) =>
+      interactionItem.__typename === 'CommentWithAuthorResponse',
+  ).length;
+
   return (
     <div className="flex flex-col gap-6 md:gap-6">
-      <AuctionDetail auction={auction} />
+      <AuctionDetail
+        auction={auction}
+        currentBidPrice={currentBidPrice}
+        bidCount={bidCount}
+        commentCount={commentCount}
+      />
       {auction.post.reportCount > 0 && (
         <div className="flex flex-col gap-2 pt-14">
           <div
@@ -279,19 +293,7 @@ export default function AuctionDetailContainer({
         </div>
       )}
       <div className="pt-14 px-4 md:px-0 flex flex-row justify-between items-center text-base md:text-lg text-gray-300 font-bold">
-        <AuctionDetailAddons
-          bidCount={
-            auctionInteractionItems.filter(
-              (interactionItem) => interactionItem.__typename === 'BidResponse',
-            ).length
-          }
-          commentCount={
-            auctionInteractionItems.filter(
-              (interactionItem) =>
-                interactionItem.__typename === 'CommentWithAuthorResponse',
-            ).length
-          }
-        />
+        <AuctionDetailAddons bidCount={bidCount} commentCount={commentCount} />
         <AuctionInteractionItemsSelector />
       </div>
       <div className="px-4 md:px-0">
