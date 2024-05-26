@@ -8,6 +8,8 @@ import {
   BidResponse,
   CommentCreatedDocument,
   CommentUpdatedDocument,
+  ReactionCanceledDocument,
+  ReactionCreatedDocument,
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { cancelBid, placeBid } from '@/lib/api/bid';
@@ -24,6 +26,7 @@ import { AuthContext } from '../auth/auth.provider';
 import BidOutput from '../bid/bid-output';
 import CommentCard from '../comments/comment-card';
 import BidInput from '../bid/bid-input';
+import { cancelReaction } from '@/lib/api/reaction';
 
 export default function AuctionInteractionItemFeed({
   where,
@@ -180,6 +183,58 @@ export default function AuctionInteractionItemFeed({
       );
     },
     shouldResubscribe: true, // Always resubscribe
+  });
+
+  useSubscription(ReactionCreatedDocument, {
+    variables: {
+      type: 'comment',
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const newReaction = data.data.reactionCreated;
+      setAuctionInteractionItems(
+        auctionInteractionItems.map((interactionItem) => {
+          if (
+            interactionItem.__typename === 'CommentWithAuthorResponse' &&
+            interactionItem.id === newReaction.commentId
+          ) {
+            return {
+              ...interactionItem,
+              reactions: [...interactionItem.reactions, newReaction],
+            };
+          }
+          return interactionItem;
+        }),
+      );
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    variables: {
+      type: 'comment',
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setAuctionInteractionItems(
+        auctionInteractionItems.map((interactionItem) => {
+          if (
+            interactionItem.__typename === 'CommentWithAuthorResponse' &&
+            interactionItem.id === canceledReaction.commentId
+          ) {
+            return {
+              ...interactionItem,
+              reactions: interactionItem.reactions.filter(
+                (reaction) => reaction.id !== canceledReaction.id,
+              ),
+            };
+          }
+          return interactionItem;
+        }),
+      );
+    },
+    shouldResubscribe: true,
   });
 
   if (auctionInteractionItemsLoading || userLoading) return <div />;
