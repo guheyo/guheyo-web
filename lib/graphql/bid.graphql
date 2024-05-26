@@ -11,6 +11,11 @@ fragment bid on BidResponse {
   status
 }
 
+fragment bidCount on BidCountResponse {
+  auctionId
+  count
+}
+
 query FindBids(
   $where: JSON
   $orderBy: JSON
@@ -39,6 +44,17 @@ query FindBids(
     }
   }
 }
+
+query FindBidCount(
+  $auctionId: ID!
+) {
+  findBidCount(
+    auctionId: $auctionId
+  ) {
+    ...bidCount
+  }
+}
+
 
 mutation PlaceBid($input: PlaceBidInput!) {
   placeBid(input: $input)

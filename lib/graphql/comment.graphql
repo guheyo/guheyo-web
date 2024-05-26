@@ -25,6 +25,11 @@ fragment commentWithAuthor on CommentWithAuthorResponse {
   }
 }
 
+fragment commentCount on CommentCountResponse {
+  postId
+  count
+}
+
 fragment updatedCommentResponse on UpdatedCommentResponse {
   id
   updatedAt
@@ -85,6 +90,16 @@ query FindComments(
       endCursor
       hasNextPage
     }
+  }
+}
+
+query FindCommentCount(
+  $postId: ID!
+) {
+  findCommentCount(
+    postId: $postId
+  ) {
+    ...commentCount
   }
 }
 
