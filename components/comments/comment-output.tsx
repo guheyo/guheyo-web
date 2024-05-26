@@ -5,6 +5,8 @@ import { parseCommentDate } from '@/lib/comment/parse-comment-date';
 import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import ReactionBar from '../reaction/reaction-bar';
@@ -52,7 +54,7 @@ export default function CommentOutput({
 
   return (
     <div
-      className="flex flex-row gap-4 items-start"
+      className="flex flex-row gap-4 items-start w-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -76,8 +78,10 @@ export default function CommentOutput({
             />
           )}
         </div>
-        <div className="flex text-xs md:text-sm text-dark-100 font-thin">
-          {content}
+        <div className="flex text-xs md:text-sm text-dark-100 font-thin break-all">
+          {content && (
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+          )}
         </div>
         {postId && (
           <div className="pt-1 ml-[-10px]">
