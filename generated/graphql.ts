@@ -31,7 +31,7 @@ export type AuctionPreviewResponse = {
   __typename?: 'AuctionPreviewResponse';
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
-  currentBidPrice: Scalars['Int']['output'];
+  currentBidPrice?: Maybe<Scalars['Int']['output']>;
   extendedEndDate: Scalars['DateTime']['output'];
   extensionCount: Scalars['Int']['output'];
   hammerPrice: Scalars['Int']['output'];
@@ -52,10 +52,9 @@ export type AuctionPreviewResponseEdge = {
 
 export type AuctionResponse = {
   __typename?: 'AuctionResponse';
-  bidCount: Scalars['Int']['output'];
   content?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
-  currentBidPrice: Scalars['Int']['output'];
+  currentBidPrice?: Maybe<Scalars['Int']['output']>;
   extendedEndDate: Scalars['DateTime']['output'];
   extensionCount: Scalars['Int']['output'];
   hammerPrice: Scalars['Int']['output'];
@@ -78,6 +77,12 @@ export type AuthorResponse = {
   roles: Array<RoleResponse>;
   socialAccounts: Array<SocialAccountWithoutAuthResponse>;
   username: Scalars['String']['output'];
+};
+
+export type BidCountResponse = {
+  __typename?: 'BidCountResponse';
+  auctionId: Scalars['ID']['output'];
+  count: Scalars['Int']['output'];
 };
 
 export type BidResponse = {
@@ -136,6 +141,12 @@ export type CategoryResponse = {
   position?: Maybe<Scalars['Int']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
+};
+
+export type CommentCountResponse = {
+  __typename?: 'CommentCountResponse';
+  count: Scalars['Int']['output'];
+  postId: Scalars['ID']['output'];
 };
 
 export type CommentReportInput = {
@@ -769,8 +780,10 @@ export type Query = {
   findAuctionInteractionItems: PaginatedAuctionInteractionItemsResponse;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
+  findBidCount: BidCountResponse;
   findBids: PaginatedBidsResponse;
   findComment?: Maybe<CommentResponse>;
+  findCommentCount: CommentCountResponse;
   findComments: PaginatedCommentsResponse;
   findEmojis: Array<EmojiResponse>;
   findGroup?: Maybe<GroupResponse>;
@@ -833,6 +846,11 @@ export type QueryFindAuthorArgs = {
 };
 
 
+export type QueryFindBidCountArgs = {
+  auctionId: Scalars['ID']['input'];
+};
+
+
 export type QueryFindBidsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
@@ -846,6 +864,11 @@ export type QueryFindBidsArgs = {
 export type QueryFindCommentArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   postId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindCommentCountArgs = {
+  postId: Scalars['ID']['input'];
 };
 
 
@@ -1347,9 +1370,9 @@ export type VersionResponse = {
   values: Scalars['JSON']['output'];
 };
 
-export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, bidCount: number, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
-export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type FindAuctionPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1361,7 +1384,7 @@ export type FindAuctionPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindAuctionQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1369,7 +1392,7 @@ export type FindAuctionQueryVariables = Exact<{
 }>;
 
 
-export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice: number, hammerPrice: number, shippingCost: number, shippingType: string, status: string, bidCount: number, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
+export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, extensionCount: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, groupId: string, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
 
 export type FindAuctionInteractionItemsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
@@ -1407,6 +1430,8 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: '
 
 export type BidFragment = { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } };
 
+export type BidCountFragment = { __typename?: 'BidCountResponse', auctionId: string, count: number };
+
 export type FindBidsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
@@ -1418,6 +1443,13 @@ export type FindBidsQueryVariables = Exact<{
 
 
 export type FindBidsQuery = { __typename?: 'Query', findBids: { __typename?: 'PaginatedBidsResponse', edges: Array<{ __typename?: 'BidResponseEdge', cursor: string, node: { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindBidCountQueryVariables = Exact<{
+  auctionId: Scalars['ID']['input'];
+}>;
+
+
+export type FindBidCountQuery = { __typename?: 'Query', findBidCount: { __typename?: 'BidCountResponse', auctionId: string, count: number } };
 
 export type PlaceBidMutationVariables = Exact<{
   input: PlaceBidInput;
@@ -1450,6 +1482,8 @@ export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled
 export type CommentFragment = { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
 
 export type CommentWithAuthorFragment = { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> };
+
+export type CommentCountFragment = { __typename?: 'CommentCountResponse', postId: string, count: number };
 
 export type UpdatedCommentResponseFragment = { __typename?: 'UpdatedCommentResponse', id: string, updatedAt: any, content: string };
 
@@ -1495,6 +1529,13 @@ export type FindCommentsQueryVariables = Exact<{
 
 
 export type FindCommentsQuery = { __typename?: 'Query', findComments: { __typename?: 'PaginatedCommentsResponse', edges: Array<{ __typename?: 'CommentWithAuthorResponseEdge', cursor: string, node: { __typename?: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId: string }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindCommentCountQueryVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type FindCommentCountQuery = { __typename?: 'Query', findCommentCount: { __typename?: 'CommentCountResponse', postId: string, count: number } };
 
 export type CommentCreatedSubscriptionVariables = Exact<{
   postId: Scalars['ID']['input'];
@@ -2022,7 +2063,6 @@ export const AuctionFragmentDoc = gql`
   shippingCost
   shippingType
   status
-  bidCount
 }
     ${PostFragmentDoc}`;
 export const UserFragmentDoc = gql`
@@ -2091,6 +2131,12 @@ export const BidFragmentDoc = gql`
   status
 }
     ${AuthorFragmentDoc}`;
+export const BidCountFragmentDoc = gql`
+    fragment bidCount on BidCountResponse {
+  auctionId
+  count
+}
+    `;
 export const EmojiFragmentDoc = gql`
     fragment emoji on EmojiResponse {
   id
@@ -2144,6 +2190,12 @@ export const CommentWithAuthorFragmentDoc = gql`
 }
     ${AuthorFragmentDoc}
 ${ReactionFragmentDoc}`;
+export const CommentCountFragmentDoc = gql`
+    fragment commentCount on CommentCountResponse {
+  postId
+  count
+}
+    `;
 export const UpdatedCommentResponseFragmentDoc = gql`
     fragment updatedCommentResponse on UpdatedCommentResponse {
   id
@@ -2812,6 +2864,46 @@ export type FindBidsQueryHookResult = ReturnType<typeof useFindBidsQuery>;
 export type FindBidsLazyQueryHookResult = ReturnType<typeof useFindBidsLazyQuery>;
 export type FindBidsSuspenseQueryHookResult = ReturnType<typeof useFindBidsSuspenseQuery>;
 export type FindBidsQueryResult = Apollo.QueryResult<FindBidsQuery, FindBidsQueryVariables>;
+export const FindBidCountDocument = gql`
+    query FindBidCount($auctionId: ID!) {
+  findBidCount(auctionId: $auctionId) {
+    ...bidCount
+  }
+}
+    ${BidCountFragmentDoc}`;
+
+/**
+ * __useFindBidCountQuery__
+ *
+ * To run a query within a React component, call `useFindBidCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindBidCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindBidCountQuery({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useFindBidCountQuery(baseOptions: Apollo.QueryHookOptions<FindBidCountQuery, FindBidCountQueryVariables> & ({ variables: FindBidCountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBidCountQuery, FindBidCountQueryVariables>(FindBidCountDocument, options);
+      }
+export function useFindBidCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBidCountQuery, FindBidCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBidCountQuery, FindBidCountQueryVariables>(FindBidCountDocument, options);
+        }
+export function useFindBidCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBidCountQuery, FindBidCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBidCountQuery, FindBidCountQueryVariables>(FindBidCountDocument, options);
+        }
+export type FindBidCountQueryHookResult = ReturnType<typeof useFindBidCountQuery>;
+export type FindBidCountLazyQueryHookResult = ReturnType<typeof useFindBidCountLazyQuery>;
+export type FindBidCountSuspenseQueryHookResult = ReturnType<typeof useFindBidCountSuspenseQuery>;
+export type FindBidCountQueryResult = Apollo.QueryResult<FindBidCountQuery, FindBidCountQueryVariables>;
 export const PlaceBidDocument = gql`
     mutation PlaceBid($input: PlaceBidInput!) {
   placeBid(input: $input)
@@ -3130,6 +3222,46 @@ export type FindCommentsQueryHookResult = ReturnType<typeof useFindCommentsQuery
 export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsLazyQuery>;
 export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
 export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
+export const FindCommentCountDocument = gql`
+    query FindCommentCount($postId: ID!) {
+  findCommentCount(postId: $postId) {
+    ...commentCount
+  }
+}
+    ${CommentCountFragmentDoc}`;
+
+/**
+ * __useFindCommentCountQuery__
+ *
+ * To run a query within a React component, call `useFindCommentCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommentCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCommentCountQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useFindCommentCountQuery(baseOptions: Apollo.QueryHookOptions<FindCommentCountQuery, FindCommentCountQueryVariables> & ({ variables: FindCommentCountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCommentCountQuery, FindCommentCountQueryVariables>(FindCommentCountDocument, options);
+      }
+export function useFindCommentCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommentCountQuery, FindCommentCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCommentCountQuery, FindCommentCountQueryVariables>(FindCommentCountDocument, options);
+        }
+export function useFindCommentCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCommentCountQuery, FindCommentCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCommentCountQuery, FindCommentCountQueryVariables>(FindCommentCountDocument, options);
+        }
+export type FindCommentCountQueryHookResult = ReturnType<typeof useFindCommentCountQuery>;
+export type FindCommentCountLazyQueryHookResult = ReturnType<typeof useFindCommentCountLazyQuery>;
+export type FindCommentCountSuspenseQueryHookResult = ReturnType<typeof useFindCommentCountSuspenseQuery>;
+export type FindCommentCountQueryResult = Apollo.QueryResult<FindCommentCountQuery, FindCommentCountQueryVariables>;
 export const CommentCreatedDocument = gql`
     subscription CommentCreated($postId: ID!) {
   commentCreated(postId: $postId) {
