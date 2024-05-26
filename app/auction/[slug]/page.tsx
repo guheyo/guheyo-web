@@ -73,10 +73,7 @@ function Page({
         </div>
       )}
       <div className="pt-14 px-4 md:px-0 flex flex-row justify-between items-center text-base md:text-lg text-gray-300 font-bold">
-        <AuctionDetailAddons
-          bidCount={auction.bidCount}
-          commentCount={auction.post.commentCount || 0}
-        />
+        <AuctionDetailAddons auctionId={auction.id} postId={auction.post.id} />
         <AuctionInteractionItemsSelector />
       </div>
       <div className="px-4 md:px-0">
