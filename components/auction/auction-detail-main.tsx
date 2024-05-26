@@ -23,7 +23,7 @@ export default function AuctionDetailMain({
 
   return (
     <>
-      <div className="flex flex-row gap-12 items-center justify-items-center bg-zinc-600 rounded-lg p-3 text-sm md:text-base">
+      <div className="flex flex-row justify-between items-center bg-zinc-600 rounded-lg py-3 px-6 text-sm md:text-base">
         <AuctionCountdown targetDate={auction.extendedEndDate} />
         <AuctionDetailPrice
           auctionStatus={auction.status as AuctionStatus}
