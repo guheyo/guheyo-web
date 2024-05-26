@@ -6,6 +6,8 @@ import {
   BidCanceledDocument,
   BidPlacedDocument,
   BidResponse,
+  CommentCreatedDocument,
+  CommentUpdatedDocument,
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { cancelBid, placeBid } from '@/lib/api/bid';
@@ -148,6 +150,38 @@ export default function AuctionInteractionItemFeed({
     shouldResubscribe: true, // Always resubscribe
   });
 
+  useSubscription(CommentCreatedDocument, {
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const newComment = data.data.commentCreated;
+      setAuctionInteractionItems([newComment, ...auctionInteractionItems]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
+  useSubscription(CommentUpdatedDocument, {
+    variables: {
+      postId: where.postId,
+    },
+    onData: ({ data }) => {
+      const updatedComment = data.data.commentUpdated;
+      setAuctionInteractionItems(
+        auctionInteractionItems.map((interactionItem) => {
+          if (interactionItem.id === updatedComment.id)
+            return {
+              ...interactionItem,
+              updatedAt: updatedComment.updatedAt,
+              content: updatedComment.content,
+            };
+          return interactionItem;
+        }),
+      );
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
   if (auctionInteractionItemsLoading || userLoading) return <div />;
 
   const user = UserData?.findAuthor;
@@ -207,10 +241,25 @@ export default function AuctionInteractionItemFeed({
         <div ref={sentinelRef} />
       </div>
       <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
-        <BidInput
+        {/* <BidInput
           user={user || undefined}
           currentBidPrice={currentBidPrice}
           handlePlaceBid={handlePlaceBid}
+        /> */}
+        <CommentCard
+          user={user || undefined}
+          isCurrentUser
+          displayMenu
+          defaultMode="create"
+          commentReactions={[]}
+          textFieldProps={{
+            multiline: true,
+            placeholder: '메시지 보내기',
+            minRows: 1,
+            size: 'small',
+          }}
+          handleWrite={handleWrite}
+          handleEdit={handleEdit}
         />
       </div>
     </div>
