@@ -11,7 +11,7 @@ interface Props {
 function AuctionFeedHomeLayout({ children }: Props) {
   return (
     <div>
-      <div className="mx-2.5 md:mx-1 w-full">
+      <div className="mx-2.5 md:mx-1">
         <CategoriesNavbar hideSelector />
       </div>
       <div className="flex justify-end pb-2">
