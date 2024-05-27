@@ -1,6 +1,7 @@
 'use client';
 
 import OfferVersionDetail from '@/components/offers/offer-version-detail';
+import PostDetailAddons from '@/components/posts/post-detail-addons';
 import ReportCard from '@/components/reports/report-card';
 import { useFindReportQuery } from '@/generated/graphql';
 import { OFFER } from '@/lib/offer/offer.constants';
@@ -44,6 +45,9 @@ export default function Page({
               reportedUser={report.reportedUser}
               type={report.type}
             />
+          </div>
+          <div className="px-2 md:px-0 text-base md:text-lg text-gray-300 font-bold">
+            <PostDetailAddons />
           </div>
         </div>
       );
