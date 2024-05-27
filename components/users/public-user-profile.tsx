@@ -10,6 +10,7 @@ import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
 import Username from './user-name';
 import SelectUserReviewTargetOfferDialog from '../user-review/select-user-review-target-offer-dialog';
+import SocialLogos from '../socials/social-logos';
 
 export default function PublicUserProfile({ username }: { username: string }) {
   const device = useDeviceDetect();
@@ -44,10 +45,9 @@ export default function PublicUserProfile({ username }: { username: string }) {
             })}
           </div>
           <div className="col-span-3" />
-          <div className="col-span-9 flex flex-col justify-self-start items-center">
-            <div className="text-xs md:text-sm">
-              <Roles key={user.id} roles={user.roles} />
-            </div>
+          <div className="col-span-9 flex flex-col gap-2 justify-self-start text-xs md:text">
+            <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
+            <Roles key={user.id} roles={user.roles} />
           </div>
         </div>
       </div>

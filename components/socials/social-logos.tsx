@@ -2,9 +2,9 @@ import {
   SocialAccountResponse,
   SocialAccountWithoutAuthResponse,
 } from '@/generated/graphql';
-import SocialJoinDate from './social-join-date';
+import SocialLogo from './social-logo';
 
-export default function SocialJoinDates({
+export default function SocialLogos({
   socialAccounts,
   logoSize,
 }: {
@@ -16,10 +16,11 @@ export default function SocialJoinDates({
   return (
     <div className="flex flex-row gap-2 justify-start">
       {socialAccounts.map((socialAccount) => (
-        <SocialJoinDate
+        <SocialLogo
           key={socialAccount.id}
-          socialAccount={socialAccount}
-          logoSize={logoSize}
+          provider={socialAccount.provider}
+          width={logoSize}
+          height={logoSize}
         />
       ))}
     </div>
