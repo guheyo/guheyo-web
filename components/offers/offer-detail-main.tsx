@@ -8,18 +8,17 @@ import { OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
-import OfferDetailBumpedAt from './offer-detail-bumped-at';
+import PostDetailDate from '../posts/post-detail-date';
 import OfferMenu from './offer-menu';
 import OfferDetailName from './offer-detail-name';
 import OfferDetailPrice from './offer-detail-price';
 import OfferShippingCost from './offer-shipping-cost';
-import PostDetailAddons from '../posts/post-detail-addons';
 
 export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
   const device = useDeviceDetect();
 
   return (
-    <>
+    <div className="px-4 md:px-0">
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-start justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
@@ -28,7 +27,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             displayUsername
             fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
-          <OfferDetailBumpedAt bumpedAt={offer.bumpedAt} />
+          <PostDetailDate date={offer.bumpedAt} />
         </div>
         <div className="h-8">
           <OfferMenu
@@ -64,9 +63,6 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
           </ReactMarkdown>
         )}
       </div>
-      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <PostDetailAddons />
-      </div>
-    </>
+    </div>
   );
 }

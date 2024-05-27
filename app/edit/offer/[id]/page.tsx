@@ -1,6 +1,6 @@
 'use client';
 
-import EditOfferForm from '@/components/write/edit-offer-form';
+import EditOfferForm from '@/components/offers/edit-offer-form';
 import { useFindOfferQuery } from '@/generated/graphql';
 import { parsePrevOfferFormValues } from '@/lib/offer/parse-prev-form-values';
 

@@ -103,7 +103,7 @@ export default function OfferBumpForm({
 
   return (
     <form
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-12 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-base md:text-lg text-gray-300 font-bold">
@@ -126,7 +126,7 @@ export default function OfferBumpForm({
           <div className="text-base text-gray-300 font-bold">{price}</div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 md-0 md:mb-8">
+      <div className="flex flex-col gap-2 mb-0 md:mb-8">
         <TextInput
           name="price"
           control={control}

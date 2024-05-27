@@ -14,7 +14,7 @@ export default function SocialJoinDates({
   if (!socialAccounts) return null;
 
   return (
-    <div className="flex flex-col justify-start">
+    <div className="flex flex-row gap-2 justify-start">
       {socialAccounts.map((socialAccount) => (
         <SocialJoinDate
           key={socialAccount.id}

@@ -18,7 +18,6 @@ import {
   useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useSubscription } from '@apollo/client';
-import { scrollToBottom } from '@/lib/scroll/scroll-to-bottom';
 import CommentCard from './comment-card';
 import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
@@ -37,16 +36,6 @@ export default function CommentFeed({
     null,
   );
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
-  const [isAtBottom, setIsAtBottom] = useState(false);
-  const buffer = 50;
-
-  // Event handler for scrolling
-  const handleScroll = () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const { scrollHeight } = document.documentElement;
-    const { clientHeight } = document.documentElement;
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - buffer);
-  };
 
   const handleWrite = async (values: CommentValues) => {
     if (!jwtPayload || !where.postId || !values.content) return;
@@ -56,7 +45,6 @@ export default function CommentFeed({
       content: values.content,
       postId: where.postId,
     });
-    scrollToBottom();
   };
 
   const handleEdit = async (values: CommentValues) => {
@@ -87,28 +75,13 @@ export default function CommentFeed({
     handleCloseDeleteDialog();
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isAtBottom) {
-      scrollToBottom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments]);
-
   useSubscription(CommentCreatedDocument, {
     variables: {
       postId: where.postId,
     },
     onData: ({ data }) => {
       const newComment = data.data.commentCreated;
-      setComments([...comments, newComment]);
+      setComments([newComment, ...comments]);
     },
     shouldResubscribe: true, // Always resubscribe
   });

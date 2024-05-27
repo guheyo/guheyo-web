@@ -18,7 +18,6 @@ import PostDetailTitle from '../posts/post-detail-name';
 import UserReviewTags from './user-review-tags';
 import PostCreatedAt from '../posts/post-created-at';
 import ReactionBar from '../reaction/reaction-bar';
-import PostDetailAddons from '../posts/post-detail-addons';
 import UserReviewMenu from './user-review-menu';
 
 export default function UserReviewDetailMain({
@@ -69,7 +68,7 @@ export default function UserReviewDetailMain({
   }, [loading, postReactionsData]);
 
   return (
-    <>
+    <div className="px-4 md:px-0">
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
@@ -114,9 +113,6 @@ export default function UserReviewDetailMain({
       <div className="pt-4">
         <ReactionBar postId={userReview.post.id} reactions={postReactions} />
       </div>
-      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <PostDetailAddons commentCount={userReview.post.commentCount || 0} />
-      </div>
-    </>
+    </div>
   );
 }

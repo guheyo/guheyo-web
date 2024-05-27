@@ -15,7 +15,6 @@ import OfferDetailName from './offer-detail-name';
 import OfferShippingCost from './offer-shipping-cost';
 import RecentVersionLink from '../version/recent-version-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
-import PostDetailAddons from '../posts/post-detail-addons';
 
 export default function OfferVersionDetailMain({
   versionCreatedAt,
@@ -31,7 +30,7 @@ export default function OfferVersionDetailMain({
   const device = useDeviceDetect();
 
   return (
-    <>
+    <div className="px-4 md:px-0">
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-center justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
@@ -67,9 +66,6 @@ export default function OfferVersionDetailMain({
           </ReactMarkdown>
         )}
       </div>
-      <div className="pt-14 text-base md:text-lg text-gray-300 font-bold">
-        <PostDetailAddons />
-      </div>
-    </>
+    </div>
   );
 }

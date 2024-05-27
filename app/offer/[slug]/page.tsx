@@ -1,6 +1,7 @@
 'use client';
 
 import OfferDetail from '@/components/offers/offer-detail';
+import PostDetailAddons from '@/components/posts/post-detail-addons';
 import ReportFeed from '@/components/reports/report-feed';
 import { useFindOfferQuery } from '@/generated/graphql';
 import {
@@ -36,10 +37,10 @@ function OfferPage({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <OfferDetail offer={offer} />
       {offer.post.reportCount > 0 && (
-        <div className="flex flex-col gap-2 pt-14">
+        <div className="flex flex-col gap-2 pt-8">
           <div
             id="report"
             className="text-base md:text-lg text-gray-300 font-bold px-4 md:px-0"
@@ -51,6 +52,9 @@ function OfferPage({
           </div>
         </div>
       )}
+      <div className="px-2 md:px-0 text-base md:text-lg text-gray-300 font-bold">
+        <PostDetailAddons />
+      </div>
     </div>
   );
 }

@@ -126,7 +126,7 @@ export default function UserReviewForm({
 
   return (
     <form
-      className="flex flex-col gap-12 w-full md:w-full"
+      className="flex flex-col gap-12 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-base md:text-lg text-gray-300 font-bold">

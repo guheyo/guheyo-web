@@ -1,0 +1,78 @@
+fragment bid on BidResponse {
+  id
+  createdAt
+  canceledAt
+  price
+  priceCurrency
+  auctionId
+  user {
+    ...author
+  }
+  status
+}
+
+fragment bidCount on BidCountResponse {
+  auctionId
+  count
+}
+
+query FindBids(
+  $where: JSON
+  $orderBy: JSON
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findBids(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...bid
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindBidCount(
+  $auctionId: ID!
+) {
+  findBidCount(
+    auctionId: $auctionId
+  ) {
+    ...bidCount
+  }
+}
+
+
+mutation PlaceBid($input: PlaceBidInput!) {
+  placeBid(input: $input)
+}
+
+mutation CancelBid($input: CancelBidInput!) {
+  cancelBid(input: $input)
+}
+
+subscription BidPlaced($auctionId: ID!) {
+  bidPlaced(auctionId: $auctionId) {
+    ...bid
+  }
+}
+
+subscription BidCanceled($auctionId: ID!) {
+  bidCanceled(auctionId: $auctionId) {
+    id
+    canceledAt
+  }
+}

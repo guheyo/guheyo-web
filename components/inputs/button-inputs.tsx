@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 
 export interface ButtonOption {
-  value: string;
+  value: string | number;
   label: string;
   selected: boolean;
 }
@@ -45,14 +45,14 @@ export default function ButtonInputs<
             key={option.label}
             name={field.name}
             type="button"
-            value={option.value}
+            value={option.value.toString()}
             className={
               option.selected
                 ? buttonInputsProps.button.selectedStyle
                 : buttonInputsProps.button.defaultStyle
             }
             onClick={(e) => {
-              field.onChange(e);
+              field.onChange(option.value);
             }}
           >
             {option.label}

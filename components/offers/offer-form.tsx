@@ -222,7 +222,7 @@ export default function OfferForm({
 
   return (
     <form
-      className="flex flex-col gap-8"
+      className="flex flex-col gap-8 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <ImagesInput

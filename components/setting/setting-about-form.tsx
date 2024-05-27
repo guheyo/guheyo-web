@@ -64,7 +64,7 @@ export default function SettingAboutForm({
 
   return (
     <form
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-12 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <TextInput
@@ -79,7 +79,7 @@ export default function SettingAboutForm({
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '방문하는 멤버들에게 좋은 인상을 남겨주세요',
+          placeholder: '방문하는 멤버들에게 자신을 소개해 주세요',
           InputProps: {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,

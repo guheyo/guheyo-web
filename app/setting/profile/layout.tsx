@@ -2,6 +2,7 @@
 
 import { AuthContext } from '@/components/auth/auth.provider';
 import SettingProfileNavbar from '@/components/setting/setting-profile-navbar';
+import DummyUserProfile from '@/components/users/dummy-user-profile';
 import UserProfile from '@/components/users/user-profile';
 import { ReactNode, useContext } from 'react';
 
@@ -13,7 +14,20 @@ function Layout({ children }: Props) {
   const { jwtPayload, loading } = useContext(AuthContext);
 
   if (loading) return <div />;
-  if (!jwtPayload) return <div />;
+  if (!jwtPayload)
+    return (
+      <div className="flex px-2 pb-2 pt-4 md:pt-6 justify-center">
+        <div className="flex flex-col gap-8 max-w-xl w-full">
+          <div className="text-base md:text-lg text-gray-300 font-bold px-2 md:px-0">
+            <div className="px-2 pb-6">
+              <DummyUserProfile />
+            </div>
+            <SettingProfileNavbar />
+          </div>
+          <div className="px-2 md:px-0">{children}</div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="flex px-2 pb-2 pt-4 md:pt-6 justify-center">
@@ -24,7 +38,7 @@ function Layout({ children }: Props) {
           </div>
           <SettingProfileNavbar />
         </div>
-        {children}
+        <div className="px-2 md:px-0">{children}</div>
       </div>
     </div>
   );

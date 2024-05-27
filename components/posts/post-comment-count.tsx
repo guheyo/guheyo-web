@@ -1,4 +1,4 @@
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 
 export default function PostCommentCount({
   comentCount,
@@ -8,7 +8,7 @@ export default function PostCommentCount({
   return (
     <div className="flex flex-row gap-0.5 text-gray-400 items-center">
       <div>
-        <ChatBubbleIcon fontSize="inherit" />
+        <ChatBubbleOvalLeftIcon color="gray" fill="gray" className="w-5" />
       </div>
       <div>{comentCount}</div>
     </div>
