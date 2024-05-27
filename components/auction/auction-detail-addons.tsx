@@ -3,11 +3,11 @@
 import ShareButton from '../share/share-button';
 
 export default function AuctionDetailAddons({
-  commentCount,
   bidCount,
+  commentCount,
 }: {
-  commentCount: number;
   bidCount: number;
+  commentCount: number;
 }) {
   return (
     <div className="flex gap-4 items-center text-base md:text-lg text-gray-300 font-bold">

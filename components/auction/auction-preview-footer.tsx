@@ -13,7 +13,7 @@ export default function AuctionPreviewFooter({ auction }: Props) {
     <div className="flex flex-row justify-between items-center">
       <AuctionPreviewPrice
         auctionStatus={auction.status as AuctionStatus}
-        currentBidPrice={auction.currentBidPrice}
+        currentBidPrice={auction.currentBidPrice!}
         hammerPrice={auction.hammerPrice}
       />
     </div>

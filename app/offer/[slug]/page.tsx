@@ -37,7 +37,7 @@ function OfferPage({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <OfferDetail offer={offer} />
       {offer.post.reportCount > 0 && (
         <div className="flex flex-col gap-2 pt-8">
