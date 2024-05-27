@@ -24,7 +24,7 @@ function Layout({ children }: Props) {
           </div>
           <SettingProfileNavbar />
         </div>
-        {children}
+        <div className="px-2 md:px-0">{children}</div>
       </div>
     </div>
   );
