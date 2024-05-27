@@ -42,7 +42,7 @@ export default function RootLayout({
         <meta property="og:image:height" content="400" />
       </head>
       <body
-        className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break pb-6`}
+        className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break`}
       >
         <Providers>
           <Navbar handleMenuToggle={handleMenuToggle} />
@@ -50,7 +50,7 @@ export default function RootLayout({
             isMenuOpen={isMenuOpen}
             handleMenuToggle={handleMenuToggle}
           />
-          <div ref={feedRef} className="w-full md:max-w-2xl mx-auto pb-0">
+          <div ref={feedRef} className="w-full md:max-w-2xl mx-auto">
             {children}
           </div>
         </Providers>
