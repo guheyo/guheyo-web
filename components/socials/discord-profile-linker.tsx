@@ -30,7 +30,7 @@ export default function DiscordProfileLinker() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-row gap-3">
         <SocialLogo provider="discord" width={24} height={24} />
-        <div className="text-lg text-gray-300">디스코드 프로필</div>
+        <div className="text-gray-300">디스코드 프로필</div>
       </div>
       <div className="flex flex-col gap-2 text-gray-300">
         <div className="text-base text-gray-300">업데이트할 정보</div>
