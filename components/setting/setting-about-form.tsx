@@ -64,7 +64,7 @@ export default function SettingAboutForm({
 
   return (
     <form
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-12 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <TextInput
