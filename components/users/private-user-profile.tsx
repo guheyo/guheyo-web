@@ -7,6 +7,7 @@ import Avatar from '../avatar/avatar';
 import Roles from './roles';
 import Username from './user-name';
 import SettingButton from '../setting/setting-button';
+import SocialLogos from '../socials/social-logos';
 
 export default function PrivateUserProfile() {
   const device = useDeviceDetect();
@@ -41,10 +42,9 @@ export default function PrivateUserProfile() {
               about: user.about,
             })}
           </div>
-          <div className="col-span-12 flex flex-col justify-self-start items-center">
-            <div className="text-xs md:text-sm">
-              <Roles key={user.id} roles={user.roles} />
-            </div>
+          <div className="col-span-12 flex flex-col gap-2 justify-self-start items-center text-xs md:text-sm">
+            <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
+            <Roles key={user.id} roles={user.roles} />
           </div>
         </div>
       </div>
