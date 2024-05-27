@@ -69,7 +69,7 @@ export default function PostReportForm({
 
   return (
     <form
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-12 w-full"
       onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
     >
       <div className="text-base md:text-lg text-gray-300 font-bold">

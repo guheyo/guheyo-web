@@ -13,8 +13,10 @@ export default function PostDetail({
 }) {
   return (
     <>
-      {!!images?.length && (
+      {images?.length ? (
         <ImageSlider images={images} sizes="h-[360px] md:h-[500px]" />
+      ) : (
+        <div className="pt-0" />
       )}
       {postDetailMain}
     </>

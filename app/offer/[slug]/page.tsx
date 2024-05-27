@@ -52,7 +52,7 @@ function OfferPage({
           </div>
         </div>
       )}
-      <div className="px-2 md:px-0 pt-4 text-base md:text-lg text-gray-300 font-bold">
+      <div className="px-2 md:px-0 text-base md:text-lg text-gray-300 font-bold">
         <PostDetailAddons />
       </div>
     </div>
