@@ -9,7 +9,6 @@ import {
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, useEffect } from 'react';
 import {
-  OFFER,
   OFFER_AUTO_SAVE_INTERVAL_MS,
   OFFER_CATEGORY_LABEL_NAME,
   OFFER_DESCRIPTION_LABEL_NAME,

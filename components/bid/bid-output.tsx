@@ -3,7 +3,6 @@
 import { AuthorResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import FlagIcon from '@mui/icons-material/Flag';
-import { useState } from 'react';
 import { parsePrice } from '@/lib/offer/parse-price';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import { parseBidDate } from './parse-bid-date';
@@ -29,22 +28,9 @@ export default function BidOutput({
   handleMenuClick: (bidId: string) => void;
 }) {
   const device = useDeviceDetect();
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
 
   return (
-    <div
-      className="flex flex-row gap-4 items-start"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="flex flex-row gap-4 items-start">
       <UserProfileRedirectButton
         user={user}
         displayAvatar
