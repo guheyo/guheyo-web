@@ -45,7 +45,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
             })}
           </div>
           <div className="col-span-3" />
-          <div className="col-span-9 flex flex-col gap-2 justify-self-start text-xs md:text">
+          <div className="col-span-9 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
             <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
             <Roles key={user.id} roles={user.roles} />
           </div>

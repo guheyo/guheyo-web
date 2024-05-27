@@ -41,14 +41,9 @@ export default function KakaoAuthAlertDialog({
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText className="text-sm md:text-base text-dark-500 font-medium">
-            [카카오 미인증 알림]
+            [인증 알림]
             <br />
-            {`${user.username}`}님의 카카오 인증이 완료되지 않았어요
-            <br />
-            <br />
-            인증되지 않은 멤버는
-            <br />
-            이용이 제한되니 카카오 인증을 완료해 주세요
+            {`${user.username}`}님의 카카오 인증을 완료해 주세요
           </DialogContentText>
         </DialogContent>
         <DialogActions>
