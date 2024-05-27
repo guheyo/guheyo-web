@@ -33,5 +33,17 @@ export default function SocialLogo({
       />
     );
   }
+  if (provider === 'kakao') {
+    return (
+      <Image
+        src="/socials/kakao/kakaotalk_sharing_btn_medium.png"
+        alt={`${provider} logo`}
+        className="dark:invert"
+        width={width}
+        height={height}
+        priority
+      />
+    );
+  }
   return null;
 }
