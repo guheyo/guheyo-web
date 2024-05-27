@@ -4,7 +4,7 @@ import IconText from '../icon-text/icon-text';
 import SocialLogo from './social-logo';
 import LoginButton from '../auth/login-button';
 
-export default function KakaoDummyAccount() {
+export default function DummyKakaoAccount() {
   return (
     <div className="flex flex-col gap-4">
       <IconText>
