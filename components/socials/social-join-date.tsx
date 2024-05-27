@@ -16,7 +16,7 @@ export default function SocialJoinDate({
 
   const getJoinedDate = (
     account: SocialAccountResponse | SocialAccountWithoutAuthResponse,
-  ) => `${dayjs(account.createdAt).format('MMMM Do YYYY')}`;
+  ) => `${dayjs(account.createdAt).format('YYYY.MM.DD')}`;
 
   return (
     <div key={socialAccount.id} className="flex flex-row gap-1 items-center">
