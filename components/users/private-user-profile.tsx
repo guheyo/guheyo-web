@@ -42,7 +42,7 @@ export default function PrivateUserProfile() {
               about: user.about,
             })}
           </div>
-          <div className="col-span-12 flex flex-col gap-2 justify-self-start items-center text-xs md:text-sm">
+          <div className="col-span-12 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
             <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
             <Roles key={user.id} roles={user.roles} />
           </div>
