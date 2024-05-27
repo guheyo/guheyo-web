@@ -24,14 +24,16 @@ export default function OfferPreviewHeader({ offer }: Props) {
           <PostCreatedAt createdAt={offer.bumpedAt} />
         </div>
       </div>
-      <OfferMenu
-        offerId={offer.id}
-        postId={offer.post.id}
-        offerStatus={offer.status as OfferStatus}
-        userId={offer.post.user.id}
-        privateOnly
-        archivedAt={offer.post.archivedAt}
-      />
+      <div className="h-4 mt-[-10px]">
+        <OfferMenu
+          offerId={offer.id}
+          postId={offer.post.id}
+          offerStatus={offer.status as OfferStatus}
+          userId={offer.post.user.id}
+          privateOnly
+          archivedAt={offer.post.archivedAt}
+        />
+      </div>
     </div>
   );
 }
