@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: any }) {
 }
 
 function Layout({ children }: { children: ReactNode }) {
-  return children;
+  return <div className="pb-4">{children}</div>;
 }
 
 export default Layout;
