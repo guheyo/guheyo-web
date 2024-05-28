@@ -19,8 +19,8 @@ export default function DiscordAccount({
   if (!discordAccount)
     return (
       <IconText>
-        <SocialLogo provider="discord" width={24} height={24} />
-        <div className="text-red-400">디스코드 미연동</div>
+        <SocialLogo provider="discord" width={20} height={20} />
+        <div className="text-red-400 text-sm md:text-base">디스코드 미연동</div>
         <button
           type="submit"
           className="bg-indigo-500 hover:bg-indigo-400 text-sm font-bold p-2 rounded text-gray-300"
@@ -33,8 +33,8 @@ export default function DiscordAccount({
 
   return (
     <IconText>
-      <SocialLogo provider="discord" width={24} height={24} />
-      <div>디스코드 연동 완료</div>
+      <SocialLogo provider="discord" width={20} height={20} />
+      <div className="text-sm md:text-base">디스코드 연동 완료</div>
     </IconText>
   );
 }

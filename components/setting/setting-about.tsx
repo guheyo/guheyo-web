@@ -18,9 +18,5 @@ export default function SettingAbout({ userId }: { userId: string }) {
     about: user.about || '',
   };
 
-  return (
-    <div>
-      <SettingAboutForm prevFormValues={prevFormValues} />
-    </div>
-  );
+  return <SettingAboutForm prevFormValues={prevFormValues} />;
 }

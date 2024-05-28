@@ -29,15 +29,19 @@ export default function DiscordProfileLinker() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-row gap-3">
-        <SocialLogo provider="discord" width={24} height={24} />
-        <div className="text-gray-300">디스코드 프로필</div>
+        <SocialLogo provider="discord" width={20} height={20} />
+        <div className="text-gray-300 text-sm md:text-base">
+          디스코드 프로필
+        </div>
       </div>
       <div className="flex flex-col gap-2 text-gray-300">
-        <div className="text-base text-gray-300">업데이트할 정보</div>
-        <div className="flex flex-row gap-2">
+        <div className="text-base text-gray-300 text-sm md:text-base">
+          업데이트할 정보
+        </div>
+        <div className="flex flex-row gap-2 text-xs md:text-sm">
           <button
             type="button"
-            className="text-sm bg-dark-400 p-3 font-semibold rounded"
+            className="bg-dark-400 p-2 font-semibold rounded-lg"
             disabled
           >
             사용자명
@@ -45,7 +49,7 @@ export default function DiscordProfileLinker() {
           <button
             type="button"
             disabled
-            className="text-sm bg-dark-400 p-3 font-semibold rounded"
+            className="bg-dark-400 p-2 font-semibold rounded-lg"
           >
             아바타 이미지
           </button>
