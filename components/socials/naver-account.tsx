@@ -23,7 +23,7 @@ export default function NaverAccount({
           <SocialLogo provider="naver" width={20} height={20} />
           <div className="text-red-400 text-sm md:text-base">네이버 미인증</div>
         </IconText>
-        <div className="text-gray-400 text-xs md:text-sm">
+        <div className="text-gray-400 text-xs md:text-base">
           <div className="pt-4">
             인증이 완료되면 구해요 전용 식별값이 생성돼요
           </div>
