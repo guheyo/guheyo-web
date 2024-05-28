@@ -29,7 +29,7 @@ export default function DiscordProfileLinker() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-row gap-3">
-        <SocialLogo provider="discord" width={24} height={24} />
+        <SocialLogo provider="discord" width={20} height={20} />
         <div className="text-gray-300 text-sm md:text-base">
           디스코드 프로필
         </div>
