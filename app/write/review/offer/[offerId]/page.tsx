@@ -9,7 +9,7 @@ import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { parseUserReviewTargetOfferFormLink } from '@/lib/user-review/parse-user-review-target-offer-form-link';
 import { useRouter } from 'next/navigation';
-import { MouseEventHandler, useContext } from 'react';
+import { MouseEventHandler, Suspense, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function Page({
@@ -66,13 +66,15 @@ export default function Page({
         handleChange={handleChange}
       />
       <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
-        <UserCheckboxResults
-          where={where}
-          keyword={keyword}
-          userIdToExclude={jwtPayload?.id}
-          control={control}
-          handleOfferSelection={handleOfferSelection}
-        />
+        <Suspense>
+          <UserCheckboxResults
+            where={where}
+            keyword={keyword}
+            userIdToExclude={jwtPayload?.id}
+            control={control}
+            handleOfferSelection={handleOfferSelection}
+          />
+        </Suspense>
       </div>
       <div className="pt-4" />
       <NextDialog
