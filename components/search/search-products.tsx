@@ -1,8 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchQuery } from '@/lib/search/use-search-query';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
@@ -10,28 +8,7 @@ import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
 
 export default function SearchProducts() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [text, setText] = useState('');
-  const [keyword] = useDebounce(text, DEBOUNCE);
-
-  // Fetch query parameters from URL
-  useEffect(() => {
-    const query = searchParams.get('q');
-    if (query) {
-      setText(query);
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    if (keyword) {
-      params.set('q', keyword);
-    } else {
-      params.delete('q');
-    }
-    router.replace(`?${params.toString()}`);
-  }, [keyword, router, searchParams]);
+  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);

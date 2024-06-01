@@ -5,11 +5,11 @@ import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
 import { CheckboxFormValues } from '@/lib/search/search.types';
+import { useSearchQuery } from '@/lib/search/use-search-query';
 import { parseUserReviewTargetOfferFormLink } from '@/lib/user-review/parse-user-review-target-offer-form-link';
 import { useRouter } from 'next/navigation';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDebounce } from 'use-debounce';
 
 export default function Page({
   params: { userId },
@@ -18,9 +18,8 @@ export default function Page({
     userId: string;
   };
 }) {
-  const [text, setText] = useState('');
-  const [keyword] = useDebounce(text, DEBOUNCE);
   const router = useRouter();
+  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const { setValue, getValues, control } = useForm<CheckboxFormValues>({
     defaultValues: {

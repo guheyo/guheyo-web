@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import { useSearchQuery } from '@/lib/search/use-search-query';
 import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
@@ -9,8 +8,7 @@ import UserFeed from '../users/user-feed';
 import InfoFeedLayout from '../info/info-feed-layout';
 
 export default function SearchUsers() {
-  const [text, setText] = useState('');
-  const [keyword] = useDebounce(text, DEBOUNCE);
+  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const where = {};
   const orderBy: FindUsersOrderByArgs = {
