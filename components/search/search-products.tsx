@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
+import { Suspense } from 'react';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
@@ -34,7 +35,9 @@ export default function SearchProducts() {
         <OfferSelectors />
       </div>
       <div className="pt-4">
-        <ProductSearchResults keyword={keyword} />
+        <Suspense>
+          <ProductSearchResults keyword={keyword} />
+        </Suspense>
       </div>
     </div>
   );

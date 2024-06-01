@@ -2,6 +2,7 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
+import { Suspense } from 'react';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
@@ -33,7 +34,9 @@ export default function SearchUsers() {
         handleChange={handleChange}
       />
       <InfoFeedLayout>
-        <UserFeed where={where} orderBy={orderBy} keyword={keyword} />
+        <Suspense>
+          <UserFeed where={where} orderBy={orderBy} keyword={keyword} />
+        </Suspense>
       </InfoFeedLayout>
     </div>
   );
