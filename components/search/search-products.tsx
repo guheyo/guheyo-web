@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import { useSearchQuery } from '@/lib/search/use-search-query';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
 import CategoriesNavbar from '../categories/categories-navbar';
@@ -9,8 +8,7 @@ import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
 
 export default function SearchProducts() {
-  const [text, setText] = useState('');
-  const [keyword] = useDebounce(text, DEBOUNCE);
+  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
