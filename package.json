@@ -28,7 +28,7 @@
     "@mui/material": "^5.15.15",
     "@mui/styles": "^5.15.15",
     "@next/third-parties": "^14.1.4",
-    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/lodash": "^4.14.195",
     "@types/node": "20.1.4",
     "@types/react": "18.2.6",
@@ -44,7 +44,7 @@
     "lexical": "^0.12.6",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.4",
-    "next": "^14.1.1",
+    "next": "^14.2.3",
     "postcss": "8.4.31",
     "react": "^18.2.0",
     "react-cookie": "^7.1.0",
@@ -90,7 +90,7 @@
     "prettier": "^3.0.0",
     "simple-zustand-devtools": "^1.1.0",
     "storybook": "7.0.20",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.3"
   },
   "packageManager": "yarn@3.6.1",
   "engines": {
