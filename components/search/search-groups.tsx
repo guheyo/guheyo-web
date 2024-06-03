@@ -1,7 +1,6 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import { Suspense } from 'react';
 import SearchInput from './search-input';
 import GroupProfiles from '../groups/group-profiles';
 import { DEBOUNCE } from './search.constants';
@@ -28,9 +27,7 @@ export default function SearchGroups() {
         handleChange={handleChange}
       />
       <InfoFeedLayout>
-        <Suspense>
-          <GroupProfiles keyword={keyword} />
-        </Suspense>
+        <GroupProfiles keyword={keyword} />
       </InfoFeedLayout>
     </div>
   );
