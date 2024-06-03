@@ -23,14 +23,14 @@ function UserCheckboxResults({
   keyword,
   userIdToExclude,
   control,
-  handleOfferSelection,
+  handleCheckboxClick,
 }: {
   where: FindUsersWhereArgs;
   orderBy?: FindUsersOrderByArgs;
   keyword?: string;
   userIdToExclude?: string;
   control: Control<CheckboxFormValues>;
-  handleOfferSelection: (seletedId: string) => void;
+  handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
@@ -45,7 +45,7 @@ function UserCheckboxResults({
   });
 
   const handleClick = (userId: string) => {
-    handleOfferSelection(userId);
+    handleCheckboxClick(userId);
   };
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
