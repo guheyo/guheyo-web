@@ -35,5 +35,5 @@ export default function Page({
         handleUnAuthorization={handleUnAuthorization}
       />
     </Suspense>
-  )
+  );
 }
