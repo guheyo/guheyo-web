@@ -3638,6 +3638,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lexical/clipboard@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/clipboard@npm:0.15.0"
+  dependencies:
+    "@lexical/html": 0.15.0
+    "@lexical/list": 0.15.0
+    "@lexical/selection": 0.15.0
+    "@lexical/utils": 0.15.0
+    lexical: 0.15.0
+  checksum: 66f2cb68781898583d84ff4960c1fa2d72a5b94bc30244ddeaa59c51e4a4b5bd7b1f1d0f1e3c8f6ebffb7b347ed045fe318dfd38a1f011b314e13e1c1f355396
+  languageName: node
+  linkType: hard
+
 "@lexical/code@npm:0.12.6":
   version: 0.12.6
   resolution: "@lexical/code@npm:0.12.6"
@@ -3693,6 +3706,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lexical/html@npm:0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/html@npm:0.15.0"
+  dependencies:
+    "@lexical/selection": 0.15.0
+    "@lexical/utils": 0.15.0
+    lexical: 0.15.0
+  checksum: f56ef237c64134c618d9159a9ed2160d574ec1305f817a5d5815b2db0ff67ec16dfcb51097a4f3121f50b89c20b861cf9f8bab2b6c147280101e3e453663a7c7
+  languageName: node
+  linkType: hard
+
 "@lexical/link@npm:0.12.6":
   version: 0.12.6
   resolution: "@lexical/link@npm:0.12.6"
@@ -3712,6 +3736,16 @@ __metadata:
   peerDependencies:
     lexical: 0.12.6
   checksum: a43b4393bdcf98a1e0f77cdd30356ea159989040a3fb3230d70566b41db77b1b50f1585c6dc108629960c292720e88c294f0aa3d56387d0397259f93e077dc2d
+  languageName: node
+  linkType: hard
+
+"@lexical/list@npm:0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/list@npm:0.15.0"
+  dependencies:
+    "@lexical/utils": 0.15.0
+    lexical: 0.15.0
+  checksum: c0ad36f3ae73785f4fcc12f6315c089153e87cdbfda1be88e5a40b73eb000232d5e0b4e640562feebf7c951d5203cecf58ad9d493b13190343898469fa9b1f5e
   languageName: node
   linkType: hard
 
@@ -3823,6 +3857,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lexical/selection@npm:0.15.0, @lexical/selection@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/selection@npm:0.15.0"
+  dependencies:
+    lexical: 0.15.0
+  checksum: 3e25ccaf4c741af4e57a3d8ae734d59c9b2e8640152ccd3eabe0abd77c0e7b12f1a53b8d2af7d1930a340747ae1b254cad841c9f23cb58cfafc5f30a603431a0
+  languageName: node
+  linkType: hard
+
 "@lexical/table@npm:0.12.6":
   version: 0.12.6
   resolution: "@lexical/table@npm:0.12.6"
@@ -3831,6 +3874,16 @@ __metadata:
   peerDependencies:
     lexical: 0.12.6
   checksum: 601fe1841773e704cbac6710dbdbfbe71a1a78ffda4ab993d7d6a482f25fa8dcbfa5f743af79c9c626afcbf776239e23d64a1ec8ec483160d571b93c9b08da51
+  languageName: node
+  linkType: hard
+
+"@lexical/table@npm:0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/table@npm:0.15.0"
+  dependencies:
+    "@lexical/utils": 0.15.0
+    lexical: 0.15.0
+  checksum: 030a18a8a7ab0376be9b5c4a2b8f080793d069ed5a178495a61ddbd63b055e481a375aa77bd5a65a8e2158c1a79288612960cf4a140e2ae3c0c6ec1350807a49
   languageName: node
   linkType: hard
 
@@ -3853,6 +3906,18 @@ __metadata:
   peerDependencies:
     lexical: 0.12.6
   checksum: d95889be86480a5ee4f02d3ea599ce9d94cea28174e71af4552c8be498789eb924e2fb6187561a50278fa3003a2e711be8f3b52ca8a01a4647ce2640d7d20930
+  languageName: node
+  linkType: hard
+
+"@lexical/utils@npm:0.15.0":
+  version: 0.15.0
+  resolution: "@lexical/utils@npm:0.15.0"
+  dependencies:
+    "@lexical/list": 0.15.0
+    "@lexical/selection": 0.15.0
+    "@lexical/table": 0.15.0
+    lexical: 0.15.0
+  checksum: 3992d783af1b7fca281113635c9e09b1bb064a82b372da7beeb0b8afe32a316efc6c3f9e3dacf1b379d8e242e7eeccc9f045b7d42d9ef085d0d4480537d2dfbd
   languageName: node
   linkType: hard
 
@@ -11576,7 +11641,9 @@ __metadata:
     "@graphql-codegen/typescript-react-apollo": ^4.3.0
     "@graphql-typed-document-node/core": ^3.2.0
     "@heroicons/react": ^2.0.18
+    "@lexical/clipboard": ^0.15.0
     "@lexical/react": ^0.12.6
+    "@lexical/selection": ^0.15.0
     "@lukemorales/query-key-factory": ^1.3.2
     "@mui/icons-material": ^5.15.4
     "@mui/lab": ^5.0.0-alpha.138
@@ -11616,6 +11683,7 @@ __metadata:
     eslint-plugin-storybook: ^0.6.12
     graphql: ^16.8.1
     graphql-codegen-apollo-next-ssr: ^1.7.4
+    graphql-tag: ^2.12.6
     graphql-ws: ^5.16.0
     jwt-decode: ^4.0.0
     keen-slider: ^6.8.5
@@ -11641,6 +11709,7 @@ __metadata:
     typescript: 5.0.4
     use-debounce: ^10.0.0
     uuid: ^9.0.1
+    yjs: ^13.6.15
   languageName: unknown
   linkType: soft
 
@@ -12651,6 +12720,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"isomorphic.js@npm:^0.2.4":
+  version: 0.2.5
+  resolution: "isomorphic.js@npm:0.2.5"
+  checksum: d8d1b083f05f3c337a06628b982ac3ce6db953bbef14a9de8ad49131250c3592f864b73c12030fdc9ef138ce97b76ef55c7d96a849561ac215b1b4b9d301c8e9
+  languageName: node
+  linkType: hard
+
 "istanbul-lib-coverage@npm:^3.2.0":
   version: 3.2.2
   resolution: "istanbul-lib-coverage@npm:3.2.2"
@@ -13173,10 +13249,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lexical@npm:0.15.0":
+  version: 0.15.0
+  resolution: "lexical@npm:0.15.0"
+  checksum: d2cb4d0c76e2a54546439fd8f7c5d0e85104c5ebbc40a3d58c9d7bd28886321493cc024914d6dc3461cfc8b97090fb7fe8c039aecd04662fbba32d17cbead08f
+  languageName: node
+  linkType: hard
+
 "lexical@npm:^0.12.6":
   version: 0.12.6
   resolution: "lexical@npm:0.12.6"
   checksum: 4f58d67914ae94e136830fec33b9b05b80d3419136e40767332172232f01015b0b1b38d977e63079e6ed267e5de1508a47bb1412e005dd7144895c5e20978a9c
+  languageName: node
+  linkType: hard
+
+"lib0@npm:^0.2.86":
+  version: 0.2.94
+  resolution: "lib0@npm:0.2.94"
+  dependencies:
+    isomorphic.js: ^0.2.4
+  bin:
+    0ecdsa-generate-keypair: bin/0ecdsa-generate-keypair.js
+    0gentesthtml: bin/gentesthtml.js
+    0serve: bin/0serve.js
+  checksum: b091c7b39875a58d92ae6dcb014a42b56caf1336e03d310403c47a2fcea079eba92ffb43da90eaff9d010f08bcd20de35fffed7c655c83312ff4e3477f5dc261
   languageName: node
   linkType: hard
 
@@ -19294,6 +19390,15 @@ __metadata:
     buffer-crc32: ~0.2.3
     fd-slicer: ~1.1.0
   checksum: 7f21fe0bbad6e2cb130044a5d1d0d5a0e5bf3d8d4f8c4e6ee12163ce798fee3de7388d22a7a0907f563ac5f9d40f8699a223d3d5c1718da90b0156da6904022b
+  languageName: node
+  linkType: hard
+
+"yjs@npm:^13.6.15":
+  version: 13.6.15
+  resolution: "yjs@npm:13.6.15"
+  dependencies:
+    lib0: ^0.2.86
+  checksum: a0cdb323f9cd40de37c9cd0a9a4613e35d8365488ed6078ec632f0ec1853de4d16e46d435dc97e4029c0e70666e24d02c7240a71e84f7b1f15ff18670d715483
   languageName: node
   linkType: hard
 
