@@ -11,7 +11,7 @@ interface Props {
 
 export default function AuctionPreviewFooter({ auction }: Props) {
   return (
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
       <div className="text-xs md:text-sm text-gray-200">
         <AuctionCountdown
           targetDate={auction.extendedEndDate}
