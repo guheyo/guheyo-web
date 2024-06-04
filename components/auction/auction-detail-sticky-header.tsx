@@ -19,7 +19,7 @@ export default function AuctionDetailStickyHeader({
   commentCount: number;
 }) {
   return (
-    <div className="sticky top-12 z-50 flex flex-row justify-between items-center bg-zinc-600 rounded-lg py-3 px-6 mx-4 md:mx-0 text-sm md:text-base">
+    <div className="sticky top-12 z-50 flex flex-row justify-between items-center bg-star-500 text-gray-200 rounded-lg py-3 px-6 mx-4 md:mx-0 text-sm md:text-base">
       <AuctionCountdown targetDate={auction.extendedEndDate} />
       <AuctionDetailPrice
         auctionStatus={auction.status as AuctionStatus}
