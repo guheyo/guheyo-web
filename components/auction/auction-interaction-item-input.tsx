@@ -4,11 +4,11 @@ import React from 'react';
 import BidInput from '@/components/bid/bid-input';
 import CommentCard from '@/components/comments/comment-card';
 import { AuthorResponse } from '@/generated/graphql';
-import { useBidInput } from '../bid/use-bid-input';
-import { BidValues } from '../bid/bid.types';
-import { CommentValues } from '../comment/comment.types';
+import { useBidInput } from '../../lib/bid/use-bid-input';
+import { BidValues } from '../../lib/bid/bid.types';
+import { CommentValues } from '../../lib/comment/comment.types';
 
-export default function AuctionInteractionInput({
+export default function AuctionInteractionItemInput({
   user,
   currentBidPrice,
   handlePlaceBid,
