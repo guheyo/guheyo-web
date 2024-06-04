@@ -6,6 +6,7 @@ import AuctionDetailPrice from './auction-detail-price';
 import AuctionCountdown from './auction-count-down';
 import AuctionBidCount from './auction-bid-count';
 import AuctionCommentCount from './auction-comment-count';
+import ToggleAuctionInteractionItem from './toggle-auction-interaction-item';
 
 export default function AuctionDetailStickyHeader({
   auction,
@@ -19,17 +20,22 @@ export default function AuctionDetailStickyHeader({
   commentCount: number;
 }) {
   return (
-    <div className="sticky top-12 z-50 flex flex-row justify-between items-center bg-zinc-600 rounded-lg py-3 px-6 mx-4 md:mx-0 text-sm md:text-base">
-      <AuctionCountdown targetDate={auction.extendedEndDate} />
-      <AuctionDetailPrice
-        auctionStatus={auction.status as AuctionStatus}
-        currentBidPrice={currentBidPrice}
-      />
-      <div className="hidden md:flex">
-        <AuctionBidCount bidCount={bidCount} />
+    <div className="sticky top-12 z-50 flex flex-row items-center gap-2 mx-2 md:mx-0 bg-dark-500">
+      <div className="flex flex-row flex-grow justify-between items-center bg-star-500 text-gray-200 rounded-lg py-2 md:py-3 px-2 md:px-3 text-sm md:text-base">
+        <AuctionCountdown targetDate={auction.extendedEndDate} />
+        <AuctionDetailPrice
+          auctionStatus={auction.status as AuctionStatus}
+          currentBidPrice={currentBidPrice}
+        />
+        <div className="hidden md:flex">
+          <AuctionBidCount bidCount={bidCount} />
+        </div>
+        <div className="hidden md:flex">
+          <AuctionCommentCount commentCount={commentCount} />
+        </div>
       </div>
-      <div className="hidden md:flex">
-        <AuctionCommentCount commentCount={commentCount} />
+      <div className="flex flex-row justify-between items-center bg-gray-500 text-gray-200 rounded-lg py-2 md:py-3 px-2 md:px-3 text-sm md:text-base">
+        <ToggleAuctionInteractionItem />
       </div>
     </div>
   );

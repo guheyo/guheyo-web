@@ -12,8 +12,9 @@ export default function AuctionDetailPrice({
 }) {
   return (
     <div className="flex flex-row gap-1 items-center">
-      <NorthIcon className="text-gray-500" />
-      {parseAuctionPriceLabel(auctionStatus)} {parsePrice(currentBidPrice)}
+      <NorthIcon className="opacity-50" />
+      <div className="opacity-50">{parseAuctionPriceLabel(auctionStatus)}</div>
+      <div className="font-semibold">{parsePrice(currentBidPrice)}</div>
     </div>
   );
 }
