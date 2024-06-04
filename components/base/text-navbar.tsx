@@ -25,7 +25,8 @@ export default function TextNavbar({
         <Link
           key={option.value}
           className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm font-bold ${getButtonCSS(
-            option.value === selectedValue,
+            option.value === selectedValue ||
+              (option.value === 'all' && selectedValue === undefined),
           )}`}
           passHref
           href={parseNewURL(option.value)}

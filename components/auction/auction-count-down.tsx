@@ -4,7 +4,13 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
-function AuctionCountdown({ targetDate }: { targetDate: Date }) {
+function AuctionCountdown({
+  targetDate,
+  displayLabel,
+}: {
+  targetDate: Date;
+  displayLabel: boolean;
+}) {
   const [timeLeft, setTimeLeft] = useState('');
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
 
@@ -44,17 +50,17 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
 
   return (
     <div className="flex flex-row gap-1 items-center">
-      <ScheduleIcon className="opacity-50" />
+      <ScheduleIcon className="opacity-50" fontSize="inherit" />
       {isAuctionEnded ? (
         <div className="flex flex-row items-center">
-          <span className="hidden lg:block opacity-50">경매 종료:</span>
+          {displayLabel && <span className="opacity-50">경매 종료:</span>}
           <span className="font-semibold ml-1">
             {dayjs(targetDate).format('YY.MM.DD HH:mm')}
           </span>
         </div>
       ) : (
         <div className="flex flex-row items-center">
-          <span className="hidden lg:block opacity-50">남은 시간:</span>
+          {displayLabel && <span className="opacity-50">남은 시간:</span>}
           <span className="font-semibold ml-1">{timeLeft}</span>
         </div>
       )}

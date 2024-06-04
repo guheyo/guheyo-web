@@ -6,6 +6,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import GavelIcon from '@mui/icons-material/Gavel';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import FlagIcon from '@mui/icons-material/Flag';
 import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
@@ -13,6 +14,7 @@ import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-l
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { parseGroupAuctionLink } from '@/lib/auction/parse-group-auction-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -118,6 +120,18 @@ export default function GroupSidebar({
           </ListItem>
           <GroupProfileSidebarItems
             currentGroupId={group.id}
+            onClick={handleMenuToggle}
+          />
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
+            경매장
+          </ListItem>
+          <SidebarItem
+            href={parseGroupAuctionLink({
+              groupSlug: group?.slug,
+            })}
+            icon={<GavelIcon fontSize="medium" />}
+            text="경매"
+            isActive={activeItem === 'auction'}
             onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
