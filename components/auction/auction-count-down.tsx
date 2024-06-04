@@ -46,10 +46,15 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
     <div className="flex flex-row gap-1 items-center">
       <ScheduleIcon className="opacity-50" />
       {isAuctionEnded ? (
-        <div className="font-semibold">경매 종료</div>
+        <div className="flex flex-row items-center">
+          <span className="hidden lg:block opacity-50">경매 종료:</span>
+          <span className="font-semibold ml-1">
+            {dayjs(targetDate).format('YY.MM.DD HH:mm')}
+          </span>
+        </div>
       ) : (
         <div className="flex flex-row items-center">
-          <span className="opacity-50">남은 시간:</span>
+          <span className="hidden lg:block opacity-50">남은 시간:</span>
           <span className="font-semibold ml-1">{timeLeft}</span>
         </div>
       )}
