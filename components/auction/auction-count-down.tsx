@@ -50,7 +50,7 @@ function AuctionCountdown({
 
   return (
     <div className="flex flex-row gap-1 items-center">
-      <ScheduleIcon className="opacity-50" />
+      <ScheduleIcon className="opacity-50" fontSize="inherit" />
       {isAuctionEnded ? (
         <div className="flex flex-row items-center">
           {displayLabel && <span className="opacity-50">경매 종료:</span>}

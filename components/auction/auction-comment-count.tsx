@@ -7,7 +7,7 @@ export default function AuctionCommentCount({
 }) {
   return (
     <div className="flex flex-row gap-1 items-center">
-      <ChatBubbleOvalLeftIcon className="w-6 opacity-50" />
+      <ChatBubbleOvalLeftIcon className="w-4 opacity-50" />
       <div className="opacity-50">댓글</div>
       <div className="font-semibold">{`${commentCount}개`}</div>
     </div>
