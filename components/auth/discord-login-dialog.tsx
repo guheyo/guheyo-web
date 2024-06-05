@@ -37,7 +37,7 @@ export default function DiscordLoginDialog({
   };
 
   return (
-    <div>
+    <div className="flex">
       <button type="submit" onClick={handleOpen} className="w-full">
         <div className="flex flex-row gap-1 items-center justify-center">
           {icon}
