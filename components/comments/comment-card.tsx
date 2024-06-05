@@ -194,6 +194,16 @@ export default function CommentCard({
           className="w-full flex gap-4 items-end pr-9 md:pr-0"
         >
           <div className="w-full">
+            {commentImages.length > 0 && (
+              <div className="mb-2">
+                <ImagePreviews
+                  images={commentImages}
+                  previewsProp={{
+                    onClick: handleClickImagePreview,
+                  }}
+                />
+              </div>
+            )}
             <CommentInput
               controllerProps={{
                 name: 'content',
@@ -207,16 +217,6 @@ export default function CommentCard({
             />
           </div>
           <div className="flex-none flex flex-row gap-2 items-center">
-            {commentImages.length > 0 && (
-              <div className="mr-2">
-                <ImagePreviews
-                  images={commentImages}
-                  previewsProp={{
-                    onClick: handleClickImagePreview,
-                  }}
-                />
-              </div>
-            )}
             {defaultMode === 'create' && (
               <ImagesInput
                 name="images"
