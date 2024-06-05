@@ -63,7 +63,8 @@ export default function AuctionInteractionItemFeed({
                 displayMenu
                 defaultMode="read"
                 commentId={auctionInteractionItem.id}
-                content={auctionInteractionItem.content}
+                content={auctionInteractionItem.content || undefined}
+                images={auctionInteractionItem.images}
                 createdAt={auctionInteractionItem.createdAt}
                 updatedAt={auctionInteractionItem.updatedAt}
                 commentReactions={auctionInteractionItem.reactions}

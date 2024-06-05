@@ -202,7 +202,8 @@ export default function CommentFeed({
             displayMenu
             defaultMode="read"
             commentId={comment.id}
-            content={comment.content}
+            content={comment.content || undefined}
+            images={comment.images}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
             commentReactions={comment.reactions}
@@ -225,6 +226,7 @@ export default function CommentFeed({
           isCurrentUser
           displayMenu
           defaultMode="create"
+          images={[]}
           commentReactions={[]}
           textFieldProps={{
             multiline: true,

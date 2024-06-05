@@ -11,7 +11,11 @@ import { CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
-import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
+import {
+  AuthorResponse,
+  ReactionResponse,
+  UserImageResponse,
+} from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { MOBILE_FILE_INPUT_LABEL_STYLE } from '@/lib/input/input.styles';
@@ -35,6 +39,7 @@ export default function CommentCard({
   defaultMode,
   commentId,
   content,
+  images,
   createdAt,
   updatedAt,
   commentReactions,
@@ -50,6 +55,7 @@ export default function CommentCard({
   defaultMode: CRUD;
   commentId?: string;
   content?: string;
+  images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
   commentReactions: ReactionResponse[];
@@ -76,7 +82,7 @@ export default function CommentCard({
   });
 
   const id = watch('id');
-  const images = watch('images');
+  const commentImages = watch('images');
 
   useEffect(() => {
     setMode(defaultMode);
@@ -86,6 +92,7 @@ export default function CommentCard({
     if (commentId) {
       setValue('id', commentId);
       setValue('content', content || '');
+      setValue('images', images);
     } else {
       setValue('id', uuid4());
     }
@@ -130,7 +137,7 @@ export default function CommentCard({
 
     const uploadedImages = parseUploadedImages({
       files,
-      offset: images.length,
+      offset: commentImages.length,
     });
 
     const userImages = await uploadAndSaveImages({
@@ -146,7 +153,7 @@ export default function CommentCard({
   };
 
   const handleClickImagePreview = async (position: number) => {
-    const imageId = images.find((image) => image.position === position)?.id;
+    const imageId = commentImages.find((image) => image.position === position)?.id;
     if (!imageId) return;
 
     await deleteUserImage(imageId);
@@ -196,7 +203,7 @@ export default function CommentCard({
           </div>
           <div className="flex-none flex flex-row gap-2 items-center">
             <ImagePreviews
-              images={images}
+              images={commentImages}
               previewsProp={{
                 onClick: handleClickImagePreview,
               }}
@@ -246,6 +253,7 @@ export default function CommentCard({
       isCurrentUser={isCurrentUser}
       postId={postId}
       content={content}
+      images={images}
       createdAt={createdAt}
       updatedAt={updatedAt}
       displayMenu={displayMenu}
