@@ -213,26 +213,28 @@ export default function CommentCard({
                 onClick: handleClickImagePreview,
               }}
             />
-            <ImagesInput
-              name="images"
-              control={control}
-              rules={{
-                required: false,
-              }}
-              imagesInputProps={{
-                label: {
-                  style: MOBILE_FILE_INPUT_LABEL_STYLE,
-                },
-                icon: {
-                  fontSize: 'medium',
-                },
-                onChange: handleChangeFileInput,
-              }}
-              inputProps={{
-                multiple: true,
-                hidden: true,
-              }}
-            />
+            {defaultMode === 'create' && (
+              <ImagesInput
+                name="images"
+                control={control}
+                rules={{
+                  required: false,
+                }}
+                imagesInputProps={{
+                  label: {
+                    style: MOBILE_FILE_INPUT_LABEL_STYLE,
+                  },
+                  icon: {
+                    fontSize: 'medium',
+                  },
+                  onChange: handleChangeFileInput,
+                }}
+                inputProps={{
+                  multiple: true,
+                  hidden: true,
+                }}
+              />
+            )}
             <DiscordLoginDialog
               icon={
                 <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
