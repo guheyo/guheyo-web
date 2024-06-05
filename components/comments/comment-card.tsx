@@ -207,12 +207,16 @@ export default function CommentCard({
             />
           </div>
           <div className="flex-none flex flex-row gap-2 items-center">
-            <ImagePreviews
-              images={commentImages}
-              previewsProp={{
-                onClick: handleClickImagePreview,
-              }}
-            />
+            {commentImages.length > 0 && (
+              <div className="mr-2">
+                <ImagePreviews
+                  images={commentImages}
+                  previewsProp={{
+                    onClick: handleClickImagePreview,
+                  }}
+                />
+              </div>
+            )}
             {defaultMode === 'create' && (
               <ImagesInput
                 name="images"
