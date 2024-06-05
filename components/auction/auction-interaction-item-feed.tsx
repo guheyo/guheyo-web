@@ -83,7 +83,7 @@ export default function AuctionInteractionItemFeed({
         })}
         <div ref={sentinelRef} />
       </div>
-      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10 pr-8 md:pr-0">
         <AuctionInteractionItemInput
           user={user}
           currentBidPrice={currentBidPrice}
