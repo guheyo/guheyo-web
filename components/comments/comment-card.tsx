@@ -132,6 +132,8 @@ export default function CommentCard({
   };
 
   const handleChangeFileInput = async (files: FileList | null) => {
+    if (defaultMode !== 'create') return;
+
     if (!files?.length) return;
     if (!isCurrentUser || !user) return;
 
@@ -153,7 +155,10 @@ export default function CommentCard({
   };
 
   const handleClickImagePreview = async (position: number) => {
-    const imageId = commentImages.find((image) => image.position === position)?.id;
+    if (defaultMode !== 'create') return;
+
+    const imageId = commentImages.find((image) => image.position === position)
+      ?.id;
     if (!imageId) return;
 
     await deleteUserImage(imageId);
