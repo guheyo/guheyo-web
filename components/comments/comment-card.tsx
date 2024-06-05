@@ -191,7 +191,7 @@ export default function CommentCard({
         )}
         <form
           onSubmit={handleSubmit(handleSubmitValid)}
-          className="w-full flex gap-4 items-end pr-9 md:pr-0"
+          className="w-full flex gap-4 items-end"
         >
           <div className="w-full">
             {commentImages.length > 0 && (
