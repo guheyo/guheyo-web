@@ -86,8 +86,8 @@ export default function CommentOutput({
           )}
         </div>
         {images.length > 0 && (
-          <div className="w-28 md:w-48">
-            <ImageSlider images={images} sizes="h-[80px] md:h-[160px]" />
+          <div className="w-28 md:w-44">
+            <ImageSlider images={images} sizes="h-[100px] md:h-[150px]" />
           </div>
         )}
         <div className="flex text-xs md:text-sm text-dark-100 font-thin break-all">
