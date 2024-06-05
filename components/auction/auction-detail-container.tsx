@@ -300,6 +300,7 @@ export default function AuctionDetailContainer({
         <AuctionInteractionItemFeed
           auctionInteractionItems={auctionInteractionItems}
           currentBidPrice={currentBidPrice}
+          isSeller={user ? user.id === auction.post.user.id : false}
           handlePlaceBid={handlePlaceBid}
           handleCancelBid={handleCancelBid}
           handleWrite={handleWrite}

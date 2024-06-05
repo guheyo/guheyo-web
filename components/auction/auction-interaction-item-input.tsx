@@ -11,17 +11,19 @@ import { CommentValues } from '../../lib/comment/comment.types';
 export default function AuctionInteractionItemInput({
   user,
   currentBidPrice,
+  isSeller,
   handlePlaceBid,
   handleWrite,
   handleEdit,
 }: {
   user?: AuthorResponse;
   currentBidPrice: number;
+  isSeller: boolean;
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
   handleEdit: (values: CommentValues) => Promise<void>;
 }) {
-  const { isBidMode } = useBidInput();
+  const { isBidMode } = useBidInput(!isSeller);
 
   return (
     <div>
