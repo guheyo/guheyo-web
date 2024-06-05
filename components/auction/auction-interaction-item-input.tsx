@@ -39,6 +39,7 @@ export default function AuctionInteractionItemInput({
           isCurrentUser
           displayMenu
           defaultMode="create"
+          images={[]}
           commentReactions={[]}
           textFieldProps={{
             multiline: true,
