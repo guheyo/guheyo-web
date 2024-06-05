@@ -56,6 +56,7 @@ export default function ReportCommentCard({
       defaultMode={defaultMode}
       commentId={comment?.id}
       content={comment?.content}
+      images={[]}
       createdAt={comment?.createdAt}
       updatedAt={comment?.updatedAt}
       commentReactions={[]}

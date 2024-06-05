@@ -202,7 +202,8 @@ export default function CommentFeed({
             displayMenu
             defaultMode="read"
             commentId={comment.id}
-            content={comment.content}
+            content={comment.content || undefined}
+            images={comment.images}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
             commentReactions={comment.reactions}
@@ -219,12 +220,13 @@ export default function CommentFeed({
         ))}
         <div ref={sentinelRef} />
       </div>
-      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10 pr-8 md:pr-0">
         <CommentCard
           user={user || undefined}
           isCurrentUser
           displayMenu
           defaultMode="create"
+          images={[]}
           commentReactions={[]}
           textFieldProps={{
             multiline: true,

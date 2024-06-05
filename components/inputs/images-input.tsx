@@ -11,7 +11,7 @@ import {
 interface ImagesInputProps {
   imagesInputProps: {
     label: {
-      name: string;
+      name?: string;
       style: string;
     };
     icon: IconProps;

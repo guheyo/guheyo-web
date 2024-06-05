@@ -23,6 +23,9 @@ fragment commentWithAuthor on CommentWithAuthorResponse {
   reactions {
     ...reaction
   }
+  images {
+    ...image
+  }
 }
 
 fragment commentCount on CommentCountResponse {
