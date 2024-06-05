@@ -4,7 +4,7 @@ import { useBidInput } from '@/lib/bid/use-bid-input';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 export default function ToggleAuctionInteractionItem() {
-  const { isBidMode, toggleBidMode } = useBidInput();
+  const { isBidMode, toggleBidMode } = useBidInput(true);
 
   return (
     <button type="button" onClick={toggleBidMode}>

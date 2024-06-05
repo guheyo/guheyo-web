@@ -1,8 +1,10 @@
 'use client';
 
+import { useContext } from 'react';
 import { AuctionResponse } from '@/generated/graphql';
 import { AuctionStatus } from '@/lib/auction/auction.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { AuthContext } from '../auth/auth.provider';
 import AuctionDetailPrice from './auction-detail-price';
 import AuctionCountdown from './auction-count-down';
 import AuctionBidCount from './auction-bid-count';
@@ -21,6 +23,7 @@ export default function AuctionDetailStickyHeader({
   commentCount: number;
 }) {
   const device = useDeviceDetect();
+  const { jwtPayload } = useContext(AuthContext);
 
   return (
     <div className="sticky top-12 z-50 flex flex-row items-center gap-2 mx-2 md:mx-0 bg-dark-500">
@@ -40,9 +43,12 @@ export default function AuctionDetailStickyHeader({
           <AuctionCommentCount commentCount={commentCount} />
         </div>
       </div>
-      <div className="flex flex-row justify-between items-center bg-gray-500 text-gray-200 rounded-lg py-2 md:py-3 px-2 md:px-3 text-sm md:text-base">
-        <ToggleAuctionInteractionItem />
-      </div>
+      {/* Show the ToggleAuctionInteractionItem only if the current user is not the seller */}
+      {jwtPayload?.id !== auction.post.user.id && (
+        <div className="flex flex-row justify-between items-center bg-gray-500 text-gray-200 rounded-lg py-2 md:py-3 px-2 md:px-3 text-sm md:text-base">
+          <ToggleAuctionInteractionItem />
+        </div>
+      )}
     </div>
   );
 }
