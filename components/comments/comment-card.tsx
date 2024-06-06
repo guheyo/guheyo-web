@@ -61,7 +61,7 @@ export default function CommentCard({
   commentReactions: ReactionResponse[];
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
-  handleEdit: (values: CommentValues) => void;
+  handleEdit?: (values: CommentValues) => void;
   handleDelete?: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CRUD>('read');
@@ -117,7 +117,7 @@ export default function CommentCard({
         content: '',
         images: [],
       });
-    } else if (mode === 'update') {
+    } else if (mode === 'update' && !!handleEdit) {
       handleEdit(values);
       setMode('read');
     }
@@ -270,6 +270,7 @@ export default function CommentCard({
       displayMenu={displayMenu}
       commentId={commentId}
       commentReactions={commentReactions}
+      editable={!!handleEdit}
       deletable={!!handleDelete}
       handleMenuClick={handleMenuClick}
     />

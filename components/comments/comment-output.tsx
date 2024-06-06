@@ -27,6 +27,7 @@ export default function CommentOutput({
   displayMenu,
   commentId,
   commentReactions,
+  editable,
   deletable,
   handleMenuClick,
 }: {
@@ -40,6 +41,7 @@ export default function CommentOutput({
   displayMenu: boolean;
   commentId: string;
   commentReactions: ReactionResponse[];
+  editable: boolean;
   deletable: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
@@ -80,6 +82,7 @@ export default function CommentOutput({
           {displayMenu && isHovered && (
             <CommentMenu
               isCurrentUser={isCurrentUser}
+              editable={editable}
               deletable={deletable}
               handleMenuClick={handleMenuClick}
             />
