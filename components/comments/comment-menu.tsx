@@ -9,10 +9,12 @@ import { IconButton } from '@mui/material';
 
 export default function CommentMenu({
   isCurrentUser,
+  editable,
   deletable,
   handleMenuClick,
 }: {
   isCurrentUser: boolean;
+  editable: boolean;
   deletable: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
@@ -28,6 +30,8 @@ export default function CommentMenu({
     event.preventDefault();
     setAnchorEl(null);
   };
+
+  if (!isCurrentUser) return <div />;
 
   return (
     <div>
@@ -51,7 +55,11 @@ export default function CommentMenu({
       >
         {isCurrentUser && (
           <>
-            <MenuItem onClick={() => handleMenuClick('update')}>수정</MenuItem>
+            {editable && (
+              <MenuItem onClick={() => handleMenuClick('update')}>
+                수정
+              </MenuItem>
+            )}
             {deletable && (
               <MenuItem onClick={() => handleMenuClick('delete')}>
                 삭제

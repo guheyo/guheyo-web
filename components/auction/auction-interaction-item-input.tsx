@@ -14,14 +14,14 @@ export default function AuctionInteractionItemInput({
   isSeller,
   handlePlaceBid,
   handleWrite,
-  handleEdit,
+  handleDelete,
 }: {
   user?: AuthorResponse;
   currentBidPrice: number;
   isSeller: boolean;
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
-  handleEdit: (values: CommentValues) => Promise<void>;
+  handleDelete?: (values: CommentValues) => Promise<void>;
 }) {
   const { isBidMode } = useBidInput(!isSeller);
 
@@ -48,9 +48,9 @@ export default function AuctionInteractionItemInput({
             size: 'small',
           }}
           handleWrite={handleWrite}
-          handleEdit={handleEdit}
+          handleDelete={handleDelete}
         />
       )}
     </div>
   );
-};
+}

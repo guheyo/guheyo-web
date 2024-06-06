@@ -15,7 +15,7 @@ import { OFFER_PRICE_REQUIRED_MESSAGE } from '@/lib/offer/offer.constants';
 import { BidValues } from '@/lib/bid/bid.types';
 import { AuthorResponse } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import { UP_DOWN_PRICE_UNIT } from '../offers/price-up-down-buttons';
 import Avatar from '../avatar/avatar';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -151,7 +151,7 @@ export default function BidInput({
           />
         </div>
         <div className="flex-none">
-          <DiscordLoginDialog
+          <DiscordLoginDialogButton
             icon={
               <div className="bg-star-500 text-gray-300 hover:text-gray-200 rounded-lg text-xs md:text-sm p-2 font-semibold">
                 입찰

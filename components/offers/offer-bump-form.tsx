@@ -32,7 +32,7 @@ import {
 } from '@/lib/offer/offer.constants';
 import { parseOfferBumpButtonName } from '@/lib/offer/parse-offer-bump-button-name';
 import TextInput from '../inputs/text-input';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import PriceUpDownButtons, {
   UP_DOWN_PRICE_UNIT,
 } from './price-up-down-buttons';
@@ -172,7 +172,7 @@ export default function OfferBumpForm({
       </div>
 
       <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
-        <DiscordLoginDialog
+        <DiscordLoginDialogButton
           name={parseOfferBumpButtonName(bumpedAt)}
           onAuthorization={handleAuthorization}
           onUnAuthorization={handleOnAuthorization}

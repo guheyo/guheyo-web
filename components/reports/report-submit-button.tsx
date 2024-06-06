@@ -2,7 +2,7 @@ import { useFindLastReportQuery } from '@/generated/graphql';
 import { MouseEventHandler } from 'react';
 import { parseReportButtonName } from '@/lib/report/parse-report-button-name';
 import { validateCooldown } from '@/lib/date/validate-cooldown';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function ReportSubmitButton() {
   const { data, loading, error } = useFindLastReportQuery({
@@ -30,7 +30,7 @@ export default function ReportSubmitButton() {
     name = parseReportButtonName(report.createdAt);
   }
   return (
-    <DiscordLoginDialog
+    <DiscordLoginDialogButton
       name={name}
       onAuthorization={handleAuthorization}
       onUnAuthorization={handleOnAuthorization}
