@@ -8,7 +8,7 @@ import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { AuthContext } from './auth.provider';
 import LoginButton from './login-button';
 
-export default function DiscordLoginDialog({
+export default function DiscordLoginDialogButton({
   name,
   icon,
   onAuthorization,

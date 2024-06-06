@@ -16,7 +16,7 @@ import {
   DEFAULT_INPUT_TEXT_COLOR,
 } from '@/lib/input/input.colors';
 import { updateUser } from '@/lib/api/user';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import { AboutFormValues } from './setting.interfaces';
 import TextInput from '../inputs/text-input';
 import AlertDialog from '../base/alert-dialog';
@@ -97,7 +97,7 @@ export default function SettingAboutForm({
       />
 
       <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
-        <DiscordLoginDialog
+        <DiscordLoginDialogButton
           name="수정하기"
           onAuthorization={handleAuthorization}
           onUnAuthorization={handleOnAuthorization}

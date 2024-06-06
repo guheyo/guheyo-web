@@ -27,7 +27,7 @@ import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import Avatar from '../avatar/avatar';
 import NoCommentOutput from './no-comment-output';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 
@@ -239,7 +239,7 @@ export default function CommentCard({
                 }}
               />
             )}
-            <DiscordLoginDialog
+            <DiscordLoginDialogButton
               icon={
                 <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
               }
