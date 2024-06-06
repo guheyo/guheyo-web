@@ -31,6 +31,8 @@ export default function CommentMenu({
     setAnchorEl(null);
   };
 
+  if (!isCurrentUser) return <div />;
+
   return (
     <div>
       <IconButton
