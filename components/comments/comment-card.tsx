@@ -36,6 +36,7 @@ export default function CommentCard({
   isCurrentUser,
   postId,
   displayMenu,
+  displayImagesInput,
   defaultMode,
   commentId,
   content,
@@ -52,6 +53,7 @@ export default function CommentCard({
   isCurrentUser: boolean;
   postId?: string;
   displayMenu: boolean;
+  displayImagesInput: boolean;
   defaultMode: CRUD;
   commentId?: string;
   content?: string;
@@ -217,7 +219,7 @@ export default function CommentCard({
             />
           </div>
           <div className="flex-none flex flex-row gap-2 items-center">
-            {defaultMode === 'create' && (
+            {displayImagesInput && defaultMode === 'create' && (
               <ImagesInput
                 name="images"
                 control={control}

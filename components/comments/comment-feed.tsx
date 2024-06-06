@@ -200,6 +200,7 @@ export default function CommentFeed({
             isCurrentUser={jwtPayload?.id === comment.user.id}
             postId={comment.postId}
             displayMenu
+            displayImagesInput={false}
             defaultMode="read"
             commentId={comment.id}
             content={comment.content || undefined}
@@ -225,6 +226,7 @@ export default function CommentFeed({
           user={user || undefined}
           isCurrentUser
           displayMenu
+          displayImagesInput
           defaultMode="create"
           images={[]}
           commentReactions={[]}
