@@ -4,9 +4,8 @@ import React, {
   useContext,
   useState,
 } from 'react';
-import { Dialog, DialogTitle, DialogActions } from '@mui/material';
 import { AuthContext } from './auth.provider';
-import LoginButton from './login-button';
+import DiscordLoginDialog from './discord-login-dialog';
 
 export default function DiscordLoginDialogButton({
   name,
@@ -44,20 +43,7 @@ export default function DiscordLoginDialogButton({
           {name}
         </div>
       </button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        maxWidth="xs"
-        fullWidth
-        className="backdrop-blur-sm"
-      >
-        <DialogTitle className="text-md md:text-xl text-center">
-          디스코드 아이디로 로그인 해주세요
-        </DialogTitle>
-        <DialogActions className="flex flex-row gap-1 text-lg items-center justify-center pt-0">
-          <LoginButton />
-        </DialogActions>
-      </Dialog>
+      <DiscordLoginDialog open={open} onClose={handleClose} />
     </div>
   );
 }
