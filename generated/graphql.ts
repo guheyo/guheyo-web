@@ -1137,6 +1137,7 @@ export type SocialUserResponse = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  auctionUpdated: UpdatedAuctionResponse;
   bidCanceled: CancelBidResponse;
   bidPlaced: BidResponse;
   commentCreated: CommentWithAuthorResponse;
@@ -1144,6 +1145,11 @@ export type Subscription = {
   commentUpdated: UpdatedCommentResponse;
   reactionCanceled: CanceledReactionResponse;
   reactionCreated: ReactionResponse;
+};
+
+
+export type SubscriptionAuctionUpdatedArgs = {
+  auctionId: Scalars['ID']['input'];
 };
 
 
@@ -1271,6 +1277,14 @@ export type UpdateUserInput = {
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdatedAuctionResponse = {
+  __typename?: 'UpdatedAuctionResponse';
+  extendedEndDate: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  status: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type UpdatedCommentResponse = {
   __typename?: 'UpdatedCommentResponse';
   content: Scalars['String']['output'];
@@ -1375,6 +1389,8 @@ export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, crea
 
 export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, groupId: string, categoryId?: string | null, commentCount?: number | null, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
+export type UpdatedAuctionResponseFragment = { __typename?: 'UpdatedAuctionResponse', id: string, updatedAt: any, extendedEndDate: any, status: string };
+
 export type FindAuctionPreviewsQueryVariables = Exact<{
   where?: InputMaybe<Scalars['JSON']['input']>;
   orderBy?: InputMaybe<Scalars['JSON']['input']>;
@@ -1413,6 +1429,13 @@ export type CreateAuctionMutationVariables = Exact<{
 
 
 export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: string };
+
+export type AuctionUpdatedSubscriptionVariables = Exact<{
+  auctionId: Scalars['ID']['input'];
+}>;
+
+
+export type AuctionUpdatedSubscription = { __typename?: 'Subscription', auctionUpdated: { __typename?: 'UpdatedAuctionResponse', id: string, updatedAt: any, extendedEndDate: any, status: string } };
 
 export type RefreshTokensMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -2118,6 +2141,14 @@ export const AuctionPreviewFragmentDoc = gql`
   status
 }
     ${PostPreviewWithUserFragmentDoc}`;
+export const UpdatedAuctionResponseFragmentDoc = gql`
+    fragment updatedAuctionResponse on UpdatedAuctionResponse {
+  id
+  updatedAt
+  extendedEndDate
+  status
+}
+    `;
 export const BidFragmentDoc = gql`
     fragment bid on BidResponse {
   id
@@ -2709,6 +2740,36 @@ export function useCreateAuctionMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateAuctionMutationHookResult = ReturnType<typeof useCreateAuctionMutation>;
 export type CreateAuctionMutationResult = Apollo.MutationResult<CreateAuctionMutation>;
 export type CreateAuctionMutationOptions = Apollo.BaseMutationOptions<CreateAuctionMutation, CreateAuctionMutationVariables>;
+export const AuctionUpdatedDocument = gql`
+    subscription AuctionUpdated($auctionId: ID!) {
+  auctionUpdated(auctionId: $auctionId) {
+    ...updatedAuctionResponse
+  }
+}
+    ${UpdatedAuctionResponseFragmentDoc}`;
+
+/**
+ * __useAuctionUpdatedSubscription__
+ *
+ * To run a query within a React component, call `useAuctionUpdatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAuctionUpdatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuctionUpdatedSubscription({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useAuctionUpdatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<AuctionUpdatedSubscription, AuctionUpdatedSubscriptionVariables> & ({ variables: AuctionUpdatedSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<AuctionUpdatedSubscription, AuctionUpdatedSubscriptionVariables>(AuctionUpdatedDocument, options);
+      }
+export type AuctionUpdatedSubscriptionHookResult = ReturnType<typeof useAuctionUpdatedSubscription>;
+export type AuctionUpdatedSubscriptionResult = Apollo.SubscriptionResult<AuctionUpdatedSubscription>;
 export const RefreshTokensDocument = gql`
     mutation RefreshTokens {
   refreshTokens {
