@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AuctionResponse } from '@/generated/graphql';
 import { AuctionStatus } from '@/lib/auction/auction.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import { AUCTION_CLOSED } from '@/lib/auction/auction.constants';
 import { AuthContext } from '../auth/auth.provider';
 import AuctionDetailPrice from './auction-detail-price';
 import AuctionCountdown from './auction-count-down';
@@ -27,7 +28,11 @@ export default function AuctionDetailStickyHeader({
 
   return (
     <div className="sticky top-12 z-50 flex flex-row items-center gap-2 mx-2 md:mx-0 bg-dark-500">
-      <div className="flex flex-row flex-grow justify-between items-center bg-star-500 text-gray-200 rounded-lg py-2 md:py-3 px-4 md:px-3 text-sm md:text-base">
+      <div
+        className={`flex flex-row flex-grow justify-between items-center text-gray-200 rounded-lg py-2 md:py-3 px-4 md:px-3 text-sm md:text-base ${
+          auction.status === AUCTION_CLOSED ? 'bg-black' : 'bg-star-500'
+        }`}
+      >
         <AuctionCountdown
           targetDate={auction.extendedEndDate}
           displayLabel={device !== 'mobile'}
