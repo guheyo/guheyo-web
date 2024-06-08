@@ -27,6 +27,7 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { useSearchParams } from 'next/navigation';
 import { AuthContext } from '../auth/auth.provider';
 import AuctionDetail from './auction-detail';
 import ReportFeed from '../reports/report-feed';
@@ -50,6 +51,8 @@ export default function AuctionDetailContainer({
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
   );
+  const searchParams = useSearchParams();
+  const view = searchParams.get('view') || 'newest';
 
   const reportWhere: FindReportPreviewsWhereArgs = {
     type: 'post',
@@ -63,7 +66,7 @@ export default function AuctionDetailContainer({
   const where: FindAuctionInteractionItemsWhereArgs = {
     auctionId: auction.id,
     postId: auction.post.id,
-    view: 'newest',
+    view,
   };
   const orderBy: FindAuctionInteractionItemsOrderByArgs = {
     createdAt: 'desc',
