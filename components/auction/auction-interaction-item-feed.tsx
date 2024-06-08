@@ -61,6 +61,7 @@ export default function AuctionInteractionItemFeed({
                 isCurrentUser={user?.id === auctionInteractionItem.user.id}
                 postId={auctionInteractionItem.postId}
                 displayMenu
+                displayImagesInput={false}
                 defaultMode="read"
                 commentId={auctionInteractionItem.id}
                 content={auctionInteractionItem.content || undefined}

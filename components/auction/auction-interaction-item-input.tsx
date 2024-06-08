@@ -38,6 +38,7 @@ export default function AuctionInteractionItemInput({
           user={user}
           isCurrentUser
           displayMenu
+          displayImagesInput={isSeller}
           defaultMode="create"
           images={[]}
           commentReactions={[]}

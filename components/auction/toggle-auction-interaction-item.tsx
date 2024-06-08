@@ -8,8 +8,8 @@ export default function ToggleAuctionInteractionItem() {
 
   return (
     <button type="button" onClick={toggleBidMode}>
-      <div className="flex flex-row">
-        <SwapHorizIcon className="opacity-50" />
+      <div className="flex flex-row items-center gap-1">
+        <SwapHorizIcon className="opacity-50" fontSize="inherit" />
         <div className="font-semibold">{isBidMode ? '댓글' : '입찰'}</div>
       </div>
     </button>
