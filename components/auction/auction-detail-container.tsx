@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import {
   AuctionInteractionItemResponse,
   AuctionResponse,
+  AuctionUpdatedDocument,
   BidCanceledDocument,
   BidPlacedDocument,
   BidResponse,
@@ -37,12 +38,13 @@ import AuctionInteractionItemFeed from './auction-interaction-item-feed';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 
 export default function AuctionDetailContainer({
-  auction,
+  auction: initialAuction,
 }: {
   auction: AuctionResponse;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const [auction, setAuction] = useState<AuctionResponse>(initialAuction);
   const [auctionInteractionItems, setAuctionInteractionItems] = useState<
     AuctionInteractionItemResponse[]
   >([]); // State to store bids
@@ -162,6 +164,21 @@ export default function AuctionDetailContainer({
       setCurrentBidPrice(lastBid.price);
     }
   }, [auctionInteractionItems]);
+
+  useSubscription(AuctionUpdatedDocument, {
+    variables: {
+      auctionId: where.auctionId,
+    },
+    onData: ({ data }) => {
+      const updatedAuction = data.data.auctionUpdated;
+      setAuction({
+        ...auction,
+        extendedEndDate: updatedAuction.extendedEndDate,
+        status: updatedAuction.status,
+      });
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
 
   useSubscription(BidPlacedDocument, {
     variables: {
