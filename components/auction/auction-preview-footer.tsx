@@ -1,8 +1,7 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { AuctionPreviewResponse } from '@/generated/graphql';
-import { AuctionStatus } from '@/lib/auction/auction.types';
+import { getAuctionStatusFromExtendedEndDate } from '@/lib/auction/get-auction-status-from-extended-end-date';
 import AuctionPreviewPrice from './auction-preview-price';
 import AuctionCountdown from './auction-count-down';
 import AuctionPreviewStatusLabel from './auction-preview-status-label';
@@ -12,9 +11,7 @@ interface Props {
 }
 
 export default function AuctionPreviewFooter({ auction }: Props) {
-  const status: AuctionStatus = dayjs().isAfter(dayjs(auction.extendedEndDate))
-    ? 'closed'
-    : 'live';
+  const status = getAuctionStatusFromExtendedEndDate(auction.extendedEndDate);
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
@@ -28,7 +25,7 @@ export default function AuctionPreviewFooter({ auction }: Props) {
         />
       </div>
       <AuctionPreviewPrice
-        auctionStatus={auction.status as AuctionStatus}
+        auctionStatus={status}
         currentBidPrice={auction.currentBidPrice!}
         hammerPrice={auction.hammerPrice}
       />
