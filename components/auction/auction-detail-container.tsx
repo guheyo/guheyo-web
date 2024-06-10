@@ -29,6 +29,7 @@ import {
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import { useSearchParams } from 'next/navigation';
+import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
 import { AuthContext } from '../auth/auth.provider';
 import AuctionDetail from './auction-detail';
 import ReportFeed from '../reports/report-feed';
@@ -36,6 +37,7 @@ import AuctionDetailAddons from './auction-detail-addons';
 import AuctionInteractionItemsSelector from './auction-interaction-items-selector';
 import AuctionInteractionItemFeed from './auction-interaction-item-feed';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
+import AlertDialog from '../base/alert-dialog';
 
 export default function AuctionDetailContainer({
   auction: initialAuction,
@@ -44,6 +46,8 @@ export default function AuctionDetailContainer({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [auction, setAuction] = useState<AuctionResponse>(initialAuction);
   const [auctionInteractionItems, setAuctionInteractionItems] = useState<
     AuctionInteractionItemResponse[]
@@ -78,24 +82,40 @@ export default function AuctionDetailContainer({
     createdAt: 'desc',
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
 
-    await placeBid({
-      id: values.id,
-      auctionId: where.auctionId,
-      price: values.price,
-      priceCurrency: 'krw',
-    });
+    try {
+      await placeBid({
+        id: values.id,
+        auctionId: where.auctionId,
+        price: values.price,
+        priceCurrency: 'krw',
+      });
+    } catch (e: any) {
+      const message = parseAuctionAlertMessage(e.message);
+      setAlertMessage(message);
+      setOpen(true);
+    }
   };
 
   const handleCancelBid = async (bidId: string) => {
     if (!jwtPayload || !where.auctionId) return;
 
-    await cancelBid({
-      auctionId: where.auctionId,
-      bidId,
-    });
+    try {
+      await cancelBid({
+        auctionId: where.auctionId,
+        bidId,
+      });
+    } catch (e: any) {
+      const message = parseAuctionAlertMessage(e.message);
+      setAlertMessage(message);
+      setOpen(true);
+    }
   };
 
   const handleWrite = async (values: CommentValues) => {
@@ -338,6 +358,7 @@ export default function AuctionDetailContainer({
         onClose={handleCloseDeleteDialog}
         onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
       />
+      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
     </div>
   );
 }
