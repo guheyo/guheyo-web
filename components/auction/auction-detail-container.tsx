@@ -77,6 +77,7 @@ export default function AuctionDetailContainer({
     auctionId: auction.id,
     postId: auction.post.id,
     view,
+    userId: view === 'sellerComment' ? auction.post.user.id : undefined,
   };
   const orderBy: FindAuctionInteractionItemsOrderByArgs = {
     createdAt: 'desc',
