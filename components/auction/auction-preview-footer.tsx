@@ -27,7 +27,6 @@ export default function AuctionPreviewFooter({ auction }: Props) {
       <AuctionPreviewPrice
         auctionStatus={status}
         currentBidPrice={auction.currentBidPrice!}
-        hammerPrice={auction.hammerPrice}
       />
     </div>
   );
