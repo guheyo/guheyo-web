@@ -24,6 +24,7 @@ const parseCreateAuctionInput = ({
     id: auctionFormValues.id,
     createdAt,
     originalEndDate,
+    extendedEndDate: originalEndDate,
     content: auctionFormValues.content,
     shippingCost: 0,
     shippingType: SHIPPING_FREE,

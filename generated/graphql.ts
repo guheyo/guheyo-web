@@ -188,6 +188,7 @@ export type CommentWithAuthorResponseEdge = {
 export type CreateAuctionInput = {
   content: Scalars['String']['input'];
   createdAt: Scalars['DateTime']['input'];
+  extendedEndDate: Scalars['DateTime']['input'];
   id: Scalars['ID']['input'];
   originalEndDate: Scalars['DateTime']['input'];
   post: CreatePostInput;
