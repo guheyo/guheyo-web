@@ -3,7 +3,7 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { AuctionResponse } from '@/generated/graphql';
+import { AuctionResponse, BidResponse } from '@/generated/graphql';
 import { getAuctionStatusFromExtendedEndDate } from '@/lib/auction/get-auction-status-from-extended-end-date';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -13,12 +13,12 @@ import AuctionDetailStickyHeader from './auction-detail-sticky-header';
 
 export default function AuctionDetailMain({
   auction,
-  currentBidPrice,
+  highestBid,
   bidCount,
   commentCount,
 }: {
   auction: AuctionResponse;
-  currentBidPrice: number;
+  highestBid?: BidResponse;
   bidCount: number;
   commentCount: number;
 }) {
@@ -30,7 +30,7 @@ export default function AuctionDetailMain({
       <AuctionDetailStickyHeader
         status={status}
         extendedEndDate={auction.extendedEndDate}
-        currentBidPrice={currentBidPrice}
+        highestBid={highestBid}
         bidCount={bidCount}
         commentCount={commentCount}
         userId={auction.post.user.id}

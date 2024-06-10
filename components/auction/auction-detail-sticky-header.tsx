@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AuctionStatus } from '@/lib/auction/auction.types';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AUCTION_CLOSED } from '@/lib/auction/auction.constants';
+import { BidResponse } from '@/generated/graphql';
 import { AuthContext } from '../auth/auth.provider';
 import AuctionDetailPrice from './auction-detail-price';
 import AuctionCountdown from './auction-count-down';
@@ -14,14 +15,14 @@ import ToggleAuctionInteractionItem from './toggle-auction-interaction-item';
 export default function AuctionDetailStickyHeader({
   status,
   extendedEndDate,
-  currentBidPrice,
+  highestBid,
   bidCount,
   commentCount,
   userId,
 }: {
   status: AuctionStatus;
   extendedEndDate: Date;
-  currentBidPrice: number;
+  highestBid?: BidResponse;
   bidCount: number;
   commentCount: number;
   userId: string;
@@ -40,10 +41,7 @@ export default function AuctionDetailStickyHeader({
           targetDate={extendedEndDate}
           displayLabel={device !== 'mobile'}
         />
-        <AuctionDetailPrice
-          auctionStatus={status}
-          currentBidPrice={currentBidPrice}
-        />
+        <AuctionDetailPrice auctionStatus={status} highestBid={highestBid} />
         <div className="hidden md:flex">
           <AuctionBidCount bidCount={bidCount} />
         </div>
