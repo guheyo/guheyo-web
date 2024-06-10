@@ -2,7 +2,7 @@
 
 import AuctionFeed from '@/components/auction/auction-feed';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
+import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { useSearchParams } from 'next/navigation';
 
 export interface AuctionsPageProps {
@@ -13,7 +13,7 @@ export interface AuctionsPageProps {
 
 function Page({ params: { groupSlug } }: AuctionsPageProps) {
   const searchParams = useSearchParams();
-  const status = parseOfferStatus({
+  const status = parseAuctionStatus({
     status: searchParams.get('status'),
   });
   const where = {
