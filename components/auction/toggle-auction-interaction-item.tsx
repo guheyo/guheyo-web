@@ -1,7 +1,8 @@
 'use client';
 
 import { useBidInput } from '@/lib/bid/use-bid-input';
-import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
+import PaidIcon from '@mui/icons-material/Paid';
 
 export default function ToggleAuctionInteractionItem() {
   const { isBidMode, toggleBidMode } = useBidInput(true);
@@ -9,8 +10,11 @@ export default function ToggleAuctionInteractionItem() {
   return (
     <button type="button" onClick={toggleBidMode}>
       <div className="flex flex-row items-center gap-1">
-        <SwapHorizIcon className="opacity-50" fontSize="inherit" />
-        <div className="font-semibold">{isBidMode ? '댓글' : '입찰'}</div>
+        {isBidMode ? (
+          <ChatBubbleOvalLeftIcon fill="white" className="w-4 md:w-5" />
+        ) : (
+          <PaidIcon className="w-4 md:w-5" />
+        )}
       </div>
     </button>
   );

@@ -1,6 +1,6 @@
 import { UserImage } from '../image/image.interfaces';
 
-export type AuctionStatus = 'live' | 'end';
+export type AuctionStatus = 'live' | 'closed';
 
 export type AuctionFormValues = {
   id: string;

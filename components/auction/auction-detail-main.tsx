@@ -3,8 +3,8 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { AuctionResponse } from '@/generated/graphql';
-import { AuctionStatus } from '@/lib/auction/auction.types';
+import { AuctionResponse, BidResponse } from '@/generated/graphql';
+import { getAuctionStatusFromExtendedEndDate } from '@/lib/auction/get-auction-status-from-extended-end-date';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import AuctionDetailName from './auction-detail-name';
@@ -13,24 +13,27 @@ import AuctionDetailStickyHeader from './auction-detail-sticky-header';
 
 export default function AuctionDetailMain({
   auction,
-  currentBidPrice,
+  highestBid,
   bidCount,
   commentCount,
 }: {
   auction: AuctionResponse;
-  currentBidPrice: number;
+  highestBid?: BidResponse;
   bidCount: number;
   commentCount: number;
 }) {
   const device = useDeviceDetect();
+  const status = getAuctionStatusFromExtendedEndDate(auction.extendedEndDate);
 
   return (
     <>
       <AuctionDetailStickyHeader
-        auction={auction}
-        currentBidPrice={currentBidPrice}
+        status={status}
+        extendedEndDate={auction.extendedEndDate}
+        highestBid={highestBid}
         bidCount={bidCount}
         commentCount={commentCount}
+        userId={auction.post.user.id}
       />
       <div className="px-4 md:px-0">
         <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-start justify-between">
@@ -50,7 +53,7 @@ export default function AuctionDetailMain({
             <ReportsLink reportCount={auction.post.reportCount} />
           )}
           <AuctionDetailName
-            auctionStatus={auction.status as AuctionStatus}
+            auctionStatus={status}
             title={auction.post.title}
           />
         </div>

@@ -34,6 +34,13 @@ fragment auctionPreview on AuctionPreviewResponse {
   status
 }
 
+fragment updatedAuctionResponse on UpdatedAuctionResponse {
+  id
+  updatedAt
+  extendedEndDate
+  status
+}
+
 query FindAuctionPreviews(
   $where: JSON
   $orderBy: JSON
@@ -113,4 +120,10 @@ query FindAuctionInteractionItems(
 
 mutation CreateAuction($input: CreateAuctionInput!) {
   createAuction(input: $input)
+}
+
+subscription AuctionUpdated($auctionId: ID!) {
+  auctionUpdated(auctionId: $auctionId) {
+    ...updatedAuctionResponse
+  }
 }
