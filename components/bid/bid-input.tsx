@@ -14,6 +14,7 @@ import { v4 as uuid4 } from 'uuid';
 import { OFFER_PRICE_REQUIRED_MESSAGE } from '@/lib/offer/offer.constants';
 import { BidValues } from '@/lib/bid/bid.types';
 import { AuthorResponse } from '@/generated/graphql';
+import { roundDownToNearest5000 } from '@/lib/price/round-down-to-nearest-5000';
 import TextInput from '../inputs/text-input';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import { UP_DOWN_PRICE_UNIT } from '../offers/price-up-down-buttons';
@@ -79,9 +80,12 @@ export default function BidInput({
   };
 
   const handleSubmitValid: SubmitHandler<BidValues> = (values) => {
+    const roundedPrice = roundDownToNearest5000(values.price);
+
     handlePlaceBid({
       ...values,
       id: uuid4(),
+      price: roundedPrice,
     });
     reset({
       id: '',
