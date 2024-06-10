@@ -6,6 +6,11 @@ export const AUCTION_STATUS_OPTIONS = [
   { value: 'closed', label: '종료' },
 ];
 
+export const AUCTION_SORT_ORDER_OPTIONS = [
+  { value: 'ending', label: '종료 임박' },
+  { value: 'newest', label: '최신순' },
+];
+
 export const AUCTION_INTERACTION_ITEM_SORT_OPTIONS = [
   { value: 'newest', label: '최신순' },
   { value: 'bid', label: '입찰' },
