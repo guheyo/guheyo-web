@@ -82,6 +82,10 @@ module.exports = {
         format: ['camelCase', 'PascalCase'],
         leadingUnderscore: 'allow',
       },
+      {
+        selector: 'enumMember',
+        format: ['UPPER_CASE'],
+      },
     ],
     'check-file/filename-naming-convention': [
       ERROR,
