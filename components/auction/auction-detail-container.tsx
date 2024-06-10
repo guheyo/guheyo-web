@@ -47,8 +47,12 @@ export default function AuctionDetailContainer({
   const [auction, setAuction] = useState<AuctionResponse>(initialAuction);
   const [auctionInteractionItems, setAuctionInteractionItems] = useState<
     AuctionInteractionItemResponse[]
-  >([]); // State to store bids
-  const [currentBidPrice, setCurrentBidPrice] = useState(0);
+  >([]);
+  const highestBid: BidResponse | undefined = auctionInteractionItems.filter(
+    (auctionInteractionItem): auctionInteractionItem is BidResponse =>
+      auctionInteractionItem.__typename === 'BidResponse',
+  )[0];
+
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
@@ -153,17 +157,6 @@ export default function AuctionDetailContainer({
       );
     }
   }, [auctionInteractionItemsLoading, auctionInteractionItemsData]);
-
-  useEffect(() => {
-    const lastBid = auctionInteractionItems.find(
-      (interactionItem) =>
-        interactionItem.__typename === 'BidResponse' &&
-        interactionItem.canceledAt === null,
-    ) as BidResponse | null;
-    if (lastBid) {
-      setCurrentBidPrice(lastBid.price);
-    }
-  }, [auctionInteractionItems]);
 
   useSubscription(AuctionUpdatedDocument, {
     variables: {
@@ -305,7 +298,7 @@ export default function AuctionDetailContainer({
     <div className="flex flex-col gap-4">
       <AuctionDetail
         auction={auction}
-        currentBidPrice={currentBidPrice}
+        highestBid={highestBid}
         bidCount={bidCount}
         commentCount={commentCount}
       />
@@ -329,7 +322,7 @@ export default function AuctionDetailContainer({
       <div className="px-4 md:px-0">
         <AuctionInteractionItemFeed
           auctionInteractionItems={auctionInteractionItems}
-          currentBidPrice={currentBidPrice}
+          currentBidPrice={highestBid?.price || 0}
           isSeller={user ? user.id === auction.post.user.id : false}
           handlePlaceBid={handlePlaceBid}
           handleCancelBid={handleCancelBid}
