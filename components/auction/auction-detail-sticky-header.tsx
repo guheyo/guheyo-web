@@ -33,7 +33,7 @@ export default function AuctionDetailStickyHeader({
   return (
     <div className="sticky top-12 z-50 flex flex-row items-center gap-2 mx-2 md:mx-0 bg-dark-500">
       <div
-        className={`flex flex-row flex-grow justify-between items-center text-gray-200 rounded-lg py-3 md:py-3 px-4 md:px-3 text-sm md:text-base ${
+        className={`flex flex-row flex-grow justify-between items-center text-gray-200 rounded-lg h-10 md:h-12 py-3 md:py-3 px-4 md:px-3 text-sm md:text-base ${
           status === AUCTION_CLOSED ? 'bg-black' : 'bg-star-500'
         }`}
       >
@@ -51,7 +51,7 @@ export default function AuctionDetailStickyHeader({
       </div>
       {/* Show the ToggleAuctionInteractionItem only if the current user is not the seller */}
       {jwtPayload?.id !== userId && (
-        <div className="flex flex-row justify-between items-center bg-gray-500 text-gray-200 rounded-lg py-3 md:py-3 px-2 md:px-3 text-sm md:text-base">
+        <div className="flex flex-row justify-between items-center bg-star-500 text-gray-200 rounded-lg h-10 md:h-12 py-3 md:py-3 px-2 md:px-3 text-sm md:text-base">
           <ToggleAuctionInteractionItem />
         </div>
       )}
