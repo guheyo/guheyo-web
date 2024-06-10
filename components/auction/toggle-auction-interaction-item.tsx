@@ -11,11 +11,7 @@ export default function ToggleAuctionInteractionItem() {
     <button type="button" onClick={toggleBidMode}>
       <div className="flex flex-row items-center gap-1">
         {isBidMode ? (
-          <ChatBubbleOvalLeftIcon
-            color="white"
-            fill="white"
-            className="w-4 md:w-5"
-          />
+          <ChatBubbleOvalLeftIcon fill="white" className="w-4 md:w-5" />
         ) : (
           <PaidIcon className="w-4 md:w-5" />
         )}
