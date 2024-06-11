@@ -34,7 +34,7 @@ export default function AuctionDetailStickyHeader({
     <div className="sticky top-12 z-50 flex flex-row items-center gap-2 mx-2 md:mx-0 bg-dark-500">
       <div
         className={`flex flex-row flex-grow justify-between items-center text-gray-200 rounded-lg h-10 md:h-12 py-3 md:py-3 px-4 md:px-3 text-sm md:text-base ${
-          status === AUCTION_CLOSED ? 'bg-black' : 'bg-star-500'
+          status === AUCTION_CLOSED ? 'bg-black' : 'bg-star-700'
         }`}
       >
         <AuctionCountdown
