@@ -1,6 +1,6 @@
 'use client';
 
-import DiscordLoginDialogButton from '@/components/auth/discord-login-dialog';
+import DiscordLoginDialogButton from '@/components/auth/discord-login-dialog-button';
 import { MouseEventHandler } from 'react';
 
 export default function NextDialog({
