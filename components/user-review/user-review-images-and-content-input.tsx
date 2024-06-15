@@ -61,7 +61,6 @@ export default function UserReviewImagesAndContentInput({
       uploadedImages,
       type: USER_REVIEW,
       refId: idField.value,
-      userId,
     });
 
     userImages.map((userImage) => update(userImage.position, userImage));

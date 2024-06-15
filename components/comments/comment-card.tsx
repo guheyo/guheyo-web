@@ -148,7 +148,6 @@ export default function CommentCard({
       uploadedImages,
       type: 'comment',
       refId: id,
-      userId: user.id,
     });
 
     userImages.map((userImage) =>

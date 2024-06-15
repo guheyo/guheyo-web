@@ -184,7 +184,6 @@ export default function OfferForm({
       uploadedImages,
       type: OFFER,
       refId: offerId,
-      userId,
     });
 
     userImages.map((userImage) =>
