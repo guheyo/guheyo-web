@@ -6,14 +6,12 @@ const parseCreateUserImageInput = ({
   userImage,
   type,
   refId,
-  userId,
   url,
 }: {
   file: File;
   userImage: UserImage;
   type: string;
   refId: string;
-  userId: string;
   url: string;
 }): CreateUserImageInput => ({
   contentType: file.type,
@@ -23,7 +21,6 @@ const parseCreateUserImageInput = ({
   position: userImage.position,
   type,
   refId,
-  userId,
   url,
 });
 
