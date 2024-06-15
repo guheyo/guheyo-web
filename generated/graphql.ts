@@ -215,7 +215,7 @@ export type CreateGroupInput = {
 };
 
 export type CreateManyUserImageInput = {
-  data: Array<CreateUserImageInput>;
+  createUserImageInputs: Array<CreateUserImageInput>;
 };
 
 export type CreateOfferInput = {
@@ -286,7 +286,6 @@ export type CreateUserImageInput = {
   size?: InputMaybe<Scalars['Int']['input']>;
   type: Scalars['String']['input'];
   url: Scalars['String']['input'];
-  userId: Scalars['ID']['input'];
   width?: InputMaybe<Scalars['Int']['input']>;
 };
 

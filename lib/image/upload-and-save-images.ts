@@ -25,7 +25,6 @@ const uploadAndSaveImages = async ({
       userImage: uploadedUserImage.userImage,
       type,
       refId,
-      userId,
       url,
     });
     await createUserImage(input);
