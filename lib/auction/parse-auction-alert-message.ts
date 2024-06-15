@@ -30,6 +30,8 @@ export const parseAuctionAlertMessage = (
       return '마지막 입찰만 취소 할 수 있어요';
     case AuctionErrorMessage.PLACE_BID_RETRY_LIMIT_EXCEEDED:
       return '입찰 실패';
+    case AuctionErrorMessage.SERVER_MAINTENANCE:
+      return '참여율이 낮은 새벽(02:00 ~ 06:00)에 경매가 종료되지 않도록 오전 6시까지 경매 등록을 제한하고 있어요';
     default:
       return '입찰 실패';
   }

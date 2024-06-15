@@ -161,7 +161,6 @@ export default function AuctionForm({
       uploadedImages,
       type: AUCTION,
       refId: auctionId,
-      userId,
     });
 
     userImages.map((userImage) =>

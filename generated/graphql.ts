@@ -272,7 +272,6 @@ export type CreateRoleInput = {
 export type CreateSignedUrlInput = {
   filename: Scalars['String']['input'];
   type: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
 };
 
 export type CreateUserImageInput = {
