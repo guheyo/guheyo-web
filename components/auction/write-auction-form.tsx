@@ -38,6 +38,9 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
     try {
       await createAuction(input);
       router.back();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (e: any) {
       const message = parseAuctionAlertMessage(e.message);
       setAlertMessage(message);
