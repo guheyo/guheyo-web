@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import {
   AuctionInteractionItemResponse,
   AuthorResponse,
@@ -8,24 +9,26 @@ import { BidValues } from '@/lib/bid/bid.types';
 import { CommentValues } from '@/lib/comment/comment.types';
 import BidOutput from '../bid/bid-output';
 import CommentCard from '../comments/comment-card';
-import BidInput from '../bid/bid-input';
+import AuctionInteractionItemInput from './auction-interaction-item-input';
 
 export default function AuctionInteractionItemFeed({
   auctionInteractionItems,
   currentBidPrice,
+  isSeller,
   handlePlaceBid,
   handleCancelBid,
   handleWrite,
-  handleEdit,
+  handleDelete,
   user,
   sentinelRef,
 }: {
   auctionInteractionItems: AuctionInteractionItemResponse[];
   currentBidPrice: number;
+  isSeller: boolean;
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleCancelBid: (bidId: string) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
-  handleEdit: (values: CommentValues) => Promise<void>;
+  handleDelete?: (values: CommentValues) => void;
   user?: AuthorResponse;
   sentinelRef: React.RefObject<HTMLDivElement>;
 }) {
@@ -58,9 +61,11 @@ export default function AuctionInteractionItemFeed({
                 isCurrentUser={user?.id === auctionInteractionItem.user.id}
                 postId={auctionInteractionItem.postId}
                 displayMenu
+                displayImagesInput={false}
                 defaultMode="read"
                 commentId={auctionInteractionItem.id}
-                content={auctionInteractionItem.content}
+                content={auctionInteractionItem.content || undefined}
+                images={auctionInteractionItem.images}
                 createdAt={auctionInteractionItem.createdAt}
                 updatedAt={auctionInteractionItem.updatedAt}
                 commentReactions={auctionInteractionItem.reactions}
@@ -71,7 +76,7 @@ export default function AuctionInteractionItemFeed({
                   size: 'small',
                 }}
                 handleWrite={handleWrite}
-                handleEdit={handleEdit}
+                handleDelete={handleDelete}
               />
             );
           }
@@ -79,26 +84,13 @@ export default function AuctionInteractionItemFeed({
         })}
         <div ref={sentinelRef} />
       </div>
-      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
-        <BidInput
-          user={user || undefined}
-          currentBidPrice={currentBidPrice}
-          handlePlaceBid={handlePlaceBid}
-        />
-        <CommentCard
+      <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10 pr-8 md:pr-0">
+        <AuctionInteractionItemInput
           user={user}
-          isCurrentUser
-          displayMenu
-          defaultMode="create"
-          commentReactions={[]}
-          textFieldProps={{
-            multiline: true,
-            placeholder: '메시지 보내기',
-            minRows: 1,
-            size: 'small',
-          }}
+          currentBidPrice={currentBidPrice}
+          isSeller={isSeller}
+          handlePlaceBid={handlePlaceBid}
           handleWrite={handleWrite}
-          handleEdit={handleEdit}
         />
       </div>
     </div>

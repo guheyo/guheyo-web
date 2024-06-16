@@ -54,7 +54,7 @@ import {
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function AuctionForm({
   localStorageKey,
@@ -161,7 +161,6 @@ export default function AuctionForm({
       uploadedImages,
       type: AUCTION,
       refId: auctionId,
-      userId,
     });
 
     userImages.map((userImage) =>
@@ -326,7 +325,7 @@ export default function AuctionForm({
 
       {prevFormValues ? (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
-          <DiscordLoginDialog
+          <DiscordLoginDialogButton
             name={OFFER_EDIT_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}
@@ -334,7 +333,7 @@ export default function AuctionForm({
         </div>
       ) : (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
-          <DiscordLoginDialog
+          <DiscordLoginDialogButton
             name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}

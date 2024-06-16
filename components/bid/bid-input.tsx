@@ -14,8 +14,9 @@ import { v4 as uuid4 } from 'uuid';
 import { OFFER_PRICE_REQUIRED_MESSAGE } from '@/lib/offer/offer.constants';
 import { BidValues } from '@/lib/bid/bid.types';
 import { AuthorResponse } from '@/generated/graphql';
+import { roundDownToNearest5000 } from '@/lib/price/round-down-to-nearest-5000';
 import TextInput from '../inputs/text-input';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import { UP_DOWN_PRICE_UNIT } from '../offers/price-up-down-buttons';
 import Avatar from '../avatar/avatar';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -79,9 +80,12 @@ export default function BidInput({
   };
 
   const handleSubmitValid: SubmitHandler<BidValues> = (values) => {
+    const roundedPrice = roundDownToNearest5000(values.price);
+
     handlePlaceBid({
       ...values,
       id: uuid4(),
+      price: roundedPrice,
     });
     reset({
       id: '',
@@ -106,9 +110,9 @@ export default function BidInput({
       )}
       <form
         onSubmit={handleSubmit(handleSubmitValid, handleSubmitError)}
-        className="w-full flex flex-row gap-2 items-center pr-9 md:pr-0"
+        className="w-full flex flex-row gap-2 items-center"
       >
-        <div className="w-full">
+        <div className="flex-grow">
           <TextInput
             name="price"
             control={control}
@@ -151,7 +155,7 @@ export default function BidInput({
           />
         </div>
         <div className="flex-none">
-          <DiscordLoginDialog
+          <DiscordLoginDialogButton
             icon={
               <div className="bg-star-500 text-gray-300 hover:text-gray-200 rounded-lg text-xs md:text-sm p-2 font-semibold">
                 입찰

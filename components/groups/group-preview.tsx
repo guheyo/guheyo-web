@@ -33,7 +33,7 @@ export default function GroupPreview({ group }: Props) {
         >
           <span className="flex flex-row items-center gap-1 px-3 md:px-0">
             <SellIcon fontSize={isMobile ? 'small' : 'medium'} />
-            {group.name} 팝니다
+            {group.name} 판매
           </span>
         </Link>
       </div>
@@ -57,6 +57,7 @@ export default function GroupPreview({ group }: Props) {
           </span>
         </Link>
       </div>
+
       <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
         <div className="flex flex-row items-center gap-1 px-3 md:px-0">
           <ShoppingBagIcon fontSize={isMobile ? 'small' : 'medium'} />
@@ -66,7 +67,7 @@ export default function GroupPreview({ group }: Props) {
               businessFunction: 'buy',
             })}
           >
-            {group.name} 삽니다
+            {group.name} 구매
           </Link>
         </div>
       </div>

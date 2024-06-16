@@ -2,7 +2,11 @@
 
 import { CRUD } from '@/lib/crud/crud.types';
 import { parseCommentDate } from '@/lib/comment/parse-comment-date';
-import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
+import {
+  AuthorResponse,
+  ReactionResponse,
+  UserImageResponse,
+} from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -10,17 +14,20 @@ import remarkGfm from 'remark-gfm';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import ReactionBar from '../reaction/reaction-bar';
+import ImageSlider from '../base/image-slider';
 
 export default function CommentOutput({
   user,
   isCurrentUser,
   postId,
   content,
+  images,
   createdAt,
   updatedAt,
   displayMenu,
   commentId,
   commentReactions,
+  editable,
   deletable,
   handleMenuClick,
 }: {
@@ -28,11 +35,13 @@ export default function CommentOutput({
   isCurrentUser: boolean;
   postId?: string;
   content?: string;
+  images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
   displayMenu: boolean;
   commentId: string;
   commentReactions: ReactionResponse[];
+  editable: boolean;
   deletable: boolean;
   handleMenuClick: (mode: CRUD) => void;
 }) {
@@ -73,11 +82,17 @@ export default function CommentOutput({
           {displayMenu && isHovered && (
             <CommentMenu
               isCurrentUser={isCurrentUser}
+              editable={editable}
               deletable={deletable}
               handleMenuClick={handleMenuClick}
             />
           )}
         </div>
+        {images.length > 0 && (
+          <div className="w-28 md:w-44">
+            <ImageSlider images={images} sizes="h-[100px] md:h-[150px]" />
+          </div>
+        )}
         <div className="flex text-xs md:text-sm text-dark-100 font-thin break-all">
           {content && (
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>

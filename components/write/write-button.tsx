@@ -1,25 +1,28 @@
 'use client';
 
-import { useGroup } from '@/hooks/use-group';
 import { LoadingButton } from '@mui/lab';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+import { extractGroupAndChannel } from '@/lib/group/extract-group-and-channel';
 
 export default function WriteButton() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { group, loading: isGroupLoading } = useGroup();
+  const pathname = usePathname();
 
-  if (isGroupLoading) return <div />;
-  if (!group?.slug) return <div />;
-  const { slug } = group;
+  const { groupName, channelName } = extractGroupAndChannel(pathname);
 
   const handleOnClick = (): void => {
+    if (!groupName && !channelName) return;
+
     setLoading(true);
-    router.push(`/write/g/${slug}/offer`);
+    router.push(`/write/g/${groupName}/${channelName}`);
     setLoading(false);
   };
+
+  if (!groupName) return <div />;
+  if (!['auction', 'offer'].includes(channelName)) return <div />;
 
   return (
     <div className="inline-flex items-center">
@@ -37,7 +40,7 @@ export default function WriteButton() {
             backgroundColor: 'transparent', // Match IconButton hover effect
           },
         }}
-        name={`${slug} 그룹 장터에서 글쓰기`}
+        name={`${groupName} 그룹 ${channelName} 포스트 작성하기`}
         onClick={handleOnClick}
       >
         <AddIcon className="text-2xl" />

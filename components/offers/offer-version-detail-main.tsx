@@ -59,7 +59,7 @@ export default function OfferVersionDetailMain({
           />
         </div>
       </div>
-      <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto">
+      <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {offer.content && (
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {offer.content}

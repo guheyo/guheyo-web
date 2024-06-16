@@ -7,25 +7,21 @@ const uploadAndSaveImages = async ({
   uploadedImages,
   type,
   refId,
-  userId,
 }: {
   uploadedImages: UploadedImage[];
   type: string;
-  userId: string;
   refId: string;
 }) => {
   const promises = uploadedImages.map(async (uploadedUserImage) => {
     const url = await uploadToS3({
       file: uploadedUserImage.file,
       type,
-      userId,
     });
     const input = parseCreateUserImageInput({
       file: uploadedUserImage.file,
       userImage: uploadedUserImage.userImage,
       type,
       refId,
-      userId,
       url,
     });
     await createUserImage(input);

@@ -49,7 +49,8 @@ function AuctionFeed({
         : undefined,
     },
     orderBy: {
-      createdAt: orderBy?.createdAt || 'desc',
+      createdAt: orderBy?.createdAt,
+      extendedEndDate: orderBy?.extendedEndDate,
       currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,

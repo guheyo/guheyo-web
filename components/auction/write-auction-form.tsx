@@ -3,15 +3,17 @@
 import { SubmitHandler } from 'react-hook-form';
 import { deleteUserImage } from '@/lib/api/user-image';
 import { GroupResponse } from '@/generated/graphql';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { parseTempOfferFormKey } from '@/lib/offer/parse-temp-offer-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { createAuction } from '@/lib/api/auction';
 import { AuctionFormValues } from '@/lib/auction/auction.types';
+import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
 import { AuthContext } from '../auth/auth.provider';
 import parseCreateAuctionInput from '../../lib/auction/parse-create-auction-input';
 import AuctionForm from './auction-form';
+import AlertDialog from '../base/alert-dialog';
 
 export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
   const { jwtPayload } = useContext(AuthContext);
@@ -20,6 +22,8 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
     userId: jwtPayload?.id || 'ghost',
     groupSlug: group.slug,
   });
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleSubmitValid: SubmitHandler<AuctionFormValues> = async (
     values,
@@ -30,21 +34,38 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
     const input = parseCreateAuctionInput({
       auctionFormValues: values,
     });
-    await createAuction(input);
-    router.back();
+
+    try {
+      await createAuction(input);
+      router.back();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (e: any) {
+      const message = parseAuctionAlertMessage(e.message);
+      setAlertMessage(message);
+      setOpen(true);
+    }
   };
 
   const handleOnClickImagePreviewCallback = async (imageId: string) => {
     await deleteUserImage(imageId);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <AuctionForm
-      localStorageKey={localStorageKey}
-      userId={jwtPayload?.id}
-      group={group}
-      handleSubmitValid={handleSubmitValid}
-      onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
-    />
+    <>
+      <AuctionForm
+        localStorageKey={localStorageKey}
+        userId={jwtPayload?.id}
+        group={group}
+        handleSubmitValid={handleSubmitValid}
+        onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
+      />
+      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+    </>
   );
 }

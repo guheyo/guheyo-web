@@ -2,7 +2,7 @@ import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
 import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import CreateIcon from '@mui/icons-material/Create';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function SelectUserReviewTargetUserDialog({
   offerId,
@@ -22,7 +22,7 @@ export default function SelectUserReviewTargetUserDialog({
 
   return (
     <div className="bg-gray-500 hover:bg-dark-200 text-sm font-bold p-2 rounded text-gray-300">
-      <DiscordLoginDialog
+      <DiscordLoginDialogButton
         name="후기 보내기"
         icon={<CreateIcon fontSize="small" />}
         onAuthorization={handleOnAuthorization}

@@ -4,8 +4,15 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
-function AuctionCountdown({ targetDate }: { targetDate: Date }) {
+function AuctionCountdown({
+  targetDate,
+  displayLabel,
+}: {
+  targetDate: Date;
+  displayLabel: boolean;
+}) {
   const [timeLeft, setTimeLeft] = useState('');
+  const [isAuctionEnded, setIsAuctionEnded] = useState(false);
 
   useEffect(() => {
     let intervalId: NodeJS.Timer;
@@ -16,7 +23,7 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
       const diff = end.diff(now);
 
       if (diff <= 0) {
-        setTimeLeft('경매 종료');
+        setIsAuctionEnded(true);
         clearInterval(intervalId);
         return;
       }
@@ -32,7 +39,7 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
           : `${hours.toString().padStart(2, '0')}:${minutes
               .toString()
               .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      setTimeLeft(`남은 시간: ${formattedTimeLeft}`);
+      setTimeLeft(formattedTimeLeft);
     };
 
     updateCountdown(); // Initial call
@@ -43,8 +50,20 @@ function AuctionCountdown({ targetDate }: { targetDate: Date }) {
 
   return (
     <div className="flex flex-row gap-1 items-center">
-      <ScheduleIcon className="text-gray-500" />
-      {timeLeft}
+      <ScheduleIcon className="opacity-50" fontSize="inherit" />
+      {isAuctionEnded ? (
+        <div className="flex flex-row items-center">
+          {displayLabel && <span className="opacity-50">경매 종료:</span>}
+          <span className="font-semibold ml-1">
+            {dayjs(targetDate).format('YY.MM.DD HH:mm')}
+          </span>
+        </div>
+      ) : (
+        <div className="flex flex-row items-center">
+          {displayLabel && <span className="opacity-50">남은 시간:</span>}
+          <span className="font-semibold ml-1">{timeLeft}</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -26,7 +26,7 @@ import { getSelectedTagIds } from '@/lib/post/get-selected-tag-ids';
 import { createTagOptionsFromTags } from '@/lib/post/create-tag-options-from-tags';
 import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
 import { AuthContext } from '../auth/auth.provider';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import TagButtonInputs from '../posts/tag-button-inputs';
 import RatingInputs from './rating-inputs';
 import UserReviewImagesAndContentInput from './user-review-images-and-content-input';
@@ -155,7 +155,7 @@ export default function UserReviewForm({
             userId={jwtPayload?.id}
           />
           <div className={STICKY_SUBMIT_BUTTON_STYLE}>
-            <DiscordLoginDialog
+            <DiscordLoginDialogButton
               name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
               onAuthorization={handleAuthorization}
               onUnAuthorization={handleUnAuthorization}

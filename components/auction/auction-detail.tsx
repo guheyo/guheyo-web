@@ -1,17 +1,17 @@
 'use client';
 
-import { AuctionResponse } from '@/generated/graphql';
+import { AuctionResponse, BidResponse } from '@/generated/graphql';
 import PostDetail from '../posts/post-detail';
 import AuctionDetailMain from './auction-detail-main';
 
 export default function AuctionDetail({
   auction,
-  currentBidPrice,
+  highestBid,
   bidCount,
   commentCount,
 }: {
   auction: AuctionResponse;
-  currentBidPrice: number;
+  highestBid?: BidResponse;
   bidCount: number;
   commentCount: number;
 }) {
@@ -21,7 +21,7 @@ export default function AuctionDetail({
       postDetailMain={
         <AuctionDetailMain
           auction={auction}
-          currentBidPrice={currentBidPrice}
+          highestBid={highestBid}
           bidCount={bidCount}
           commentCount={commentCount}
         />

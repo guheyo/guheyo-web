@@ -53,9 +53,11 @@ export default function ReportCommentCard({
       user={reportedUser}
       isCurrentUser={jwtPayload?.id === reportedUser.id}
       displayMenu={isReportedUser}
+      displayImagesInput={isReportedUser}
       defaultMode={defaultMode}
       commentId={comment?.id}
       content={comment?.content}
+      images={[]}
       createdAt={comment?.createdAt}
       updatedAt={comment?.updatedAt}
       commentReactions={[]}

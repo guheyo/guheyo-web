@@ -8,27 +8,39 @@ import {
   useState,
 } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
-import { AuthorResponse, ReactionResponse } from '@/generated/graphql';
+import {
+  AuthorResponse,
+  ReactionResponse,
+  UserImageResponse,
+} from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { MOBILE_FILE_INPUT_LABEL_STYLE } from '@/lib/input/input.styles';
+import parseUploadedImages from '@/lib/image/parse-uploaded-user-images';
+import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
+import { deleteUserImage } from '@/lib/api/user-image';
 import CommentInput from './comment-input';
 import CommentOutput from './comment-output';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import Avatar from '../avatar/avatar';
 import NoCommentOutput from './no-comment-output';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
+import ImagesInput from '../inputs/images-input';
+import ImagePreviews from '../images/image.previews';
 
 export default function CommentCard({
   user,
   isCurrentUser,
   postId,
   displayMenu,
+  displayImagesInput,
   defaultMode,
   commentId,
   content,
+  images,
   createdAt,
   updatedAt,
   commentReactions,
@@ -41,27 +53,38 @@ export default function CommentCard({
   isCurrentUser: boolean;
   postId?: string;
   displayMenu: boolean;
+  displayImagesInput: boolean;
   defaultMode: CRUD;
   commentId?: string;
   content?: string;
+  images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
   commentReactions: ReactionResponse[];
   textFieldProps: TextFieldProps;
   handleWrite: (values: CommentValues) => void;
-  handleEdit: (values: CommentValues) => void;
+  handleEdit?: (values: CommentValues) => void;
   handleDelete?: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CRUD>('read');
   const device = useDeviceDetect();
 
-  const { handleSubmit, control, getValues, setValue, reset } =
+  const { handleSubmit, control, watch, getValues, setValue, reset } =
     useForm<CommentValues>({
       defaultValues: {
         id: '',
         content: '',
+        images: [],
       },
     });
+
+  const { remove } = useFieldArray({
+    control,
+    name: 'images',
+  });
+
+  const id = watch('id');
+  const commentImages = watch('images');
 
   useEffect(() => {
     setMode(defaultMode);
@@ -71,6 +94,9 @@ export default function CommentCard({
     if (commentId) {
       setValue('id', commentId);
       setValue('content', content || '');
+      setValue('images', images);
+    } else {
+      setValue('id', uuid4());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentId, content]);
@@ -86,10 +112,14 @@ export default function CommentCard({
     if (mode === 'create') {
       handleWrite({
         ...values,
-        id: uuid4(),
+        id,
       });
-      reset();
-    } else if (mode === 'update') {
+      reset({
+        id: uuid4(),
+        content: '',
+        images: [],
+      });
+    } else if (mode === 'update' && !!handleEdit) {
       handleEdit(values);
       setMode('read');
     }
@@ -101,6 +131,39 @@ export default function CommentCard({
       event.preventDefault();
       handleSubmitValid(getValues(), event);
     }
+  };
+
+  const handleChangeFileInput = async (files: FileList | null) => {
+    if (defaultMode !== 'create') return;
+
+    if (!files?.length) return;
+    if (!isCurrentUser || !user) return;
+
+    const uploadedImages = parseUploadedImages({
+      files,
+      offset: commentImages.length,
+    });
+
+    const userImages = await uploadAndSaveImages({
+      uploadedImages,
+      type: 'comment',
+      refId: id,
+    });
+
+    userImages.map((userImage) =>
+      setValue(`images.${userImage.position}`, userImage),
+    );
+  };
+
+  const handleClickImagePreview = async (position: number) => {
+    if (defaultMode !== 'create') return;
+
+    const imageId = commentImages.find((image) => image.position === position)
+      ?.id;
+    if (!imageId) return;
+
+    await deleteUserImage(imageId);
+    remove(position);
   };
 
   const handleAuthorization: MouseEventHandler = () => {
@@ -129,9 +192,19 @@ export default function CommentCard({
         )}
         <form
           onSubmit={handleSubmit(handleSubmitValid)}
-          className="w-full flex gap-4 items-end pr-9 md:pr-0"
+          className="w-full flex gap-4 items-end"
         >
           <div className="w-full">
+            {commentImages.length > 0 && (
+              <div className="mb-2">
+                <ImagePreviews
+                  images={commentImages}
+                  previewsProp={{
+                    onClick: handleClickImagePreview,
+                  }}
+                />
+              </div>
+            )}
             <CommentInput
               controllerProps={{
                 name: 'content',
@@ -144,8 +217,30 @@ export default function CommentCard({
               }}
             />
           </div>
-          <div className="flex-none">
-            <DiscordLoginDialog
+          <div className="flex-none flex flex-row gap-2 items-center">
+            {displayImagesInput && defaultMode === 'create' && (
+              <ImagesInput
+                name="images"
+                control={control}
+                rules={{
+                  required: false,
+                }}
+                imagesInputProps={{
+                  label: {
+                    style: MOBILE_FILE_INPUT_LABEL_STYLE,
+                  },
+                  icon: {
+                    fontSize: 'medium',
+                  },
+                  onChange: handleChangeFileInput,
+                }}
+                inputProps={{
+                  multiple: true,
+                  hidden: true,
+                }}
+              />
+            )}
+            <DiscordLoginDialogButton
               icon={
                 <ArrowUpwardIcon className="bg-gray-600 text-gray-400 hover:text-gray-300 rounded-lg" />
               }
@@ -170,11 +265,13 @@ export default function CommentCard({
       isCurrentUser={isCurrentUser}
       postId={postId}
       content={content}
+      images={images}
       createdAt={createdAt}
       updatedAt={updatedAt}
       displayMenu={displayMenu}
       commentId={commentId}
       commentReactions={commentReactions}
+      editable={!!handleEdit}
       deletable={!!handleDelete}
       handleMenuClick={handleMenuClick}
     />

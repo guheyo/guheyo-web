@@ -4,11 +4,12 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import {
   AuctionInteractionItemResponse,
   AuctionResponse,
+  AuctionUpdatedDocument,
   BidCanceledDocument,
   BidPlacedDocument,
   BidResponse,
   CommentCreatedDocument,
-  CommentUpdatedDocument,
+  CommentDeletedDocument,
   ReactionCanceledDocument,
   ReactionCreatedDocument,
   useFindAuthorQuery,
@@ -17,7 +18,7 @@ import { cancelBid, placeBid } from '@/lib/api/bid';
 import { BidValues } from '@/lib/bid/bid.types';
 import { useSubscription } from '@apollo/client';
 import { useInfiniteAuctionInteractionItems } from '@/hooks/use-infinite-auction-interaction-items';
-import { createComment, updateComment } from '@/lib/api/comment';
+import { createComment, deleteComment } from '@/lib/api/comment';
 import { CommentValues } from '@/lib/comment/comment.types';
 import {
   FindAuctionInteractionItemsOrderByArgs,
@@ -27,24 +28,41 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { useSearchParams } from 'next/navigation';
+import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
 import { AuthContext } from '../auth/auth.provider';
 import AuctionDetail from './auction-detail';
 import ReportFeed from '../reports/report-feed';
 import AuctionDetailAddons from './auction-detail-addons';
 import AuctionInteractionItemsSelector from './auction-interaction-items-selector';
 import AuctionInteractionItemFeed from './auction-interaction-item-feed';
+import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
+import AlertDialog from '../base/alert-dialog';
 
 export default function AuctionDetailContainer({
-  auction,
+  auction: initialAuction,
 }: {
   auction: AuctionResponse;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [auction, setAuction] = useState<AuctionResponse>(initialAuction);
   const [auctionInteractionItems, setAuctionInteractionItems] = useState<
     AuctionInteractionItemResponse[]
-  >([]); // State to store bids
-  const [currentBidPrice, setCurrentBidPrice] = useState(0);
+  >([]);
+  const highestBid: BidResponse | undefined = auctionInteractionItems.filter(
+    (auctionInteractionItem): auctionInteractionItem is BidResponse =>
+      auctionInteractionItem.__typename === 'BidResponse',
+  )[0];
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
+    null,
+  );
+  const searchParams = useSearchParams();
+  const view = searchParams.get('view') || 'newest';
 
   const reportWhere: FindReportPreviewsWhereArgs = {
     type: 'post',
@@ -58,30 +76,47 @@ export default function AuctionDetailContainer({
   const where: FindAuctionInteractionItemsWhereArgs = {
     auctionId: auction.id,
     postId: auction.post.id,
-    view: 'newest',
+    view,
+    userId: view === 'sellerComment' ? auction.post.user.id : undefined,
   };
   const orderBy: FindAuctionInteractionItemsOrderByArgs = {
     createdAt: 'desc',
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handlePlaceBid = async (values: BidValues) => {
     if (!jwtPayload || !where.auctionId || !values.price) return;
 
-    await placeBid({
-      id: values.id,
-      auctionId: where.auctionId,
-      price: values.price,
-      priceCurrency: 'krw',
-    });
+    try {
+      await placeBid({
+        id: values.id,
+        auctionId: where.auctionId,
+        price: values.price,
+        priceCurrency: 'krw',
+      });
+    } catch (e: any) {
+      const message = parseAuctionAlertMessage(e.message);
+      setAlertMessage(message);
+      setOpen(true);
+    }
   };
 
   const handleCancelBid = async (bidId: string) => {
     if (!jwtPayload || !where.auctionId) return;
 
-    await cancelBid({
-      auctionId: where.auctionId,
-      bidId,
-    });
+    try {
+      await cancelBid({
+        auctionId: where.auctionId,
+        bidId,
+      });
+    } catch (e: any) {
+      const message = parseAuctionAlertMessage(e.message);
+      setAlertMessage(message);
+      setOpen(true);
+    }
   };
 
   const handleWrite = async (values: CommentValues) => {
@@ -94,13 +129,23 @@ export default function AuctionDetailContainer({
     });
   };
 
-  const handleEdit = async (values: CommentValues) => {
-    if (!values.content) return;
+  const handleDeleteConfirmation = (comment: CommentValues) => {
+    setCommentToDelete(comment);
+    setDeleteDialogOpen(true);
+  };
 
-    await updateComment({
+  const handleCloseDeleteDialog = () => {
+    setCommentToDelete(null);
+    setDeleteDialogOpen(false);
+  };
+
+  const handleDelete = async (values: CommentValues) => {
+    if (!values.id) return;
+
+    await deleteComment({
       id: values.id,
-      content: values.content,
     });
+    handleCloseDeleteDialog();
   };
 
   const {
@@ -134,16 +179,20 @@ export default function AuctionDetailContainer({
     }
   }, [auctionInteractionItemsLoading, auctionInteractionItemsData]);
 
-  useEffect(() => {
-    const lastBid = auctionInteractionItems.find(
-      (interactionItem) =>
-        interactionItem.__typename === 'BidResponse' &&
-        interactionItem.canceledAt === null,
-    ) as BidResponse | null;
-    if (lastBid) {
-      setCurrentBidPrice(lastBid.price);
-    }
-  }, [auctionInteractionItems]);
+  useSubscription(AuctionUpdatedDocument, {
+    variables: {
+      auctionId: where.auctionId,
+    },
+    onData: ({ data }) => {
+      const updatedAuction = data.data.auctionUpdated;
+      setAuction({
+        ...auction,
+        extendedEndDate: updatedAuction.extendedEndDate,
+        status: updatedAuction.status,
+      });
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
 
   useSubscription(BidPlacedDocument, {
     variables: {
@@ -187,22 +236,17 @@ export default function AuctionDetailContainer({
     shouldResubscribe: true, // Always resubscribe
   });
 
-  useSubscription(CommentUpdatedDocument, {
+  useSubscription(CommentDeletedDocument, {
     variables: {
       postId: where.postId,
     },
     onData: ({ data }) => {
-      const updatedComment = data.data.commentUpdated;
+      const deletedComment = data.data.commentDeleted;
       setAuctionInteractionItems(
-        auctionInteractionItems.map((interactionItem) => {
-          if (interactionItem.id === updatedComment.id)
-            return {
-              ...interactionItem,
-              updatedAt: updatedComment.updatedAt,
-              content: updatedComment.content,
-            };
-          return interactionItem;
-        }),
+        auctionInteractionItems.filter(
+          (auctionInteractionItem) =>
+            auctionInteractionItem.id !== deletedComment.id,
+        ),
       );
     },
     shouldResubscribe: true, // Always resubscribe
@@ -275,7 +319,7 @@ export default function AuctionDetailContainer({
     <div className="flex flex-col gap-4">
       <AuctionDetail
         auction={auction}
-        currentBidPrice={currentBidPrice}
+        highestBid={highestBid}
         bidCount={bidCount}
         commentCount={commentCount}
       />
@@ -299,15 +343,23 @@ export default function AuctionDetailContainer({
       <div className="px-4 md:px-0">
         <AuctionInteractionItemFeed
           auctionInteractionItems={auctionInteractionItems}
-          currentBidPrice={currentBidPrice}
+          currentBidPrice={highestBid?.price || 0}
+          isSeller={user ? user.id === auction.post.user.id : false}
           handlePlaceBid={handlePlaceBid}
           handleCancelBid={handleCancelBid}
           handleWrite={handleWrite}
-          handleEdit={handleEdit}
+          handleDelete={handleDeleteConfirmation}
           user={user || undefined}
           sentinelRef={sentinelRef}
         />
       </div>
+      <DeleteConfirmationDialog
+        open={deleteDialogOpen}
+        dialogTitle="댓글을 삭제할까요?"
+        onClose={handleCloseDeleteDialog}
+        onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
+      />
+      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
     </div>
   );
 }

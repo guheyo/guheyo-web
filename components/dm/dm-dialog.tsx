@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-import DiscordLoginDialog from '../auth/discord-login-dialog';
+import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function DmDialog({ url }: { url: string }) {
   const handleOnAuthorization: MouseEventHandler = (e) => {
@@ -13,7 +13,7 @@ export default function DmDialog({ url }: { url: string }) {
 
   return (
     <div className="bg-discord-blue-500 hover:bg-discord-blue-700 text-sm font-bold p-2 rounded text-gray-300">
-      <DiscordLoginDialog
+      <DiscordLoginDialogButton
         name="DM"
         onAuthorization={handleOnAuthorization}
         onUnAuthorization={handleOnUnAuthorization}
