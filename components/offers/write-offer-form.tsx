@@ -38,6 +38,9 @@ export default function WriteOfferForm({ group }: { group: GroupResponse }) {
     try {
       await createOffer(input);
       router.back();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (e: any) {
       if (isPostingLimitExceededError(e.message)) {
         const category = findCategory(group.categories, {
