@@ -123,18 +123,6 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-            경매장
-          </ListItem>
-          <SidebarItem
-            href={parseGroupAuctionLink({
-              groupSlug: group?.slug,
-            })}
-            icon={<GavelIcon fontSize="medium" />}
-            text="경매"
-            isActive={activeItem === 'auction'}
-            onClick={handleMenuToggle}
-          />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             장터
           </ListItem>
           <SidebarItem
