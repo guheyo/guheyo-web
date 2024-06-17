@@ -18,7 +18,7 @@ export default function ShareButton() {
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
-        setMessage(`페이지 주소가 복사되었어요! 붙여넣기로 바로 공유하세요`);
+        setMessage(`페이지 주소가 복사되었어요! 붙여넣기로 공유해요`);
         setOpen(true);
       })
       .catch((err) => {
