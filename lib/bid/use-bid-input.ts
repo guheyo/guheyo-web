@@ -1,13 +1,16 @@
 'use client';
 
 import { useReactiveVar } from '@apollo/client';
+import { useEffect } from 'react';
 import { isBidModeVar } from './is-bid-mode-var';
 
 export const useBidInput = (defaultIsBidMode: boolean) => {
-  // initialize isBidModeVar only once
-  if (isBidModeVar() === undefined) {
-    isBidModeVar(defaultIsBidMode);
-  }
+  // Ensure initialization happens within a hook lifecycle
+  useEffect(() => {
+    if (isBidModeVar() === undefined) {
+      isBidModeVar(defaultIsBidMode);
+    }
+  }, [defaultIsBidMode]);
 
   const isBidMode = useReactiveVar(isBidModeVar);
 
