@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import BidInput from '@/components/bid/bid-input';
 import CommentCard from '@/components/comments/comment-card';
 import { AuthorResponse } from '@/generated/graphql';
+import { isBidModeVar } from '@/lib/bid/is-bid-mode-var';
 import { useBidInput } from '../../lib/bid/use-bid-input';
 import { BidValues } from '../../lib/bid/bid.types';
 import { CommentValues } from '../../lib/comment/comment.types';
@@ -23,7 +24,11 @@ export default function AuctionInteractionItemInput({
   handleWrite: (values: CommentValues) => Promise<void>;
   handleDelete?: (values: CommentValues) => Promise<void>;
 }) {
-  const { isBidMode } = useBidInput(!isSeller);
+  useEffect(() => {
+    isBidModeVar(!isSeller);
+  }, [isSeller]);
+
+  const { isBidMode } = useBidInput();
 
   return (
     <div>

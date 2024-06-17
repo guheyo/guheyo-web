@@ -5,7 +5,7 @@ import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import PaidIcon from '@mui/icons-material/Paid';
 
 export default function ToggleAuctionInteractionItem() {
-  const { isBidMode, toggleBidMode } = useBidInput(true);
+  const { isBidMode, toggleBidMode } = useBidInput();
 
   return (
     <button type="button" onClick={toggleBidMode}>
