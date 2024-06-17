@@ -54,7 +54,8 @@ export default function AuctionDetailContainer({
   >([]);
   const highestBid: BidResponse | undefined = auctionInteractionItems.filter(
     (auctionInteractionItem): auctionInteractionItem is BidResponse =>
-      auctionInteractionItem.__typename === 'BidResponse',
+      auctionInteractionItem.__typename === 'BidResponse' &&
+      auctionInteractionItem.canceledAt === null,
   )[0];
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);

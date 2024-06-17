@@ -1,3 +1,5 @@
+'use client';
+
 import { useReactiveVar } from '@apollo/client';
 import { isBidModeVar } from './is-bid-mode-var';
 
