@@ -12,5 +12,6 @@ generates:
       withResultType: true
       withHooks: true
       subscriptions: true
+      withRefetchFn: true
     scalars:
       DateTime: Date

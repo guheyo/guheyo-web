@@ -6,32 +6,43 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
-import {
-  FindAuctionsOrderByArgs,
-  FindAuctionsWhereArgs,
-} from '@/lib/auction/auction.interfaces';
+import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
+import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
+import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import AuctionPreview from './auction-preview';
 
 function AuctionFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultSortOrder,
   keyword,
-  distinct,
+  defaultDistinct,
 }: {
-  where: FindAuctionsWhereArgs;
-  orderBy?: FindAuctionsOrderByArgs;
+  defaultWhere: FindAuctionsWhereArgs;
+  defaultSortOrder?: string;
   keyword?: string;
-  distinct: boolean;
+  defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const status = parseAuctionStatus({
+    status: searchParams.get('status') || defaultWhere.status,
+  });
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
+
+  const orderBy = getFindAuctionsOrderByArgs({
+    sortOrder: searchParams.get('sort') || defaultSortOrder,
+  });
+
+  const distinct =
+    searchParams.get('distinct') === null
+      ? defaultDistinct
+      : searchParams.get('distinct') !== 'false';
 
   useEffect(() => {}, [searchParams]);
 
@@ -40,8 +51,8 @@ function AuctionFeed({
     where: {
       groupId: group?.id,
       categoryId: category?.id,
-      status: where.status,
-      userId: where?.userId,
+      status,
+      userId: defaultWhere.userId,
       createdAt: period
         ? {
             gt: convertPeriodToDateString(period),
@@ -62,7 +73,7 @@ function AuctionFeed({
   if (!data?.findAuctionPreviews) return <div />;
 
   const edges = data.findAuctionPreviews.edges.filter((edge) =>
-    where.status ? edge.node.status === where.status : true,
+    status ? edge.node.status === status : true,
   );
 
   return (

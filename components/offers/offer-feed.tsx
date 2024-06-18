@@ -12,42 +12,59 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
+import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
 function OfferFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
   keyword,
   type,
-  distinct,
+  defaultDistinct,
 }: {
-  where: FindOffersWhereArgs;
-  orderBy?: FindOffersOrderByArgs;
+  defaultWhere: FindOffersWhereArgs;
+  defaultOrderBy?: FindOffersOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
-  distinct: boolean;
+  defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+
+  const isArchived =
+    searchParams.get('isArchived') === null
+      ? defaultWhere.isArchived
+      : searchParams.get('isArchived') === true.toString();
+  const status = parseOfferStatus({
+    status: isArchived
+      ? 'all'
+      : searchParams.get('status') || defaultWhere.status,
+  });
+
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
+
+  const distinct =
+    searchParams.get('distinct') === null
+      ? defaultDistinct
+      : searchParams.get('distinct') !== 'false';
 
   useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     where: {
-      businessFunction: where?.businessFunction,
+      businessFunction: defaultWhere?.businessFunction,
       groupId: group?.id,
       categoryId: category?.id,
-      status: where.status,
-      isArchived: where.isArchived,
-      userId: where?.userId,
+      status,
+      isArchived,
+      userId: defaultWhere?.userId,
       bumpedAt: period
         ? {
             gt: convertPeriodToDateString(period),
@@ -55,8 +72,8 @@ function OfferFeed({
         : undefined,
     },
     orderBy: {
-      bumpedAt: orderBy?.bumpedAt || 'desc',
-      price: orderBy?.price,
+      bumpedAt: defaultOrderBy?.bumpedAt || 'desc',
+      price: defaultOrderBy?.price,
     },
     keyword,
     distinct,
@@ -67,7 +84,7 @@ function OfferFeed({
   if (!data?.findOfferPreviews) return <div />;
 
   const edges = data.findOfferPreviews.edges.filter((edge) =>
-    where.status ? edge.node.status === where.status : true,
+    status ? edge.node.status === status : true,
   );
 
   return (

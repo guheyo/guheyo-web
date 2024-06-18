@@ -8,7 +8,7 @@ function Page() {
   const orderBy: FindUsersOrderByArgs = {
     createdAt: 'asc',
   };
-  return <UserFeed where={where} orderBy={orderBy} />;
+  return <UserFeed defaultWhere={where} defaultOrderBy={orderBy} />;
 }
 
 export default Page;

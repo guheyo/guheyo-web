@@ -1,3 +1,5 @@
+'use client';
+
 import { MouseEventHandler } from 'react';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 

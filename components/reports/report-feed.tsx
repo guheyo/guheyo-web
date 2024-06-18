@@ -7,21 +7,27 @@ import {
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
 import { ReportType } from '@/lib/report/report.types';
+import { useSearchParams } from 'next/navigation';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
 }: {
-  where: FindReportPreviewsWhereArgs;
-  orderBy: FindReportPreviewsOrderByArgs;
+  defaultWhere: FindReportPreviewsWhereArgs;
+  defaultOrderBy: FindReportPreviewsOrderByArgs;
 }) {
+  const searchParams = useSearchParams();
   const ref = useRef<HTMLDivElement>(null);
+  const type = searchParams.get('type') || defaultWhere.type;
 
   const { loading, data } = useInfiniteReports({
     ref,
-    where,
-    orderBy,
+    where: {
+      ...defaultWhere,
+      type,
+    },
+    orderBy: defaultOrderBy,
     take: 10,
   });
 

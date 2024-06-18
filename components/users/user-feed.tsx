@@ -11,12 +11,12 @@ import { useInfiniteUsers } from '@/hooks/use-infinite-users';
 import UserPreview from './user-preview';
 
 function UserFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
   keyword,
 }: {
-  where: FindUsersWhereArgs;
-  orderBy?: FindUsersOrderByArgs;
+  defaultWhere: FindUsersWhereArgs;
+  defaultOrderBy?: FindUsersOrderByArgs;
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,9 +26,9 @@ function UserFeed({
 
   const { loading, data } = useInfiniteUsers({
     ref,
-    where,
+    where: defaultWhere,
     orderBy: {
-      createdAt: orderBy?.createdAt || 'asc',
+      createdAt: defaultOrderBy?.createdAt || 'asc',
     },
     keyword,
     take: 12,

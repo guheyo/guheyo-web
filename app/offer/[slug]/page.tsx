@@ -48,7 +48,7 @@ function OfferPage({
             신고 {offer.post.reportCount}개
           </div>
           <div className="px-2 md:px-0">
-            <ReportFeed where={where} orderBy={orderBy} />
+            <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
           </div>
         </div>
       )}

@@ -89,12 +89,12 @@ export default function AuctionDetailContainer({
   };
 
   const handlePlaceBid = async (values: BidValues) => {
-    if (!jwtPayload || !where.auctionId || !values.price) return;
+    if (!jwtPayload || !values.price) return;
 
     try {
       await placeBid({
         id: values.id,
-        auctionId: where.auctionId,
+        auctionId: auction.id,
         price: values.price,
         priceCurrency: 'krw',
       });
@@ -106,11 +106,11 @@ export default function AuctionDetailContainer({
   };
 
   const handleCancelBid = async (bidId: string) => {
-    if (!jwtPayload || !where.auctionId) return;
+    if (!jwtPayload) return;
 
     try {
       await cancelBid({
-        auctionId: where.auctionId,
+        auctionId: auction.id,
         bidId,
       });
     } catch (e: any) {
@@ -121,12 +121,12 @@ export default function AuctionDetailContainer({
   };
 
   const handleWrite = async (values: CommentValues) => {
-    if (!jwtPayload || !where.postId || !values.content) return;
+    if (!jwtPayload || !values.content) return;
 
     await createComment({
       id: values.id,
       content: values.content,
-      postId: where.postId,
+      postId: auction.post.id,
     });
   };
 
@@ -182,7 +182,7 @@ export default function AuctionDetailContainer({
 
   useSubscription(AuctionUpdatedDocument, {
     variables: {
-      auctionId: where.auctionId,
+      auctionId: auction.id,
     },
     onData: ({ data }) => {
       const updatedAuction = data.data.auctionUpdated;
@@ -197,7 +197,7 @@ export default function AuctionDetailContainer({
 
   useSubscription(BidPlacedDocument, {
     variables: {
-      auctionId: where.auctionId,
+      auctionId: auction.id,
     },
     onData: ({ data }) => {
       const newBid = data.data.bidPlaced;
@@ -208,7 +208,7 @@ export default function AuctionDetailContainer({
 
   useSubscription(BidCanceledDocument, {
     variables: {
-      auctionId: where.auctionId,
+      auctionId: auction.id,
     },
     onData: ({ data }) => {
       const canceledBid = data.data.bidCanceled;
@@ -228,7 +228,7 @@ export default function AuctionDetailContainer({
 
   useSubscription(CommentCreatedDocument, {
     variables: {
-      postId: where.postId,
+      postId: auction.post.id,
     },
     onData: ({ data }) => {
       const newComment = data.data.commentCreated;
@@ -239,7 +239,7 @@ export default function AuctionDetailContainer({
 
   useSubscription(CommentDeletedDocument, {
     variables: {
-      postId: where.postId,
+      postId: auction.post.id,
     },
     onData: ({ data }) => {
       const deletedComment = data.data.commentDeleted;
@@ -256,7 +256,7 @@ export default function AuctionDetailContainer({
   useSubscription(ReactionCreatedDocument, {
     variables: {
       type: 'comment',
-      postId: where.postId,
+      postId: auction.post.id,
     },
     onData: ({ data }) => {
       const newReaction = data.data.reactionCreated;
@@ -281,7 +281,7 @@ export default function AuctionDetailContainer({
   useSubscription(ReactionCanceledDocument, {
     variables: {
       type: 'comment',
-      postId: where.postId,
+      postId: auction.post.id,
     },
     onData: ({ data }) => {
       const canceledReaction = data.data.reactionCanceled;
@@ -333,7 +333,10 @@ export default function AuctionDetailContainer({
             신고 {auction.post.reportCount}개
           </div>
           <div className="px-2 md:px-0">
-            <ReportFeed where={reportWhere} orderBy={reportOrderBy} />
+            <ReportFeed
+              defaultWhere={reportWhere}
+              defaultOrderBy={reportOrderBy}
+            />
           </div>
         </div>
       )}

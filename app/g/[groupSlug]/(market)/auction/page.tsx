@@ -2,9 +2,6 @@
 
 import AuctionFeed from '@/components/auction/auction-feed';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
-import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
-import { useSearchParams } from 'next/navigation';
 
 export interface AuctionsPageProps {
   params: {
@@ -13,23 +10,17 @@ export interface AuctionsPageProps {
 }
 
 function Page({ params: { groupSlug } }: AuctionsPageProps) {
-  const searchParams = useSearchParams();
-  const status = parseAuctionStatus({
-    status: searchParams.get('status'),
-  });
-  const where = {
-    status,
-  };
-
-  const orderBy = getFindAuctionsOrderByArgs({
-    sortOrder: searchParams.get('sort') || undefined,
-  });
-
-  const distinct = searchParams.get('distinct') !== 'false';
+  const where = {};
+  const sortOrder = undefined;
+  const distinct = false;
 
   return (
     <ThumbnailFeedLayout>
-      <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
+      <AuctionFeed
+        defaultWhere={where}
+        defaultSortOrder={sortOrder}
+        defaultDistinct={distinct}
+      />
     </ThumbnailFeedLayout>
   );
 }

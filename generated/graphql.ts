@@ -2611,6 +2611,9 @@ export type FindAuctionPreviewsQueryHookResult = ReturnType<typeof useFindAuctio
 export type FindAuctionPreviewsLazyQueryHookResult = ReturnType<typeof useFindAuctionPreviewsLazyQuery>;
 export type FindAuctionPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindAuctionPreviewsSuspenseQuery>;
 export type FindAuctionPreviewsQueryResult = Apollo.QueryResult<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>;
+export function refetchFindAuctionPreviewsQuery(variables: FindAuctionPreviewsQueryVariables) {
+      return { query: FindAuctionPreviewsDocument, variables: variables }
+    }
 export const FindAuctionDocument = gql`
     query FindAuction($id: ID, $slug: String) {
   findAuction(id: $id, slug: $slug) {
@@ -2652,6 +2655,9 @@ export type FindAuctionQueryHookResult = ReturnType<typeof useFindAuctionQuery>;
 export type FindAuctionLazyQueryHookResult = ReturnType<typeof useFindAuctionLazyQuery>;
 export type FindAuctionSuspenseQueryHookResult = ReturnType<typeof useFindAuctionSuspenseQuery>;
 export type FindAuctionQueryResult = Apollo.QueryResult<FindAuctionQuery, FindAuctionQueryVariables>;
+export function refetchFindAuctionQuery(variables?: FindAuctionQueryVariables) {
+      return { query: FindAuctionDocument, variables: variables }
+    }
 export const FindAuctionInteractionItemsDocument = gql`
     query FindAuctionInteractionItems($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionInteractionItems(
@@ -2720,6 +2726,9 @@ export type FindAuctionInteractionItemsQueryHookResult = ReturnType<typeof useFi
 export type FindAuctionInteractionItemsLazyQueryHookResult = ReturnType<typeof useFindAuctionInteractionItemsLazyQuery>;
 export type FindAuctionInteractionItemsSuspenseQueryHookResult = ReturnType<typeof useFindAuctionInteractionItemsSuspenseQuery>;
 export type FindAuctionInteractionItemsQueryResult = Apollo.QueryResult<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>;
+export function refetchFindAuctionInteractionItemsQuery(variables: FindAuctionInteractionItemsQueryVariables) {
+      return { query: FindAuctionInteractionItemsDocument, variables: variables }
+    }
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($input: CreateAuctionInput!) {
   createAuction(input: $input)
@@ -2941,6 +2950,9 @@ export type FindBidsQueryHookResult = ReturnType<typeof useFindBidsQuery>;
 export type FindBidsLazyQueryHookResult = ReturnType<typeof useFindBidsLazyQuery>;
 export type FindBidsSuspenseQueryHookResult = ReturnType<typeof useFindBidsSuspenseQuery>;
 export type FindBidsQueryResult = Apollo.QueryResult<FindBidsQuery, FindBidsQueryVariables>;
+export function refetchFindBidsQuery(variables: FindBidsQueryVariables) {
+      return { query: FindBidsDocument, variables: variables }
+    }
 export const FindBidCountDocument = gql`
     query FindBidCount($auctionId: ID!) {
   findBidCount(auctionId: $auctionId) {
@@ -2981,6 +2993,9 @@ export type FindBidCountQueryHookResult = ReturnType<typeof useFindBidCountQuery
 export type FindBidCountLazyQueryHookResult = ReturnType<typeof useFindBidCountLazyQuery>;
 export type FindBidCountSuspenseQueryHookResult = ReturnType<typeof useFindBidCountSuspenseQuery>;
 export type FindBidCountQueryResult = Apollo.QueryResult<FindBidCountQuery, FindBidCountQueryVariables>;
+export function refetchFindBidCountQuery(variables: FindBidCountQueryVariables) {
+      return { query: FindBidCountDocument, variables: variables }
+    }
 export const PlaceBidDocument = gql`
     mutation PlaceBid($input: PlaceBidInput!) {
   placeBid(input: $input)
@@ -3238,6 +3253,9 @@ export type FindCommentQueryHookResult = ReturnType<typeof useFindCommentQuery>;
 export type FindCommentLazyQueryHookResult = ReturnType<typeof useFindCommentLazyQuery>;
 export type FindCommentSuspenseQueryHookResult = ReturnType<typeof useFindCommentSuspenseQuery>;
 export type FindCommentQueryResult = Apollo.QueryResult<FindCommentQuery, FindCommentQueryVariables>;
+export function refetchFindCommentQuery(variables?: FindCommentQueryVariables) {
+      return { query: FindCommentDocument, variables: variables }
+    }
 export const FindCommentsDocument = gql`
     query FindComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findComments(
@@ -3299,6 +3317,9 @@ export type FindCommentsQueryHookResult = ReturnType<typeof useFindCommentsQuery
 export type FindCommentsLazyQueryHookResult = ReturnType<typeof useFindCommentsLazyQuery>;
 export type FindCommentsSuspenseQueryHookResult = ReturnType<typeof useFindCommentsSuspenseQuery>;
 export type FindCommentsQueryResult = Apollo.QueryResult<FindCommentsQuery, FindCommentsQueryVariables>;
+export function refetchFindCommentsQuery(variables: FindCommentsQueryVariables) {
+      return { query: FindCommentsDocument, variables: variables }
+    }
 export const FindCommentCountDocument = gql`
     query FindCommentCount($postId: ID!) {
   findCommentCount(postId: $postId) {
@@ -3339,6 +3360,9 @@ export type FindCommentCountQueryHookResult = ReturnType<typeof useFindCommentCo
 export type FindCommentCountLazyQueryHookResult = ReturnType<typeof useFindCommentCountLazyQuery>;
 export type FindCommentCountSuspenseQueryHookResult = ReturnType<typeof useFindCommentCountSuspenseQuery>;
 export type FindCommentCountQueryResult = Apollo.QueryResult<FindCommentCountQuery, FindCommentCountQueryVariables>;
+export function refetchFindCommentCountQuery(variables: FindCommentCountQueryVariables) {
+      return { query: FindCommentCountDocument, variables: variables }
+    }
 export const CommentCreatedDocument = gql`
     subscription CommentCreated($postId: ID!) {
   commentCreated(postId: $postId) {
@@ -3469,6 +3493,9 @@ export type FindEmojisQueryHookResult = ReturnType<typeof useFindEmojisQuery>;
 export type FindEmojisLazyQueryHookResult = ReturnType<typeof useFindEmojisLazyQuery>;
 export type FindEmojisSuspenseQueryHookResult = ReturnType<typeof useFindEmojisSuspenseQuery>;
 export type FindEmojisQueryResult = Apollo.QueryResult<FindEmojisQuery, FindEmojisQueryVariables>;
+export function refetchFindEmojisQuery(variables?: FindEmojisQueryVariables) {
+      return { query: FindEmojisDocument, variables: variables }
+    }
 export const FindGroupsDocument = gql`
     query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
@@ -3518,6 +3545,9 @@ export type FindGroupsQueryHookResult = ReturnType<typeof useFindGroupsQuery>;
 export type FindGroupsLazyQueryHookResult = ReturnType<typeof useFindGroupsLazyQuery>;
 export type FindGroupsSuspenseQueryHookResult = ReturnType<typeof useFindGroupsSuspenseQuery>;
 export type FindGroupsQueryResult = Apollo.QueryResult<FindGroupsQuery, FindGroupsQueryVariables>;
+export function refetchFindGroupsQuery(variables: FindGroupsQueryVariables) {
+      return { query: FindGroupsDocument, variables: variables }
+    }
 export const FindGroupProfilesDocument = gql`
     query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroupProfiles(keyword: $keyword, cursor: $cursor, skip: $skip, take: $take) {
@@ -3570,6 +3600,9 @@ export type FindGroupProfilesQueryHookResult = ReturnType<typeof useFindGroupPro
 export type FindGroupProfilesLazyQueryHookResult = ReturnType<typeof useFindGroupProfilesLazyQuery>;
 export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFindGroupProfilesSuspenseQuery>;
 export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
+export function refetchFindGroupProfilesQuery(variables: FindGroupProfilesQueryVariables) {
+      return { query: FindGroupProfilesDocument, variables: variables }
+    }
 export const FindGroupDocument = gql`
     query FindGroup($id: ID, $slug: String) {
   findGroup(id: $id, slug: $slug) {
@@ -3611,6 +3644,9 @@ export type FindGroupQueryHookResult = ReturnType<typeof useFindGroupQuery>;
 export type FindGroupLazyQueryHookResult = ReturnType<typeof useFindGroupLazyQuery>;
 export type FindGroupSuspenseQueryHookResult = ReturnType<typeof useFindGroupSuspenseQuery>;
 export type FindGroupQueryResult = Apollo.QueryResult<FindGroupQuery, FindGroupQueryVariables>;
+export function refetchFindGroupQuery(variables?: FindGroupQueryVariables) {
+      return { query: FindGroupDocument, variables: variables }
+    }
 export const FindGroupPreviewsDocument = gql`
     query FindGroupPreviews {
   findGroupPreviews {
@@ -3650,6 +3686,9 @@ export type FindGroupPreviewsQueryHookResult = ReturnType<typeof useFindGroupPre
 export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGroupPreviewsLazyQuery>;
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
+export function refetchFindGroupPreviewsQuery(variables?: FindGroupPreviewsQueryVariables) {
+      return { query: FindGroupPreviewsDocument, variables: variables }
+    }
 export const FindOfferPreviewsDocument = gql`
     query FindOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
@@ -3711,6 +3750,9 @@ export type FindOfferPreviewsQueryHookResult = ReturnType<typeof useFindOfferPre
 export type FindOfferPreviewsLazyQueryHookResult = ReturnType<typeof useFindOfferPreviewsLazyQuery>;
 export type FindOfferPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindOfferPreviewsSuspenseQuery>;
 export type FindOfferPreviewsQueryResult = Apollo.QueryResult<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>;
+export function refetchFindOfferPreviewsQuery(variables: FindOfferPreviewsQueryVariables) {
+      return { query: FindOfferPreviewsDocument, variables: variables }
+    }
 export const FindOfferDocument = gql`
     query FindOffer($id: ID, $slug: String) {
   findOffer(id: $id, slug: $slug) {
@@ -3752,6 +3794,9 @@ export type FindOfferQueryHookResult = ReturnType<typeof useFindOfferQuery>;
 export type FindOfferLazyQueryHookResult = ReturnType<typeof useFindOfferLazyQuery>;
 export type FindOfferSuspenseQueryHookResult = ReturnType<typeof useFindOfferSuspenseQuery>;
 export type FindOfferQueryResult = Apollo.QueryResult<FindOfferQuery, FindOfferQueryVariables>;
+export function refetchFindOfferQuery(variables?: FindOfferQueryVariables) {
+      return { query: FindOfferDocument, variables: variables }
+    }
 export const CreateOfferDocument = gql`
     mutation CreateOffer($input: CreateOfferInput!) {
   createOffer(input: $input)
@@ -3935,6 +3980,9 @@ export type FindPostPreviewQueryHookResult = ReturnType<typeof useFindPostPrevie
 export type FindPostPreviewLazyQueryHookResult = ReturnType<typeof useFindPostPreviewLazyQuery>;
 export type FindPostPreviewSuspenseQueryHookResult = ReturnType<typeof useFindPostPreviewSuspenseQuery>;
 export type FindPostPreviewQueryResult = Apollo.QueryResult<FindPostPreviewQuery, FindPostPreviewQueryVariables>;
+export function refetchFindPostPreviewQuery(variables: FindPostPreviewQueryVariables) {
+      return { query: FindPostPreviewDocument, variables: variables }
+    }
 export const CreateReactionDocument = gql`
     mutation CreateReaction($input: CreateReactionInput!) {
   createReaction(input: $input)
@@ -4038,6 +4086,9 @@ export type FindReactionsQueryHookResult = ReturnType<typeof useFindReactionsQue
 export type FindReactionsLazyQueryHookResult = ReturnType<typeof useFindReactionsLazyQuery>;
 export type FindReactionsSuspenseQueryHookResult = ReturnType<typeof useFindReactionsSuspenseQuery>;
 export type FindReactionsQueryResult = Apollo.QueryResult<FindReactionsQuery, FindReactionsQueryVariables>;
+export function refetchFindReactionsQuery(variables?: FindReactionsQueryVariables) {
+      return { query: FindReactionsDocument, variables: variables }
+    }
 export const ReactionCreatedDocument = gql`
     subscription ReactionCreated($type: String!, $postId: ID!) {
   reactionCreated(type: $type, postId: $postId) {
@@ -4194,6 +4245,9 @@ export type FindReportPreviewsQueryHookResult = ReturnType<typeof useFindReportP
 export type FindReportPreviewsLazyQueryHookResult = ReturnType<typeof useFindReportPreviewsLazyQuery>;
 export type FindReportPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindReportPreviewsSuspenseQuery>;
 export type FindReportPreviewsQueryResult = Apollo.QueryResult<FindReportPreviewsQuery, FindReportPreviewsQueryVariables>;
+export function refetchFindReportPreviewsQuery(variables: FindReportPreviewsQueryVariables) {
+      return { query: FindReportPreviewsDocument, variables: variables }
+    }
 export const FindLastReportDocument = gql`
     query FindLastReport {
   findLastReport {
@@ -4233,6 +4287,9 @@ export type FindLastReportQueryHookResult = ReturnType<typeof useFindLastReportQ
 export type FindLastReportLazyQueryHookResult = ReturnType<typeof useFindLastReportLazyQuery>;
 export type FindLastReportSuspenseQueryHookResult = ReturnType<typeof useFindLastReportSuspenseQuery>;
 export type FindLastReportQueryResult = Apollo.QueryResult<FindLastReportQuery, FindLastReportQueryVariables>;
+export function refetchFindLastReportQuery(variables?: FindLastReportQueryVariables) {
+      return { query: FindLastReportDocument, variables: variables }
+    }
 export const FindReportDocument = gql`
     query FindReport($id: ID!) {
   findReport(id: $id) {
@@ -4273,6 +4330,9 @@ export type FindReportQueryHookResult = ReturnType<typeof useFindReportQuery>;
 export type FindReportLazyQueryHookResult = ReturnType<typeof useFindReportLazyQuery>;
 export type FindReportSuspenseQueryHookResult = ReturnType<typeof useFindReportSuspenseQuery>;
 export type FindReportQueryResult = Apollo.QueryResult<FindReportQuery, FindReportQueryVariables>;
+export function refetchFindReportQuery(variables: FindReportQueryVariables) {
+      return { query: FindReportDocument, variables: variables }
+    }
 export const FindReportCommentDocument = gql`
     query FindReportComment($reportId: ID!) {
   findReportComment(reportId: $reportId) {
@@ -4313,6 +4373,9 @@ export type FindReportCommentQueryHookResult = ReturnType<typeof useFindReportCo
 export type FindReportCommentLazyQueryHookResult = ReturnType<typeof useFindReportCommentLazyQuery>;
 export type FindReportCommentSuspenseQueryHookResult = ReturnType<typeof useFindReportCommentSuspenseQuery>;
 export type FindReportCommentQueryResult = Apollo.QueryResult<FindReportCommentQuery, FindReportCommentQueryVariables>;
+export function refetchFindReportCommentQuery(variables: FindReportCommentQueryVariables) {
+      return { query: FindReportCommentDocument, variables: variables }
+    }
 export const CommentReportDocument = gql`
     mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input) {
@@ -4418,6 +4481,9 @@ export type FindTagsQueryHookResult = ReturnType<typeof useFindTagsQuery>;
 export type FindTagsLazyQueryHookResult = ReturnType<typeof useFindTagsLazyQuery>;
 export type FindTagsSuspenseQueryHookResult = ReturnType<typeof useFindTagsSuspenseQuery>;
 export type FindTagsQueryResult = Apollo.QueryResult<FindTagsQuery, FindTagsQueryVariables>;
+export function refetchFindTagsQuery(variables?: FindTagsQueryVariables) {
+      return { query: FindTagsDocument, variables: variables }
+    }
 export const FindTermDocument = gql`
     query FindTerm($name: String!) {
   findTerm(name: $name) {
@@ -4458,6 +4524,9 @@ export type FindTermQueryHookResult = ReturnType<typeof useFindTermQuery>;
 export type FindTermLazyQueryHookResult = ReturnType<typeof useFindTermLazyQuery>;
 export type FindTermSuspenseQueryHookResult = ReturnType<typeof useFindTermSuspenseQuery>;
 export type FindTermQueryResult = Apollo.QueryResult<FindTermQuery, FindTermQueryVariables>;
+export function refetchFindTermQuery(variables: FindTermQueryVariables) {
+      return { query: FindTermDocument, variables: variables }
+    }
 export const CreateSignedUrlDocument = gql`
     mutation CreateSignedUrl($input: CreateSignedUrlInput!) {
   createSignedUrl(input: $input) {
@@ -4615,6 +4684,9 @@ export type FindUserReviewPreviewsQueryHookResult = ReturnType<typeof useFindUse
 export type FindUserReviewPreviewsLazyQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsLazyQuery>;
 export type FindUserReviewPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewPreviewsSuspenseQuery>;
 export type FindUserReviewPreviewsQueryResult = Apollo.QueryResult<FindUserReviewPreviewsQuery, FindUserReviewPreviewsQueryVariables>;
+export function refetchFindUserReviewPreviewsQuery(variables: FindUserReviewPreviewsQueryVariables) {
+      return { query: FindUserReviewPreviewsDocument, variables: variables }
+    }
 export const FindUserReviewDocument = gql`
     query FindUserReview($id: ID, $slug: String) {
   findUserReview(id: $id, slug: $slug) {
@@ -4656,6 +4728,9 @@ export type FindUserReviewQueryHookResult = ReturnType<typeof useFindUserReviewQ
 export type FindUserReviewLazyQueryHookResult = ReturnType<typeof useFindUserReviewLazyQuery>;
 export type FindUserReviewSuspenseQueryHookResult = ReturnType<typeof useFindUserReviewSuspenseQuery>;
 export type FindUserReviewQueryResult = Apollo.QueryResult<FindUserReviewQuery, FindUserReviewQueryVariables>;
+export function refetchFindUserReviewQuery(variables?: FindUserReviewQueryVariables) {
+      return { query: FindUserReviewDocument, variables: variables }
+    }
 export const CreateUserReviewDocument = gql`
     mutation CreateUserReview($input: CreateUserReviewInput!) {
   createUserReview(input: $input)
@@ -4760,6 +4835,9 @@ export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
 export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
 export type FindUserSuspenseQueryHookResult = ReturnType<typeof useFindUserSuspenseQuery>;
 export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
+export function refetchFindUserQuery(variables?: FindUserQueryVariables) {
+      return { query: FindUserDocument, variables: variables }
+    }
 export const FindAuthorDocument = gql`
     query FindAuthor($id: ID, $username: String) {
   findAuthor(id: $id, username: $username) {
@@ -4801,6 +4879,9 @@ export type FindAuthorQueryHookResult = ReturnType<typeof useFindAuthorQuery>;
 export type FindAuthorLazyQueryHookResult = ReturnType<typeof useFindAuthorLazyQuery>;
 export type FindAuthorSuspenseQueryHookResult = ReturnType<typeof useFindAuthorSuspenseQuery>;
 export type FindAuthorQueryResult = Apollo.QueryResult<FindAuthorQuery, FindAuthorQueryVariables>;
+export function refetchFindAuthorQuery(variables?: FindAuthorQueryVariables) {
+      return { query: FindAuthorDocument, variables: variables }
+    }
 export const FindMyUserDocument = gql`
     query FindMyUser {
   findMyUser {
@@ -4840,6 +4921,9 @@ export type FindMyUserQueryHookResult = ReturnType<typeof useFindMyUserQuery>;
 export type FindMyUserLazyQueryHookResult = ReturnType<typeof useFindMyUserLazyQuery>;
 export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserSuspenseQuery>;
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
+export function refetchFindMyUserQuery(variables?: FindMyUserQueryVariables) {
+      return { query: FindMyUserDocument, variables: variables }
+    }
 export const FindUsersDocument = gql`
     query FindUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUsers(
@@ -4901,6 +4985,9 @@ export type FindUsersQueryHookResult = ReturnType<typeof useFindUsersQuery>;
 export type FindUsersLazyQueryHookResult = ReturnType<typeof useFindUsersLazyQuery>;
 export type FindUsersSuspenseQueryHookResult = ReturnType<typeof useFindUsersSuspenseQuery>;
 export type FindUsersQueryResult = Apollo.QueryResult<FindUsersQuery, FindUsersQueryVariables>;
+export function refetchFindUsersQuery(variables: FindUsersQueryVariables) {
+      return { query: FindUsersDocument, variables: variables }
+    }
 export const UpdateUserDocument = gql`
     mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input)
@@ -5004,6 +5091,9 @@ export type FindVersionPreviewQueryHookResult = ReturnType<typeof useFindVersion
 export type FindVersionPreviewLazyQueryHookResult = ReturnType<typeof useFindVersionPreviewLazyQuery>;
 export type FindVersionPreviewSuspenseQueryHookResult = ReturnType<typeof useFindVersionPreviewSuspenseQuery>;
 export type FindVersionPreviewQueryResult = Apollo.QueryResult<FindVersionPreviewQuery, FindVersionPreviewQueryVariables>;
+export function refetchFindVersionPreviewQuery(variables?: FindVersionPreviewQueryVariables) {
+      return { query: FindVersionPreviewDocument, variables: variables }
+    }
 export const FindVersionDocument = gql`
     query FindVersion($id: ID!) {
   findVersion(id: $id) {
@@ -5044,3 +5134,6 @@ export type FindVersionQueryHookResult = ReturnType<typeof useFindVersionQuery>;
 export type FindVersionLazyQueryHookResult = ReturnType<typeof useFindVersionLazyQuery>;
 export type FindVersionSuspenseQueryHookResult = ReturnType<typeof useFindVersionSuspenseQuery>;
 export type FindVersionQueryResult = Apollo.QueryResult<FindVersionQuery, FindVersionQueryVariables>;
+export function refetchFindVersionQuery(variables: FindVersionQueryVariables) {
+      return { query: FindVersionDocument, variables: variables }
+    }

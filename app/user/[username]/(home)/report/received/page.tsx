@@ -31,7 +31,7 @@ function Page({
     createdAt: 'desc',
   };
 
-  return <ReportFeed where={where} orderBy={orderBy} />;
+  return <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />;
 }
 
 export default Page;

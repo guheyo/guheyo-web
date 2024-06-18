@@ -3,29 +3,22 @@
 import AuctionFeed from '@/components/auction/auction-feed';
 import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
-import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { Suspense } from 'react';
 
 function Page() {
-  const status = parseAuctionStatus({
-    status: null,
-  });
-  const where = {
-    status,
-  };
-
-  const orderBy = getFindAuctionsOrderByArgs({
-    sortOrder: undefined,
-  });
-
+  const where = {};
+  const sortOrder = undefined;
   const distinct = false;
 
   return (
     <Suspense>
       <HomeAuctionFeedLayout>
         <ThumbnailFeedLayout>
-          <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
+          <AuctionFeed
+            defaultWhere={where}
+            defaultSortOrder={sortOrder}
+            defaultDistinct={distinct}
+          />
         </ThumbnailFeedLayout>
       </HomeAuctionFeedLayout>
     </Suspense>

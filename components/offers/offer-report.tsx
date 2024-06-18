@@ -37,7 +37,7 @@ export default function OfferReport({ slug }: { slug: string }) {
         author={offer.post.user}
         updatedAt={offer.updatedAt}
       />
-      <ReportFeed where={where} orderBy={orderBy} />
+      <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
     </div>
   );
 }

@@ -20,40 +20,40 @@ import BidOutput from './bid-output';
 import BidInput from './bid-input';
 
 export default function BidFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
 }: {
-  where: FindBidsWhereArgs;
-  orderBy: FindBidsOrderByArgs;
+  defaultWhere: FindBidsWhereArgs;
+  defaultOrderBy: FindBidsOrderByArgs;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [bids, setBids] = useState<BidResponse[]>([]); // State to store bids
 
   const handlePlaceBid = async (values: BidValues) => {
-    if (!jwtPayload || !where.auctionId || !values.price) return;
+    if (!jwtPayload || !defaultWhere.auctionId || !values.price) return;
 
     await placeBid({
       id: values.id,
-      auctionId: where.auctionId,
+      auctionId: defaultWhere.auctionId,
       price: values.price,
       priceCurrency: 'krw',
     });
   };
 
   const handleCancelBid = async (bidId: string) => {
-    if (!jwtPayload || !where.auctionId) return;
+    if (!jwtPayload || !defaultWhere.auctionId) return;
 
     await cancelBid({
-      auctionId: where.auctionId,
+      auctionId: defaultWhere.auctionId,
       bidId,
     });
   };
 
   const { loading: bidsLoading, data: bidsData } = useInfiniteBids({
     ref: sentinelRef,
-    where,
-    orderBy,
+    where: defaultWhere,
+    orderBy: defaultOrderBy,
     take: 10,
   });
 
@@ -72,7 +72,7 @@ export default function BidFeed({
 
   useSubscription(BidPlacedDocument, {
     variables: {
-      auctionId: where.auctionId,
+      auctionId: defaultWhere.auctionId,
     },
     onData: ({ data }) => {
       const newBid = data.data.bidPlaced;
@@ -83,7 +83,7 @@ export default function BidFeed({
 
   useSubscription(BidCanceledDocument, {
     variables: {
-      auctionId: where.auctionId,
+      auctionId: defaultWhere.auctionId,
     },
     onData: ({ data }) => {
       const canceledBid = data.data.bidCanceled;

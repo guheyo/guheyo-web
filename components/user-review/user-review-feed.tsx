@@ -12,31 +12,32 @@ import { useSearchParams } from 'next/navigation';
 import UserReviewPreview from './user-review-preview';
 
 function UserReviewFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
   keyword,
   type,
 }: {
-  where: FindUserReviewsWhereArgs;
-  orderBy?: FindUserReviewsOrderByArgs;
+  defaultWhere: FindUserReviewsWhereArgs;
+  defaultOrderBy?: FindUserReviewsOrderByArgs;
   keyword?: string;
   type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
-  const tagType = searchParams.get('tagType') || undefined;
+  const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const status = defaultWhere.status || undefined;
 
   const { loading, data } = useInfiniteUserReviewFeed({
     ref,
     where: {
       groupId: group?.id,
-      userId: where?.userId,
+      userId: defaultWhere.userId,
       tagType,
-      reviewedUserId: where.reviewedUserId,
+      reviewedUserId: defaultWhere.reviewedUserId,
     },
     orderBy: {
-      createdAt: orderBy?.createdAt || 'desc',
+      createdAt: defaultOrderBy?.createdAt || 'desc',
     },
     keyword,
     take: 12,
@@ -46,7 +47,7 @@ function UserReviewFeed({
   if (!data?.findUserReviewPreviews) return <div />;
 
   const edges = data.findUserReviewPreviews.edges.filter((edge) =>
-    where.status ? edge.node.status === where.status : true,
+    status ? edge.node.status === status : true,
   );
 
   return (

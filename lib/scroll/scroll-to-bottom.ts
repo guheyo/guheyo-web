@@ -1,3 +1,5 @@
+'use client';
+
 export const scrollToBottom = () => {
   window.scrollTo({
     top: document.body.scrollHeight,
