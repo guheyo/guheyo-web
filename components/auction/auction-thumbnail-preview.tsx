@@ -7,12 +7,14 @@ import { parseAuctionDetailLink } from '@/lib/auction/parse-auction-detail-link'
 import Thumbnail from '../base/thumbnail';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
+import GroupNameLink from '../groups/group-name-link';
 
 interface Props {
   auction: AuctionPreviewResponse;
 }
 
 export default function AuctionThumbnailPreview({ auction }: Props) {
+  const { group } = auction.post;
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
@@ -39,6 +41,7 @@ export default function AuctionThumbnailPreview({ auction }: Props) {
         )}
         <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <div className="flex flex-col gap-1">
+            <GroupNameLink name={group.name} slug={group.slug!} />
             <AuctionPreviewHeader auction={auction} />
             <AuctionPreviewFooter auction={auction} />
           </div>
