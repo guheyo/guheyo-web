@@ -13,7 +13,7 @@ const findLocation = (pathname: string) => {
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
   if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'member';
   if (/^\/user\//.test(pathname)) return 'user';
-  if (/^\/auction/.test(pathname)) return 'auction';
+  if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
   if (/^\/search$/.test(pathname)) return 'search-guild';
   if (/^\/search\/g\/[\w-]*\/product/.test(pathname)) return 'search-product';
   if (/^\/search\/g\/[\w-]*\/auction/.test(pathname))

@@ -6,7 +6,13 @@ import Link from 'next/link';
 import GroupProfile from './group-profile';
 import SearchResultCardLayout from '../search/search-result-card.layout';
 
-export default function GroupProfiles({ keyword }: { keyword?: string }) {
+export default function GroupProfiles({
+  keyword,
+  generateLink,
+}: {
+  keyword?: string;
+  generateLink?: (slug: string) => string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
@@ -20,7 +26,14 @@ export default function GroupProfiles({ keyword }: { keyword?: string }) {
   return (
     <>
       {groups.map((group) => (
-        <Link key={group.node.name} href={`g/${group.node.slug}`}>
+        <Link
+          key={group.node.name}
+          href={
+            generateLink
+              ? generateLink(group.node.slug!)
+              : `g/${group.node.slug}`
+          }
+        >
           <SearchResultCardLayout>
             <GroupProfile
               name={group.node.name}

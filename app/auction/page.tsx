@@ -1,6 +1,7 @@
 'use client';
 
 import AuctionFeed from '@/components/auction/auction-feed';
+import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
@@ -22,9 +23,11 @@ function Page() {
   const distinct = searchParams.get('distinct') !== 'false';
 
   return (
-    <ThumbnailFeedLayout>
-      <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
-    </ThumbnailFeedLayout>
+    <HomeAuctionFeedLayout>
+      <ThumbnailFeedLayout>
+        <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
+      </ThumbnailFeedLayout>
+    </HomeAuctionFeedLayout>
   );
 }
 
