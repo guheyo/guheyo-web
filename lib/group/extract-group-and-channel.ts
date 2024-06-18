@@ -4,23 +4,23 @@ export const extractGroupAndChannel = (pathname: string) => {
 
   // Check if the URL has the correct format
   if (parts.length >= 4 && parts[1] === 'g') {
-    const groupName = parts[2];
-    let channelName = parts[3];
+    const groupSlug = parts[2];
+    let channelSlug = parts[3];
 
-    if (['sell', 'buy', 'swap'].includes(channelName)) {
-      channelName = 'offer';
+    if (['sell', 'buy', 'swap'].includes(channelSlug)) {
+      channelSlug = 'offer';
     }
 
-    return { groupName, channelName };
+    return { groupSlug, channelSlug };
   }
 
   // auction
   if (/^\/auction(?:\?.*)?$/.test(pathname)) {
-    return { groupName: null, channelName: 'auction' };
+    return { groupSlug: null, channelSlug: 'auction' };
   }
 
   return {
-    groupName: null,
-    channelName: null,
+    groupSlug: null,
+    channelSlug: null,
   };
 };
