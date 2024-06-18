@@ -37,7 +37,7 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
 
     try {
       await createAuction(input);
-      router.back();
+      router.push('/auction');
       setTimeout(() => {
         window.location.reload();
       }, 1000);
