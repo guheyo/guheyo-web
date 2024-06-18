@@ -24,13 +24,13 @@ function Page() {
   const distinct = searchParams.get('distinct') !== 'false';
 
   return (
-    <Suspense>
-      <HomeAuctionFeedLayout>
-        <ThumbnailFeedLayout>
+    <HomeAuctionFeedLayout>
+      <ThumbnailFeedLayout>
+        <Suspense>
           <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
-        </ThumbnailFeedLayout>
-      </HomeAuctionFeedLayout>
-    </Suspense>
+        </Suspense>
+      </ThumbnailFeedLayout>
+    </HomeAuctionFeedLayout>
   );
 }
 
