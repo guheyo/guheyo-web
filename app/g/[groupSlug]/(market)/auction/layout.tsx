@@ -1,8 +1,8 @@
-import AuctionFeedHomeLayout from '@/components/auction/auction-feed-home.layout';
+import GroupAuctionFeedLayout from '@/components/auction/group-auction-feed.layout';
 import { ReactNode } from 'react';
 
 function Layout({ children }: { children: ReactNode }) {
-  return <AuctionFeedHomeLayout>{children}</AuctionFeedHomeLayout>;
+  return <GroupAuctionFeedLayout>{children}</GroupAuctionFeedLayout>;
 }
 
 export default Layout;

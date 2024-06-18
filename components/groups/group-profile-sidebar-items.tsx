@@ -8,10 +8,16 @@ import Avatar from '../avatar/avatar';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
-  onClick,
+  paddingX,
+  paddingY,
+  onClick = () => {},
+  pathFormatter,
 }: {
   currentGroupId?: string;
-  onClick: MouseEventHandler;
+  paddingX: number;
+  paddingY: number;
+  onClick?: MouseEventHandler;
+  pathFormatter: (slug: string) => string;
 }) {
   const device = useDeviceDetect();
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +35,7 @@ export default function GroupProfileSidebarItems({
       {groups.map((group) => (
         <SidebarItem
           key={group.node.name}
-          href={`/g/${group.node.slug}`}
+          href={pathFormatter(group.node.slug!)}
           icon={
             <Avatar
               name={group.node.name}
@@ -39,6 +45,8 @@ export default function GroupProfileSidebarItems({
           }
           text={group.node.name}
           isActive={currentGroupId === group.node.id}
+          paddingX={paddingX}
+          paddingY={paddingY}
           onClick={onClick}
         />
       ))}

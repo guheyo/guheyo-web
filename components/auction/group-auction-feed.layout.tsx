@@ -8,7 +8,7 @@ interface Props {
   children: ReactNode;
 }
 
-function AuctionFeedHomeLayout({ children }: Props) {
+function GroupAuctionFeedLayout({ children }: Props) {
   return (
     <div>
       <div className="mx-2.5 md:mx-1">
@@ -22,4 +22,4 @@ function AuctionFeedHomeLayout({ children }: Props) {
   );
 }
 
-export default AuctionFeedHomeLayout;
+export default GroupAuctionFeedLayout;

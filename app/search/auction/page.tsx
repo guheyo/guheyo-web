@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 export default function page() {
   return (
     <Suspense>
-      <SearchAuctions isInGroup />
+      <SearchAuctions isInGroup={false} />
     </Suspense>
   );
 }

@@ -10,7 +10,7 @@ export default function AuctionPreviewPrice({
   currentBidPrice: number;
 }) {
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <>
       {auctionStatus !== AUCTION_LIVE && (
         <div className="text-sm md:text-base font-semibold">
           낙찰가 {parsePrice(currentBidPrice)}
@@ -21,6 +21,6 @@ export default function AuctionPreviewPrice({
           입찰가 {parsePrice(currentBidPrice)}
         </div>
       )}
-    </div>
+    </>
   );
 }

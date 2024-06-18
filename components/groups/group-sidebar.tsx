@@ -76,12 +76,19 @@ export default function GroupSidebar({
               icon={<HomeIcon fontSize="medium" />}
               text="홈"
               isActive={activeItem === ''}
+              paddingX={2}
+              paddingY={1}
               onClick={handleMenuToggle}
             />
             <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
               그룹
             </ListItem>
-            <GroupProfileSidebarItems onClick={handleMenuToggle} />
+            <GroupProfileSidebarItems
+              paddingX={2}
+              paddingY={1}
+              onClick={handleMenuToggle}
+              pathFormatter={(slug) => `/g/${slug}`}
+            />
           </List>
         </div>
       </>
@@ -111,6 +118,8 @@ export default function GroupSidebar({
             icon={<HomeIcon fontSize="medium" />}
             text="홈"
             isActive={activeItem === ''}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
@@ -118,7 +127,10 @@ export default function GroupSidebar({
           </ListItem>
           <GroupProfileSidebarItems
             currentGroupId={group.id}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
+            pathFormatter={(slug) => `/g/${slug}`}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             장터
@@ -131,6 +143,8 @@ export default function GroupSidebar({
             icon={<SellIcon fontSize="medium" />}
             text="판매"
             isActive={activeItem === 'sell'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <SidebarItem
@@ -141,6 +155,8 @@ export default function GroupSidebar({
             icon={<ShoppingBagIcon fontSize="medium" />}
             text="구매"
             isActive={activeItem === 'buy'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <SidebarItem
@@ -151,6 +167,8 @@ export default function GroupSidebar({
             icon={<SwapHorizIcon fontSize="medium" />}
             text="교환"
             isActive={activeItem === 'swap'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
@@ -164,6 +182,8 @@ export default function GroupSidebar({
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
             isActive={activeItem === 'member'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <SidebarItem
@@ -174,6 +194,8 @@ export default function GroupSidebar({
             icon={<StickyNote2Icon fontSize="medium" />}
             text="거래 후기"
             isActive={activeItem === 'review'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
           <SidebarItem
@@ -184,6 +206,8 @@ export default function GroupSidebar({
             icon={<FlagIcon fontSize="medium" />}
             text="신고"
             isActive={activeItem === 'report'}
+            paddingX={2}
+            paddingY={1}
             onClick={handleMenuToggle}
           />
         </List>

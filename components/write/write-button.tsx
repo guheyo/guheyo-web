@@ -5,24 +5,27 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { extractGroupAndChannel } from '@/lib/group/extract-group-and-channel';
+import { parseWriteLink } from '@/lib/write/parse-write-link';
 
 export default function WriteButton() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
 
-  const { groupName, channelName } = extractGroupAndChannel(pathname);
+  const { groupSlug, channelSlug } = extractGroupAndChannel(pathname);
 
   const handleOnClick = (): void => {
-    if (!groupName && !channelName) return;
-
     setLoading(true);
-    router.push(`/write/g/${groupName}/${channelName}`);
+    if (groupSlug && channelSlug) {
+      router.push(parseWriteLink({ groupSlug, channelSlug }));
+    } else if (channelSlug === 'auction') {
+      router.push(parseWriteLink({ groupSlug: undefined, channelSlug }));
+    }
     setLoading(false);
   };
 
-  if (!groupName) return <div />;
-  if (!['auction', 'offer'].includes(channelName)) return <div />;
+  if (!channelSlug || !['auction', 'offer'].includes(channelSlug))
+    return <div />;
 
   return (
     <div className="inline-flex items-center">
@@ -40,7 +43,7 @@ export default function WriteButton() {
             backgroundColor: 'transparent', // Match IconButton hover effect
           },
         }}
-        name={`${groupName} 그룹 ${channelName} 포스트 작성하기`}
+        name={`${groupSlug} 그룹 ${channelSlug} 포스트 작성하기`}
         onClick={handleOnClick}
       >
         <AddIcon className="text-2xl" />
