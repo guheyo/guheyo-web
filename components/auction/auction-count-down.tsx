@@ -7,9 +7,11 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 function AuctionCountdown({
   targetDate,
   displayLabel,
+  template,
 }: {
   targetDate: Date;
   displayLabel: boolean;
+  template: string;
 }) {
   const [timeLeft, setTimeLeft] = useState('');
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
@@ -55,7 +57,7 @@ function AuctionCountdown({
         <div className="flex flex-row items-center">
           {displayLabel && <span className="opacity-50">경매 종료:</span>}
           <span className="font-semibold ml-1">
-            {dayjs(targetDate).format('YY.MM.DD HH:mm')}
+            {dayjs(targetDate).format(template)}
           </span>
         </div>
       ) : (

@@ -40,6 +40,7 @@ export default function AuctionDetailStickyHeader({
         <AuctionCountdown
           targetDate={extendedEndDate}
           displayLabel={device !== 'mobile'}
+          template="YY.MM.DD HH:mm"
         />
         <AuctionDetailPrice auctionStatus={status} highestBid={highestBid} />
         <div className="hidden md:flex">
