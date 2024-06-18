@@ -8,10 +8,14 @@ import Avatar from '../avatar/avatar';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
+  paddingX,
+  paddingY,
   onClick = () => {},
   pathFormatter,
 }: {
   currentGroupId?: string;
+  paddingX: number;
+  paddingY: number;
   onClick?: MouseEventHandler;
   pathFormatter: (slug: string) => string;
 }) {
@@ -41,6 +45,8 @@ export default function GroupProfileSidebarItems({
           }
           text={group.node.name}
           isActive={currentGroupId === group.node.id}
+          paddingX={paddingX}
+          paddingY={paddingY}
           onClick={onClick}
         />
       ))}
