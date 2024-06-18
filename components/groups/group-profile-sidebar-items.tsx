@@ -8,11 +8,11 @@ import Avatar from '../avatar/avatar';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
-  onClick,
+  onClick = () => {},
   pathFormatter,
 }: {
   currentGroupId?: string;
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
   pathFormatter: (slug: string) => string;
 }) {
   const device = useDeviceDetect();
