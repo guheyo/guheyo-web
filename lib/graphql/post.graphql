@@ -12,7 +12,6 @@ fragment post on PostResponse {
   images {
     ...image
   }
-  groupId
   group {
     ...groupProfile
   }
@@ -39,8 +38,10 @@ fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   title
   slug
   thumbnail
-  groupId
   categoryId
+  group {
+    ...groupProfile
+  }
   tags {
     ...tag
   }
@@ -57,8 +58,10 @@ fragment postPreviewWithUser on PostPreviewWithUserResponse {
   title
   slug
   thumbnail
-  groupId
   categoryId
+  group {
+    ...groupProfile
+  }
   user {
     ...user
   }
@@ -78,8 +81,10 @@ fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
   title
   slug
   thumbnail
-  groupId
   categoryId
+  group {
+    ...groupProfile
+  }
   user {
     ...author
   }
