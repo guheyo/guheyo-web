@@ -9,7 +9,6 @@ import { FindOffersWhereArgs } from '@/interfaces/offer.interfaces';
 import { OFFER_OPEN } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
-import { useSearchParams } from 'next/navigation';
 import { useContext } from 'react';
 
 function Page({
@@ -21,8 +20,6 @@ function Page({
   };
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const searchParams = useSearchParams();
-  const isArchived = searchParams.get('isArchived') === true.toString();
   const { loading, data } = useFindUserQuery({
     variables: {
       username,
@@ -34,10 +31,9 @@ function Page({
   if (loading) return <div />;
   if (!user) return <div />;
 
+  const isArchived = false;
   const status = parseOfferStatus({
-    status:
-      searchParams.get('status') ||
-      (jwtPayload?.id === user.id && !isArchived ? OFFER_OPEN : 'all'),
+    status: jwtPayload?.id === user.id && !isArchived ? OFFER_OPEN : 'all',
   });
   const where: FindOffersWhereArgs = {
     businessFunction,
@@ -49,13 +45,17 @@ function Page({
   if (businessFunction === 'buy') {
     return (
       <TextFeedLayout>
-        <OfferFeed where={where} type="text" distinct={false} />
+        <OfferFeed defaultWhere={where} type="text" defaultDistinct={false} />
       </TextFeedLayout>
     );
   }
   return (
     <ThumbnailFeedLayout>
-      <OfferFeed where={where} type="thumbnail" distinct={false} />
+      <OfferFeed
+        defaultWhere={where}
+        type="thumbnail"
+        defaultDistinct={false}
+      />
     </ThumbnailFeedLayout>
   );
 }
