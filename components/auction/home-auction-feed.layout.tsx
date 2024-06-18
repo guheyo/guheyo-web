@@ -13,13 +13,15 @@ function HomeAuctionFeedLayout({ children }: Props) {
   return (
     <div>
       <div className="mx-2.5 md:mx-1">
-        <div className="flex flex-row gap-4 text-gray-200 text-base md:text-lg font-semibold">
+        <div className="flex flex-row gap-4 text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
           <GavelIcon />
           <div>경매장</div>
         </div>
       </div>
-      <div className="flex justify-start">
+      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-2 md:mx-1">
         <GroupProfileSidebarItems
+          paddingX={0}
+          paddingY={0}
           pathFormatter={(slug) => `/g/${slug}/auction`}
         />
       </div>
