@@ -22,6 +22,7 @@ export default function AuctionPreviewFooter({ auction }: Props) {
         <AuctionCountdown
           targetDate={auction.extendedEndDate}
           displayLabel={false}
+          template="MM.DD HH:mm"
         />
       </div>
       <AuctionPreviewPrice
