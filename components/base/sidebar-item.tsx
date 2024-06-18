@@ -7,17 +7,27 @@ export default function SidebarItem({
   icon,
   text,
   isActive,
+  paddingX,
+  paddingY,
   onClick,
 }: {
   href: string;
   icon: React.ReactNode;
   text: string;
   isActive: boolean;
+  paddingX: number;
+  paddingY: number;
   onClick: MouseEventHandler;
 }) {
   return (
     <Link href={href}>
-      <ListItem onClick={onClick}>
+      <ListItem
+        onClick={onClick}
+        sx={{
+          paddingX,
+          paddingY,
+        }}
+      >
         <ListItemIcon
           className={isActive ? 'text-star-400 font-semibold' : 'text-gray-400'}
           style={{ minWidth: 'unset', width: 'auto', marginRight: '12px' }}

@@ -1,20 +1,16 @@
 'use client';
 
-import { parseGroupHomeLink } from '@/lib/group/parse-group-home-link';
 import Link from 'next/link';
 
 export default function GroupNameLink({
   name,
-  slug,
+  href,
 }: {
   name: string;
-  slug: string;
+  href: string;
 }) {
   return (
-    <Link
-      href={parseGroupHomeLink({ slug })}
-      className="flex flex-row gap-2 items-center break-all"
-    >
+    <Link href={href} className="flex flex-row gap-2 items-center break-all">
       <div className="text-gray-400 text-[10px] md:text-xs font-semibold">
         {name}
       </div>

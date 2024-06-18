@@ -69,7 +69,7 @@ function AuctionFeed({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-col gap-0">
-          <AuctionPreview auction={edge.node} />
+          <AuctionPreview auction={edge.node} isInGroup={!!group} />
         </div>
       ))}
       <div ref={ref} />
