@@ -6,7 +6,13 @@ import GroupProfiles from '../groups/group-profiles';
 import { DEBOUNCE } from './search.constants';
 import InfoFeedLayout from '../info/info-feed-layout';
 
-export default function SearchGroups() {
+export default function SearchGroups({
+  placeholder,
+  generateLink,
+}: {
+  placeholder: string;
+  generateLink?: (slug: string) => string;
+}) {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -22,12 +28,12 @@ export default function SearchGroups() {
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 그룹을 찾고 있나요?"
+        placeholder={placeholder}
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
       <InfoFeedLayout>
-        <GroupProfiles keyword={keyword} />
+        <GroupProfiles keyword={keyword} generateLink={generateLink} />
       </InfoFeedLayout>
     </div>
   );
