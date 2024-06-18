@@ -11,9 +11,10 @@ import GroupNameLink from '../groups/group-name-link';
 
 interface Props {
   auction: AuctionPreviewResponse;
+  isInGroup: boolean;
 }
 
-export default function AuctionThumbnailPreview({ auction }: Props) {
+export default function AuctionThumbnailPreview({ auction, isInGroup }: Props) {
   const { group } = auction.post;
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
@@ -41,7 +42,9 @@ export default function AuctionThumbnailPreview({ auction }: Props) {
         )}
         <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <div className="flex flex-col gap-1">
-            <GroupNameLink name={group.name} slug={group.slug!} />
+            {!isInGroup && (
+              <GroupNameLink name={group.name} slug={group.slug!} />
+            )}
             <AuctionPreviewHeader auction={auction} />
             <AuctionPreviewFooter auction={auction} />
           </div>
