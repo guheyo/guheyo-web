@@ -81,7 +81,10 @@ export default function GroupSidebar({
             <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
               그룹
             </ListItem>
-            <GroupProfileSidebarItems onClick={handleMenuToggle} />
+            <GroupProfileSidebarItems
+              onClick={handleMenuToggle}
+              pathFormatter={(slug) => `/g/${slug}`}
+            />
           </List>
         </div>
       </>
@@ -119,6 +122,7 @@ export default function GroupSidebar({
           <GroupProfileSidebarItems
             currentGroupId={group.id}
             onClick={handleMenuToggle}
+            pathFormatter={(slug) => `/g/${slug}`}
           />
           <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
             장터
