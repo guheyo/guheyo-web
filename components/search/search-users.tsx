@@ -33,7 +33,11 @@ export default function SearchUsers() {
         handleChange={handleChange}
       />
       <InfoFeedLayout>
-        <UserFeed where={where} orderBy={orderBy} keyword={keyword} />
+        <UserFeed
+          defaultWhere={where}
+          defaultOrderBy={orderBy}
+          keyword={keyword}
+        />
       </InfoFeedLayout>
     </div>
   );
