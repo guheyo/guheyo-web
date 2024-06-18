@@ -11,7 +11,7 @@ import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
 import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
 
-export default function SearchAuctions({ isHome }: { isHome: boolean }) {
+export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
   const searchParams = useSearchParams();
   const status = parseAuctionStatus({
@@ -44,7 +44,7 @@ export default function SearchAuctions({ isHome }: { isHome: boolean }) {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      {!isHome && (
+      {isInGroup && (
         <div className="pt-4 mx-2.5 md:mx-1">
           <CategoriesNavbar hideSelector />
         </div>
