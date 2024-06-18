@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 

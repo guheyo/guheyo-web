@@ -1,3 +1,5 @@
+'use client';
+
 import ReplyIcon from '@mui/icons-material/Reply';
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
