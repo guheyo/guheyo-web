@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 export default function page() {
   return (
     <Suspense>
-      <SearchGroups />
+      <SearchGroups placeholder="어떤 그룹을 찾고 있나요?" />
     </Suspense>
   );
 }
