@@ -333,7 +333,10 @@ export default function AuctionDetailContainer({
             신고 {auction.post.reportCount}개
           </div>
           <div className="px-2 md:px-0">
-            <ReportFeed where={reportWhere} orderBy={reportOrderBy} />
+            <ReportFeed
+              defaultWhere={reportWhere}
+              defaultOrderBy={reportOrderBy}
+            />
           </div>
         </div>
       )}
