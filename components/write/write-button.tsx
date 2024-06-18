@@ -14,15 +14,17 @@ export default function WriteButton() {
   const { groupName, channelName } = extractGroupAndChannel(pathname);
 
   const handleOnClick = (): void => {
-    if (!groupName && !channelName) return;
-
     setLoading(true);
-    router.push(`/write/g/${groupName}/${channelName}`);
+    if (groupName && channelName) {
+      router.push(`/write/g/${groupName}/${channelName}`);
+    } else if (channelName === 'auction') {
+      router.push(`/write/auction`);
+    }
     setLoading(false);
   };
 
-  if (!groupName) return <div />;
-  if (!['auction', 'offer'].includes(channelName)) return <div />;
+  if (!channelName || !['auction', 'offer'].includes(channelName))
+    return <div />;
 
   return (
     <div className="inline-flex items-center">

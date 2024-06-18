@@ -13,6 +13,12 @@ export const extractGroupAndChannel = (pathname: string) => {
 
     return { groupName, channelName };
   }
+
+  // auction
+  if (/^\/auction(?:\?.*)?$/.test(pathname)) {
+    return { groupName: null, channelName: 'auction' };
+  }
+
   return {
     groupName: null,
     channelName: null,
