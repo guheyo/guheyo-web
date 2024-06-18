@@ -5,6 +5,7 @@ import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
+import { Suspense } from 'react';
 
 function Page() {
   const status = parseAuctionStatus({
@@ -21,11 +22,13 @@ function Page() {
   const distinct = false;
 
   return (
-    <HomeAuctionFeedLayout>
-      <ThumbnailFeedLayout>
-        <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
-      </ThumbnailFeedLayout>
-    </HomeAuctionFeedLayout>
+    <Suspense>
+      <HomeAuctionFeedLayout>
+        <ThumbnailFeedLayout>
+          <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
+        </ThumbnailFeedLayout>
+      </HomeAuctionFeedLayout>
+    </Suspense>
   );
 }
 

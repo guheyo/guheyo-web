@@ -6,7 +6,7 @@ import { useFindUserQuery } from '@/generated/graphql';
 import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 function Page({
   params: { username },
@@ -15,7 +15,6 @@ function Page({
     username: string;
   };
 }) {
-  const searchParams = useSearchParams();
   const { loading, data } = useFindUserQuery({
     variables: {
       username,
@@ -28,7 +27,7 @@ function Page({
   if (!user) return <div />;
 
   const status = parseAuctionStatus({
-    status: searchParams.get('status'),
+    status: null,
   });
   const where: FindAuctionsWhereArgs = {
     userId: user.id,
@@ -36,13 +35,15 @@ function Page({
   };
 
   const orderBy = getFindAuctionsOrderByArgs({
-    sortOrder: searchParams.get('sort') || undefined,
+    sortOrder: undefined,
   });
 
   return (
-    <ThumbnailFeedLayout>
-      <AuctionFeed where={where} orderBy={orderBy} distinct={false} />
-    </ThumbnailFeedLayout>
+    <Suspense>
+      <ThumbnailFeedLayout>
+        <AuctionFeed where={where} orderBy={orderBy} distinct={false} />
+      </ThumbnailFeedLayout>
+    </Suspense>
   );
 }
 
