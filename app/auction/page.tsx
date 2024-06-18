@@ -6,10 +6,11 @@ import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 
 function Page() {
   const searchParams = useSearchParams();
+  if (!searchParams) return <div />;
+
   const status = parseAuctionStatus({
     status: searchParams.get('status'),
   });
@@ -26,9 +27,7 @@ function Page() {
   return (
     <HomeAuctionFeedLayout>
       <ThumbnailFeedLayout>
-        <Suspense>
-          <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
-        </Suspense>
+        <AuctionFeed where={where} orderBy={orderBy} distinct={distinct} />
       </ThumbnailFeedLayout>
     </HomeAuctionFeedLayout>
   );
