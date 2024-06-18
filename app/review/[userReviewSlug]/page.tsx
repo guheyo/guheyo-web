@@ -41,7 +41,7 @@ function Page({
         <PostDetailAddons commentCount={userReview.post.commentCount || 0} />
       </div>
       <div className="px-4 md:px-0">
-        <CommentFeed where={where} orderBy={orderBy} />
+        <CommentFeed defaultWhere={where} defaultOrderBy={orderBy} />
       </div>
     </div>
   );

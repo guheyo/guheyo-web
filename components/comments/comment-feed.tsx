@@ -23,11 +23,11 @@ import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 
 export default function CommentFeed({
-  where,
-  orderBy,
+  defaultWhere,
+  defaultOrderBy,
 }: {
-  where: FindCommentsWhereArgs;
-  orderBy: FindCommentsOrderByArgs;
+  defaultWhere: FindCommentsWhereArgs;
+  defaultOrderBy: FindCommentsOrderByArgs;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -38,12 +38,12 @@ export default function CommentFeed({
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
 
   const handleWrite = async (values: CommentValues) => {
-    if (!jwtPayload || !where.postId || !values.content) return;
+    if (!jwtPayload || !defaultWhere.postId || !values.content) return;
 
     await createComment({
       id: values.id,
       content: values.content,
-      postId: where.postId,
+      postId: defaultWhere.postId,
     });
   };
 
@@ -77,7 +77,7 @@ export default function CommentFeed({
 
   useSubscription(CommentCreatedDocument, {
     variables: {
-      postId: where.postId,
+      postId: defaultWhere.postId,
     },
     onData: ({ data }) => {
       const newComment = data.data.commentCreated;
@@ -88,7 +88,7 @@ export default function CommentFeed({
 
   useSubscription(CommentUpdatedDocument, {
     variables: {
-      postId: where.postId,
+      postId: defaultWhere.postId,
     },
     onData: ({ data }) => {
       const updatedComment = data.data.commentUpdated;
@@ -109,7 +109,7 @@ export default function CommentFeed({
 
   useSubscription(CommentDeletedDocument, {
     variables: {
-      postId: where.postId,
+      postId: defaultWhere.postId,
     },
     onData: ({ data }) => {
       const deletedComment = data.data.commentDeleted;
@@ -123,7 +123,7 @@ export default function CommentFeed({
   useSubscription(ReactionCreatedDocument, {
     variables: {
       type: 'comment',
-      postId: where.postId,
+      postId: defaultWhere.postId,
     },
     onData: ({ data }) => {
       const newReaction = data.data.reactionCreated;
@@ -145,7 +145,7 @@ export default function CommentFeed({
   useSubscription(ReactionCanceledDocument, {
     variables: {
       type: 'comment',
-      postId: where.postId,
+      postId: defaultWhere.postId,
     },
     onData: ({ data }) => {
       const canceledReaction = data.data.reactionCanceled;
@@ -168,8 +168,8 @@ export default function CommentFeed({
 
   const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
     ref: sentinelRef,
-    where,
-    orderBy,
+    where: defaultWhere,
+    orderBy: defaultOrderBy,
     take: 10,
   });
 
