@@ -11,7 +11,7 @@ function Page() {
   const distinct = false;
 
   return (
-    <HomeAuctionFeedLayout>
+    <HomeAuctionFeedLayout showSelector>
       <ThumbnailFeedLayout>
         <Suspense>
           <AuctionFeed
