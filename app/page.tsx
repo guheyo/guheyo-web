@@ -1,3 +1,4 @@
+import HomeAuction from '@/components/auction/home-auction';
 import HomeFooter from '@/components/footers/home-footer';
 import GroupFeed from '@/components/groups/group-feed';
 
@@ -9,7 +10,8 @@ export const metadata = {
 function Page() {
   return (
     <>
-      <div className="min-h-screen pt-4 mb-12 px-2 md:px-0">
+      <div className="min-h-screen mb-12 px-2 md:px-0 flex flex-col gap-12">
+        <HomeAuction />
         <GroupFeed />
       </div>
       <HomeFooter />
