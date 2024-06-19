@@ -1,3 +1,5 @@
+'use client';
+
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import Link from 'next/link';
 import { parseReportTypeName } from '@/lib/report/parse-report-type-name';

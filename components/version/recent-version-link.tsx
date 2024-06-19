@@ -1,3 +1,5 @@
+'use client';
+
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import dayjs from 'dayjs';
 import Link from 'next/link';

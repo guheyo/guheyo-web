@@ -1,3 +1,5 @@
+'use client';
+
 import { ListItem, ListItemIcon, Typography } from '@mui/material';
 import Link from 'next/link';
 
