@@ -4,7 +4,6 @@ import AuctionFeed from '@/components/auction/auction-feed';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { useFindUserQuery } from '@/generated/graphql';
 import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
-import { Suspense } from 'react';
 
 function Page({
   params: { username },
@@ -32,15 +31,13 @@ function Page({
   const distinct = false;
 
   return (
-    <Suspense>
-      <ThumbnailFeedLayout>
-        <AuctionFeed
-          defaultWhere={where}
-          defaultSortOrder={orderBy}
-          defaultDistinct={distinct}
-        />
-      </ThumbnailFeedLayout>
-    </Suspense>
+    <ThumbnailFeedLayout>
+      <AuctionFeed
+        defaultWhere={where}
+        defaultSortOrder={orderBy}
+        defaultDistinct={distinct}
+      />
+    </ThumbnailFeedLayout>
   );
 }
 
