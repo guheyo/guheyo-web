@@ -14,7 +14,7 @@ interface Props {
 function HomeAuctionFeedLayout({ children, showSelector }: Props) {
   return (
     <div>
-      <div className="pt-0 pb-2 px-3 md:px-1">
+      <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
         <Link href="/auction">
           <div className="flex flex-row gap-4 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
             <GavelIcon />
