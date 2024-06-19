@@ -9,7 +9,7 @@ export interface Props {
 }
 
 function Page({ params: { groupSlug } }: Props) {
-  return redirect(`/g/${groupSlug}/sell`);
+  return redirect(`/g/${groupSlug}/auction`);
 }
 
 export default Page;
