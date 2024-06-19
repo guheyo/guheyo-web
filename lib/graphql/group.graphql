@@ -40,9 +40,6 @@ fragment groupPreview on GroupPreviewResponse {
   description
   icon
   position
-  auctions {
-    ...auctionPreview
-  }
   sells {
     ...offerPreview
   }

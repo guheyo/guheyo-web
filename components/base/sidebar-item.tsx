@@ -32,7 +32,7 @@ export default function SidebarItem({
       >
         <ListItemIcon
           className={isActive ? 'text-star-400 font-semibold' : 'text-gray-400'}
-          style={{ minWidth: 'unset', width: 'auto', marginRight: '12px' }}
+          style={{ minWidth: 'unset', width: 'auto', marginRight: '8px' }}
         >
           {icon}
         </ListItemIcon>

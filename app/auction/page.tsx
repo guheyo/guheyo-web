@@ -11,17 +11,19 @@ function Page() {
   const distinct = false;
 
   return (
-    <HomeAuctionFeedLayout>
-      <ThumbnailFeedLayout>
-        <Suspense>
-          <AuctionFeed
-            defaultWhere={where}
-            defaultSortOrder={sortOrder}
-            defaultDistinct={distinct}
-          />
-        </Suspense>
-      </ThumbnailFeedLayout>
-    </HomeAuctionFeedLayout>
+    <div className="mx-2 md:mx-0">
+      <HomeAuctionFeedLayout showSelector>
+        <ThumbnailFeedLayout>
+          <Suspense>
+            <AuctionFeed
+              defaultWhere={where}
+              defaultSortOrder={sortOrder}
+              defaultDistinct={distinct}
+            />
+          </Suspense>
+        </ThumbnailFeedLayout>
+      </HomeAuctionFeedLayout>
+    </div>
   );
 }
 
