@@ -1,3 +1,5 @@
+'use client';
+
 import { parseSettingLink } from '@/lib/setting/parse-setting.link';
 import { SettingItem } from '@/lib/setting/setting.constants';
 import SettingsIcon from '@mui/icons-material/Settings';

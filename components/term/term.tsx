@@ -1,7 +1,7 @@
 'use client';
 
 import { useFindTermQuery } from '@/generated/graphql';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export default function Term({ name }: { name: string }) {
@@ -19,12 +19,12 @@ export default function Term({ name }: { name: string }) {
 
   return (
     <div title={term.title}>
-      <ReactMarkdown
+      <Markdown
         className="prose prose-invert prose-sm md:prose-base max-w-none"
         remarkPlugins={[remarkGfm]}
       >
         {term.content}
-      </ReactMarkdown>
+      </Markdown>
     </div>
   );
 }

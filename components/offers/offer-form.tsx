@@ -246,14 +246,12 @@ export default function OfferForm({
           hidden: true,
         }}
       />
-
       <ImagePreviews
         images={images}
         previewsProp={{
           onClick: handleClickImagePreview,
         }}
       />
-
       {businessFunction !== 'swap' ? (
         <TextInput
           name="name0"
@@ -334,7 +332,6 @@ export default function OfferForm({
           />
         </>
       )}
-
       <ButtonInputs
         name="businessFunction"
         control={control}
@@ -354,7 +351,6 @@ export default function OfferForm({
           },
         }}
       />
-
       <ButtonInputs
         name="categoryId"
         control={control}
@@ -375,7 +371,6 @@ export default function OfferForm({
           },
         }}
       />
-
       <ButtonInputs
         name="shippingType"
         control={control}
@@ -395,7 +390,6 @@ export default function OfferForm({
           },
         }}
       />
-
       {shippingType !== SHIPPING_FREE && (
         <TextInput
           name="shippingCost"
@@ -434,7 +428,6 @@ export default function OfferForm({
           }}
         />
       )}
-
       <TextInput
         name="price"
         control={control}
@@ -471,7 +464,6 @@ export default function OfferForm({
           onWheel: handleWheel,
         }}
       />
-
       <TextInput
         name="content"
         control={control}
@@ -503,7 +495,6 @@ export default function OfferForm({
           minRows: 10,
         }}
       />
-
       {prevFormValues ? (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialogButton
