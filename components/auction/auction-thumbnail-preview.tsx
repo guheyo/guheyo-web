@@ -44,10 +44,12 @@ export default function AuctionThumbnailPreview({ auction, isInGroup }: Props) {
         <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <div className="flex flex-col gap-1">
             {!isInGroup && (
-              <GroupNameLink
-                name={group.name}
-                href={parseGroupAuctionLink({ groupSlug: group.slug! })}
-              />
+              <div className="w-fit">
+                <GroupNameLink
+                  name={group.name}
+                  href={parseGroupAuctionLink({ groupSlug: group.slug! })}
+                />
+              </div>
             )}
             <AuctionPreviewHeader auction={auction} />
             <AuctionPreviewFooter auction={auction} />
