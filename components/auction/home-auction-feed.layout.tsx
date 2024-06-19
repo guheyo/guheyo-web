@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import GavelIcon from '@mui/icons-material/Gavel';
 import AuctionSelectors from './auction-selectors';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
@@ -26,7 +26,9 @@ function HomeAuctionFeedLayout({ children }: Props) {
         />
       </div>
       <div className="flex justify-end pb-2">
-        <AuctionSelectors />
+        <Suspense>
+          <AuctionSelectors />
+        </Suspense>
       </div>
       <div className="grid gap-1 grid-cols-1">{children}</div>
     </div>
