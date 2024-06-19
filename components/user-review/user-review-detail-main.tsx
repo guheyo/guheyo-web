@@ -105,9 +105,7 @@ export default function UserReviewDetailMain({
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {userReview.content && (
-          <Markdown remarkPlugins={[remarkGfm]}>
-            {userReview.content}
-          </Markdown>
+          <Markdown remarkPlugins={[remarkGfm]}>{userReview.content}</Markdown>
         )}
       </div>
       <div className="pt-4">

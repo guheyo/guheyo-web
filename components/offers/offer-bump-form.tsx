@@ -170,7 +170,6 @@ export default function OfferBumpForm({
           {OFFER_BUMP_INFO_MESSAGE}
         </div>
       </div>
-
       <div className={ABSOLUTE_SUBMIT_BUTTON_STYLE}>
         <DiscordLoginDialogButton
           name={parseOfferBumpButtonName(bumpedAt)}

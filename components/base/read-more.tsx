@@ -44,9 +44,7 @@ export default function ReadMore({ text, maxLine }: Props) {
   return (
     <div>
       <div>
-        <Markdown remarkPlugins={[remarkGfm]}>
-          {getSummary()}
-        </Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{getSummary()}</Markdown>
       </div>
       <ReadMoreButton
         text={text}
