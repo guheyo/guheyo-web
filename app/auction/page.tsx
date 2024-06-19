@@ -3,6 +3,7 @@
 import AuctionFeed from '@/components/auction/auction-feed';
 import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
+import { Suspense } from 'react';
 
 function Page() {
   const where = {};
@@ -12,11 +13,13 @@ function Page() {
   return (
     <HomeAuctionFeedLayout>
       <ThumbnailFeedLayout>
-        <AuctionFeed
-          defaultWhere={where}
-          defaultSortOrder={sortOrder}
-          defaultDistinct={distinct}
-        />
+        <Suspense>
+          <AuctionFeed
+            defaultWhere={where}
+            defaultSortOrder={sortOrder}
+            defaultDistinct={distinct}
+          />
+        </Suspense>
       </ThumbnailFeedLayout>
     </HomeAuctionFeedLayout>
   );
