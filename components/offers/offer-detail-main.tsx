@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { OfferResponse } from '@/generated/graphql';
@@ -58,9 +58,9 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {offer.content && (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <Markdown remarkPlugins={[remarkGfm]}>
             {offer.content}
-          </ReactMarkdown>
+          </Markdown>
         )}
       </div>
     </div>

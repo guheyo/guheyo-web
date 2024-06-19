@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import {
@@ -105,9 +105,9 @@ export default function UserReviewDetailMain({
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {userReview.content && (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <Markdown remarkPlugins={[remarkGfm]}>
             {userReview.content}
-          </ReactMarkdown>
+          </Markdown>
         )}
       </div>
       <div className="pt-4">

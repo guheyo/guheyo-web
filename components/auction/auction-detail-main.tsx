@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { AuctionResponse, BidResponse } from '@/generated/graphql';
@@ -59,9 +59,7 @@ export default function AuctionDetailMain({
         </div>
         <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
           {auction.content && (
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {auction.content}
-            </ReactMarkdown>
+            <Markdown remarkPlugins={[remarkGfm]}>{auction.content}</Markdown>
           )}
         </div>
       </div>

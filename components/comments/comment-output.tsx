@@ -9,7 +9,7 @@ import {
 } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -95,7 +95,7 @@ export default function CommentOutput({
         )}
         <div className="flex text-xs md:text-sm text-dark-100 font-thin break-all">
           {content && (
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+            <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
           )}
         </div>
         {postId && (

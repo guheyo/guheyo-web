@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, Dispatch, SetStateAction } from 'react';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface Props {
@@ -44,9 +44,9 @@ export default function ReadMore({ text, maxLine }: Props) {
   return (
     <div>
       <div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <Markdown remarkPlugins={[remarkGfm]}>
           {getSummary()}
-        </ReactMarkdown>
+        </Markdown>
       </div>
       <ReadMoreButton
         text={text}
