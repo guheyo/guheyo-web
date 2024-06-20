@@ -29,7 +29,7 @@ export default function Page({
   return (
     <UserReviewForm
       offerId={offerId}
-      groupId={offer.post.groupId}
+      groupId={offer.post.group.id}
       title={offer.post.title}
       reviewedUserId={userId}
       tags={tags}
