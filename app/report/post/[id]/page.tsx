@@ -26,7 +26,7 @@ export default function Page({
       reportedPostId={post.id}
       title={post.title}
       reportedUserId={post.user.id}
-      groupId={post.groupId}
+      groupId={post.group.id}
     />
   );
 }
