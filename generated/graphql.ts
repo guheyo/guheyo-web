@@ -34,6 +34,7 @@ export type AuctionPreviewResponse = {
   currentBidPrice?: Maybe<Scalars['Int']['output']>;
   extendedEndDate: Scalars['DateTime']['output'];
   hammerPrice: Scalars['Int']['output'];
+  hasSubmittedReview?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   originalEndDate: Scalars['DateTime']['output'];
   post: PostPreviewWithUserResponse;
@@ -57,6 +58,7 @@ export type AuctionResponse = {
   currentBidPrice?: Maybe<Scalars['Int']['output']>;
   extendedEndDate: Scalars['DateTime']['output'];
   hammerPrice: Scalars['Int']['output'];
+  hasSubmittedReview?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   originalEndDate: Scalars['DateTime']['output'];
   post: PostResponse;
@@ -320,7 +322,6 @@ export type EmojiResponse = {
 
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
-  auctions: Array<AuctionPreviewResponse>;
   buys: Array<OfferPreviewResponse>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
@@ -1386,7 +1387,7 @@ export type VersionResponse = {
 
 export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
-export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type UpdatedAuctionResponseFragment = { __typename?: 'UpdatedAuctionResponse', id: string, updatedAt: any, extendedEndDate: any, status: string };
 
@@ -1400,7 +1401,7 @@ export type FindAuctionPreviewsQueryVariables = Exact<{
 }>;
 
 
-export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindAuctionQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -2140,6 +2141,7 @@ export const AuctionPreviewFragmentDoc = gql`
   shippingCost
   shippingType
   status
+  hasSubmittedReview
 }
     ${PostPreviewWithUserFragmentDoc}`;
 export const UpdatedAuctionResponseFragmentDoc = gql`
