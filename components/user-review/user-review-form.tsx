@@ -7,10 +7,7 @@ import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
 import { STICKY_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-form-title';
-import {
-  OFFER,
-  OFFER_WRITE_SUBMIT_BUTTON_NAME,
-} from '@/lib/offer/offer.constants';
+import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
 import {
   CreateUserReviewInput,
   TagResponse,
@@ -19,6 +16,7 @@ import {
 import {
   RATING_OPTIONS,
   USER_REVIEW,
+  UserReviewTargetType,
 } from '@/lib/user-review/user-review.constants';
 import { parseRatingResultTitle } from '@/lib/user-review/parse-rating-result-title';
 import { createUserReview } from '@/lib/api/user-review';
@@ -32,13 +30,15 @@ import RatingInputs from './rating-inputs';
 import UserReviewImagesAndContentInput from './user-review-images-and-content-input';
 
 export default function UserReviewForm({
-  offerId,
+  targetType,
+  targetId,
   groupId,
   title,
   reviewedUserId,
   tags,
 }: {
-  offerId: string;
+  targetType: UserReviewTargetType;
+  targetId: string;
   groupId: string;
   title: string;
   reviewedUserId: string;
@@ -90,8 +90,9 @@ export default function UserReviewForm({
         type: USER_REVIEW,
       },
       id: values.id,
-      type: OFFER,
-      offerId,
+      type: targetType,
+      offerId: targetType === 'offer' ? targetId : undefined,
+      auctionId: targetType === 'auction' ? targetId : undefined,
       reviewedUserId,
       content: values.content,
       rating: values.rating,
