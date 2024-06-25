@@ -82,7 +82,11 @@ function AuctionFeed({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-col gap-0">
-          <AuctionPreview auction={edge.node} isInGroup={!!group} />
+          <AuctionPreview
+            type="thumbnail"
+            auction={edge.node}
+            isInGroup={!!group}
+          />
           {edge.node.hasSubmittedReview === false && (
             <div className="pb-2">
               <SelectUserReviewTargetUserDialog
