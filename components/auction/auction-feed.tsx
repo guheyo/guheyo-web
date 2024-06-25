@@ -11,6 +11,8 @@ import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import AuctionPreview from './auction-preview';
+import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
+import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
 function AuctionFeed({
   defaultWhere,
@@ -80,7 +82,24 @@ function AuctionFeed({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-col gap-0">
-          <AuctionPreview auction={edge.node} isInGroup={!!group} />
+          <AuctionPreview
+            type="thumbnail"
+            auction={edge.node}
+            isInGroup={!!group}
+          />
+          {edge.node.hasSubmittedReview === false && (
+            <div className="pb-2">
+              <SelectUserReviewTargetUserDialog
+                targetType="auction"
+                targetId={edge.node.id}
+              />
+            </div>
+          )}
+          {edge.node.hasSubmittedReview === true && (
+            <div className="pb-2">
+              <ReceivedUserReviewsDialog offerSlug={edge.node.post.slug!} />
+            </div>
+          )}
         </div>
       ))}
       <div ref={ref} />

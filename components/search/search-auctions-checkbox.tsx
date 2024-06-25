@@ -1,15 +1,16 @@
 'use client';
 
 import NextDialog from '@/components/auth/next-dialog';
-import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { MouseEventHandler } from 'react';
 import { useForm } from 'react-hook-form';
+import { AUCTION_CLOSED } from '@/lib/auction/auction.constants';
+import AuctionCheckboxResults from '../auction/auction-checkbox-results';
 
-export default function SearchOffersCheckbox({
+export default function SearchAuctionsCheckbox({
   userId,
   placeholder,
   handleAuthorization,
@@ -36,12 +37,13 @@ export default function SearchOffersCheckbox({
     // Do nothing
   };
 
-  const handleOfferSelection = (seletedId: string) => {
+  const handleSelection = (seletedId: string) => {
     setValue('selectedId', seletedId);
   };
 
   const where = {
     userId,
+    status: AUCTION_CLOSED,
   };
 
   return (
@@ -54,13 +56,13 @@ export default function SearchOffersCheckbox({
         handleChange={handleChange}
       />
       <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
-        <OfferCheckboxResults
+        <AuctionCheckboxResults
           where={where}
-          type="listview"
           keyword={keyword}
+          type="listview"
           distinct={false}
           control={control}
-          handleOfferSelection={handleOfferSelection}
+          handleSelection={handleSelection}
         />
       </div>
       <div className="pt-4" />

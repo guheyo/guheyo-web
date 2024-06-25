@@ -37,3 +37,16 @@ export const PUBLIC_USER_REVIEW_OPTIONS = [
   { value: 'received', label: '받은 거래 후기' },
   { value: 'submitted', label: '보낸 거래 후기' },
 ];
+
+export type UserReviewTargetType = 'offer' | 'auction';
+
+export const USER_REVIEW_TARGET_TYPE_OPTIONS = [
+  {
+    label: '매매',
+    value: 'offer',
+  },
+  {
+    label: '경매',
+    value: 'auction',
+  },
+];

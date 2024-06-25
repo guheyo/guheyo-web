@@ -2,65 +2,65 @@
 
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
-import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
-import OfferPreview from '@/components/offers/offer-preview';
-import {
-  FindOffersOrderByArgs,
-  FindOffersWhereArgs,
-} from '@/interfaces/offer.interfaces';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
+import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
+import {
+  FindAuctionsOrderByArgs,
+  FindAuctionsWhereArgs,
+} from '@/lib/auction/auction.interfaces';
 import { PostPreviewType } from '@/lib/post/post.types';
+import AuctionPreview from './auction-preview';
 
 const {
   theme: { colors },
 } = tailwindConfig;
 
-function OfferCheckboxResults({
+function AuctionCheckboxResults({
   where,
   orderBy,
   keyword,
   type,
   distinct,
   control,
-  handleOfferSelection,
+  handleSelection,
 }: {
-  where: FindOffersWhereArgs;
-  orderBy?: FindOffersOrderByArgs;
+  where: FindAuctionsWhereArgs;
+  orderBy?: FindAuctionsOrderByArgs;
   keyword?: string;
   type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
-  handleOfferSelection: (seletedId: string) => void;
+  handleSelection: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
-  const { loading, data } = useInfiniteOfferFeed({
+  const { loading, data } = useInfiniteAuctionFeed({
     ref,
     where: {
-      businessFunction: where.businessFunction,
       status: where.status,
       userId: where.userId,
     },
     orderBy: {
-      bumpedAt: orderBy?.bumpedAt || 'desc',
-      price: orderBy?.price,
+      createdAt: orderBy?.createdAt || 'desc',
+      extendedEndDate: orderBy?.extendedEndDate,
+      currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,
     distinct,
     take: 12,
   });
 
-  const handleClick = (offerId: string) => {
-    handleOfferSelection(offerId);
+  const handleClick = (auctionId: string) => {
+    handleSelection(auctionId);
   };
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findOfferPreviews) return <div />;
+  if (!data?.findAuctionPreviews) return <div />;
 
-  const edges = data.findOfferPreviews.edges.filter((edge) =>
+  const edges = data.findAuctionPreviews.edges.filter((edge) =>
     where.status ? edge.node.status === where.status : true,
   );
 
@@ -74,7 +74,7 @@ function OfferCheckboxResults({
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">
-            <OfferPreview offer={edge.node} type={type} />
+            <AuctionPreview type={type} auction={edge.node} isInGroup={false} />
           </div>
         </div>
       ))}
@@ -83,4 +83,4 @@ function OfferCheckboxResults({
   );
 }
 
-export default OfferCheckboxResults;
+export default AuctionCheckboxResults;

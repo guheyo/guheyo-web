@@ -32,6 +32,7 @@ fragment auctionPreview on AuctionPreviewResponse {
   shippingCost
   shippingType
   status
+  hasSubmittedReview
 }
 
 fragment updatedAuctionResponse on UpdatedAuctionResponse {

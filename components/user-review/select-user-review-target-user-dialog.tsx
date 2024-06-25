@@ -1,19 +1,22 @@
 import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
-import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import CreateIcon from '@mui/icons-material/Create';
+import { UserReviewTargetType } from '@/lib/user-review/user-review.constants';
+import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function SelectUserReviewTargetUserDialog({
-  offerId,
+  targetType,
+  targetId,
 }: {
-  offerId: string;
+  targetType: UserReviewTargetType;
+  targetId: string;
 }) {
   const router = useRouter();
 
   const handleOnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
-    router.push(parseUserReviewFormLink({ offerId }));
+    router.push(parseUserReviewFormLink({ targetType, targetId }));
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {

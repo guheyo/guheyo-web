@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 import { MouseEventHandler, Suspense } from 'react';
 
 export default function Page({
-  params: { offerId },
+  params: { auctionId },
 }: {
   params: {
-    offerId: string;
+    auctionId: string;
   };
 }) {
   const router = useRouter();
@@ -20,8 +20,8 @@ export default function Page({
     router.push(
       parseUserReviewTargetFormLink({
         userId: selectedId,
-        targetType: 'offer',
-        targetId: offerId,
+        targetType: 'auction',
+        targetId: auctionId,
       }),
     );
   };
