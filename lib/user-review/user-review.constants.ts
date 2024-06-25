@@ -39,3 +39,14 @@ export const PUBLIC_USER_REVIEW_OPTIONS = [
 ];
 
 export type UserReviewTargetType = 'offer' | 'auction';
+
+export const USER_REVIEW_TARGET_TYPE_OPTIONS = [
+  {
+    label: '매매',
+    value: 'offer',
+  },
+  {
+    label: '경매',
+    value: 'auction',
+  },
+];
