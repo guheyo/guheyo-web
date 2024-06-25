@@ -11,6 +11,7 @@ import {
   FindAuctionsOrderByArgs,
   FindAuctionsWhereArgs,
 } from '@/lib/auction/auction.interfaces';
+import { PostPreviewType } from '@/lib/post/post.types';
 import AuctionPreview from './auction-preview';
 
 const {
@@ -21,6 +22,7 @@ function AuctionCheckboxResults({
   where,
   orderBy,
   keyword,
+  type,
   distinct,
   control,
   handleSelection,
@@ -28,6 +30,7 @@ function AuctionCheckboxResults({
   where: FindAuctionsWhereArgs;
   orderBy?: FindAuctionsOrderByArgs;
   keyword?: string;
+  type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
   handleSelection: (seletedId: string) => void;
@@ -71,11 +74,7 @@ function AuctionCheckboxResults({
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">
-            <AuctionPreview
-              type="listview"
-              auction={edge.node}
-              isInGroup={false}
-            />
+            <AuctionPreview type={type} auction={edge.node} isInGroup={false} />
           </div>
         </div>
       ))}

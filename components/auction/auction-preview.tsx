@@ -1,12 +1,13 @@
 'use client';
 
 import { AuctionPreviewResponse } from '@/generated/graphql';
+import { PostPreviewType } from '@/lib/post/post.types';
 import AuctionThumbnailPreview from './auction-thumbnail-preview';
 import AuctionTextPreview from './auction-text-preview';
 import AuctionListViewPreview from './auction-listview-preview';
 
 interface Props {
-  type: 'text' | 'thumbnail' | 'listview';
+  type: PostPreviewType;
   auction: AuctionPreviewResponse;
   isInGroup: boolean;
 }
