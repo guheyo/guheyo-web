@@ -18,15 +18,29 @@ interface Props {
 export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
   const { group } = auction.post;
   return (
-    <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 rounded-lg">
+    <div className="relative overflow-hidden bg-dark-400 py-3 rounded-lg">
       <Link
         href={parseAuctionDetailLink({
           slug: auction.post.slug!,
         })}
         className="flex flex-row w-full text-start"
       >
+        <div className="w-[75%] md:w-[80%] px-4">
+          <div className="flex flex-col gap-1">
+            {!isInGroup && (
+              <div className="w-fit">
+                <GroupNameLink
+                  name={group.name}
+                  href={parseGroupAuctionLink({ groupSlug: group.slug! })}
+                />
+              </div>
+            )}
+            <AuctionPreviewHeader auction={auction} />
+            <AuctionPreviewFooter auction={auction} />
+          </div>
+        </div>
         {auction.post.thumbnail && (
-          <div className="flex relative w-[25%] md:w-[20%]">
+          <div className="flex relative w-[25%] md:w-[20%] mr-4 md:mr-0">
             <Thumbnail
               url={auction.post.thumbnail}
               name={auction.post.title}
@@ -41,20 +55,6 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
             </div>
           </div>
         )}
-        <div className="w-[75%] md:w-[80%] px-4 md:pl-0 md:pr-6">
-          <div className="flex flex-col gap-1">
-            {!isInGroup && (
-              <div className="w-fit">
-                <GroupNameLink
-                  name={group.name}
-                  href={parseGroupAuctionLink({ groupSlug: group.slug! })}
-                />
-              </div>
-            )}
-            <AuctionPreviewHeader auction={auction} />
-            <AuctionPreviewFooter auction={auction} />
-          </div>
-        </div>
       </Link>
     </div>
   );

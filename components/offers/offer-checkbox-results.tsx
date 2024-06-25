@@ -12,6 +12,7 @@ import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
+import { PostPreviewType } from '@/lib/post/post.types';
 
 const {
   theme: { colors },
@@ -29,7 +30,7 @@ function OfferCheckboxResults({
   where: FindOffersWhereArgs;
   orderBy?: FindOffersOrderByArgs;
   keyword?: string;
-  type: 'text' | 'thumbnail';
+  type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
   handleOfferSelection: (seletedId: string) => void;

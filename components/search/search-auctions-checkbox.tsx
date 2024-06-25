@@ -59,6 +59,7 @@ export default function SearchAuctionsCheckbox({
         <AuctionCheckboxResults
           where={where}
           keyword={keyword}
+          type="listview"
           distinct={false}
           control={control}
           handleSelection={handleSelection}

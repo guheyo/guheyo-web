@@ -56,7 +56,7 @@ export default function SearchOffersCheckbox({
       <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
         <OfferCheckboxResults
           where={where}
-          type="text"
+          type="listview"
           keyword={keyword}
           distinct={false}
           control={control}
