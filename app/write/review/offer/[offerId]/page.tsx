@@ -1,7 +1,7 @@
 'use client';
 
 import SearchUsersCheckbox from '@/components/search/search-users-checkbox';
-import { parseUserReviewTargetOfferFormLink } from '@/lib/user-review/parse-user-review-target-offer-form-link';
+import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, Suspense } from 'react';
 
@@ -18,7 +18,11 @@ export default function Page({
     if (!selectedId) return;
 
     router.push(
-      parseUserReviewTargetOfferFormLink({ userId: selectedId, offerId }),
+      parseUserReviewTargetFormLink({
+        userId: selectedId,
+        targetType: 'offer',
+        targetId: offerId,
+      }),
     );
   };
 
