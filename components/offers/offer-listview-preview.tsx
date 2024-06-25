@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { OfferPreviewResponse } from '@/generated/graphql';
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
+import { BusinessFunction } from '@/lib/offer/offer.types';
 import Thumbnail from '../base/thumbnail';
 import OfferPreviewHeader from './offer-preview-header';
 import OfferPreviewFooter from './offer-preview-footer';
+import BusinessFunctionLabel from './business-function-label';
 
 interface Props {
   offer: OfferPreviewResponse;
@@ -23,6 +25,9 @@ export default function OfferListViewPreview({ offer }: Props) {
       >
         <div className="w-[75%] md:w-[80%] px-4">
           <div className="flex flex-col gap-1">
+            <BusinessFunctionLabel
+              businessFunction={offer.businessFunction as BusinessFunction}
+            />
             <OfferPreviewHeader offer={offer} />
             <OfferPreviewFooter offer={offer} />
           </div>
