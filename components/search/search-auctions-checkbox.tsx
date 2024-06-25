@@ -7,6 +7,7 @@ import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { MouseEventHandler } from 'react';
 import { useForm } from 'react-hook-form';
+import { AUCTION_CLOSED } from '@/lib/auction/auction.constants';
 import AuctionCheckboxResults from '../auction/auction-checkbox-results';
 
 export default function SearchAuctionsCheckbox({
@@ -42,6 +43,7 @@ export default function SearchAuctionsCheckbox({
 
   const where = {
     userId,
+    status: AUCTION_CLOSED,
   };
 
   return (
