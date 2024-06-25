@@ -1,11 +1,16 @@
+import { UserReviewTargetType } from './user-review.constants';
+
 export const parseUserReviewFormLink = ({
   userId,
-  offerId,
+  targetType,
+  targetId,
 }: {
   userId?: string;
-  offerId?: string;
+  targetType?: UserReviewTargetType;
+  targetId?: string;
 }) => {
   if (userId) return `/write/review/user/${userId}`;
-  if (offerId) return `/write/review/offer/${offerId}`;
+  if (targetType === 'offer') return `/write/review/offer/${targetId}`;
+  if (targetType === 'auction') return `/write/review/auction/${targetId}`;
   return '/';
 };

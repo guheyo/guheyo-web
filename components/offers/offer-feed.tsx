@@ -94,7 +94,10 @@ function OfferFeed({
           <OfferPreview offer={edge.node} type={type} />
           {edge.node.hasSubmittedReview === false && (
             <div className="pb-2">
-              <SelectUserReviewTargetUserDialog offerId={edge.node.id} />
+              <SelectUserReviewTargetUserDialog
+                targetType="offer"
+                targetId={edge.node.id}
+              />
             </div>
           )}
           {edge.node.hasSubmittedReview === true && (
