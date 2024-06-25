@@ -40,7 +40,11 @@ function AuctionCheckboxResults({
       status: where.status,
       userId: where.userId,
     },
-    orderBy,
+    orderBy: {
+      createdAt: orderBy?.createdAt || 'desc',
+      extendedEndDate: orderBy?.extendedEndDate,
+      currentBidPrice: orderBy?.currentBidPrice,
+    },
     keyword,
     distinct,
     take: 12,
