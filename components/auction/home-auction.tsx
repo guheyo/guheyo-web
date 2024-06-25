@@ -29,6 +29,7 @@ export default function HomeAuction() {
       <ThumbnailFeedLayout>
         {auctions.map((auction) => (
           <AuctionPreview
+            type="thumbnail"
             key={auction.id}
             auction={auction}
             isInGroup={false}
