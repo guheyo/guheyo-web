@@ -28,7 +28,8 @@ export default function Page({
 
   return (
     <UserReviewForm
-      offerId={offerId}
+      targetType="offer"
+      targetId={offerId}
       groupId={offer.post.group.id}
       title={offer.post.title}
       reviewedUserId={userId}
