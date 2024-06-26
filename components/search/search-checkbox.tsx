@@ -4,6 +4,7 @@ import { AuthContext } from '@/components/auth/auth.provider';
 import NextDialog from '@/components/auth/next-dialog';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
+import { PostPreviewType } from '@/lib/post/post.types';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { MouseEventHandler, useContext } from 'react';
@@ -12,12 +13,18 @@ import { useForm } from 'react-hook-form';
 export default function SearchCheckbox({
   placeholder,
   where,
+  orderBy,
+  type,
+  distinct,
   CheckboxResults,
   handleAuthorization,
   handleUnAuthorization,
 }: {
   placeholder: string;
-  where: Record<string, any>;
+  where?: Record<string, any>;
+  orderBy?: Record<string, any>;
+  type: PostPreviewType;
+  distinct: boolean;
   CheckboxResults: React.ComponentType<any>;
   handleAuthorization: (selectedId: string) => void;
   handleUnAuthorization: MouseEventHandler;
@@ -55,6 +62,9 @@ export default function SearchCheckbox({
       <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
         <CheckboxResults
           where={where}
+          orderBy={orderBy}
+          type={type}
+          distinct={distinct}
           keyword={keyword}
           userIdToExclude={jwtPayload?.id}
           control={control}
