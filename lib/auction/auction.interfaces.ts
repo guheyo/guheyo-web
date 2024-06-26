@@ -8,6 +8,8 @@ export interface FindAuctionsWhereArgs {
 
   userId?: string;
 
+  bidderId?: string;
+
   status?: string;
 
   createdAt?: {
