@@ -1,6 +1,7 @@
 'use client';
 
-import SearchUsersCheckbox from '@/components/search/search-users-checkbox';
+import SearchCheckbox from '@/components/search/search-checkbox';
+import UserCheckboxResults from '@/components/users/user-checkbox-results';
 import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, Suspense } from 'react';
@@ -32,8 +33,10 @@ export default function Page({
 
   return (
     <Suspense>
-      <SearchUsersCheckbox
+      <SearchCheckbox
         placeholder="어떤 멤버와 거래했나요?"
+        where={{}}
+        CheckboxResults={UserCheckboxResults}
         handleAuthorization={handleAuthorization}
         handleUnAuthorization={handleUnAuthorization}
       />
