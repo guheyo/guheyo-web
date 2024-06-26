@@ -71,7 +71,7 @@ export default function SearchCheckbox({
           handleCheckboxClick={handleCheckboxClick}
         />
       </div>
-      <div className="pt-4" />
+      <div className="pt-8" />
       <NextDialog
         onAuthorization={() => handleAuthorization(getValues().selectedId)}
         onUnAuthorization={handleUnAuthorization}
