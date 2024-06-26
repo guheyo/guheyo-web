@@ -320,6 +320,14 @@ export type EmojiResponse = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type FindBiddersOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindBiddersWhereInput = {
+  auctionId: Scalars['ID']['input'];
+};
+
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
   buys: Array<OfferPreviewResponse>;
@@ -782,6 +790,7 @@ export type Query = {
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
   findBidCount: BidCountResponse;
+  findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
@@ -849,6 +858,16 @@ export type QueryFindAuthorArgs = {
 
 export type QueryFindBidCountArgs = {
   auctionId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindBiddersArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindBiddersOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where: FindBiddersWhereInput;
 };
 
 
@@ -1422,6 +1441,18 @@ export type FindAuctionInteractionItemsQueryVariables = Exact<{
 
 
 export type FindAuctionInteractionItemsQuery = { __typename?: 'Query', findAuctionInteractionItems: { __typename?: 'PaginatedAuctionInteractionItemsResponse', edges: Array<{ __typename?: 'AuctionInteractionItemResponseEdge', cursor: string, node: { __typename: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } } | { __typename: 'CommentWithAuthorResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content?: string | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }>, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindBiddersQueryVariables = Exact<{
+  where: FindBiddersWhereInput;
+  orderBy?: InputMaybe<FindBiddersOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindBiddersQuery = { __typename?: 'Query', findBidders: { __typename?: 'PaginatedUsersResponse', edges: Array<{ __typename?: 'UserResponseEdge', cursor: string, node: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CreateAuctionMutationVariables = Exact<{
   input: CreateAuctionInput;
@@ -2726,6 +2757,70 @@ export type FindAuctionInteractionItemsSuspenseQueryHookResult = ReturnType<type
 export type FindAuctionInteractionItemsQueryResult = Apollo.QueryResult<FindAuctionInteractionItemsQuery, FindAuctionInteractionItemsQueryVariables>;
 export function refetchFindAuctionInteractionItemsQuery(variables: FindAuctionInteractionItemsQueryVariables) {
       return { query: FindAuctionInteractionItemsDocument, variables: variables }
+    }
+export const FindBiddersDocument = gql`
+    query FindBidders($where: FindBiddersWhereInput!, $orderBy: FindBiddersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findBidders(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${UserFragmentDoc}`;
+
+/**
+ * __useFindBiddersQuery__
+ *
+ * To run a query within a React component, call `useFindBiddersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindBiddersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindBiddersQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindBiddersQuery(baseOptions: Apollo.QueryHookOptions<FindBiddersQuery, FindBiddersQueryVariables> & ({ variables: FindBiddersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBiddersQuery, FindBiddersQueryVariables>(FindBiddersDocument, options);
+      }
+export function useFindBiddersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBiddersQuery, FindBiddersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBiddersQuery, FindBiddersQueryVariables>(FindBiddersDocument, options);
+        }
+export function useFindBiddersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBiddersQuery, FindBiddersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBiddersQuery, FindBiddersQueryVariables>(FindBiddersDocument, options);
+        }
+export type FindBiddersQueryHookResult = ReturnType<typeof useFindBiddersQuery>;
+export type FindBiddersLazyQueryHookResult = ReturnType<typeof useFindBiddersLazyQuery>;
+export type FindBiddersSuspenseQueryHookResult = ReturnType<typeof useFindBiddersSuspenseQuery>;
+export type FindBiddersQueryResult = Apollo.QueryResult<FindBiddersQuery, FindBiddersQueryVariables>;
+export function refetchFindBiddersQuery(variables: FindBiddersQueryVariables) {
+      return { query: FindBiddersDocument, variables: variables }
     }
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($input: CreateAuctionInput!) {

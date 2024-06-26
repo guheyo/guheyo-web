@@ -1,8 +1,9 @@
 'use client';
 
+import AuctionCheckboxResults from '@/components/auction/auction-checkbox-results';
 import SelectionRadioGroup from '@/components/base/selection-radio-group';
-import SearchAuctionsCheckbox from '@/components/search/search-auctions-checkbox';
-import SearchOffersCheckbox from '@/components/search/search-offers-checkbox';
+import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
+import SearchCheckbox from '@/components/search/search-checkbox';
 import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import {
   USER_REVIEW_TARGET_TYPE_OPTIONS,
@@ -52,17 +53,23 @@ export default function Page({
       />
       <Suspense>
         {selectedOption === 'offer' && (
-          <SearchOffersCheckbox
-            userId={userId}
+          <SearchCheckbox
             placeholder="매너 평가할 거래글을 선택해 주세요"
+            where={{ userId }}
+            type="listview"
+            distinct={false}
+            CheckboxResults={OfferCheckboxResults}
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
           />
         )}
         {selectedOption === 'auction' && (
-          <SearchAuctionsCheckbox
-            userId={userId}
+          <SearchCheckbox
             placeholder="매너 평가할 경매글을 선택해 주세요"
+            where={{ userId }}
+            type="listview"
+            distinct={false}
+            CheckboxResults={AuctionCheckboxResults}
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
           />

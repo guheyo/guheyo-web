@@ -118,6 +118,34 @@ query FindAuctionInteractionItems(
   }
 }
 
+query FindBidders(
+  $where: FindBiddersWhereInput!
+  $orderBy: FindBiddersOrderByInput
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findBidders(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...user
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
 
 mutation CreateAuction($input: CreateAuctionInput!) {
   createAuction(input: $input)

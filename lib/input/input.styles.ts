@@ -15,5 +15,8 @@ export const STICKY_SUBMIT_BUTTON_STYLE =
 export const ABSOLUTE_SUBMIT_BUTTON_STYLE =
   'p-3 text-gray-300 bg-star-500 hover:bg-star-400 text-lg font-bold rounded-lg absolute md:relative m-2 md:m-0 bottom-0 left-0 right-0';
 
+export const FIXED_SUBMIT_BUTTON_STYLE =
+  'p-3 text-gray-300 bg-star-500 hover:bg-star-400 text-lg font-bold rounded-lg fixed md:relative m-2 md:m-0 bottom-0 left-0 right-0';
+
 export const FIXED_SUBMIT_BUTTON_RED_STYLE =
   'p-3 text-gray-300 bg-red-800 hover:bg-red-700 text-lg font-bold rounded-lg fixed md:relative m-2 md:m-0 bottom-0 left-0 right-0';
