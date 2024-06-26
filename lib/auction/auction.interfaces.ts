@@ -38,3 +38,11 @@ export interface FindAuctionInteractionItemsWhereArgs {
 export interface FindAuctionInteractionItemsOrderByArgs {
   createdAt?: SortOrder;
 }
+
+export interface FindBiddersWhereInput {
+  auctionId: string;
+}
+
+export interface FindBiddersOrderByInput {
+  createdAt?: SortOrder;
+}
