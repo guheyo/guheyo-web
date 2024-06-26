@@ -1,6 +1,6 @@
 'use client';
 
-import SearchUsersCheckbox from '@/components/search/search-users-checkbox';
+import SearchBiddersCheckbox from '@/components/search/search-bidders-checkbox';
 import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, Suspense } from 'react';
@@ -32,7 +32,8 @@ export default function Page({
 
   return (
     <Suspense>
-      <SearchUsersCheckbox
+      <SearchBiddersCheckbox
+        auctionId={auctionId}
         placeholder="어떤 멤버와 거래했나요?"
         handleAuthorization={handleAuthorization}
         handleUnAuthorization={handleUnAuthorization}
