@@ -23,8 +23,8 @@ export default function SearchCheckbox({
   placeholder: string;
   where?: Record<string, any>;
   orderBy?: Record<string, any>;
-  type: PostPreviewType;
-  distinct: boolean;
+  type?: PostPreviewType;
+  distinct?: boolean;
   CheckboxResults: React.ComponentType<any>;
   handleAuthorization: (selectedId: string) => void;
   handleUnAuthorization: MouseEventHandler;
