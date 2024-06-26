@@ -1,6 +1,7 @@
 'use client';
 
-import SearchBiddersCheckbox from '@/components/search/search-bidders-checkbox';
+import BidderCheckboxResults from '@/components/auction/bidder-checkbox-results';
+import SearchCheckbox from '@/components/search/search-checkbox';
 import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, Suspense } from 'react';
@@ -30,11 +31,16 @@ export default function Page({
     e.preventDefault();
   };
 
+  const where = {
+    auctionId,
+  };
+
   return (
     <Suspense>
-      <SearchBiddersCheckbox
-        auctionId={auctionId}
+      <SearchCheckbox
         placeholder="어떤 멤버와 거래했나요?"
+        where={where}
+        CheckboxResults={BidderCheckboxResults}
         handleAuthorization={handleAuthorization}
         handleUnAuthorization={handleUnAuthorization}
       />
