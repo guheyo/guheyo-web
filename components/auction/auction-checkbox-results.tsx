@@ -42,6 +42,7 @@ function AuctionCheckboxResults({
     where: {
       status: where.status,
       userId: where.userId,
+      bidderId: where.bidderId,
     },
     orderBy: {
       createdAt: orderBy?.createdAt || 'desc',
