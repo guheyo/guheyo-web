@@ -1,25 +1,35 @@
 'use client';
 
+import { AuthContext } from '@/components/auth/auth.provider';
 import NextDialog from '@/components/auth/next-dialog';
-import OfferCheckboxResults from '@/components/offers/offer-checkbox-results';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
+import { PostPreviewType } from '@/lib/post/post.types';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function SearchOffersCheckbox({
-  userId,
+export default function SearchCheckbox({
   placeholder,
+  where,
+  orderBy,
+  type,
+  distinct,
+  CheckboxResults,
   handleAuthorization,
   handleUnAuthorization,
 }: {
-  userId: string;
   placeholder: string;
+  where?: Record<string, any>;
+  orderBy?: Record<string, any>;
+  type?: PostPreviewType;
+  distinct?: boolean;
+  CheckboxResults: React.ComponentType<any>;
   handleAuthorization: (selectedId: string) => void;
   handleUnAuthorization: MouseEventHandler;
 }) {
+  const { jwtPayload } = useContext(AuthContext);
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const { setValue, getValues, control } = useForm<CheckboxFormValues>({
@@ -36,12 +46,8 @@ export default function SearchOffersCheckbox({
     // Do nothing
   };
 
-  const handleOfferSelection = (seletedId: string) => {
+  const handleCheckboxClick = (seletedId: string) => {
     setValue('selectedId', seletedId);
-  };
-
-  const where = {
-    userId,
   };
 
   return (
@@ -54,13 +60,15 @@ export default function SearchOffersCheckbox({
         handleChange={handleChange}
       />
       <div className="pt-4 overflow-y-scroll max-h-[75vh] grid gap-2 grid-cols-1">
-        <OfferCheckboxResults
+        <CheckboxResults
           where={where}
-          type="listview"
+          orderBy={orderBy}
+          type={type}
+          distinct={distinct}
           keyword={keyword}
-          distinct={false}
+          userIdToExclude={jwtPayload?.id}
           control={control}
-          handleOfferSelection={handleOfferSelection}
+          handleCheckboxClick={handleCheckboxClick}
         />
       </div>
       <div className="pt-4" />
