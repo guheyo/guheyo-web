@@ -25,7 +25,7 @@ function OfferCheckboxResults({
   type,
   distinct,
   control,
-  handleOfferSelection,
+  handleCheckboxClick,
 }: {
   where: FindOffersWhereArgs;
   orderBy?: FindOffersOrderByArgs;
@@ -33,7 +33,7 @@ function OfferCheckboxResults({
   type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
-  handleOfferSelection: (seletedId: string) => void;
+  handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
@@ -54,7 +54,7 @@ function OfferCheckboxResults({
   });
 
   const handleClick = (offerId: string) => {
-    handleOfferSelection(offerId);
+    handleCheckboxClick(offerId);
   };
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
