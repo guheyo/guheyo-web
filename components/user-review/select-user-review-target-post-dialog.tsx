@@ -20,7 +20,7 @@ export default function SelectUserReviewTargetPostDialog({
   };
 
   return (
-    <div className="bg-magenta-500 hover:bg-magenta-600 text-sm font-bold p-2 rounded text-gray-300">
+    <div className="bg-magenta-500 hover:bg-magenta-600 text-sm font-bold p-2 rounded text-gray-100">
       <DiscordLoginDialogButton
         name="매너 평가"
         onAuthorization={handleOnAuthorization}
