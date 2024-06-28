@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { parseUserReviewFormLink } from '@/lib/user-review/parse-user-review-form-link';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
-export default function SelectUserReviewTargetOfferDialog({
+export default function SelectUserReviewTargetPostDialog({
   userId,
 }: {
   userId: string;
