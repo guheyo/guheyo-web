@@ -157,7 +157,7 @@ export default function BidInput({
         <div className="flex-none">
           <DiscordLoginDialogButton
             icon={
-              <div className="bg-star-500 text-gray-300 hover:text-gray-200 rounded-lg text-xs md:text-sm p-2 font-semibold">
+              <div className="bg-blurple-500 text-gray-300 hover:text-gray-200 rounded-lg text-xs md:text-sm p-2 font-semibold">
                 입찰
               </div>
             }
