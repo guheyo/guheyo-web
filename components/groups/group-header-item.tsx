@@ -13,13 +13,13 @@ export default function GroupHeaderItem({
   return (
     <div className="flex flex-row gap-4 items-center break-all">
       <Image
-        src={!icon ? '/star/star.svg' : icon}
+        src={!icon ? '/guheyo/guheyo-logo.svg' : icon}
         width={isMobile ? 32 : 40}
         height={isMobile ? 32 : 40}
         alt={`${name} logo`}
         className="rounded-lg"
       />
-      <div className="text-star-500 text-base md:text-lg font-semibold">
+      <div className="text-gray-200 text-base md:text-lg font-semibold">
         {name}
       </div>
     </div>

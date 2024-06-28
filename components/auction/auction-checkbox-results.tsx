@@ -25,7 +25,7 @@ function AuctionCheckboxResults({
   type,
   distinct,
   control,
-  handleSelection,
+  handleCheckboxClick,
 }: {
   where: FindAuctionsWhereArgs;
   orderBy?: FindAuctionsOrderByArgs;
@@ -33,7 +33,7 @@ function AuctionCheckboxResults({
   type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
-  handleSelection: (seletedId: string) => void;
+  handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
@@ -55,7 +55,7 @@ function AuctionCheckboxResults({
   });
 
   const handleClick = (auctionId: string) => {
-    handleSelection(auctionId);
+    handleCheckboxClick(auctionId);
   };
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;

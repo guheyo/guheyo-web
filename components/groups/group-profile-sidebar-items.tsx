@@ -39,7 +39,9 @@ export default function GroupProfileSidebarItems({
           icon={
             <Avatar
               name={group.node.name}
-              src={!group.node.icon ? '/star/star.svg' : group.node.icon}
+              src={
+                !group.node.icon ? '/guheyo/guheyo-logo.svg' : group.node.icon
+              }
               fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
             />
           }

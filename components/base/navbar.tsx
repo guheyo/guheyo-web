@@ -22,7 +22,7 @@ export default function Navbar({
             <Link href="/">
               <Avatar
                 name="guheyo logo"
-                src="/star/star-bg-purple-rounded.ico"
+                src="/guheyo/guheyo-logo.svg"
                 fontSize="text-base"
                 variant="rounded"
               />
@@ -56,7 +56,7 @@ export default function Navbar({
             <Link href="/">
               <Avatar
                 name="guheyo logo"
-                src="/star/star-bg-purple-rounded.ico"
+                src="/guheyo/guheyo-logo.svg"
                 fontSize="text-base"
                 variant="rounded"
               />

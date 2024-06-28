@@ -26,7 +26,7 @@ export default function GlobalError() {
         </span>
         <span className="mt-2 flex items-rows content-center gap-1">
           <DiscordGuildLink width={32} height={32}>
-            <div className="text-star-500 font-bold">동물의 왕국</div>
+            <div className="text-magenta-500 font-bold">동물의 왕국</div>
           </DiscordGuildLink>
         </span>
       </div>

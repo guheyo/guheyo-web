@@ -18,7 +18,7 @@ export default function GroupProfile({
       name={name}
       icon={
         <Image
-          src={!icon ? '/star/star.svg' : icon}
+          src={!icon ? '/guheyo/guheyo-logo.svg' : icon}
           width={isMobile ? 30 : 36}
           height={isMobile ? 30 : 36}
           alt={`${name} logo`}

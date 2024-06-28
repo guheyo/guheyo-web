@@ -13,7 +13,7 @@ export default function GroupJoinSection({
   slug: string;
 }) {
   return (
-    <div className="flex flex-row gap-8 items-center text-star-500">
+    <div className="flex flex-row gap-8 items-center">
       <GroupHeaderItem name={name} icon={icon} />
       <GroupJoinButton slug={slug} />
     </div>

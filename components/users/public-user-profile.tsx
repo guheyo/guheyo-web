@@ -9,7 +9,7 @@ import Avatar from '../avatar/avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
 import Username from './user-name';
-import SelectUserReviewTargetOfferDialog from '../user-review/select-user-review-target-offer-dialog';
+import SelectUserReviewTargetPostDialog from '../user-review/select-user-review-target-post-dialog';
 import SocialLogos from '../socials/social-logos';
 
 export default function PublicUserProfile({ username }: { username: string }) {
@@ -53,7 +53,7 @@ export default function PublicUserProfile({ username }: { username: string }) {
       </div>
       <div className="col-span-12 md:col-span-2 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
         <div className="grow w-32">
-          <SelectUserReviewTargetOfferDialog userId={user.id} />
+          <SelectUserReviewTargetPostDialog userId={user.id} />
         </div>
         <div className="grow w-32">
           <DmDialog

@@ -20,7 +20,7 @@ export default function RecentVersionLink({
         href={parseOfferDetailLink({
           slug,
         })}
-        className="text-star-500 font-semibold"
+        className="text-magenta-500 font-semibold"
       >
         최신 버전으로 이동
       </Link>

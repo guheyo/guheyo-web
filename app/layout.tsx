@@ -34,8 +34,8 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
-        <link rel="icon" href="/star/star-bg-purple-rounded.ico" sizes="any" />
-        <meta property="og:image" content="/star/star-bg-purple-rounded.png" />
+        <link rel="icon" href="/guheyo/guheyo-logo.svg" sizes="any" />
+        <meta property="og:image" content="/guheyo/guheyo-logo.svg" />
         <meta property="og:alt" content="구해요" />
         <meta property="og:type" content="image/png" />
         <meta property="og:image:width" content="400" />

@@ -31,14 +31,16 @@ export default function SidebarItem({
         }}
       >
         <ListItemIcon
-          className={isActive ? 'text-star-400 font-semibold' : 'text-gray-400'}
+          className={
+            isActive ? 'text-blurple-400 font-semibold' : 'text-gray-400'
+          }
           style={{ minWidth: 'unset', width: 'auto', marginRight: '8px' }}
         >
           {icon}
         </ListItemIcon>
         <Typography
           className={`text-sm lg:text-sm ${
-            isActive ? 'text-star-400 font-semibold' : 'text-gray-400'
+            isActive ? 'text-blurple-400 font-semibold' : 'text-gray-400'
           }`}
         >
           {text}
