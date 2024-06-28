@@ -47,11 +47,13 @@ const tailwindConfig = {
       'dark-600': '#2c2d30', // category-bg
       'dark-700': '#292a2e', // forum-bg
       'dark-800': '#1e1f22', // leftbar-bg
-      'discord-blue-300': '#8D96F6',
-      'discord-blue-400': '#7A84F5',
-      'discord-blue-500': '#5865F2',
-      'discord-blue-600': '#5461F2',
-      'discord-blue-700': '#4150F1',
+      'blurple-200': '#9fa6f8',
+      'blurple-300': '#8791f6',
+      'blurple-400': '#707bf4',
+      'blurple-500': '#5865F2',
+      'blurple-600': '#404ff0',
+      'blurple-700': '#2939ee',
+      'blurple-800': '#1225eb',
       ...colors,
     },
   },
