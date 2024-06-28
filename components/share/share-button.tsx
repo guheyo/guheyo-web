@@ -51,7 +51,7 @@ export default function ShareButton() {
         <DialogActions>
           <Button
             onClick={handleClose}
-            className="bg-star-500 hover:bg-star-400 text-light-200 font-semibold"
+            className="bg-blurple-500 hover:bg-blurple-600 text-light-200 font-semibold"
           >
             확인
           </Button>
