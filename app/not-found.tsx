@@ -18,7 +18,7 @@ export default function NotFound() {
         <span>당신이 입력한 페이지가 존재하지 않아요</span>
         <span className="flex items-rows gap-1 mt-2">
           <HomeLink>
-            <div className="text-star-500 font-bold">홈(Home)</div>
+            <div className="text-magenta-500 font-bold">홈(Home)</div>
           </HomeLink>
           으로 이동해 주세요
         </span>
