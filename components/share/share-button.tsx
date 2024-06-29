@@ -2,13 +2,12 @@
 
 import ReplyIcon from '@mui/icons-material/Reply';
 import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 
 export default function ShareButton({
   displayLabel,
@@ -40,13 +39,23 @@ export default function ShareButton({
   return (
     <>
       <Tooltip title="공유하기" placement="top">
-        <IconButton
-          onClick={handleShare}
-          className="flex flex-row gap-1 text-gray-300 hover:text-gray-400 text-base md:text-lg"
-        >
-          <ReplyIcon className="transform scale-x-[-1]" />
-          {displayLabel && '공유'}
-        </IconButton>
+        {displayLabel ? (
+          <button
+            type="button"
+            onClick={handleShare}
+            className="flex flex-row gap-1 items-center text-gray-300 hover:text-gray-400 text-base md:text-lg"
+          >
+            <ReplyIcon className="transform scale-x-[-1]" />
+            공유
+          </button>
+        ) : (
+          <IconButton
+            onClick={handleShare}
+            className="text-gray-300 hover:text-gray-400 text-base md:text-lg"
+          >
+            <ReplyIcon className="transform scale-x-[-1]" />
+          </IconButton>
+        )}
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle className="text-lg md:text-xl">공유하기</DialogTitle>
