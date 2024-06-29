@@ -54,13 +54,13 @@ function OfferPage({
           </div>
         </div>
       )}
-      <div className="px-2 md:px-0 text-base md:text-lg text-gray-300 font-bold">
+      <div className="px-2 md:px-0 pt-14 text-base md:text-lg text-gray-300 font-bold">
         <PostDetailAddons />
       </div>
-      <div className="px-2 md:px-0 pt-4 md:pt-8">
+      <div className="px-2 md:px-0">
         <RecentAuctions defaultWhere={{}} defaultDistinct={false} />
       </div>
-      <div className="px-2 md:px-0 pt-4 md:pt-8">
+      <div className="px-2 md:px-0 pt-14">
         <PublicUserProfile
           username={offer.post.user.username}
           displayReviewButton={false}
