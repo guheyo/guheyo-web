@@ -10,9 +10,9 @@ import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Avatar from '../avatar/avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
-import Username from './user-name';
 import SelectUserReviewTargetPostDialog from '../user-review/select-user-review-target-post-dialog';
 import SocialLogos from '../socials/social-logos';
+import UsernameLink from './user-name-link';
 
 export default function PublicUserProfile({
   username,
@@ -46,7 +46,7 @@ export default function PublicUserProfile({
       <div className="col-span-9 md:col-span-7">
         <div className="grid grid-cols-12 gap-0">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
-            <Username user={user} />
+            <UsernameLink user={user} />
           </span>
           <div className="col-span-9 pb-2">
             {parseUserAbout({

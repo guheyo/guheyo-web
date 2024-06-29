@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Avatar from '../avatar/avatar';
 import Roles from './roles';
-import Username from './user-name';
 import SettingButton from '../setting/setting-button';
 import SocialLogos from '../socials/social-logos';
+import UsernameLink from './user-name-link';
 
 export default function PrivateUserProfile() {
   const device = useDeviceDetect();
@@ -35,7 +35,7 @@ export default function PrivateUserProfile() {
       <div className="col-span-9 md:col-span-9">
         <div className="grid grid-cols-12 gap-2">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
-            <Username user={user as AuthorResponse} />
+            <UsernameLink user={user as AuthorResponse} />
           </span>
           <div className="col-span-3 md:col-span-3 justify-self-end">
             <SettingButton settingItem="profile/about" />
