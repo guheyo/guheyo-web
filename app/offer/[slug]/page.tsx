@@ -1,8 +1,10 @@
 'use client';
 
+import RecentAuctions from '@/components/auction/recent-auctions';
 import OfferDetail from '@/components/offers/offer-detail';
 import PostDetailAddons from '@/components/posts/post-detail-addons';
 import ReportFeed from '@/components/reports/report-feed';
+import PublicUserProfile from '@/components/users/public-user-profile';
 import { useFindOfferQuery } from '@/generated/graphql';
 import {
   FindReportPreviewsOrderByArgs,
@@ -40,7 +42,7 @@ function OfferPage({
     <div className="flex flex-col gap-4">
       <OfferDetail offer={offer} />
       {offer.post.reportCount > 0 && (
-        <div className="flex flex-col gap-2 pt-8">
+        <div className="flex flex-col gap-2 pt-4">
           <div
             id="report"
             className="text-base md:text-lg text-gray-300 font-bold px-4 md:px-0"
@@ -54,6 +56,15 @@ function OfferPage({
       )}
       <div className="px-2 md:px-0 text-base md:text-lg text-gray-300 font-bold">
         <PostDetailAddons />
+      </div>
+      <div className="px-2 md:px-0 pt-0">
+        <PublicUserProfile
+          username={offer.post.user.username}
+          displayReviewButton={false}
+        />
+      </div>
+      <div className="px-2 md:px-0 pt-4 md:pt-8">
+        <RecentAuctions defaultWhere={{}} defaultDistinct={false} />
       </div>
     </div>
   );
