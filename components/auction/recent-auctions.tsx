@@ -52,11 +52,9 @@ function RecentAuctions({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row justify-between">
-        <div className="text-base text-gray-300 font-semibold">
-          종료 임박 경매
-        </div>
-        <div className="text-base text-gray-300 font-semibold">
+      <div className="flex flex-row items-center justify-between text-sm md:text-base">
+        <div className="text-gray-300">종료 임박 경매</div>
+        <div className="text-blurple-500">
           <AuctionMoreLink />
         </div>
       </div>
