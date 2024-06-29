@@ -1,8 +1,7 @@
 'use client';
 
 import { ReactNode, Suspense } from 'react';
-import GavelIcon from '@mui/icons-material/Gavel';
-import Link from 'next/link';
+import AuctionHomeLink from './auction-home-link';
 import AuctionSelectors from './auction-selectors';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
@@ -15,12 +14,7 @@ function HomeAuctionFeedLayout({ children, showSelector }: Props) {
   return (
     <div>
       <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
-        <Link href="/auction">
-          <div className="flex flex-row gap-4 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
-            <GavelIcon />
-            <div>경매장</div>
-          </div>
-        </Link>
+        <AuctionHomeLink />
       </div>
       <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
         <GroupProfileSidebarItems
