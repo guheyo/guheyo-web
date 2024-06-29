@@ -3,11 +3,13 @@
 import { AuthorResponse, useFindMyUserQuery } from '@/generated/graphql';
 import { parseUserAbout } from '@/lib/user/parse-user-about';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
+import Link from 'next/link';
+import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import Avatar from '../avatar/avatar';
 import Roles from './roles';
-import Username from './user-name';
 import SettingButton from '../setting/setting-button';
 import SocialLogos from '../socials/social-logos';
+import UsernameLink from './user-name-link';
 
 export default function PrivateUserProfile() {
   const device = useDeviceDetect();
@@ -21,17 +23,19 @@ export default function PrivateUserProfile() {
 
   return (
     <div className="grid grid-cols-12 gap-0 text-sm md:text-base items-center">
-      <div className="col-span-3 md:col-span-3">
-        <Avatar
-          name={user.username}
-          src={user.avatarURL || undefined}
-          fontSize={device === 'mobile' ? 'text-6xl' : 'text-9xl'}
-        />
+      <div className="col-span-3 md:col-span-3 w-fit">
+        <Link href={parseUserHomeLink({ username: user.username })}>
+          <Avatar
+            name={user.username}
+            src={user.avatarURL || undefined}
+            fontSize={device === 'mobile' ? 'text-6xl' : 'text-9xl'}
+          />
+        </Link>
       </div>
       <div className="col-span-9 md:col-span-9">
         <div className="grid grid-cols-12 gap-2">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
-            <Username user={user as AuthorResponse} />
+            <UsernameLink user={user as AuthorResponse} />
           </span>
           <div className="col-span-3 md:col-span-3 justify-self-end">
             <SettingButton settingItem="profile/about" />

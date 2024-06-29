@@ -33,7 +33,7 @@ export default function OfferListViewPreview({ offer }: Props) {
           </div>
         </div>
         {offer.post.thumbnail && (
-          <div className="flex relative w-[25%] md:w-[20%] mr-4 md:mr-0">
+          <div className="flex relative w-[25%] md:w-[20%] mr-4 md:mr-4 justify-end">
             <Thumbnail
               url={offer.post.thumbnail}
               name={offer.post.title}

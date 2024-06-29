@@ -1,12 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { useFindAuctionPreviewsQuery } from '@/generated/graphql';
-import { isMobile } from 'react-device-detect';
 import AuctionPreview from './auction-preview';
 import HomeAuctionFeedLayout from './home-auction-feed.layout';
 import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
+import AuctionMoreLink from './auction-more-link';
 
 export default function HomeAuction() {
   const { loading, data } = useFindAuctionPreviewsQuery({
@@ -37,14 +35,7 @@ export default function HomeAuction() {
         ))}
       </ThumbnailFeedLayout>
       <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-0 md:mx-1 pt-2">
-        <Link href="/auction">
-          <span className="flex flex-row items-center gap-1">
-            <PlayCircleOutlineOutlinedIcon
-              fontSize={isMobile ? 'small' : 'medium'}
-            />
-            경매장
-          </span>
-        </Link>
+        <AuctionMoreLink />
       </div>
     </HomeAuctionFeedLayout>
   );
