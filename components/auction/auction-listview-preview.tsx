@@ -25,7 +25,7 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
         })}
         className="flex flex-row w-full text-start"
       >
-        <div className="w-[75%] md:w-[80%] px-4">
+        <div className="w-[75%] md:w-[80%] pl-4">
           <div className="flex flex-col gap-1">
             {!isInGroup && (
               <div className="w-fit">
@@ -40,7 +40,7 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
           </div>
         </div>
         {auction.post.thumbnail && (
-          <div className="flex relative w-[25%] md:w-[20%] mr-4 md:mr-0">
+          <div className="flex relative w-[25%] md:w-[20%] mr-4 md:mr-4 justify-end">
             <Thumbnail
               url={auction.post.thumbnail}
               name={auction.post.title}

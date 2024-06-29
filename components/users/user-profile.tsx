@@ -8,7 +8,7 @@ import { useContext } from 'react';
 function UserProfile({ username }: { username: string }) {
   const { jwtPayload } = useContext(AuthContext);
   if (jwtPayload?.username !== username)
-    return <PublicUserProfile username={username} />;
+    return <PublicUserProfile username={username} displayReviewButton />;
   return <PrivateUserProfile />;
 }
 

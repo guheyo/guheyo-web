@@ -10,7 +10,7 @@ export default function PostDetailAddons({
   return (
     <div className="flex gap-2 items-center text-base md:text-lg text-gray-300 font-bold">
       {commentCount !== undefined && `댓글 ${commentCount}개`}
-      <ShareButton />
+      <ShareButton displayLabel />
     </div>
   );
 }
