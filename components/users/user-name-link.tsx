@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { AuthorResponse } from '@/generated/graphql';
 import Link from 'next/link';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
