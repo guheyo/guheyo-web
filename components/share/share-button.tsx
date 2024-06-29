@@ -10,7 +10,11 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 
-export default function ShareButton() {
+export default function ShareButton({
+  displayLabel,
+}: {
+  displayLabel: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -38,9 +42,10 @@ export default function ShareButton() {
       <Tooltip title="공유하기" placement="top">
         <IconButton
           onClick={handleShare}
-          className="text-gray-400 hover:text-gray-300"
+          className="flex flex-row gap-1 text-gray-300 hover:text-gray-400 text-base md:text-lg"
         >
           <ReplyIcon className="transform scale-x-[-1]" />
+          {displayLabel && '공유'}
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
