@@ -19,6 +19,30 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type ArticlePreviewResponse = {
+  __typename?: 'ArticlePreviewResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostPreviewWithAuthorResponse;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ArticlePreviewResponseEdge = {
+  __typename?: 'ArticlePreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ArticlePreviewResponse;
+};
+
+export type ArticleResponse = {
+  __typename?: 'ArticleResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostResponse;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type AuctionInteractionItemResponse = BidResponse | CommentWithAuthorResponse;
 
 export type AuctionInteractionItemResponseEdge = {
@@ -187,6 +211,12 @@ export type CommentWithAuthorResponseEdge = {
   node: CommentWithAuthorResponse;
 };
 
+export type CreateArticleInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  post: CreatePostInput;
+};
+
 export type CreateAuctionInput = {
   content: Scalars['String']['input'];
   createdAt: Scalars['DateTime']['input'];
@@ -320,6 +350,16 @@ export type EmojiResponse = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type FindArticlePreviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindArticlePreviewsWhereInput = {
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindBiddersOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -395,6 +435,7 @@ export type Mutation = {
   cancelBid: Scalars['String']['output'];
   cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
+  createArticle: Scalars['String']['output'];
   createAuction: Scalars['String']['output'];
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
@@ -406,6 +447,7 @@ export type Mutation = {
   createSignedUrl: SignedUrlResponse;
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
+  deleteArticle: Scalars['String']['output'];
   deleteComment: Scalars['String']['output'];
   deleteOffer: Scalars['String']['output'];
   deleteRole: Scalars['String']['output'];
@@ -444,6 +486,11 @@ export type MutationCancelReactionArgs = {
 
 export type MutationCommentReportArgs = {
   input: CommentReportInput;
+};
+
+
+export type MutationCreateArticleArgs = {
+  input: CreateArticleInput;
 };
 
 
@@ -499,6 +546,11 @@ export type MutationCreateUserImageArgs = {
 
 export type MutationCreateUserReviewArgs = {
   input: CreateUserReviewInput;
+};
+
+
+export type MutationDeleteArticleArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -640,6 +692,12 @@ export type PageInfo = {
   __typename?: 'PageInfo';
   endCursor?: Maybe<Scalars['String']['output']>;
   hasNextPage: Scalars['Boolean']['output'];
+};
+
+export type PaginatedArticlePreviewsResponse = {
+  __typename?: 'PaginatedArticlePreviewsResponse';
+  edges: Array<ArticlePreviewResponseEdge>;
+  pageInfo: PageInfo;
 };
 
 export type PaginatedAuctionInteractionItemsResponse = {
@@ -785,6 +843,8 @@ export type PostResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  findArticle?: Maybe<ArticleResponse>;
+  findArticlePreviews: PaginatedArticlePreviewsResponse;
   findAuction?: Maybe<AuctionResponse>;
   findAuctionInteractionItems: PaginatedAuctionInteractionItemsResponse;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
@@ -821,6 +881,22 @@ export type Query = {
   findUsers: PaginatedUsersResponse;
   findVersion?: Maybe<VersionResponse>;
   findVersionPreview?: Maybe<VersionPreviewResponse>;
+};
+
+
+export type QueryFindArticleArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindArticlePreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindArticlePreviewsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  where?: InputMaybe<FindArticlePreviewsWhereInput>;
 };
 
 
@@ -1403,6 +1479,44 @@ export type VersionResponse = {
   tableName: Scalars['String']['output'];
   values: Scalars['JSON']['output'];
 };
+
+export type ArticleFragment = { __typename?: 'ArticleResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type ArticlePreviewFragment = { __typename?: 'ArticlePreviewResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
+
+export type FindArticlePreviewsQueryVariables = Exact<{
+  where?: InputMaybe<FindArticlePreviewsWhereInput>;
+  orderBy?: InputMaybe<FindArticlePreviewsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindArticlePreviewsQuery = { __typename?: 'Query', findArticlePreviews: { __typename?: 'PaginatedArticlePreviewsResponse', edges: Array<{ __typename?: 'ArticlePreviewResponseEdge', cursor: string, node: { __typename?: 'ArticlePreviewResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, categoryId?: string | null, commentCount?: number | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindArticleQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindArticleQuery = { __typename?: 'Query', findArticle?: { __typename?: 'ArticleResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
+
+export type CreateArticleMutationVariables = Exact<{
+  input: CreateArticleInput;
+}>;
+
+
+export type CreateArticleMutation = { __typename?: 'Mutation', createArticle: string };
+
+export type DeleteArticleMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteArticleMutation = { __typename?: 'Mutation', deleteArticle: string };
 
 export type AuctionFragment = { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, categoryId?: string | null, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
@@ -2100,6 +2214,54 @@ ${GroupProfileFragmentDoc}
 ${CategoryFragmentDoc}
 ${AuthorFragmentDoc}
 ${TagFragmentDoc}`;
+export const ArticleFragmentDoc = gql`
+    fragment article on ArticleResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  content
+}
+    ${PostFragmentDoc}`;
+export const PostPreviewWithAuthorFragmentDoc = gql`
+    fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
+  id
+  createdAt
+  updatedAt
+  archivedAt
+  pending
+  type
+  title
+  slug
+  thumbnail
+  categoryId
+  group {
+    ...groupProfile
+  }
+  user {
+    ...author
+  }
+  tags {
+    ...tag
+  }
+  commentCount
+}
+    ${GroupProfileFragmentDoc}
+${AuthorFragmentDoc}
+${TagFragmentDoc}`;
+export const ArticlePreviewFragmentDoc = gql`
+    fragment articlePreview on ArticlePreviewResponse {
+  post {
+    ...postPreviewWithAuthor
+  }
+  id
+  createdAt
+  updatedAt
+  content
+}
+    ${PostPreviewWithAuthorFragmentDoc}`;
 export const AuctionFragmentDoc = gql`
     fragment auction on AuctionResponse {
   post {
@@ -2467,32 +2629,6 @@ export const TermFragmentDoc = gql`
   meta
 }
     `;
-export const PostPreviewWithAuthorFragmentDoc = gql`
-    fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
-  id
-  createdAt
-  updatedAt
-  archivedAt
-  pending
-  type
-  title
-  slug
-  thumbnail
-  categoryId
-  group {
-    ...groupProfile
-  }
-  user {
-    ...author
-  }
-  tags {
-    ...tag
-  }
-  commentCount
-}
-    ${GroupProfileFragmentDoc}
-${AuthorFragmentDoc}
-${TagFragmentDoc}`;
 export const UserReviewPreviewFragmentDoc = gql`
     fragment userReviewPreview on UserReviewPreviewResponse {
   post {
@@ -2579,6 +2715,176 @@ export const VersionPreviewFragmentDoc = gql`
   values
 }
     `;
+export const FindArticlePreviewsDocument = gql`
+    query FindArticlePreviews($where: FindArticlePreviewsWhereInput, $orderBy: FindArticlePreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findArticlePreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...articlePreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${ArticlePreviewFragmentDoc}`;
+
+/**
+ * __useFindArticlePreviewsQuery__
+ *
+ * To run a query within a React component, call `useFindArticlePreviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindArticlePreviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindArticlePreviewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindArticlePreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables> & ({ variables: FindArticlePreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>(FindArticlePreviewsDocument, options);
+      }
+export function useFindArticlePreviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>(FindArticlePreviewsDocument, options);
+        }
+export function useFindArticlePreviewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>(FindArticlePreviewsDocument, options);
+        }
+export type FindArticlePreviewsQueryHookResult = ReturnType<typeof useFindArticlePreviewsQuery>;
+export type FindArticlePreviewsLazyQueryHookResult = ReturnType<typeof useFindArticlePreviewsLazyQuery>;
+export type FindArticlePreviewsSuspenseQueryHookResult = ReturnType<typeof useFindArticlePreviewsSuspenseQuery>;
+export type FindArticlePreviewsQueryResult = Apollo.QueryResult<FindArticlePreviewsQuery, FindArticlePreviewsQueryVariables>;
+export function refetchFindArticlePreviewsQuery(variables: FindArticlePreviewsQueryVariables) {
+      return { query: FindArticlePreviewsDocument, variables: variables }
+    }
+export const FindArticleDocument = gql`
+    query FindArticle($id: ID, $slug: String) {
+  findArticle(id: $id, slug: $slug) {
+    ...article
+  }
+}
+    ${ArticleFragmentDoc}`;
+
+/**
+ * __useFindArticleQuery__
+ *
+ * To run a query within a React component, call `useFindArticleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindArticleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindArticleQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindArticleQuery(baseOptions?: Apollo.QueryHookOptions<FindArticleQuery, FindArticleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindArticleQuery, FindArticleQueryVariables>(FindArticleDocument, options);
+      }
+export function useFindArticleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindArticleQuery, FindArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindArticleQuery, FindArticleQueryVariables>(FindArticleDocument, options);
+        }
+export function useFindArticleSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindArticleQuery, FindArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindArticleQuery, FindArticleQueryVariables>(FindArticleDocument, options);
+        }
+export type FindArticleQueryHookResult = ReturnType<typeof useFindArticleQuery>;
+export type FindArticleLazyQueryHookResult = ReturnType<typeof useFindArticleLazyQuery>;
+export type FindArticleSuspenseQueryHookResult = ReturnType<typeof useFindArticleSuspenseQuery>;
+export type FindArticleQueryResult = Apollo.QueryResult<FindArticleQuery, FindArticleQueryVariables>;
+export function refetchFindArticleQuery(variables?: FindArticleQueryVariables) {
+      return { query: FindArticleDocument, variables: variables }
+    }
+export const CreateArticleDocument = gql`
+    mutation CreateArticle($input: CreateArticleInput!) {
+  createArticle(input: $input)
+}
+    `;
+export type CreateArticleMutationFn = Apollo.MutationFunction<CreateArticleMutation, CreateArticleMutationVariables>;
+
+/**
+ * __useCreateArticleMutation__
+ *
+ * To run a mutation, you first call `useCreateArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createArticleMutation, { data, loading, error }] = useCreateArticleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateArticleMutation(baseOptions?: Apollo.MutationHookOptions<CreateArticleMutation, CreateArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateArticleMutation, CreateArticleMutationVariables>(CreateArticleDocument, options);
+      }
+export type CreateArticleMutationHookResult = ReturnType<typeof useCreateArticleMutation>;
+export type CreateArticleMutationResult = Apollo.MutationResult<CreateArticleMutation>;
+export type CreateArticleMutationOptions = Apollo.BaseMutationOptions<CreateArticleMutation, CreateArticleMutationVariables>;
+export const DeleteArticleDocument = gql`
+    mutation DeleteArticle($id: ID!) {
+  deleteArticle(id: $id)
+}
+    `;
+export type DeleteArticleMutationFn = Apollo.MutationFunction<DeleteArticleMutation, DeleteArticleMutationVariables>;
+
+/**
+ * __useDeleteArticleMutation__
+ *
+ * To run a mutation, you first call `useDeleteArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArticleMutation, { data, loading, error }] = useDeleteArticleMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteArticleMutation(baseOptions?: Apollo.MutationHookOptions<DeleteArticleMutation, DeleteArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteArticleMutation, DeleteArticleMutationVariables>(DeleteArticleDocument, options);
+      }
+export type DeleteArticleMutationHookResult = ReturnType<typeof useDeleteArticleMutation>;
+export type DeleteArticleMutationResult = Apollo.MutationResult<DeleteArticleMutation>;
+export type DeleteArticleMutationOptions = Apollo.BaseMutationOptions<DeleteArticleMutation, DeleteArticleMutationVariables>;
 export const FindAuctionPreviewsDocument = gql`
     query FindAuctionPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionPreviews(
