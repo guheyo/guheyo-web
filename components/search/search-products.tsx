@@ -3,7 +3,7 @@
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import SearchInput from './search-input';
 import ProductSearchResults from './product-search-results';
-import CategoriesNavbar from '../categories/categories-navbar';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
 
@@ -28,7 +28,7 @@ export default function SearchProducts() {
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <CategoriesNavbar hideSelector />
+        <ProductCategoriesNavbar hideSelector />
       </div>
       <div className="pt-4">
         <OfferSelectors />

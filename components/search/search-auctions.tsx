@@ -2,7 +2,7 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import SearchInput from './search-input';
-import CategoriesNavbar from '../categories/categories-navbar';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import { DEBOUNCE } from './search.constants';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
@@ -33,7 +33,7 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
       />
       {isInGroup && (
         <div className="pt-4 mx-2.5 md:mx-1">
-          <CategoriesNavbar hideSelector />
+          <ProductCategoriesNavbar hideSelector />
         </div>
       )}
       <div className="pt-4">

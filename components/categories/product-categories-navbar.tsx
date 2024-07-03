@@ -15,7 +15,7 @@ const getButtonCSS = (clicked: boolean) => {
   return `border-b-2 border-gray-300 text-gray-300`;
 };
 
-export default function CategoriesNavbar({
+export default function ProductCategoriesNavbar({
   hideSelector,
 }: {
   hideSelector: boolean;
@@ -43,7 +43,9 @@ export default function CategoriesNavbar({
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
-  const { categories } = group;
+  const categories = group.categories.filter(
+    (category) => category.type === 'product' || category.type === 'service',
+  );
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
