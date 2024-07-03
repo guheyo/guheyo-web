@@ -3,11 +3,20 @@
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { ArticleResponse } from '@/generated/graphql';
+import {
+  ArticleResponse,
+  ReactionCanceledDocument,
+  ReactionCreatedDocument,
+  ReactionResponse,
+  useFindReactionsQuery,
+} from '@/generated/graphql';
+import { useEffect, useState } from 'react';
+import { useSubscription } from '@apollo/client';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailDate from '../posts/post-detail-date';
 import PostDetailTitle from '../posts/post-detail-name';
+import ReactionBar from '../reaction/reaction-bar';
 
 export default function ArticleDetailMain({
   article,
@@ -15,6 +24,46 @@ export default function ArticleDetailMain({
   article: ArticleResponse;
 }) {
   const device = useDeviceDetect();
+  const [postReactions, setPostReactions] = useState<ReactionResponse[]>([]);
+
+  const { loading, data: postReactionsData } = useFindReactionsQuery({
+    variables: {
+      postId: article.post.id,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  useSubscription(ReactionCreatedDocument, {
+    variables: {
+      type: 'post',
+      postId: article.post.id,
+    },
+    onData: ({ data }) => {
+      const newReaction = data.data.reactionCreated;
+      setPostReactions((prevReactions) => [...prevReactions, newReaction]);
+    },
+    shouldResubscribe: true,
+  });
+
+  useSubscription(ReactionCanceledDocument, {
+    variables: {
+      type: 'post',
+      postId: article.post.id,
+    },
+    onData: ({ data }) => {
+      const canceledReaction = data.data.reactionCanceled;
+      setPostReactions((prevReactions) =>
+        prevReactions.filter((reaction) => reaction.id !== canceledReaction.id),
+      );
+    },
+    shouldResubscribe: true,
+  });
+
+  useEffect(() => {
+    if (!loading && postReactionsData) {
+      setPostReactions(postReactionsData.findReactions);
+    }
+  }, [loading, postReactionsData]);
 
   return (
     <div className="px-4 md:px-0">
@@ -40,6 +89,9 @@ export default function ArticleDetailMain({
         {article.content && (
           <Markdown remarkPlugins={[remarkGfm]}>{article.content}</Markdown>
         )}
+      </div>
+      <div className="pt-4">
+        <ReactionBar postId={article.post.id} reactions={postReactions} />
       </div>
     </div>
   );
