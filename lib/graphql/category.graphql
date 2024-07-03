@@ -1,0 +1,7 @@
+fragment category on CategoryResponse {
+  id
+  type
+  name
+  slug
+  position
+}

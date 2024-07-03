@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import CategoriesNavbar from '../categories/categories-navbar';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionSelectors from './auction-selectors';
 
 interface Props {
@@ -12,7 +12,7 @@ function GroupAuctionFeedLayout({ children }: Props) {
   return (
     <div>
       <div className="mx-2.5 md:mx-1">
-        <CategoriesNavbar hideSelector />
+        <ProductCategoriesNavbar types={['product']} hideSelector />
       </div>
       <div className="flex justify-end pb-2">
         <AuctionSelectors />

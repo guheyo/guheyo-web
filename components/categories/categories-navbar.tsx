@@ -2,10 +2,8 @@
 
 import { MouseEvent } from 'react';
 import { useGroup } from '@/hooks/use-group';
-import createQueryString from '@/lib/query-string/create-query-string';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Scrollbar from '../base/scrollbar';
-import OfferSelector from '../offers/business-function-selector';
 import { Mocks } from '../mock/mock';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -16,26 +14,17 @@ const getButtonCSS = (clicked: boolean) => {
 };
 
 export default function CategoriesNavbar({
-  hideSelector,
+  types,
+  Selector,
+  handleClick,
 }: {
-  hideSelector: boolean;
+  types: string[];
+  Selector?: React.ComponentType<{ categorySlug: string | null }>;
+  handleClick: (e: MouseEvent, slug?: string | null) => void;
 }) {
-  const router = useRouter();
-  const pathname = usePathname();
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-
-  const handleClick = (e: MouseEvent, slug?: string | null) => {
-    e.preventDefault();
-    router.push(
-      `${pathname}?${createQueryString({
-        searchParamsString: searchParams.toString(),
-        name: 'category',
-        value: slug,
-      })}`,
-    );
-  };
 
   if (!group)
     return (
@@ -43,14 +32,16 @@ export default function CategoriesNavbar({
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
-  const { categories } = group;
+  const categories = group.categories.filter((category) =>
+    types.includes(category.type),
+  );
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-6 bg-dark-500">
-        {!hideSelector && (
+        {Selector && (
           <div className="flex-none text-sm md:text-base bg-dark-200 rounded">
-            <OfferSelector categorySlug={categorySlug} />
+            <Selector categorySlug={categorySlug} />
           </div>
         )}
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
