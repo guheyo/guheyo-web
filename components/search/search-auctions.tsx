@@ -33,7 +33,7 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
       />
       {isInGroup && (
         <div className="pt-4 mx-2.5 md:mx-1">
-          <ProductCategoriesNavbar hideSelector />
+          <ProductCategoriesNavbar types={['product']} hideSelector />
         </div>
       )}
       <div className="pt-4">

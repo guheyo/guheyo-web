@@ -12,7 +12,7 @@ function OfferFeedHomeLayout({ children }: Props) {
   return (
     <div>
       <div className="mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar hideSelector />
+        <ProductCategoriesNavbar types={['product', 'service']} hideSelector />
       </div>
       <div className="flex justify-end pb-2">
         <OfferSelectors />
