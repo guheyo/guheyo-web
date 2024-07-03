@@ -356,6 +356,7 @@ export type FindArticlePreviewsOrderByInput = {
 };
 
 export type FindArticlePreviewsWhereInput = {
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
