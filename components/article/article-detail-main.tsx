@@ -17,6 +17,7 @@ import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostDetailDate from '../posts/post-detail-date';
 import PostDetailTitle from '../posts/post-detail-name';
 import ReactionBar from '../reaction/reaction-bar';
+import PostTags from '../posts/post-tags';
 
 export default function ArticleDetailMain({
   article,
@@ -84,6 +85,9 @@ export default function ArticleDetailMain({
           <ReportsLink reportCount={article.post.reportCount} />
         )}
         <PostDetailTitle title={article.post.title} />
+        <div className="flex flex-row gap-2">
+          <PostTags tags={article.post.tags} />
+        </div>
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
         {article.content && (
