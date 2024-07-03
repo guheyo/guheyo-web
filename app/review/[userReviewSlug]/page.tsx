@@ -37,7 +37,7 @@ function Page({
   return (
     <div className="flex flex-col gap-4">
       <UserReviewDetail userReview={userReview} />
-      <div className="px-4 md:px-0 pt-4 text-base md:text-lg text-gray-300 font-bold">
+      <div className="pt-14 px-4 md:px-0 text-base md:text-lg text-gray-300 font-bold">
         <PostDetailAddons commentCount={userReview.post.commentCount || 0} />
       </div>
       <div className="px-4 md:px-0">
