@@ -57,6 +57,7 @@ import { findDefaultCategory } from '@/lib/group/find-default-category';
 import { parseBusinessFunctionButtonOptions } from '@/lib/offer/parse-offer-options';
 import { parseOfferPriceName } from '@/lib/offer/parse-offer-price-name';
 import { parseOfferContentPlaceholder } from '@/lib/offer/parse-offer-content-placeholder';
+import { filterCategories } from '@/lib/group/filter-categories';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -86,6 +87,10 @@ export default function OfferForm({
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
   const device = useDeviceDetect();
+  const categories = filterCategories({
+    types: ['product', 'service'],
+    categories: group.categories,
+  });
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<OfferFormValues>({
@@ -138,9 +143,9 @@ export default function OfferForm({
   // Init default categoryId
   useEffect(() => {
     if (!categoryId)
-      setValue('categoryId', findDefaultCategory(group.categories)?.id || '');
+      setValue('categoryId', findDefaultCategory(categories)?.id || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group.categories]);
+  }, [categories]);
 
   const updateValues = () => {
     if (!offerId || !userId) return;
@@ -356,7 +361,7 @@ export default function OfferForm({
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
-          options: group.categories.map((category) => ({
+          options: categories.map((category) => ({
             value: category.id,
             label: category.name,
             selected: categoryId === category.id,
@@ -478,7 +483,7 @@ export default function OfferForm({
           variant: 'outlined',
           placeholder: parseOfferContentPlaceholder({
             businessFunction,
-            categories: group.categories,
+            categories,
             categoryId,
           }),
           InputProps: {
