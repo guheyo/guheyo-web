@@ -9,6 +9,8 @@ import {
 } from '@/generated/graphql';
 import { useInfiniteArticleFeed } from '@/hooks/use-infinite-article-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
+import { useSearchParams } from 'next/navigation';
+import { findCategory } from '@/lib/group/find-category';
 import ArticlePreview from './article-preview';
 
 function ArticleFeed({
@@ -24,12 +26,19 @@ function ArticleFeed({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category');
+
+  const category = findCategory(group?.categories, {
+    slug: categorySlug,
+  });
 
   const { loading, data } = useInfiniteArticleFeed({
     ref,
     where: {
       groupId: group?.id,
       userId: defaultWhere.userId,
+      categoryId: category?.id,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',
