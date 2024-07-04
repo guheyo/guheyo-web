@@ -9,6 +9,7 @@ import Thumbnail from '../base/thumbnail';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
 import GroupNameLink from '../groups/group-name-link';
+import PostCategory from '../posts/post-category';
 
 interface Props {
   auction: AuctionPreviewResponse;
@@ -37,6 +38,7 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
             )}
             <AuctionPreviewHeader auction={auction} />
             <AuctionPreviewFooter auction={auction} />
+            <PostCategory category={auction.post.category!} />
           </div>
         </div>
         {auction.post.thumbnail && (

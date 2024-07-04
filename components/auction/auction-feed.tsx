@@ -10,16 +10,19 @@ import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
+import { PostPreviewType } from '@/lib/post/post.types';
 import AuctionPreview from './auction-preview';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
 function AuctionFeed({
+  type,
   defaultWhere,
   defaultSortOrder,
   keyword,
   defaultDistinct,
 }: {
+  type: PostPreviewType;
   defaultWhere: FindAuctionsWhereArgs;
   defaultSortOrder?: string;
   keyword?: string;
@@ -82,11 +85,7 @@ function AuctionFeed({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-col gap-0">
-          <AuctionPreview
-            type="thumbnail"
-            auction={edge.node}
-            isInGroup={!!group}
-          />
+          <AuctionPreview type={type} auction={edge.node} isInGroup={!!group} />
           {edge.node.hasSubmittedReview === false && (
             <div className="pb-2">
               <SelectUserReviewTargetUserDialog

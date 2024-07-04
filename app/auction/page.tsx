@@ -16,6 +16,7 @@ function Page() {
         <ThumbnailFeedLayout>
           <Suspense>
             <AuctionFeed
+              type="thumbnail"
               defaultWhere={where}
               defaultSortOrder={sortOrder}
               defaultDistinct={distinct}

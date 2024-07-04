@@ -6,7 +6,7 @@ import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import { DEBOUNCE } from './search.constants';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
-import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
+import TextFeedLayout from '../posts/text-feed.layout';
 
 export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -40,14 +40,15 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
         <AuctionSelectors />
       </div>
       <div className="pt-4">
-        <ThumbnailFeedLayout>
+        <TextFeedLayout>
           <AuctionFeed
+            type="listview"
             defaultWhere={where}
             defaultSortOrder={sortOrder}
             keyword={keyword}
             defaultDistinct={distinct}
           />
-        </ThumbnailFeedLayout>
+        </TextFeedLayout>
       </div>
     </div>
   );

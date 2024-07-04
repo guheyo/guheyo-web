@@ -17,6 +17,7 @@ function Page({ params: { groupSlug } }: AuctionsPageProps) {
   return (
     <ThumbnailFeedLayout>
       <AuctionFeed
+        type="thumbnail"
         defaultWhere={where}
         defaultSortOrder={sortOrder}
         defaultDistinct={distinct}
