@@ -1,14 +1,26 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
+import { BusinessFunction } from '@/lib/offer/offer.types';
+import { useState } from 'react';
 import SearchInput from './search-input';
-import ProductSearchResults from './product-search-results';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
+import OfferFeed from '../offers/offer-feed';
+import BusinessFunctionSelector from '../offers/business-function-selector';
+import TextFeedLayout from '../posts/text-feed.layout';
 
 export default function SearchProducts() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const [businessFunction, setBusinessFunction] =
+    useState<BusinessFunction>('sell');
+
+  const where = {
+    businessFunction,
+    status: undefined,
+  };
+  const distinct = true;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -16,6 +28,12 @@ export default function SearchProducts() {
 
   const handleKeyDown = (e: KeyboardEvent): void => {
     // Do nothing
+  };
+
+  const handleBusinessFunctionChange = (
+    selectedBusinessFunction: BusinessFunction,
+  ): void => {
+    setBusinessFunction(selectedBusinessFunction);
   };
 
   return (
@@ -30,11 +48,22 @@ export default function SearchProducts() {
       <div className="pt-4 mx-2.5 md:mx-1">
         <ProductCategoriesNavbar types={['product', 'service']} hideSelector />
       </div>
-      <div className="pt-4">
+      <div className="pt-4 flex flex-row justify-between">
+        <BusinessFunctionSelector
+          onChange={handleBusinessFunctionChange}
+          businessFunction={businessFunction}
+        />
         <OfferSelectors />
       </div>
       <div className="pt-4">
-        <ProductSearchResults keyword={keyword} />
+        <TextFeedLayout>
+          <OfferFeed
+            type="listview"
+            defaultWhere={where}
+            defaultDistinct={distinct}
+            keyword={keyword}
+          />
+        </TextFeedLayout>
       </div>
     </div>
   );
