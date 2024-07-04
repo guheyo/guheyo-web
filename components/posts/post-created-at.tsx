@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 export default function PostCreatedAt({ createdAt }: { createdAt: Date }) {
   return (
-    <div className="text-xs md:text-sm text-gray-500">
+    <div className="text-[10px] md:text-xs text-gray-500">
       {dayjs(createdAt).fromNow()}
     </div>
   );
