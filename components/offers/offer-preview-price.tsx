@@ -16,7 +16,7 @@ export default function OfferPreviewPrice({
           {parseOfferStatusLabel(offerStatus)}
         </div>
       )}
-      <div className="text-sm md:text-base font-semibold">
+      <div className="text-gray-200 text-sm md:text-base font-semibold">
         {parsePrice(totalPrice)}
       </div>
     </div>

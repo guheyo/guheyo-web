@@ -12,9 +12,9 @@ export default function OfferDetailName({
   name1?: string | null;
 }) {
   return (
-    <div className="flex flex-row gap-2 items-center text-base md:text-lg font-semibold">
+    <div className="flex flex-row gap-2 items-center text-base md:text-lg text-gray-300 font-semibold">
       {offerStatus !== 'open' && (
-        <div className="text-gray-300 bg-dark-200 px-1.5 rounded text-sm md:text-base">
+        <div className="bg-dark-200 px-1.5 rounded text-sm md:text-base">
           {parseOfferStatusLabel(offerStatus)}
         </div>
       )}

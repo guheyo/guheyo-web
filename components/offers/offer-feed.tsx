@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
+import { PostPreviewType } from '@/lib/post/post.types';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
@@ -26,7 +27,7 @@ function OfferFeed({
   defaultWhere: FindOffersWhereArgs;
   defaultOrderBy?: FindOffersOrderByArgs;
   keyword?: string;
-  type: 'text' | 'thumbnail';
+  type: PostPreviewType;
   defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);

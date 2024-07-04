@@ -31,9 +31,7 @@ function Page({
     createdAt: 'desc',
   };
 
-  return (
-    <UserReviewFeed type="text" defaultWhere={where} defaultOrderBy={orderBy} />
-  );
+  return <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />;
 }
 
 export default Page;
