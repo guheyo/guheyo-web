@@ -2,7 +2,7 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { BusinessFunction } from '@/lib/offer/offer.types';
-import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import SearchInput from './search-input';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
@@ -13,8 +13,11 @@ import TextFeedLayout from '../posts/text-feed.layout';
 
 export default function SearchProducts() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
-  const [businessFunction, setBusinessFunction] =
-    useState<BusinessFunction>('sell');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const businessFunction =
+    (searchParams.get('businessFunction') as BusinessFunction) || 'sell';
 
   const where = {
     businessFunction,
@@ -33,7 +36,9 @@ export default function SearchProducts() {
   const handleBusinessFunctionChange = (
     selectedBusinessFunction: BusinessFunction,
   ): void => {
-    setBusinessFunction(selectedBusinessFunction);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('businessFunction', selectedBusinessFunction);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (
