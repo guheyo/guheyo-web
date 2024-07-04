@@ -5,8 +5,8 @@ import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { OfferPreviewResponse } from '@/generated/graphql';
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import Thumbnail from '../base/thumbnail';
-import OfferPreviewHeader from './offer-preview-header';
-import OfferPreviewFooter from './offer-preview-footer';
+import OfferCredditBar from './offer-credit-bar';
+import OfferPreviewMain from './offer-preview-main';
 
 interface Props {
   offer: OfferPreviewResponse;
@@ -39,8 +39,8 @@ export default function OfferThumbnailPreview({ offer }: Props) {
         )}
         <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <div className="flex flex-col gap-1">
-            <OfferPreviewHeader offer={offer} />
-            <OfferPreviewFooter offer={offer} />
+            <OfferCredditBar offer={offer} />
+            <OfferPreviewMain offer={offer} />
           </div>
         </div>
       </Link>

@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import { OfferPreviewResponse } from '@/generated/graphql';
-import OfferPreviewFooter from './offer-preview-footer';
-import OfferPreviewHeader from './offer-preview-header';
+import OfferCredditBar from './offer-credit-bar';
+import OfferPreviewMain from './offer-preview-main';
 
 interface Props {
   offer: OfferPreviewResponse;
@@ -12,16 +12,18 @@ interface Props {
 
 export default function OfferTextPreview({ offer }: Props) {
   return (
-    <div className="relative overflow-hidden bg-dark-400 px-4 md:px-5 py-4 rounded-lg">
+    <div className="relative overflow-hidden bg-dark-400 py-4 rounded-lg">
       <Link
         href={parseOfferDetailLink({
           slug: offer.post.slug!,
         })}
-        className="w-full text-start"
+        className="flex flex-col gap-1"
       >
-        <div className="flex flex-col gap-1">
-          <OfferPreviewHeader offer={offer} />
-          <OfferPreviewFooter offer={offer} />
+        <div className="pl-4">
+          <OfferCredditBar offer={offer} />
+        </div>
+        <div className="px-4">
+          <OfferPreviewMain offer={offer} />
         </div>
       </Link>
     </div>
