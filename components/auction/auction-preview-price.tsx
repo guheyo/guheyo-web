@@ -12,13 +12,15 @@ export default function AuctionPreviewPrice({
   return (
     <>
       {auctionStatus !== AUCTION_LIVE && (
-        <div className="text-sm md:text-base font-semibold">
-          낙찰가 {parsePrice(currentBidPrice)}
+        <div className="flex flex-row gap-1 text-sm md:text-base font-semibold">
+          낙찰가
+          <div className="text-gray-200">{parsePrice(currentBidPrice)}</div>
         </div>
       )}
       {auctionStatus === AUCTION_LIVE && (
-        <div className="text-sm md:text-base font-semibold">
-          입찰가 {parsePrice(currentBidPrice)}
+        <div className="flex flex-row gap-1 text-sm md:text-base font-semibold">
+          입찰가
+          <div className="text-gray-200">{parsePrice(currentBidPrice)}</div>
         </div>
       )}
     </>
