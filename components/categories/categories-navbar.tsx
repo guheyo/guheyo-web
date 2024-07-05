@@ -20,16 +20,19 @@ export default function CategoriesNavbar({
   types: string[];
   handleClick: (e: MouseEvent, slug?: string | null) => void;
 }) {
-  const { group } = useGroup();
+  const { group, loading } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
 
-  if (!group)
+  if (loading)
     return (
       <div className="grid gap-2 md:gap-6 lg:gap-8 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <Mocks length={2} height={10} color="bg-dark-700" />
       </div>
     );
+
+  if (!group) return <div />;
+
   const categories = group.categories.filter((category) =>
     types.includes(category.type),
   );
