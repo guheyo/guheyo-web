@@ -3,7 +3,7 @@
 import SearchUsers from '@/components/search/search-users';
 import { Suspense } from 'react';
 
-export default function page() {
+export default function Page() {
   return (
     <Suspense>
       <SearchUsers />
