@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
-import { useSearchParams } from 'next/navigation';
 import {
   FindUsersOrderByArgs,
   FindUsersWhereArgs,
@@ -20,9 +19,6 @@ function UserFeed({
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteUsers({
     ref,
