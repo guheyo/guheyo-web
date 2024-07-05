@@ -4,7 +4,7 @@ import SearchGroups from '@/components/search/search-groups';
 import { parseWriteLink } from '@/lib/write/parse-write-link';
 import { Suspense } from 'react';
 
-export default function page() {
+export default function Page() {
   const generateLink = (slug: string) =>
     parseWriteLink({ groupSlug: slug, channelSlug: 'auction' });
 
