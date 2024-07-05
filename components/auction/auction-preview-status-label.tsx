@@ -7,7 +7,7 @@ export default function AuctionPreviewStatusLabel({
   auctionStatus: AuctionStatus;
 }) {
   return (
-    <div className="text-gray-300 bg-dark-200 px-1 py-0.5 rounded text-xs md:text-sm">
+    <div className="text-gray-200 bg-dark-200 px-1 py-0.5 rounded text-xs md:text-sm">
       {parseAuctionStatusLabel(auctionStatus)}
     </div>
   );
