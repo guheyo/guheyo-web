@@ -41,7 +41,7 @@ export const useInfiniteAuctionInteractionItems = ({
           keyword,
           cursor: data?.findAuctionInteractionItems.pageInfo.endCursor,
           take,
-          skip: 1,
+          skip: 0, // NOTE: do not skip, since createdAt is cursor not id
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
