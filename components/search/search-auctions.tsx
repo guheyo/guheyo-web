@@ -28,7 +28,7 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 경매를 찾고 있나요?"
+        placeholder="어떤 제품을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
