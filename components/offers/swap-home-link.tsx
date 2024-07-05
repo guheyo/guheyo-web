@@ -2,7 +2,7 @@
 
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import OfferHomeLinkLayout from './offer-home-link.layout';
+import HomeLinkLayout from '../home/home-link.layout';
 
 function SwapHomeLink({
   businessFunction,
@@ -10,10 +10,10 @@ function SwapHomeLink({
   businessFunction: BusinessFunction;
 }) {
   return (
-    <OfferHomeLinkLayout businessFunction={businessFunction}>
+    <HomeLinkLayout path={businessFunction}>
       <SwapHorizIcon />
       <div>교환</div>
-    </OfferHomeLinkLayout>
+    </HomeLinkLayout>
   );
 }
 

@@ -2,7 +2,7 @@
 
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import OfferHomeLinkLayout from './offer-home-link.layout';
+import HomeLinkLayout from '../home/home-link.layout';
 
 function BuyHomeLink({
   businessFunction,
@@ -10,10 +10,10 @@ function BuyHomeLink({
   businessFunction: BusinessFunction;
 }) {
   return (
-    <OfferHomeLinkLayout businessFunction={businessFunction}>
+    <HomeLinkLayout path={businessFunction}>
       <ShoppingBagIcon />
       <div>구매</div>
-    </OfferHomeLinkLayout>
+    </HomeLinkLayout>
   );
 }
 
