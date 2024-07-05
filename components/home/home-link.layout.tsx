@@ -1,18 +1,17 @@
 'use client';
 
-import { BusinessFunction } from '@/lib/offer/offer.types';
 import Link from 'next/link';
 import React from 'react';
 
-function OfferHomeLinkLayout({
+function HomeLinkLayout({
   children,
-  businessFunction,
+  path,
 }: {
   children: React.ReactNode;
-  businessFunction: BusinessFunction;
+  path: string;
 }) {
   return (
-    <Link href={`/${businessFunction}`}>
+    <Link href={`/${path}`}>
       <div className="flex flex-row gap-4 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
         {children}
       </div>
@@ -20,4 +19,4 @@ function OfferHomeLinkLayout({
   );
 }
 
-export default OfferHomeLinkLayout;
+export default HomeLinkLayout;
