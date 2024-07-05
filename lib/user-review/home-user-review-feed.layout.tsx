@@ -30,7 +30,7 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
           </Suspense>
         </div>
       )}
-      <div className="grid gap-1 grid-cols-1">{children}</div>
+      <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
 }
