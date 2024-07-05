@@ -3,7 +3,7 @@
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import MemberHomeLink from '@/components/member/member-home-link';
 import MemberRolesNavbar from '@/components/member/member-roles-navbar';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -23,7 +23,9 @@ function Layout({ children }: Props) {
         />
       </div>
       <div className="px-2.5 md:px-1">
-        <MemberRolesNavbar />
+        <Suspense>
+          <MemberRolesNavbar />
+        </Suspense>
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
