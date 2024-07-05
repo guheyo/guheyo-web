@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
@@ -54,8 +54,6 @@ function OfferFeed({
     searchParams.get('distinct') === null
       ? defaultDistinct
       : searchParams.get('distinct') !== 'false';
-
-  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteOfferFeed({
     ref,
