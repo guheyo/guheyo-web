@@ -44,7 +44,7 @@ export default function SearchProducts() {
         <ProductCategoriesNavbar types={['product', 'service']} />
       </div>
       <div className="pt-4 flex flex-row justify-between">
-        <BusinessFunctionQueryUpdater />
+        <BusinessFunctionQueryUpdater defaultBusinessFunction="sell" />
         <OfferSelectors />
       </div>
       <div className="pt-4">

@@ -4,12 +4,17 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import BusinessFunctionSelector from './business-function-selector';
 
-function BusinessFunctionQueryUpdater() {
+function BusinessFunctionQueryUpdater({
+  defaultBusinessFunction,
+}: {
+  defaultBusinessFunction: BusinessFunction;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const businessFunction =
-    (searchParams.get('businessFunction') as BusinessFunction) || 'sell';
+    (searchParams.get('businessFunction') as BusinessFunction) ||
+    defaultBusinessFunction;
 
   const handleBusinessFunctionChange = (
     selectedBusinessFunction: BusinessFunction,

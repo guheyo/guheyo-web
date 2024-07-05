@@ -7,6 +7,7 @@ import { DEBOUNCE } from './search.constants';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
+import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 
 export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -36,7 +37,8 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
           <ProductCategoriesNavbar types={['product']} />
         </div>
       )}
-      <div className="pt-4">
+      <div className="pt-4 flex flex-row justify-between">
+        <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
         <AuctionSelectors />
       </div>
       <div className="pt-4">
