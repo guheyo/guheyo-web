@@ -98,11 +98,7 @@ export default function GroupSidebar({
             경매장
           </ListItem>
           <SidebarItem
-            href={
-              group?.slug
-                ? parseAuctionLink({ groupSlug: group.slug })
-                : '/auction'
-            }
+            href={parseAuctionLink({ groupSlug: group?.slug })}
             icon={<GavelIcon fontSize="medium" />}
             text="경매"
             isActive={activeItem === 'auction'}
