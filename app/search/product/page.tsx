@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <Suspense>
       {businessFunction === 'auction' ? (
-        <SearchAuctions isInGroup />
+        <SearchAuctions isInGroup={false} />
       ) : (
         <SearchProducts />
       )}

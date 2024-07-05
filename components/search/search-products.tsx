@@ -2,19 +2,20 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { BusinessFunction } from '@/lib/offer/offer.types';
-import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SearchInput from './search-input';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
 import { DEBOUNCE } from './search.constants';
 import OfferFeed from '../offers/offer-feed';
-import BusinessFunctionSelector from '../offers/business-function-selector';
 import TextFeedLayout from '../posts/text-feed.layout';
+import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 
 export default function SearchProducts() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
-  const [businessFunction, setBusinessFunction] =
-    useState<BusinessFunction>('sell');
+  const searchParams = useSearchParams();
+  const businessFunction =
+    (searchParams.get('businessFunction') as BusinessFunction) || 'sell';
 
   const where = {
     businessFunction,
@@ -30,12 +31,6 @@ export default function SearchProducts() {
     // Do nothing
   };
 
-  const handleBusinessFunctionChange = (
-    selectedBusinessFunction: BusinessFunction,
-  ): void => {
-    setBusinessFunction(selectedBusinessFunction);
-  };
-
   return (
     <div className="grid max-w-4xl w-full">
       <SearchInput
@@ -46,13 +41,10 @@ export default function SearchProducts() {
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar types={['product', 'service']} hideSelector />
+        <ProductCategoriesNavbar types={['product', 'service']} />
       </div>
       <div className="pt-4 flex flex-row justify-between">
-        <BusinessFunctionSelector
-          onChange={handleBusinessFunctionChange}
-          businessFunction={businessFunction}
-        />
+        <BusinessFunctionQueryUpdater defaultBusinessFunction="sell" />
         <OfferSelectors />
       </div>
       <div className="pt-4">
