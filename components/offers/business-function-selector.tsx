@@ -2,7 +2,7 @@
 
 import { SelectChangeEvent } from '@mui/material';
 import React from 'react';
-import { OFFER_OPTIONS } from '@/lib/offer/offer.constants';
+import { BUSINESS_FUNCTION_OPTIONS } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import BaseSelector from '../selectors/base-selector';
 
@@ -22,7 +22,7 @@ export default function BusinessFunctionSelector({
     <BaseSelector
       name="offer"
       selectedValue={businessFunction}
-      options={OFFER_OPTIONS}
+      options={BUSINESS_FUNCTION_OPTIONS}
       inputClassName="className: 'px-3 py-2 text-xs md:text-base"
       handleChange={handleChange}
     />
