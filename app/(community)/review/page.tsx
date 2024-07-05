@@ -15,10 +15,12 @@ export default function Page() {
   };
 
   return (
-    <HomeUserReviewFeedLayout showSelector>
-      <Suspense>
-        <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
-      </Suspense>
-    </HomeUserReviewFeedLayout>
+    <div className="mx-2 md:mx-0">
+      <HomeUserReviewFeedLayout showSelector>
+        <Suspense>
+          <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
+        </Suspense>
+      </HomeUserReviewFeedLayout>
+    </div>
   );
 }
