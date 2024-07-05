@@ -1,7 +1,7 @@
 'use client';
 
 import ReportTypeNavbar from '@/components/reports/report-type-navbar';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 import ReportHomeLink from './report-home-link';
 
@@ -23,7 +23,9 @@ function HomeReportFeedLayout({ children }: Props) {
         />
       </div>
       <div className="px-2.5 md:px-1">
-        <ReportTypeNavbar />
+        <Suspense>
+          <ReportTypeNavbar />
+        </Suspense>
       </div>
       {children}
     </div>
