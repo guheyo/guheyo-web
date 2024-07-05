@@ -6,8 +6,8 @@ import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
-import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import BottomNavbarItem from '../base/bottom-navbar-item';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -71,7 +71,7 @@ export default function GroupBottomNavbar({
         </div>
         <div className="col-span-4">
           <BottomNavbarItem
-            href={parseGroupMarketLink({ groupSlug, businessFunction: 'sell' })}
+            href={parseMarketLink({ groupSlug, businessFunction: 'sell' })}
             icon={
               <ShoppingBagIcon
                 fontSize="small"
@@ -83,7 +83,7 @@ export default function GroupBottomNavbar({
         </div>
         <div className="col-span-4">
           <BottomNavbarItem
-            href={parseGroupCommunityLink({
+            href={parseCommunityLink({
               groupSlug,
               communityType: 'member',
             })}
