@@ -43,6 +43,7 @@ import {
   AUCTION_DURATION_LABEL_NAME,
 } from '@/lib/auction/auction.constants';
 import { AuctionFormValues } from '@/lib/auction/auction.types';
+import { filterCategories } from '@/lib/group/filter-categories';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -72,6 +73,10 @@ export default function AuctionForm({
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
   const device = useDeviceDetect();
+  const categories = filterCategories({
+    types: ['product'],
+    categories: group.categories,
+  });
 
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<AuctionFormValues>({
@@ -122,9 +127,9 @@ export default function AuctionForm({
   // Init default categoryId
   useEffect(() => {
     if (!categoryId)
-      setValue('categoryId', findDefaultCategory(group.categories)?.id || '');
+      setValue('categoryId', findDefaultCategory(categories)?.id || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group.categories]);
+  }, [categories]);
 
   const updateValues = () => {
     if (!auctionId || !userId) return;
@@ -276,7 +281,7 @@ export default function AuctionForm({
         control={control}
         rules={{ required: true }}
         buttonInputsProps={{
-          options: group.categories.map((category) => ({
+          options: categories.map((category) => ({
             value: category.id,
             label: category.name,
             selected: categoryId === category.id,
@@ -305,7 +310,7 @@ export default function AuctionForm({
         textFieldProps={{
           variant: 'outlined',
           placeholder: parseAuctionContentPlaceholder({
-            categories: group.categories,
+            categories,
             categoryId,
           }),
           InputProps: {

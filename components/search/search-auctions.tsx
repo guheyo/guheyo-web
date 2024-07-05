@@ -2,11 +2,12 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import SearchInput from './search-input';
-import CategoriesNavbar from '../categories/categories-navbar';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import { DEBOUNCE } from './search.constants';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
-import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
+import TextFeedLayout from '../posts/text-feed.layout';
+import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 
 export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -27,27 +28,29 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 경매를 찾고 있나요?"
+        placeholder="어떤 제품을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
       {isInGroup && (
         <div className="pt-4 mx-2.5 md:mx-1">
-          <CategoriesNavbar hideSelector />
+          <ProductCategoriesNavbar types={['product']} />
         </div>
       )}
-      <div className="pt-4">
+      <div className="pt-4 flex flex-row justify-between">
+        <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
         <AuctionSelectors />
       </div>
       <div className="pt-4">
-        <ThumbnailFeedLayout>
+        <TextFeedLayout>
           <AuctionFeed
+            type="listview"
             defaultWhere={where}
             defaultSortOrder={sortOrder}
             keyword={keyword}
             defaultDistinct={distinct}
           />
-        </ThumbnailFeedLayout>
+        </TextFeedLayout>
       </div>
     </div>
   );

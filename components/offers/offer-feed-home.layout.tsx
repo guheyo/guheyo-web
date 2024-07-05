@@ -2,7 +2,8 @@
 
 import { ReactNode } from 'react';
 import OfferSelectors from '../selectors/offer-selectors';
-import CategoriesNavbar from '../categories/categories-navbar';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
+import BusinessFunctionPathUpdater from './business-function-path-updater';
 
 interface Props {
   children: ReactNode;
@@ -12,9 +13,10 @@ function OfferFeedHomeLayout({ children }: Props) {
   return (
     <div>
       <div className="mx-2.5 md:mx-1">
-        <CategoriesNavbar hideSelector />
+        <ProductCategoriesNavbar types={['product', 'service']} />
       </div>
-      <div className="flex justify-end pb-2">
+      <div className="flex flex-row justify-between pb-2">
+        <BusinessFunctionPathUpdater />
         <OfferSelectors />
       </div>
       <div className="grid gap-1 grid-cols-1">{children}</div>

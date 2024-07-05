@@ -15,7 +15,7 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
 
   return (
     <div className="flex flex-row justify-between items-center">
-      <div className="grid grid-cols-12 gap-2 items-center text-xs md:text-sm text-dark-200 ">
+      <div className="grid grid-cols-12 gap-2 items-center text-xs md:text-sm text-dark-200">
         <div className="col-span-12 flex flex-row gap-2 items-center">
           <UserProfileRedirectButton
             user={userReview.post.user}

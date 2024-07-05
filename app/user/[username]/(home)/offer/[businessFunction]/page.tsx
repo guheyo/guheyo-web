@@ -45,7 +45,11 @@ function Page({
   if (businessFunction === 'buy') {
     return (
       <TextFeedLayout>
-        <OfferFeed defaultWhere={where} type="text" defaultDistinct={false} />
+        <OfferFeed
+          defaultWhere={where}
+          type="listview"
+          defaultDistinct={false}
+        />
       </TextFeedLayout>
     );
   }

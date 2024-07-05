@@ -4,6 +4,7 @@ import { ReactNode, Suspense } from 'react';
 import AuctionHomeLink from './auction-home-link';
 import AuctionSelectors from './auction-selectors';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import BusinessFunctionPathUpdater from '../offers/business-function-path-updater';
 
 interface Props {
   children: ReactNode;
@@ -24,8 +25,9 @@ function HomeAuctionFeedLayout({ children, showSelector }: Props) {
         />
       </div>
       {showSelector && (
-        <div className="flex justify-end pb-2">
+        <div className="flex justify-between pb-2">
           <Suspense>
+            <BusinessFunctionPathUpdater />
             <AuctionSelectors />
           </Suspense>
         </div>

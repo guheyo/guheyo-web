@@ -14,7 +14,7 @@ export default function UserReviewTags({
           key={tag.id}
           className={`rounded-lg px-1 py-0.5 text-[10px] md:text-xs ${
             rating === 1
-              ? 'bg-gray-800 text-gray-300'
+              ? 'bg-red-800 text-gray-300'
               : 'bg-zinc-600 text-gray-300'
           }`}
         >

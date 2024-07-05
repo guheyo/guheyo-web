@@ -9,12 +9,12 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import FlagIcon from '@mui/icons-material/Flag';
-import { parseGroupMarketLink } from '@/lib/offer/parse-group-market-link';
-import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { parseGroupAuctionLink } from '@/lib/auction/parse-group-auction-link';
+import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -53,60 +53,8 @@ export default function GroupSidebar({
     handleMenuToggle();
   };
 
-  if (loading || !group?.slug) {
-    return (
-      <>
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <BackDrop
-              opacity={0.5}
-              handleBackdropClick={handleBackdropClick}
-              handleToggle={handleMenuToggle}
-            />
-          </div>
-        )}
-        <div
-          ref={sidebarRef}
-          className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-64 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
-            isMenuOpen ? 'block' : 'hidden'
-          } lg:block`}
-        >
-          {/* Sidebar content */}
-          <List>
-            <SidebarItem
-              href="/"
-              icon={<HomeIcon fontSize="medium" />}
-              text="홈"
-              isActive={activeItem === ''}
-              paddingX={2}
-              paddingY={1}
-              onClick={handleMenuToggle}
-            />
-            <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-              그룹
-            </ListItem>
-            <GroupProfileSidebarItems
-              paddingX={2}
-              paddingY={1}
-              onClick={handleMenuToggle}
-              pathFormatter={(slug) => `/g/${slug}`}
-            />
-            <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-              경매장
-            </ListItem>
-            <SidebarItem
-              href="/auction"
-              icon={<GavelIcon fontSize="medium" />}
-              text="경매"
-              isActive={activeItem === 'auction'}
-              paddingX={2}
-              paddingY={1}
-              onClick={handleMenuToggle}
-            />
-          </List>
-        </div>
-      </>
-    );
+  if (loading) {
+    return <div />;
   }
 
   return (
@@ -140,7 +88,7 @@ export default function GroupSidebar({
             그룹
           </ListItem>
           <GroupProfileSidebarItems
-            currentGroupId={group.id}
+            currentGroupId={group?.id}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -150,7 +98,7 @@ export default function GroupSidebar({
             경매장
           </ListItem>
           <SidebarItem
-            href={parseGroupAuctionLink({ groupSlug: group.slug })}
+            href={parseAuctionLink({ groupSlug: group?.slug })}
             icon={<GavelIcon fontSize="medium" />}
             text="경매"
             isActive={activeItem === 'auction'}
@@ -162,7 +110,7 @@ export default function GroupSidebar({
             장터
           </ListItem>
           <SidebarItem
-            href={parseGroupMarketLink({
+            href={parseMarketLink({
               groupSlug: group?.slug,
               businessFunction: 'sell',
             })}
@@ -174,7 +122,7 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseGroupMarketLink({
+            href={parseMarketLink({
               groupSlug: group?.slug,
               businessFunction: 'buy',
             })}
@@ -186,7 +134,7 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseGroupMarketLink({
+            href={parseMarketLink({
               groupSlug: group?.slug,
               businessFunction: 'swap',
             })}
@@ -201,7 +149,7 @@ export default function GroupSidebar({
             커뮤니티
           </ListItem>
           <SidebarItem
-            href={parseGroupCommunityLink({
+            href={parseCommunityLink({
               groupSlug: group?.slug,
               communityType: 'member',
             })}
@@ -213,7 +161,7 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseGroupCommunityLink({
+            href={parseCommunityLink({
               groupSlug: group?.slug,
               communityType: 'review',
             })}
@@ -225,7 +173,7 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseGroupCommunityLink({
+            href={parseCommunityLink({
               groupSlug: group?.slug,
               communityType: 'report',
             })}

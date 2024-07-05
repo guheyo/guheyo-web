@@ -1,0 +1,72 @@
+fragment article on ArticleResponse {
+  post {
+    ...post
+  }
+  id
+  createdAt
+  updatedAt
+  content
+}
+
+fragment articlePreview on ArticlePreviewResponse {
+  post {
+    ...postPreviewWithAuthor
+  }
+  id
+  createdAt
+  updatedAt
+  content
+}
+
+query FindArticlePreviews(
+  $where: FindArticlePreviewsWhereInput
+  $orderBy: FindArticlePreviewsOrderByInput
+  $keyword: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findArticlePreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...articlePreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindArticle(
+  $id: ID
+  $slug: String
+) {
+  findArticle(
+    id: $id
+    slug: $slug
+  ) {
+    ...article
+  }
+}
+
+mutation CreateArticle($input: CreateArticleInput!) {
+  createArticle(input: $input)
+}
+
+mutation DeleteArticle(
+  $id: ID!
+) {
+  deleteArticle(
+    id: $id
+  )
+}

@@ -1,11 +1,3 @@
-fragment category on CategoryResponse {
-  id
-  type
-  name
-  slug
-  position
-}
-
 fragment group on GroupResponse {
   id
   name

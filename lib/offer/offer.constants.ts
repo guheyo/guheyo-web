@@ -6,6 +6,11 @@ export const OFFER_OPTIONS = [
   { value: 'swap', label: '교환' },
 ];
 
+export const BUSINESS_FUNCTION_OPTIONS = [
+  { value: 'auction', label: '경매' },
+  ...OFFER_OPTIONS,
+];
+
 export const OFFER_STATUS_OPTIONS = [
   { value: 'all', label: '모든 상태' },
   { value: 'open', label: '거래 가능' },

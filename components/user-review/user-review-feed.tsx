@@ -15,12 +15,10 @@ function UserReviewFeed({
   defaultWhere,
   defaultOrderBy,
   keyword,
-  type,
 }: {
   defaultWhere: FindUserReviewsWhereArgs;
   defaultOrderBy?: FindUserReviewsOrderByArgs;
   keyword?: string;
-  type: 'text' | 'thumbnail';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();

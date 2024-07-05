@@ -1,0 +1,38 @@
+'use client';
+
+import { ReactNode, Suspense } from 'react';
+import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
+import MannerTagsNavbar from '@/components/user-review/manner-tags-navbar';
+import UserReviewHomeLink from './user-review-home-link';
+
+interface Props {
+  children: ReactNode;
+  showSelector: boolean;
+}
+
+function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
+  return (
+    <div>
+      <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
+        <UserReviewHomeLink />
+      </div>
+      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
+        <GroupProfileSidebarItems
+          paddingX={0}
+          paddingY={0}
+          pathFormatter={(slug) => `/g/${slug}/review`}
+        />
+      </div>
+      {showSelector && (
+        <div className="flex justify-between pb-2">
+          <Suspense>
+            <MannerTagsNavbar />
+          </Suspense>
+        </div>
+      )}
+      <div className="grid gap-1 grid-cols-1">{children}</div>
+    </div>
+  );
+}
+
+export default HomeUserReviewFeedLayout;

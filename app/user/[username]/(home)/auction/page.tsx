@@ -33,6 +33,7 @@ function Page({
   return (
     <ThumbnailFeedLayout>
       <AuctionFeed
+        type="thumbnail"
         defaultWhere={where}
         defaultSortOrder={orderBy}
         defaultDistinct={distinct}

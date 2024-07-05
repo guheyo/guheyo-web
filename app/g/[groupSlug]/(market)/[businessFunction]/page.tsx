@@ -25,7 +25,7 @@ function OffersPage({
     return (
       <TextFeedLayout>
         <OfferFeed
-          type="text"
+          type="listview"
           defaultWhere={where}
           defaultDistinct={distinct}
         />
