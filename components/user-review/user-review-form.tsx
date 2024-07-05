@@ -22,7 +22,7 @@ import { parseRatingResultTitle } from '@/lib/user-review/parse-rating-result-ti
 import { createUserReview } from '@/lib/api/user-review';
 import { getSelectedTagIds } from '@/lib/post/get-selected-tag-ids';
 import { createTagOptionsFromTags } from '@/lib/post/create-tag-options-from-tags';
-import { parseGroupCommunityLink } from '@/lib/community/parse-group-community-link';
+import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import TagButtonInputs from '../posts/tag-button-inputs';
@@ -102,7 +102,7 @@ export default function UserReviewForm({
     await createUserReview(input);
     const groupSlug = groupData?.findGroup?.slug;
     const url = groupSlug
-      ? parseGroupCommunityLink({
+      ? parseCommunityLink({
           groupSlug,
           communityType: 'review',
         })
