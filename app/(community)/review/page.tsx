@@ -6,6 +6,7 @@ import {
   FindUserReviewsWhereArgs,
 } from '@/interfaces/user-review.interfaces';
 import HomeUserReviewFeedLayout from '@/lib/user-review/home-user-review-feed.layout';
+import { Suspense } from 'react';
 
 export default function Page() {
   const where: FindUserReviewsWhereArgs = {};
@@ -15,7 +16,9 @@ export default function Page() {
 
   return (
     <HomeUserReviewFeedLayout showSelector>
-      <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      <Suspense>
+        <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      </Suspense>
     </HomeUserReviewFeedLayout>
   );
 }
