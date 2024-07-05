@@ -2,9 +2,7 @@
 
 import { MouseEventHandler, useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
-import { useDeviceDetect } from '@/hooks/use-device-detect';
-import SidebarItem from '../base/sidebar-item';
-import Avatar from '../avatar/avatar';
+import GroupProfileSidebarItem from './group-profile-sidebar-item';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
@@ -19,7 +17,6 @@ export default function GroupProfileSidebarItems({
   onClick?: MouseEventHandler;
   pathFormatter: (slug: string) => string;
 }) {
-  const device = useDeviceDetect();
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
@@ -33,23 +30,16 @@ export default function GroupProfileSidebarItems({
   return (
     <>
       {groups.map((group) => (
-        <SidebarItem
-          key={group.node.name}
-          href={pathFormatter(group.node.slug!)}
-          icon={
-            <Avatar
-              name={group.node.name}
-              src={
-                !group.node.icon ? '/guheyo/guheyo-logo.svg' : group.node.icon
-              }
-              fontSize={device === 'mobile' ? 'text-xs' : 'text-sm'}
-            />
-          }
-          text={group.node.name}
-          isActive={currentGroupId === group.node.id}
+        <GroupProfileSidebarItem
+          key={group.node.id}
+          name={group.node.name}
+          slug={group.node.slug!}
+          icon={group.node.icon}
+          isActive={group.node.id === currentGroupId}
           paddingX={paddingX}
           paddingY={paddingY}
           onClick={onClick}
+          pathFormatter={pathFormatter}
         />
       ))}
       <div ref={ref} />

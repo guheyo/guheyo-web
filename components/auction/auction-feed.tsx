@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
@@ -48,8 +48,6 @@ function AuctionFeed({
     searchParams.get('distinct') === null
       ? defaultDistinct
       : searchParams.get('distinct') !== 'false';
-
-  useEffect(() => {}, [searchParams]);
 
   const { loading, data } = useInfiniteAuctionFeed({
     ref,

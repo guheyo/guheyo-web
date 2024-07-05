@@ -1,62 +1,16 @@
 'use client';
 
-import { useSearchQuery } from '@/lib/search/use-search-query';
+import SearchAuctions from '@/components/search/search-auctions';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { useSearchParams } from 'next/navigation';
-import SearchInput from './search-input';
-import ProductCategoriesNavbar from '../categories/product-categories-navbar';
-import OfferSelectors from '../selectors/offer-selectors';
-import { DEBOUNCE } from './search.constants';
-import OfferFeed from '../offers/offer-feed';
-import TextFeedLayout from '../posts/text-feed.layout';
-import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
+import SearchOffers from './search-offers';
 
-export default function SearchProducts() {
-  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+export default function SearchProducts({ isInGroup }: { isInGroup: boolean }) {
   const searchParams = useSearchParams();
   const businessFunction =
-    (searchParams.get('businessFunction') as BusinessFunction) || 'sell';
+    (searchParams.get('businessFunction') as BusinessFunction) || 'auction';
 
-  const where = {
-    businessFunction,
-    status: undefined,
-  };
-  const distinct = true;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setText(event.target.value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    // Do nothing
-  };
-
-  return (
-    <div className="grid max-w-4xl w-full">
-      <SearchInput
-        text={text}
-        setText={setText}
-        placeholder="어떤 제품을 찾고 있나요?"
-        handleKeyDown={handleKeyDown}
-        handleChange={handleChange}
-      />
-      <div className="pt-4 mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar types={['product', 'service']} />
-      </div>
-      <div className="pt-4 flex flex-row justify-between">
-        <BusinessFunctionQueryUpdater defaultBusinessFunction="sell" />
-        <OfferSelectors />
-      </div>
-      <div className="pt-4">
-        <TextFeedLayout>
-          <OfferFeed
-            type="listview"
-            defaultWhere={where}
-            defaultDistinct={distinct}
-            keyword={keyword}
-          />
-        </TextFeedLayout>
-      </div>
-    </div>
-  );
+  if (businessFunction === 'auction')
+    return <SearchAuctions isInGroup={isInGroup} />;
+  return <SearchOffers />;
 }
