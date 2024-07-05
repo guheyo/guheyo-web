@@ -6,6 +6,7 @@ import {
   FindReportPreviewsOrderByArgs,
   FindReportPreviewsWhereArgs,
 } from '@/interfaces/report.interfaces';
+import { Suspense } from 'react';
 
 export default function Page() {
   const where: FindReportPreviewsWhereArgs = {
@@ -17,7 +18,9 @@ export default function Page() {
 
   return (
     <HomeReportFeedLayout>
-      <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      <Suspense>
+        <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      </Suspense>
     </HomeReportFeedLayout>
   );
 }
