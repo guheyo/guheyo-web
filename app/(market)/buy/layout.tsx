@@ -10,9 +10,11 @@ export async function generateMetadata() {
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <HomeOfferFeedLayout showSelector businessFunction="buy">
-      {children}
-    </HomeOfferFeedLayout>
+    <div className="mx-2 md:mx-0">
+      <HomeOfferFeedLayout showSelector businessFunction="buy">
+        {children}
+      </HomeOfferFeedLayout>
+    </div>
   );
 }
 

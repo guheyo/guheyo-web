@@ -14,7 +14,7 @@ export default function OfferDetailName({
   return (
     <div className="flex flex-row gap-2 items-center text-base md:text-lg text-gray-300 font-semibold">
       {offerStatus !== 'open' && (
-        <div className="bg-dark-200 px-1.5 rounded text-sm md:text-base">
+        <div className="text-gray-200 bg-dark-200 px-1.5 rounded text-sm md:text-base">
           {parseOfferStatusLabel(offerStatus)}
         </div>
       )}

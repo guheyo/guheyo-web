@@ -24,7 +24,7 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
         />
       </div>
       {showSelector && (
-        <div className="flex justify-between pb-2">
+        <div className="px-2.5 md:px-1">
           <Suspense>
             <MannerTagsNavbar />
           </Suspense>
