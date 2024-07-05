@@ -15,11 +15,9 @@ const getButtonCSS = (clicked: boolean) => {
 
 export default function CategoriesNavbar({
   types,
-  Selector,
   handleClick,
 }: {
   types: string[];
-  Selector?: React.ComponentType<{ categorySlug: string | null }>;
   handleClick: (e: MouseEvent, slug?: string | null) => void;
 }) {
   const { group } = useGroup();
@@ -39,11 +37,6 @@ export default function CategoriesNavbar({
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center py-2 mb-6 bg-dark-500">
-        {Selector && (
-          <div className="flex-none text-sm md:text-base bg-dark-200 rounded">
-            <Selector categorySlug={categorySlug} />
-          </div>
-        )}
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
           <button
             type="button"

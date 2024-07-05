@@ -51,7 +51,7 @@ export default function SearchProducts() {
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar types={['product', 'service']} hideSelector />
+        <ProductCategoriesNavbar types={['product', 'service']} />
       </div>
       <div className="pt-4 flex flex-row justify-between">
         <BusinessFunctionSelector
