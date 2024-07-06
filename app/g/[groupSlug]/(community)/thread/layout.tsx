@@ -1,6 +1,6 @@
 'use client';
 
-import CommunityCategoriesNavbar from '@/components/article/community-categories-navbar';
+import CommunityCategoriesNavbar from '@/components/thread/community-categories-navbar';
 import CommunityTypePathUpdater from '@/components/community/community-type-path-updater';
 import { ReactNode } from 'react';
 
