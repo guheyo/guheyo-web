@@ -1,9 +1,9 @@
 'use client';
 
-import ArticleFeed from '@/components/article/article-feed';
+import ThreadFeed from '@/components/thread/thread-feed';
 import {
-  FindArticlePreviewsOrderByInput,
-  FindArticlePreviewsWhereInput,
+  FindThreadPreviewsOrderByInput,
+  FindThreadPreviewsWhereInput,
 } from '@/generated/graphql';
 import { useGroup } from '@/hooks/use-group';
 
@@ -13,15 +13,15 @@ export default function Page() {
   if (loading) return <div />;
   if (!group) return <div />;
 
-  const where: FindArticlePreviewsWhereInput = {
+  const where: FindThreadPreviewsWhereInput = {
     groupId: group.id,
   };
-  const orderBy: FindArticlePreviewsOrderByInput = {
+  const orderBy: FindThreadPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 
   return (
-    <ArticleFeed
+    <ThreadFeed
       type="listview"
       defaultWhere={where}
       defaultOrderBy={orderBy}
