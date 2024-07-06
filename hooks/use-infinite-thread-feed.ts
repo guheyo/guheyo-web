@@ -1,12 +1,12 @@
 import {
-  FindArticlePreviewsOrderByInput,
-  FindArticlePreviewsWhereInput,
-  useFindArticlePreviewsQuery,
+  FindThreadPreviewsOrderByInput,
+  FindThreadPreviewsWhereInput,
+  useFindThreadPreviewsQuery,
 } from '@/generated/graphql';
 import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
-export const useInfiniteArticleFeed = ({
+export const useInfiniteThreadFeed = ({
   ref,
   where,
   orderBy,
@@ -15,13 +15,13 @@ export const useInfiniteArticleFeed = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindArticlePreviewsWhereInput;
-  orderBy?: FindArticlePreviewsOrderByInput;
+  where?: FindThreadPreviewsWhereInput;
+  orderBy?: FindThreadPreviewsOrderByInput;
   keyword?: string;
   distinct?: boolean;
   take: number;
 }) => {
-  const { loading, data, fetchMore } = useFindArticlePreviewsQuery({
+  const { loading, data, fetchMore } = useFindThreadPreviewsQuery({
     variables: {
       where,
       orderBy,
@@ -40,25 +40,25 @@ export const useInfiniteArticleFeed = ({
           where,
           orderBy,
           keyword,
-          cursor: data?.findArticlePreviews.pageInfo.endCursor,
+          cursor: data?.findThreadPreviews.pageInfo.endCursor,
           take,
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
           return {
-            findArticlePreviews: {
-              __typename: previousQueryResult.findArticlePreviews.__typename,
+            findThreadPreviews: {
+              __typename: previousQueryResult.findThreadPreviews.__typename,
               edges: [
-                ...previousQueryResult.findArticlePreviews.edges,
-                ...fetchMoreResult.findArticlePreviews.edges,
+                ...previousQueryResult.findThreadPreviews.edges,
+                ...fetchMoreResult.findThreadPreviews.edges,
               ],
-              pageInfo: fetchMoreResult.findArticlePreviews.pageInfo,
+              pageInfo: fetchMoreResult.findThreadPreviews.pageInfo,
             },
           };
         },
       }),
-    data?.findArticlePreviews.pageInfo.hasNextPage,
+    data?.findThreadPreviews.pageInfo.hasNextPage,
   );
 
   return { loading, data };

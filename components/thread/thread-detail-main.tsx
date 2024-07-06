@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import {
-  ArticleResponse,
+  ThreadResponse,
   ReactionCanceledDocument,
   ReactionCreatedDocument,
   ReactionResponse,
@@ -19,17 +19,17 @@ import PostDetailTitle from '../posts/post-detail-name';
 import ReactionBar from '../reaction/reaction-bar';
 import PostTags from '../posts/post-tags';
 
-export default function ArticleDetailMain({
-  article,
+export default function ThreadDetailMain({
+  thread,
 }: {
-  article: ArticleResponse;
+  thread: ThreadResponse;
 }) {
   const device = useDeviceDetect();
   const [postReactions, setPostReactions] = useState<ReactionResponse[]>([]);
 
   const { loading, data: postReactionsData } = useFindReactionsQuery({
     variables: {
-      postId: article.post.id,
+      postId: thread.post.id,
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -37,7 +37,7 @@ export default function ArticleDetailMain({
   useSubscription(ReactionCreatedDocument, {
     variables: {
       type: 'post',
-      postId: article.post.id,
+      postId: thread.post.id,
     },
     onData: ({ data }) => {
       const newReaction = data.data.reactionCreated;
@@ -49,7 +49,7 @@ export default function ArticleDetailMain({
   useSubscription(ReactionCanceledDocument, {
     variables: {
       type: 'post',
-      postId: article.post.id,
+      postId: thread.post.id,
     },
     onData: ({ data }) => {
       const canceledReaction = data.data.reactionCanceled;
@@ -71,31 +71,31 @@ export default function ArticleDetailMain({
       <div className="flex flex-row gap-2 md:gap-3 text-sm md:text-base items-start justify-between">
         <div className="flex flex-row items-center gap-2">
           <UserProfileRedirectButton
-            user={article.post.user}
+            user={thread.post.user}
             displayAvatar
             displayUsername
             fontSize={device === 'mobile' ? 'text-base' : 'text-lg'}
           />
-          <PostDetailDate date={article.createdAt} />
+          <PostDetailDate date={thread.createdAt} />
         </div>
-        <div className="h-8">{/* TODO: ArticleMenu */}</div>
+        <div className="h-8">{/* TODO: ThreadMenu */}</div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
-        {article.post.reportCount > 0 && (
-          <ReportsLink reportCount={article.post.reportCount} />
+        {thread.post.reportCount > 0 && (
+          <ReportsLink reportCount={thread.post.reportCount} />
         )}
-        <PostDetailTitle title={article.post.title} />
+        <PostDetailTitle title={thread.post.title} />
         <div className="flex flex-row gap-2">
-          <PostTags tags={article.post.tags} />
+          <PostTags tags={thread.post.tags} />
         </div>
       </div>
       <div className="pt-8 text-sm md:text-base md:h-fit overflow-y-auto text-dark-100">
-        {article.content && (
-          <Markdown remarkPlugins={[remarkGfm]}>{article.content}</Markdown>
+        {thread.content && (
+          <Markdown remarkPlugins={[remarkGfm]}>{thread.content}</Markdown>
         )}
       </div>
       <div className="pt-4">
-        <ReactionBar postId={article.post.id} reactions={postReactions} />
+        <ReactionBar postId={thread.post.id} reactions={postReactions} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-fragment article on ArticleResponse {
+fragment thread on ThreadResponse {
   post {
     ...post
   }
@@ -8,7 +8,7 @@ fragment article on ArticleResponse {
   content
 }
 
-fragment articlePreview on ArticlePreviewResponse {
+fragment threadPreview on ThreadPreviewResponse {
   post {
     ...postPreviewWithAuthor
   }
@@ -18,15 +18,15 @@ fragment articlePreview on ArticlePreviewResponse {
   content
 }
 
-query FindArticlePreviews(
-  $where: FindArticlePreviewsWhereInput
-  $orderBy: FindArticlePreviewsOrderByInput
+query FindThreadPreviews(
+  $where: FindThreadPreviewsWhereInput
+  $orderBy: FindThreadPreviewsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
-  findArticlePreviews(
+  findThreadPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
@@ -36,7 +36,7 @@ query FindArticlePreviews(
   ) {
     edges {
       node {
-        ...articlePreview
+        ...threadPreview
       }
       cursor
     }
@@ -47,26 +47,26 @@ query FindArticlePreviews(
   }
 }
 
-query FindArticle(
+query FindThread(
   $id: ID
   $slug: String
 ) {
-  findArticle(
+  findThread(
     id: $id
     slug: $slug
   ) {
-    ...article
+    ...thread
   }
 }
 
-mutation CreateArticle($input: CreateArticleInput!) {
-  createArticle(input: $input)
+mutation CreateThread($input: CreateThreadInput!) {
+  createThread(input: $input)
 }
 
-mutation DeleteArticle(
+mutation DeleteThread(
   $id: ID!
 ) {
-  deleteArticle(
+  deleteThread(
     id: $id
   )
 }
