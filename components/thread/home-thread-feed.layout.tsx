@@ -20,7 +20,7 @@ function HomeThreadFeedLayout({ children, showSelector }: Props) {
         <GroupProfileSidebarItems
           paddingX={0}
           paddingY={0}
-          pathFormatter={(slug) => `/g/${slug}/review`}
+          pathFormatter={(slug) => `/g/${slug}/thread`}
         />
       </div>
       {showSelector && (
