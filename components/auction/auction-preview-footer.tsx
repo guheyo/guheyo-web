@@ -19,11 +19,15 @@ export default function AuctionPreviewFooter({ auction }: Props) {
         {status === 'closed' && (
           <AuctionPreviewStatusLabel auctionStatus={status} />
         )}
-        <AuctionCountdown
-          targetDate={auction.extendedEndDate}
-          displayLabel={false}
-          template="MM.DD HH:mm"
-        />
+        <div
+          className={status === 'closed' ? 'text-gray-400' : 'text-gray-200'}
+        >
+          <AuctionCountdown
+            targetDate={auction.extendedEndDate}
+            displayLabel={false}
+            template="MM.DD HH:mm"
+          />
+        </div>
       </div>
       <AuctionPreviewPrice
         auctionStatus={status}
