@@ -4,23 +4,23 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import {
-  FindArticlePreviewsOrderByInput,
-  FindArticlePreviewsWhereInput,
+  FindThreadPreviewsOrderByInput,
+  FindThreadPreviewsWhereInput,
 } from '@/generated/graphql';
-import { useInfiniteArticleFeed } from '@/hooks/use-infinite-article-feed';
+import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
-import ArticlePreview from './article-preview';
+import ThreadPreview from './thread-preview';
 
-function ArticleFeed({
+function ThreadFeed({
   defaultWhere,
   defaultOrderBy,
   keyword,
   type,
 }: {
-  defaultWhere: FindArticlePreviewsWhereInput;
-  defaultOrderBy?: FindArticlePreviewsOrderByInput;
+  defaultWhere: FindThreadPreviewsWhereInput;
+  defaultOrderBy?: FindThreadPreviewsOrderByInput;
   keyword?: string;
   type: PostPreviewType;
 }) {
@@ -33,7 +33,7 @@ function ArticleFeed({
     slug: categorySlug,
   });
 
-  const { loading, data } = useInfiniteArticleFeed({
+  const { loading, data } = useInfiniteThreadFeed({
     ref,
     where: {
       groupId: group?.id,
@@ -48,17 +48,17 @@ function ArticleFeed({
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findArticlePreviews) return <div />;
+  if (!data?.findThreadPreviews) return <div />;
 
-  const { edges } = data.findArticlePreviews;
+  const { edges } = data.findThreadPreviews;
 
   return (
     <>
       {edges.map((edge) => (
-        <ArticlePreview
+        <ThreadPreview
           key={edge.node.id}
           type={type}
-          article={edge.node}
+          thread={edge.node}
           isInGroup={!!group}
         />
       ))}
@@ -67,4 +67,4 @@ function ArticleFeed({
   );
 }
 
-export default ArticleFeed;
+export default ThreadFeed;
