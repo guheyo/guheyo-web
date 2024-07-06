@@ -6,6 +6,7 @@ import {
   FindThreadPreviewsOrderByInput,
   FindThreadPreviewsWhereInput,
 } from '@/generated/graphql';
+import { Suspense } from 'react';
 
 export default function Page() {
   const where: FindThreadPreviewsWhereInput = {};
@@ -16,11 +17,13 @@ export default function Page() {
   return (
     <div className="mx-2 md:mx-0">
       <HomeThreadFeedLayout showSelector>
-        <ThreadFeed
-          type="listview"
-          defaultWhere={where}
-          defaultOrderBy={orderBy}
-        />
+        <Suspense>
+          <ThreadFeed
+            type="listview"
+            defaultWhere={where}
+            defaultOrderBy={orderBy}
+          />
+        </Suspense>
       </HomeThreadFeedLayout>
     </div>
   );

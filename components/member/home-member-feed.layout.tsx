@@ -29,7 +29,9 @@ function HomeMemberFeedLayout({ children }: Props) {
         </Suspense>
       </div>
       <div className="pb-2">
-        <CommunityTypePathUpdater />
+        <Suspense>
+          <CommunityTypePathUpdater />
+        </Suspense>
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>

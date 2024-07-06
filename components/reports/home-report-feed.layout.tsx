@@ -29,7 +29,9 @@ function HomeReportFeedLayout({ children }: Props) {
         </Suspense>
       </div>
       <div className="pb-2">
-        <CommunityTypePathUpdater />
+        <Suspense>
+          <CommunityTypePathUpdater />
+        </Suspense>
       </div>
       {children}
     </div>

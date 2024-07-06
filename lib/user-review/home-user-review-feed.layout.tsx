@@ -24,16 +24,18 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
           pathFormatter={(slug) => `/g/${slug}/review`}
         />
       </div>
+      <div className="px-2.5 md:px-1">
+        <Suspense>
+          <MannerTagsNavbar />
+        </Suspense>
+      </div>
       {showSelector && (
-        <div className="px-2.5 md:px-1">
+        <div className="pb-2">
           <Suspense>
-            <MannerTagsNavbar />
+            <CommunityTypePathUpdater />
           </Suspense>
         </div>
       )}
-      <div className="pb-2">
-        <CommunityTypePathUpdater />
-      </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );

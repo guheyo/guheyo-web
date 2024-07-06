@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import CommunityTypePathUpdater from '@/components/community/community-type-path-updater';
 import ThreadHomeLink from './thread-home-link';
@@ -25,7 +25,9 @@ function HomeThreadFeedLayout({ children, showSelector }: Props) {
       </div>
       {showSelector && (
         <div className="pb-2">
-          <CommunityTypePathUpdater />
+          <Suspense>
+            <CommunityTypePathUpdater />
+          </Suspense>
         </div>
       )}
       <div className="grid gap-2 grid-cols-1">{children}</div>
