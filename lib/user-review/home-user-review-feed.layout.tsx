@@ -3,6 +3,7 @@
 import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import MannerTagsNavbar from '@/components/user-review/manner-tags-navbar';
+import CommunityTypePathUpdater from '@/components/community/community-type-path-updater';
 import UserReviewHomeLink from './user-review-home-link';
 
 interface Props {
@@ -16,7 +17,7 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
       <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
         <UserReviewHomeLink />
       </div>
-      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
+      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-0 mx-3 md:mx-1">
         <GroupProfileSidebarItems
           paddingX={0}
           paddingY={0}
@@ -30,6 +31,9 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
           </Suspense>
         </div>
       )}
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
+      </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
