@@ -21,10 +21,6 @@ export default function Page() {
   };
 
   return (
-    <ThreadFeed
-      type="listview"
-      defaultWhere={where}
-      defaultOrderBy={orderBy}
-    />
+    <ThreadFeed type="listview" defaultWhere={where} defaultOrderBy={orderBy} />
   );
 }
