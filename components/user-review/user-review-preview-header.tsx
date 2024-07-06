@@ -1,7 +1,6 @@
 'use client';
 
 import { UserReviewPreviewResponse } from '@/generated/graphql';
-import { useDeviceDetect } from '@/hooks/use-device-detect';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import PostCreatedAt from '../posts/post-created-at';
@@ -11,8 +10,6 @@ interface Props {
 }
 
 export default function UserReviewPreviewHeader({ userReview }: Props) {
-  const device = useDeviceDetect();
-
   return (
     <div className="flex flex-row justify-between items-center">
       <div className="grid grid-cols-12 gap-2 items-center text-xs md:text-sm text-dark-200">
@@ -21,14 +18,14 @@ export default function UserReviewPreviewHeader({ userReview }: Props) {
             user={userReview.post.user}
             displayAvatar
             displayUsername
-            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+            fontSize="text-xs"
           />
           <ArrowRightAltIcon className="text-dark-200" />
           <UserProfileRedirectButton
             user={userReview.reviewedUser}
             displayAvatar
             displayUsername
-            fontSize={device === 'mobile' ? 'text-sm' : 'text-base'}
+            fontSize="text-xs"
           />
           <PostCreatedAt createdAt={userReview.createdAt} />
         </div>
