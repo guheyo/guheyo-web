@@ -51,7 +51,11 @@ function UserReviewFeed({
   return (
     <>
       {edges.map((edge) => (
-        <UserReviewPreview key={edge.node.id} userReview={edge.node} />
+        <UserReviewPreview
+          key={edge.node.id}
+          userReview={edge.node}
+          isInGroup={!!group}
+        />
       ))}
       <div ref={ref} />
     </>
