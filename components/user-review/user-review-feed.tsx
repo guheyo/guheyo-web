@@ -29,7 +29,7 @@ function UserReviewFeed({
   const { loading, data } = useInfiniteUserReviewFeed({
     ref,
     where: {
-      groupId: group?.id,
+      groupId: defaultWhere.groupId || group?.id,
       userId: defaultWhere.userId,
       tagType,
       reviewedUserId: defaultWhere.reviewedUserId,
