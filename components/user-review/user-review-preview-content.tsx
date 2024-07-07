@@ -1,9 +1,9 @@
 'use client';
 
 import { UserReviewPreviewResponse } from '@/generated/graphql';
-import { truncateText } from '@/lib/text/truncate-text';
 import Thumbnail from '../base/thumbnail';
 import PostPreviewTitle from '../posts/post-preview-title';
+import PostPreviewContent from '../posts/post-preview-content';
 
 interface Props {
   userReview: UserReviewPreviewResponse;
@@ -15,9 +15,7 @@ export default function UserReviewPreviewContent({ userReview }: Props) {
       <div className="col-span-9 flex flex-col gap-1">
         <PostPreviewTitle title={userReview.post.title} />
         {userReview.content && (
-          <div className="text-xs md:text-sm text-dark-200">
-            {truncateText(userReview.content, 25)}
-          </div>
+          <PostPreviewContent content={userReview.content} />
         )}
       </div>
       <div className="col-span-3 flex justify-end">
