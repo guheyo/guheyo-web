@@ -17,7 +17,7 @@ export default function OfferPreviewTitle({
     );
   }
   return (
-    <div className="text-sm font-medium text-gray-300">
+    <div className="text-sm md:text-base font-medium text-gray-300">
       {truncateText(name0, 45)}
     </div>
   );
