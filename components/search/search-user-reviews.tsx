@@ -1,7 +1,12 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import { FindUserReviewsOrderByArgs } from '@/interfaces/user-review.interfaces';
+import {
+  FindUserReviewsOrderByArgs,
+  FindUserReviewsWhereArgs,
+} from '@/interfaces/user-review.interfaces';
+import { useSearchParams } from 'next/navigation';
+import { useFindGroupQuery } from '@/generated/graphql';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
@@ -10,8 +15,19 @@ import MannerTagsNavbar from '../user-review/manner-tags-navbar';
 
 export default function SearchUserReviews() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const searchParams = useSearchParams();
+  const groupSlug = searchParams.get('group');
 
-  const where = {};
+  const { data } = useFindGroupQuery({
+    variables: {
+      slug: groupSlug,
+    },
+    fetchPolicy: 'cache-first',
+  });
+
+  const where: FindUserReviewsWhereArgs = {
+    groupId: data?.findGroup?.id,
+  };
   const orderBy: FindUserReviewsOrderByArgs = {
     createdAt: 'desc',
   };

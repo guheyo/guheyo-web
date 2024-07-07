@@ -76,7 +76,7 @@ export default function SearchButton() {
       router.push(`/search/g/${group?.slug}/member`);
     else if (location === 'member') router.push(`/search/member`);
     else if (location === 'group-review')
-      router.push(`/search/g/${group?.slug}/review`);
+      router.push(`/search/review?group=${group?.slug}`);
     else if (location === 'review') router.push(`/search/review`);
     else if (location === 'group-thread')
       router.push(`/search/g/${group?.slug}/thread`);
