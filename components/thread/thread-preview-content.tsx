@@ -4,6 +4,7 @@ import { ThreadPreviewResponse } from '@/generated/graphql';
 import { truncateText } from '@/lib/text/truncate-text';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import Thumbnail from '../base/thumbnail';
+import PostPreviewTitle from '../posts/post-preview-title';
 
 interface Props {
   thread: ThreadPreviewResponse;
@@ -14,12 +15,10 @@ export default function ThreadPreviewContent({ thread }: Props) {
 
   return (
     <div className="grid grid-cols-12 gap-1 items-start justify-between gap-4">
-      <div className="col-span-9 flex flex-col gap-1 text-xs md:text-sm ">
-        <div className="text-gray-300">
-          {truncateText(thread.post.title, device === 'mobile' ? 25 : 40)}
-        </div>
+      <div className="col-span-9 flex flex-col gap-1">
+        <PostPreviewTitle title={thread.post.title} />
         {thread.content && (
-          <div className="text-dark-200">
+          <div className="text-xs md:text-sm text-dark-200">
             {truncateText(thread.content, device === 'mobile' ? 25 : 40)}
           </div>
         )}

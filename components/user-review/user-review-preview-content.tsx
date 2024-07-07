@@ -3,6 +3,7 @@
 import { UserReviewPreviewResponse } from '@/generated/graphql';
 import { truncateText } from '@/lib/text/truncate-text';
 import Thumbnail from '../base/thumbnail';
+import PostPreviewTitle from '../posts/post-preview-title';
 
 interface Props {
   userReview: UserReviewPreviewResponse;
@@ -11,12 +12,10 @@ interface Props {
 export default function UserReviewPreviewContent({ userReview }: Props) {
   return (
     <div className="grid grid-cols-12 gap-1 items-start justify-between gap-4">
-      <div className="col-span-9 flex flex-col gap-1 text-xs md:text-sm ">
-        <div className="text-gray-300">
-          {truncateText(userReview.post.title, 25)}
-        </div>
+      <div className="col-span-9 flex flex-col gap-1">
+        <PostPreviewTitle title={userReview.post.title} />
         {userReview.content && (
-          <div className="text-dark-200">
+          <div className="text-xs md:text-sm text-dark-200">
             {truncateText(userReview.content, 25)}
           </div>
         )}
