@@ -9,7 +9,7 @@ import AuctionFeed from '../auction/auction-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
 import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 
-export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
+export default function SearchAuctions() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
   const where = {};
   const sortOrder = undefined;
@@ -32,11 +32,9 @@ export default function SearchAuctions({ isInGroup }: { isInGroup: boolean }) {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      {isInGroup && (
-        <div className="pt-4 mx-2.5 md:mx-1">
-          <ProductCategoriesNavbar types={['product']} />
-        </div>
-      )}
+      <div className="pt-4 mx-2.5 md:mx-1">
+        <ProductCategoriesNavbar types={['product']} />
+      </div>
       <div className="pt-4 flex flex-row justify-between">
         <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
         <AuctionSelectors />
