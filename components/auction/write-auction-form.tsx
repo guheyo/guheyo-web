@@ -4,7 +4,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { deleteUserImage } from '@/lib/api/user-image';
 import { GroupResponse } from '@/generated/graphql';
 import { useContext, useState } from 'react';
-import { parseTempOfferFormKey } from '@/lib/offer/parse-temp-offer-form-key';
+import { parseTempAuctionFormKey } from '@/lib/auction/parse-temp-auction-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { createAuction } from '@/lib/api/auction';
@@ -18,7 +18,7 @@ import AlertDialog from '../base/alert-dialog';
 export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
   const { jwtPayload } = useContext(AuthContext);
   const router = useRouter();
-  const localStorageKey = parseTempOfferFormKey({
+  const localStorageKey = parseTempAuctionFormKey({
     userId: jwtPayload?.id || 'ghost',
     groupSlug: group.slug,
   });
