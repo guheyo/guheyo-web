@@ -10,6 +10,7 @@ import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import ThreadFeed from '../thread/thread-feed';
+import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
 export default function SearchThreads() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -38,6 +39,9 @@ export default function SearchThreads() {
       />
       <div className="pt-4 mx-2.5 md:mx-1">
         <CommunityCategoriesNavbar />
+      </div>
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
         <ThreadFeed

@@ -5,7 +5,9 @@ import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
-import InfoFeedLayout from '../info/info-feed-layout';
+import TextFeedLayout from '../posts/text-feed.layout';
+import CommunityTypePathUpdater from '../community/community-type-path-updater';
+import MemberRolesNavbar from '../member/member-roles-navbar';
 
 export default function SearchUsers() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -32,13 +34,19 @@ export default function SearchUsers() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
-      <InfoFeedLayout>
+      <div className="pt-4 mx-2.5 md:mx-1">
+        <MemberRolesNavbar />
+      </div>
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
+      </div>
+      <TextFeedLayout>
         <UserFeed
           defaultWhere={where}
           defaultOrderBy={orderBy}
           keyword={keyword}
         />
-      </InfoFeedLayout>
+      </TextFeedLayout>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
 import UserReviewFeed from '../user-review/user-review-feed';
 import MannerTagsNavbar from '../user-review/manner-tags-navbar';
+import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
 export default function SearchUserReviews() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
@@ -38,6 +39,9 @@ export default function SearchUserReviews() {
       />
       <div className="pt-4 mx-2.5 md:mx-1">
         <MannerTagsNavbar />
+      </div>
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
         <UserReviewFeed
