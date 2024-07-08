@@ -1,19 +1,24 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
+import {
+  FindThreadPreviewsOrderByInput,
+  FindThreadPreviewsWhereInput,
+} from '@/generated/graphql';
 import SearchInput from './search-input';
-import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import { DEBOUNCE } from './search.constants';
-import AuctionSelectors from '../auction/auction-selectors';
-import AuctionFeed from '../auction/auction-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
-import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
+import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
+import ThreadFeed from '../thread/thread-feed';
+import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
-export default function SearchAuctions() {
+export default function SearchThreads() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
-  const where = {};
-  const sortOrder = undefined;
-  const distinct = false;
+
+  const where: FindThreadPreviewsWhereInput = {};
+  const orderBy: FindThreadPreviewsOrderByInput = {
+    createdAt: 'desc',
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -24,28 +29,26 @@ export default function SearchAuctions() {
   };
 
   return (
-    <div className="grid max-w-4xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 제품을 찾고 있나요?"
+        placeholder="어떤 게시글을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar types={['product']} />
+        <CommunityCategoriesNavbar />
       </div>
-      <div className="pb-2 flex flex-row justify-between">
-        <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
-        <AuctionSelectors />
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
-        <AuctionFeed
+        <ThreadFeed
           type="listview"
           defaultWhere={where}
-          defaultSortOrder={sortOrder}
+          defaultOrderBy={orderBy}
           keyword={keyword}
-          defaultDistinct={distinct}
         />
       </TextFeedLayout>
     </div>

@@ -1,19 +1,24 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
+import {
+  FindUserReviewsOrderByArgs,
+  FindUserReviewsWhereArgs,
+} from '@/interfaces/user-review.interfaces';
 import SearchInput from './search-input';
-import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import { DEBOUNCE } from './search.constants';
-import AuctionSelectors from '../auction/auction-selectors';
-import AuctionFeed from '../auction/auction-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
-import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
+import UserReviewFeed from '../user-review/user-review-feed';
+import MannerTagsNavbar from '../user-review/manner-tags-navbar';
+import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
-export default function SearchAuctions() {
+export default function SearchUserReviews() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
-  const where = {};
-  const sortOrder = undefined;
-  const distinct = false;
+
+  const where: FindUserReviewsWhereArgs = {};
+  const orderBy: FindUserReviewsOrderByArgs = {
+    createdAt: 'desc',
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -24,28 +29,25 @@ export default function SearchAuctions() {
   };
 
   return (
-    <div className="grid max-w-4xl w-full">
+    <div className="grid w-full">
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 제품을 찾고 있나요?"
+        placeholder="어떤 거래 후기를 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <ProductCategoriesNavbar types={['product']} />
+        <MannerTagsNavbar />
       </div>
-      <div className="pb-2 flex flex-row justify-between">
-        <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
-        <AuctionSelectors />
+      <div className="pb-2">
+        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
-        <AuctionFeed
-          type="listview"
+        <UserReviewFeed
           defaultWhere={where}
-          defaultSortOrder={sortOrder}
+          defaultOrderBy={orderBy}
           keyword={keyword}
-          defaultDistinct={distinct}
         />
       </TextFeedLayout>
     </div>
