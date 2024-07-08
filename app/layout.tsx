@@ -5,7 +5,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import Navbar from '@/components/base/navbar';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import GroupSidebar from '@/components/groups/group-sidebar';
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { Providers } from './providers';
 
 const notoSansKr = Noto_Sans_KR({
@@ -46,10 +46,12 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar handleMenuToggle={handleMenuToggle} />
-          <GroupSidebar
-            isMenuOpen={isMenuOpen}
-            handleMenuToggle={handleMenuToggle}
-          />
+          <Suspense>
+            <GroupSidebar
+              isMenuOpen={isMenuOpen}
+              handleMenuToggle={handleMenuToggle}
+            />
+          </Suspense>
           <div ref={feedRef} className="w-full md:max-w-2xl mx-auto">
             {children}
           </div>
