@@ -2,21 +2,21 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import {
-  FindUserReviewsOrderByArgs,
-  FindUserReviewsWhereArgs,
-} from '@/interfaces/user-review.interfaces';
+  FindThreadPreviewsOrderByInput,
+  FindThreadPreviewsWhereInput,
+} from '@/generated/graphql';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
-import UserReviewFeed from '../user-review/user-review-feed';
-import MannerTagsNavbar from '../user-review/manner-tags-navbar';
+import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
+import ThreadFeed from '../thread/thread-feed';
 import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
-export default function SearchUserReviews() {
+export default function SearchThreads() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
-  const where: FindUserReviewsWhereArgs = {};
-  const orderBy: FindUserReviewsOrderByArgs = {
+  const where: FindThreadPreviewsWhereInput = {};
+  const orderBy: FindThreadPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 
@@ -33,18 +33,19 @@ export default function SearchUserReviews() {
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 거래 후기를 찾고 있나요?"
+        placeholder="어떤 게시글을 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
       <div className="pt-4 mx-2.5 md:mx-1">
-        <MannerTagsNavbar />
+        <CommunityCategoriesNavbar />
       </div>
       <div className="pb-2">
         <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
-        <UserReviewFeed
+        <ThreadFeed
+          type="listview"
           defaultWhere={where}
           defaultOrderBy={orderBy}
           keyword={keyword}

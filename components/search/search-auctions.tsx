@@ -35,21 +35,19 @@ export default function SearchAuctions() {
       <div className="pt-4 mx-2.5 md:mx-1">
         <ProductCategoriesNavbar types={['product']} />
       </div>
-      <div className="pt-4 flex flex-row justify-between">
+      <div className="pb-2 flex flex-row justify-between">
         <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
         <AuctionSelectors />
       </div>
-      <div className="pt-4">
-        <TextFeedLayout>
-          <AuctionFeed
-            type="listview"
-            defaultWhere={where}
-            defaultSortOrder={sortOrder}
-            keyword={keyword}
-            defaultDistinct={distinct}
-          />
-        </TextFeedLayout>
-      </div>
+      <TextFeedLayout>
+        <AuctionFeed
+          type="listview"
+          defaultWhere={where}
+          defaultSortOrder={sortOrder}
+          keyword={keyword}
+          defaultDistinct={distinct}
+        />
+      </TextFeedLayout>
     </div>
   );
 }

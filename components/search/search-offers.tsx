@@ -43,20 +43,18 @@ export default function SearchOffers() {
       <div className="pt-4 mx-2.5 md:mx-1">
         <ProductCategoriesNavbar types={['product', 'service']} />
       </div>
-      <div className="pt-4 flex flex-row justify-between">
+      <div className="pb-2 flex flex-row justify-between">
         <BusinessFunctionQueryUpdater defaultBusinessFunction="sell" />
         <OfferSelectors />
       </div>
-      <div className="pt-4">
-        <TextFeedLayout>
-          <OfferFeed
-            type="listview"
-            defaultWhere={where}
-            defaultDistinct={distinct}
-            keyword={keyword}
-          />
-        </TextFeedLayout>
-      </div>
+      <TextFeedLayout>
+        <OfferFeed
+          type="listview"
+          defaultWhere={where}
+          defaultDistinct={distinct}
+          keyword={keyword}
+        />
+      </TextFeedLayout>
     </div>
   );
 }
