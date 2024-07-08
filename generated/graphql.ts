@@ -442,6 +442,7 @@ export type Mutation = {
   updateOffer: OfferPreviewResponse;
   updateReportComment: ReportCommentResponse;
   updateRole: Scalars['String']['output'];
+  updateThread: Scalars['String']['output'];
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
 };
@@ -594,6 +595,11 @@ export type MutationUpdateReportCommentArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
+};
+
+
+export type MutationUpdateThreadArgs = {
+  input: UpdateThreadInput;
 };
 
 
@@ -1357,6 +1363,12 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateThreadInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  post: UpdatePostInput;
 };
 
 export type UpdateUserImageInput = {
