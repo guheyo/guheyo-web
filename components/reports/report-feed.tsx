@@ -8,6 +8,7 @@ import {
 } from '@/interfaces/report.interfaces';
 import { ReportType } from '@/lib/report/report.types';
 import { useSearchParams } from 'next/navigation';
+import { useGroup } from '@/hooks/use-group';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
@@ -20,6 +21,7 @@ export default function ReportFeed({
   keyword?: string;
 }) {
   const searchParams = useSearchParams();
+  const { group } = useGroup();
   const ref = useRef<HTMLDivElement>(null);
   const type = searchParams.get('type') || defaultWhere.type;
 
@@ -27,6 +29,7 @@ export default function ReportFeed({
     ref,
     where: {
       ...defaultWhere,
+      groupId: group?.id,
       type,
     },
     orderBy: defaultOrderBy,
