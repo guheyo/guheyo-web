@@ -2,16 +2,17 @@
 
 import SearchGroups from '@/components/search/search-groups';
 import { parseWriteLink } from '@/lib/write/parse-write-link';
+import { parseWritePlaceholder } from '@/lib/write/parse-write-placeholder';
 import { Suspense } from 'react';
 
-export default function Page() {
+export default function Page({ params }: { params: { slug: string } }) {
   const generateLink = (slug: string) =>
-    parseWriteLink({ groupSlug: slug, channelSlug: 'auction' });
+    parseWriteLink({ groupSlug: slug, channelSlug: params.slug });
 
   return (
     <Suspense>
       <SearchGroups
-        placeholder="경매할 제품의 그룹을 선택해 주세요"
+        placeholder={parseWritePlaceholder({ channelSlug: params.slug })}
         generateLink={generateLink}
       />
     </Suspense>
