@@ -13,9 +13,11 @@ import ReportCard from './report-card';
 export default function ReportFeed({
   defaultWhere,
   defaultOrderBy,
+  keyword,
 }: {
   defaultWhere: FindReportPreviewsWhereArgs;
   defaultOrderBy: FindReportPreviewsOrderByArgs;
+  keyword?: string;
 }) {
   const searchParams = useSearchParams();
   const ref = useRef<HTMLDivElement>(null);
@@ -28,6 +30,7 @@ export default function ReportFeed({
       type,
     },
     orderBy: defaultOrderBy,
+    keyword,
     take: 10,
   });
 
