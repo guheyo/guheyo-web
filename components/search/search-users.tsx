@@ -2,14 +2,19 @@
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
 import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import { usePathname, useSearchParams } from 'next/navigation';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
 import CommunityTypePathUpdater from '../community/community-type-path-updater';
 import MemberRolesNavbar from '../member/member-roles-navbar';
+import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
 export default function SearchUsers() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const where = {};
@@ -34,6 +39,24 @@ export default function SearchUsers() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
+      <div className="flex flex-row gap-2 md:gap-6 pt-4 mx-3 md:mx-1">
+        <GroupProfileSidebarItems
+          paddingX={0}
+          paddingY={0}
+          pathFormatter={(slug) =>
+            parseNewURL({
+              searchParamsString: searchParams.toString(),
+              pathname,
+              paramsToUpdate: [
+                {
+                  name: 'group',
+                  value: slug,
+                },
+              ],
+            })
+          }
+        />
+      </div>
       <div className="pt-4 mx-2.5 md:mx-1">
         <MemberRolesNavbar />
       </div>
