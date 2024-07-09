@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { Option } from '@/interfaces/selector.interfaces';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import TextNavbar from '../base/text-navbar';
 
 export default function AuctionStatusNavbar({
@@ -14,20 +14,22 @@ export default function AuctionStatusNavbar({
   const searchParams = useSearchParams();
   const selectedValue = searchParams.get('status') || undefined;
 
-  const parseNewURL = (newValue?: string) => {
-    const queryString = createQueryString({
-      searchParamsString: searchParams.toString(),
-      name: 'status',
-      value: newValue,
-    });
-    return `${pathname}?${queryString}`;
-  };
-
   return (
     <TextNavbar
       options={options}
       selectedValue={selectedValue}
-      parseNewURL={(value) => parseNewURL(value)}
+      parseNewURL={(value) =>
+        parseNewURL({
+          searchParamsString: searchParams.toString(),
+          pathname,
+          paramsToUpdate: [
+            {
+              name: 'status',
+              value,
+            },
+          ],
+        })
+      }
       size="medium"
     />
   );

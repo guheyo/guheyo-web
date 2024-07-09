@@ -2,8 +2,8 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { OFFER_IS_ARCHIVED, OFFER_OPEN } from '@/lib/offer/offer.constants';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { Option } from '@/interfaces/selector.interfaces';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import TextNavbar from '../base/text-navbar';
 
 export default function OfferStatusNavbar({ options }: { options: Option[] }) {
@@ -14,26 +14,29 @@ export default function OfferStatusNavbar({ options }: { options: Option[] }) {
       ? OFFER_IS_ARCHIVED
       : searchParams.get('status') || OFFER_OPEN;
 
-  const parseNewURL = (newValue?: string) => {
-    let queryString = createQueryString({
-      searchParamsString: searchParams.toString(),
-      name: 'status',
-      value: newValue !== OFFER_IS_ARCHIVED ? newValue : undefined,
-    });
-    queryString = createQueryString({
-      searchParamsString: queryString,
-      name: 'isArchived',
-      value:
-        newValue === OFFER_IS_ARCHIVED ? true.toString() : false.toString(),
-    });
-    return `${pathname}?${queryString}`;
-  };
-
   return (
     <TextNavbar
       options={options}
       selectedValue={selectedValue}
-      parseNewURL={(value) => parseNewURL(value)}
+      parseNewURL={(value) =>
+        parseNewURL({
+          searchParamsString: searchParams.toString(),
+          pathname,
+          paramsToUpdate: [
+            {
+              name: 'status',
+              value: value !== OFFER_IS_ARCHIVED ? value : undefined,
+            },
+            {
+              name: 'isArchived',
+              value:
+                value === OFFER_IS_ARCHIVED
+                  ? true.toString()
+                  : false.toString(),
+            },
+          ],
+        })
+      }
       size="medium"
     />
   );

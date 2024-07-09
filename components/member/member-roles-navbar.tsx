@@ -1,8 +1,8 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import Scrollbar from '../base/scrollbar';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -21,11 +21,16 @@ export default function MemberRolesNavbar() {
   const handleClick = (e: MouseEvent, selectedType: string | null) => {
     e.preventDefault();
     router.push(
-      `${pathname}?${createQueryString({
+      parseNewURL({
         searchParamsString: searchParams.toString(),
-        name: 'role',
-        value: selectedType,
-      })}`,
+        pathname,
+        paramsToUpdate: [
+          {
+            name: 'role',
+            value: selectedType,
+          },
+        ],
+      }),
     );
   };
 

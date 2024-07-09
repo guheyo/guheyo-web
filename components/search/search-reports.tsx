@@ -1,27 +1,27 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import {
-  FindUserReviewsOrderByArgs,
-  FindUserReviewsWhereArgs,
-} from '@/interfaces/user-review.interfaces';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import { usePathname, useSearchParams } from 'next/navigation';
+import {
+  FindReportPreviewsOrderByArgs,
+  FindReportPreviewsWhereArgs,
+} from '@/interfaces/report.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
-import UserReviewFeed from '../user-review/user-review-feed';
-import MannerTagsNavbar from '../user-review/manner-tags-navbar';
 import CommunityTypePathUpdater from '../community/community-type-path-updater';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import ReportFeed from '../reports/report-feed';
+import ReportTypeNavbar from '../reports/report-type-navbar';
 
-export default function SearchUserReviews() {
+export default function SearchReports() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
-  const where: FindUserReviewsWhereArgs = {};
-  const orderBy: FindUserReviewsOrderByArgs = {
+  const where: FindReportPreviewsWhereArgs = {};
+  const orderBy: FindReportPreviewsOrderByArgs = {
     createdAt: 'desc',
   };
 
@@ -38,7 +38,7 @@ export default function SearchUserReviews() {
       <SearchInput
         text={text}
         setText={setText}
-        placeholder="어떤 거래 후기를 찾고 있나요?"
+        placeholder="어떤 신고를 찾고 있나요?"
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
@@ -61,13 +61,13 @@ export default function SearchUserReviews() {
         />
       </div>
       <div className="pt-4 mx-2.5 md:mx-1">
-        <MannerTagsNavbar />
+        <ReportTypeNavbar />
       </div>
       <div className="pb-2">
         <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
-        <UserReviewFeed
+        <ReportFeed
           defaultWhere={where}
           defaultOrderBy={orderBy}
           keyword={keyword}

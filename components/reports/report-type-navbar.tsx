@@ -1,9 +1,9 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { REPORT_TYPE_OPTIONS } from '@/lib/report/report.constants';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import Scrollbar from '../base/scrollbar';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -22,11 +22,16 @@ export default function ReportTypeNavbar() {
   const handleClick = (e: MouseEvent, selectedType: string | null) => {
     e.preventDefault();
     router.push(
-      `${pathname}?${createQueryString({
+      parseNewURL({
         searchParamsString: searchParams.toString(),
-        name: 'type',
-        value: selectedType,
-      })}`,
+        pathname,
+        paramsToUpdate: [
+          {
+            name: 'type',
+            value: selectedType,
+          },
+        ],
+      }),
     );
   };
 

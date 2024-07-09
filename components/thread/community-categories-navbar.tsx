@@ -1,8 +1,8 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import CategoriesNavbar from '../categories/categories-navbar';
 
 export default function CommunityCategoriesNavbar() {
@@ -13,11 +13,16 @@ export default function CommunityCategoriesNavbar() {
   const handleClick = (e: MouseEvent, slug?: string | null) => {
     e.preventDefault();
     router.push(
-      `${pathname}?${createQueryString({
+      parseNewURL({
         searchParamsString: searchParams.toString(),
-        name: 'category',
-        value: slug,
-      })}`,
+        pathname,
+        paramsToUpdate: [
+          {
+            name: 'category',
+            value: slug,
+          },
+        ],
+      }),
     );
   };
 

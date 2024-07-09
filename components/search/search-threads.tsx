@@ -5,14 +5,19 @@ import {
   FindThreadPreviewsOrderByInput,
   FindThreadPreviewsWhereInput,
 } from '@/generated/graphql';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import { usePathname, useSearchParams } from 'next/navigation';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import ThreadFeed from '../thread/thread-feed';
 import CommunityTypePathUpdater from '../community/community-type-path-updater';
+import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
 export default function SearchThreads() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const where: FindThreadPreviewsWhereInput = {};
@@ -37,6 +42,24 @@ export default function SearchThreads() {
         handleKeyDown={handleKeyDown}
         handleChange={handleChange}
       />
+      <div className="flex flex-row gap-2 md:gap-6 pt-4 mx-3 md:mx-1">
+        <GroupProfileSidebarItems
+          paddingX={0}
+          paddingY={0}
+          pathFormatter={(slug) =>
+            parseNewURL({
+              searchParamsString: searchParams.toString(),
+              pathname,
+              paramsToUpdate: [
+                {
+                  name: 'group',
+                  value: slug,
+                },
+              ],
+            })
+          }
+        />
+      </div>
       <div className="pt-4 mx-2.5 md:mx-1">
         <CommunityCategoriesNavbar />
       </div>

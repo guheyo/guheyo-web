@@ -4,7 +4,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
-import createQueryString from '@/lib/query-string/create-query-string';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import BaseSelector from './base-selector';
 
 export default function QuerySelector({
@@ -26,11 +26,16 @@ export default function QuerySelector({
   const handleChange = (e: SelectChangeEvent) => {
     const { value } = e.target;
     router.push(
-      `${pathname}?${createQueryString({
+      parseNewURL({
         searchParamsString: searchParams.toString(),
-        name: queryKey,
-        value,
-      })}`,
+        pathname,
+        paramsToUpdate: [
+          {
+            name: queryKey,
+            value,
+          },
+        ],
+      }),
     );
   };
 
