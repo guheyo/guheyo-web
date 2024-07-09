@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { extractGroupAndChannel } from '@/lib/group/extract-group-and-channel';
 import { parseWriteLink } from '@/lib/write/parse-write-link';
+import { WRITABLE_CHANNELS } from '@/lib/write/write.constants';
 
 export default function WriteButton() {
   const router = useRouter();
@@ -16,16 +17,15 @@ export default function WriteButton() {
 
   const handleOnClick = (): void => {
     setLoading(true);
-    if (groupSlug && channelSlug) {
-      router.push(parseWriteLink({ groupSlug, channelSlug }));
-    } else if (channelSlug === 'auction') {
-      router.push(parseWriteLink({ groupSlug: undefined, channelSlug }));
+    if (channelSlug && WRITABLE_CHANNELS.includes(channelSlug)) {
+      router.push(
+        parseWriteLink({ groupSlug: groupSlug || undefined, channelSlug }),
+      );
     }
     setLoading(false);
   };
 
-  if (!channelSlug || !['auction', 'offer'].includes(channelSlug))
-    return <div />;
+  if (!channelSlug || !WRITABLE_CHANNELS.includes(channelSlug)) return <div />;
 
   return (
     <div className="inline-flex items-center">
