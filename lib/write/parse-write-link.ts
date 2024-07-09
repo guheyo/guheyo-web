@@ -1,3 +1,5 @@
+import { parseWriteGroupChannelSlug } from './parse-write-group-channel-slug';
+
 export const parseWriteLink = ({
   groupSlug,
   channelSlug,
@@ -5,4 +7,6 @@ export const parseWriteLink = ({
   groupSlug?: string;
   channelSlug: string;
 }) =>
-  groupSlug ? `/write/g/${groupSlug}/${channelSlug}` : `/write/${channelSlug}`;
+  groupSlug
+    ? `/write/g/${groupSlug}/${parseWriteGroupChannelSlug({ channelSlug })}`
+    : `/write/channel/${channelSlug}`;
