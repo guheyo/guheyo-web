@@ -1,9 +1,9 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import createQueryString from '@/lib/query-string/create-query-string';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { MANNER_TAG_TYPE_OPTIONS } from '@/lib/user-review/user-review.constants';
+import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import Scrollbar from '../base/scrollbar';
 
 const getButtonCSS = (clicked: boolean) => {
@@ -22,11 +22,16 @@ export default function MannerTagsNavbar() {
   const handleClick = (e: MouseEvent, selectedType: string | null) => {
     e.preventDefault();
     router.push(
-      `${pathname}?${createQueryString({
+      parseNewURL({
         searchParamsString: searchParams.toString(),
-        name: 'tagType',
-        value: selectedType,
-      })}`,
+        pathname,
+        paramsToUpdate: [
+          {
+            name: 'tagType',
+            value: selectedType,
+          },
+        ],
+      }),
     );
   };
 
