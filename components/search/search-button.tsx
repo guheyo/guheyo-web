@@ -50,7 +50,7 @@ const findPlaceholder = (location: string): string => {
   if (location === 'review' || location === 'group-review')
     return '거래 후기를 검색해보세요';
   if (location === 'thread' || location === 'group-thread')
-    return '게시글을 검색해보세요';
+    return '스레드를 검색해보세요';
   return '';
 };
 
