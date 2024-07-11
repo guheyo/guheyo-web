@@ -57,7 +57,7 @@ export default function PostReportForm({
       groupId,
     };
     await createReport(input);
-    router.back();
+    router.push('/report');
   };
 
   const handleSubmitError: SubmitErrorHandler<ReportFormValues> = (
