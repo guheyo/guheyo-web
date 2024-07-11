@@ -3,6 +3,7 @@
 import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
+import ForumIcon from '@mui/icons-material/Forum';
 import GavelIcon from '@mui/icons-material/Gavel';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -156,6 +157,18 @@ export default function GroupSidebar({
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
             isActive={activeItem === 'member'}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseCommunityLink({
+              groupSlug: group?.slug,
+              communityType: 'thread',
+            })}
+            icon={<ForumIcon fontSize="medium" />}
+            text="스레드"
+            isActive={activeItem === 'thread'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}

@@ -13,6 +13,8 @@ import { parseOfferTermAlertMessage } from '@/lib/offer/parse-offer-term-alert-m
 import { isPostingLimitExceededError } from '@/lib/post/is-posting-limit-exceeded-error';
 import parseCreateOfferInput from '@/lib/offer/parse-create-offer-input';
 import { createOffer } from '@/lib/api/offer';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import { BusinessFunction } from '@/lib/offer/offer.types';
 import { AuthContext } from '../auth/auth.provider';
 import AlertDialog from '../base/alert-dialog';
 import OfferForm from './offer-form';
@@ -37,7 +39,12 @@ export default function WriteOfferForm({ group }: { group: GroupResponse }) {
 
     try {
       await createOffer(input);
-      router.back();
+      router.push(
+        parseMarketLink({
+          groupSlug: group.slug,
+          businessFunction: input.businessFunction as BusinessFunction,
+        }),
+      );
       setTimeout(() => {
         window.location.reload();
       }, 1000);

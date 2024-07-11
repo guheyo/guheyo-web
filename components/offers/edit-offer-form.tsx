@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { updateOffer } from '@/lib/api/offer';
 import parseUpdateOfferInput from '@/lib/offer/parse-update-offer-input';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { AuthContext } from '../auth/auth.provider';
 import OfferForm from './offer-form';
 
@@ -39,7 +40,12 @@ export default function EditOfferForm({
       offerFormValues: values,
     });
     await updateOffer(input);
-    router.back();
+    router.push(
+      parseMarketLink({
+        groupSlug: data?.findGroup?.slug,
+        businessFunction: prevFormValues.businessFunction,
+      }),
+    );
   };
 
   const handleOnClickImagePreviewCallback = async (imageId: string) => {
