@@ -1,1 +1,1 @@
-export const WRITABLE_CHANNELS = ['auction', 'sell', 'buy', 'swap', 'thread'];
+export const WRITABLE_CHANNELS = ['auction', 'sell', 'buy', 'swap'];

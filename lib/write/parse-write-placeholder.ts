@@ -13,7 +13,7 @@ export const parseWritePlaceholder = ({
     case 'swap':
       return '교환할 제품의 그룹을 선택해 주세요';
     case 'thread':
-      return '작성할 게시글의 그룹을 선택해 주세요';
+      return '작성할 스레드의 그룹을 선택해 주세요';
     default:
       return '';
   }
