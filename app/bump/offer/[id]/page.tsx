@@ -14,6 +14,7 @@ import { useContext, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import OfferBumpFormLayout from '@/components/offers/offer-bump-form.layout';
 import AlertDialog from '@/components/base/alert-dialog';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
 
 function Page({
   params: { id },
@@ -43,13 +44,18 @@ function Page({
 
     const input: BumpOfferInput = {
       id: values.id,
-      offerId: values.id,
+      offerId: values.offerId,
       newPrice: values.price,
     };
 
     try {
       await bumpOffer(input);
-      router.back();
+      router.push(
+        parseMarketLink({
+          groupSlug: offer.post.group.slug,
+          businessFunction: offer.businessFunction as BusinessFunction,
+        }),
+      );
     } catch (e: any) {
       if (isPostingLimitExceededError(e.message)) {
         const message = parseOfferTermAlertMessage({
