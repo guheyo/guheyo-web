@@ -2,8 +2,7 @@ import { parseSlugFromURL } from '@/lib/url/parse-slug-from-url';
 import React from 'react';
 
 export async function generateMetadata({ params }: { params: any }) {
-  const { userReviewSlug } = params;
-  const slug = parseSlugFromURL(userReviewSlug);
+  const slug = parseSlugFromURL(params.slug);
 
   return {
     title: `${slug} | 구해요`,
