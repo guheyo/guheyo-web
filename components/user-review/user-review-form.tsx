@@ -104,7 +104,7 @@ export default function UserReviewForm({
     const url = groupSlug
       ? parseCommunityLink({
           groupSlug,
-          communityType: 'review',
+          category: 'review',
         })
       : '/';
     router.push(url);

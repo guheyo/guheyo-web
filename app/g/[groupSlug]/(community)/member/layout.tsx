@@ -1,4 +1,3 @@
-import CommunityTypePathUpdater from '@/components/community/community-type-path-updater';
 import MemberRolesNavbar from '@/components/member/member-roles-navbar';
 import { ReactNode } from 'react';
 
@@ -11,9 +10,6 @@ function Layout({ children }: Props) {
     <div>
       <div className="px-2.5 md:px-1">
         <MemberRolesNavbar />
-      </div>
-      <div className="pb-2">
-        <CommunityTypePathUpdater />
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>

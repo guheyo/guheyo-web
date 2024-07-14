@@ -12,7 +12,6 @@ import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import ThreadFeed from '../thread/thread-feed';
-import CommunityTypePathUpdater from '../community/community-type-path-updater';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
 export default function SearchThreads() {
@@ -62,9 +61,6 @@ export default function SearchThreads() {
       </div>
       <div className="pt-4 mx-2.5 md:mx-1">
         <CommunityCategoriesNavbar />
-      </div>
-      <div className="pb-2">
-        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
         <ThreadFeed

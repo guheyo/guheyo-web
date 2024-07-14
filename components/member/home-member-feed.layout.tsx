@@ -4,7 +4,6 @@ import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-
 import MemberHomeLink from '@/components/member/member-home-link';
 import MemberRolesNavbar from '@/components/member/member-roles-navbar';
 import { ReactNode, Suspense } from 'react';
-import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
 interface Props {
   children: ReactNode;
@@ -26,11 +25,6 @@ function HomeMemberFeedLayout({ children }: Props) {
       <div className="px-2.5 md:px-1">
         <Suspense>
           <MemberRolesNavbar />
-        </Suspense>
-      </div>
-      <div className="pb-2">
-        <Suspense>
-          <CommunityTypePathUpdater />
         </Suspense>
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
