@@ -8,7 +8,6 @@ import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
 import TextFeedLayout from '../posts/text-feed.layout';
-import CommunityTypePathUpdater from '../community/community-type-path-updater';
 import MemberRolesNavbar from '../member/member-roles-navbar';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
@@ -59,9 +58,6 @@ export default function SearchUsers() {
       </div>
       <div className="pt-4 mx-2.5 md:mx-1">
         <MemberRolesNavbar />
-      </div>
-      <div className="pb-2">
-        <CommunityTypePathUpdater />
       </div>
       <TextFeedLayout>
         <UserFeed
