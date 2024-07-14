@@ -4,7 +4,6 @@ import ReportTypeNavbar from '@/components/reports/report-type-navbar';
 import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 import ReportHomeLink from './report-home-link';
-import CommunityTypePathUpdater from '../community/community-type-path-updater';
 
 interface Props {
   children: ReactNode;
@@ -26,11 +25,6 @@ function HomeReportFeedLayout({ children }: Props) {
       <div className="px-2.5 md:px-1">
         <Suspense>
           <ReportTypeNavbar />
-        </Suspense>
-      </div>
-      <div className="pb-2">
-        <Suspense>
-          <CommunityTypePathUpdater />
         </Suspense>
       </div>
       {children}

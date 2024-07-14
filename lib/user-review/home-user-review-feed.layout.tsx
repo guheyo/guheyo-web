@@ -3,15 +3,13 @@
 import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import MannerTagsNavbar from '@/components/user-review/manner-tags-navbar';
-import CommunityTypePathUpdater from '@/components/community/community-type-path-updater';
 import UserReviewHomeLink from './user-review-home-link';
 
 interface Props {
   children: ReactNode;
-  showSelector: boolean;
 }
 
-function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
+function HomeUserReviewFeedLayout({ children }: Props) {
   return (
     <div>
       <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
@@ -29,13 +27,6 @@ function HomeUserReviewFeedLayout({ children, showSelector }: Props) {
           <MannerTagsNavbar />
         </Suspense>
       </div>
-      {showSelector && (
-        <div className="pb-2">
-          <Suspense>
-            <CommunityTypePathUpdater />
-          </Suspense>
-        </div>
-      )}
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
