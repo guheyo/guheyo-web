@@ -16,7 +16,7 @@ export default function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <HomeThreadFeedLayout showSelector>
+      <HomeThreadFeedLayout>
         <Suspense>
           <ThreadFeed
             type="listview"
