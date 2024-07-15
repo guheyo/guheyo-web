@@ -12,8 +12,7 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
   ref: RefObject<HTMLDivElement>;
-  threadWhere?: FindThreadPreviewsWhereInput;
-  reviewWhere?: FindUserReviewsWhereArgs;
+  where?: FindThreadPreviewsWhereInput & FindUserReviewsWhereArgs;
   orderBy?: { createdAt?: SortOrder };
   keyword?: string;
   distinct?: boolean;
@@ -22,8 +21,7 @@ interface UseInfiniteThreadAndReviewFeedProps {
 
 export const useInfiniteThreadAndReviewFeed = ({
   ref,
-  threadWhere,
-  reviewWhere,
+  where,
   orderBy,
   keyword,
   distinct,
@@ -41,12 +39,32 @@ export const useInfiniteThreadAndReviewFeed = ({
     null,
   );
 
+  const threadWhere: FindThreadPreviewsWhereInput = {
+    groupId: where?.groupId,
+    categoryId: where?.categoryId,
+    pending: where?.pending,
+    userId: where?.userId,
+  };
+  const reviewWhere: FindUserReviewsWhereArgs = {
+    groupId: where?.groupId,
+    userId: where?.userId,
+    tagType: where?.tagType,
+    reviewedUserId: where?.reviewedUserId,
+    status: where?.status,
+  };
+
   const {
     data: threadData,
     loading: threadLoading,
     fetchMore: fetchMoreThreads,
   } = useFindThreadPreviewsQuery({
-    variables: { where: threadWhere, orderBy, keyword, take, skip: 0 },
+    variables: {
+      where: threadWhere,
+      orderBy,
+      keyword,
+      take,
+      skip: 0,
+    },
     fetchPolicy: 'cache-first',
   });
 
@@ -55,7 +73,13 @@ export const useInfiniteThreadAndReviewFeed = ({
     loading: reviewLoading,
     fetchMore: fetchMoreReviews,
   } = useFindUserReviewPreviewsQuery({
-    variables: { where: reviewWhere, orderBy, keyword, take, skip: 0 },
+    variables: {
+      where: reviewWhere,
+      orderBy,
+      keyword,
+      take,
+      skip: 0,
+    },
     fetchPolicy: 'cache-first',
   });
 

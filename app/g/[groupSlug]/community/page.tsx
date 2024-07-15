@@ -20,8 +20,7 @@ export default function Page() {
   return (
     <ThreadAndReviewFeed
       type="listview"
-      defaultThreadWhere={where}
-      defaultReviewWhere={where}
+      defaultWhere={where}
       defaultOrderBy={orderBy}
     />
   );

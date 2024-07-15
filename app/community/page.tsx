@@ -17,8 +17,7 @@ export default function Page() {
         <Suspense>
           <ThreadAndReviewFeed
             type="listview"
-            defaultThreadWhere={where}
-            defaultReviewWhere={where}
+            defaultWhere={where}
             defaultOrderBy={orderBy}
           />
         </Suspense>

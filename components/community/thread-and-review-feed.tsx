@@ -14,14 +14,12 @@ import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 
 function ThreadAndReviewFeed({
-  defaultThreadWhere,
-  defaultReviewWhere,
+  defaultWhere,
   defaultOrderBy,
   keyword,
   type,
 }: {
-  defaultThreadWhere: FindThreadPreviewsWhereInput;
-  defaultReviewWhere: FindUserReviewsWhereArgs;
+  defaultWhere: FindThreadPreviewsWhereInput & FindUserReviewsWhereArgs;
   defaultOrderBy?: { createdAt: SortOrder };
   keyword?: string;
   type: PostPreviewType;
@@ -34,20 +32,16 @@ function ThreadAndReviewFeed({
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
-  const tagType = searchParams.get('tagType') || defaultReviewWhere.tagType;
+  const tagType = searchParams.get('tagType') || defaultWhere.tagType;
 
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
-    threadWhere: {
+    where: {
       groupId: group?.id,
-      userId: defaultThreadWhere.userId,
+      userId: defaultWhere.userId,
       categoryId: category?.id,
-    },
-    reviewWhere: {
-      groupId: group?.id,
-      userId: defaultReviewWhere.userId,
       tagType,
-      reviewedUserId: defaultReviewWhere.reviewedUserId,
+      reviewedUserId: defaultWhere.reviewedUserId,
     },
     orderBy: {
       createdAt: (defaultOrderBy?.createdAt || 'desc') as SortOrder,
