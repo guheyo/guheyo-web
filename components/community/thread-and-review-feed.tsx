@@ -36,6 +36,11 @@ function ThreadAndReviewFeed({
 
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
+    type: categorySlug
+      ? categorySlug === 'review'
+        ? 'review'
+        : 'thread'
+      : undefined,
     where: {
       groupId: group?.id,
       userId: defaultWhere.userId,

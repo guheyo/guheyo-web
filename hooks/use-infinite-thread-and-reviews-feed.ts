@@ -12,6 +12,7 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
   ref: RefObject<HTMLDivElement>;
+  type?: 'thread' | 'review';
   where?: FindThreadPreviewsWhereInput & FindUserReviewsWhereArgs;
   orderBy?: { createdAt?: SortOrder };
   keyword?: string;
@@ -21,6 +22,7 @@ interface UseInfiniteThreadAndReviewFeedProps {
 
 export const useInfiniteThreadAndReviewFeed = ({
   ref,
+  type,
   where,
   orderBy,
   keyword,
@@ -66,6 +68,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       skip: 0,
     },
     fetchPolicy: 'cache-first',
+    skip: type === 'review',
   });
 
   const {
@@ -81,6 +84,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       skip: 0,
     },
     fetchPolicy: 'cache-first',
+    skip: type === 'thread',
   });
 
   const combineAndSortData = useCallback(
