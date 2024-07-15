@@ -15,7 +15,7 @@ function HomeCommunityFeedLayout({ children }: Props) {
       <div className="pt-0 pb-2 px-3 md:px-1 w-fit">
         <CommunityHomeLink />
       </div>
-      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
+      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-0 mx-3 md:mx-1">
         <GroupProfileSidebarItems
           paddingX={0}
           paddingY={0}
