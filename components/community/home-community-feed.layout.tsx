@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import CommunityHomeLink from './community-home-link';
+import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 
 interface Props {
   children: ReactNode;
@@ -20,6 +21,9 @@ function HomeCommunityFeedLayout({ children }: Props) {
           paddingY={0}
           pathFormatter={(slug) => `/g/${slug}/community`}
         />
+      </div>
+      <div className="px-2.5 md:px-1">
+        <CommunityCategoriesNavbar />
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
