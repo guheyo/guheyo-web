@@ -33,9 +33,13 @@ export default function CategoriesNavbar({
 
   if (!group) return <div />;
 
-  const categories = group.categories.filter((category) =>
-    types.includes(category.type),
-  );
+  const categories = [
+    ...group.categories.filter((category) => types.includes(category.type)),
+    {
+      slug: 'review',
+      name: '거래 후기',
+    },
+  ];
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
