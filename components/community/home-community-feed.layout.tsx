@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import GroupProfileSidebarItems from '@/components/groups/group-profile-sidebar-items';
 import CommunityHomeLink from './community-home-link';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
@@ -23,7 +23,9 @@ function HomeCommunityFeedLayout({ children }: Props) {
         />
       </div>
       <div className="px-2.5 md:px-1">
-        <CommunityCategoriesNavbar />
+        <Suspense>
+          <CommunityCategoriesNavbar />
+        </Suspense>
       </div>
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
