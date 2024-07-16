@@ -11,15 +11,13 @@ const findLocation = (pathname: string) => {
   if (pathname === '/') return 'group';
   if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'group-market';
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
-  if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
   if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
+  if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
   if (/^\/user\//.test(pathname)) return 'user';
   if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
   if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
-  if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
   if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
-  if (/^\/(review)(\?.*)?$/.test(pathname)) return 'review';
-  if (/^\/(thread)(\?.*)?$/.test(pathname)) return 'thread';
+  if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
   if (/^\/search$/.test(pathname)) return 'search-group';
   return 'none';
 };
@@ -35,8 +33,6 @@ const findHideButton = (location: string): boolean =>
     'auction',
     'member',
     'community',
-    'review',
-    'thread',
   ].includes(location);
 
 const findPlaceholder = (location: string): string => {
@@ -45,12 +41,10 @@ const findPlaceholder = (location: string): string => {
     return '제품을 검색해보세요';
   if (location === 'auction' || location === 'group-auction')
     return '제품을 검색해보세요';
-  if (location === 'member' || location === 'group-member')
-    return '멤버를 검색해보세요';
   if (location === 'community' || location === 'group-community')
     return '게시글을 검색해보세요';
-  if (location === 'review') return '거래 후기를 검색해보세요';
-  if (location === 'thread') return '스레드를 검색해보세요';
+  if (location === 'member' || location === 'group-member')
+    return '멤버를 검색해보세요';
   return '';
 };
 
@@ -68,14 +62,12 @@ export default function SearchButton() {
       router.push(`/search/product?group=${group?.slug}`);
     else if (location === 'market' || location === 'auction')
       router.push(`/search/product`);
-    else if (location === 'group-member')
-      router.push(`/search/member?group=${group?.slug}`);
-    else if (location === 'member') router.push(`/search/member`);
     else if (location === 'group-community')
       router.push(`/search/community?group=${group?.slug}`);
     else if (location === 'community') router.push(`/search/community`);
-    else if (location === 'review') router.push(`/search/review`);
-    else if (location === 'thread') router.push(`/search/thread`);
+    else if (location === 'group-member')
+      router.push(`/search/member?group=${group?.slug}`);
+    else if (location === 'member') router.push(`/search/member`);
   };
 
   if (hideButton) return <div />;
