@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import BottomNavbarItem from '../base/bottom-navbar-item';
@@ -73,7 +73,7 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href={parseMarketLink({ groupSlug, businessFunction: 'sell' })}
             icon={
-              <ShoppingBagIcon
+              <StorefrontIcon
                 fontSize="small"
                 className="hover:text-gray-300"
               />
@@ -85,7 +85,6 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href={parseCommunityLink({
               groupSlug,
-              communityType: 'member',
             })}
             icon={
               <GroupIcon fontSize="small" className="hover:text-gray-300" />
