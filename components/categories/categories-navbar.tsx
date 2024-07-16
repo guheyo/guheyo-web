@@ -1,10 +1,9 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
+import { CategorySummary } from '@/lib/category/category.interfaces';
 import Scrollbar from '../base/scrollbar';
-import { Mocks } from '../mock/mock';
 
 const getButtonCSS = (clicked: boolean) => {
   if (!clicked) {
@@ -14,32 +13,14 @@ const getButtonCSS = (clicked: boolean) => {
 };
 
 export default function CategoriesNavbar({
-  types,
+  categories,
   handleClick,
 }: {
-  types: string[];
+  categories: CategorySummary[];
   handleClick: (e: MouseEvent, slug?: string | null) => void;
 }) {
-  const { group, loading } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-
-  if (loading)
-    return (
-      <div className="grid gap-2 md:gap-6 lg:gap-8 py-2 mb-10 md:mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-        <Mocks length={2} height={10} color="bg-dark-700" />
-      </div>
-    );
-
-  const categories = [
-    ...(group?.categories?.filter((category) =>
-      types.includes(category.type),
-    ) || []),
-    {
-      slug: 'review',
-      name: '거래 후기',
-    },
-  ];
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>

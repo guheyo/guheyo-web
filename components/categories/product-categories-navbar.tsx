@@ -3,6 +3,7 @@
 import { MouseEvent } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import { useGroup } from '@/hooks/use-group';
 import CategoriesNavbar from './categories-navbar';
 
 export default function ProductCategoriesNavbar({
@@ -13,6 +14,9 @@ export default function ProductCategoriesNavbar({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { group } = useGroup();
+  const categories =
+    group?.categories.filter((category) => types.includes(category.type)) || [];
 
   const handleClick = (e: MouseEvent, slug?: string | null) => {
     e.preventDefault();
@@ -30,5 +34,5 @@ export default function ProductCategoriesNavbar({
     );
   };
 
-  return <CategoriesNavbar types={types} handleClick={handleClick} />;
+  return <CategoriesNavbar categories={categories} handleClick={handleClick} />;
 }
