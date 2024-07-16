@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import GroupIcon from '@mui/icons-material/Group';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import ForumIcon from '@mui/icons-material/Forum';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import BottomNavbarItem from '../base/bottom-navbar-item';
@@ -87,7 +87,7 @@ export default function GroupBottomNavbar({
               groupSlug,
             })}
             icon={
-              <GroupIcon fontSize="small" className="hover:text-gray-300" />
+              <ForumIcon fontSize="small" className="hover:text-gray-300" />
             }
             text="커뮤니티"
           />
