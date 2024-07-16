@@ -31,10 +31,10 @@ export default function CategoriesNavbar({
       </div>
     );
 
-  if (!group) return <div />;
-
   const categories = [
-    ...group.categories.filter((category) => types.includes(category.type)),
+    ...(group?.categories?.filter((category) =>
+      types.includes(category.type),
+    ) || []),
     {
       slug: 'review',
       name: '거래 후기',

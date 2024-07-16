@@ -1,12 +1,12 @@
 'use client';
 
-import SearchUserReviews from '@/components/search/search-user-reviews';
+import SearchThreadsAndReviews from '@/components/search/search-threads-and-reviews';
 import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <Suspense>
-      <SearchUserReviews />
+      <SearchThreadsAndReviews />
     </Suspense>
   );
 }
