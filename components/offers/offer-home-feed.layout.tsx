@@ -14,7 +14,7 @@ interface Props {
   businessFunction: BusinessFunction;
 }
 
-function HomeOfferFeedLayout({ children, businessFunction }: Props) {
+function OfferHomeFeedLayout({ children, businessFunction }: Props) {
   return (
     <HomeFeedLayout
       homeLink={
@@ -41,4 +41,4 @@ function HomeOfferFeedLayout({ children, businessFunction }: Props) {
   );
 }
 
-export default HomeOfferFeedLayout;
+export default OfferHomeFeedLayout;
