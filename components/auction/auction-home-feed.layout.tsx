@@ -11,7 +11,7 @@ interface Props {
   showSelector: boolean;
 }
 
-function HomeAuctionFeedLayout({ children, showSelector }: Props) {
+function AuctionHomeFeedLayout({ children, showSelector }: Props) {
   return (
     <HomeFeedLayout
       homeLink={<AuctionHomeLink />}
@@ -30,4 +30,4 @@ function HomeAuctionFeedLayout({ children, showSelector }: Props) {
   );
 }
 
-export default HomeAuctionFeedLayout;
+export default AuctionHomeFeedLayout;

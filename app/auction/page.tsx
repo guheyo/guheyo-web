@@ -1,7 +1,7 @@
 'use client';
 
 import AuctionFeed from '@/components/auction/auction-feed';
-import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout';
+import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { Suspense } from 'react';
 
@@ -12,7 +12,7 @@ function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <HomeAuctionFeedLayout showSelector>
+      <AuctionHomeFeedLayout showSelector>
         <ThumbnailFeedLayout>
           <Suspense>
             <AuctionFeed
@@ -23,7 +23,7 @@ function Page() {
             />
           </Suspense>
         </ThumbnailFeedLayout>
-      </HomeAuctionFeedLayout>
+      </AuctionHomeFeedLayout>
     </div>
   );
 }
