@@ -1,6 +1,6 @@
 'use client';
 
-import HomeCommunityFeedLayout from '@/components/community/home-community-feed.layout';
+import CommunityHomeFeedLayout from '@/components/community/community-home-feed.layout';
 import ThreadAndReviewFeed from '@/components/community/thread-and-review-feed';
 import { SortOrder } from '@/types/sort.types';
 import { Suspense } from 'react';
@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <HomeCommunityFeedLayout>
+      <CommunityHomeFeedLayout>
         <Suspense>
           <ThreadAndReviewFeed
             type="listview"
@@ -21,7 +21,7 @@ export default function Page() {
             defaultOrderBy={orderBy}
           />
         </Suspense>
-      </HomeCommunityFeedLayout>
+      </CommunityHomeFeedLayout>
     </div>
   );
 }
