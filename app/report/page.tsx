@@ -1,6 +1,6 @@
 'use client';
 
-import HomeReportFeedLayout from '@/components/reports/home-report-feed.layout';
+import ReportHomeFeedLayout from '@/components/reports/report-home-feed.layout';
 import ReportFeed from '@/components/reports/report-feed';
 import {
   FindReportPreviewsOrderByArgs,
@@ -18,11 +18,11 @@ export default function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <HomeReportFeedLayout>
+      <ReportHomeFeedLayout>
         <Suspense>
           <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
         </Suspense>
-      </HomeReportFeedLayout>
+      </ReportHomeFeedLayout>
     </div>
   );
 }
