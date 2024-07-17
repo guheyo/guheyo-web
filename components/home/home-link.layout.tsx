@@ -12,7 +12,7 @@ function HomeLinkLayout({
 }) {
   return (
     <Link href={`/${path}`}>
-      <div className="flex flex-row gap-4 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
+      <div className="flex flex-row gap-2 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
         {children}
       </div>
     </Link>

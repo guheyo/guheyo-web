@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import ForumIcon from '@mui/icons-material/Forum';
-import SellIcon from '@mui/icons-material/Sell';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
 import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import { useGroup } from '@/hooks/use-group';
@@ -100,7 +100,7 @@ export default function GroupSidebar({
             href={parseAuctionLink({
               groupSlug: group?.slug,
             })}
-            icon={<SellIcon fontSize="medium" />}
+            icon={<StorefrontIcon fontSize="medium" />}
             text="장터"
             isActive={MARKET_CHANNELS.includes(activeItem)}
             paddingX={2}

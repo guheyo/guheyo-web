@@ -11,7 +11,7 @@ export async function generateMetadata() {
 function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-2 md:mx-0">
-      <HomeOfferFeedLayout showSelector businessFunction="buy">
+      <HomeOfferFeedLayout businessFunction="buy">
         {children}
       </HomeOfferFeedLayout>
     </div>
