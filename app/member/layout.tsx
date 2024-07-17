@@ -1,6 +1,6 @@
 'use client';
 
-import HomeMemberFeedLayout from '@/components/member/home-member-feed.layout';
+import MemberHomeFeedLayout from '@/components/member/member-home-feed.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <div className="mx-2 md:mx-0">
-      <HomeMemberFeedLayout>{children}</HomeMemberFeedLayout>
+      <MemberHomeFeedLayout>{children}</MemberHomeFeedLayout>
     </div>
   );
 }

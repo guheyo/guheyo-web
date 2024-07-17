@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-function HomeMemberFeedLayout({ children }: Props) {
+function MemberHomeFeedLayout({ children }: Props) {
   return (
     <HomeFeedLayout
       homeLink={<MemberHomeLink />}
@@ -21,4 +21,4 @@ function HomeMemberFeedLayout({ children }: Props) {
   );
 }
 
-export default HomeMemberFeedLayout;
+export default MemberHomeFeedLayout;
