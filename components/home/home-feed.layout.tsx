@@ -26,7 +26,7 @@ function HomeFeedLayout({ children, homeLink, path, selectors }: Props) {
           <Suspense>{selectors}</Suspense>
         </div>
       )}
-      <div className="grid gap-1 grid-cols-1">{children}</div>
+      <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
 }
