@@ -9,7 +9,7 @@ function AuctionHomeLink() {
       <GavelIcon />
       <div>경매</div>
     </HomeLinkLayout>
-  )
+  );
 }
 
 export default AuctionHomeLink;
