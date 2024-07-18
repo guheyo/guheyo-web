@@ -34,15 +34,9 @@ function HomeFeedLayout({
           />
         </Suspense>
       </div>
-      {categories && (
-        <div className="mx-2.5 md:mx-1">
-          <Suspense>{categories}</Suspense>
-        </div>
-      )}
+      {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
       {selectors && (
-        <div className="flex justify-between pb-2">
-          <Suspense>{selectors}</Suspense>
-        </div>
+        <div className="flex justify-between pb-2">{selectors}</div>
       )}
       <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
