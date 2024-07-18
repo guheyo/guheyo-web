@@ -1,13 +1,17 @@
 import { ReactNode } from 'react';
-import OfferFeedHomeLayout from '@/components/offers/offer-feed-home.layout';
+import OfferHomeFeedLayout from '@/components/offers/offer-home-feed.layout';
 import { OffersPageProps } from './page';
 
 interface Props extends OffersPageProps {
   children: ReactNode;
 }
 
-function OffersLayout({ params, children }: Props) {
-  return <OfferFeedHomeLayout>{children}</OfferFeedHomeLayout>;
+function Layout({ params, children }: Props) {
+  return (
+    <OfferHomeFeedLayout businessFunction={params.businessFunction}>
+      {children}
+    </OfferHomeFeedLayout>
+  );
 }
 
-export default OffersLayout;
+export default Layout;
