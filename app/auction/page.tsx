@@ -12,7 +12,7 @@ function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <AuctionHomeFeedLayout showSelector>
+      <AuctionHomeFeedLayout showCategories={false} showSelectors>
         <ThumbnailFeedLayout>
           <Suspense>
             <AuctionFeed

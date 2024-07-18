@@ -32,7 +32,7 @@ export default function AuctionHome() {
   auctions = [...liveAuctions, ...closedAuctions].slice(0, 4);
 
   return (
-    <AuctionHomeFeedLayout showSelector={false}>
+    <AuctionHomeFeedLayout showCategories={false} showSelectors={false}>
       <ThumbnailFeedLayout>
         {auctions.map((auction) => (
           <AuctionPreview
