@@ -9,16 +9,16 @@ interface Props {
   children: ReactNode;
 }
 
-function HomeReportFeedLayout({ children }: Props) {
+function ReportHomeFeedLayout({ children }: Props) {
   return (
     <HomeFeedLayout
       homeLink={<ReportHomeLink />}
       path="report"
-      selectors={<ReportTypeNavbar />}
+      categories={<ReportTypeNavbar />}
     >
       {children}
     </HomeFeedLayout>
   );
 }
 
-export default HomeReportFeedLayout;
+export default ReportHomeFeedLayout;

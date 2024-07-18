@@ -5,7 +5,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return <div className="pb-4 md:pb-6 mx-2 md:mx-0">{children}</div>;
+  return children;
 }
 
 export default Layout;

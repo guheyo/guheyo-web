@@ -45,7 +45,9 @@ export default function RootLayout({
         className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break`}
       >
         <Providers>
-          <Navbar handleMenuToggle={handleMenuToggle} />
+          <Suspense>
+            <Navbar handleMenuToggle={handleMenuToggle} />
+          </Suspense>
           <Suspense>
             <GroupSidebar
               isMenuOpen={isMenuOpen}

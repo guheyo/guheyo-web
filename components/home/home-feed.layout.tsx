@@ -1,32 +1,44 @@
 'use client';
 
 import { ReactNode, Suspense } from 'react';
+import { useGroup } from '@/hooks/use-group';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 
 interface Props {
   children: ReactNode;
   homeLink: ReactNode;
   path: string;
+  categories?: ReactNode;
   selectors?: ReactNode;
 }
 
-function HomeFeedLayout({ children, homeLink, path, selectors }: Props) {
+function HomeFeedLayout({
+  children,
+  homeLink,
+  path,
+  categories,
+  selectors,
+}: Props) {
+  const { group } = useGroup();
+
   return (
     <div>
       <div className="pt-0 px-3 md:px-1 w-fit">{homeLink}</div>
       <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
-        <GroupProfileSidebarItems
-          paddingX={0}
-          paddingY={0}
-          pathFormatter={(slug) => `/g/${slug}/${path}`}
-        />
+        <Suspense>
+          <GroupProfileSidebarItems
+            currentGroupId={group?.id}
+            paddingX={0}
+            paddingY={0}
+            pathFormatter={(slug) => `/g/${slug}/${path}`}
+          />
+        </Suspense>
       </div>
+      {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
       {selectors && (
-        <div className="flex justify-between pb-2">
-          <Suspense>{selectors}</Suspense>
-        </div>
+        <div className="flex justify-between pb-2">{selectors}</div>
       )}
-      <div className="grid gap-1 grid-cols-1">{children}</div>
+      <div className="grid gap-2 grid-cols-1">{children}</div>
     </div>
   );
 }

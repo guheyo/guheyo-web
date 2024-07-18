@@ -1,8 +1,10 @@
 'use client';
 
+import CommunityHomeFeedLayout from '@/components/community/community-home-feed.layout';
 import ThreadAndReviewFeed from '@/components/community/thread-and-review-feed';
 import { useGroup } from '@/hooks/use-group';
 import { SortOrder } from '@/types/sort.types';
+import { Suspense } from 'react';
 
 export default function Page() {
   const { group, loading } = useGroup();
@@ -18,10 +20,14 @@ export default function Page() {
   };
 
   return (
-    <ThreadAndReviewFeed
-      type="listview"
-      defaultWhere={where}
-      defaultOrderBy={orderBy}
-    />
+    <Suspense>
+      <CommunityHomeFeedLayout>
+        <ThreadAndReviewFeed
+          type="listview"
+          defaultWhere={where}
+          defaultOrderBy={orderBy}
+        />
+      </CommunityHomeFeedLayout>
+    </Suspense>
   );
 }

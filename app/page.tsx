@@ -1,4 +1,4 @@
-import HomeAuction from '@/components/auction/home-auction';
+import AuctionHome from '@/components/auction/auction-home';
 import HomeFooter from '@/components/footers/home-footer';
 import GroupFeed from '@/components/groups/group-feed';
 
@@ -11,7 +11,7 @@ function Page() {
   return (
     <>
       <div className="min-h-screen mb-12 px-2 md:px-0 flex flex-col gap-12">
-        <HomeAuction />
+        <AuctionHome />
         <GroupFeed />
       </div>
       <HomeFooter />

@@ -8,13 +8,14 @@ import SellHomeLink from './sell-home-link';
 import SwapHomeLink from './swap-home-link';
 import BuyHomeLink from './buy-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
+import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
 }
 
-function HomeOfferFeedLayout({ children, businessFunction }: Props) {
+function OfferHomeFeedLayout({ children, businessFunction }: Props) {
   return (
     <HomeFeedLayout
       homeLink={
@@ -29,6 +30,7 @@ function HomeOfferFeedLayout({ children, businessFunction }: Props) {
         )
       }
       path={businessFunction}
+      categories={<ProductCategoriesNavbar types={['product', 'service']} />}
       selectors={
         <>
           <BusinessFunctionPathUpdater />
@@ -41,4 +43,4 @@ function HomeOfferFeedLayout({ children, businessFunction }: Props) {
   );
 }
 
-export default HomeOfferFeedLayout;
+export default OfferHomeFeedLayout;
