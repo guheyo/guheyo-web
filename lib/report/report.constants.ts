@@ -46,6 +46,7 @@ export const PUBLIC_REPORT_OPTIONS = [
 ];
 
 export const REPORT_TYPE_OPTIONS = [
+  { value: undefined, label: '전체' },
   { value: 'post', label: '게시글 신고' },
   { value: 'comment', label: '댓글 신고' },
 ];
