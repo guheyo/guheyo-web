@@ -25,7 +25,7 @@ function ThreadAndReviewFeed({
   type: PostPreviewType;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup();
+  const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
 
@@ -42,7 +42,7 @@ function ThreadAndReviewFeed({
         : 'thread'
       : undefined,
     where: {
-      groupId: group?.id,
+      groupId: group?.slug !== 'root' ? group?.id : undefined,
       userId: defaultWhere.userId,
       categoryId: category?.id,
       tagType,
