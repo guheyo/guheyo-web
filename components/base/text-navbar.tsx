@@ -22,7 +22,7 @@ export default function TextNavbar({
   size: 'large' | 'medium';
 }) {
   return (
-    <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-6 py-2">
+    <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-6">
       {options.map((option) => (
         <Link
           key={option.value}
