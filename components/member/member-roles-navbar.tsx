@@ -36,7 +36,7 @@ export default function MemberRolesNavbar() {
 
   return (
     <Scrollbar upPosition="top-12" zIndex={40}>
-      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center mb-6 bg-dark-500">
+      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center mb-4 bg-dark-500">
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
           <button
             type="button"
