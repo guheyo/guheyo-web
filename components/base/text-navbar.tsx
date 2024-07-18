@@ -18,7 +18,7 @@ export default function TextNavbar({
 }: {
   options: Option[];
   selectedValue?: string;
-  parseNewURL: (value?: string) => string;
+  parseNewURL: (value: string) => string;
   size: 'large' | 'medium';
 }) {
   return (

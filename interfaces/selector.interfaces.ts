@@ -1,4 +1,4 @@
 export interface Option {
-  value?: string;
+  value: string;
   label: string;
 }
