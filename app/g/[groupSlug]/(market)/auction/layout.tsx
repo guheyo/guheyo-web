@@ -1,3 +1,5 @@
+'use client';
+
 import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
 import { ReactNode } from 'react';
 

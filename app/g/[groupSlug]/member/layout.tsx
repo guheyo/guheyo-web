@@ -1,3 +1,5 @@
+'use client';
+
 import MemberHomeFeedLayout from '@/components/member/member-home-feed.layout';
 import { ReactNode } from 'react';
 
