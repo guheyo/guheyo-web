@@ -1,23 +1,21 @@
 'use client';
 
-import { AuthContext } from '@/components/auth/auth.provider';
-import PrivateUserOfferFeedLayout from '@/components/offers/private-user-offer-feed.layout';
-import PublicUserOfferFeedLayout from '@/components/offers/public-user-offer-feed.layout';
-import { ReactNode, useContext } from 'react';
+import OfferBusinessFunctionsNavbar from '@/components/offers/offer-business-functions-navbar';
+import { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  params: {
-    username: string;
-  };
 }
 
-function Layout({ children, params }: Props) {
-  const { jwtPayload } = useContext(AuthContext);
-
-  if (jwtPayload?.username !== params.username)
-    return <PublicUserOfferFeedLayout>{children}</PublicUserOfferFeedLayout>;
-  return <PrivateUserOfferFeedLayout>{children}</PrivateUserOfferFeedLayout>;
+function Layout({ children }: Props) {
+  return (
+    <div>
+      <div className="flex flex-col justify-start">
+        <OfferBusinessFunctionsNavbar />
+      </div>
+      <div className="grid gap-1 grid-cols-1">{children}</div>
+    </div>
+  );
 }
 
 export default Layout;
