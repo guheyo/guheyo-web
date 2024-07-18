@@ -13,15 +13,15 @@ export default function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <CommunityHomeFeedLayout>
-        <Suspense>
+      <Suspense>
+        <CommunityHomeFeedLayout>
           <ThreadAndReviewFeed
             type="listview"
             defaultWhere={where}
             defaultOrderBy={orderBy}
           />
-        </Suspense>
-      </CommunityHomeFeedLayout>
+        </CommunityHomeFeedLayout>
+      </Suspense>
     </div>
   );
 }

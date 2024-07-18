@@ -12,18 +12,18 @@ function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <AuctionHomeFeedLayout showCategories={false} showSelectors>
-        <ThumbnailFeedLayout>
-          <Suspense>
+      <Suspense>
+        <AuctionHomeFeedLayout showCategories={false} showSelectors>
+          <ThumbnailFeedLayout>
             <AuctionFeed
               type="thumbnail"
               defaultWhere={where}
               defaultSortOrder={sortOrder}
               defaultDistinct={distinct}
             />
-          </Suspense>
-        </ThumbnailFeedLayout>
-      </AuctionHomeFeedLayout>
+          </ThumbnailFeedLayout>
+        </AuctionHomeFeedLayout>
+      </Suspense>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import ReportHomeFeedLayout from '@/components/reports/report-home-feed.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return <ReportHomeFeedLayout>{children}</ReportHomeFeedLayout>;
+  return children;
 }
 
 export default Layout;

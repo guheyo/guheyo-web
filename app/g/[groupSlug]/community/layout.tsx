@@ -1,6 +1,3 @@
-'use client';
-
-import CommunityHomeFeedLayout from '@/components/community/community-home-feed.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,7 +5,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return <CommunityHomeFeedLayout>{children}</CommunityHomeFeedLayout>;
+  return children;
 }
 
 export default Layout;

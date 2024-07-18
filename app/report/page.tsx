@@ -18,11 +18,11 @@ export default function Page() {
 
   return (
     <div className="mx-2 md:mx-0">
-      <ReportHomeFeedLayout>
-        <Suspense>
+      <Suspense>
+        <ReportHomeFeedLayout>
           <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
-        </Suspense>
-      </ReportHomeFeedLayout>
+        </ReportHomeFeedLayout>
+      </Suspense>
     </div>
   );
 }
