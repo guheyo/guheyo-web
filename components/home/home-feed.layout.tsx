@@ -9,6 +9,7 @@ interface Props {
   homeLink: ReactNode;
   path: string;
   categories?: ReactNode;
+  tags?: ReactNode;
   selectors?: ReactNode;
 }
 
@@ -17,6 +18,7 @@ function HomeFeedLayout({
   homeLink,
   path,
   categories,
+  tags,
   selectors,
 }: Props) {
   const { group } = useGroup();
@@ -35,6 +37,8 @@ function HomeFeedLayout({
         </Suspense>
       </div>
       {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
+      {tags && <div className="mx-2.5 md:mx-1">{tags}</div>}
+      {(categories || tags) && <div className="mb-4" />}
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
