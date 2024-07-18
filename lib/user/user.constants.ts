@@ -1,1 +1,1 @@
-export const MEMBER_ROLE_OPTIONS = [{ value: undefined, label: '전체' }];
+export const MEMBER_ROLE_OPTIONS = [{ value: 'all', label: '전체' }];

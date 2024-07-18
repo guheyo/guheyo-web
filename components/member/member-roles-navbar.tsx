@@ -22,7 +22,7 @@ export default function MemberRolesNavbar() {
           paramsToUpdate: [
             {
               name: 'role',
-              value,
+              value: value === 'all' ? undefined : value,
             },
           ],
         })

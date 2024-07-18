@@ -22,7 +22,7 @@ export default function MannerTagsNavbar() {
           paramsToUpdate: [
             {
               name: 'tagType',
-              value,
+              value: value === 'all' ? undefined : value,
             },
           ],
         })

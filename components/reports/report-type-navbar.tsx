@@ -22,7 +22,7 @@ export default function ReportTypeNavbar() {
           paramsToUpdate: [
             {
               name: 'type',
-              value,
+              value: value === 'all' ? undefined : value,
             },
           ],
         })
