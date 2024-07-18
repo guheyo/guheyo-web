@@ -20,7 +20,7 @@ export default function Layout({
 }) {
   return (
     <div>
-      {children}
+      <div className="pb-4 md:pb-6 mx-2 md:mx-0">{children}</div>
       <div className="lg:hidden">
         <GroupBottomNavbar groupSlug={params.groupSlug} />
       </div>
