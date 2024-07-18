@@ -1,55 +1,33 @@
 'use client';
 
-import { MouseEvent } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
-import Scrollbar from '../base/scrollbar';
-
-const getButtonCSS = (clicked: boolean) => {
-  if (!clicked) {
-    return `text-dark-200 hover:text-gray-300`;
-  }
-  return `border-b-2 border-light-200 text-gray-300`;
-};
+import { MEMBER_ROLE_OPTIONS } from '@/lib/user/user.constants';
+import { Option } from '@/interfaces/selector.interfaces';
+import TextNavbar from '../base/text-navbar';
 
 export default function MemberRolesNavbar() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const type = searchParams.get('type');
-
-  const handleClick = (e: MouseEvent, selectedType: string | null) => {
-    e.preventDefault();
-    router.push(
-      parseNewURL({
-        searchParamsString: searchParams.toString(),
-        pathname,
-        paramsToUpdate: [
-          {
-            name: 'role',
-            value: selectedType,
-          },
-        ],
-      }),
-    );
-  };
+  const role = searchParams.get('role');
 
   return (
-    <Scrollbar upPosition="top-12" zIndex={40}>
-      <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center bg-dark-500">
-        <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
-          <button
-            type="button"
-            key="all"
-            className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm ${getButtonCSS(
-              !type,
-            )}`}
-            onClick={(e) => handleClick(e, null)}
-          >
-            <span className="font-bold text-sm md:text-base">전체</span>
-          </button>
-        </div>
-      </div>
-    </Scrollbar>
+    <TextNavbar
+      options={MEMBER_ROLE_OPTIONS as Option[]}
+      selectedValue={role || undefined}
+      parseNewURL={(value) =>
+        parseNewURL({
+          searchParamsString: searchParams.toString(),
+          pathname,
+          paramsToUpdate: [
+            {
+              name: 'role',
+              value,
+            },
+          ],
+        })
+      }
+      size="medium"
+    />
   );
 }
