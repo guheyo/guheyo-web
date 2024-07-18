@@ -6,6 +6,7 @@ import CommunityHomeLink from './community-home-link';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from '../user-review/manner-tags-navbar';
+import CommunityTagsNavbar from './community-tags-navbar';
 
 interface Props {
   children: ReactNode;
@@ -20,7 +21,13 @@ function CommunityHomeFeedLayout({ children }: Props) {
       homeLink={<CommunityHomeLink />}
       path="community"
       categories={<CommunityCategoriesNavbar />}
-      tags={categorySlug === 'review' ? <MannerTagsNavbar /> : undefined}
+      tags={
+        categorySlug === 'review' ? (
+          <MannerTagsNavbar />
+        ) : (
+          <CommunityTagsNavbar categorySlug={categorySlug || ''} />
+        )
+      }
     >
       {children}
     </HomeFeedLayout>
