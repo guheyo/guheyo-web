@@ -10,13 +10,13 @@ import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 interface Props {
   children: ReactNode;
   showCategories: boolean;
-  showSelector: boolean;
+  showSelectors: boolean;
 }
 
 function AuctionHomeFeedLayout({
   children,
   showCategories,
-  showSelector,
+  showSelectors,
 }: Props) {
   return (
     <HomeFeedLayout
@@ -28,7 +28,7 @@ function AuctionHomeFeedLayout({
         ) : undefined
       }
       selectors={
-        showSelector && (
+        showSelectors && (
           <>
             <BusinessFunctionPathUpdater />
             <AuctionSelectors />
