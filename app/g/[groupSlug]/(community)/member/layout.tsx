@@ -1,4 +1,4 @@
-import MemberRolesNavbar from '@/components/member/member-roles-navbar';
+import MemberHomeFeedLayout from '@/components/member/member-home-feed.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -6,14 +6,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return (
-    <div>
-      <div className="px-2.5 md:px-1">
-        <MemberRolesNavbar />
-      </div>
-      <div className="grid gap-2 grid-cols-1">{children}</div>
-    </div>
-  );
+  return <MemberHomeFeedLayout>{children}</MemberHomeFeedLayout>;
 }
 
 export default Layout;

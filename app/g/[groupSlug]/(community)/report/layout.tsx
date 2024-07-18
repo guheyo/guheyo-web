@@ -1,6 +1,6 @@
 'use client';
 
-import ReportTypeNavbar from '@/components/reports/report-type-navbar';
+import ReportHomeFeedLayout from '@/components/reports/report-home-feed.layout';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,14 +8,7 @@ interface Props {
 }
 
 function Layout({ children }: Props) {
-  return (
-    <div>
-      <div className="px-2.5 md:px-1">
-        <ReportTypeNavbar />
-      </div>
-      {children}
-    </div>
-  );
+  return <ReportHomeFeedLayout>{children}</ReportHomeFeedLayout>;
 }
 
 export default Layout;
