@@ -10,10 +10,12 @@ interface Props {
 
 function PrivateUserofferFeedLayout({ children }: Props) {
   return (
-    <div className="grid gap-1 grid-cols-1">
-      <OfferStatusNavbar options={PRIVATE_USER_OFFER_STATUS_OPTIONS} />
+    <>
+      <div className="pb-4">
+        <OfferStatusNavbar options={PRIVATE_USER_OFFER_STATUS_OPTIONS} />
+      </div>
       {children}
-    </div>
+    </>
   );
 }
 

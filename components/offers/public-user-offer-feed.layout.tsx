@@ -7,7 +7,12 @@ interface Props {
 }
 
 function PublicUserOfferFeedLayout({ children }: Props) {
-  return <div className="grid gap-1 grid-cols-1">{children}</div>;
+  return (
+    <>
+      <div className="pb-4" />
+      {children}
+    </>
+  );
 }
 
 export default PublicUserOfferFeedLayout;
