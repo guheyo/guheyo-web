@@ -1,8 +1,12 @@
-import GroupAuctionFeedLayout from '@/components/auction/group-auction-feed.layout';
+import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
 import { ReactNode } from 'react';
 
 function Layout({ children }: { children: ReactNode }) {
-  return <GroupAuctionFeedLayout>{children}</GroupAuctionFeedLayout>;
+  return (
+    <AuctionHomeFeedLayout showCategories showSelectors>
+      {children}
+    </AuctionHomeFeedLayout>
+  );
 }
 
 export default Layout;
