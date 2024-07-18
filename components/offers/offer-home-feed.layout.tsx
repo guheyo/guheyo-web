@@ -13,9 +13,14 @@ import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
+  showCategories: boolean;
 }
 
-function OfferHomeFeedLayout({ children, businessFunction }: Props) {
+function OfferHomeFeedLayout({
+  children,
+  businessFunction,
+  showCategories,
+}: Props) {
   return (
     <HomeFeedLayout
       homeLink={
@@ -30,7 +35,11 @@ function OfferHomeFeedLayout({ children, businessFunction }: Props) {
         )
       }
       path={businessFunction}
-      categories={<ProductCategoriesNavbar types={['product', 'service']} />}
+      categories={
+        showCategories ? (
+          <ProductCategoriesNavbar types={['product', 'service']} />
+        ) : undefined
+      }
       selectors={
         <>
           <BusinessFunctionPathUpdater />
