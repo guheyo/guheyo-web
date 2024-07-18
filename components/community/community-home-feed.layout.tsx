@@ -14,7 +14,7 @@ function CommunityHomeFeedLayout({ children }: Props) {
     <HomeFeedLayout
       homeLink={<CommunityHomeLink />}
       path="community"
-      selectors={<CommunityCategoriesNavbar />}
+      categories={<CommunityCategoriesNavbar />}
     >
       {children}
     </HomeFeedLayout>
