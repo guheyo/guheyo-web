@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode } from 'react';
 import { OffersPageProps } from './page';
 
@@ -8,7 +6,7 @@ interface Props extends OffersPageProps {
 }
 
 function Layout({ params, children }: Props) {
-  return { children };
+  return children;
 }
 
 export default Layout;

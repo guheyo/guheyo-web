@@ -1,9 +1,7 @@
-'use client';
-
 import { ReactNode } from 'react';
 
 function Layout({ children }: { children: ReactNode }) {
-  return { children };
+  return children;
 }
 
 export default Layout;
