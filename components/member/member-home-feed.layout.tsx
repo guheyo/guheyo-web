@@ -14,7 +14,7 @@ function MemberHomeFeedLayout({ children }: Props) {
     <HomeFeedLayout
       homeLink={<MemberHomeLink />}
       path="member"
-      selectors={<MemberRolesNavbar />}
+      categories={<MemberRolesNavbar />}
     >
       {children}
     </HomeFeedLayout>

@@ -14,7 +14,7 @@ function ReportHomeFeedLayout({ children }: Props) {
     <HomeFeedLayout
       homeLink={<ReportHomeLink />}
       path="report"
-      selectors={<ReportTypeNavbar />}
+      categories={<ReportTypeNavbar />}
     >
       {children}
     </HomeFeedLayout>
