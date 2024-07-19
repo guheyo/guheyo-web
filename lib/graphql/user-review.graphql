@@ -35,8 +35,8 @@ fragment userReview on UserReviewResponse {
 }
 
 query FindUserReviewPreviews(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindUserReviewPreviewsWhereInput
+  $orderBy: FindUserReviewPreviewsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!

@@ -343,6 +343,20 @@ export type FindThreadPreviewsWhereInput = {
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
+  tagNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindUserReviewPreviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindUserReviewPreviewsWhereInput = {
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  reviewedUserId?: InputMaybe<Scalars['ID']['input']>;
+  tagNames?: InputMaybe<Array<Scalars['String']['input']>>;
+  tagType?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -1079,10 +1093,10 @@ export type QueryFindUserReviewArgs = {
 export type QueryFindUserReviewPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindUserReviewPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindUserReviewPreviewsWhereInput>;
 };
 
 
@@ -2004,8 +2018,8 @@ export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewRespons
 export type UserReviewFragment = { __typename?: 'UserReviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } };
 
 export type FindUserReviewPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindUserReviewPreviewsWhereInput>;
+  orderBy?: InputMaybe<FindUserReviewPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -5044,7 +5058,7 @@ export type DeleteUserImageMutationHookResult = ReturnType<typeof useDeleteUserI
 export type DeleteUserImageMutationResult = Apollo.MutationResult<DeleteUserImageMutation>;
 export type DeleteUserImageMutationOptions = Apollo.BaseMutationOptions<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
 export const FindUserReviewPreviewsDocument = gql`
-    query FindUserReviewPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUserReviewPreviews($where: FindUserReviewPreviewsWhereInput, $orderBy: FindUserReviewPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUserReviewPreviews(
     where: $where
     orderBy: $orderBy

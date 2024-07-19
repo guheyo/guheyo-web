@@ -1,12 +1,12 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import {
-  FindUserReviewsOrderByArgs,
-  FindUserReviewsWhereArgs,
-} from '@/interfaces/user-review.interfaces';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import {
+  FindUserReviewPreviewsOrderByInput,
+  FindUserReviewPreviewsWhereInput,
+} from '@/generated/graphql';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
@@ -19,8 +19,8 @@ export default function SearchUserReviews() {
   const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
-  const where: FindUserReviewsWhereArgs = {};
-  const orderBy: FindUserReviewsOrderByArgs = {
+  const where: FindUserReviewPreviewsWhereInput = {};
+  const orderBy: FindUserReviewPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

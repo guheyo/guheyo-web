@@ -35,7 +35,7 @@ export default function CommunityTagsNavbar({
           paramsToUpdate: [
             {
               name: 'tag',
-              value,
+              value: value === '전체' ? undefined : value,
             },
           ],
         })

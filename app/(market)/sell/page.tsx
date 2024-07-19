@@ -15,7 +15,7 @@ function Page() {
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction="sell">
+      <OfferHomeFeedLayout businessFunction="sell" showCategories={false}>
         <ThumbnailFeedLayout>
           <OfferFeed
             type="thumbnail"

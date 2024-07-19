@@ -3,13 +3,15 @@
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
-import { FindThreadPreviewsWhereInput } from '@/generated/graphql';
+import {
+  FindThreadPreviewsWhereInput,
+  FindUserReviewPreviewsWhereInput,
+} from '@/generated/graphql';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-reviews-feed';
 import { SortOrder } from '@/types/sort.types';
-import { FindUserReviewsWhereArgs } from '@/interfaces/user-review.interfaces';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 
@@ -19,7 +21,7 @@ function ThreadAndReviewFeed({
   keyword,
   type,
 }: {
-  defaultWhere: FindThreadPreviewsWhereInput & FindUserReviewsWhereArgs;
+  defaultWhere: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   defaultOrderBy?: { createdAt: SortOrder };
   keyword?: string;
   type: PostPreviewType;
@@ -28,6 +30,7 @@ function ThreadAndReviewFeed({
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const tagName = searchParams.get('tag');
 
   const category = findCategory(group?.categories, {
     slug: categorySlug,
@@ -46,6 +49,7 @@ function ThreadAndReviewFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       tagType,
+      tagNames: tagName ? [tagName] : undefined,
       reviewedUserId: defaultWhere.reviewedUserId,
     },
     orderBy: {

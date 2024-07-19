@@ -26,7 +26,7 @@ function OffersPage({
   if (businessFunction === 'buy') {
     return (
       <Suspense>
-        <OfferHomeFeedLayout businessFunction={businessFunction}>
+        <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
           <TextFeedLayout>
             <OfferFeed
               type="listview"
@@ -41,7 +41,7 @@ function OffersPage({
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction={businessFunction}>
+      <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
         <ThumbnailFeedLayout>
           <OfferFeed
             type="thumbnail"

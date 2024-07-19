@@ -1,19 +1,19 @@
 import {
   FindThreadPreviewsWhereInput,
+  FindUserReviewPreviewsWhereInput,
   ThreadPreviewResponseEdge,
   useFindThreadPreviewsQuery,
   useFindUserReviewPreviewsQuery,
   UserReviewPreviewResponseEdge,
 } from '@/generated/graphql';
 import { RefObject, useEffect, useState, useCallback, useMemo } from 'react';
-import { FindUserReviewsWhereArgs } from '@/interfaces/user-review.interfaces';
 import { SortOrder } from '@/types/sort.types';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
   ref: RefObject<HTMLDivElement>;
   type?: 'thread' | 'review';
-  where?: FindThreadPreviewsWhereInput & FindUserReviewsWhereArgs;
+  where?: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   orderBy?: { createdAt?: SortOrder };
   keyword?: string;
   distinct?: boolean;
@@ -47,25 +47,27 @@ export const useInfiniteThreadAndReviewFeed = ({
       categoryId: where?.categoryId,
       pending: where?.pending,
       userId: where?.userId,
+      tagNames: where?.tagNames,
     }),
-    [where?.groupId, where?.categoryId, where?.pending, where?.userId],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      where?.groupId,
+      where?.categoryId,
+      where?.pending,
+      where?.userId,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      where?.tagNames?.join(','),
+    ],
   );
 
-  const reviewWhere: FindUserReviewsWhereArgs = useMemo(
+  const reviewWhere: FindUserReviewPreviewsWhereInput = useMemo(
     () => ({
       groupId: where?.groupId,
       userId: where?.userId,
       tagType: where?.tagType,
       reviewedUserId: where?.reviewedUserId,
-      status: where?.status,
     }),
-    [
-      where?.groupId,
-      where?.userId,
-      where?.tagType,
-      where?.reviewedUserId,
-      where?.status,
-    ],
+    [where?.groupId, where?.userId, where?.tagType, where?.reviewedUserId],
   );
 
   const {

@@ -27,7 +27,7 @@ export default function TagsNavbar({
           key={tag}
           className={`flex-none max-w-sm px-0.5 md:px-0 py-0.5 md:py-1 overflow-hidden shadow-sm font-bold ${getButtonCSS(
             tag === selectedValue ||
-              (tag === 'all' && selectedValue === undefined),
+              (['all', '전체'].includes(tag) && selectedValue === undefined),
           )}`}
           passHref
           href={parseNewURL(tag)}

@@ -15,7 +15,7 @@ function Page() {
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction="buy">
+      <OfferHomeFeedLayout businessFunction="buy" showCategories={false}>
         <TextFeedLayout>
           <OfferFeed
             type="listview"
