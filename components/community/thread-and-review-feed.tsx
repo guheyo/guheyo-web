@@ -28,6 +28,7 @@ function ThreadAndReviewFeed({
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const tagName = searchParams.get('tag');
 
   const category = findCategory(group?.categories, {
     slug: categorySlug,
@@ -46,6 +47,7 @@ function ThreadAndReviewFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       tagType,
+      tagNames: tagName ? [tagName] : undefined,
       reviewedUserId: defaultWhere.reviewedUserId,
     },
     orderBy: {
