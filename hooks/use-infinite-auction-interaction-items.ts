@@ -1,9 +1,9 @@
-import { useFindAuctionInteractionItemsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindAuctionInteractionItemsOrderByArgs,
-  FindAuctionInteractionItemsWhereArgs,
-} from '@/lib/auction/auction.interfaces';
+  FindAuctionInteractionItemsOrderByInput,
+  FindAuctionInteractionItemsWhereInput,
+  useFindAuctionInteractionItemsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteAuctionInteractionItems = ({
@@ -14,8 +14,8 @@ export const useInfiniteAuctionInteractionItems = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindAuctionInteractionItemsWhereArgs;
-  orderBy?: FindAuctionInteractionItemsOrderByArgs;
+  where?: FindAuctionInteractionItemsWhereInput;
+  orderBy?: FindAuctionInteractionItemsOrderByInput;
   keyword?: string;
   take: number;
 }) => {
