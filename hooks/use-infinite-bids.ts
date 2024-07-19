@@ -1,9 +1,9 @@
-import { useFindBidsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindBidsOrderByArgs,
-  FindBidsWhereArgs,
-} from '@/lib/bid/bid.interfaces';
+  FindBidsOrderByInput,
+  FindBidsWhereInput,
+  useFindBidsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteBids = ({
@@ -14,8 +14,8 @@ export const useInfiniteBids = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindBidsWhereArgs;
-  orderBy?: FindBidsOrderByArgs;
+  where?: FindBidsWhereInput;
+  orderBy?: FindBidsOrderByInput;
   keyword?: string;
   take: number;
 }) => {

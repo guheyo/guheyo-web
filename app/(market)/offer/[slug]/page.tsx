@@ -5,11 +5,11 @@ import OfferDetail from '@/components/offers/offer-detail';
 import PostDetailAddons from '@/components/posts/post-detail-addons';
 import ReportFeed from '@/components/reports/report-feed';
 import PublicUserProfile from '@/components/users/public-user-profile';
-import { useFindOfferQuery } from '@/generated/graphql';
 import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+  useFindOfferQuery,
+} from '@/generated/graphql';
 
 function OfferPage({
   params: { slug },
@@ -29,12 +29,12 @@ function OfferPage({
 
   const offer = data.findOffer;
 
-  const where: FindReportPreviewsWhereArgs = {
+  const where: FindReportPreviewsWhereInput = {
     type: 'post',
     refId: offer.post.id,
   };
 
-  const orderBy: FindReportPreviewsOrderByArgs = {
+  const orderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

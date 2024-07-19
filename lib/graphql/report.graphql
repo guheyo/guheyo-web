@@ -58,8 +58,8 @@ mutation CreateReport($input: CreateReportInput!) {
 }
 
 query FindReportPreviews(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindReportPreviewsWhereInput
+  $orderBy: FindReportPreviewsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!

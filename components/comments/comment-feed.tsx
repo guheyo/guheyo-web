@@ -1,10 +1,6 @@
 'use client';
 
 import { useContext, useEffect, useRef, useState } from 'react';
-import {
-  FindCommentsOrderByArgs,
-  FindCommentsWhereArgs,
-} from '@/interfaces/comment.interfaces';
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
@@ -13,6 +9,8 @@ import {
   CommentDeletedDocument,
   CommentUpdatedDocument,
   CommentWithAuthorResponse,
+  FindCommentsOrderByInput,
+  FindCommentsWhereInput,
   ReactionCanceledDocument,
   ReactionCreatedDocument,
   useFindAuthorQuery,
@@ -26,8 +24,8 @@ export default function CommentFeed({
   defaultWhere,
   defaultOrderBy,
 }: {
-  defaultWhere: FindCommentsWhereArgs;
-  defaultOrderBy: FindCommentsOrderByArgs;
+  defaultWhere: FindCommentsWhereInput;
+  defaultOrderBy: FindCommentsOrderByInput;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);

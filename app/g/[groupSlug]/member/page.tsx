@@ -2,12 +2,12 @@
 
 import MemberHomeFeedLayout from '@/components/member/member-home-feed.layout';
 import UserFeed from '@/components/users/user-feed';
-import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
+import { FindUsersOrderByInput } from '@/generated/graphql';
 import { Suspense } from 'react';
 
 function Page() {
   const where = {};
-  const orderBy: FindUsersOrderByArgs = {
+  const orderBy: FindUsersOrderByInput = {
     createdAt: 'asc',
   };
   return (

@@ -1,11 +1,11 @@
 'use client';
 
 import ReportFeed from '@/components/reports/report-feed';
-import { useFindUserQuery } from '@/generated/graphql';
 import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+  useFindUserQuery,
+} from '@/generated/graphql';
 
 function Page({
   params: { username },
@@ -24,10 +24,10 @@ function Page({
   if (loading) return <div />;
   if (!user) return <div />;
 
-  const where: FindReportPreviewsWhereArgs = {
+  const where: FindReportPreviewsWhereInput = {
     userId: user.id,
   };
-  const orderBy: FindReportPreviewsOrderByArgs = {
+  const orderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

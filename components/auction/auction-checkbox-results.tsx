@@ -7,11 +7,11 @@ import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
-import {
-  FindAuctionsOrderByArgs,
-  FindAuctionsWhereArgs,
-} from '@/lib/auction/auction.interfaces';
 import { PostPreviewType } from '@/lib/post/post.types';
+import {
+  FindAuctionPreviewsOrderByInput,
+  FindAuctionPreviewsWhereInput,
+} from '@/generated/graphql';
 import AuctionPreview from './auction-preview';
 
 const {
@@ -27,8 +27,8 @@ function AuctionCheckboxResults({
   control,
   handleCheckboxClick,
 }: {
-  where: FindAuctionsWhereArgs;
-  orderBy?: FindAuctionsOrderByArgs;
+  where: FindAuctionPreviewsWhereInput;
+  orderBy?: FindAuctionPreviewsOrderByInput;
   keyword?: string;
   type: PostPreviewType;
   distinct: boolean;

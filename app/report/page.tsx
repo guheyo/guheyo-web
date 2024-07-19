@@ -2,17 +2,17 @@
 
 import ReportHomeFeedLayout from '@/components/reports/report-home-feed.layout';
 import ReportFeed from '@/components/reports/report-feed';
-import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
 import { Suspense } from 'react';
+import {
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+} from '@/generated/graphql';
 
 export default function Page() {
-  const where: FindReportPreviewsWhereArgs = {
+  const where: FindReportPreviewsWhereInput = {
     type: undefined,
   };
-  const orderBy: FindReportPreviewsOrderByArgs = {
+  const orderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

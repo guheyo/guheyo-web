@@ -4,15 +4,15 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
-import {
-  FindOffersOrderByArgs,
-  FindOffersWhereArgs,
-} from '@/interfaces/offer.interfaces';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { PostPreviewType } from '@/lib/post/post.types';
+import {
+  FindOfferPreviewsOrderByInput,
+  FindOfferPreviewsWhereInput,
+} from '@/generated/graphql';
 
 const {
   theme: { colors },
@@ -27,8 +27,8 @@ function OfferCheckboxResults({
   control,
   handleCheckboxClick,
 }: {
-  where: FindOffersWhereArgs;
-  orderBy?: FindOffersOrderByArgs;
+  where: FindOfferPreviewsWhereInput;
+  orderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
   type: PostPreviewType;
   distinct: boolean;

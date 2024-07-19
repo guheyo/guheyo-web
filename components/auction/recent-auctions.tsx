@@ -2,9 +2,9 @@
 
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
-import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
+import { FindAuctionPreviewsWhereInput } from '@/generated/graphql';
 import AuctionPreview from './auction-preview';
 import TextFeedLayout from '../posts/text-feed.layout';
 import AuctionMoreLink from './auction-more-link';
@@ -15,7 +15,7 @@ function RecentAuctions({
   keyword,
   defaultDistinct,
 }: {
-  defaultWhere: FindAuctionsWhereArgs;
+  defaultWhere: FindAuctionPreviewsWhereInput;
   defaultSortOrder?: string;
   keyword?: string;
   defaultDistinct: boolean;

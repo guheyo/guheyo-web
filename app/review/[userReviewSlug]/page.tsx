@@ -3,11 +3,11 @@
 import CommentFeed from '@/components/comments/comment-feed';
 import PostDetailAddons from '@/components/posts/post-detail-addons';
 import UserReviewDetail from '@/components/user-review/user-review-detail';
-import { useFindUserReviewQuery } from '@/generated/graphql';
 import {
-  FindCommentsOrderByArgs,
-  FindCommentsWhereArgs,
-} from '@/interfaces/comment.interfaces';
+  FindCommentsOrderByInput,
+  FindCommentsWhereInput,
+  useFindUserReviewQuery,
+} from '@/generated/graphql';
 
 function Page({
   params: { userReviewSlug },
@@ -27,10 +27,10 @@ function Page({
   if (!data?.findUserReview) return <div />;
   const userReview = data.findUserReview;
 
-  const where: FindCommentsWhereArgs = {
+  const where: FindCommentsWhereInput = {
     postId: userReview.post.id,
   };
-  const orderBy: FindCommentsOrderByArgs = {
+  const orderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
   };
 

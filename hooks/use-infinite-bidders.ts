@@ -1,9 +1,9 @@
-import { useFindBiddersQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
   FindBiddersOrderByInput,
   FindBiddersWhereInput,
-} from '@/lib/auction/auction.interfaces';
+  useFindBiddersQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteBidders = ({

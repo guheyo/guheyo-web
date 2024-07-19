@@ -6,11 +6,11 @@ import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
+import { useInfiniteBidders } from '@/hooks/use-infinite-bidders';
 import {
   FindBiddersOrderByInput,
   FindBiddersWhereInput,
-} from '@/lib/auction/auction.interfaces';
-import { useInfiniteBidders } from '@/hooks/use-infinite-bidders';
+} from '@/generated/graphql';
 import UserPreview from '../users/user-preview';
 
 const {

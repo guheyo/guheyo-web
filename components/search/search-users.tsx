@@ -1,9 +1,9 @@
 'use client';
 
 import { useSearchQuery } from '@/lib/search/use-search-query';
-import { FindUsersOrderByArgs } from '@/interfaces/user.interfaces';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { FindUsersOrderByInput } from '@/generated/graphql';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import UserFeed from '../users/user-feed';
@@ -17,7 +17,7 @@ export default function SearchUsers() {
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
   const where = {};
-  const orderBy: FindUsersOrderByArgs = {
+  const orderBy: FindUsersOrderByInput = {
     createdAt: 'asc',
   };
 

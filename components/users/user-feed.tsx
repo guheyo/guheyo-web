@@ -2,11 +2,11 @@
 
 import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
-import {
-  FindUsersOrderByArgs,
-  FindUsersWhereArgs,
-} from '@/interfaces/user.interfaces';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
+import {
+  FindUsersOrderByInput,
+  FindUsersWhereInput,
+} from '@/generated/graphql';
 import UserPreview from './user-preview';
 
 function UserFeed({
@@ -14,8 +14,8 @@ function UserFeed({
   defaultOrderBy,
   keyword,
 }: {
-  defaultWhere: FindUsersWhereArgs;
-  defaultOrderBy?: FindUsersOrderByArgs;
+  defaultWhere: FindUsersWhereInput;
+  defaultOrderBy?: FindUsersOrderByInput;
   keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);

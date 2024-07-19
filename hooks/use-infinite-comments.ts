@@ -1,9 +1,9 @@
-import { useFindCommentsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindCommentsOrderByArgs,
-  FindCommentsWhereArgs,
-} from '@/interfaces/comment.interfaces';
+  FindCommentsOrderByInput,
+  FindCommentsWhereInput,
+  useFindCommentsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteComments = ({
@@ -14,8 +14,8 @@ export const useInfiniteComments = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindCommentsWhereArgs;
-  orderBy?: FindCommentsOrderByArgs;
+  where?: FindCommentsWhereInput;
+  orderBy?: FindCommentsOrderByInput;
   keyword?: string;
   take: number;
 }) => {
