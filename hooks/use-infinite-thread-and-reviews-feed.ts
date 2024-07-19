@@ -47,8 +47,17 @@ export const useInfiniteThreadAndReviewFeed = ({
       categoryId: where?.categoryId,
       pending: where?.pending,
       userId: where?.userId,
+      tagNames: where?.tagNames,
     }),
-    [where?.groupId, where?.categoryId, where?.pending, where?.userId],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      where?.groupId,
+      where?.categoryId,
+      where?.pending,
+      where?.userId,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      where?.tagNames?.join(','),
+    ],
   );
 
   const reviewWhere: FindUserReviewsWhereArgs = useMemo(
