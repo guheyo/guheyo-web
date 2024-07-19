@@ -4,7 +4,10 @@ import { AuthContext } from '@/components/auth/auth.provider';
 import OfferFeed from '@/components/offers/offer-feed';
 import TextFeedLayout from '@/components/posts/text-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { FindOfferPreviewsWhereInput, useFindUserQuery } from '@/generated/graphql';
+import {
+  FindOfferPreviewsWhereInput,
+  useFindUserQuery,
+} from '@/generated/graphql';
 import { OFFER_OPEN } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
