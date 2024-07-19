@@ -4,8 +4,7 @@ import { AuthContext } from '@/components/auth/auth.provider';
 import OfferFeed from '@/components/offers/offer-feed';
 import TextFeedLayout from '@/components/posts/text-feed.layout';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { useFindUserQuery } from '@/generated/graphql';
-import { FindOffersWhereArgs } from '@/interfaces/offer.interfaces';
+import { FindOffersWhereInput, useFindUserQuery } from '@/generated/graphql';
 import { OFFER_OPEN } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
@@ -35,7 +34,7 @@ function Page({
   const status = parseOfferStatus({
     status: jwtPayload?.id === user.id && !isArchived ? OFFER_OPEN : 'all',
   });
-  const where: FindOffersWhereArgs = {
+  const where: FindOffersWhereInput = {
     businessFunction,
     userId: user.id,
     status,

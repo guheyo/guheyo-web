@@ -4,16 +4,16 @@ import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
-import {
-  FindOffersOrderByArgs,
-  FindOffersWhereArgs,
-} from '@/interfaces/offer.interfaces';
 import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
 import { PostPreviewType } from '@/lib/post/post.types';
+import {
+  FindOffersOrderByInput,
+  FindOffersWhereInput,
+} from '@/generated/graphql';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
 
@@ -24,8 +24,8 @@ function OfferFeed({
   type,
   defaultDistinct,
 }: {
-  defaultWhere: FindOffersWhereArgs;
-  defaultOrderBy?: FindOffersOrderByArgs;
+  defaultWhere: FindOffersWhereInput;
+  defaultOrderBy?: FindOffersOrderByInput;
   keyword?: string;
   type: PostPreviewType;
   defaultDistinct: boolean;
@@ -42,7 +42,8 @@ function OfferFeed({
   const status = parseOfferStatus({
     status: isArchived
       ? 'all'
-      : searchParams.get('status') || defaultWhere.status,
+      : searchParams.get('status') ||
+        (defaultWhere.status as string | undefined),
   });
 
   const period = searchParams.get('period');
