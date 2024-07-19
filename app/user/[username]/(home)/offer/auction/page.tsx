@@ -2,8 +2,10 @@
 
 import AuctionFeed from '@/components/auction/auction-feed';
 import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
-import { useFindUserQuery } from '@/generated/graphql';
-import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
+import {
+  FindAuctionPreviewsWhereInput,
+  useFindUserQuery,
+} from '@/generated/graphql';
 
 function Page({
   params: { username },
@@ -23,7 +25,7 @@ function Page({
   if (loading) return <div />;
   if (!user) return <div />;
 
-  const where: FindAuctionsWhereArgs = {
+  const where: FindAuctionPreviewsWhereInput = {
     userId: user.id,
     status: undefined,
   };

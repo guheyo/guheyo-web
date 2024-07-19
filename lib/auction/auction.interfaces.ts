@@ -1,30 +1,5 @@
 import { SortOrder } from '@/types/sort.types';
 
-export interface FindAuctionsWhereArgs {
-  // post
-  groupId?: string;
-
-  categoryId?: string;
-
-  userId?: string;
-
-  bidderId?: string;
-
-  status?: string;
-
-  createdAt?: {
-    gt: string;
-  };
-}
-
-export interface FindAuctionsOrderByArgs {
-  createdAt?: SortOrder;
-
-  extendedEndDate?: SortOrder;
-
-  currentBidPrice?: SortOrder;
-}
-
 export interface FindAuctionInteractionItemsWhereArgs {
   auctionId?: string;
 
