@@ -3,11 +3,11 @@
 import ThreadDetail from '@/components/thread/thread-detail';
 import CommentFeed from '@/components/comments/comment-feed';
 import PostDetailAddons from '@/components/posts/post-detail-addons';
-import { useFindThreadQuery } from '@/generated/graphql';
 import {
-  FindCommentsOrderByArgs,
-  FindCommentsWhereArgs,
-} from '@/interfaces/comment.interfaces';
+  FindCommentsOrderByInput,
+  FindCommentsWhereInput,
+  useFindThreadQuery,
+} from '@/generated/graphql';
 
 function Page({
   params: { slug },
@@ -28,10 +28,10 @@ function Page({
 
   const thread = data.findThread;
 
-  const where: FindCommentsWhereArgs = {
+  const where: FindCommentsWhereInput = {
     postId: thread.post.id,
   };
-  const orderBy: FindCommentsOrderByArgs = {
+  const orderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
   };
 
