@@ -10,8 +10,8 @@ import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { PostPreviewType } from '@/lib/post/post.types';
 import {
-  FindOffersOrderByInput,
-  FindOffersWhereInput,
+  FindOfferPreviewsOrderByInput,
+  FindOfferPreviewsWhereInput,
 } from '@/generated/graphql';
 
 const {
@@ -27,8 +27,8 @@ function OfferCheckboxResults({
   control,
   handleCheckboxClick,
 }: {
-  where: FindOffersWhereInput;
-  orderBy?: FindOffersOrderByInput;
+  where: FindOfferPreviewsWhereInput;
+  orderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
   type: PostPreviewType;
   distinct: boolean;

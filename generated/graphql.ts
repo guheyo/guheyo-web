@@ -382,12 +382,12 @@ export type FindCommentsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type FindOffersOrderByInput = {
+export type FindOfferPreviewsOrderByInput = {
   bumpedAt?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type FindOffersWhereInput = {
+export type FindOfferPreviewsWhereInput = {
   bumpedAt?: InputMaybe<Scalars['JSON']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
@@ -1087,10 +1087,10 @@ export type QueryFindOfferCountArgs = {
 export type QueryFindOfferPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<FindOffersOrderByInput>;
+  orderBy?: InputMaybe<FindOfferPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<FindOffersWhereInput>;
+  where?: InputMaybe<FindOfferPreviewsWhereInput>;
 };
 
 
@@ -1855,8 +1855,8 @@ export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdA
 export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<FindOffersWhereInput>;
-  orderBy?: InputMaybe<FindOffersOrderByInput>;
+  where?: InputMaybe<FindOfferPreviewsWhereInput>;
+  orderBy?: InputMaybe<FindOfferPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -4039,7 +4039,7 @@ export function refetchFindGroupPreviewsQuery(variables?: FindGroupPreviewsQuery
       return { query: FindGroupPreviewsDocument, variables: variables }
     }
 export const FindOfferPreviewsDocument = gql`
-    query FindOfferPreviews($where: FindOffersWhereInput, $orderBy: FindOffersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindOfferPreviews($where: FindOfferPreviewsWhereInput, $orderBy: FindOfferPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy

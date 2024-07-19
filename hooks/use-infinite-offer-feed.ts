@@ -1,6 +1,6 @@
 import {
-  FindOffersOrderByInput,
-  FindOffersWhereInput,
+  FindOfferPreviewsOrderByInput,
+  FindOfferPreviewsWhereInput,
   useFindOfferPreviewsQuery,
 } from '@/generated/graphql';
 import { RefObject } from 'react';
@@ -15,8 +15,8 @@ export const useInfiniteOfferFeed = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindOffersWhereInput;
-  orderBy?: FindOffersOrderByInput;
+  where?: FindOfferPreviewsWhereInput;
+  orderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
   distinct?: boolean;
   take: number;

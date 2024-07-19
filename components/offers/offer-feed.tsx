@@ -11,8 +11,8 @@ import { findCategory } from '@/lib/group/find-category';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
 import { PostPreviewType } from '@/lib/post/post.types';
 import {
-  FindOffersOrderByInput,
-  FindOffersWhereInput,
+  FindOfferPreviewsOrderByInput,
+  FindOfferPreviewsWhereInput,
 } from '@/generated/graphql';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
@@ -24,8 +24,8 @@ function OfferFeed({
   type,
   defaultDistinct,
 }: {
-  defaultWhere: FindOffersWhereInput;
-  defaultOrderBy?: FindOffersOrderByInput;
+  defaultWhere: FindOfferPreviewsWhereInput;
+  defaultOrderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
   type: PostPreviewType;
   defaultDistinct: boolean;
