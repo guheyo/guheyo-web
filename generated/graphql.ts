@@ -327,12 +327,89 @@ export type EmojiResponse = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type FindAuctionInteractionItemsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindAuctionInteractionItemsWhereInput = {
+  auctionId?: InputMaybe<Scalars['ID']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+  view?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindAuctionPreviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  currentBidPrice?: InputMaybe<Scalars['String']['input']>;
+  extendedEndDate?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindAuctionPreviewsWhereInput = {
+  bidderId?: InputMaybe<Scalars['ID']['input']>;
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindBiddersOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindBiddersWhereInput = {
   auctionId: Scalars['ID']['input'];
+};
+
+export type FindBidsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindBidsWhereInput = {
+  auctionId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindCommentsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindCommentsWhereInput = {
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindOffersOrderByInput = {
+  bumpedAt?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindOffersWhereInput = {
+  bumpedAt?: InputMaybe<Scalars['JSON']['input']>;
+  businessFunction?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  isArchived?: InputMaybe<Scalars['Boolean']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindReportPreviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindReportPreviewsWhereInput = {
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  refId?: InputMaybe<Scalars['ID']['input']>;
+  reportedUserId?: InputMaybe<Scalars['ID']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type FindThreadPreviewsOrderByInput = {
@@ -357,6 +434,14 @@ export type FindUserReviewPreviewsWhereInput = {
   reviewedUserId?: InputMaybe<Scalars['ID']['input']>;
   tagNames?: InputMaybe<Array<Scalars['String']['input']>>;
   tagType?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindUsersOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindUsersWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -890,20 +975,20 @@ export type QueryFindAuctionArgs = {
 export type QueryFindAuctionInteractionItemsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindAuctionInteractionItemsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindAuctionInteractionItemsWhereInput>;
 };
 
 
 export type QueryFindAuctionPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindAuctionPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindAuctionPreviewsWhereInput>;
 };
 
 
@@ -931,10 +1016,10 @@ export type QueryFindBiddersArgs = {
 export type QueryFindBidsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindBidsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindBidsWhereInput>;
 };
 
 
@@ -952,10 +1037,10 @@ export type QueryFindCommentCountArgs = {
 export type QueryFindCommentsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindCommentsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindCommentsWhereInput>;
 };
 
 
@@ -1002,10 +1087,10 @@ export type QueryFindOfferCountArgs = {
 export type QueryFindOfferPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindOffersOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindOffersWhereInput>;
 };
 
 
@@ -1033,10 +1118,10 @@ export type QueryFindReportCommentArgs = {
 export type QueryFindReportPreviewsArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindReportPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindReportPreviewsWhereInput>;
 };
 
 
@@ -1103,10 +1188,10 @@ export type QueryFindUserReviewPreviewsArgs = {
 export type QueryFindUsersArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  orderBy?: InputMaybe<FindUsersOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
-  where?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindUsersWhereInput>;
 };
 
 
@@ -1514,8 +1599,8 @@ export type AuctionPreviewFragment = { __typename?: 'AuctionPreviewResponse', id
 export type UpdatedAuctionResponseFragment = { __typename?: 'UpdatedAuctionResponse', id: string, updatedAt: any, extendedEndDate: any, status: string };
 
 export type FindAuctionPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindAuctionPreviewsWhereInput>;
+  orderBy?: InputMaybe<FindAuctionPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1534,8 +1619,8 @@ export type FindAuctionQueryVariables = Exact<{
 export type FindAuctionQuery = { __typename?: 'Query', findAuction?: { __typename?: 'AuctionResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, post: { __typename?: 'PostResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, reportCount: number, commentCount?: number | null, images: Array<{ __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string }>, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } } | null };
 
 export type FindAuctionInteractionItemsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindAuctionInteractionItemsWhereInput>;
+  orderBy?: InputMaybe<FindAuctionInteractionItemsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1591,8 +1676,8 @@ export type BidFragment = { __typename?: 'BidResponse', id: string, createdAt: a
 export type BidCountFragment = { __typename?: 'BidCountResponse', auctionId: string, count: number };
 
 export type FindBidsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindBidsWhereInput>;
+  orderBy?: InputMaybe<FindBidsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1679,8 +1764,8 @@ export type FindCommentQueryVariables = Exact<{
 export type FindCommentQuery = { __typename?: 'Query', findComment?: { __typename?: 'CommentResponse', id: string, createdAt: any, updatedAt: any, parentId?: string | null, postId: string, content?: string | null, reactions: Array<{ __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } }> } | null };
 
 export type FindCommentsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindCommentsWhereInput>;
+  orderBy?: InputMaybe<FindCommentsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1770,8 +1855,8 @@ export type OfferFragment = { __typename?: 'OfferResponse', id: string, createdA
 export type OfferPreviewFragment = { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }> } };
 
 export type FindOfferPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindOffersWhereInput>;
+  orderBy?: InputMaybe<FindOffersOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -1888,8 +1973,8 @@ export type CreateReportMutationVariables = Exact<{
 export type CreateReportMutation = { __typename?: 'Mutation', createReport: string };
 
 export type FindReportPreviewsQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindReportPreviewsWhereInput>;
+  orderBy?: InputMaybe<FindReportPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -2082,8 +2167,8 @@ export type FindMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } | null };
 
 export type FindUsersQueryVariables = Exact<{
-  where?: InputMaybe<Scalars['JSON']['input']>;
-  orderBy?: InputMaybe<Scalars['JSON']['input']>;
+  where?: InputMaybe<FindUsersWhereInput>;
+  orderBy?: InputMaybe<FindUsersOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
@@ -2751,7 +2836,7 @@ export const VersionPreviewFragmentDoc = gql`
 }
     `;
 export const FindAuctionPreviewsDocument = gql`
-    query FindAuctionPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindAuctionPreviews($where: FindAuctionPreviewsWhereInput, $orderBy: FindAuctionPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionPreviews(
     where: $where
     orderBy: $orderBy
@@ -2859,7 +2944,7 @@ export function refetchFindAuctionQuery(variables?: FindAuctionQueryVariables) {
       return { query: FindAuctionDocument, variables: variables }
     }
 export const FindAuctionInteractionItemsDocument = gql`
-    query FindAuctionInteractionItems($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindAuctionInteractionItems($where: FindAuctionInteractionItemsWhereInput, $orderBy: FindAuctionInteractionItemsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionInteractionItems(
     where: $where
     orderBy: $orderBy
@@ -3154,7 +3239,7 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindBidsDocument = gql`
-    query FindBids($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindBids($where: FindBidsWhereInput, $orderBy: FindBidsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findBids(
     where: $where
     orderBy: $orderBy
@@ -3521,7 +3606,7 @@ export function refetchFindCommentQuery(variables?: FindCommentQueryVariables) {
       return { query: FindCommentDocument, variables: variables }
     }
 export const FindCommentsDocument = gql`
-    query FindComments($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindComments($where: FindCommentsWhereInput, $orderBy: FindCommentsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findComments(
     where: $where
     orderBy: $orderBy
@@ -3954,7 +4039,7 @@ export function refetchFindGroupPreviewsQuery(variables?: FindGroupPreviewsQuery
       return { query: FindGroupPreviewsDocument, variables: variables }
     }
 export const FindOfferPreviewsDocument = gql`
-    query FindOfferPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindOfferPreviews($where: FindOffersWhereInput, $orderBy: FindOffersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy
@@ -4449,7 +4534,7 @@ export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMu
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
 export const FindReportPreviewsDocument = gql`
-    query FindReportPreviews($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindReportPreviews($where: FindReportPreviewsWhereInput, $orderBy: FindReportPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findReportPreviews(
     where: $where
     orderBy: $orderBy
@@ -5359,7 +5444,7 @@ export function refetchFindMyUserQuery(variables?: FindMyUserQueryVariables) {
       return { query: FindMyUserDocument, variables: variables }
     }
 export const FindUsersDocument = gql`
-    query FindUsers($where: JSON, $orderBy: JSON, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUsers($where: FindUsersWhereInput, $orderBy: FindUsersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUsers(
     where: $where
     orderBy: $orderBy

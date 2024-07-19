@@ -68,8 +68,8 @@ query FindComment(
 }
 
 query FindComments(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindCommentsWhereInput
+  $orderBy: FindCommentsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!

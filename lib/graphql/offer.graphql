@@ -41,8 +41,8 @@ fragment offerPreview on OfferPreviewResponse {
 }
 
 query FindOfferPreviews(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindOffersWhereInput
+  $orderBy: FindOffersOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!

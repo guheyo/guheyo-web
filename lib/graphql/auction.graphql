@@ -43,8 +43,8 @@ fragment updatedAuctionResponse on UpdatedAuctionResponse {
 }
 
 query FindAuctionPreviews(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindAuctionPreviewsWhereInput
+  $orderBy: FindAuctionPreviewsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!
@@ -84,8 +84,8 @@ query FindAuction(
 }
 
 query FindAuctionInteractionItems(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindAuctionInteractionItemsWhereInput
+  $orderBy: FindAuctionInteractionItemsOrderByInput
   $keyword: String
   $cursor: ID
   $skip: Int!
