@@ -10,6 +10,8 @@ import {
   BidResponse,
   CommentCreatedDocument,
   CommentDeletedDocument,
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
   ReactionCanceledDocument,
   ReactionCreatedDocument,
   useFindAuthorQuery,
@@ -24,10 +26,6 @@ import {
   FindAuctionInteractionItemsOrderByArgs,
   FindAuctionInteractionItemsWhereArgs,
 } from '@/lib/auction/auction.interfaces';
-import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
 import { useSearchParams } from 'next/navigation';
 import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
 import { AuthContext } from '../auth/auth.provider';
@@ -65,12 +63,12 @@ export default function AuctionDetailContainer({
   const searchParams = useSearchParams();
   const view = searchParams.get('view') || 'newest';
 
-  const reportWhere: FindReportPreviewsWhereArgs = {
+  const reportWhere: FindReportPreviewsWhereInput = {
     type: 'post',
     refId: auction.post.id,
   };
 
-  const reportOrderBy: FindReportPreviewsOrderByArgs = {
+  const reportOrderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

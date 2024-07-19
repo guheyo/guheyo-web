@@ -4,9 +4,9 @@ import { useSearchQuery } from '@/lib/search/use-search-query';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+} from '@/generated/graphql';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
@@ -19,8 +19,8 @@ export default function SearchReports() {
   const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
 
-  const where: FindReportPreviewsWhereArgs = {};
-  const orderBy: FindReportPreviewsOrderByArgs = {
+  const where: FindReportPreviewsWhereInput = {};
+  const orderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

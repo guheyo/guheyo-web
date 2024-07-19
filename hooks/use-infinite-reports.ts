@@ -1,9 +1,9 @@
-import { useFindReportPreviewsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+  useFindReportPreviewsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteReports = ({
@@ -14,8 +14,8 @@ export const useInfiniteReports = ({
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindReportPreviewsWhereArgs;
-  orderBy?: FindReportPreviewsOrderByArgs;
+  where?: FindReportPreviewsWhereInput;
+  orderBy?: FindReportPreviewsOrderByInput;
   keyword?: string;
   take: number;
 }) => {

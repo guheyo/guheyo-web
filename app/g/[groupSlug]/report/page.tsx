@@ -2,11 +2,11 @@
 
 import ReportFeed from '@/components/reports/report-feed';
 import ReportHomeFeedLayout from '@/components/reports/report-home-feed.layout';
-import { useGroup } from '@/hooks/use-group';
 import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+} from '@/generated/graphql';
+import { useGroup } from '@/hooks/use-group';
 import { Suspense } from 'react';
 
 export default function Page() {
@@ -15,11 +15,11 @@ export default function Page() {
   if (loading) return <div />;
   if (!group) return <div />;
 
-  const where: FindReportPreviewsWhereArgs = {
+  const where: FindReportPreviewsWhereInput = {
     groupId: group.id,
     type: undefined,
   };
-  const orderBy: FindReportPreviewsOrderByArgs = {
+  const orderBy: FindReportPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 
