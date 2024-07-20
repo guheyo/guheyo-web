@@ -12,6 +12,7 @@ interface Props {
 function HomeUserReviewFeedLayout({ children }: Props) {
   return (
     <HomeFeedLayout
+      postPreviewType="text"
       homeLink={<UserReviewHomeLink />}
       path="review"
       selectors={<MannerTagsNavbar />}

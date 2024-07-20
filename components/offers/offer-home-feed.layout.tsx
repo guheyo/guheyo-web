@@ -23,6 +23,7 @@ function OfferHomeFeedLayout({
 }: Props) {
   return (
     <HomeFeedLayout
+      postPreviewType={businessFunction === 'buy' ? 'text' : 'thumbnail'}
       homeLink={
         businessFunction === 'sell' ? (
           <SellHomeLink businessFunction={businessFunction} />

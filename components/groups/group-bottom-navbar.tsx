@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function GroupBottomNavbar({
   groupSlug,
 }: {
-  groupSlug: string;
+  groupSlug?: string | null;
 }) {
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);

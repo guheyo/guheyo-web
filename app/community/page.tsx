@@ -12,16 +12,14 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-2 md:mx-0">
-      <Suspense>
-        <CommunityHomeFeedLayout>
-          <ThreadAndReviewFeed
-            type="listview"
-            defaultWhere={where}
-            defaultOrderBy={orderBy}
-          />
-        </CommunityHomeFeedLayout>
-      </Suspense>
-    </div>
+    <Suspense>
+      <CommunityHomeFeedLayout>
+        <ThreadAndReviewFeed
+          type="listview"
+          defaultWhere={where}
+          defaultOrderBy={orderBy}
+        />
+      </CommunityHomeFeedLayout>
+    </Suspense>
   );
 }

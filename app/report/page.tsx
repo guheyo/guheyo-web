@@ -17,12 +17,10 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-2 md:mx-0">
-      <Suspense>
-        <ReportHomeFeedLayout>
-          <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
-        </ReportHomeFeedLayout>
-      </Suspense>
-    </div>
+    <Suspense>
+      <ReportHomeFeedLayout>
+        <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      </ReportHomeFeedLayout>
+    </Suspense>
   );
 }

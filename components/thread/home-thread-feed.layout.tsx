@@ -10,7 +10,11 @@ interface Props {
 
 function HomeThreadFeedLayout({ children }: Props) {
   return (
-    <HomeFeedLayout homeLink={<ThreadHomeLink />} path="thread">
+    <HomeFeedLayout
+      postPreviewType="text"
+      homeLink={<ThreadHomeLink />}
+      path="thread"
+    >
       {children}
     </HomeFeedLayout>
   );

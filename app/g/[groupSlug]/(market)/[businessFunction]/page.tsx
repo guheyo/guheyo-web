@@ -2,8 +2,6 @@
 
 import OfferFeed from '@/components/offers/offer-feed';
 import OfferHomeFeedLayout from '@/components/offers/offer-home-feed.layout';
-import TextFeedLayout from '@/components/posts/text-feed.layout';
-import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { Suspense } from 'react';
 
@@ -27,13 +25,11 @@ function OffersPage({
     return (
       <Suspense>
         <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
-          <TextFeedLayout>
-            <OfferFeed
-              type="listview"
-              defaultWhere={where}
-              defaultDistinct={distinct}
-            />
-          </TextFeedLayout>
+          <OfferFeed
+            type="listview"
+            defaultWhere={where}
+            defaultDistinct={distinct}
+          />
         </OfferHomeFeedLayout>
       </Suspense>
     );
@@ -42,13 +38,11 @@ function OffersPage({
   return (
     <Suspense>
       <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
-        <ThumbnailFeedLayout>
-          <OfferFeed
-            type="thumbnail"
-            defaultWhere={where}
-            defaultDistinct={distinct}
-          />
-        </ThumbnailFeedLayout>
+        <OfferFeed
+          type="thumbnail"
+          defaultWhere={where}
+          defaultDistinct={distinct}
+        />
       </OfferHomeFeedLayout>
     </Suspense>
   );

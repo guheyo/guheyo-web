@@ -18,6 +18,7 @@ function CommunityHomeFeedLayout({ children }: Props) {
 
   return (
     <HomeFeedLayout
+      postPreviewType="text"
       homeLink={<CommunityHomeLink />}
       path="community"
       categories={<CommunityCategoriesNavbar />}
