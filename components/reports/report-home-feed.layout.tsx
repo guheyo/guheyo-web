@@ -12,6 +12,7 @@ interface Props {
 function ReportHomeFeedLayout({ children }: Props) {
   return (
     <HomeFeedLayout
+      postPreviewType="text"
       homeLink={<ReportHomeLink />}
       path="report"
       categories={<ReportTypeNavbar />}

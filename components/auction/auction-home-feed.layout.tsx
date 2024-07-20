@@ -20,6 +20,7 @@ function AuctionHomeFeedLayout({
 }: Props) {
   return (
     <HomeFeedLayout
+      postPreviewType="thumbnail"
       homeLink={<AuctionHomeLink />}
       path="auction"
       categories={

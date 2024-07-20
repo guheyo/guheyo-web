@@ -12,6 +12,7 @@ interface Props {
 function MemberHomeFeedLayout({ children }: Props) {
   return (
     <HomeFeedLayout
+      postPreviewType="text"
       homeLink={<MemberHomeLink />}
       path="member"
       categories={<MemberRolesNavbar />}

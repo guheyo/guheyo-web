@@ -2,11 +2,15 @@
 
 import { ReactNode, Suspense } from 'react';
 import { useGroup } from '@/hooks/use-group';
+import { PostPreviewType } from '@/lib/post/post.types';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
 import GroupBottomNavbar from '../groups/group-bottom-navbar';
+import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
+import TextFeedLayout from '../posts/text-feed.layout';
 
 interface Props {
   children: ReactNode;
+  postPreviewType: PostPreviewType;
   homeLink: ReactNode;
   path: string;
   categories?: ReactNode;
@@ -16,6 +20,7 @@ interface Props {
 
 function HomeFeedLayout({
   children,
+  postPreviewType,
   homeLink,
   path,
   categories,
@@ -43,7 +48,13 @@ function HomeFeedLayout({
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
-      <div className="pb-4 md:pb-6 mx-2 md:mx-0">{children}</div>
+      <div className="pb-4 md:pb-6 mx-2 md:mx-0">
+        {postPreviewType === 'thumbnail' ? (
+          <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
+        ) : (
+          <TextFeedLayout>{children}</TextFeedLayout>
+        )}
+      </div>
       <div className="lg:hidden">
         <GroupBottomNavbar groupSlug={group?.slug} />
       </div>
