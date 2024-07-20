@@ -2,7 +2,6 @@
 
 import AuctionFeed from '@/components/auction/auction-feed';
 import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
-import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
 import { Suspense } from 'react';
 
 export interface AuctionsPageProps {
@@ -19,14 +18,12 @@ function Page({ params: { groupSlug } }: AuctionsPageProps) {
   return (
     <Suspense>
       <AuctionHomeFeedLayout showCategories showSelectors>
-        <ThumbnailFeedLayout>
-          <AuctionFeed
-            type="thumbnail"
-            defaultWhere={where}
-            defaultSortOrder={sortOrder}
-            defaultDistinct={distinct}
-          />
-        </ThumbnailFeedLayout>
+        <AuctionFeed
+          type="thumbnail"
+          defaultWhere={where}
+          defaultSortOrder={sortOrder}
+          defaultDistinct={distinct}
+        />
       </AuctionHomeFeedLayout>
     </Suspense>
   );

@@ -2,7 +2,6 @@
 
 import OfferFeed from '@/components/offers/offer-feed';
 import OfferHomeFeedLayout from '@/components/offers/offer-home-feed.layout';
-import TextFeedLayout from '@/components/posts/text-feed.layout';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { Suspense } from 'react';
 
@@ -16,13 +15,11 @@ function Page() {
   return (
     <Suspense>
       <OfferHomeFeedLayout businessFunction="buy" showCategories={false}>
-        <TextFeedLayout>
-          <OfferFeed
-            type="listview"
-            defaultWhere={where}
-            defaultDistinct={distinct}
-          />
-        </TextFeedLayout>
+        <OfferFeed
+          type="listview"
+          defaultWhere={where}
+          defaultDistinct={distinct}
+        />
       </OfferHomeFeedLayout>
     </Suspense>
   );
