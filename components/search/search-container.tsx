@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import React, { ReactNode } from 'react';
 import { FeedComponent, FeedComponentProps } from '@/lib/feed/feed.interfaces';
+import { useGroup } from '@/hooks/use-group';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
@@ -28,6 +29,7 @@ export default function SearchContainer({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const { group } = useGroup();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -49,6 +51,7 @@ export default function SearchContainer({
       <div className="pt-2" />
       <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
         <GroupProfileSidebarItems
+          currentGroupId={group?.id}
           paddingX={0}
           paddingY={0}
           pathFormatter={(slug) =>
