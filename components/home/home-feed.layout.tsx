@@ -3,6 +3,7 @@
 import { ReactNode, Suspense } from 'react';
 import { useGroup } from '@/hooks/use-group';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import GroupBottomNavbar from '../groups/group-bottom-navbar';
 
 interface Props {
   children: ReactNode;
@@ -42,7 +43,10 @@ function HomeFeedLayout({
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
-      <div className="grid gap-2 grid-cols-1">{children}</div>
+      <div className="pb-4 md:pb-6 mx-2 md:mx-0">{children}</div>
+      <div className="lg:hidden">
+        <GroupBottomNavbar groupSlug={group?.slug} />
+      </div>
     </div>
   );
 }
