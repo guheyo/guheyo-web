@@ -13,11 +13,13 @@ const findLocation = (pathname: string) => {
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
   if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
   if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
+  if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
   if (/^\/user\//.test(pathname)) return 'user';
   if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
   if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
   if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
   if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
+  if (/^\/report(\?.*)?$/.test(pathname)) return 'report';
   if (/^\/search$/.test(pathname)) return 'search-group';
   return 'none';
 };
@@ -27,12 +29,14 @@ const findHideButton = (location: string): boolean =>
     'group',
     'group-market',
     'group-auction',
-    'group-member',
     'group-community',
+    'group-member',
+    'group-report',
     'market',
     'auction',
-    'member',
     'community',
+    'member',
+    'report',
   ].includes(location);
 
 const findPlaceholder = (location: string): string => {
@@ -45,6 +49,8 @@ const findPlaceholder = (location: string): string => {
     return '게시글을 검색해보세요';
   if (location === 'member' || location === 'group-member')
     return '멤버를 검색해보세요';
+  if (location === 'report' || location === 'group-report')
+    return '신고를 검색해보세요';
   return '';
 };
 
@@ -68,6 +74,9 @@ export default function SearchButton() {
     else if (location === 'group-member')
       router.push(`/search/member?group=${group?.slug}`);
     else if (location === 'member') router.push(`/search/member`);
+    else if (location === 'group-report')
+      router.push(`/search/report?group=${group?.slug}`);
+    else if (location === 'report') router.push(`/search/report`);
   };
 
   if (hideButton) return <div />;
