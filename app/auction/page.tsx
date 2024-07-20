@@ -11,20 +11,18 @@ function Page() {
   const distinct = false;
 
   return (
-    <div className="mx-2 md:mx-0">
-      <Suspense>
-        <AuctionHomeFeedLayout showCategories={false} showSelectors>
-          <ThumbnailFeedLayout>
-            <AuctionFeed
-              type="thumbnail"
-              defaultWhere={where}
-              defaultSortOrder={sortOrder}
-              defaultDistinct={distinct}
-            />
-          </ThumbnailFeedLayout>
-        </AuctionHomeFeedLayout>
-      </Suspense>
-    </div>
+    <Suspense>
+      <AuctionHomeFeedLayout showCategories={false} showSelectors>
+        <ThumbnailFeedLayout>
+          <AuctionFeed
+            type="thumbnail"
+            defaultWhere={where}
+            defaultSortOrder={sortOrder}
+            defaultDistinct={distinct}
+          />
+        </ThumbnailFeedLayout>
+      </AuctionHomeFeedLayout>
+    </Suspense>
   );
 }
 
