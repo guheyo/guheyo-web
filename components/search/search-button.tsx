@@ -46,7 +46,7 @@ const findPlaceholder = (location: string): string => {
   if (location === 'auction' || location === 'group-auction')
     return '제품을 검색해보세요';
   if (location === 'community' || location === 'group-community')
-    return '게시글을 검색해보세요';
+    return '스레드를 검색해보세요';
   if (location === 'member' || location === 'group-member')
     return '멤버를 검색해보세요';
   if (location === 'report' || location === 'group-report')

@@ -16,7 +16,7 @@ export default function SearchThreads() {
 
   return (
     <SearchContainer
-      placeholder="어떤 게시글을 찾고 있나요?"
+      placeholder="어떤 스레드를 찾고 있나요?"
       categories={<CommunityCategoriesNavbar />}
       Feed={ThreadFeed}
       feedProps={{
