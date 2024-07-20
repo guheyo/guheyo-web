@@ -978,6 +978,7 @@ export type QueryFindAuctionInteractionItemsArgs = {
   orderBy?: InputMaybe<FindAuctionInteractionItemsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindAuctionInteractionItemsWhereInput>;
 };
 
@@ -988,6 +989,7 @@ export type QueryFindAuctionPreviewsArgs = {
   orderBy?: InputMaybe<FindAuctionPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindAuctionPreviewsWhereInput>;
 };
 
@@ -1009,6 +1011,7 @@ export type QueryFindBiddersArgs = {
   orderBy?: InputMaybe<FindBiddersOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where: FindBiddersWhereInput;
 };
 
@@ -1019,6 +1022,7 @@ export type QueryFindBidsArgs = {
   orderBy?: InputMaybe<FindBidsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindBidsWhereInput>;
 };
 
@@ -1040,6 +1044,7 @@ export type QueryFindCommentsArgs = {
   orderBy?: InputMaybe<FindCommentsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindCommentsWhereInput>;
 };
 
@@ -1060,6 +1065,7 @@ export type QueryFindGroupProfilesArgs = {
   keyword?: InputMaybe<Scalars['String']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1090,6 +1096,7 @@ export type QueryFindOfferPreviewsArgs = {
   orderBy?: InputMaybe<FindOfferPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindOfferPreviewsWhereInput>;
 };
 
@@ -1121,6 +1128,7 @@ export type QueryFindReportPreviewsArgs = {
   orderBy?: InputMaybe<FindReportPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindReportPreviewsWhereInput>;
 };
 
@@ -1147,6 +1155,7 @@ export type QueryFindThreadPreviewsArgs = {
   orderBy?: InputMaybe<FindThreadPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindThreadPreviewsWhereInput>;
 };
 
@@ -1181,6 +1190,7 @@ export type QueryFindUserReviewPreviewsArgs = {
   orderBy?: InputMaybe<FindUserReviewPreviewsOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindUserReviewPreviewsWhereInput>;
 };
 
@@ -1191,6 +1201,7 @@ export type QueryFindUsersArgs = {
   orderBy?: InputMaybe<FindUsersOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindUsersWhereInput>;
 };
 
