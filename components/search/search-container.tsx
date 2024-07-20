@@ -18,8 +18,8 @@ export default function SearchContainer({
   feedProps,
 }: {
   placeholder: string;
-  categories: ReactNode;
-  selectors: ReactNode;
+  categories?: ReactNode;
+  selectors?: ReactNode;
   Feed: FeedComponent;
   feedProps: Omit<FeedComponentProps, 'keyword'>;
 }) {
