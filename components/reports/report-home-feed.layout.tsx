@@ -1,0 +1,25 @@
+'use client';
+
+import ReportTypeNavbar from '@/components/reports/report-type-navbar';
+import { ReactNode } from 'react';
+import ReportHomeLink from './report-home-link';
+import HomeFeedLayout from '../home/home-feed.layout';
+
+interface Props {
+  children: ReactNode;
+}
+
+function ReportHomeFeedLayout({ children }: Props) {
+  return (
+    <HomeFeedLayout
+      postPreviewType="text"
+      homeLink={<ReportHomeLink />}
+      path="report"
+      categories={<ReportTypeNavbar />}
+    >
+      {children}
+    </HomeFeedLayout>
+  );
+}
+
+export default ReportHomeFeedLayout;

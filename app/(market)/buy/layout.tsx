@@ -1,4 +1,3 @@
-import HomeOfferFeedLayout from '@/components/offers/home-offer-feed.layout';
 import { ReactNode } from 'react';
 
 export async function generateMetadata() {
@@ -9,13 +8,7 @@ export async function generateMetadata() {
 }
 
 function Layout({ children }: { children: ReactNode }) {
-  return (
-    <div className="mx-2 md:mx-0">
-      <HomeOfferFeedLayout showSelector businessFunction="buy">
-        {children}
-      </HomeOfferFeedLayout>
-    </div>
-  );
+  return children;
 }
 
 export default Layout;

@@ -1,9 +1,9 @@
-import { useFindUsersQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindUsersOrderByArgs,
-  FindUsersWhereArgs,
-} from '@/interfaces/user.interfaces';
+  FindUsersOrderByInput,
+  FindUsersWhereInput,
+  useFindUsersQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteUsers = ({
@@ -11,12 +11,14 @@ export const useInfiniteUsers = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindUsersWhereArgs;
-  orderBy?: FindUsersOrderByArgs;
+  where?: FindUsersWhereInput;
+  orderBy?: FindUsersOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -25,6 +27,7 @@ export const useInfiniteUsers = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteUsers = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findUsers.pageInfo.endCursor,
           take,
           skip: 1,

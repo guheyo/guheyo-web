@@ -7,11 +7,12 @@ import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
-import {
-  FindAuctionsOrderByArgs,
-  FindAuctionsWhereArgs,
-} from '@/lib/auction/auction.interfaces';
 import { PostPreviewType } from '@/lib/post/post.types';
+import {
+  FindAuctionPreviewsOrderByInput,
+  FindAuctionPreviewsWhereInput,
+} from '@/generated/graphql';
+import { useSearchParams } from 'next/navigation';
 import AuctionPreview from './auction-preview';
 
 const {
@@ -21,15 +22,13 @@ const {
 function AuctionCheckboxResults({
   where,
   orderBy,
-  keyword,
   type,
   distinct,
   control,
   handleCheckboxClick,
 }: {
-  where: FindAuctionsWhereArgs;
-  orderBy?: FindAuctionsOrderByArgs;
-  keyword?: string;
+  where: FindAuctionPreviewsWhereInput;
+  orderBy?: FindAuctionPreviewsOrderByInput;
   type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
@@ -37,6 +36,10 @@ function AuctionCheckboxResults({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
+
   const { loading, data } = useInfiniteAuctionFeed({
     ref,
     where: {
@@ -50,6 +53,7 @@ function AuctionCheckboxResults({
       currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,
+    target,
     distinct,
     take: 12,
   });

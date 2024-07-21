@@ -6,11 +6,11 @@ import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import { findCategory } from '@/lib/group/find-category';
-import { FindAuctionsWhereArgs } from '@/lib/auction/auction.interfaces';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
 import { parseAuctionStatus } from '@/lib/auction/parse-auction-status';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
 import { PostPreviewType } from '@/lib/post/post.types';
+import { FindAuctionPreviewsWhereInput } from '@/generated/graphql';
 import AuctionPreview from './auction-preview';
 import SelectUserReviewTargetUserDialog from '../user-review/select-user-review-target-user-dialog';
 import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dialog';
@@ -19,13 +19,11 @@ function AuctionFeed({
   type,
   defaultWhere,
   defaultSortOrder,
-  keyword,
   defaultDistinct,
 }: {
   type: PostPreviewType;
-  defaultWhere: FindAuctionsWhereArgs;
+  defaultWhere: FindAuctionPreviewsWhereInput;
   defaultSortOrder?: string;
-  keyword?: string;
   defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,7 +31,8 @@ function AuctionFeed({
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const status = parseAuctionStatus({
-    status: searchParams.get('status') || defaultWhere.status,
+    status:
+      searchParams.get('status') || (defaultWhere.status as string | undefined),
   });
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
@@ -43,6 +42,8 @@ function AuctionFeed({
   const orderBy = getFindAuctionsOrderByArgs({
     sortOrder: searchParams.get('sort') || defaultSortOrder,
   });
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const distinct =
     searchParams.get('distinct') === null
@@ -68,6 +69,7 @@ function AuctionFeed({
       currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,
+    target,
     distinct,
     take: 12,
   });

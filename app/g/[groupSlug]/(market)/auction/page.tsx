@@ -1,7 +1,8 @@
 'use client';
 
 import AuctionFeed from '@/components/auction/auction-feed';
-import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
+import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
+import { Suspense } from 'react';
 
 export interface AuctionsPageProps {
   params: {
@@ -15,14 +16,16 @@ function Page({ params: { groupSlug } }: AuctionsPageProps) {
   const distinct = false;
 
   return (
-    <ThumbnailFeedLayout>
-      <AuctionFeed
-        type="thumbnail"
-        defaultWhere={where}
-        defaultSortOrder={sortOrder}
-        defaultDistinct={distinct}
-      />
-    </ThumbnailFeedLayout>
+    <Suspense>
+      <AuctionHomeFeedLayout showCategories showSelectors showMoreLink={false}>
+        <AuctionFeed
+          type="thumbnail"
+          defaultWhere={where}
+          defaultSortOrder={sortOrder}
+          defaultDistinct={distinct}
+        />
+      </AuctionHomeFeedLayout>
+    </Suspense>
   );
 }
 

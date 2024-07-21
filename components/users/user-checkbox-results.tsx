@@ -6,11 +6,11 @@ import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
-import {
-  FindUsersOrderByArgs,
-  FindUsersWhereArgs,
-} from '@/interfaces/user.interfaces';
 import { CheckboxFormValues } from '@/lib/search/search.types';
+import {
+  FindUsersOrderByInput,
+  FindUsersWhereInput,
+} from '@/generated/graphql';
 import UserPreview from './user-preview';
 
 const {
@@ -25,8 +25,8 @@ function UserCheckboxResults({
   control,
   handleCheckboxClick,
 }: {
-  where: FindUsersWhereArgs;
-  orderBy?: FindUsersOrderByArgs;
+  where: FindUsersWhereInput;
+  orderBy?: FindUsersOrderByInput;
   keyword?: string;
   userIdToExclude?: string;
   control: Control<CheckboxFormValues>;

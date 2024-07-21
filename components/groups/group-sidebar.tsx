@@ -4,18 +4,16 @@ import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ForumIcon from '@mui/icons-material/Forum';
-import GavelIcon from '@mui/icons-material/Gavel';
-import SellIcon from '@mui/icons-material/Sell';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
-import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
+import { MARKET_CHANNELS } from '@/lib/market/market.constants';
+import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
+import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -95,64 +93,32 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
             pathFormatter={(slug) => `/g/${slug}`}
           />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-            경매장
-          </ListItem>
+          <div className="pt-4 md:pt-6" />
           <SidebarItem
-            href={parseAuctionLink({ groupSlug: group?.slug })}
-            icon={<GavelIcon fontSize="medium" />}
-            text="경매"
-            isActive={activeItem === 'auction'}
-            paddingX={2}
-            paddingY={1}
-            onClick={handleMenuToggle}
-          />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-            장터
-          </ListItem>
-          <SidebarItem
-            href={parseMarketLink({
+            href={parseAuctionLink({
               groupSlug: group?.slug,
-              businessFunction: 'sell',
             })}
-            icon={<SellIcon fontSize="medium" />}
-            text="판매"
-            isActive={activeItem === 'sell'}
+            icon={<StorefrontIcon fontSize="medium" />}
+            text="장터"
+            isActive={MARKET_CHANNELS.includes(activeItem)}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
           />
-          <SidebarItem
-            href={parseMarketLink({
-              groupSlug: group?.slug,
-              businessFunction: 'buy',
-            })}
-            icon={<ShoppingBagIcon fontSize="medium" />}
-            text="구매"
-            isActive={activeItem === 'buy'}
-            paddingX={2}
-            paddingY={1}
-            onClick={handleMenuToggle}
-          />
-          <SidebarItem
-            href={parseMarketLink({
-              groupSlug: group?.slug,
-              businessFunction: 'swap',
-            })}
-            icon={<SwapHorizIcon fontSize="medium" />}
-            text="교환"
-            isActive={activeItem === 'swap'}
-            paddingX={2}
-            paddingY={1}
-            onClick={handleMenuToggle}
-          />
-          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
-            커뮤니티
-          </ListItem>
           <SidebarItem
             href={parseCommunityLink({
               groupSlug: group?.slug,
-              communityType: 'member',
+            })}
+            icon={<ForumIcon fontSize="medium" />}
+            text="커뮤니티"
+            isActive={activeItem === 'community'}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseMemberFeedtLink({
+              groupSlug: group?.slug,
             })}
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
@@ -162,33 +128,8 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseCommunityLink({
+            href={parseReportFeedtLink({
               groupSlug: group?.slug,
-              communityType: 'thread',
-            })}
-            icon={<ForumIcon fontSize="medium" />}
-            text="스레드"
-            isActive={activeItem === 'thread'}
-            paddingX={2}
-            paddingY={1}
-            onClick={handleMenuToggle}
-          />
-          <SidebarItem
-            href={parseCommunityLink({
-              groupSlug: group?.slug,
-              communityType: 'review',
-            })}
-            icon={<StickyNote2Icon fontSize="medium" />}
-            text="거래 후기"
-            isActive={activeItem === 'review'}
-            paddingX={2}
-            paddingY={1}
-            onClick={handleMenuToggle}
-          />
-          <SidebarItem
-            href={parseCommunityLink({
-              groupSlug: group?.slug,
-              communityType: 'report',
             })}
             icon={<FlagIcon fontSize="medium" />}
             text="신고"

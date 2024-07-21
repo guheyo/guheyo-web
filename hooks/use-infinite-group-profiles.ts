@@ -5,15 +5,18 @@ import { useInfiniteScroll } from './use-infinite-scroll';
 export const useInfiniteGroupProfiles = ({
   ref,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   keyword?: string;
+  target?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindGroupProfilesQuery({
     variables: {
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -25,6 +28,7 @@ export const useInfiniteGroupProfiles = ({
       fetchMore({
         variables: {
           keyword,
+          target,
           cursor: data?.findGroupProfiles.pageInfo.endCursor,
           take,
           skip: 1,

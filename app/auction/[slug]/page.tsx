@@ -2,6 +2,7 @@
 
 import AuctionDetailContainer from '@/components/auction/auction-detail-container';
 import { useFindAuctionQuery } from '@/generated/graphql';
+import { Suspense } from 'react';
 
 function Page({
   params: { slug },
@@ -21,7 +22,11 @@ function Page({
   if (!data?.findAuction) return <div />;
 
   const auction = data.findAuction;
-  return <AuctionDetailContainer auction={auction} />;
+  return (
+    <Suspense>
+      <AuctionDetailContainer auction={auction} />
+    </Suspense>
+  );
 }
 
 export default Page;

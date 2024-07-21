@@ -22,6 +22,7 @@ query FindThreadPreviews(
   $where: FindThreadPreviewsWhereInput
   $orderBy: FindThreadPreviewsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -30,6 +31,7 @@ query FindThreadPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take

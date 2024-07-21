@@ -1,7 +1,7 @@
 'use client';
 
 import OfferFeed from '@/components/offers/offer-feed';
-import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
+import OfferHomeFeedLayout from '@/components/offers/offer-home-feed.layout';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { Suspense } from 'react';
 
@@ -13,15 +13,15 @@ function Page() {
   const distinct = true;
 
   return (
-    <ThumbnailFeedLayout>
-      <Suspense>
+    <Suspense>
+      <OfferHomeFeedLayout businessFunction="swap" showCategories={false}>
         <OfferFeed
           type="thumbnail"
           defaultWhere={where}
           defaultDistinct={distinct}
         />
-      </Suspense>
-    </ThumbnailFeedLayout>
+      </OfferHomeFeedLayout>
+    </Suspense>
   );
 }
 

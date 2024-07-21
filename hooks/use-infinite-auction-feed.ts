@@ -1,9 +1,9 @@
-import { useFindAuctionPreviewsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindAuctionsOrderByArgs,
-  FindAuctionsWhereArgs,
-} from '@/lib/auction/auction.interfaces';
+  FindAuctionPreviewsOrderByInput,
+  FindAuctionPreviewsWhereInput,
+  useFindAuctionPreviewsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteAuctionFeed = ({
@@ -11,13 +11,15 @@ export const useInfiniteAuctionFeed = ({
   where,
   orderBy,
   keyword,
+  target,
   distinct,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindAuctionsWhereArgs;
-  orderBy?: FindAuctionsOrderByArgs;
+  where?: FindAuctionPreviewsWhereInput;
+  orderBy?: FindAuctionPreviewsOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -26,6 +28,7 @@ export const useInfiniteAuctionFeed = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -40,6 +43,7 @@ export const useInfiniteAuctionFeed = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findAuctionPreviews.pageInfo.endCursor,
           take,
           skip: 1,

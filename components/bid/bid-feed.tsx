@@ -5,12 +5,10 @@ import {
   BidCanceledDocument,
   BidPlacedDocument,
   BidResponse,
+  FindBidsOrderByInput,
+  FindBidsWhereInput,
   useFindAuthorQuery,
 } from '@/generated/graphql';
-import {
-  FindBidsOrderByArgs,
-  FindBidsWhereArgs,
-} from '@/lib/bid/bid.interfaces';
 import { cancelBid, placeBid } from '@/lib/api/bid';
 import { useInfiniteBids } from '@/hooks/use-infinite-bids';
 import { BidValues } from '@/lib/bid/bid.types';
@@ -23,8 +21,8 @@ export default function BidFeed({
   defaultWhere,
   defaultOrderBy,
 }: {
-  defaultWhere: FindBidsWhereArgs;
-  defaultOrderBy: FindBidsOrderByArgs;
+  defaultWhere: FindBidsWhereInput;
+  defaultOrderBy: FindBidsOrderByInput;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const sentinelRef = useRef<HTMLDivElement>(null);

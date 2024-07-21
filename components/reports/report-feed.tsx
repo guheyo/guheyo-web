@@ -2,28 +2,28 @@
 
 import { useInfiniteReports } from '@/hooks/use-infinite-reports';
 import { useRef } from 'react';
-import {
-  FindReportPreviewsOrderByArgs,
-  FindReportPreviewsWhereArgs,
-} from '@/interfaces/report.interfaces';
 import { ReportType } from '@/lib/report/report.types';
 import { useSearchParams } from 'next/navigation';
 import { useGroup } from '@/hooks/use-group';
+import {
+  FindReportPreviewsOrderByInput,
+  FindReportPreviewsWhereInput,
+} from '@/generated/graphql';
 import ReportCard from './report-card';
 
 export default function ReportFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
 }: {
-  defaultWhere: FindReportPreviewsWhereArgs;
-  defaultOrderBy: FindReportPreviewsOrderByArgs;
-  keyword?: string;
+  defaultWhere: FindReportPreviewsWhereInput;
+  defaultOrderBy: FindReportPreviewsOrderByInput;
 }) {
   const searchParams = useSearchParams();
   const { group } = useGroup();
   const ref = useRef<HTMLDivElement>(null);
   const type = searchParams.get('type') || defaultWhere.type;
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteReports({
     ref,
@@ -34,6 +34,7 @@ export default function ReportFeed({
     },
     orderBy: defaultOrderBy,
     keyword,
+    target,
     take: 10,
   });
 

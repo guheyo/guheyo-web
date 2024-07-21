@@ -17,7 +17,7 @@ export default function GroupHeaderItem({
         width={isMobile ? 32 : 40}
         height={isMobile ? 32 : 40}
         alt={`${name} logo`}
-        className="rounded-lg"
+        className="rounded-full"
       />
       <div className="text-gray-200 text-base md:text-lg font-semibold">
         {name}

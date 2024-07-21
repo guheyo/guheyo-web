@@ -11,7 +11,7 @@ export default function AuctionMoreLink() {
         <PlayCircleOutlineOutlinedIcon
           fontSize={isMobile ? 'small' : 'medium'}
         />
-        경매장
+        경매
       </span>
     </Link>
   );

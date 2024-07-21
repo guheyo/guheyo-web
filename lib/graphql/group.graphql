@@ -53,8 +53,8 @@ query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   }
 }
 
-query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
-  findGroupProfiles(keyword: $keyword, cursor: $cursor, skip: $skip, take: $take) {
+query FindGroupProfiles($keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroupProfiles(keyword: $keyword, target: $target, cursor: $cursor, skip: $skip, take: $take) {
     edges {
       node {
         ...groupProfile

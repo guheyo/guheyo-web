@@ -1,24 +1,26 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
-import {
-  FindUsersOrderByArgs,
-  FindUsersWhereArgs,
-} from '@/interfaces/user.interfaces';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
+import {
+  FindUsersOrderByInput,
+  FindUsersWhereInput,
+} from '@/generated/graphql';
 import UserPreview from './user-preview';
 
 function UserFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
 }: {
-  defaultWhere: FindUsersWhereArgs;
-  defaultOrderBy?: FindUsersOrderByArgs;
-  keyword?: string;
+  defaultWhere: FindUsersWhereInput;
+  defaultOrderBy?: FindUsersOrderByInput;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteUsers({
     ref,
@@ -27,6 +29,7 @@ function UserFeed({
       createdAt: defaultOrderBy?.createdAt || 'asc',
     },
     keyword,
+    target,
     take: 12,
   });
 

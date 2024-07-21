@@ -1,11 +1,11 @@
 'use client';
 
 import UserReviewFeed from '@/components/user-review/user-review-feed';
-import { useFindUserQuery } from '@/generated/graphql';
 import {
-  FindUserReviewsOrderByArgs,
-  FindUserReviewsWhereArgs,
-} from '@/interfaces/user-review.interfaces';
+  FindUserReviewPreviewsOrderByInput,
+  FindUserReviewPreviewsWhereInput,
+  useFindUserQuery,
+} from '@/generated/graphql';
 
 function Page({
   params: { username },
@@ -24,10 +24,10 @@ function Page({
   if (loading) return <div />;
   if (!user) return <div />;
 
-  const where: FindUserReviewsWhereArgs = {
+  const where: FindUserReviewPreviewsWhereInput = {
     userId: user.id,
   };
-  const orderBy: FindUserReviewsOrderByArgs = {
+  const orderBy: FindUserReviewPreviewsOrderByInput = {
     createdAt: 'desc',
   };
 

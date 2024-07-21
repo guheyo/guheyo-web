@@ -1,9 +1,12 @@
-import { CommunityType } from './community.types';
-
 export const parseCommunityLink = ({
   groupSlug,
-  communityType,
+  category,
 }: {
   groupSlug?: string | null;
-  communityType: CommunityType;
-}) => (groupSlug ? `/g/${groupSlug}/${communityType}` : `/${communityType}`);
+  category?: string | null;
+}) => {
+  if (groupSlug && category)
+    return `/g/${groupSlug}/community?category=${category}`;
+  if (groupSlug) return `/g/${groupSlug}/community`;
+  return '/community';
+};

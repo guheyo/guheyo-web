@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { OFFER_OPTIONS } from '@/lib/offer/offer.constants';
+import { BUSINESS_FUNCTION_OPTIONS } from '@/lib/offer/offer.constants';
 import TextNavbar from '../base/text-navbar';
 
 export default function OfferBusinessFunctionsNavbar() {
@@ -10,7 +10,7 @@ export default function OfferBusinessFunctionsNavbar() {
 
   return (
     <TextNavbar
-      options={OFFER_OPTIONS}
+      options={BUSINESS_FUNCTION_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) => value}
       size="medium"

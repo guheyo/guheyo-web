@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import GroupIcon from '@mui/icons-material/Group';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import ForumIcon from '@mui/icons-material/Forum';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import BottomNavbarItem from '../base/bottom-navbar-item';
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function GroupBottomNavbar({
   groupSlug,
 }: {
-  groupSlug: string;
+  groupSlug?: string | null;
 }) {
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
@@ -73,7 +73,7 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href={parseMarketLink({ groupSlug, businessFunction: 'sell' })}
             icon={
-              <ShoppingBagIcon
+              <StorefrontIcon
                 fontSize="small"
                 className="hover:text-gray-300"
               />
@@ -85,10 +85,9 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href={parseCommunityLink({
               groupSlug,
-              communityType: 'member',
             })}
             icon={
-              <GroupIcon fontSize="small" className="hover:text-gray-300" />
+              <ForumIcon fontSize="small" className="hover:text-gray-300" />
             }
             text="커뮤니티"
           />

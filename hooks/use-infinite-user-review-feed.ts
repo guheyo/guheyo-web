@@ -1,9 +1,9 @@
-import { useFindUserReviewPreviewsQuery } from '@/generated/graphql';
-import { RefObject } from 'react';
 import {
-  FindUserReviewsOrderByArgs,
-  FindUserReviewsWhereArgs,
-} from '@/interfaces/user-review.interfaces';
+  FindUserReviewPreviewsOrderByInput,
+  FindUserReviewPreviewsWhereInput,
+  useFindUserReviewPreviewsQuery,
+} from '@/generated/graphql';
+import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteUserReviewFeed = ({
@@ -11,13 +11,15 @@ export const useInfiniteUserReviewFeed = ({
   where,
   orderBy,
   keyword,
+  target,
   distinct,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
-  where?: FindUserReviewsWhereArgs;
-  orderBy?: FindUserReviewsOrderByArgs;
+  where?: FindUserReviewPreviewsWhereInput;
+  orderBy?: FindUserReviewPreviewsOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -26,6 +28,7 @@ export const useInfiniteUserReviewFeed = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -40,6 +43,7 @@ export const useInfiniteUserReviewFeed = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findUserReviewPreviews.pageInfo.endCursor,
           take,
           skip: 1,

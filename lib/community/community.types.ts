@@ -1,1 +1,1 @@
-export type CommunityType = 'member' | 'thread' | 'review' | 'report';
+export type CommunityType = 'thread' | 'review';

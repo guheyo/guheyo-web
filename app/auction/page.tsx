@@ -1,8 +1,7 @@
 'use client';
 
 import AuctionFeed from '@/components/auction/auction-feed';
-import HomeAuctionFeedLayout from '@/components/auction/home-auction-feed.layout';
-import ThumbnailFeedLayout from '@/components/posts/thumbnail-feed.layout';
+import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout';
 import { Suspense } from 'react';
 
 function Page() {
@@ -11,20 +10,20 @@ function Page() {
   const distinct = false;
 
   return (
-    <div className="mx-2 md:mx-0">
-      <HomeAuctionFeedLayout showSelector>
-        <ThumbnailFeedLayout>
-          <Suspense>
-            <AuctionFeed
-              type="thumbnail"
-              defaultWhere={where}
-              defaultSortOrder={sortOrder}
-              defaultDistinct={distinct}
-            />
-          </Suspense>
-        </ThumbnailFeedLayout>
-      </HomeAuctionFeedLayout>
-    </div>
+    <Suspense>
+      <AuctionHomeFeedLayout
+        showCategories={false}
+        showSelectors
+        showMoreLink={false}
+      >
+        <AuctionFeed
+          type="thumbnail"
+          defaultWhere={where}
+          defaultSortOrder={sortOrder}
+          defaultDistinct={distinct}
+        />
+      </AuctionHomeFeedLayout>
+    </Suspense>
   );
 }
 

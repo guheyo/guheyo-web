@@ -1,6 +1,3 @@
-import GroupBottomNavbar from '@/components/groups/group-bottom-navbar';
-import GroupHeader from '@/components/groups/group-header';
-
 export async function generateMetadata({ params }: { params: any }) {
   const { groupSlug } = params;
 
@@ -19,15 +16,5 @@ export default function Layout({
     groupSlug: string;
   };
 }) {
-  return (
-    <div>
-      <div className="pt-4 pb-2 px-4 md:px-0">
-        <GroupHeader slug={params.groupSlug} />
-      </div>
-      {children}
-      <div className="lg:hidden">
-        <GroupBottomNavbar groupSlug={params.groupSlug} />
-      </div>
-    </div>
-  );
+  return children;
 }

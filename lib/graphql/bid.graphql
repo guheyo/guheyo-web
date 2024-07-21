@@ -17,9 +17,10 @@ fragment bidCount on BidCountResponse {
 }
 
 query FindBids(
-  $where: JSON
-  $orderBy: JSON
+  $where: FindBidsWhereInput
+  $orderBy: FindBidsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -28,6 +29,7 @@ query FindBids(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take

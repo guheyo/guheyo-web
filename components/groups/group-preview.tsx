@@ -24,14 +24,14 @@ export default function GroupPreview({ group }: Props) {
           slug={group.slug!}
         />
       </div>
-      <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-3 md:pt-5 pb-1">
+      <div className="text-sm md:text-base text-gray-300 font-medium mx-2.5 md:mx-1 pt-3 md:pt-5 pb-1">
         <Link
           href={parseMarketLink({
             groupSlug: group.slug!,
             businessFunction: 'sell',
           })}
         >
-          <span className="flex flex-row items-center gap-1 px-3 md:px-0">
+          <span className="flex flex-row items-center gap-1">
             <SellIcon fontSize={isMobile ? 'small' : 'medium'} />
             {group.name} 판매
           </span>
@@ -58,18 +58,18 @@ export default function GroupPreview({ group }: Props) {
         </Link>
       </div>
 
-      <div className="text-sm md:text-base text-gray-300 font-medium mx-0 md:mx-1 pt-0 md:pt-5 pb-1">
-        <div className="flex flex-row items-center gap-1 px-3 md:px-0">
-          <ShoppingBagIcon fontSize={isMobile ? 'small' : 'medium'} />
-          <Link
-            href={parseMarketLink({
-              groupSlug: group.slug!,
-              businessFunction: 'buy',
-            })}
-          >
+      <div className="text-sm md:text-base text-gray-300 font-medium mx-2.5 md:mx-1 pt-0 md:pt-5 pb-1">
+        <Link
+          href={parseMarketLink({
+            groupSlug: group.slug!,
+            businessFunction: 'buy',
+          })}
+        >
+          <span className="flex flex-row items-center gap-1">
+            <ShoppingBagIcon fontSize={isMobile ? 'small' : 'medium'} />
             {group.name} 구매
-          </Link>
-        </div>
+          </span>
+        </Link>
       </div>
       <div className="grid gap-x-0 md:gap-x-4 gap-y-2 grid-cols-1 md:grid-cols-2 px-0 md:px-0">
         {group.buys.map((buyOffer) => (
