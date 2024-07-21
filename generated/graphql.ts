@@ -1869,6 +1869,7 @@ export type FindOfferPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindOfferPreviewsWhereInput>;
   orderBy?: InputMaybe<FindOfferPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -4050,11 +4051,12 @@ export function refetchFindGroupPreviewsQuery(variables?: FindGroupPreviewsQuery
       return { query: FindGroupPreviewsDocument, variables: variables }
     }
 export const FindOfferPreviewsDocument = gql`
-    query FindOfferPreviews($where: FindOfferPreviewsWhereInput, $orderBy: FindOfferPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindOfferPreviews($where: FindOfferPreviewsWhereInput, $orderBy: FindOfferPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findOfferPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -4088,6 +4090,7 @@ export const FindOfferPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
