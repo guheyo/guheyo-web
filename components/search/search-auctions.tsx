@@ -1,11 +1,11 @@
 'use client';
 
+import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
 import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 import SearchContainer from './search-container';
-import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 
 export default function SearchAuctions() {
   return (
