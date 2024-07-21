@@ -11,12 +11,14 @@ export const useInfiniteBids = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindBidsWhereInput;
   orderBy?: FindBidsOrderByInput;
   keyword?: string;
+  target?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindBidsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteBids = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteBids = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findBids.pageInfo.endCursor,
           take,
           skip: 1,

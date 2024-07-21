@@ -43,6 +43,7 @@ export const useInfiniteOfferFeed = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,
           skip: 1,

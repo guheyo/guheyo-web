@@ -11,12 +11,14 @@ export const useInfiniteUsers = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindUsersWhereInput;
   orderBy?: FindUsersOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -25,6 +27,7 @@ export const useInfiniteUsers = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteUsers = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findUsers.pageInfo.endCursor,
           take,
           skip: 1,

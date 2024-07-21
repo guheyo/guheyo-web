@@ -11,6 +11,7 @@ export const useInfiniteThreadFeed = ({
   where,
   orderBy,
   keyword,
+  target,
   distinct,
   take,
 }: {
@@ -18,6 +19,7 @@ export const useInfiniteThreadFeed = ({
   where?: FindThreadPreviewsWhereInput;
   orderBy?: FindThreadPreviewsOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -26,6 +28,7 @@ export const useInfiniteThreadFeed = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -40,6 +43,7 @@ export const useInfiniteThreadFeed = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findThreadPreviews.pageInfo.endCursor,
           take,
           skip: 1,

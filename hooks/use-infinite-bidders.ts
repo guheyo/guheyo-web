@@ -11,12 +11,14 @@ export const useInfiniteBidders = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where: FindBiddersWhereInput;
   orderBy?: FindBiddersOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -25,6 +27,7 @@ export const useInfiniteBidders = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteBidders = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findBidders.pageInfo.endCursor,
           take,
           skip: 1,

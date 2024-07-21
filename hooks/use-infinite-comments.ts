@@ -11,12 +11,14 @@ export const useInfiniteComments = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindCommentsWhereInput;
   orderBy?: FindCommentsOrderByInput;
   keyword?: string;
+  target?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindCommentsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteComments = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteComments = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findComments.pageInfo.endCursor,
           take,
           skip: 1,
