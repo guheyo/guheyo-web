@@ -16,18 +16,18 @@ import ThreadPreview from './thread-preview';
 function ThreadFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
   type,
 }: {
   defaultWhere: FindThreadPreviewsWhereInput;
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
-  keyword?: string;
   type: PostPreviewType;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const category = findCategory(group?.categories, {
     slug: categorySlug,
@@ -44,6 +44,7 @@ function ThreadFeed({
       createdAt: defaultOrderBy?.createdAt || 'desc',
     },
     keyword,
+    target,
     take: 12,
   });
 

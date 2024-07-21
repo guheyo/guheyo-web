@@ -18,12 +18,10 @@ import UserReviewPreview from '../user-review/user-review-preview';
 function ThreadAndReviewFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
   type,
 }: {
   defaultWhere: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   defaultOrderBy?: { createdAt: SortOrder };
-  keyword?: string;
   type: PostPreviewType;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,6 +34,8 @@ function ThreadAndReviewFeed({
     slug: categorySlug,
   });
   const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
@@ -56,6 +56,7 @@ function ThreadAndReviewFeed({
       createdAt: (defaultOrderBy?.createdAt || 'desc') as SortOrder,
     },
     keyword,
+    target,
     take: 12,
   });
 

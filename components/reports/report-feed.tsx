@@ -14,16 +14,16 @@ import ReportCard from './report-card';
 export default function ReportFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
 }: {
   defaultWhere: FindReportPreviewsWhereInput;
   defaultOrderBy: FindReportPreviewsOrderByInput;
-  keyword?: string;
 }) {
   const searchParams = useSearchParams();
   const { group } = useGroup();
   const ref = useRef<HTMLDivElement>(null);
   const type = searchParams.get('type') || defaultWhere.type;
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteReports({
     ref,
@@ -34,6 +34,7 @@ export default function ReportFeed({
     },
     orderBy: defaultOrderBy,
     keyword,
+    target,
     take: 10,
   });
 

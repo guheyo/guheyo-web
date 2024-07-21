@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
 import { getFindAuctionsOrderByArgs } from '@/lib/auction/get-find-auctions-order-by-args';
@@ -12,12 +13,10 @@ import AuctionMoreLink from './auction-more-link';
 function RecentAuctions({
   defaultWhere,
   defaultSortOrder,
-  keyword,
   defaultDistinct,
 }: {
   defaultWhere: FindAuctionPreviewsWhereInput;
   defaultSortOrder?: string;
-  keyword?: string;
   defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,6 +24,10 @@ function RecentAuctions({
     sortOrder: defaultSortOrder || 'ending',
   });
   const distinct = defaultDistinct;
+
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteAuctionFeed({
     ref,
@@ -39,6 +42,7 @@ function RecentAuctions({
       currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,
+    target,
     distinct,
     take: 3,
   });

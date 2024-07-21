@@ -13,6 +13,7 @@ import {
   FindOfferPreviewsOrderByInput,
   FindOfferPreviewsWhereInput,
 } from '@/generated/graphql';
+import { useSearchParams } from 'next/navigation';
 
 const {
   theme: { colors },
@@ -21,7 +22,6 @@ const {
 function OfferCheckboxResults({
   where,
   orderBy,
-  keyword,
   type,
   distinct,
   control,
@@ -29,7 +29,6 @@ function OfferCheckboxResults({
 }: {
   where: FindOfferPreviewsWhereInput;
   orderBy?: FindOfferPreviewsOrderByInput;
-  keyword?: string;
   type: PostPreviewType;
   distinct: boolean;
   control: Control<CheckboxFormValues>;
@@ -37,6 +36,10 @@ function OfferCheckboxResults({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedId', control });
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
+
   const { loading, data } = useInfiniteOfferFeed({
     ref,
     where: {
@@ -49,6 +52,7 @@ function OfferCheckboxResults({
       price: orderBy?.price,
     },
     keyword,
+    target,
     distinct,
     take: 12,
   });
