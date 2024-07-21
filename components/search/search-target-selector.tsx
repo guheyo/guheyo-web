@@ -13,7 +13,7 @@ export default function SearchTargetSelector({
       queryKey="target"
       defaultValue="all"
       options={options}
-      inputClassName="px-3 py-3 text-xs md:text-sm w-14 md:w-20"
+      inputClassName="px-3 py-3 text-xs md:text-sm"
     />
   );
 }
