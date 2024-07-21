@@ -5,6 +5,7 @@ export interface FeedComponentProps {
   defaultWhere: any;
   defaultOrderBy: any;
   keyword?: string;
+  target?: string;
   defaultDistinct: boolean;
 }
 
