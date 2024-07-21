@@ -61,6 +61,7 @@ query FindReportPreviews(
   $where: FindReportPreviewsWhereInput
   $orderBy: FindReportPreviewsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -69,6 +70,7 @@ query FindReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take

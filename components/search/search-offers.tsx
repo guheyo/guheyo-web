@@ -2,6 +2,7 @@
 
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { useSearchParams } from 'next/navigation';
+import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
 import OfferFeed from '../offers/offer-feed';
@@ -24,6 +25,7 @@ export default function SearchOffers() {
   return (
     <SearchContainer
       placeholder="어떤 제품을 찾고 있나요?"
+      options={POST_SEARCH_OPTIONS}
       categories={<ProductCategoriesNavbar types={['product', 'service']} />}
       selectors={
         <>

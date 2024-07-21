@@ -11,12 +11,14 @@ export const useInfiniteAuctionInteractionItems = ({
   where,
   orderBy,
   keyword,
+  target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindAuctionInteractionItemsWhereInput;
   orderBy?: FindAuctionInteractionItemsOrderByInput;
   keyword?: string;
+  target?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindAuctionInteractionItemsQuery({
@@ -24,6 +26,7 @@ export const useInfiniteAuctionInteractionItems = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -39,6 +42,7 @@ export const useInfiniteAuctionInteractionItems = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findAuctionInteractionItems.pageInfo.endCursor,
           take,
           skip: 0, // NOTE: do not skip, since createdAt is cursor not id

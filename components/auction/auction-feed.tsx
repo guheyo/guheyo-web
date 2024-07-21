@@ -19,13 +19,11 @@ function AuctionFeed({
   type,
   defaultWhere,
   defaultSortOrder,
-  keyword,
   defaultDistinct,
 }: {
   type: PostPreviewType;
   defaultWhere: FindAuctionPreviewsWhereInput;
   defaultSortOrder?: string;
-  keyword?: string;
   defaultDistinct: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -44,6 +42,8 @@ function AuctionFeed({
   const orderBy = getFindAuctionsOrderByArgs({
     sortOrder: searchParams.get('sort') || defaultSortOrder,
   });
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const distinct =
     searchParams.get('distinct') === null
@@ -69,6 +69,7 @@ function AuctionFeed({
       currentBidPrice: orderBy?.currentBidPrice,
     },
     keyword,
+    target,
     distinct,
     take: 12,
   });

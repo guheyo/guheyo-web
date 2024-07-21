@@ -16,6 +16,7 @@ interface UseInfiniteThreadAndReviewFeedProps {
   where?: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   orderBy?: { createdAt?: SortOrder };
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }
@@ -26,6 +27,7 @@ export const useInfiniteThreadAndReviewFeed = ({
   where,
   orderBy,
   keyword,
+  target,
   distinct,
   take,
 }: UseInfiniteThreadAndReviewFeedProps) => {
@@ -79,6 +81,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       where: threadWhere,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -95,6 +98,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       where: reviewWhere,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -157,6 +161,7 @@ export const useInfiniteThreadAndReviewFeed = ({
         where: threadWhere,
         orderBy,
         keyword,
+        target,
         take,
         skip: 0,
       }).then((result) => {
@@ -172,6 +177,7 @@ export const useInfiniteThreadAndReviewFeed = ({
         where: reviewWhere,
         orderBy,
         keyword,
+        target,
         take,
         skip: 0,
       }).then((result) => {
@@ -187,6 +193,7 @@ export const useInfiniteThreadAndReviewFeed = ({
         where: threadWhere,
         orderBy,
         keyword,
+        target,
         take,
         skip: 0,
       }).then((threadResult) => {
@@ -194,6 +201,7 @@ export const useInfiniteThreadAndReviewFeed = ({
           where: reviewWhere,
           orderBy,
           keyword,
+          target,
           take,
           skip: 0,
         }).then((reviewResult) => {
@@ -207,7 +215,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadWhere, reviewWhere, orderBy?.createdAt, type, keyword, take]);
+  }, [threadWhere, reviewWhere, orderBy?.createdAt, type, keyword, target]);
 
   const fetchMore = async () => {
     const [moreThreads, moreReviews] = await Promise.all([
@@ -216,6 +224,7 @@ export const useInfiniteThreadAndReviewFeed = ({
           where: threadWhere,
           orderBy,
           keyword,
+          target,
           cursor: threadCursor,
           take,
           skip: 1,
@@ -226,6 +235,7 @@ export const useInfiniteThreadAndReviewFeed = ({
           where: reviewWhere,
           orderBy,
           keyword,
+          target,
           cursor: reviewCursor,
           take,
           skip: 1,

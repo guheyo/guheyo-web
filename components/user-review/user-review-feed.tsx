@@ -14,16 +14,16 @@ import UserReviewPreview from './user-review-preview';
 function UserReviewFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
 }: {
   defaultWhere: FindUserReviewPreviewsWhereInput;
   defaultOrderBy?: FindUserReviewPreviewsOrderByInput;
-  keyword?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteUserReviewFeed({
     ref,
@@ -37,6 +37,7 @@ function UserReviewFeed({
       createdAt: defaultOrderBy?.createdAt || 'desc',
     },
     keyword,
+    target,
     take: 12,
   });
 

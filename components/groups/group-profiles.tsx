@@ -3,20 +3,24 @@
 import { useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import GroupProfile from './group-profile';
 import SearchResultCardLayout from '../search/search-result-card.layout';
 
 export default function GroupProfiles({
-  keyword,
   generateLink,
 }: {
-  keyword?: string;
   generateLink?: (slug: string) => string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
+
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
     keyword,
+    target,
     take: 1,
   });
   if (loading) return <div />;

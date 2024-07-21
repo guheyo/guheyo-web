@@ -13,7 +13,7 @@ export default function SearchGroups({
   placeholder: string;
   generateLink?: (slug: string) => string;
 }) {
-  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const { text, setText } = useSearchQuery(DEBOUNCE);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setText(event.target.value);
@@ -33,7 +33,7 @@ export default function SearchGroups({
         handleChange={handleChange}
       />
       <InfoFeedLayout>
-        <GroupProfiles keyword={keyword} generateLink={generateLink} />
+        <GroupProfiles generateLink={generateLink} />
       </InfoFeedLayout>
     </div>
   );

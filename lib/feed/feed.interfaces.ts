@@ -4,7 +4,6 @@ export interface FeedComponentProps {
   type: PostPreviewType;
   defaultWhere: any;
   defaultOrderBy: any;
-  keyword?: string;
   defaultDistinct: boolean;
 }
 

@@ -11,6 +11,7 @@ export const useInfiniteOfferFeed = ({
   where,
   orderBy,
   keyword,
+  target,
   distinct,
   take,
 }: {
@@ -18,6 +19,7 @@ export const useInfiniteOfferFeed = ({
   where?: FindOfferPreviewsWhereInput;
   orderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
+  target?: string;
   distinct?: boolean;
   take: number;
 }) => {
@@ -26,6 +28,7 @@ export const useInfiniteOfferFeed = ({
       where,
       orderBy,
       keyword,
+      target,
       take,
       skip: 0,
     },
@@ -40,6 +43,7 @@ export const useInfiniteOfferFeed = ({
           where,
           orderBy,
           keyword,
+          target,
           cursor: data?.findOfferPreviews.pageInfo.endCursor,
           take,
           skip: 1,

@@ -2,6 +2,7 @@
 
 import { SortOrder } from '@/types/sort.types';
 import { useSearchParams } from 'next/navigation';
+import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import ThreadAndReviewFeed from '../community/thread-and-review-feed';
 import SearchContainer from './search-container';
@@ -19,7 +20,8 @@ export default function SearchThreadsAndReviews() {
 
   return (
     <SearchContainer
-      placeholder="어떤 게시글을 찾고 있나요?"
+      placeholder="어떤 스레드를 찾고 있나요?"
+      options={POST_SEARCH_OPTIONS}
       categories={<CommunityCategoriesNavbar />}
       tags={
         categorySlug === 'review' ? (

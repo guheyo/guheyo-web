@@ -46,6 +46,7 @@ query FindAuctionPreviews(
   $where: FindAuctionPreviewsWhereInput
   $orderBy: FindAuctionPreviewsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -54,6 +55,7 @@ query FindAuctionPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -87,6 +89,7 @@ query FindAuctionInteractionItems(
   $where: FindAuctionInteractionItemsWhereInput
   $orderBy: FindAuctionInteractionItemsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -95,6 +98,7 @@ query FindAuctionInteractionItems(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -122,6 +126,7 @@ query FindBidders(
   $where: FindBiddersWhereInput!
   $orderBy: FindBiddersOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -130,6 +135,7 @@ query FindBidders(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
