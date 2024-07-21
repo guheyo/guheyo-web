@@ -6,17 +6,20 @@ import AuctionSelectors from './auction-selectors';
 import BusinessFunctionPathUpdater from '../offers/business-function-path-updater';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
+import AuctionMoreLink from './auction-more-link';
 
 interface Props {
   children: ReactNode;
   showCategories: boolean;
   showSelectors: boolean;
+  showMoreLink: boolean;
 }
 
 function AuctionHomeFeedLayout({
   children,
   showCategories,
   showSelectors,
+  showMoreLink,
 }: Props) {
   return (
     <HomeFeedLayout
@@ -36,6 +39,7 @@ function AuctionHomeFeedLayout({
           </>
         )
       }
+      moreLink={showMoreLink && <AuctionMoreLink />}
     >
       {children}
     </HomeFeedLayout>
