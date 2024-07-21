@@ -1845,6 +1845,7 @@ export type FindGroupsQuery = { __typename?: 'Query', findGroups: { __typename?:
 
 export type FindGroupProfilesQueryVariables = Exact<{
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -3929,8 +3930,14 @@ export function refetchFindGroupsQuery(variables: FindGroupsQueryVariables) {
       return { query: FindGroupsDocument, variables: variables }
     }
 export const FindGroupProfilesDocument = gql`
-    query FindGroupProfiles($keyword: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
-  findGroupProfiles(keyword: $keyword, cursor: $cursor, skip: $skip, take: $take) {
+    query FindGroupProfiles($keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroupProfiles(
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
     edges {
       node {
         ...groupProfile
@@ -3958,6 +3965,7 @@ export const FindGroupProfilesDocument = gql`
  * const { data, loading, error } = useFindGroupProfilesQuery({
  *   variables: {
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
