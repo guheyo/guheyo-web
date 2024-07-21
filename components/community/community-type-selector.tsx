@@ -23,7 +23,7 @@ export default function CommunityTypeSelector({
       name="community"
       selectedValue={communityType}
       options={COMMUNITY_TYPE_OPTIONS}
-      inputClassName="className: 'px-3 py-2 text-xs md:text-base"
+      inputClassName="className: 'px-3 py-2 text-xs md:text-sm"
       handleChange={handleChange}
     />
   );

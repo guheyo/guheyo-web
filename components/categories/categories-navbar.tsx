@@ -34,7 +34,7 @@ export default function CategoriesNavbar({
             )}`}
             onClick={(e) => handleClick(e, null)}
           >
-            <span className="font-bold text-sm md:text-base">전체</span>
+            <span className="font-bold text-xs md:text-sm">전체</span>
           </button>
           {categories?.map((category) => (
             <button
@@ -45,7 +45,7 @@ export default function CategoriesNavbar({
               )}`}
               onClick={(e) => handleClick(e, category.slug)}
             >
-              <span className="font-bold text-sm md:text-base">
+              <span className="font-bold text-xs md:text-sm">
                 {category.name}
               </span>
             </button>
