@@ -34,7 +34,7 @@ export default function TagsNavbar({
         >
           <span
             className={
-              size === 'large' ? `text-base md:text-lg` : `text-sm md:text-base`
+              size === 'large' ? `text-sm md:text-base` : `text-xs md:text-sm`
             }
           >
             {tag}

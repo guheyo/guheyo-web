@@ -4,7 +4,6 @@ import { useFindAuctionPreviewsQuery } from '@/generated/graphql';
 import { AUCTION_CLOSED, AUCTION_LIVE } from '@/lib/auction/auction.constants';
 import AuctionPreview from './auction-preview';
 import AuctionHomeFeedLayout from './auction-home-feed.layout';
-import AuctionMoreLink from './auction-more-link';
 
 export default function AuctionHome() {
   const { loading, data } = useFindAuctionPreviewsQuery({
@@ -31,7 +30,11 @@ export default function AuctionHome() {
   auctions = [...liveAuctions, ...closedAuctions].slice(0, 4);
 
   return (
-    <AuctionHomeFeedLayout showCategories={false} showSelectors={false}>
+    <AuctionHomeFeedLayout
+      showCategories={false}
+      showSelectors={false}
+      showMoreLink
+    >
       {auctions.map((auction) => (
         <AuctionPreview
           type="thumbnail"
@@ -40,9 +43,6 @@ export default function AuctionHome() {
           isInGroup={false}
         />
       ))}
-      <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium mx-0 md:mx-1 pt-2">
-        <AuctionMoreLink />
-      </div>
     </AuctionHomeFeedLayout>
   );
 }

@@ -17,7 +17,7 @@ function Page({ params: { groupSlug } }: AuctionsPageProps) {
 
   return (
     <Suspense>
-      <AuctionHomeFeedLayout showCategories showSelectors>
+      <AuctionHomeFeedLayout showCategories showSelectors showMoreLink={false}>
         <AuctionFeed
           type="thumbnail"
           defaultWhere={where}

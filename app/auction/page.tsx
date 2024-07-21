@@ -11,7 +11,7 @@ function Page() {
 
   return (
     <Suspense>
-      <AuctionHomeFeedLayout showCategories={false} showSelectors>
+      <AuctionHomeFeedLayout showCategories={false} showSelectors showMoreLink={false}>
         <AuctionFeed
           type="thumbnail"
           defaultWhere={where}
