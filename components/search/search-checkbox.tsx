@@ -30,7 +30,7 @@ export default function SearchCheckbox({
   handleUnAuthorization: MouseEventHandler;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const { text, setText } = useSearchQuery(DEBOUNCE);
 
   const { setValue, getValues, control } = useForm<CheckboxFormValues>({
     defaultValues: {
@@ -65,7 +65,6 @@ export default function SearchCheckbox({
           orderBy={orderBy}
           type={type}
           distinct={distinct}
-          keyword={keyword}
           userIdToExclude={jwtPayload?.id}
           control={control}
           handleCheckboxClick={handleCheckboxClick}
