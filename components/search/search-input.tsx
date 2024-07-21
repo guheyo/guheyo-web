@@ -63,14 +63,15 @@ export default function SearchInput({
         ),
         sx: {
           color: '#f2f3ed',
-          borderRadius: 2,
-          fontSize: device === 'mobile' ? '14px' : '16px',
+          borderRadius: 6,
+          fontSize: device === 'mobile' ? '14px' : '14px',
           backgroundColor: '#404146',
           fontWeight: 500,
-          minWidth: 360,
+          height: 44,
         },
         autoFocus: true,
       }}
+      fullWidth
     />
   );
 }
