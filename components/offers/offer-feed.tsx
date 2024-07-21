@@ -20,13 +20,11 @@ import ReceivedUserReviewsDialog from '../user-review/received-user-reviews-dial
 function OfferFeed({
   defaultWhere,
   defaultOrderBy,
-  keyword,
   type,
   defaultDistinct,
 }: {
   defaultWhere: FindOfferPreviewsWhereInput;
   defaultOrderBy?: FindOfferPreviewsOrderByInput;
-  keyword?: string;
   type: PostPreviewType;
   defaultDistinct: boolean;
 }) {
@@ -50,6 +48,8 @@ function OfferFeed({
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
 
   const distinct =
     searchParams.get('distinct') === null
@@ -76,6 +76,7 @@ function OfferFeed({
       price: defaultOrderBy?.price,
     },
     keyword,
+    target,
     distinct,
     take: 12,
   });
