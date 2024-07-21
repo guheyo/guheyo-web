@@ -16,6 +16,7 @@ interface Props {
   categories?: ReactNode;
   tags?: ReactNode;
   selectors?: ReactNode;
+  moreLink?: ReactNode;
 }
 
 function HomeFeedLayout({
@@ -26,11 +27,12 @@ function HomeFeedLayout({
   categories,
   tags,
   selectors,
+  moreLink,
 }: Props) {
   const { group } = useGroup();
 
   return (
-    <div>
+    <div className="mx-2 md:mx-0">
       <div className="pt-0 px-3 md:px-1 w-fit">{homeLink}</div>
       <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
         <Suspense>
@@ -48,13 +50,16 @@ function HomeFeedLayout({
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
-      <div className="pb-4 md:pb-6 mx-2 md:mx-0">
-        {postPreviewType === 'thumbnail' ? (
-          <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
-        ) : (
-          <TextFeedLayout>{children}</TextFeedLayout>
-        )}
-      </div>
+      {postPreviewType === 'thumbnail' ? (
+        <ThumbnailFeedLayout>{children}</ThumbnailFeedLayout>
+      ) : (
+        <TextFeedLayout>{children}</TextFeedLayout>
+      )}
+      {moreLink && (
+        <div className="flex justify-end text-sm md:text-base text-dark-200 font-medium pt-2">
+          {moreLink}
+        </div>
+      )}
       <div className="lg:hidden">
         <GroupBottomNavbar groupSlug={group?.slug} />
       </div>
