@@ -71,6 +71,7 @@ query FindComments(
   $where: FindCommentsWhereInput
   $orderBy: FindCommentsOrderByInput
   $keyword: String
+  $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
@@ -79,6 +80,7 @@ query FindComments(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take

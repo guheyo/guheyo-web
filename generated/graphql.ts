@@ -1613,6 +1613,7 @@ export type FindAuctionPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindAuctionPreviewsWhereInput>;
   orderBy?: InputMaybe<FindAuctionPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1633,6 +1634,7 @@ export type FindAuctionInteractionItemsQueryVariables = Exact<{
   where?: InputMaybe<FindAuctionInteractionItemsWhereInput>;
   orderBy?: InputMaybe<FindAuctionInteractionItemsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1645,6 +1647,7 @@ export type FindBiddersQueryVariables = Exact<{
   where: FindBiddersWhereInput;
   orderBy?: InputMaybe<FindBiddersOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1690,6 +1693,7 @@ export type FindBidsQueryVariables = Exact<{
   where?: InputMaybe<FindBidsWhereInput>;
   orderBy?: InputMaybe<FindBidsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1778,6 +1782,7 @@ export type FindCommentsQueryVariables = Exact<{
   where?: InputMaybe<FindCommentsWhereInput>;
   orderBy?: InputMaybe<FindCommentsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -1988,6 +1993,7 @@ export type FindReportPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindReportPreviewsWhereInput>;
   orderBy?: InputMaybe<FindReportPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -2057,6 +2063,7 @@ export type FindThreadPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindThreadPreviewsWhereInput>;
   orderBy?: InputMaybe<FindThreadPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -2118,6 +2125,7 @@ export type FindUserReviewPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindUserReviewPreviewsWhereInput>;
   orderBy?: InputMaybe<FindUserReviewPreviewsOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -2182,6 +2190,7 @@ export type FindUsersQueryVariables = Exact<{
   where?: InputMaybe<FindUsersWhereInput>;
   orderBy?: InputMaybe<FindUsersOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
@@ -2848,11 +2857,12 @@ export const VersionPreviewFragmentDoc = gql`
 }
     `;
 export const FindAuctionPreviewsDocument = gql`
-    query FindAuctionPreviews($where: FindAuctionPreviewsWhereInput, $orderBy: FindAuctionPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindAuctionPreviews($where: FindAuctionPreviewsWhereInput, $orderBy: FindAuctionPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -2886,6 +2896,7 @@ export const FindAuctionPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -2956,11 +2967,12 @@ export function refetchFindAuctionQuery(variables?: FindAuctionQueryVariables) {
       return { query: FindAuctionDocument, variables: variables }
     }
 export const FindAuctionInteractionItemsDocument = gql`
-    query FindAuctionInteractionItems($where: FindAuctionInteractionItemsWhereInput, $orderBy: FindAuctionInteractionItemsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindAuctionInteractionItems($where: FindAuctionInteractionItemsWhereInput, $orderBy: FindAuctionInteractionItemsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findAuctionInteractionItems(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -3001,6 +3013,7 @@ ${CommentWithAuthorFragmentDoc}`;
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -3027,11 +3040,12 @@ export function refetchFindAuctionInteractionItemsQuery(variables: FindAuctionIn
       return { query: FindAuctionInteractionItemsDocument, variables: variables }
     }
 export const FindBiddersDocument = gql`
-    query FindBidders($where: FindBiddersWhereInput!, $orderBy: FindBiddersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindBidders($where: FindBiddersWhereInput!, $orderBy: FindBiddersOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findBidders(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -3065,6 +3079,7 @@ export const FindBiddersDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -3251,11 +3266,12 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const FindBidsDocument = gql`
-    query FindBids($where: FindBidsWhereInput, $orderBy: FindBidsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindBids($where: FindBidsWhereInput, $orderBy: FindBidsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findBids(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -3289,6 +3305,7 @@ export const FindBidsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -3618,11 +3635,12 @@ export function refetchFindCommentQuery(variables?: FindCommentQueryVariables) {
       return { query: FindCommentDocument, variables: variables }
     }
 export const FindCommentsDocument = gql`
-    query FindComments($where: FindCommentsWhereInput, $orderBy: FindCommentsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindComments($where: FindCommentsWhereInput, $orderBy: FindCommentsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findComments(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -3656,6 +3674,7 @@ export const FindCommentsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -4548,11 +4567,12 @@ export type CreateReportMutationHookResult = ReturnType<typeof useCreateReportMu
 export type CreateReportMutationResult = Apollo.MutationResult<CreateReportMutation>;
 export type CreateReportMutationOptions = Apollo.BaseMutationOptions<CreateReportMutation, CreateReportMutationVariables>;
 export const FindReportPreviewsDocument = gql`
-    query FindReportPreviews($where: FindReportPreviewsWhereInput, $orderBy: FindReportPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindReportPreviews($where: FindReportPreviewsWhereInput, $orderBy: FindReportPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findReportPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -4586,6 +4606,7 @@ export const FindReportPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -4891,11 +4912,12 @@ export function refetchFindTermQuery(variables: FindTermQueryVariables) {
       return { query: FindTermDocument, variables: variables }
     }
 export const FindThreadPreviewsDocument = gql`
-    query FindThreadPreviews($where: FindThreadPreviewsWhereInput, $orderBy: FindThreadPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindThreadPreviews($where: FindThreadPreviewsWhereInput, $orderBy: FindThreadPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findThreadPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -4929,6 +4951,7 @@ export const FindThreadPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -5157,11 +5180,12 @@ export type DeleteUserImageMutationHookResult = ReturnType<typeof useDeleteUserI
 export type DeleteUserImageMutationResult = Apollo.MutationResult<DeleteUserImageMutation>;
 export type DeleteUserImageMutationOptions = Apollo.BaseMutationOptions<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
 export const FindUserReviewPreviewsDocument = gql`
-    query FindUserReviewPreviews($where: FindUserReviewPreviewsWhereInput, $orderBy: FindUserReviewPreviewsOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUserReviewPreviews($where: FindUserReviewPreviewsWhereInput, $orderBy: FindUserReviewPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUserReviewPreviews(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -5195,6 +5219,7 @@ export const FindUserReviewPreviewsDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
@@ -5458,11 +5483,12 @@ export function refetchFindMyUserQuery(variables?: FindMyUserQueryVariables) {
       return { query: FindMyUserDocument, variables: variables }
     }
 export const FindUsersDocument = gql`
-    query FindUsers($where: FindUsersWhereInput, $orderBy: FindUsersOrderByInput, $keyword: String, $cursor: ID, $skip: Int!, $take: Int!) {
+    query FindUsers($where: FindUsersWhereInput, $orderBy: FindUsersOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findUsers(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
+    target: $target
     cursor: $cursor
     skip: $skip
     take: $take
@@ -5496,6 +5522,7 @@ export const FindUsersDocument = gql`
  *      where: // value for 'where'
  *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
  *      cursor: // value for 'cursor'
  *      skip: // value for 'skip'
  *      take: // value for 'take'
