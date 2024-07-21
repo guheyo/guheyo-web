@@ -6,13 +6,16 @@ import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import React, { ReactNode } from 'react';
 import { FeedComponent, FeedComponentProps } from '@/lib/feed/feed.interfaces';
 import { useGroup } from '@/hooks/use-group';
+import { Option } from '@/interfaces/selector.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
 import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import SearchTargetSelector from './search-target-selector';
 
 export default function SearchContainer({
   placeholder,
+  options,
   categories,
   tags,
   selectors,
@@ -20,15 +23,16 @@ export default function SearchContainer({
   feedProps,
 }: {
   placeholder: string;
+  options?: Option[];
   categories?: ReactNode;
   tags?: ReactNode;
   selectors?: ReactNode;
   Feed: FeedComponent;
-  feedProps: Omit<FeedComponentProps, 'keyword'>;
+  feedProps: FeedComponentProps;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { text, setText, keyword } = useSearchQuery(DEBOUNCE);
+  const { text, setText } = useSearchQuery(DEBOUNCE);
   const { group } = useGroup();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -41,13 +45,22 @@ export default function SearchContainer({
 
   return (
     <div className="grid max-w-4xl w-full">
-      <SearchInput
-        text={text}
-        setText={setText}
-        placeholder={placeholder}
-        handleKeyDown={handleKeyDown}
-        handleChange={handleChange}
-      />
+      <div className="flex flex-row gap-1 items-center">
+        <div className="flex-grow">
+          <SearchInput
+            text={text}
+            setText={setText}
+            placeholder={placeholder}
+            handleKeyDown={handleKeyDown}
+            handleChange={handleChange}
+          />
+        </div>
+        {options && options.length > 0 && (
+          <div className="w-fit">
+            <SearchTargetSelector options={options} />
+          </div>
+        )}
+      </div>
       <div className="pt-2" />
       <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
         <GroupProfileSidebarItems
@@ -75,7 +88,7 @@ export default function SearchContainer({
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
       <TextFeedLayout>
-        <Feed keyword={keyword} {...feedProps} />
+        <Feed {...feedProps} />
       </TextFeedLayout>
     </div>
   );
