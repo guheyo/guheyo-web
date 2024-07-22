@@ -14,6 +14,7 @@ import OfferMoreLink from './offer-more-link';
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
+  hideGroupProfileSidebarItems?: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
@@ -22,6 +23,7 @@ interface Props {
 function OfferHomeFeedLayout({
   children,
   businessFunction,
+  hideGroupProfileSidebarItems,
   showCategories,
   showSelectors,
   showMoreLink,
@@ -40,7 +42,7 @@ function OfferHomeFeedLayout({
           )
         )
       }
-      path={businessFunction}
+      path={hideGroupProfileSidebarItems ? undefined : businessFunction}
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product', 'service']} />
