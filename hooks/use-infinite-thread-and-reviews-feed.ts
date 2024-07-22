@@ -133,14 +133,14 @@ export const useInfiniteThreadAndReviewFeed = ({
         (d) => d.__typename === 'UserReviewPreviewResponseEdge',
       );
 
+      setThreadCursor((prevCursor) => lastThread?.cursor || prevCursor);
+      setReviewCursor((prevCursor) => lastReview?.cursor || prevCursor);
       setHasNextPage(
         !!threadData?.findThreadPreviews.pageInfo.hasNextPage ||
           lastThread?.cursor !== threadCursor ||
           !!reviewData?.findUserReviewPreviews.pageInfo.hasNextPage ||
           lastReview?.cursor !== reviewCursor,
       );
-      setThreadCursor(lastThread?.cursor || threadCursor);
-      setReviewCursor(lastReview?.cursor || reviewCursor);
     },
     [
       threadCursor,
@@ -219,9 +219,11 @@ export const useInfiniteThreadAndReviewFeed = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [threadWhere, reviewWhere, orderBy?.createdAt, type, keyword, target]);
 
-  const fetchMore = async () => {
-    const [moreThreads, moreReviews] = await Promise.all([
-      fetchMoreThreads({
+  const fetchMore = useCallback(async () => {
+    let moreThreads;
+    let moreReviews;
+    if (type !== 'review') {
+      moreThreads = await fetchMoreThreads({
         variables: {
           where: threadWhere,
           orderBy,
@@ -231,8 +233,11 @@ export const useInfiniteThreadAndReviewFeed = ({
           take,
           skip: 1,
         },
-      }),
-      fetchMoreReviews({
+      });
+    }
+
+    if (type !== 'thread') {
+      moreReviews = await fetchMoreReviews({
         variables: {
           where: reviewWhere,
           orderBy,
@@ -242,15 +247,29 @@ export const useInfiniteThreadAndReviewFeed = ({
           take,
           skip: 1,
         },
-      }),
-    ]);
+      });
+    }
 
     combineAndSortData(
-      moreThreads.data.findThreadPreviews.edges,
-      moreReviews.data.findUserReviewPreviews.edges,
+      moreThreads ? moreThreads.data.findThreadPreviews.edges : [],
+      moreReviews ? moreReviews.data.findUserReviewPreviews.edges : [],
       true,
     );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    fetchMoreThreads,
+    fetchMoreReviews,
+    threadWhere,
+    reviewWhere,
+    orderBy?.createdAt,
+    keyword,
+    target,
+    threadCursor,
+    reviewCursor,
+    combineAndSortData,
+    type,
+    take,
+  ]);
 
   useInfiniteScroll(ref, fetchMore, hasNextPage);
 
