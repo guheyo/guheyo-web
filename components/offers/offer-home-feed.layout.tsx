@@ -9,17 +9,22 @@ import SwapHomeLink from './swap-home-link';
 import BuyHomeLink from './buy-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
+import OfferMoreLink from './offer-more-link';
 
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
   showCategories: boolean;
+  showSelectors: boolean;
+  showMoreLink: boolean;
 }
 
 function OfferHomeFeedLayout({
   children,
   businessFunction,
   showCategories,
+  showSelectors,
+  showMoreLink,
 }: Props) {
   return (
     <HomeFeedLayout
@@ -42,10 +47,15 @@ function OfferHomeFeedLayout({
         ) : undefined
       }
       selectors={
-        <>
-          <BusinessFunctionPathUpdater />
-          <OfferSelectors />
-        </>
+        showSelectors && (
+          <>
+            <BusinessFunctionPathUpdater />
+            <OfferSelectors />
+          </>
+        )
+      }
+      moreLink={
+        showMoreLink && <OfferMoreLink businessFunction={businessFunction} />
       }
     >
       {children}
