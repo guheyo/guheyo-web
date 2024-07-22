@@ -12,13 +12,13 @@ export const metadata = {
 function Page() {
   return (
     <>
-      <div className="min-h-screen mb-12 flex flex-col gap-4 md:gap-12">
+      <div className="min-h-screen mb-12 flex flex-col gap-0 md:gap-8">
         <AuctionHome />
         <OfferHome businessFunction="sell" />
         <OfferHome businessFunction="buy" />
         <OfferHome businessFunction="swap" />
         <CommunityHome />
-        <div className="px-2 md:px-0 pt-0 md:pt-0">
+        <div className="px-2 md:px-0 pt-4">
           <GroupFeed />
         </div>
       </div>
