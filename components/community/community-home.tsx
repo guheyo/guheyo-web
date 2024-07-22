@@ -12,6 +12,9 @@ export default function CommunityHome() {
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
     type: undefined,
+    orderBy: {
+      createdAt: 'desc',
+    },
     take: 3,
   });
 
