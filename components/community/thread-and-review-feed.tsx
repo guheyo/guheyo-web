@@ -49,7 +49,7 @@ function ThreadAndReviewFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       tagType,
-      tagNames: tagName ? [tagName] : undefined,
+      tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
       reviewedUserId: defaultWhere.reviewedUserId,
     },
     orderBy: {
