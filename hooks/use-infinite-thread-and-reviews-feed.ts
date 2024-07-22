@@ -133,12 +133,14 @@ export const useInfiniteThreadAndReviewFeed = ({
         (d) => d.__typename === 'UserReviewPreviewResponseEdge',
       );
 
-      setThreadCursor(lastThread?.cursor || threadCursor);
-      setReviewCursor(lastReview?.cursor || reviewCursor);
       setHasNextPage(
         !!threadData?.findThreadPreviews.pageInfo.hasNextPage ||
-          !!reviewData?.findUserReviewPreviews.pageInfo.hasNextPage,
+          lastThread?.cursor !== threadCursor ||
+          !!reviewData?.findUserReviewPreviews.pageInfo.hasNextPage ||
+          lastReview?.cursor !== reviewCursor,
       );
+      setThreadCursor(lastThread?.cursor || threadCursor);
+      setReviewCursor(lastReview?.cursor || reviewCursor);
     },
     [
       threadCursor,
