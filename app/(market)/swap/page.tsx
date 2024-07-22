@@ -14,7 +14,12 @@ function Page() {
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction="swap" showCategories={false}>
+      <OfferHomeFeedLayout
+        businessFunction="swap"
+        showCategories={false}
+        showSelectors
+        showMoreLink={false}
+      >
         <OfferFeed
           type="thumbnail"
           defaultWhere={where}

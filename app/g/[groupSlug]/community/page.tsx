@@ -21,7 +21,7 @@ export default function Page() {
 
   return (
     <Suspense>
-      <CommunityHomeFeedLayout>
+      <CommunityHomeFeedLayout showCategories showTags showMoreLink={false}>
         <ThreadAndReviewFeed
           type="listview"
           defaultWhere={where}
