@@ -53,7 +53,7 @@ export default function GroupPreview({ group }: Props) {
             <PlayCircleOutlineOutlinedIcon
               fontSize={isMobile ? 'small' : 'medium'}
             />
-            판매 채널
+            판매
           </span>
         </Link>
       </div>
@@ -87,7 +87,7 @@ export default function GroupPreview({ group }: Props) {
             <PlayCircleOutlineOutlinedIcon
               fontSize={isMobile ? 'small' : 'medium'}
             />
-            구매 채널
+            구매
           </span>
         </Link>
       </div>

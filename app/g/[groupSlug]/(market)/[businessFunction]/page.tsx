@@ -24,7 +24,12 @@ function OffersPage({
   if (businessFunction === 'buy') {
     return (
       <Suspense>
-        <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
+        <OfferHomeFeedLayout
+          businessFunction={businessFunction}
+          showCategories
+          showSelectors
+          showMoreLink={false}
+        >
           <OfferFeed
             type="listview"
             defaultWhere={where}
@@ -37,7 +42,12 @@ function OffersPage({
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction={businessFunction} showCategories>
+      <OfferHomeFeedLayout
+        businessFunction={businessFunction}
+        showCategories
+        showSelectors
+        showMoreLink={false}
+      >
         <OfferFeed
           type="thumbnail"
           defaultWhere={where}

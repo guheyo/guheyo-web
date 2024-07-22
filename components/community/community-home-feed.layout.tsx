@@ -7,12 +7,21 @@ import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from '../user-review/manner-tags-navbar';
 import CommunityTagsNavbar from './community-tags-navbar';
+import CommunityMoreLink from './community-more-link';
 
 interface Props {
   children: ReactNode;
+  showCategories: boolean;
+  showTags: boolean;
+  showMoreLink: boolean;
 }
 
-function CommunityHomeFeedLayout({ children }: Props) {
+function CommunityHomeFeedLayout({
+  children,
+  showCategories,
+  showTags,
+  showMoreLink,
+}: Props) {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
 
@@ -21,14 +30,17 @@ function CommunityHomeFeedLayout({ children }: Props) {
       postPreviewType="text"
       homeLink={<CommunityHomeLink />}
       path="community"
-      categories={<CommunityCategoriesNavbar />}
+      categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
       tags={
-        categorySlug === 'review' ? (
-          <MannerTagsNavbar />
-        ) : (
-          <CommunityTagsNavbar categorySlug={categorySlug || ''} />
-        )
+        showTags ? (
+          categorySlug === 'review' ? (
+            <MannerTagsNavbar />
+          ) : (
+            <CommunityTagsNavbar categorySlug={categorySlug || ''} />
+          )
+        ) : undefined
       }
+      moreLink={showMoreLink && <CommunityMoreLink />}
     >
       {children}
     </HomeFeedLayout>

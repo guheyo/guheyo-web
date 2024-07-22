@@ -12,7 +12,7 @@ export default function InfoCard({
   about?: string | null;
 }) {
   return (
-    <div className="flex flex-row gap-4 items-center break-all">
+    <div className="flex flex-row gap-3 items-center break-all">
       {icon}
       {about ? (
         <div className="flex flex-col">
