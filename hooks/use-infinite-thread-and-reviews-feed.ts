@@ -72,6 +72,13 @@ export const useInfiniteThreadAndReviewFeed = ({
     [where?.groupId, where?.userId, where?.tagType, where?.reviewedUserId],
   );
 
+  const memoOrderBy = useMemo(
+    () => ({
+      createdAt: orderBy?.createdAt,
+    }),
+    [orderBy?.createdAt],
+  );
+
   const {
     data: threadData,
     fetchMore: fetchMoreThreads,
@@ -79,7 +86,7 @@ export const useInfiniteThreadAndReviewFeed = ({
   } = useFindThreadPreviewsQuery({
     variables: {
       where: threadWhere,
-      orderBy,
+      orderBy: memoOrderBy,
       keyword,
       target,
       take,
@@ -96,7 +103,7 @@ export const useInfiniteThreadAndReviewFeed = ({
   } = useFindUserReviewPreviewsQuery({
     variables: {
       where: reviewWhere,
-      orderBy,
+      orderBy: memoOrderBy,
       keyword,
       target,
       take,
@@ -113,7 +120,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       append: boolean,
     ) => {
       const combinedData = [...threads, ...reviews].sort((a, b) =>
-        orderBy?.createdAt === 'asc'
+        memoOrderBy?.createdAt === 'asc'
           ? new Date(a.node.createdAt).getTime() -
             new Date(b.node.createdAt).getTime()
           : new Date(b.node.createdAt).getTime() -
@@ -147,7 +154,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       reviewCursor,
       threadData?.findThreadPreviews.pageInfo.hasNextPage,
       reviewData?.findUserReviewPreviews.pageInfo.hasNextPage,
-      orderBy?.createdAt,
+      memoOrderBy,
       take,
     ],
   );
@@ -161,7 +168,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     if (type === 'thread') {
       refetchThreads({
         where: threadWhere,
-        orderBy,
+        orderBy: memoOrderBy,
         keyword,
         target,
         take,
@@ -177,7 +184,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     } else if (type === 'review') {
       refetchReviews({
         where: reviewWhere,
-        orderBy,
+        orderBy: memoOrderBy,
         keyword,
         target,
         take,
@@ -193,7 +200,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     } else {
       refetchThreads({
         where: threadWhere,
-        orderBy,
+        orderBy: memoOrderBy,
         keyword,
         target,
         take,
@@ -201,7 +208,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       }).then((threadResult) => {
         refetchReviews({
           where: reviewWhere,
-          orderBy,
+          orderBy: memoOrderBy,
           keyword,
           target,
           take,
@@ -217,7 +224,17 @@ export const useInfiniteThreadAndReviewFeed = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadWhere, reviewWhere, orderBy?.createdAt, type, keyword, target]);
+  }, [
+    threadWhere,
+    reviewWhere,
+    memoOrderBy,
+    type,
+    keyword,
+    target,
+    take,
+    refetchThreads,
+    refetchReviews,
+  ]);
 
   const fetchMore = useCallback(async () => {
     let moreThreads;
@@ -226,7 +243,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       moreThreads = await fetchMoreThreads({
         variables: {
           where: threadWhere,
-          orderBy,
+          orderBy: memoOrderBy,
           keyword,
           target,
           cursor: threadCursor,
@@ -240,7 +257,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       moreReviews = await fetchMoreReviews({
         variables: {
           where: reviewWhere,
-          orderBy,
+          orderBy: memoOrderBy,
           keyword,
           target,
           cursor: reviewCursor,
@@ -255,13 +272,12 @@ export const useInfiniteThreadAndReviewFeed = ({
       moreReviews ? moreReviews.data.findUserReviewPreviews.edges : [],
       true,
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fetchMoreThreads,
     fetchMoreReviews,
     threadWhere,
     reviewWhere,
-    orderBy?.createdAt,
+    memoOrderBy,
     keyword,
     target,
     threadCursor,
