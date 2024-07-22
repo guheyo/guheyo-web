@@ -11,6 +11,7 @@ import CommunityMoreLink from './community-more-link';
 
 interface Props {
   children: ReactNode;
+  hideGroupProfileSidebarItems?: boolean;
   showCategories: boolean;
   showTags: boolean;
   showMoreLink: boolean;
@@ -18,6 +19,7 @@ interface Props {
 
 function CommunityHomeFeedLayout({
   children,
+  hideGroupProfileSidebarItems,
   showCategories,
   showTags,
   showMoreLink,
@@ -29,7 +31,7 @@ function CommunityHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<CommunityHomeLink />}
-      path="community"
+      path={hideGroupProfileSidebarItems ? undefined : 'community'}
       categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
       tags={
         showTags ? (
