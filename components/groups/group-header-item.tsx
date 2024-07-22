@@ -11,7 +11,7 @@ export default function GroupHeaderItem({
   icon?: string | null;
 }) {
   return (
-    <div className="flex flex-row gap-4 items-center break-all">
+    <div className="flex flex-row gap-3 items-center break-all">
       <Image
         src={!icon ? '/guheyo/guheyo-logo.svg' : icon}
         width={isMobile ? 32 : 40}
