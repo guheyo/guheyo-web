@@ -14,7 +14,12 @@ function Page() {
 
   return (
     <Suspense>
-      <OfferHomeFeedLayout businessFunction="buy" showCategories={false}>
+      <OfferHomeFeedLayout
+        businessFunction="buy"
+        showCategories={false}
+        showSelectors
+        showMoreLink={false}
+      >
         <OfferFeed
           type="listview"
           defaultWhere={where}
