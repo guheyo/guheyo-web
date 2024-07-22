@@ -71,7 +71,7 @@ export default function GroupBottomNavbar({
         </div>
         <div className="col-span-4">
           <BottomNavbarItem
-            href={parseMarketLink({ groupSlug, businessFunction: 'sell' })}
+            href={parseMarketLink({ groupSlug, businessFunction: 'auction' })}
             icon={
               <StorefrontIcon
                 fontSize="small"
