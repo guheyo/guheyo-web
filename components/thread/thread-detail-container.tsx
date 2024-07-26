@@ -9,14 +9,19 @@ import {
   ThreadResponse,
 } from '@/generated/graphql';
 import CommentSelector from '@/components/comments/comment-selector';
+import { useSearchParams } from 'next/navigation';
 
 export default function ThreadDetailContainer({
   thread,
 }: {
   thread: ThreadResponse;
 }) {
+  const searchParams = useSearchParams();
+  const view = searchParams.get('view') || 'newest';
+
   const where: FindCommentsWhereInput = {
     postId: thread.post.id,
+    userId: view === 'writerComment' ? thread.post.user.id : undefined,
   };
   const orderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
