@@ -21,7 +21,7 @@ function Page({
   if (!data?.findThread) return <div />;
 
   const thread = data.findThread;
-  return <ThreadDetailContainer thread={thread} />
+  return <ThreadDetailContainer thread={thread} />;
 }
 
 export default Page;
