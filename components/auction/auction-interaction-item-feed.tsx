@@ -65,6 +65,7 @@ export default function AuctionInteractionItemFeed({
                 defaultMode="read"
                 commentId={auctionInteractionItem.id}
                 content={auctionInteractionItem.content || undefined}
+                pinned={auctionInteractionItem.pinned}
                 images={auctionInteractionItem.images}
                 createdAt={auctionInteractionItem.createdAt}
                 updatedAt={auctionInteractionItem.updatedAt}

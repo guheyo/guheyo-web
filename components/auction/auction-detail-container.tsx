@@ -122,6 +122,7 @@ export default function AuctionDetailContainer({
     await createComment({
       id: values.id,
       content: values.content,
+      pinned: values.pinned,
       postId: auction.post.id,
     });
   };

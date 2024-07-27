@@ -21,6 +21,7 @@ export default function CommentOutput({
   isCurrentUser,
   postId,
   content,
+  pinned,
   images,
   createdAt,
   updatedAt,
@@ -35,6 +36,7 @@ export default function CommentOutput({
   isCurrentUser: boolean;
   postId?: string;
   content?: string;
+  pinned: boolean;
   images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;

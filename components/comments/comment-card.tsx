@@ -40,6 +40,7 @@ export default function CommentCard({
   defaultMode,
   commentId,
   content,
+  pinned,
   images,
   createdAt,
   updatedAt,
@@ -57,6 +58,7 @@ export default function CommentCard({
   defaultMode: CRUD;
   commentId?: string;
   content?: string;
+  pinned?: boolean;
   images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -113,6 +115,7 @@ export default function CommentCard({
       handleWrite({
         ...values,
         id,
+        pinned: false,
       });
       reset({
         id: uuid4(),
@@ -265,6 +268,7 @@ export default function CommentCard({
       isCurrentUser={isCurrentUser}
       postId={postId}
       content={content}
+      pinned={pinned || false}
       images={images}
       createdAt={createdAt}
       updatedAt={updatedAt}

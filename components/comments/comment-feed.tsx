@@ -41,6 +41,7 @@ export default function CommentFeed({
     await createComment({
       id: values.id,
       content: values.content,
+      pinned: values.pinned,
       postId: defaultWhere.postId,
     });
   };
@@ -51,6 +52,7 @@ export default function CommentFeed({
     await updateComment({
       id: values.id,
       content: values.content,
+      pinned: values.pinned,
     });
   };
 
@@ -202,6 +204,7 @@ export default function CommentFeed({
             defaultMode="read"
             commentId={comment.id}
             content={comment.content || undefined}
+            pinned={comment.pinned}
             images={comment.images}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
