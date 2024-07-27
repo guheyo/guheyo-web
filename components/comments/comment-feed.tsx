@@ -99,6 +99,7 @@ export default function CommentFeed({
               ...comment,
               updatedAt: updatedComment.updatedAt,
               content: updatedComment.content,
+              pinned: updatedComment.pinned,
             };
           return comment;
         }),

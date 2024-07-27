@@ -1,4 +1,4 @@
-import { CRUD } from '../crud/crud.types';
+import { CommentMode } from '../comment/comment.types';
 
 export const parseDefaultReportCommentMode = ({
   isReportedUser,
@@ -6,7 +6,7 @@ export const parseDefaultReportCommentMode = ({
 }: {
   isReportedUser: boolean;
   content?: string;
-}): CRUD => {
+}): CommentMode => {
   if (!isReportedUser) return 'read';
   return content ? 'read' : 'create';
 };

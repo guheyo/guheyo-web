@@ -6,3 +6,5 @@ export type CommentValues = {
   pinned: boolean;
   images: UserImage[];
 };
+
+export type CommentMode = 'create' | 'read' | 'update' | 'delete' | 'pin';
