@@ -9,12 +9,14 @@ import { CommentMode } from '@/lib/comment/comment.types';
 
 export default function CommentMenu({
   isCurrentUser,
+  isAuthor,
   editable,
   deletable,
   pinned,
   handleMenuClick,
 }: {
   isCurrentUser: boolean;
+  isAuthor: boolean;
   editable: boolean;
   deletable: boolean;
   pinned: boolean;
@@ -62,7 +64,7 @@ export default function CommentMenu({
                 수정
               </MenuItem>
             )}
-            {editable && (
+            {isAuthor && (
               <MenuItem onClick={() => handleMenuClick('pin')}>
                 {pinned ? '고정 해제' : '고정'}
               </MenuItem>

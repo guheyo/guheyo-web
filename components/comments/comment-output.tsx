@@ -19,6 +19,7 @@ import ImageSlider from '../base/image-slider';
 export default function CommentOutput({
   user,
   isCurrentUser,
+  isAuthor,
   postId,
   content,
   pinned,
@@ -34,6 +35,7 @@ export default function CommentOutput({
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
+  isAuthor: boolean;
   postId?: string;
   content?: string;
   pinned: boolean;
@@ -84,6 +86,7 @@ export default function CommentOutput({
           {displayMenu && isHovered && (
             <CommentMenu
               isCurrentUser={isCurrentUser}
+              isAuthor={isAuthor}
               editable={editable}
               deletable={deletable}
               pinned={pinned}

@@ -33,6 +33,7 @@ import ImagePreviews from '../images/image.previews';
 export default function CommentCard({
   user,
   isCurrentUser,
+  isAuthor,
   postId,
   displayMenu,
   displayImagesInput,
@@ -51,6 +52,7 @@ export default function CommentCard({
 }: {
   user?: AuthorResponse;
   isCurrentUser: boolean;
+  isAuthor: boolean;
   postId?: string;
   displayMenu: boolean;
   displayImagesInput: boolean;
@@ -274,6 +276,7 @@ export default function CommentCard({
     <CommentOutput
       user={user}
       isCurrentUser={isCurrentUser}
+      isAuthor={isAuthor}
       postId={postId}
       content={content}
       pinned={pinned || false}

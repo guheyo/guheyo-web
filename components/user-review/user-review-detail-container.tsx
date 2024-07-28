@@ -36,7 +36,11 @@ export default function UserReviewDetailContainer({
         <CommentSelector />
       </div>
       <div className="px-4 md:px-0">
-        <CommentFeed defaultWhere={where} defaultOrderBy={orderBy} />
+        <CommentFeed
+          authorId={userReview.post.user.id}
+          defaultWhere={where}
+          defaultOrderBy={orderBy}
+        />
       </div>
     </div>
   );
