@@ -36,7 +36,11 @@ export default function ThreadDetailContainer({
         <CommentSelector />
       </div>
       <div className="px-4 md:px-0">
-        <CommentFeed defaultWhere={where} defaultOrderBy={orderBy} />
+        <CommentFeed
+          authorId={thread.post.user.id}
+          defaultWhere={where}
+          defaultOrderBy={orderBy}
+        />
       </div>
     </div>
   );
