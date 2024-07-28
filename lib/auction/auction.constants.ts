@@ -14,6 +14,7 @@ export const AUCTION_SORT_ORDER_OPTIONS = [
 export const AUCTION_INTERACTION_ITEM_SORT_OPTIONS = [
   { value: 'newest', label: '최신순' },
   { value: 'bid', label: '입찰' },
+  { value: 'pinned', label: '고정 댓글' },
   { value: 'sellerComment', label: '판매자 댓글' },
   { value: 'comment', label: '모든 댓글' },
 ];
