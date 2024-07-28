@@ -7,9 +7,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { CommentValues } from '@/lib/comment/comment.types';
+import { CommentMode, CommentValues } from '@/lib/comment/comment.types';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-import { CRUD } from '@/lib/crud/crud.types';
 import { TextFieldProps } from '@mui/material';
 import {
   AuthorResponse,
@@ -40,6 +39,7 @@ export default function CommentCard({
   defaultMode,
   commentId,
   content,
+  pinned,
   images,
   createdAt,
   updatedAt,
@@ -54,9 +54,10 @@ export default function CommentCard({
   postId?: string;
   displayMenu: boolean;
   displayImagesInput: boolean;
-  defaultMode: CRUD;
+  defaultMode: CommentMode;
   commentId?: string;
   content?: string;
+  pinned?: boolean;
   images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -66,7 +67,7 @@ export default function CommentCard({
   handleEdit?: (values: CommentValues) => void;
   handleDelete?: (values: CommentValues) => void;
 }) {
-  const [mode, setMode] = useState<CRUD>('read');
+  const [mode, setMode] = useState<CommentMode>('read');
   const device = useDeviceDetect();
 
   const { handleSubmit, control, watch, getValues, setValue, reset } =
@@ -74,6 +75,7 @@ export default function CommentCard({
       defaultValues: {
         id: '',
         content: '',
+        pinned: false,
         images: [],
       },
     });
@@ -94,16 +96,23 @@ export default function CommentCard({
     if (commentId) {
       setValue('id', commentId);
       setValue('content', content || '');
+      setValue('pinned', pinned || false);
       setValue('images', images);
     } else {
       setValue('id', uuid4());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentId, content]);
+  }, [commentId, content, pinned]);
 
-  const handleMenuClick = (newMode: CRUD) => {
+  const handleMenuClick = (newMode: CommentMode) => {
     if (handleDelete && newMode === 'delete') {
       handleDelete(getValues());
+    } else if (handleEdit && newMode === 'pin') {
+      const values = getValues();
+      handleEdit({
+        ...values,
+        pinned: !values.pinned,
+      });
     }
     setMode(newMode);
   };
@@ -113,10 +122,12 @@ export default function CommentCard({
       handleWrite({
         ...values,
         id,
+        pinned: false,
       });
       reset({
         id: uuid4(),
         content: '',
+        pinned: false,
         images: [],
       });
     } else if (mode === 'update' && !!handleEdit) {
@@ -265,6 +276,7 @@ export default function CommentCard({
       isCurrentUser={isCurrentUser}
       postId={postId}
       content={content}
+      pinned={pinned || false}
       images={images}
       createdAt={createdAt}
       updatedAt={updatedAt}
