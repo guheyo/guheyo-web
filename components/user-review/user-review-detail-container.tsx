@@ -22,7 +22,7 @@ export default function UserReviewDetailContainer({
   const where: FindCommentsWhereInput = {
     postId: userReview.post.id,
     userId: view === 'writerComment' ? userReview.post.user.id : undefined,
-    pinned: view === 'pinned',
+    pinned: view === 'pinned' ? true : undefined,
   };
   const orderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
