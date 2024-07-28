@@ -10,6 +10,7 @@ import {
   BidResponse,
   CommentCreatedDocument,
   CommentDeletedDocument,
+  CommentUpdatedDocument,
   FindAuctionInteractionItemsOrderByInput,
   FindAuctionInteractionItemsWhereInput,
   FindReportPreviewsOrderByInput,
@@ -240,6 +241,30 @@ export default function AuctionDetailContainer({
     onData: ({ data }) => {
       const newComment = data.data.commentCreated;
       setAuctionInteractionItems([newComment, ...auctionInteractionItems]);
+    },
+    shouldResubscribe: true, // Always resubscribe
+  });
+
+  useSubscription(CommentUpdatedDocument, {
+    variables: {
+      postId: auction.post.id,
+    },
+    onData: ({ data }) => {
+      const updatedComment = data.data.commentUpdated;
+      setAuctionInteractionItems(
+        auctionInteractionItems.map((interactionItem) => {
+          if (
+            interactionItem.__typename === 'CommentWithAuthorResponse' &&
+            interactionItem.id === updatedComment.id
+          ) {
+            return {
+              ...interactionItem,
+              pinned: updatedComment.pinned,
+            };
+          }
+          return interactionItem;
+        }),
+      );
     },
     shouldResubscribe: true, // Always resubscribe
   });
