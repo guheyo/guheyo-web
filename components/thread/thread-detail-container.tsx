@@ -22,6 +22,7 @@ export default function ThreadDetailContainer({
   const where: FindCommentsWhereInput = {
     postId: thread.post.id,
     userId: view === 'writerComment' ? thread.post.user.id : undefined,
+    pinned: view === 'pinned',
   };
   const orderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
