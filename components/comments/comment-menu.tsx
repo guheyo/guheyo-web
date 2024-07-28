@@ -3,20 +3,24 @@
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { CRUD } from '@/lib/crud/crud.types';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
+import { CommentMode } from '@/lib/comment/comment.types';
 
 export default function CommentMenu({
   isCurrentUser,
+  isAuthor,
   editable,
   deletable,
+  pinned,
   handleMenuClick,
 }: {
   isCurrentUser: boolean;
+  isAuthor: boolean;
   editable: boolean;
   deletable: boolean;
-  handleMenuClick: (mode: CRUD) => void;
+  pinned: boolean;
+  handleMenuClick: (mode: CommentMode) => void;
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -58,6 +62,11 @@ export default function CommentMenu({
             {editable && (
               <MenuItem onClick={() => handleMenuClick('update')}>
                 수정
+              </MenuItem>
+            )}
+            {isAuthor && (
+              <MenuItem onClick={() => handleMenuClick('pin')}>
+                {pinned ? '고정 해제' : '고정'}
               </MenuItem>
             )}
             {deletable && (

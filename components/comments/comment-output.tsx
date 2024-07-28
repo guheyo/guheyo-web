@@ -1,6 +1,5 @@
 'use client';
 
-import { CRUD } from '@/lib/crud/crud.types';
 import { parseCommentDate } from '@/lib/comment/parse-comment-date';
 import {
   AuthorResponse,
@@ -11,6 +10,7 @@ import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { CommentMode } from '@/lib/comment/comment.types';
 import CommentMenu from './comment-menu';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
 import ReactionBar from '../reaction/reaction-bar';
@@ -19,8 +19,10 @@ import ImageSlider from '../base/image-slider';
 export default function CommentOutput({
   user,
   isCurrentUser,
+  isAuthor,
   postId,
   content,
+  pinned,
   images,
   createdAt,
   updatedAt,
@@ -33,8 +35,10 @@ export default function CommentOutput({
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
+  isAuthor: boolean;
   postId?: string;
   content?: string;
+  pinned: boolean;
   images: UserImageResponse[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -43,7 +47,7 @@ export default function CommentOutput({
   commentReactions: ReactionResponse[];
   editable: boolean;
   deletable: boolean;
-  handleMenuClick: (mode: CRUD) => void;
+  handleMenuClick: (mode: CommentMode) => void;
 }) {
   const device = useDeviceDetect();
   const [isHovered, setIsHovered] = useState(false);
@@ -82,8 +86,10 @@ export default function CommentOutput({
           {displayMenu && isHovered && (
             <CommentMenu
               isCurrentUser={isCurrentUser}
+              isAuthor={isAuthor}
               editable={editable}
               deletable={deletable}
+              pinned={pinned}
               handleMenuClick={handleMenuClick}
             />
           )}

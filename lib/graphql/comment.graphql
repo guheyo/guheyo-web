@@ -5,6 +5,7 @@ fragment comment on CommentResponse {
   parentId
   postId
   content
+  pinned
   reactions {
     ...reaction
   }
@@ -17,6 +18,7 @@ fragment commentWithAuthor on CommentWithAuthorResponse {
   parentId
   postId
   content
+  pinned
   user {
     ...author
   }
@@ -37,6 +39,7 @@ fragment updatedCommentResponse on UpdatedCommentResponse {
   id
   updatedAt
   content
+  pinned
 }
 
 fragment deletedCommentResponse on DeletedCommentResponse {

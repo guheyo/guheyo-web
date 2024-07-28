@@ -21,9 +21,11 @@ import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 
 export default function CommentFeed({
+  authorId,
   defaultWhere,
   defaultOrderBy,
 }: {
+  authorId: string;
   defaultWhere: FindCommentsWhereInput;
   defaultOrderBy: FindCommentsOrderByInput;
 }) {
@@ -41,6 +43,7 @@ export default function CommentFeed({
     await createComment({
       id: values.id,
       content: values.content,
+      pinned: values.pinned,
       postId: defaultWhere.postId,
     });
   };
@@ -51,6 +54,17 @@ export default function CommentFeed({
     await updateComment({
       id: values.id,
       content: values.content,
+      pinned: values.pinned,
+    });
+  };
+
+  const handlePin = async (values: CommentValues) => {
+    if (!values.content) return;
+
+    await updateComment({
+      id: values.id,
+      content: values.content,
+      pinned: values.pinned,
     });
   };
 
@@ -97,6 +111,7 @@ export default function CommentFeed({
               ...comment,
               updatedAt: updatedComment.updatedAt,
               content: updatedComment.content,
+              pinned: updatedComment.pinned,
             };
           return comment;
         }),
@@ -196,12 +211,14 @@ export default function CommentFeed({
             key={comment.id}
             user={comment.user}
             isCurrentUser={jwtPayload?.id === comment.user.id}
+            isAuthor={authorId === comment.user.id}
             postId={comment.postId}
             displayMenu
             displayImagesInput={false}
             defaultMode="read"
             commentId={comment.id}
             content={comment.content || undefined}
+            pinned={comment.pinned}
             images={comment.images}
             createdAt={comment.createdAt}
             updatedAt={comment.updatedAt}
@@ -215,6 +232,7 @@ export default function CommentFeed({
             handleWrite={handleWrite}
             handleEdit={handleEdit}
             handleDelete={handleDeleteConfirmation}
+            handlePin={handlePin}
           />
         ))}
         <div ref={sentinelRef} />
@@ -223,6 +241,7 @@ export default function CommentFeed({
         <CommentCard
           user={user || undefined}
           isCurrentUser
+          isAuthor={authorId === user?.id}
           displayMenu
           displayImagesInput
           defaultMode="create"

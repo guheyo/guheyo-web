@@ -42,6 +42,7 @@ export default function AuctionInteractionItemInput({
         <CommentCard
           user={user}
           isCurrentUser
+          isAuthor={isSeller}
           displayMenu
           displayImagesInput={isSeller}
           defaultMode="create"

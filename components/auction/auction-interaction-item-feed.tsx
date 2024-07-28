@@ -14,20 +14,22 @@ import AuctionInteractionItemInput from './auction-interaction-item-input';
 export default function AuctionInteractionItemFeed({
   auctionInteractionItems,
   currentBidPrice,
-  isSeller,
+  sellerId,
   handlePlaceBid,
   handleCancelBid,
   handleWrite,
+  handlePin,
   handleDelete,
   user,
   sentinelRef,
 }: {
   auctionInteractionItems: AuctionInteractionItemResponse[];
   currentBidPrice: number;
-  isSeller: boolean;
+  sellerId: string;
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleCancelBid: (bidId: string) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
+  handlePin?: (values: CommentValues) => Promise<void>;
   handleDelete?: (values: CommentValues) => void;
   user?: AuthorResponse;
   sentinelRef: React.RefObject<HTMLDivElement>;
@@ -59,12 +61,14 @@ export default function AuctionInteractionItemFeed({
                 key={auctionInteractionItem.id}
                 user={auctionInteractionItem.user}
                 isCurrentUser={user?.id === auctionInteractionItem.user.id}
+                isAuthor={sellerId === auctionInteractionItem.user.id}
                 postId={auctionInteractionItem.postId}
                 displayMenu
                 displayImagesInput={false}
                 defaultMode="read"
                 commentId={auctionInteractionItem.id}
                 content={auctionInteractionItem.content || undefined}
+                pinned={auctionInteractionItem.pinned}
                 images={auctionInteractionItem.images}
                 createdAt={auctionInteractionItem.createdAt}
                 updatedAt={auctionInteractionItem.updatedAt}
@@ -76,6 +80,7 @@ export default function AuctionInteractionItemFeed({
                   size: 'small',
                 }}
                 handleWrite={handleWrite}
+                handlePin={handlePin}
                 handleDelete={handleDelete}
               />
             );
@@ -88,7 +93,7 @@ export default function AuctionInteractionItemFeed({
         <AuctionInteractionItemInput
           user={user}
           currentBidPrice={currentBidPrice}
-          isSeller={isSeller}
+          isSeller={sellerId === user?.id}
           handlePlaceBid={handlePlaceBid}
           handleWrite={handleWrite}
         />
