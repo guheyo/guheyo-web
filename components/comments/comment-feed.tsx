@@ -58,6 +58,16 @@ export default function CommentFeed({
     });
   };
 
+  const handlePin = async (values: CommentValues) => {
+    if (!values.content) return;
+
+    await updateComment({
+      id: values.id,
+      content: values.content,
+      pinned: values.pinned,
+    });
+  };
+
   const handleDeleteConfirmation = (comment: CommentValues) => {
     setCommentToDelete(comment);
     setDeleteDialogOpen(true);
@@ -222,6 +232,7 @@ export default function CommentFeed({
             handleWrite={handleWrite}
             handleEdit={handleEdit}
             handleDelete={handleDeleteConfirmation}
+            handlePin={handlePin}
           />
         ))}
         <div ref={sentinelRef} />

@@ -128,7 +128,7 @@ export default function AuctionDetailContainer({
     });
   };
 
-  const handleEdit = async (values: CommentValues) => {
+  const handlePin = async (values: CommentValues) => {
     if (!values.content) return;
 
     await updateComment({
@@ -384,7 +384,7 @@ export default function AuctionDetailContainer({
           handlePlaceBid={handlePlaceBid}
           handleCancelBid={handleCancelBid}
           handleWrite={handleWrite}
-          handleEdit={handleEdit}
+          handlePin={handlePin}
           handleDelete={handleDeleteConfirmation}
           user={user || undefined}
           sentinelRef={sentinelRef}

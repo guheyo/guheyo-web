@@ -49,6 +49,7 @@ export default function CommentCard({
   handleWrite,
   handleEdit,
   handleDelete,
+  handlePin,
 }: {
   user?: AuthorResponse;
   isCurrentUser: boolean;
@@ -68,6 +69,7 @@ export default function CommentCard({
   handleWrite: (values: CommentValues) => void;
   handleEdit?: (values: CommentValues) => void;
   handleDelete?: (values: CommentValues) => void;
+  handlePin?: (values: CommentValues) => void;
 }) {
   const [mode, setMode] = useState<CommentMode>('read');
   const device = useDeviceDetect();
@@ -109,9 +111,9 @@ export default function CommentCard({
   const handleMenuClick = (newMode: CommentMode) => {
     if (handleDelete && newMode === 'delete') {
       handleDelete(getValues());
-    } else if (handleEdit && newMode === 'pin') {
+    } else if (handlePin && newMode === 'pin') {
       const values = getValues();
-      handleEdit({
+      handlePin({
         ...values,
         pinned: !values.pinned,
       });
