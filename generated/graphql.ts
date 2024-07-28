@@ -381,6 +381,7 @@ export type FindCommentsOrderByInput = {
 };
 
 export type FindCommentsWhereInput = {
+  pinned?: InputMaybe<Scalars['Boolean']['input']>;
   postId?: InputMaybe<Scalars['ID']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
