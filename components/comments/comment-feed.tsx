@@ -21,9 +21,11 @@ import { AuthContext } from '../auth/auth.provider';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 
 export default function CommentFeed({
+  authorId,
   defaultWhere,
   defaultOrderBy,
 }: {
+  authorId: string;
   defaultWhere: FindCommentsWhereInput;
   defaultOrderBy: FindCommentsOrderByInput;
 }) {
@@ -199,6 +201,7 @@ export default function CommentFeed({
             key={comment.id}
             user={comment.user}
             isCurrentUser={jwtPayload?.id === comment.user.id}
+            isAuthor={authorId === comment.user.id}
             postId={comment.postId}
             displayMenu
             displayImagesInput={false}
@@ -227,6 +230,7 @@ export default function CommentFeed({
         <CommentCard
           user={user || undefined}
           isCurrentUser
+          isAuthor={authorId === user?.id}
           displayMenu
           displayImagesInput
           defaultMode="create"
