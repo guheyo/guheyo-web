@@ -102,7 +102,7 @@ export default function CommentCard({
       setValue('id', uuid4());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentId, content]);
+  }, [commentId, content, pinned]);
 
   const handleMenuClick = (newMode: CommentMode) => {
     if (handleDelete && newMode === 'delete') {
