@@ -52,6 +52,7 @@ export default function ReportCommentCard({
     <CommentCard
       user={reportedUser}
       isCurrentUser={jwtPayload?.id === reportedUser.id}
+      isAuthor={jwtPayload?.id === reportedUser.id}
       displayMenu={isReportedUser}
       displayImagesInput={isReportedUser}
       defaultMode={defaultMode}
