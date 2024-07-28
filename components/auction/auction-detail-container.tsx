@@ -22,7 +22,7 @@ import { cancelBid, placeBid } from '@/lib/api/bid';
 import { BidValues } from '@/lib/bid/bid.types';
 import { useSubscription } from '@apollo/client';
 import { useInfiniteAuctionInteractionItems } from '@/hooks/use-infinite-auction-interaction-items';
-import { createComment, deleteComment } from '@/lib/api/comment';
+import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { useSearchParams } from 'next/navigation';
 import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
@@ -124,6 +124,16 @@ export default function AuctionDetailContainer({
       content: values.content,
       pinned: values.pinned,
       postId: auction.post.id,
+    });
+  };
+
+  const handleEdit = async (values: CommentValues) => {
+    if (!values.content) return;
+
+    await updateComment({
+      id: values.id,
+      content: values.content,
+      pinned: values.pinned,
     });
   };
 
@@ -349,6 +359,7 @@ export default function AuctionDetailContainer({
           handlePlaceBid={handlePlaceBid}
           handleCancelBid={handleCancelBid}
           handleWrite={handleWrite}
+          handleEdit={handleEdit}
           handleDelete={handleDeleteConfirmation}
           user={user || undefined}
           sentinelRef={sentinelRef}

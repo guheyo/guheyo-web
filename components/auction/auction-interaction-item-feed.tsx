@@ -18,6 +18,7 @@ export default function AuctionInteractionItemFeed({
   handlePlaceBid,
   handleCancelBid,
   handleWrite,
+  handleEdit,
   handleDelete,
   user,
   sentinelRef,
@@ -28,6 +29,7 @@ export default function AuctionInteractionItemFeed({
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleCancelBid: (bidId: string) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
+  handleEdit?: (values: CommentValues) => Promise<void>;
   handleDelete?: (values: CommentValues) => void;
   user?: AuthorResponse;
   sentinelRef: React.RefObject<HTMLDivElement>;
@@ -77,6 +79,7 @@ export default function AuctionInteractionItemFeed({
                   size: 'small',
                 }}
                 handleWrite={handleWrite}
+                handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
             );
