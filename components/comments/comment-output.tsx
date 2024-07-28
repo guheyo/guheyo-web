@@ -19,6 +19,7 @@ import ImageSlider from '../base/image-slider';
 export default function CommentOutput({
   user,
   isCurrentUser,
+  isAuthor,
   postId,
   content,
   pinned,
@@ -30,10 +31,12 @@ export default function CommentOutput({
   commentReactions,
   editable,
   deletable,
+  pinnable,
   handleMenuClick,
 }: {
   user: AuthorResponse;
   isCurrentUser: boolean;
+  isAuthor: boolean;
   postId?: string;
   content?: string;
   pinned: boolean;
@@ -45,6 +48,7 @@ export default function CommentOutput({
   commentReactions: ReactionResponse[];
   editable: boolean;
   deletable: boolean;
+  pinnable: boolean;
   handleMenuClick: (mode: CommentMode) => void;
 }) {
   const device = useDeviceDetect();
@@ -86,6 +90,7 @@ export default function CommentOutput({
               isCurrentUser={isCurrentUser}
               editable={editable}
               deletable={deletable}
+              pinnable={pinnable}
               pinned={pinned}
               handleMenuClick={handleMenuClick}
             />
