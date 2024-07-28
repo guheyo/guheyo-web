@@ -14,7 +14,7 @@ import AuctionInteractionItemInput from './auction-interaction-item-input';
 export default function AuctionInteractionItemFeed({
   auctionInteractionItems,
   currentBidPrice,
-  isSeller,
+  sellerId,
   handlePlaceBid,
   handleCancelBid,
   handleWrite,
@@ -25,7 +25,7 @@ export default function AuctionInteractionItemFeed({
 }: {
   auctionInteractionItems: AuctionInteractionItemResponse[];
   currentBidPrice: number;
-  isSeller: boolean;
+  sellerId: string;
   handlePlaceBid: (values: BidValues) => Promise<void>;
   handleCancelBid: (bidId: string) => Promise<void>;
   handleWrite: (values: CommentValues) => Promise<void>;
@@ -61,6 +61,7 @@ export default function AuctionInteractionItemFeed({
                 key={auctionInteractionItem.id}
                 user={auctionInteractionItem.user}
                 isCurrentUser={user?.id === auctionInteractionItem.user.id}
+                isAuthor={sellerId === auctionInteractionItem.user.id}
                 postId={auctionInteractionItem.postId}
                 displayMenu
                 displayImagesInput={false}
@@ -92,7 +93,7 @@ export default function AuctionInteractionItemFeed({
         <AuctionInteractionItemInput
           user={user}
           currentBidPrice={currentBidPrice}
-          isSeller={isSeller}
+          isSeller={sellerId === user?.id}
           handlePlaceBid={handlePlaceBid}
           handleWrite={handleWrite}
         />
