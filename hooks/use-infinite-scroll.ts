@@ -19,7 +19,7 @@ export const useInfiniteScroll = (
       },
       {
         rootMargin: '300px',
-        threshold: 0.9,
+        threshold: 0,
       },
     );
     observer.observe(ref.current);
