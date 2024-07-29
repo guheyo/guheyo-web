@@ -12,6 +12,7 @@ export default function CommentMenu({
   isAuthor,
   editable,
   deletable,
+  pinnable,
   pinned,
   handleMenuClick,
 }: {
@@ -19,6 +20,7 @@ export default function CommentMenu({
   isAuthor: boolean;
   editable: boolean;
   deletable: boolean;
+  pinnable: boolean;
   pinned: boolean;
   handleMenuClick: (mode: CommentMode) => void;
 }) {
@@ -64,7 +66,7 @@ export default function CommentMenu({
                 수정
               </MenuItem>
             )}
-            {isAuthor && (
+            {pinnable && isAuthor && (
               <MenuItem onClick={() => handleMenuClick('pin')}>
                 {pinned ? '고정 해제' : '고정'}
               </MenuItem>

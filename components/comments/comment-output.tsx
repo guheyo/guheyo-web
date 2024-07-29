@@ -33,6 +33,7 @@ export default function CommentOutput({
   commentReactions,
   editable,
   deletable,
+  pinnable,
   handleMenuClick,
 }: {
   user: AuthorResponse;
@@ -49,6 +50,7 @@ export default function CommentOutput({
   commentReactions: ReactionResponse[];
   editable: boolean;
   deletable: boolean;
+  pinnable: boolean;
   handleMenuClick: (mode: CommentMode) => void;
 }) {
   const device = useDeviceDetect();
@@ -101,6 +103,7 @@ export default function CommentOutput({
               isAuthor={isAuthor}
               editable={editable}
               deletable={deletable}
+              pinnable={pinnable}
               pinned={pinned}
               handleMenuClick={handleMenuClick}
             />
