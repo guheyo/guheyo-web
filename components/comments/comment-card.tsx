@@ -290,6 +290,7 @@ export default function CommentCard({
       commentReactions={commentReactions}
       editable={!!handleEdit}
       deletable={!!handleDelete}
+      pinnable={!!handlePin}
       handleMenuClick={handleMenuClick}
     />
   );
