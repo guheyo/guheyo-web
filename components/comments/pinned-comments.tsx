@@ -106,28 +106,34 @@ export default function PinnedComments({
     handleCloseDeleteDialog();
   };
 
-  const { loading: pinnedCommentsLoading, data: pinnedCommentsData } =
-    useFindCommentsQuery({
-      variables: {
-        where: pinnedCommentsWhere,
-        orderBy: pinnedCommentsOrderBy,
-        take,
-        skip: 0,
-      },
-      fetchPolicy: 'cache-first',
-    });
+  const {
+    loading: pinnedCommentsLoading,
+    data: pinnedCommentsData,
+    refetch: pinnedCommentsRefetch,
+  } = useFindCommentsQuery({
+    variables: {
+      where: pinnedCommentsWhere,
+      orderBy: pinnedCommentsOrderBy,
+      take,
+      skip: 0,
+    },
+    fetchPolicy: 'cache-first',
+  });
 
-  const { loading: authorCommentsLoading, data: authorCommentsData } =
-    useFindCommentsQuery({
-      variables: {
-        where: authorCommentsWhere,
-        orderBy: authorCommentsOrderBy,
-        take,
-        skip: 0,
-      },
-      fetchPolicy: 'cache-first',
-      skip: !includeAuthorComments,
-    });
+  const {
+    loading: authorCommentsLoading,
+    data: authorCommentsData,
+    refetch: authorCommentsRefetch,
+  } = useFindCommentsQuery({
+    variables: {
+      where: authorCommentsWhere,
+      orderBy: authorCommentsOrderBy,
+      take,
+      skip: 0,
+    },
+    fetchPolicy: 'cache-first',
+    skip: !includeAuthorComments,
+  });
 
   useSubscription(CommentCreatedDocument, {
     variables: {
@@ -154,19 +160,18 @@ export default function PinnedComments({
       postId,
     },
     onData: ({ data }) => {
-      const updatedComment = data.data.commentUpdated;
-      setComments(
-        comments.map((comment) => {
-          if (comment.id === updatedComment.id)
-            return {
-              ...comment,
-              updatedAt: updatedComment.updatedAt,
-              content: updatedComment.content,
-              pinned: updatedComment.pinned,
-            };
-          return comment;
-        }),
-      );
+      pinnedCommentsRefetch({
+        where: pinnedCommentsWhere,
+        orderBy: pinnedCommentsOrderBy,
+        take,
+        skip: 0,
+      });
+      authorCommentsRefetch({
+        where: authorCommentsWhere,
+        orderBy: authorCommentsOrderBy,
+        take,
+        skip: 0,
+      });
     },
     shouldResubscribe: true, // Always resubscribe
   });
