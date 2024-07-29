@@ -39,11 +39,20 @@ export default function PinnedComments({
   );
   const [comments, setComments] = useState<CommentWithAuthorResponse[]>([]); // State to store comments
 
-  const where: FindCommentsWhereInput = {
+  const pinnedCommentsWhere: FindCommentsWhereInput = {
     postId,
     pinned: true,
   };
-  const orderBy: FindCommentsOrderByInput = {
+  const pinnedCommentsOrderBy: FindCommentsOrderByInput = {
+    createdAt: 'desc',
+  };
+
+  const authorCommentsWhere: FindCommentsWhereInput = {
+    postId,
+    pinned: false,
+    userId: authorId,
+  };
+  const authorCommentsOrderBy: FindCommentsOrderByInput = {
     createdAt: 'desc',
   };
 
@@ -100,12 +109,24 @@ export default function PinnedComments({
   const { loading: pinnedCommentsLoading, data: pinnedCommentsData } =
     useFindCommentsQuery({
       variables: {
-        where,
-        orderBy,
+        where: pinnedCommentsWhere,
+        orderBy: pinnedCommentsOrderBy,
         take,
         skip: 0,
       },
       fetchPolicy: 'cache-first',
+    });
+
+  const { loading: authorCommentsLoading, data: authorCommentsData } =
+    useFindCommentsQuery({
+      variables: {
+        where: authorCommentsWhere,
+        orderBy: authorCommentsOrderBy,
+        take,
+        skip: 0,
+      },
+      fetchPolicy: 'cache-first',
+      skip: !includeAuthorComments,
     });
 
   useSubscription(CommentCreatedDocument, {
@@ -211,12 +232,28 @@ export default function PinnedComments({
 
   // Load comments if not loading and comments data is available
   useEffect(() => {
-    if (!pinnedCommentsLoading && pinnedCommentsData?.findComments) {
-      setComments(
-        pinnedCommentsData.findComments.edges.map((edge) => edge.node),
-      );
+    if (
+      !pinnedCommentsLoading &&
+      !authorCommentsLoading &&
+      (pinnedCommentsData?.findComments || authorCommentsData?.findComments)
+    ) {
+      const newComments = [
+        ...(pinnedCommentsData
+          ? pinnedCommentsData.findComments.edges.map((edge) => edge.node)
+          : []),
+        ...(authorCommentsData
+          ? authorCommentsData.findComments.edges.map((edge) => edge.node)
+          : []),
+      ];
+      setComments(newComments.slice(0, take));
     }
-  }, [pinnedCommentsLoading, pinnedCommentsData]);
+  }, [
+    pinnedCommentsLoading,
+    pinnedCommentsData,
+    authorCommentsLoading,
+    authorCommentsData,
+    take,
+  ]);
 
   if (pinnedCommentsLoading) return <div />;
   if (comments.length === 0) return <div />;
