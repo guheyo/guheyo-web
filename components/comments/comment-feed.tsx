@@ -254,8 +254,6 @@ export default function CommentFeed({
             size: 'small',
           }}
           handleWrite={handleWrite}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
         />
       </div>
       <DeleteConfirmationDialog
