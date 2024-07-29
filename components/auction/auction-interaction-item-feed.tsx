@@ -80,8 +80,8 @@ export default function AuctionInteractionItemFeed({
                   size: 'small',
                 }}
                 handleWrite={handleWrite}
-                handlePin={handlePin}
                 handleDelete={handleDelete}
+                handlePin={handlePin}
               />
             );
           }
