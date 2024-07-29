@@ -35,6 +35,7 @@ import AuctionInteractionItemsSelector from './auction-interaction-items-selecto
 import AuctionInteractionItemFeed from './auction-interaction-item-feed';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
 import AlertDialog from '../base/alert-dialog';
+import PinnedComments from '../comments/pinned-comments';
 
 export default function AuctionDetailContainer({
   auction: initialAuction,
@@ -377,6 +378,13 @@ export default function AuctionDetailContainer({
         <AuctionInteractionItemsSelector />
       </div>
       <div className="px-4 md:px-0">
+        <PinnedComments
+          postId={auction.post.id}
+          authorId={auction.post.user.id}
+          take={3}
+          editable={false}
+          includeAuthorComments
+        />
         <AuctionInteractionItemFeed
           auctionInteractionItems={auctionInteractionItems}
           currentBidPrice={highestBid?.price || 0}
