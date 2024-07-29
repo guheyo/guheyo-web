@@ -6,6 +6,8 @@ import {
   ReactionResponse,
   UserImageResponse,
 } from '@/generated/graphql';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import PushPinIcon from '@mui/icons-material/PushPin';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
@@ -81,6 +83,16 @@ export default function CommentOutput({
         <div className="flex justify-between items-center text-xs md:text-sm h-4">
           <div className="flex flex-row gap-2">
             <div className="text-gray-300 font-semibold">{user.username}</div>
+            {isAuthor && (
+              <div className="text-gray-400">
+                <EmojiEmotionsIcon fontSize="inherit" />
+              </div>
+            )}
+            {pinned && (
+              <div className="text-blurple-500">
+                <PushPinIcon fontSize="inherit" />
+              </div>
+            )}
             <div>{parseCommentDate({ createdAt, updatedAt })}</div>
           </div>
           {displayMenu && isHovered && (
