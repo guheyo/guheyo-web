@@ -1,11 +1,11 @@
-import { FindAuctionsOrderByArgs } from './auction.interfaces';
+import { FindAuctionPreviewsOrderByInput } from '@/generated/graphql';
 
 export const getFindAuctionsOrderByArgs = ({
   sortOrder = 'ending',
 }: {
   sortOrder?: string;
 }) => {
-  const orderBy: FindAuctionsOrderByArgs = {};
+  const orderBy: FindAuctionPreviewsOrderByInput = {};
 
   if (sortOrder === 'ending') {
     orderBy.extendedEndDate = 'desc';
