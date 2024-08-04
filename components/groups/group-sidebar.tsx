@@ -11,7 +11,7 @@ import { parseCommunityLink } from '@/lib/community/parse-community-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
 import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
 import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
@@ -97,7 +97,8 @@ export default function GroupSidebar({
           />
           <div className="pt-4 md:pt-6" />
           <SidebarItem
-            href={parseAuctionLink({
+            href={parseChannelLink({
+              channelName: 'auction',
               groupSlug: group?.slug,
             })}
             icon={<StorefrontIcon fontSize="medium" />}
