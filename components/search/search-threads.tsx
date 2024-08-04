@@ -4,7 +4,7 @@ import {
   FindThreadPreviewsOrderByInput,
   FindThreadPreviewsWhereInput,
 } from '@/generated/graphql';
-import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
+import CommunityCategoriesNavbar from '../community/community-categories-navbar';
 import ThreadFeed from '../thread/thread-feed';
 import SearchContainer from './search-container';
 
