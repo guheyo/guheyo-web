@@ -11,12 +11,14 @@ const findLocation = (pathname: string) => {
   if (pathname === '/') return 'group';
   if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'group-market';
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
+  if (/^\/g\/[\w-]*\/(gb)/.test(pathname)) return 'group-gb';
   if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
   if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
   if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
   if (/^\/user\//.test(pathname)) return 'user';
   if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
   if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
+  if (/^\/(gb)(\?.*)?$/.test(pathname)) return 'gb';
   if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
   if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
   if (/^\/report(\?.*)?$/.test(pathname)) return 'report';
@@ -29,11 +31,13 @@ const findHideButton = (location: string): boolean =>
     'group',
     'group-market',
     'group-auction',
+    'group-gb',
     'group-community',
     'group-member',
     'group-report',
     'market',
     'auction',
+    'gb',
     'community',
     'member',
     'report',
@@ -45,6 +49,8 @@ const findPlaceholder = (location: string): string => {
     return '제품을 검색해보세요';
   if (location === 'auction' || location === 'group-auction')
     return '제품을 검색해보세요';
+  if (location === 'gb' || location === 'group-gb')
+    return '공동구매를 검색해보세요';
   if (location === 'community' || location === 'group-community')
     return '스레드를 검색해보세요';
   if (location === 'member' || location === 'group-member')
@@ -68,6 +74,9 @@ export default function SearchButton() {
       router.push(`/search/product?group=${group?.slug}`);
     else if (location === 'market' || location === 'auction')
       router.push(`/search/product`);
+    else if (location === 'group-gb')
+      router.push(`/search/gb?group=${group?.slug}`);
+    else if (location === 'gb') router.push(`/search/gb`);
     else if (location === 'group-community')
       router.push(`/search/community?group=${group?.slug}`);
     else if (location === 'community') router.push(`/search/community`);
