@@ -25,7 +25,7 @@ function GbHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<GbHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'community'}
+      path={hideGroupProfileSidebarItems ? undefined : 'gb'}
       categories={showCategories ? <GbCategoriesNavbar /> : undefined}
       moreLink={showMoreLink && <GbMoreLink />}
     >
