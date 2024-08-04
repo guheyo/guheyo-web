@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { AuctionPreviewResponse } from '@/generated/graphql';
 import { parseAuctionDetailLink } from '@/lib/auction/parse-auction-detail-link';
-import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import Thumbnail from '../base/thumbnail';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
@@ -32,7 +32,10 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
               <div className="w-fit">
                 <GroupNameLink
                   name={group.name}
-                  href={parseAuctionLink({ groupSlug: group.slug! })}
+                  href={parseChannelLink({
+                    channelName: 'auction',
+                    groupSlug: group.slug!,
+                  })}
                 />
               </div>
             )}
