@@ -7,11 +7,10 @@ import ShopTwoIcon from '@mui/icons-material/ShopTwo';
 import ForumIcon from '@mui/icons-material/Forum';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
-import { parseCommunityLink } from '@/lib/community/parse-community-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
 import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
 import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
@@ -120,7 +119,8 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseCommunityLink({
+            href={parseChannelLink({
+              channelName: 'community',
               groupSlug: group?.slug,
             })}
             icon={<ForumIcon fontSize="medium" />}
