@@ -15,7 +15,6 @@ import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
 import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
 import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
-import { parseGbFeedtLink } from '@/lib/gb/parse-gb-feed-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -109,7 +108,8 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseGbFeedtLink({
+            href={parseChannelLink({
+              channelName: 'gb',
               groupSlug: group?.slug,
             })}
             icon={<ShopTwoIcon fontSize="medium" />}
