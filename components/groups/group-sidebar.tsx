@@ -12,7 +12,6 @@ import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
-import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -142,7 +141,8 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseReportFeedtLink({
+            href={parseChannelLink({
+              channelName: 'report',
               groupSlug: group?.slug,
             })}
             icon={<FlagIcon fontSize="medium" />}
