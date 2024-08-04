@@ -7,7 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ForumIcon from '@mui/icons-material/Forum';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
-import { parseCommunityLink } from '@/lib/community/parse-community-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import BottomNavbarItem from '../base/bottom-navbar-item';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -83,7 +83,8 @@ export default function GroupBottomNavbar({
         </div>
         <div className="col-span-4">
           <BottomNavbarItem
-            href={parseCommunityLink({
+            href={parseChannelLink({
+              channelName: 'community',
               groupSlug,
             })}
             icon={

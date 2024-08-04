@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { AuctionPreviewResponse } from '@/generated/graphql';
 import { parseAuctionDetailLink } from '@/lib/auction/parse-auction-detail-link';
-import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
 import GroupNameLink from '../groups/group-name-link';
@@ -28,7 +28,10 @@ export default function AuctionTextPreview({ auction, isInGroup }: Props) {
             <div className="w-fit">
               <GroupNameLink
                 name={group.name}
-                href={parseAuctionLink({ groupSlug: group.slug! })}
+                href={parseChannelLink({
+                  channelName: 'auction',
+                  groupSlug: group.slug!,
+                })}
               />
             </div>
           )}

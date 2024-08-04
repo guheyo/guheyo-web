@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 
 export default function GbMoreLink() {
   return (
-    <Link href="/community">
+    <Link href="/gb">
       <span className="flex flex-row items-center gap-1">
         <PlayCircleOutlineOutlinedIcon
           fontSize={isMobile ? 'small' : 'medium'}
