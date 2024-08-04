@@ -1,5 +1,11 @@
 export const parseGbFeedtLink = ({
   groupSlug,
+  category,
 }: {
   groupSlug?: string | null;
-}) => (groupSlug ? `/g/${groupSlug}/gb` : '/gb');
+  category?: string | null;
+}) => {
+  if (groupSlug && category) return `/g/${groupSlug}/gb?category=${category}`;
+  if (groupSlug) return `/g/${groupSlug}/gb`;
+  return '/gb';
+};
