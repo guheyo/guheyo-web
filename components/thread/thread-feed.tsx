@@ -23,7 +23,7 @@ function ThreadFeed({
   type: PostPreviewType;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup();
+  const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const keyword = searchParams.get('q') || undefined;
@@ -36,9 +36,10 @@ function ThreadFeed({
   const { loading, data } = useInfiniteThreadFeed({
     ref,
     where: {
-      groupId: group?.id,
+      groupId: group?.slug !== 'root' ? group?.id : undefined,
       userId: defaultWhere.userId,
       categoryId: category?.id,
+      categoryType: defaultWhere.categoryType,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',

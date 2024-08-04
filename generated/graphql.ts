@@ -422,6 +422,7 @@ export type FindThreadPreviewsOrderByInput = {
 
 export type FindThreadPreviewsWhereInput = {
   categoryId?: InputMaybe<Scalars['ID']['input']>;
+  categoryType?: InputMaybe<Scalars['String']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   tagNames?: InputMaybe<Array<Scalars['String']['input']>>;

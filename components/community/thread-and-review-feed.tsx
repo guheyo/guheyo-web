@@ -48,6 +48,7 @@ function ThreadAndReviewFeed({
       groupId: group?.slug !== 'root' ? group?.id : undefined,
       userId: defaultWhere.userId,
       categoryId: category?.id,
+      categoryType: 'community',
       tagType,
       tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
       reviewedUserId: defaultWhere.reviewedUserId,

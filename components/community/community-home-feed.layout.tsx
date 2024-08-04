@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CommunityHomeLink from './community-home-link';
-import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
+import CommunityCategoriesNavbar from './community-categories-navbar';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from '../user-review/manner-tags-navbar';
 import CommunityTagsNavbar from './community-tags-navbar';
