@@ -12,7 +12,6 @@ import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
-import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
 import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
@@ -131,7 +130,8 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
           />
           <SidebarItem
-            href={parseMemberFeedtLink({
+            href={parseChannelLink({
+              channelName: 'member',
               groupSlug: group?.slug,
             })}
             icon={<GroupIcon fontSize="medium" />}
