@@ -3,6 +3,7 @@
 import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
+import ShopTwoIcon from '@mui/icons-material/ShopTwo';
 import ForumIcon from '@mui/icons-material/Forum';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -14,6 +15,7 @@ import { parseAuctionLink } from '@/lib/auction/parse-auction-link';
 import { MARKET_CHANNELS } from '@/lib/market/market.constants';
 import { parseMemberFeedtLink } from '@/lib/user/parse-member-feed-link';
 import { parseReportFeedtLink } from '@/lib/report/parse-report-feed-link';
+import { parseGbFeedtLink } from '@/lib/gb/parse-gb-feed-link';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -101,6 +103,17 @@ export default function GroupSidebar({
             icon={<StorefrontIcon fontSize="medium" />}
             text="장터"
             isActive={MARKET_CHANNELS.includes(activeItem)}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseGbFeedtLink({
+              groupSlug: group?.slug,
+            })}
+            icon={<ShopTwoIcon fontSize="medium" />}
+            text="공동구매"
+            isActive={activeItem === 'gb'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
