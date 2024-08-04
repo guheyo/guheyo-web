@@ -3,7 +3,7 @@
 import { SortOrder } from '@/types/sort.types';
 import { useSearchParams } from 'next/navigation';
 import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
-import CommunityCategoriesNavbar from '../thread/community-categories-navbar';
+import CommunityCategoriesNavbar from '../community/community-categories-navbar';
 import ThreadAndReviewFeed from '../community/thread-and-review-feed';
 import SearchContainer from './search-container';
 import MannerTagsNavbar from '../user-review/manner-tags-navbar';

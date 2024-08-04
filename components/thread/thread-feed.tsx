@@ -39,6 +39,7 @@ function ThreadFeed({
       groupId: group?.id,
       userId: defaultWhere.userId,
       categoryId: category?.id,
+      categoryType: defaultWhere.categoryType,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',

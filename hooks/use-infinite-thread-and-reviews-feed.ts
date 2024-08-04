@@ -47,6 +47,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     () => ({
       groupId: where?.groupId,
       categoryId: where?.categoryId,
+      categoryType: where?.categoryType,
       pending: where?.pending,
       userId: where?.userId,
       tagNames: where?.tagNames,
@@ -55,6 +56,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     [
       where?.groupId,
       where?.categoryId,
+      where?.categoryType,
       where?.pending,
       where?.userId,
       // eslint-disable-next-line react-hooks/exhaustive-deps
