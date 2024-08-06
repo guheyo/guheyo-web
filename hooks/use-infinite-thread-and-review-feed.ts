@@ -122,19 +122,18 @@ export const useInfiniteThreadAndReviewFeed = ({
       reviews: UserReviewPreviewResponseEdge[],
       append: boolean,
     ) => {
-      const combinedData = [...threads, ...reviews].sort((a, b) =>
+      let combinedData = [...threads, ...reviews].sort((a, b) =>
         memoOrderBy?.createdAt === 'asc'
           ? new Date(a.node.createdAt).getTime() -
             new Date(b.node.createdAt).getTime()
           : new Date(b.node.createdAt).getTime() -
             new Date(a.node.createdAt).getTime(),
       );
+      combinedData = append
+        ? combinedData.slice(0, take)
+        : combinedData.slice(0, max([take, combinedData.length - take]));
 
-      setItems((prevItems) =>
-        append
-          ? [...prevItems, ...combinedData.slice(0, take)]
-          : combinedData.slice(0, max([take, combinedData.length - take])),
-      );
+      setItems((prevItems) => [...prevItems, ...combinedData]);
 
       const lastThread = combinedData.findLast(
         (d) => d.__typename === 'ThreadPreviewResponseEdge',
@@ -190,12 +189,25 @@ export const useInfiniteThreadAndReviewFeed = ({
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
+
+          const cursorEdgeIndex =
+            previousQueryResult.findThreadPreviews.edges.findIndex(
+              (edge) => edge.cursor === threadCursor,
+            );
+          const duplicatedEdgeLen =
+            previousQueryResult.findThreadPreviews.edges.length -
+            1 -
+            cursorEdgeIndex;
+
+          const newEdges =
+            fetchMoreResult.findThreadPreviews.edges.slice(duplicatedEdgeLen);
+
           return {
             findThreadPreviews: {
               __typename: previousQueryResult.findThreadPreviews.__typename,
               edges: [
                 ...previousQueryResult.findThreadPreviews.edges,
-                ...fetchMoreResult.findThreadPreviews.edges,
+                ...newEdges,
               ],
               pageInfo: fetchMoreResult.findThreadPreviews.pageInfo,
             },
@@ -217,12 +229,27 @@ export const useInfiniteThreadAndReviewFeed = ({
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
+
+          const cursorEdgeIndex =
+            previousQueryResult.findUserReviewPreviews.edges.findIndex(
+              (edge) => edge.cursor === reviewCursor,
+            );
+          const duplicatedEdgeLen =
+            previousQueryResult.findUserReviewPreviews.edges.length -
+            1 -
+            cursorEdgeIndex;
+
+          const newEdges =
+            fetchMoreResult.findUserReviewPreviews.edges.slice(
+              duplicatedEdgeLen,
+            );
+
           return {
             findUserReviewPreviews: {
               __typename: previousQueryResult.findUserReviewPreviews.__typename,
               edges: [
                 ...previousQueryResult.findUserReviewPreviews.edges,
-                ...fetchMoreResult.findUserReviewPreviews.edges,
+                ...newEdges,
               ],
               pageInfo: fetchMoreResult.findUserReviewPreviews.pageInfo,
             },
