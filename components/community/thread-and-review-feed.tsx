@@ -10,7 +10,7 @@ import {
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
-import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-reviews-feed';
+import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { SortOrder } from '@/types/sort.types';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';

@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import ShopTwoIcon from '@mui/icons-material/ShopTwo';
 import ForumIcon from '@mui/icons-material/Forum';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
@@ -62,14 +63,14 @@ export default function GroupBottomNavbar({
       }`}
     >
       <div className="grid grid-rows grid-cols-12 gap-0 bg-dark-500 w-screen py-2 px-4">
-        <div className="col-span-4">
+        <div className="col-span-3">
           <BottomNavbarItem
             href="/"
             icon={<HomeIcon fontSize="small" className="hover:text-gray-300" />}
             text="홈"
           />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-3">
           <BottomNavbarItem
             href={parseMarketLink({ groupSlug, businessFunction: 'auction' })}
             icon={
@@ -81,7 +82,19 @@ export default function GroupBottomNavbar({
             text="장터"
           />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-3">
+          <BottomNavbarItem
+            href={parseChannelLink({
+              channelName: 'gb',
+              groupSlug,
+            })}
+            icon={
+              <ShopTwoIcon fontSize="small" className="hover:text-gray-300" />
+            }
+            text="공동구매"
+          />
+        </div>
+        <div className="col-span-3">
           <BottomNavbarItem
             href={parseChannelLink({
               channelName: 'community',
