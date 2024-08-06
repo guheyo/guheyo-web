@@ -9,6 +9,7 @@ import {
 import { RefObject, useEffect, useState, useCallback, useMemo } from 'react';
 import { SortOrder } from '@/types/sort.types';
 import { max } from 'lodash';
+import { getNewEdges } from '@/lib/feed/get-new-edges';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
@@ -190,17 +191,11 @@ export const useInfiniteThreadAndReviewFeed = ({
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
 
-          const cursorEdgeIndex =
-            previousQueryResult.findThreadPreviews.edges.findIndex(
-              (edge) => edge.cursor === threadCursor,
-            );
-          const duplicatedEdgeLen =
-            previousQueryResult.findThreadPreviews.edges.length -
-            1 -
-            cursorEdgeIndex;
-
-          const newEdges =
-            fetchMoreResult.findThreadPreviews.edges.slice(duplicatedEdgeLen);
+          const newEdges = getNewEdges({
+            previousEdges: previousQueryResult.findThreadPreviews.edges,
+            fetchMoreEdges: fetchMoreResult.findThreadPreviews.edges,
+            cursor: threadCursor,
+          });
 
           return {
             findThreadPreviews: {
@@ -230,19 +225,11 @@ export const useInfiniteThreadAndReviewFeed = ({
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousQueryResult;
 
-          const cursorEdgeIndex =
-            previousQueryResult.findUserReviewPreviews.edges.findIndex(
-              (edge) => edge.cursor === reviewCursor,
-            );
-          const duplicatedEdgeLen =
-            previousQueryResult.findUserReviewPreviews.edges.length -
-            1 -
-            cursorEdgeIndex;
-
-          const newEdges =
-            fetchMoreResult.findUserReviewPreviews.edges.slice(
-              duplicatedEdgeLen,
-            );
+          const newEdges = getNewEdges({
+            previousEdges: previousQueryResult.findUserReviewPreviews.edges,
+            fetchMoreEdges: fetchMoreResult.findUserReviewPreviews.edges,
+            cursor: reviewCursor,
+          });
 
           return {
             findUserReviewPreviews: {
