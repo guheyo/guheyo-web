@@ -163,7 +163,11 @@ export const useInfiniteThreadAndReviewFeed = ({
   );
 
   useEffect(() => {
-    if (!threadLoading && !reviewLoading && items.length === 0) {
+    if (!threadLoading && !reviewLoading) {
+      setLoading(true);
+      setItems([]);
+      setThreadCursor(null);
+      setReviewCursor(null);
       combineAndSortData(
         threadData?.findThreadPreviews.edges || [],
         reviewData?.findUserReviewPreviews.edges || [],
@@ -172,7 +176,17 @@ export const useInfiniteThreadAndReviewFeed = ({
       setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadLoading, reviewLoading, combineAndSortData]);
+  }, [
+    threadWhere,
+    reviewWhere,
+    memoOrderBy,
+    type,
+    keyword,
+    target,
+    threadLoading,
+    reviewLoading,
+    combineAndSortData,
+  ]);
 
   const fetchMore = useCallback(async () => {
     let moreThreads;
@@ -189,7 +203,8 @@ export const useInfiniteThreadAndReviewFeed = ({
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
+          if (!fetchMoreResult || !previousQueryResult.findThreadPreviews)
+            return previousQueryResult;
 
           const newEdges = getNewEdges({
             previousEdges: previousQueryResult.findThreadPreviews.edges,
@@ -223,7 +238,8 @@ export const useInfiniteThreadAndReviewFeed = ({
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
+          if (!fetchMoreResult || !previousQueryResult.findUserReviewPreviews)
+            return previousQueryResult;
 
           const newEdges = getNewEdges({
             previousEdges: previousQueryResult.findUserReviewPreviews.edges,
