@@ -10,6 +10,7 @@ import {
 } from '@/generated/graphql';
 import CommentSelector from '@/components/comments/comment-selector';
 import { useSearchParams } from 'next/navigation';
+import PinnedComments from '../comments/pinned-comments';
 
 export default function ThreadDetailContainer({
   thread,
@@ -36,6 +37,13 @@ export default function ThreadDetailContainer({
         <CommentSelector />
       </div>
       <div className="px-4 md:px-0">
+        <PinnedComments
+          postId={thread.post.id}
+          authorId={thread.post.user.id}
+          take={3}
+          editable
+          includeAuthorComments
+        />
         <CommentFeed
           authorId={thread.post.user.id}
           defaultWhere={where}
