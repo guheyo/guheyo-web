@@ -8,6 +8,8 @@ import {
 } from '@/generated/graphql';
 import { RefObject, useEffect, useState, useCallback, useMemo } from 'react';
 import { SortOrder } from '@/types/sort.types';
+import { max } from 'lodash';
+import { getNewEdges } from '@/lib/feed/get-new-edges';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
@@ -83,8 +85,8 @@ export const useInfiniteThreadAndReviewFeed = ({
 
   const {
     data: threadData,
+    loading: threadLoading,
     fetchMore: fetchMoreThreads,
-    refetch: refetchThreads,
   } = useFindThreadPreviewsQuery({
     variables: {
       where: threadWhere,
@@ -100,8 +102,8 @@ export const useInfiniteThreadAndReviewFeed = ({
 
   const {
     data: reviewData,
+    loading: reviewLoading,
     fetchMore: fetchMoreReviews,
-    refetch: refetchReviews,
   } = useFindUserReviewPreviewsQuery({
     variables: {
       where: reviewWhere,
@@ -121,19 +123,18 @@ export const useInfiniteThreadAndReviewFeed = ({
       reviews: UserReviewPreviewResponseEdge[],
       append: boolean,
     ) => {
-      const combinedData = [...threads, ...reviews].sort((a, b) =>
+      let combinedData = [...threads, ...reviews].sort((a, b) =>
         memoOrderBy?.createdAt === 'asc'
           ? new Date(a.node.createdAt).getTime() -
             new Date(b.node.createdAt).getTime()
           : new Date(b.node.createdAt).getTime() -
             new Date(a.node.createdAt).getTime(),
       );
+      combinedData = append
+        ? combinedData.slice(0, take)
+        : combinedData.slice(0, max([take, combinedData.length - take]));
 
-      setItems((prevItems) =>
-        append
-          ? [...prevItems, ...combinedData.slice(0, take)]
-          : combinedData.slice(0, take),
-      );
+      setItems((prevItems) => [...prevItems, ...combinedData]);
 
       const lastThread = combinedData.findLast(
         (d) => d.__typename === 'ThreadPreviewResponseEdge',
@@ -162,81 +163,16 @@ export const useInfiniteThreadAndReviewFeed = ({
   );
 
   useEffect(() => {
-    setItems([]);
-    setThreadCursor(null);
-    setReviewCursor(null);
-    setLoading(true);
-
-    if (type === 'thread') {
-      refetchThreads({
-        where: threadWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((result) => {
-        combineAndSortData(
-          result.data?.findThreadPreviews.edges || [],
-          [],
-          false,
-        );
-        setLoading(false);
-      });
-    } else if (type === 'review') {
-      refetchReviews({
-        where: reviewWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((result) => {
-        combineAndSortData(
-          [],
-          result.data?.findUserReviewPreviews.edges || [],
-          false,
-        );
-        setLoading(false);
-      });
-    } else {
-      refetchThreads({
-        where: threadWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((threadResult) => {
-        refetchReviews({
-          where: reviewWhere,
-          orderBy: memoOrderBy,
-          keyword,
-          target,
-          take,
-          skip: 0,
-        }).then((reviewResult) => {
-          combineAndSortData(
-            threadResult.data.findThreadPreviews.edges || [],
-            reviewResult.data?.findUserReviewPreviews.edges || [],
-            false,
-          );
-          setLoading(false);
-        });
-      });
+    if (!threadLoading && !reviewLoading && items.length === 0) {
+      combineAndSortData(
+        threadData?.findThreadPreviews.edges || [],
+        reviewData?.findUserReviewPreviews.edges || [],
+        false,
+      );
+      setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    threadWhere,
-    reviewWhere,
-    memoOrderBy,
-    type,
-    keyword,
-    target,
-    take,
-    refetchThreads,
-    refetchReviews,
-  ]);
+  }, [threadLoading, reviewLoading, combineAndSortData]);
 
   const fetchMore = useCallback(async () => {
     let moreThreads;
@@ -252,6 +188,26 @@ export const useInfiniteThreadAndReviewFeed = ({
           take,
           skip: 1,
         },
+        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousQueryResult;
+
+          const newEdges = getNewEdges({
+            previousEdges: previousQueryResult.findThreadPreviews.edges,
+            fetchMoreEdges: fetchMoreResult.findThreadPreviews.edges,
+            cursor: threadCursor,
+          });
+
+          return {
+            findThreadPreviews: {
+              __typename: previousQueryResult.findThreadPreviews.__typename,
+              edges: [
+                ...previousQueryResult.findThreadPreviews.edges,
+                ...newEdges,
+              ],
+              pageInfo: fetchMoreResult.findThreadPreviews.pageInfo,
+            },
+          };
+        },
       });
     }
 
@@ -265,6 +221,26 @@ export const useInfiniteThreadAndReviewFeed = ({
           cursor: reviewCursor,
           take,
           skip: 1,
+        },
+        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousQueryResult;
+
+          const newEdges = getNewEdges({
+            previousEdges: previousQueryResult.findUserReviewPreviews.edges,
+            fetchMoreEdges: fetchMoreResult.findUserReviewPreviews.edges,
+            cursor: reviewCursor,
+          });
+
+          return {
+            findUserReviewPreviews: {
+              __typename: previousQueryResult.findUserReviewPreviews.__typename,
+              edges: [
+                ...previousQueryResult.findUserReviewPreviews.edges,
+                ...newEdges,
+              ],
+              pageInfo: fetchMoreResult.findUserReviewPreviews.pageInfo,
+            },
+          };
         },
       });
     }

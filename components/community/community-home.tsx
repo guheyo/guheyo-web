@@ -1,6 +1,6 @@
 'use client';
 
-import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-reviews-feed';
+import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { useRef } from 'react';
 import CommunityHomeFeedLayout from './community-home-feed.layout';
 import ThreadPreview from '../thread/thread-preview';
