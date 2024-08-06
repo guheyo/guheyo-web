@@ -114,7 +114,7 @@ export default function CommentOutput({
             <ImageSlider images={images} sizes="h-[100px] md:h-[150px]" />
           </div>
         )}
-        <div className="flex text-xs md:text-sm text-dark-100 font-thin break-all">
+        <div className="text-xs md:text-sm text-dark-100 font-thin break-all">
           {content && (
             <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
           )}
