@@ -203,7 +203,8 @@ export const useInfiniteThreadAndReviewFeed = ({
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
+          if (!fetchMoreResult || !previousQueryResult.findThreadPreviews)
+            return previousQueryResult;
 
           const newEdges = getNewEdges({
             previousEdges: previousQueryResult.findThreadPreviews.edges,
@@ -237,7 +238,8 @@ export const useInfiniteThreadAndReviewFeed = ({
           skip: 1,
         },
         updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return previousQueryResult;
+          if (!fetchMoreResult || !previousQueryResult.findUserReviewPreviews)
+            return previousQueryResult;
 
           const newEdges = getNewEdges({
             previousEdges: previousQueryResult.findUserReviewPreviews.edges,
