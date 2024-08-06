@@ -8,6 +8,7 @@ import {
 } from '@/generated/graphql';
 import { RefObject, useEffect, useState, useCallback, useMemo } from 'react';
 import { SortOrder } from '@/types/sort.types';
+import { max } from 'lodash';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
@@ -83,8 +84,8 @@ export const useInfiniteThreadAndReviewFeed = ({
 
   const {
     data: threadData,
+    loading: threadLoading,
     fetchMore: fetchMoreThreads,
-    refetch: refetchThreads,
   } = useFindThreadPreviewsQuery({
     variables: {
       where: threadWhere,
@@ -100,8 +101,8 @@ export const useInfiniteThreadAndReviewFeed = ({
 
   const {
     data: reviewData,
+    loading: reviewLoading,
     fetchMore: fetchMoreReviews,
-    refetch: refetchReviews,
   } = useFindUserReviewPreviewsQuery({
     variables: {
       where: reviewWhere,
@@ -132,7 +133,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       setItems((prevItems) =>
         append
           ? [...prevItems, ...combinedData.slice(0, take)]
-          : combinedData.slice(0, take),
+          : combinedData.slice(0, max([take, combinedData.length - take])),
       );
 
       const lastThread = combinedData.findLast(
@@ -162,81 +163,16 @@ export const useInfiniteThreadAndReviewFeed = ({
   );
 
   useEffect(() => {
-    setItems([]);
-    setThreadCursor(null);
-    setReviewCursor(null);
-    setLoading(true);
-
-    if (type === 'thread') {
-      refetchThreads({
-        where: threadWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((result) => {
-        combineAndSortData(
-          result.data?.findThreadPreviews.edges || [],
-          [],
-          false,
-        );
-        setLoading(false);
-      });
-    } else if (type === 'review') {
-      refetchReviews({
-        where: reviewWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((result) => {
-        combineAndSortData(
-          [],
-          result.data?.findUserReviewPreviews.edges || [],
-          false,
-        );
-        setLoading(false);
-      });
-    } else {
-      refetchThreads({
-        where: threadWhere,
-        orderBy: memoOrderBy,
-        keyword,
-        target,
-        take,
-        skip: 0,
-      }).then((threadResult) => {
-        refetchReviews({
-          where: reviewWhere,
-          orderBy: memoOrderBy,
-          keyword,
-          target,
-          take,
-          skip: 0,
-        }).then((reviewResult) => {
-          combineAndSortData(
-            threadResult.data.findThreadPreviews.edges || [],
-            reviewResult.data?.findUserReviewPreviews.edges || [],
-            false,
-          );
-          setLoading(false);
-        });
-      });
+    if (!threadLoading && !reviewLoading && items.length === 0) {
+      combineAndSortData(
+        threadData?.findThreadPreviews.edges || [],
+        reviewData?.findUserReviewPreviews.edges || [],
+        false,
+      );
+      setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    threadWhere,
-    reviewWhere,
-    memoOrderBy,
-    type,
-    keyword,
-    target,
-    take,
-    refetchThreads,
-    refetchReviews,
-  ]);
+  }, [threadLoading, reviewLoading, combineAndSortData]);
 
   const fetchMore = useCallback(async () => {
     let moreThreads;
@@ -252,6 +188,19 @@ export const useInfiniteThreadAndReviewFeed = ({
           take,
           skip: 1,
         },
+        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousQueryResult;
+          return {
+            findThreadPreviews: {
+              __typename: previousQueryResult.findThreadPreviews.__typename,
+              edges: [
+                ...previousQueryResult.findThreadPreviews.edges,
+                ...fetchMoreResult.findThreadPreviews.edges,
+              ],
+              pageInfo: fetchMoreResult.findThreadPreviews.pageInfo,
+            },
+          };
+        },
       });
     }
 
@@ -265,6 +214,19 @@ export const useInfiniteThreadAndReviewFeed = ({
           cursor: reviewCursor,
           take,
           skip: 1,
+        },
+        updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousQueryResult;
+          return {
+            findUserReviewPreviews: {
+              __typename: previousQueryResult.findUserReviewPreviews.__typename,
+              edges: [
+                ...previousQueryResult.findUserReviewPreviews.edges,
+                ...fetchMoreResult.findUserReviewPreviews.edges,
+              ],
+              pageInfo: fetchMoreResult.findUserReviewPreviews.pageInfo,
+            },
+          };
         },
       });
     }
