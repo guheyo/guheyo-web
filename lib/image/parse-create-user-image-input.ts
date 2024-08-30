@@ -15,7 +15,6 @@ const parseCreateUserImageInput = ({
   url: string;
 }): CreateUserImageInput => ({
   contentType: file.type,
-  name: file.name,
   size: file.size,
   id: userImage.id,
   position: userImage.position,
