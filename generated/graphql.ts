@@ -291,7 +291,6 @@ export type CreateUserImageInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   height?: InputMaybe<Scalars['Int']['input']>;
   id: Scalars['ID']['input'];
-  name: Scalars['String']['input'];
   position: Scalars['Int']['input'];
   refId: Scalars['ID']['input'];
   size?: InputMaybe<Scalars['Int']['input']>;
