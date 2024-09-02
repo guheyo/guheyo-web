@@ -23,7 +23,7 @@ export const REPORT_REASONS: ReportReason[] = [
     disabled: false,
   },
   {
-    reason: '다중 카테고리에 동일 게시글을 중복 업로드 했어요',
+    reason: '다중 카테고리에 중복 업로드 했어요',
     description:
       '같은 게시글은 한 카테고리에만 올릴 수 있어요, 여러 카테고리 제품을 섞은 게시글은 분리해 주세요',
     disabled: false,
