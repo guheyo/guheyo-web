@@ -13,13 +13,19 @@ export const REPORT_REASONS: ReportReason[] = [
     disabled: false,
   },
   {
-    reason: '24시간 이내에 동일 제품을 업로드를 했어요',
+    reason: '24시간 이내에 동일 제품을 업로드 했어요',
     description: '같은 게시글은 24시간 뒤에 다시 끌어올릴 수 있어요',
     disabled: false,
   },
   {
     reason: '전문 업자 같아요',
     description: '일반 채널에서 유통, 제작, 의뢰 제품을 반복 판매하고 있어요',
+    disabled: false,
+  },
+  {
+    reason: '다중 카테고리에 동일 게시글을 중복 업로드 했어요',
+    description:
+      '같은 게시글은 한 카테고리에만 올릴 수 있어요, 여러 카테고리 제품을 섞은 게시글은 분리해 주세요',
     disabled: false,
   },
   {
