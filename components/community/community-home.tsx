@@ -28,6 +28,7 @@ export default function CommunityHome() {
       hideGroupProfileSidebarItems
       showCategories={false}
       showTags={false}
+      showSelectors={false}
       showMoreLink
     >
       {items.map((item) => {
