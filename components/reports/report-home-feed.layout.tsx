@@ -4,7 +4,7 @@ import ReportTypeNavbar from '@/components/reports/report-type-navbar';
 import { ReactNode } from 'react';
 import ReportHomeLink from './report-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
-import ReportStatausSelector from './report-status-selector';
+import ReportSelectors from './report-selectors';
 
 interface Props {
   children: ReactNode;
@@ -22,7 +22,7 @@ function ReportHomeFeedLayout({ children, showSelectors }: Props) {
         showSelectors && (
           <>
             <div />
-            <ReportStatausSelector />
+            <ReportSelectors />
           </>
         )
       }
