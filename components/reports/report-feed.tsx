@@ -10,8 +10,8 @@ import {
   FindReportPreviewsWhereInput,
 } from '@/generated/graphql';
 import { parseReportStatus } from '@/lib/report/parse-report-status';
-import ReportCard from './report-card';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import ReportCard from './report-card';
 
 export default function ReportFeed({
   defaultWhere,

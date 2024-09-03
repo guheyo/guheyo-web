@@ -12,9 +12,9 @@ import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { SortOrder } from '@/types/sort.types';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
-import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function ThreadAndReviewFeed({
   defaultWhere,
