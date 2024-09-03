@@ -11,6 +11,7 @@ import {
 } from '@/generated/graphql';
 import { parseReportStatus } from '@/lib/report/parse-report-status';
 import ReportCard from './report-card';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 export default function ReportFeed({
   defaultWhere,
@@ -27,6 +28,7 @@ export default function ReportFeed({
     status:
       searchParams.get('status') || (defaultWhere.status as string | undefined),
   });
+  const period = searchParams.get('period');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -37,6 +39,11 @@ export default function ReportFeed({
       groupId: group?.id,
       type,
       status,
+      createdAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: defaultOrderBy,
     keyword,
