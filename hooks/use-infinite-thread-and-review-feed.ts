@@ -53,6 +53,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       pending: where?.pending,
       userId: where?.userId,
       tagNames: where?.tagNames,
+      createdAt: where?.createdAt,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -63,6 +64,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       where?.userId,
       // eslint-disable-next-line react-hooks/exhaustive-deps
       where?.tagNames?.join(','),
+      where?.createdAt?.gt,
     ],
   );
 
@@ -72,8 +74,16 @@ export const useInfiniteThreadAndReviewFeed = ({
       userId: where?.userId,
       tagType: where?.tagType,
       reviewedUserId: where?.reviewedUserId,
+      createdAt: where?.createdAt,
     }),
-    [where?.groupId, where?.userId, where?.tagType, where?.reviewedUserId],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      where?.groupId,
+      where?.userId,
+      where?.tagType,
+      where?.reviewedUserId,
+      where?.createdAt?.gt,
+    ],
   );
 
   const memoOrderBy = useMemo(

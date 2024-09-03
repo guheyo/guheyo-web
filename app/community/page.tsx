@@ -13,7 +13,12 @@ export default function Page() {
 
   return (
     <Suspense>
-      <CommunityHomeFeedLayout showCategories showTags showMoreLink={false}>
+      <CommunityHomeFeedLayout
+        showCategories
+        showTags
+        showSelectors
+        showMoreLink={false}
+      >
         <ThreadAndReviewFeed
           type="listview"
           defaultWhere={where}

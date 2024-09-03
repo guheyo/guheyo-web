@@ -12,6 +12,7 @@ import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { SortOrder } from '@/types/sort.types';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 
@@ -34,6 +35,7 @@ function ThreadAndReviewFeed({
     slug: categorySlug,
   });
   const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const period = searchParams.get('period');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -52,6 +54,11 @@ function ThreadAndReviewFeed({
       tagType,
       tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
       reviewedUserId: defaultWhere.reviewedUserId,
+      createdAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: {
       createdAt: (defaultOrderBy?.createdAt || 'desc') as SortOrder,
