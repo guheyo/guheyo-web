@@ -11,8 +11,8 @@ import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
-import ThreadPreview from './thread-preview';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import ThreadPreview from './thread-preview';
 
 function ThreadFeed({
   defaultWhere,
