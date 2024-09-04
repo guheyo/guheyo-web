@@ -12,6 +12,7 @@ import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
 import ThreadPreview from './thread-preview';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function ThreadFeed({
   defaultWhere,
@@ -26,6 +27,7 @@ function ThreadFeed({
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const period = searchParams.get('period');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -40,6 +42,11 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
+      createdAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',
