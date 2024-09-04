@@ -29,6 +29,7 @@ export default function GbHome() {
       hideGroupProfileSidebarItems
       showCategories={false}
       showTags={false}
+      showSelectors={false}
       showMoreLink
     >
       {threads.map((thread) => (
