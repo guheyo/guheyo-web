@@ -177,7 +177,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       reviewData?.findUserReviewPreviews.pageInfo.hasNextPage,
       reviewCursor,
       take,
-      memoOrderBy?.createdAt,
+      memoOrderBy,
     ],
   );
 
