@@ -56,3 +56,9 @@ export const REPORT_TYPE_OPTIONS = [
   { value: 'post', label: '게시글 신고' },
   { value: 'comment', label: '댓글 신고' },
 ];
+
+export const REPORT_STATUS_OPTIONS = [
+  { value: 'all', label: '모든 상태' },
+  { value: 'commented', label: '응답' },
+  { value: 'open', label: '무응답' },
+];

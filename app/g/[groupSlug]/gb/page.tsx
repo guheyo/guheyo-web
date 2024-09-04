@@ -26,7 +26,12 @@ export default function Page() {
 
   return (
     <Suspense>
-      <GbHomeFeedLayout showCategories showTags showMoreLink={false}>
+      <GbHomeFeedLayout
+        showCategories
+        showTags
+        showSelectors
+        showMoreLink={false}
+      >
         <ThreadFeed
           type="listview"
           defaultWhere={where}

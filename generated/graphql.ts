@@ -422,6 +422,7 @@ export type FindThreadPreviewsOrderByInput = {
 export type FindThreadPreviewsWhereInput = {
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   categoryType?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   tagNames?: InputMaybe<Array<Scalars['String']['input']>>;
@@ -433,6 +434,7 @@ export type FindUserReviewPreviewsOrderByInput = {
 };
 
 export type FindUserReviewPreviewsWhereInput = {
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   reviewedUserId?: InputMaybe<Scalars['ID']['input']>;
