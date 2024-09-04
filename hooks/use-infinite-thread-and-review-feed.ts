@@ -133,16 +133,24 @@ export const useInfiniteThreadAndReviewFeed = ({
       reviews: UserReviewPreviewResponseEdge[],
       append: boolean,
     ) => {
-      let combinedData = [...threads, ...reviews].sort((a, b) =>
-        memoOrderBy?.createdAt === 'asc'
-          ? new Date(a.node.createdAt).getTime() -
-            new Date(b.node.createdAt).getTime()
-          : new Date(b.node.createdAt).getTime() -
-            new Date(a.node.createdAt).getTime(),
-      );
-      combinedData = append
-        ? combinedData.slice(0, take)
-        : combinedData.slice(0, max([take, combinedData.length - take]));
+      let combinedData = [];
+
+      if (type === 'thread') {
+        combinedData = append ? threads.slice(0, take) : threads;
+      } else if (type === 'review') {
+        combinedData = append ? reviews.slice(0, take) : reviews;
+      } else {
+        combinedData = [...threads, ...reviews].sort((a, b) =>
+          memoOrderBy?.createdAt === 'asc'
+            ? new Date(a.node.createdAt).getTime() -
+              new Date(b.node.createdAt).getTime()
+            : new Date(b.node.createdAt).getTime() -
+              new Date(a.node.createdAt).getTime(),
+        );
+        combinedData = append
+          ? combinedData.slice(0, take)
+          : combinedData.slice(0, max([take, combinedData.length - take]));
+      }
 
       setItems((prevItems) => [...prevItems, ...combinedData]);
 
@@ -163,12 +171,13 @@ export const useInfiniteThreadAndReviewFeed = ({
       );
     },
     [
-      threadCursor,
-      reviewCursor,
+      type,
       threadData?.findThreadPreviews.pageInfo.hasNextPage,
+      threadCursor,
       reviewData?.findUserReviewPreviews.pageInfo.hasNextPage,
-      memoOrderBy,
+      reviewCursor,
       take,
+      memoOrderBy,
     ],
   );
 
