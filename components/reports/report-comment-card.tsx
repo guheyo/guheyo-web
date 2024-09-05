@@ -44,10 +44,6 @@ export default function ReportCommentCard({
     });
   };
 
-  const handleDelete = (values: CommentValues) => {
-    // TODO
-  };
-
   return (
     <CommentCard
       user={reportedUser}
@@ -70,7 +66,6 @@ export default function ReportCommentCard({
       }}
       handleWrite={handleWrite}
       handleEdit={handleEdit}
-      handleDelete={handleDelete}
     />
   );
 }
