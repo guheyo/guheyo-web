@@ -45,11 +45,6 @@ export const OFFER_DESCRIPTION_REQUIRED_MESSAGE = '제품 설명을 작성해 �
 
 export const OFFER_BUMP_INFO_MESSAGE = '끌올 재사용 대기시간 : 24시간';
 
-export const OFFER_WRITE_SUBMIT_BUTTON_NAME = '작성 완료';
-export const OFFER_EDIT_SUBMIT_BUTTON_NAME = '수정 완료';
-
 export const OFFER_AUTO_SAVE_INTERVAL_MS = 60 * 1000;
 
 export const DAILY_OFFER_POSTING_LIMIT = 5;
-
-export const POSTING_LIMIT_EXCEEDED_MESSAGE = 'posting limit exceeded';

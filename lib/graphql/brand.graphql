@@ -1,0 +1,14 @@
+fragment brand on BrandResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+}
+
+mutation CreateBrand($input: CreateBrandInput!) {
+  createBrand(input: $input) {
+    ...brand
+  }
+}

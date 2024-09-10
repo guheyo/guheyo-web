@@ -105,6 +105,18 @@ export type BidResponseEdge = {
   node: BidResponse;
 };
 
+export type BrandResponse = {
+  __typename?: 'BrandResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  groups: Array<GroupProfileResponse>;
+  id: Scalars['ID']['output'];
+  links: Array<LinkResponse>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
 export type BumpOfferInput = {
   id: Scalars['ID']['input'];
   newPrice: Scalars['Int']['input'];
@@ -199,6 +211,14 @@ export type CreateAuctionInput = {
   shippingCost: Scalars['Int']['input'];
   shippingType: Scalars['String']['input'];
   status?: Scalars['String']['input'];
+};
+
+export type CreateBrandInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateCommentInput = {
@@ -451,6 +471,10 @@ export type FindUsersWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FollowBrandInput = {
+  brandId: Scalars['ID']['input'];
+};
+
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
   buys: Array<OfferPreviewResponse>;
@@ -508,6 +532,16 @@ export type LastReportResponse = {
   id: Scalars['ID']['output'];
 };
 
+export type LinkResponse = {
+  __typename?: 'LinkResponse';
+  brandId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  platform: PlatformResponse;
+  position: Scalars['Int']['output'];
+  url: Scalars['String']['output'];
+};
+
 export type LinkSocialProfileInput = {
   provider: Scalars['String']['input'];
 };
@@ -519,6 +553,7 @@ export type Mutation = {
   cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
   createAuction: Scalars['String']['output'];
+  createBrand: BrandResponse;
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
@@ -536,11 +571,13 @@ export type Mutation = {
   deleteThread: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   deleteUserReview: Scalars['String']['output'];
+  followBrand: BrandResponse;
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   placeBid: Scalars['String']['output'];
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
+  unfollowBrand: BrandResponse;
   updateAuction: Scalars['String']['output'];
   updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
@@ -575,6 +612,11 @@ export type MutationCommentReportArgs = {
 
 export type MutationCreateAuctionArgs = {
   input: CreateAuctionInput;
+};
+
+
+export type MutationCreateBrandArgs = {
+  input: CreateBrandInput;
 };
 
 
@@ -663,6 +705,11 @@ export type MutationDeleteUserReviewArgs = {
 };
 
 
+export type MutationFollowBrandArgs = {
+  input: FollowBrandInput;
+};
+
+
 export type MutationLinkSocialProfileArgs = {
   input: LinkSocialProfileInput;
 };
@@ -670,6 +717,11 @@ export type MutationLinkSocialProfileArgs = {
 
 export type MutationPlaceBidArgs = {
   input: PlaceBidInput;
+};
+
+
+export type MutationUnfollowBrandArgs = {
+  input: UnfollowBrandInput;
 };
 
 
@@ -856,6 +908,14 @@ export type PlaceBidInput = {
   priceCurrency: Scalars['String']['input'];
 };
 
+export type PlatformResponse = {
+  __typename?: 'PlatformResponse';
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  logo?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+};
+
 export type PostPreviewWithAuthorResponse = {
   __typename?: 'PostPreviewWithAuthorResponse';
   archivedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -938,6 +998,7 @@ export type Query = {
   findBidCount: BidCountResponse;
   findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
+  findBrands: Array<BrandResponse>;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
   findComments: PaginatedCommentsResponse;
@@ -951,6 +1012,7 @@ export type Query = {
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
   findOfferPreviews: PaginatedOfferPreviewsResponse;
+  findPlatforms: Array<PlatformResponse>;
   findPostPreview: PostPreviewWithUserResponse;
   findReactions: Array<ReactionResponse>;
   findReport: ReportResponse;
@@ -1427,6 +1489,10 @@ export type ThreadResponse = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type UnfollowBrandInput = {
+  brandId: Scalars['ID']['input'];
+};
+
 export type UpdateAuctionInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
@@ -1744,6 +1810,15 @@ export type BidCanceledSubscriptionVariables = Exact<{
 
 
 export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string, canceledAt: any } };
+
+export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null };
+
+export type CreateBrandMutationVariables = Exact<{
+  input: CreateBrandInput;
+}>;
+
+
+export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -2459,6 +2534,16 @@ export const BidCountFragmentDoc = gql`
     fragment bidCount on BidCountResponse {
   auctionId
   count
+}
+    `;
+export const BrandFragmentDoc = gql`
+    fragment brand on BrandResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
 }
     `;
 export const EmojiFragmentDoc = gql`
@@ -3509,6 +3594,39 @@ export function useBidCanceledSubscription(baseOptions: Apollo.SubscriptionHookO
       }
 export type BidCanceledSubscriptionHookResult = ReturnType<typeof useBidCanceledSubscription>;
 export type BidCanceledSubscriptionResult = Apollo.SubscriptionResult<BidCanceledSubscription>;
+export const CreateBrandDocument = gql`
+    mutation CreateBrand($input: CreateBrandInput!) {
+  createBrand(input: $input) {
+    ...brand
+  }
+}
+    ${BrandFragmentDoc}`;
+export type CreateBrandMutationFn = Apollo.MutationFunction<CreateBrandMutation, CreateBrandMutationVariables>;
+
+/**
+ * __useCreateBrandMutation__
+ *
+ * To run a mutation, you first call `useCreateBrandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBrandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBrandMutation, { data, loading, error }] = useCreateBrandMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBrandMutation(baseOptions?: Apollo.MutationHookOptions<CreateBrandMutation, CreateBrandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBrandMutation, CreateBrandMutationVariables>(CreateBrandDocument, options);
+      }
+export type CreateBrandMutationHookResult = ReturnType<typeof useCreateBrandMutation>;
+export type CreateBrandMutationResult = Apollo.MutationResult<CreateBrandMutation>;
+export type CreateBrandMutationOptions = Apollo.BaseMutationOptions<CreateBrandMutation, CreateBrandMutationVariables>;
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
