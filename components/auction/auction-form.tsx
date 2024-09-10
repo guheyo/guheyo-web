@@ -13,12 +13,10 @@ import {
   OFFER_CATEGORY_LABEL_NAME,
   OFFER_DESCRIPTION_LABEL_NAME,
   OFFER_DESCRIPTION_REQUIRED_MESSAGE,
-  OFFER_EDIT_SUBMIT_BUTTON_NAME,
   OFFER_IMAGE_UPLOAD_LABEL_NAME,
   OFFER_NAME,
   OFFER_NAME_PLACEHOLDER,
   OFFER_NAME_REQUIRED_MESSAGE,
-  OFFER_WRITE_SUBMIT_BUTTON_NAME,
 } from '@/lib/offer/offer.constants';
 import {
   DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
@@ -44,6 +42,10 @@ import {
 } from '@/lib/auction/auction.constants';
 import { AuctionFormValues } from '@/lib/auction/auction.types';
 import { filterCategories } from '@/lib/group/filter-categories';
+import {
+  POST_EDIT_SUBMIT_BUTTON_NAME,
+  POST_WRITE_SUBMIT_BUTTON_NAME,
+} from '@/lib/post/post.constants';
 import TextInput from '../inputs/text-input';
 import ButtonInputs from '../inputs/button-inputs';
 import {
@@ -331,7 +333,7 @@ export default function AuctionForm({
       {prevFormValues ? (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialogButton
-            name={OFFER_EDIT_SUBMIT_BUTTON_NAME}
+            name={POST_EDIT_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}
           />
@@ -339,7 +341,7 @@ export default function AuctionForm({
       ) : (
         <div className={STICKY_SUBMIT_BUTTON_STYLE}>
           <DiscordLoginDialogButton
-            name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
+            name={POST_WRITE_SUBMIT_BUTTON_NAME}
             onAuthorization={handleAuthorization}
             onUnAuthorization={handleUnAuthorization}
           />
