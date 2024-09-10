@@ -7,7 +7,6 @@ import { UserReviewFormValues } from '@/lib/offer/offer.interfaces';
 import { useRouter } from 'next/navigation';
 import { STICKY_SUBMIT_BUTTON_STYLE } from '@/lib/input/input.styles';
 import { parseUserReviewFormTitle } from '@/lib/user-review/parse-user-review-form-title';
-import { OFFER_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/offer/offer.constants';
 import {
   CreateUserReviewInput,
   TagResponse,
@@ -23,6 +22,7 @@ import { createUserReview } from '@/lib/api/user-review';
 import { getSelectedTagIds } from '@/lib/post/get-selected-tag-ids';
 import { createTagOptionsFromTags } from '@/lib/post/create-tag-options-from-tags';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
+import { POST_WRITE_SUBMIT_BUTTON_NAME } from '@/lib/post/post.constants';
 import { AuthContext } from '../auth/auth.provider';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import TagButtonInputs from '../posts/tag-button-inputs';
@@ -158,7 +158,7 @@ export default function UserReviewForm({
           />
           <div className={STICKY_SUBMIT_BUTTON_STYLE}>
             <DiscordLoginDialogButton
-              name={OFFER_WRITE_SUBMIT_BUTTON_NAME}
+              name={POST_WRITE_SUBMIT_BUTTON_NAME}
               onAuthorization={handleAuthorization}
               onUnAuthorization={handleUnAuthorization}
             />
