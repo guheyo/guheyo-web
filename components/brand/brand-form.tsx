@@ -236,7 +236,7 @@ export default function BrandForm({
       />
       <SearchCheckbox
         defaultSelectedIds={[]}
-        placeholder="브랜드에 해당하는 그룹을 선택해 주세요"
+        placeholder="브랜드의 그룹을 선택해 주세요"
         where={{ userId }}
         type="listview"
         distinct={false}
