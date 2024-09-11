@@ -34,6 +34,8 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
+import SearchCheckbox from '../search/search-checkbox';
+import GroupCheckboxResults from '../groups/group-checkbox-results';
 
 export default function BrandForm({
   localStorageKey,
@@ -59,6 +61,7 @@ export default function BrandForm({
         description: '',
         logo: '',
         image: undefined,
+        groupIds: [],
       },
     });
 
@@ -128,6 +131,10 @@ export default function BrandForm({
 
     await onClickImagePreviewCallback(image.id);
     setValue('image', undefined);
+  };
+
+  const handleCheckboxClick = (selectedIds: string[]) => {
+    setValue('groupIds', selectedIds);
   };
 
   const handleSubmitError: SubmitErrorHandler<BrandFormValues> = (
@@ -226,6 +233,17 @@ export default function BrandForm({
         previewsProp={{
           onClick: handleClickImagePreview,
         }}
+      />
+      <SearchCheckbox
+        defaultSelectedIds={[]}
+        placeholder="브랜드의 그룹을 선택해 주세요"
+        where={{ userId }}
+        type="listview"
+        distinct={false}
+        CheckboxResults={GroupCheckboxResults}
+        handleClick={handleCheckboxClick}
+        multiple
+        showNextButton={false}
       />
       <TextInput
         name="description"

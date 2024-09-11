@@ -33,7 +33,7 @@ function BidderCheckboxResults({
   handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { field } = useController({ name: 'selectedId', control });
+  const { field } = useController({ name: 'selectedIds', control });
   const { loading, data } = useInfiniteBidders({
     ref,
     where,
@@ -60,7 +60,7 @@ function BidderCheckboxResults({
         <div key={edge.node.id} className="flex flex-row">
           <Checkbox
             style={{ color: colors['light-200'] }}
-            checked={edge.node.id === field.value}
+            checked={field.value.includes(edge.node.id)}
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">

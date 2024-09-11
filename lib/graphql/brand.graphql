@@ -5,6 +5,9 @@ fragment brand on BrandResponse {
   slug
   description
   logo
+  groups {
+    ...groupProfile
+  }
 }
 
 mutation CreateBrand($input: CreateBrandInput!) {

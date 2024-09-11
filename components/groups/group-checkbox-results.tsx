@@ -5,55 +5,44 @@ import { Mocks } from '@/components/mock/mock';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
 import { Control, useController } from 'react-hook-form';
-import { useInfiniteUsers } from '@/hooks/use-infinite-users';
 import { CheckboxFormValues } from '@/lib/search/search.types';
-import {
-  FindUsersOrderByInput,
-  FindUsersWhereInput,
-} from '@/generated/graphql';
-import UserPreview from './user-preview';
+import { useSearchParams } from 'next/navigation';
+import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import GroupProfile from './group-profile';
 
 const {
   theme: { colors },
 } = tailwindConfig;
 
-function UserCheckboxResults({
-  where,
-  orderBy,
-  keyword,
-  userIdToExclude,
+function GroupCheckboxResults({
   control,
   handleCheckboxClick,
 }: {
-  where: FindUsersWhereInput;
-  orderBy?: FindUsersOrderByInput;
-  keyword?: string;
-  userIdToExclude?: string;
   control: Control<CheckboxFormValues>;
   handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
-  const { loading, data } = useInfiniteUsers({
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
+
+  const { loading, data } = useInfiniteGroupProfiles({
     ref,
-    where,
-    orderBy: {
-      createdAt: orderBy?.createdAt || 'asc',
-    },
     keyword,
+    target,
     take: 12,
   });
 
-  const handleClick = (userId: string) => {
-    handleCheckboxClick(userId);
+  const handleClick = (groupId: string) => {
+    handleCheckboxClick(groupId);
   };
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findUsers) return <div />;
+  if (!data?.findGroupProfiles) return <div />;
 
-  const edges = data.findUsers.edges.filter(
-    (edge) => edge.node.id !== userIdToExclude,
-  );
+  const { edges } = data.findGroupProfiles;
+
   return (
     <>
       {edges.map((edge) => (
@@ -64,11 +53,10 @@ function UserCheckboxResults({
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">
-            <UserPreview
-              key={edge.node.id}
-              username={edge.node.username}
-              avatarURL={edge.node.avatarURL}
-              about={edge.node.about}
+            <GroupProfile
+              name={edge.node.name}
+              icon={edge.node.icon}
+              description={edge.node.description}
             />
           </div>
         </div>
@@ -78,4 +66,4 @@ function UserCheckboxResults({
   );
 }
 
-export default UserCheckboxResults;
+export default GroupCheckboxResults;
