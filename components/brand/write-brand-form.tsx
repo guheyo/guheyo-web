@@ -24,6 +24,7 @@ export default function WriteBrandForm() {
   const handleSubmitValid: SubmitHandler<BrandFormValues> = async (values) => {
     if (!jwtPayload) return;
     if (!values.image) return;
+    if (values.groupIds.length === 0) return;
 
     secureLocalStorage.removeItem(localStorageKey);
 
