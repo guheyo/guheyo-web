@@ -117,6 +117,12 @@ export type BrandResponse = {
   slug?: Maybe<Scalars['String']['output']>;
 };
 
+export type BrandResponseEdge = {
+  __typename?: 'BrandResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: BrandResponse;
+};
+
 export type BumpOfferInput = {
   id: Scalars['ID']['input'];
   newPrice: Scalars['Int']['input'];
@@ -393,6 +399,14 @@ export type FindBidsWhereInput = {
   auctionId?: InputMaybe<Scalars['ID']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindBrandsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindBrandsWhereInput = {
+  groupId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type FindCommentsOrderByInput = {
@@ -853,6 +867,12 @@ export type PaginatedBidsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedBrandsResponse = {
+  __typename?: 'PaginatedBrandsResponse';
+  edges: Array<BrandResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedCommentsResponse = {
   __typename?: 'PaginatedCommentsResponse';
   edges: Array<CommentWithAuthorResponseEdge>;
@@ -998,7 +1018,7 @@ export type Query = {
   findBidCount: BidCountResponse;
   findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
-  findBrands: Array<BrandResponse>;
+  findBrands: PaginatedBrandsResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
   findComments: PaginatedCommentsResponse;
@@ -1092,6 +1112,17 @@ export type QueryFindBidsArgs = {
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindBidsWhereInput>;
+};
+
+
+export type QueryFindBrandsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindBrandsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindBrandsWhereInput>;
 };
 
 
@@ -1819,6 +1850,19 @@ export type CreateBrandMutationVariables = Exact<{
 
 
 export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } };
+
+export type FindBrandsQueryVariables = Exact<{
+  where?: InputMaybe<FindBrandsWhereInput>;
+  orderBy?: InputMaybe<FindBrandsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -3627,6 +3671,72 @@ export function useCreateBrandMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateBrandMutationHookResult = ReturnType<typeof useCreateBrandMutation>;
 export type CreateBrandMutationResult = Apollo.MutationResult<CreateBrandMutation>;
 export type CreateBrandMutationOptions = Apollo.BaseMutationOptions<CreateBrandMutation, CreateBrandMutationVariables>;
+export const FindBrandsDocument = gql`
+    query FindBrands($where: FindBrandsWhereInput, $orderBy: FindBrandsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findBrands(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...brand
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${BrandFragmentDoc}`;
+
+/**
+ * __useFindBrandsQuery__
+ *
+ * To run a query within a React component, call `useFindBrandsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindBrandsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindBrandsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindBrandsQuery(baseOptions: Apollo.QueryHookOptions<FindBrandsQuery, FindBrandsQueryVariables> & ({ variables: FindBrandsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBrandsQuery, FindBrandsQueryVariables>(FindBrandsDocument, options);
+      }
+export function useFindBrandsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBrandsQuery, FindBrandsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBrandsQuery, FindBrandsQueryVariables>(FindBrandsDocument, options);
+        }
+export function useFindBrandsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBrandsQuery, FindBrandsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBrandsQuery, FindBrandsQueryVariables>(FindBrandsDocument, options);
+        }
+export type FindBrandsQueryHookResult = ReturnType<typeof useFindBrandsQuery>;
+export type FindBrandsLazyQueryHookResult = ReturnType<typeof useFindBrandsLazyQuery>;
+export type FindBrandsSuspenseQueryHookResult = ReturnType<typeof useFindBrandsSuspenseQuery>;
+export type FindBrandsQueryResult = Apollo.QueryResult<FindBrandsQuery, FindBrandsQueryVariables>;
+export function refetchFindBrandsQuery(variables: FindBrandsQueryVariables) {
+      return { query: FindBrandsDocument, variables: variables }
+    }
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input)
