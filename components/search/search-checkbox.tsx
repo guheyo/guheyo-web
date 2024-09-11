@@ -11,30 +11,38 @@ import { MouseEventHandler, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function SearchCheckbox({
+  selectedIds,
   placeholder,
   where,
   orderBy,
   type,
   distinct,
   CheckboxResults,
+  handleClick,
   handleAuthorization,
   handleUnAuthorization,
+  multiple = false,
+  showNextButton = false,
 }: {
+  selectedIds: string[];
   placeholder: string;
   where?: Record<string, any>;
   orderBy?: Record<string, any>;
   type?: PostPreviewType;
   distinct?: boolean;
   CheckboxResults: React.ComponentType<any>;
-  handleAuthorization: (selectedId: string) => void;
-  handleUnAuthorization: MouseEventHandler;
+  handleClick?: (selectedIds: string[]) => void;
+  handleAuthorization?: (selectedIds: string[]) => void;
+  handleUnAuthorization?: MouseEventHandler;
+  multiple?: boolean;
+  showNextButton?: boolean; // Add a prop for conditional rendering of the Next button
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const { text, setText } = useSearchQuery(DEBOUNCE);
 
   const { setValue, getValues, control } = useForm<CheckboxFormValues>({
     defaultValues: {
-      selectedId: '',
+      selectedIds,
     },
   });
 
@@ -46,8 +54,21 @@ export default function SearchCheckbox({
     // Do nothing
   };
 
-  const handleCheckboxClick = (seletedId: string) => {
-    setValue('selectedId', seletedId);
+  const handleCheckboxClick = (selectedId: string) => {
+    const currentSelectedIds = getValues().selectedIds || [];
+    if (currentSelectedIds.includes(selectedId)) {
+      // Remove the ID if it's already selected (uncheck)
+      setValue(
+        'selectedIds',
+        currentSelectedIds.filter((id) => id !== selectedId),
+      );
+    } else {
+      setValue(
+        'selectedIds',
+        multiple ? [...currentSelectedIds, selectedId] : [selectedId],
+      );
+    }
+    if (handleClick) handleClick(getValues('selectedIds'));
   };
 
   return (
@@ -70,11 +91,17 @@ export default function SearchCheckbox({
           handleCheckboxClick={handleCheckboxClick}
         />
       </div>
-      <div className="pt-8" />
-      <NextDialog
-        onAuthorization={() => handleAuthorization(getValues().selectedId)}
-        onUnAuthorization={handleUnAuthorization}
-      />
+
+      {/* Conditionally render NextDialog only if showNextButton is true */}
+      {showNextButton && handleAuthorization && handleUnAuthorization && (
+        <>
+          <div className="pt-8" />
+          <NextDialog
+            onAuthorization={() => handleAuthorization(getValues().selectedIds)} // Pass multiple selected IDs
+            onUnAuthorization={handleUnAuthorization}
+          />
+        </>
+      )}
     </div>
   );
 }
