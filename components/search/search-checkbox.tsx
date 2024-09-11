@@ -11,7 +11,7 @@ import { MouseEventHandler, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function SearchCheckbox({
-  selectedIds,
+  defaultSelectedIds,
   placeholder,
   where,
   orderBy,
@@ -24,7 +24,7 @@ export default function SearchCheckbox({
   multiple = false,
   showNextButton = false,
 }: {
-  selectedIds: string[];
+  defaultSelectedIds: string[];
   placeholder: string;
   where?: Record<string, any>;
   orderBy?: Record<string, any>;
@@ -42,7 +42,7 @@ export default function SearchCheckbox({
 
   const { setValue, getValues, control } = useForm<CheckboxFormValues>({
     defaultValues: {
-      selectedIds,
+      selectedIds: defaultSelectedIds,
     },
   });
 
@@ -55,7 +55,7 @@ export default function SearchCheckbox({
   };
 
   const handleCheckboxClick = (selectedId: string) => {
-    const currentSelectedIds = getValues().selectedIds || [];
+    const currentSelectedIds = getValues('selectedIds');
     if (currentSelectedIds.includes(selectedId)) {
       // Remove the ID if it's already selected (uncheck)
       setValue(
@@ -68,6 +68,7 @@ export default function SearchCheckbox({
         multiple ? [...currentSelectedIds, selectedId] : [selectedId],
       );
     }
+
     if (handleClick) handleClick(getValues('selectedIds'));
   };
 
