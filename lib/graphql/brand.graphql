@@ -12,3 +12,34 @@ mutation CreateBrand($input: CreateBrandInput!) {
     ...brand
   }
 }
+
+query FindBrands(
+  $where: FindBrandsWhereInput
+  $orderBy: FindBrandsOrderByInput
+  $keyword: String
+  $target: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findBrands(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...brand
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

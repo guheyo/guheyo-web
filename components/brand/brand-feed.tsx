@@ -1,0 +1,45 @@
+'use client';
+
+import { BrandResponse } from '@/generated/graphql';
+import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
+import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useGroup } from '@/hooks/use-group';
+import BrandPreview from './brand-preview';
+
+export default function BrandFeed() {
+  const ref = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('q') || undefined;
+  const target = searchParams.get('target') || undefined;
+  const { group } = useGroup();
+
+  const { loading, data } = useInfiniteBrands({
+    ref,
+    where: {
+      groupId: group?.id,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    keyword,
+    target,
+    take: 12,
+  });
+  if (loading) return <div />;
+  if (!data?.findBrands) return <div />;
+
+  const { edges } = data.findBrands;
+  return (
+    <div className="grid grid-rows gap-4 md:gap-12">
+      {edges.map((edge) => (
+        <BrandPreview
+          brand={edge.node as BrandResponse}
+          key={edge.cursor}
+          isInGroup={!!group}
+        />
+      ))}
+      <div ref={ref} />
+    </div>
+  );
+}
