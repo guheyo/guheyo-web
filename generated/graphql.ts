@@ -221,6 +221,7 @@ export type CreateAuctionInput = {
 
 export type CreateBrandInput = {
   description?: InputMaybe<Scalars['String']['input']>;
+  groupIds: Array<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
   logo?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
@@ -1842,14 +1843,14 @@ export type BidCanceledSubscriptionVariables = Exact<{
 
 export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string, canceledAt: any } };
 
-export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null };
+export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> };
 
 export type CreateBrandMutationVariables = Exact<{
   input: CreateBrandInput;
 }>;
 
 
-export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } };
+export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } };
 
 export type FindBrandsQueryVariables = Exact<{
   where?: InputMaybe<FindBrandsWhereInput>;
@@ -1862,7 +1863,7 @@ export type FindBrandsQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -2588,8 +2589,11 @@ export const BrandFragmentDoc = gql`
   slug
   description
   logo
+  groups {
+    ...groupProfile
+  }
 }
-    `;
+    ${GroupProfileFragmentDoc}`;
 export const EmojiFragmentDoc = gql`
     fragment emoji on EmojiResponse {
   id

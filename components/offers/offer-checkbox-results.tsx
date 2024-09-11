@@ -35,7 +35,7 @@ function OfferCheckboxResults({
   handleCheckboxClick: (seletedId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { field } = useController({ name: 'selectedId', control });
+  const { field } = useController({ name: 'selectedIds', control });
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
@@ -74,7 +74,7 @@ function OfferCheckboxResults({
         <div key={edge.node.id} className="flex flex-row">
           <Checkbox
             style={{ color: colors['light-200'] }}
-            checked={edge.node.id === field.value}
+            checked={field.value.includes(edge.node.id)}
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">

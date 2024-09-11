@@ -15,12 +15,12 @@ export default function Page({
 }) {
   const router = useRouter();
 
-  const handleAuthorization = (selectedId: string) => {
-    if (!selectedId) return;
+  const handleAuthorization = (selectedIds: string[]) => {
+    if (selectedIds.length === 0) return;
 
     router.push(
       parseUserReviewTargetFormLink({
-        userId: selectedId,
+        userId: selectedIds[0],
         targetType: 'auction',
         targetId: auctionId,
       }),
@@ -38,11 +38,13 @@ export default function Page({
   return (
     <Suspense>
       <SearchCheckbox
+        defaultSelectedIds={[]}
         placeholder="어떤 멤버와 거래했나요?"
         where={where}
         CheckboxResults={BidderCheckboxResults}
         handleAuthorization={handleAuthorization}
         handleUnAuthorization={handleUnAuthorization}
+        showNextButton
       />
     </Suspense>
   );
