@@ -7,4 +7,5 @@ export type BrandFormValues = {
   description?: string;
   logo?: string;
   image?: UserImage;
+  groupIds: string[];
 };

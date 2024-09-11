@@ -23,7 +23,7 @@ function BrandHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="thumbnail"
       homeLink={<BrandHomeLink />}
-      path="auction"
+      path="brand"
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product']} />

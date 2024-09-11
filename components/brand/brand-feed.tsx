@@ -31,7 +31,7 @@ export default function BrandFeed() {
 
   const { edges } = data.findBrands;
   return (
-    <div className="grid grid-rows gap-4 md:gap-12">
+    <>
       {edges.map((edge) => (
         <BrandPreview
           brand={edge.node as BrandResponse}
@@ -40,6 +40,6 @@ export default function BrandFeed() {
         />
       ))}
       <div ref={ref} />
-    </div>
+    </>
   );
 }
