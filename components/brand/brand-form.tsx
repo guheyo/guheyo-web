@@ -25,6 +25,7 @@ import {
   POST_EDIT_SUBMIT_BUTTON_NAME,
   POST_WRITE_SUBMIT_BUTTON_NAME,
 } from '@/lib/post/post.constants';
+import { useFindPlatformsQuery } from '@/generated/graphql';
 import TextInput from '../inputs/text-input';
 import {
   DEFAULT_LABEL_STYLE,
@@ -68,6 +69,11 @@ export default function BrandForm({
   const brandId = watch('id');
   const image = watch('image');
 
+  const { data } = useFindPlatformsQuery({
+    fetchPolicy: 'cache-first',
+  });
+  const platforms = data?.findPlatforms;
+
   // Init BrandFormValues
   useEffect(() => {
     if (brandId || !userId) return;
@@ -105,6 +111,20 @@ export default function BrandForm({
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brandId, userId, localStorageKey]);
+
+  useEffect(() => {
+    platforms?.map((platform, i) =>
+      setValue(`links.${i}`, {
+        id: uuid4(),
+        url: '',
+        brandId,
+        platformId: platform.id,
+        position: i,
+      }),
+    );
+  }, [brandId, platforms, setValue]);
+
+  if (!platforms) return <div />;
 
   const handleChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
@@ -245,6 +265,36 @@ export default function BrandForm({
         multiple
         showNextButton={false}
       />
+      {platforms.map((platform, i) => (
+        <div key={platform.name}>
+          <TextInput
+            key={platform.name}
+            name={`links.${i}.url`}
+            control={control}
+            textInputProps={{
+              label: {
+                name: `${platform.name} 링크`,
+                style: DEFAULT_LABEL_STYLE,
+                image: platform.logo || undefined,
+              },
+            }}
+            textFieldProps={{
+              variant: 'outlined',
+              placeholder: `${platform.name} URL`,
+              InputProps: {
+                sx: {
+                  color: DEFAULT_INPUT_TEXT_COLOR,
+                  borderRadius: 2,
+                  fontSize: getInputTextFontSize(device),
+                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+                  fontWeight: 600,
+                  minWidth: getInputTextMinWidth(device),
+                },
+              },
+            }}
+          />
+        </div>
+      ))}
       <TextInput
         name="description"
         control={control}
