@@ -8,6 +8,9 @@ fragment brand on BrandResponse {
   groups {
     ...groupProfile
   }
+  links {
+    ...link
+  }
 }
 
 mutation CreateBrand($input: CreateBrandInput!) {
