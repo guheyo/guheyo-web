@@ -63,6 +63,7 @@ export default function BrandForm({
         logo: '',
         image: undefined,
         groupIds: [],
+        links: [],
       },
     });
 
