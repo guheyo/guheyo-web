@@ -36,6 +36,7 @@ export default function WriteBrandForm() {
         description: values.description,
         logo: values.image.url,
         groupIds: values.groupIds,
+        links: values.links.filter((link) => link.url),
       });
       router.push('/brand');
       setTimeout(() => {
