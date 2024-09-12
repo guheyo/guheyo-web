@@ -1,0 +1,10 @@
+fragment link on LinkResponse {
+  id
+  createdAt
+  url
+  platform {
+    ...platform
+  }
+  brandId
+  position
+}
