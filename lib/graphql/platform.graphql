@@ -1,0 +1,13 @@
+fragment platform on PlatformResponse {
+  id
+  name
+  description
+  logo
+  position
+}
+
+query FindPlatforms {
+  findPlatforms {
+    ...platform
+  }
+}

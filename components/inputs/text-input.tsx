@@ -1,4 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material';
+import Image from 'next/image';
 import {
   FieldPath,
   FieldValues,
@@ -15,6 +16,7 @@ interface TextInputProps {
     label?: {
       name: string;
       style: string;
+      image?: string;
     };
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   };
@@ -34,7 +36,20 @@ export default function TextInput<
     <div className="flex flex-col gap-2">
       {textInputProps.label && (
         <div className={`${textInputProps.label.style}`}>
-          {textInputProps.label.name}
+          {textInputProps.label.image ? (
+            <div className="flex flex-row gap-2 items-center">
+              <Image
+                src={textInputProps.label.image}
+                width={24}
+                height={24}
+                alt={`${textInputProps.label.name}`}
+                className="rounded-lg"
+              />
+              {textInputProps.label.name}
+            </div>
+          ) : (
+            <div>{textInputProps.label.name}</div>
+          )}
         </div>
       )}
       <TextField

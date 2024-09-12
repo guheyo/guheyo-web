@@ -1,4 +1,5 @@
 import { UserImage } from '../image/image.interfaces';
+import { Link } from '../link/link.interfaces';
 
 export type BrandFormValues = {
   id: string;
@@ -8,4 +9,5 @@ export type BrandFormValues = {
   logo?: string;
   image?: UserImage;
   groupIds: string[];
+  links: Link[];
 };
