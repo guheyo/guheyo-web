@@ -318,7 +318,7 @@ export default function BrandForm({
             },
           },
           multiline: true,
-          minRows: 10,
+          minRows: 5,
         }}
       />
       {prevFormValues ? (
