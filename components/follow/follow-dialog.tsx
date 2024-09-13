@@ -1,23 +1,49 @@
 'use client';
 
 import { MouseEventHandler } from 'react';
+import CheckIcon from '@mui/icons-material/Check';
+import { followBrand, unfollowBrand } from '@/lib/api/brand';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function FollowDialog({
   target,
   targetId,
+  followed,
 }: {
-  target: string;
+  target: 'user' | 'brand';
   targetId: string;
+  followed: boolean;
 }) {
-  const handleOnAuthorization: MouseEventHandler = (e) => {
+  const handleOnAuthorization: MouseEventHandler = async (e) => {
     e.preventDefault();
-    // TODO
+    if (target === 'brand') {
+      if (followed) {
+        await unfollowBrand({
+          brandId: targetId,
+        });
+      } else {
+        await followBrand({
+          brandId: targetId,
+        });
+      }
+    }
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
   };
+
+  if (followed)
+    return (
+      <div className="flex flex-row gap-1 items-center justify-center bg-gray-500 hover:bg-gray-600 text-sm font-bold p-2 rounded text-gray-100">
+        <CheckIcon fontSize="small" />
+        <DiscordLoginDialogButton
+          name="팔로잉"
+          onAuthorization={handleOnAuthorization}
+          onUnAuthorization={handleOnUnAuthorization}
+        />
+      </div>
+    );
 
   return (
     <div className="bg-blurple-500 hover:bg-blurple-600 text-sm font-bold p-2 rounded text-gray-100">
