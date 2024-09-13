@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { BrandResponse } from '@/generated/graphql';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
-import { parseBrandDetailLink } from '@/lib/brand/parse-brand-detail-link';
 import { useGroup } from '@/hooks/use-group';
+import { parseBrandHomeLink } from '@/lib/brand/parse-brand-home-link';
 import Thumbnail from '../base/thumbnail';
 import GroupNameLink from '../groups/group-name-link';
 import BrandPreviewHeader from './brand-preview-header';
@@ -21,7 +21,7 @@ export default function BrandPreview({ brand, isInGroup }: Props) {
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
-        href={parseBrandDetailLink({
+        href={parseBrandHomeLink({
           slug: brand.slug!,
         })}
         className="flex flex-row w-full md:flex-col text-start"
