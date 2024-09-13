@@ -8,6 +8,7 @@ import Avatar from '../avatar/avatar';
 import FollowDialog from '../follow/follow-dialog';
 import PlatformLinks from './platform-links';
 import FollowerCount from '../follow/follwer-count';
+import BrandNameLink from './brand-name-link';
 
 export default function BrandHome({ brand }: { brand: BrandResponse }) {
   const device = useDeviceDetect();
@@ -26,7 +27,7 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
       <div className="col-span-9 md:col-span-7">
         <div className="grid grid-cols-12 gap-0">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
-            {brand.name}
+            <BrandNameLink brand={brand} />
           </span>
           <div className="col-span-9 pb-2">{brand.description}</div>
           <div className="col-span-3" />
