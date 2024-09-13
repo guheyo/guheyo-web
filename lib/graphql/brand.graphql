@@ -1,3 +1,11 @@
+fragment followBrand on FollowBrandResponse {
+  id
+  brandId
+  user {
+    ...user
+  }
+}
+
 fragment brand on BrandResponse {
   id
   createdAt
@@ -11,10 +19,26 @@ fragment brand on BrandResponse {
   links {
     ...link
   }
+  followBrands {
+    ...followBrand
+  }
+  followed
 }
 
 mutation CreateBrand($input: CreateBrandInput!) {
   createBrand(input: $input) {
+    ...brand
+  }
+}
+
+mutation FollowBrand($input: FollowBrandInput!) {
+  followBrand(input: $input) {
+    ...brand
+  }
+}
+
+mutation UnfollowBrand($input: UnfollowBrandInput!) {
+  unfollowBrand(input: $input) {
     ...brand
   }
 }

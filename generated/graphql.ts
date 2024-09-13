@@ -109,6 +109,8 @@ export type BrandResponse = {
   __typename?: 'BrandResponse';
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
+  followBrands: Array<FollowBrandResponse>;
+  followed: Scalars['Boolean']['output'];
   groups: Array<GroupProfileResponse>;
   id: Scalars['ID']['output'];
   links: Array<LinkResponse>;
@@ -497,6 +499,13 @@ export type FindUsersWhereInput = {
 
 export type FollowBrandInput = {
   brandId: Scalars['ID']['input'];
+};
+
+export type FollowBrandResponse = {
+  __typename?: 'FollowBrandResponse';
+  brandId: Scalars['ID']['output'];
+  id: Scalars['ID']['output'];
+  user: UserResponse;
 };
 
 export type GroupPreviewResponse = {
@@ -1860,14 +1869,30 @@ export type BidCanceledSubscriptionVariables = Exact<{
 
 export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled: { __typename?: 'CancelBidResponse', id: string, canceledAt: any } };
 
-export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }> };
+export type FollowBrandFragment = { __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } };
+
+export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> };
 
 export type CreateBrandMutationVariables = Exact<{
   input: CreateBrandInput;
 }>;
 
 
-export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }> } };
+export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> } };
+
+export type FollowBrandMutationVariables = Exact<{
+  input: FollowBrandInput;
+}>;
+
+
+export type FollowBrandMutation = { __typename?: 'Mutation', followBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> } };
+
+export type UnfollowBrandMutationVariables = Exact<{
+  input: UnfollowBrandInput;
+}>;
+
+
+export type UnfollowBrandMutation = { __typename?: 'Mutation', unfollowBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> } };
 
 export type FindBrandsQueryVariables = Exact<{
   where?: InputMaybe<FindBrandsWhereInput>;
@@ -1880,7 +1905,7 @@ export type FindBrandsQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindBrandQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1888,7 +1913,7 @@ export type FindBrandQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }> } };
+export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean } }> } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -2636,6 +2661,15 @@ export const LinkFragmentDoc = gql`
   position
 }
     ${PlatformFragmentDoc}`;
+export const FollowBrandFragmentDoc = gql`
+    fragment followBrand on FollowBrandResponse {
+  id
+  brandId
+  user {
+    ...user
+  }
+}
+    ${UserFragmentDoc}`;
 export const BrandFragmentDoc = gql`
     fragment brand on BrandResponse {
   id
@@ -2650,9 +2684,14 @@ export const BrandFragmentDoc = gql`
   links {
     ...link
   }
+  followBrands {
+    ...followBrand
+  }
+  followed
 }
     ${GroupProfileFragmentDoc}
-${LinkFragmentDoc}`;
+${LinkFragmentDoc}
+${FollowBrandFragmentDoc}`;
 export const EmojiFragmentDoc = gql`
     fragment emoji on EmojiResponse {
   id
@@ -3734,6 +3773,72 @@ export function useCreateBrandMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateBrandMutationHookResult = ReturnType<typeof useCreateBrandMutation>;
 export type CreateBrandMutationResult = Apollo.MutationResult<CreateBrandMutation>;
 export type CreateBrandMutationOptions = Apollo.BaseMutationOptions<CreateBrandMutation, CreateBrandMutationVariables>;
+export const FollowBrandDocument = gql`
+    mutation FollowBrand($input: FollowBrandInput!) {
+  followBrand(input: $input) {
+    ...brand
+  }
+}
+    ${BrandFragmentDoc}`;
+export type FollowBrandMutationFn = Apollo.MutationFunction<FollowBrandMutation, FollowBrandMutationVariables>;
+
+/**
+ * __useFollowBrandMutation__
+ *
+ * To run a mutation, you first call `useFollowBrandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowBrandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followBrandMutation, { data, loading, error }] = useFollowBrandMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useFollowBrandMutation(baseOptions?: Apollo.MutationHookOptions<FollowBrandMutation, FollowBrandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FollowBrandMutation, FollowBrandMutationVariables>(FollowBrandDocument, options);
+      }
+export type FollowBrandMutationHookResult = ReturnType<typeof useFollowBrandMutation>;
+export type FollowBrandMutationResult = Apollo.MutationResult<FollowBrandMutation>;
+export type FollowBrandMutationOptions = Apollo.BaseMutationOptions<FollowBrandMutation, FollowBrandMutationVariables>;
+export const UnfollowBrandDocument = gql`
+    mutation UnfollowBrand($input: UnfollowBrandInput!) {
+  unfollowBrand(input: $input) {
+    ...brand
+  }
+}
+    ${BrandFragmentDoc}`;
+export type UnfollowBrandMutationFn = Apollo.MutationFunction<UnfollowBrandMutation, UnfollowBrandMutationVariables>;
+
+/**
+ * __useUnfollowBrandMutation__
+ *
+ * To run a mutation, you first call `useUnfollowBrandMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowBrandMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowBrandMutation, { data, loading, error }] = useUnfollowBrandMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUnfollowBrandMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowBrandMutation, UnfollowBrandMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnfollowBrandMutation, UnfollowBrandMutationVariables>(UnfollowBrandDocument, options);
+      }
+export type UnfollowBrandMutationHookResult = ReturnType<typeof useUnfollowBrandMutation>;
+export type UnfollowBrandMutationResult = Apollo.MutationResult<UnfollowBrandMutation>;
+export type UnfollowBrandMutationOptions = Apollo.BaseMutationOptions<UnfollowBrandMutation, UnfollowBrandMutationVariables>;
 export const FindBrandsDocument = gql`
     query FindBrands($where: FindBrandsWhereInput, $orderBy: FindBrandsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findBrands(
