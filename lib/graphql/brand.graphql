@@ -49,3 +49,15 @@ query FindBrands(
     }
   }
 }
+
+query FindBrand(
+  $id: ID
+  $slug: String
+) {
+  findBrand(
+    id: $id
+    slug: $slug
+  ) {
+    ...brand
+  }
+}
