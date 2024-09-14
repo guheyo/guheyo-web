@@ -8,6 +8,7 @@ import { parseBrandHomeLink } from '@/lib/brand/parse-brand-home-link';
 import Thumbnail from '../base/thumbnail';
 import GroupNameLink from '../groups/group-name-link';
 import BrandPreviewHeader from './brand-preview-header';
+import FollowDialog from '../follow/follow-dialog';
 
 interface Props {
   brand: BrandResponse;
@@ -56,7 +57,14 @@ export default function BrandPreview({ brand, isInGroup }: Props) {
                 ))}
               </div>
             )}
-            <BrandPreviewHeader brand={brand} />
+            <div className="flex flex-row items-center justify-between">
+              <BrandPreviewHeader brand={brand} />
+              <FollowDialog
+                target="brand"
+                targetId={brand.id}
+                followed={brand.followed}
+              />
+            </div>
           </div>
         </div>
       </Link>
