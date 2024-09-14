@@ -31,10 +31,10 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
           </span>
           <div className="col-span-9 pb-2">{brand.description}</div>
           <div className="col-span-3" />
-          <div className="col-span-9 pt-4 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
+          <div className="col-span-9 pt-2 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
             <PlatformLinks links={brand.links} />
           </div>
-          <div className="col-span-12 pt-4">
+          <div className="col-span-12 pt-2">
             <FollowerCount followerCount={brand.followBrands.length} />
           </div>
         </div>
