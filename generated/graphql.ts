@@ -415,6 +415,7 @@ export type FindBidsWhereInput = {
 
 export type FindBrandsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  follower?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindBrandsWhereInput = {

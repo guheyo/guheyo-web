@@ -6,6 +6,7 @@ import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import BrandMoreLink from './brand-more-link';
 import BrandHomeLink from './brand-home-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import BrandSelectors from './brand-selectors';
 
 interface Props {
   children: ReactNode;
@@ -34,7 +35,7 @@ function BrandHomeFeedLayout({
         showSelectors && (
           <>
             <FollowFilterClickButton />
-            <div />
+            <BrandSelectors />
           </>
         )
       }
