@@ -418,6 +418,7 @@ export type FindBrandsOrderByInput = {
 };
 
 export type FindBrandsWhereInput = {
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
 };
 

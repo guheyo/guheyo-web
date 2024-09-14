@@ -10,6 +10,10 @@ import BrandPreview from './brand-preview';
 export default function BrandFeed() {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const followed = [null, 'all'].includes(searchParams.get('followed'))
+    ? undefined
+    : searchParams.get('followed') === 'true';
+
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
   const { group } = useGroup();
@@ -18,6 +22,7 @@ export default function BrandFeed() {
     ref,
     where: {
       groupId: group?.id,
+      followed,
     },
     orderBy: {
       createdAt: 'desc',
