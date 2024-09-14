@@ -1138,6 +1138,7 @@ export type QueryFindBidsArgs = {
 
 
 export type QueryFindBrandArgs = {
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
