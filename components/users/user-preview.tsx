@@ -6,22 +6,26 @@ import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import Avatar from '../avatar/avatar';
 import InfoCard from '../info/info-card';
-import SearchResultCardLayout from '../search/search-result-card.layout';
+import FollowDialog from '../follow/follow-dialog';
 
 export default function UserPreview({
+  userId,
   username,
   avatarURL,
   about,
+  followed,
 }: {
+  userId: string;
   username: string;
   avatarURL?: string | null;
   about?: string | null;
+  followed?: boolean | null;
 }) {
   const device = useDeviceDetect();
 
   return (
     <Link href={parseUserHomeLink({ username })}>
-      <SearchResultCardLayout>
+      <div className="flex flex-row justify-between items-center p-4 bg-dark-400 rounded-lg text-gray-300">
         <InfoCard
           name={username}
           icon={
@@ -36,7 +40,8 @@ export default function UserPreview({
             about,
           })}
         />
-      </SearchResultCardLayout>
+        <FollowDialog target="user" targetId={userId} followed={!!followed} />
+      </div>
     </Link>
   );
 }
