@@ -13,6 +13,7 @@ fragment user on UserResponse {
   about
   avatarURL
   bot
+  followed
 }
 
 fragment author on AuthorResponse {
@@ -22,6 +23,7 @@ fragment author on AuthorResponse {
   about
   avatarURL
   bot
+  followed
   socialAccounts {
     ...socialAccountWithoutAuth
   }
@@ -39,6 +41,7 @@ fragment myUser on MyUserResponse {
   phoneNumber
   avatarURL
   bot
+  followed
   socialAccounts {
     ...socialAccount
   }
