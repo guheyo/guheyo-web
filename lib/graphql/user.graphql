@@ -124,3 +124,9 @@ mutation UpdateUser(
 mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)
 }
+
+mutation FollowUser($input: FollowUserInput!) {
+  followUser(input: $input) {
+    ...user
+  }
+}

@@ -511,6 +511,10 @@ export type FollowBrandResponse = {
   user: UserResponse;
 };
 
+export type FollowUserInput = {
+  followingId: Scalars['String']['input'];
+};
+
 export type GroupPreviewResponse = {
   __typename?: 'GroupPreviewResponse';
   buys: Array<OfferPreviewResponse>;
@@ -608,6 +612,7 @@ export type Mutation = {
   deleteUserImage: Scalars['String']['output'];
   deleteUserReview: Scalars['String']['output'];
   followBrand: BrandResponse;
+  followUser: UserResponse;
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   placeBid: Scalars['String']['output'];
@@ -743,6 +748,11 @@ export type MutationDeleteUserReviewArgs = {
 
 export type MutationFollowBrandArgs = {
   input: FollowBrandInput;
+};
+
+
+export type MutationFollowUserArgs = {
+  input: FollowUserInput;
 };
 
 
@@ -2405,6 +2415,13 @@ export type LinkSocialProfileMutationVariables = Exact<{
 
 
 export type LinkSocialProfileMutation = { __typename?: 'Mutation', linkSocialProfile: string };
+
+export type FollowUserMutationVariables = Exact<{
+  input: FollowUserInput;
+}>;
+
+
+export type FollowUserMutation = { __typename?: 'Mutation', followUser: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
 
 export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
@@ -6119,6 +6136,39 @@ export function useLinkSocialProfileMutation(baseOptions?: Apollo.MutationHookOp
 export type LinkSocialProfileMutationHookResult = ReturnType<typeof useLinkSocialProfileMutation>;
 export type LinkSocialProfileMutationResult = Apollo.MutationResult<LinkSocialProfileMutation>;
 export type LinkSocialProfileMutationOptions = Apollo.BaseMutationOptions<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>;
+export const FollowUserDocument = gql`
+    mutation FollowUser($input: FollowUserInput!) {
+  followUser(input: $input) {
+    ...user
+  }
+}
+    ${UserFragmentDoc}`;
+export type FollowUserMutationFn = Apollo.MutationFunction<FollowUserMutation, FollowUserMutationVariables>;
+
+/**
+ * __useFollowUserMutation__
+ *
+ * To run a mutation, you first call `useFollowUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followUserMutation, { data, loading, error }] = useFollowUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useFollowUserMutation(baseOptions?: Apollo.MutationHookOptions<FollowUserMutation, FollowUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FollowUserMutation, FollowUserMutationVariables>(FollowUserDocument, options);
+      }
+export type FollowUserMutationHookResult = ReturnType<typeof useFollowUserMutation>;
+export type FollowUserMutationResult = Apollo.MutationResult<FollowUserMutation>;
+export type FollowUserMutationOptions = Apollo.BaseMutationOptions<FollowUserMutation, FollowUserMutationVariables>;
 export const FindVersionPreviewDocument = gql`
     query FindVersionPreview($id: ID, $refId: ID) {
   findVersionPreview(id: $id, refId: $refId) {
