@@ -619,6 +619,7 @@ export type Mutation = {
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
   unfollowBrand: BrandResponse;
+  unfollowUser: UserResponse;
   updateAuction: Scalars['String']['output'];
   updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
@@ -768,6 +769,11 @@ export type MutationPlaceBidArgs = {
 
 export type MutationUnfollowBrandArgs = {
   input: UnfollowBrandInput;
+};
+
+
+export type MutationUnfollowUserArgs = {
+  input: UnfollowUserInput;
 };
 
 
@@ -1563,6 +1569,10 @@ export type ThreadResponse = {
 
 export type UnfollowBrandInput = {
   brandId: Scalars['ID']['input'];
+};
+
+export type UnfollowUserInput = {
+  followingId: Scalars['String']['input'];
 };
 
 export type UpdateAuctionInput = {
@@ -2422,6 +2432,13 @@ export type FollowUserMutationVariables = Exact<{
 
 
 export type FollowUserMutation = { __typename?: 'Mutation', followUser: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
+
+export type UnfollowUserMutationVariables = Exact<{
+  input: UnfollowUserInput;
+}>;
+
+
+export type UnfollowUserMutation = { __typename?: 'Mutation', unfollowUser: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
 
 export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
@@ -6169,6 +6186,39 @@ export function useFollowUserMutation(baseOptions?: Apollo.MutationHookOptions<F
 export type FollowUserMutationHookResult = ReturnType<typeof useFollowUserMutation>;
 export type FollowUserMutationResult = Apollo.MutationResult<FollowUserMutation>;
 export type FollowUserMutationOptions = Apollo.BaseMutationOptions<FollowUserMutation, FollowUserMutationVariables>;
+export const UnfollowUserDocument = gql`
+    mutation UnfollowUser($input: UnfollowUserInput!) {
+  unfollowUser(input: $input) {
+    ...user
+  }
+}
+    ${UserFragmentDoc}`;
+export type UnfollowUserMutationFn = Apollo.MutationFunction<UnfollowUserMutation, UnfollowUserMutationVariables>;
+
+/**
+ * __useUnfollowUserMutation__
+ *
+ * To run a mutation, you first call `useUnfollowUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowUserMutation, { data, loading, error }] = useUnfollowUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUnfollowUserMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowUserMutation, UnfollowUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnfollowUserMutation, UnfollowUserMutationVariables>(UnfollowUserDocument, options);
+      }
+export type UnfollowUserMutationHookResult = ReturnType<typeof useUnfollowUserMutation>;
+export type UnfollowUserMutationResult = Apollo.MutationResult<UnfollowUserMutation>;
+export type UnfollowUserMutationOptions = Apollo.BaseMutationOptions<UnfollowUserMutation, UnfollowUserMutationVariables>;
 export const FindVersionPreviewDocument = gql`
     query FindVersionPreview($id: ID, $refId: ID) {
   findVersionPreview(id: $id, refId: $refId) {
