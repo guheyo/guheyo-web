@@ -130,3 +130,9 @@ mutation FollowUser($input: FollowUserInput!) {
     ...user
   }
 }
+
+mutation UnfollowUser($input: UnfollowUserInput!) {
+  unfollowUser(input: $input) {
+    ...user
+  }
+}

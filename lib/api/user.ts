@@ -5,6 +5,9 @@ import {
   FollowUserMutation,
   LinkSocialProfileDocument,
   LinkSocialProfileInput,
+  UnfollowUserDocument,
+  UnfollowUserInput,
+  UnfollowUserMutation,
   UpdateUserDocument,
   UpdateUserInput,
 } from '@/generated/graphql';
@@ -30,6 +33,15 @@ export async function linkSocialProfile(input: LinkSocialProfileInput) {
 export async function followUser(input: FollowUserInput) {
   return client.mutate<FollowUserMutation>({
     mutation: FollowUserDocument,
+    variables: {
+      input,
+    },
+  });
+}
+
+export async function unfollowUser(input: UnfollowUserInput) {
+  return client.mutate<UnfollowUserMutation>({
+    mutation: UnfollowUserDocument,
     variables: {
       input,
     },
