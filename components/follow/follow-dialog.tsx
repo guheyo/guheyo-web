@@ -3,6 +3,7 @@
 import { MouseEventHandler } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import { followBrand, unfollowBrand } from '@/lib/api/brand';
+import { followUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function FollowDialog({
@@ -24,6 +25,14 @@ export default function FollowDialog({
       } else {
         await followBrand({
           brandId: targetId,
+        });
+      }
+    } else if (target === 'user') {
+      if (followed) {
+        // TODO
+      } else {
+        await followUser({
+          followingId: targetId,
         });
       }
     }

@@ -66,9 +66,11 @@ function BidderCheckboxResults({
           <div className="w-full">
             <UserPreview
               key={edge.node.id}
+              userId={edge.node.id}
               username={edge.node.username}
               avatarURL={edge.node.avatarURL}
               about={edge.node.about}
+              followed={edge.node.followed}
             />
           </div>
         </div>
