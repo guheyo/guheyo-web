@@ -23,7 +23,7 @@ export default function CategoriesNavbar({
   const categorySlug = searchParams.get('category');
 
   return (
-    <Scrollbar upPosition="top-12" zIndex={40}>
+    <Scrollbar upPosition="top-12" zIndex={30}>
       <div className="flex flex-row gap-2 md:gap-6 lg:gap-8 items-center bg-dark-500">
         <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-8">
           <button

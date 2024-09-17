@@ -4,12 +4,10 @@ import { ReactNode } from 'react';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import BusinessFunctionPathUpdater from './business-function-path-updater';
 import OfferSelectors from '../selectors/offer-selectors';
-import SellHomeLink from './sell-home-link';
-import SwapHomeLink from './swap-home-link';
-import BuyHomeLink from './buy-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferMoreLink from './offer-more-link';
+import MarketHomeLink from '../market/market-home-link';
 
 interface Props {
   children: ReactNode;
@@ -33,12 +31,12 @@ function OfferHomeFeedLayout({
       postPreviewType={businessFunction === 'buy' ? 'text' : 'thumbnail'}
       homeLink={
         businessFunction === 'sell' ? (
-          <SellHomeLink businessFunction={businessFunction} />
+          <MarketHomeLink businessFunction={businessFunction} />
         ) : businessFunction === 'buy' ? (
-          <BuyHomeLink businessFunction={businessFunction} />
+          <MarketHomeLink businessFunction={businessFunction} />
         ) : (
           businessFunction === 'swap' && (
-            <SwapHomeLink businessFunction={businessFunction} />
+            <MarketHomeLink businessFunction={businessFunction} />
           )
         )
       }
