@@ -43,6 +43,9 @@ function OfferFeed({
       : searchParams.get('status') ||
         (defaultWhere.status as string | undefined),
   });
+  const followed = [null, 'all'].includes(searchParams.get('followed'))
+    ? undefined
+    : searchParams.get('followed') === 'true';
 
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
@@ -64,6 +67,7 @@ function OfferFeed({
       categoryId: category?.id,
       status,
       isArchived,
+      followed,
       userId: defaultWhere?.userId,
       bumpedAt: period
         ? {
