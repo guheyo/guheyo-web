@@ -31,7 +31,7 @@ function ThreadAndReviewFeed({
   const categorySlug = searchParams.get('category');
   const tagName = [null, 'all'].includes(searchParams.get('tag'))
     ? undefined
-    : searchParams.get('tag') || defaultWhere.tagNames;
+    : searchParams.get('tag');
 
   const category = findCategory(group?.categories, {
     slug: categorySlug,
