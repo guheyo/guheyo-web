@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { BusinessFunction } from '@/lib/offer/offer.types';
-import BusinessFunctionPathUpdater from './business-function-path-updater';
 import OfferSelectors from '../selectors/offer-selectors';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
@@ -12,6 +11,7 @@ import BusinessFunctionNavbar from './business-function-navbar';
 import SellHomeLink from './sell-home-link';
 import BuyHomeLink from './buy-home-link';
 import SwapHomeLink from './swap-home-link';
+import FollowFilterClickButton from '../follow/follow-filter-click-button';
 
 interface Props {
   children: ReactNode;
@@ -58,7 +58,7 @@ function OfferHomeFeedLayout({
       selectors={
         showSelectors && (
           <>
-            <BusinessFunctionPathUpdater />
+            <FollowFilterClickButton />
             <OfferSelectors />
           </>
         )
