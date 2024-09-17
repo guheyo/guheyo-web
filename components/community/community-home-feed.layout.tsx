@@ -9,6 +9,7 @@ import MannerTagsNavbar from '../user-review/manner-tags-navbar';
 import CommunityTagsNavbar from './community-tags-navbar';
 import CommunityMoreLink from './community-more-link';
 import CommunitySelectors from './community-selectors';
+import FollowFilterClickButton from '../follow/follow-filter-click-button';
 
 interface Props {
   children: ReactNode;
@@ -48,7 +49,7 @@ function CommunityHomeFeedLayout({
       selectors={
         showSelectors && (
           <>
-            <div />
+            <FollowFilterClickButton />
             <CommunitySelectors />
           </>
         )
