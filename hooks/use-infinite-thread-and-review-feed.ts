@@ -54,6 +54,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       userId: where?.userId,
       tagNames: where?.tagNames,
       createdAt: where?.createdAt,
+      followed: where?.followed,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -65,6 +66,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       // eslint-disable-next-line react-hooks/exhaustive-deps
       where?.tagNames?.join(','),
       where?.createdAt?.gt,
+      where?.followed,
     ],
   );
 
@@ -75,6 +77,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       tagType: where?.tagType,
       reviewedUserId: where?.reviewedUserId,
       createdAt: where?.createdAt,
+      followed: where?.followed,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -83,6 +86,7 @@ export const useInfiniteThreadAndReviewFeed = ({
       where?.tagType,
       where?.reviewedUserId,
       where?.createdAt?.gt,
+      where?.followed,
     ],
   );
 
