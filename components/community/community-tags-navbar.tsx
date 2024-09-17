@@ -3,7 +3,8 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import { CITIY_NAMES } from '@/lib/community/community.constants';
-import TagsNavbar from '../base/tags-navbar';
+import { Option } from '@/interfaces/selector.interfaces';
+import TextNavbar from '../base/text-navbar';
 
 export default function CommunityTagsNavbar({
   categorySlug,
@@ -12,22 +13,32 @@ export default function CommunityTagsNavbar({
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const selectedTag = searchParams.get('tag') || undefined;
+  const selectedValue = searchParams.get('tag') || undefined;
 
-  let tags: string[];
+  let options: Option[];
   switch (categorySlug) {
     case 'meetup':
-      tags = CITIY_NAMES;
+      options = CITIY_NAMES.map((name) => ({
+        value: name,
+        label: name,
+      }));
+      options = [
+        {
+          value: 'all',
+          label: '전체',
+        },
+        ...options,
+      ];
       break;
     default:
-      tags = [];
+      options = [];
       break;
   }
 
   return (
-    <TagsNavbar
-      tags={tags}
-      selectedValue={selectedTag}
+    <TextNavbar
+      options={options}
+      selectedValue={selectedValue}
       parseNewURL={(value) =>
         parseNewURL({
           searchParamsString: searchParams.toString(),
@@ -35,7 +46,7 @@ export default function CommunityTagsNavbar({
           paramsToUpdate: [
             {
               name: 'tag',
-              value: value === '전체' ? undefined : value,
+              value,
             },
           ],
         })
