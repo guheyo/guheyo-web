@@ -8,11 +8,16 @@ import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferMoreLink from './offer-more-link';
 import MarketHomeLink from '../market/market-home-link';
+import BusinessFunctionNavbar from './business-function-navbar';
+import SellHomeLink from './sell-home-link';
+import BuyHomeLink from './buy-home-link';
+import SwapHomeLink from './swap-home-link';
 
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
   hideGroupProfileSidebarItems?: boolean;
+  showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
@@ -22,6 +27,7 @@ function OfferHomeFeedLayout({
   children,
   businessFunction,
   hideGroupProfileSidebarItems,
+  showChannels,
   showCategories,
   showSelectors,
   showMoreLink,
@@ -30,17 +36,20 @@ function OfferHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType={businessFunction === 'buy' ? 'text' : 'thumbnail'}
       homeLink={
-        businessFunction === 'sell' ? (
+        showChannels ? (
           <MarketHomeLink businessFunction={businessFunction} />
+        ) : businessFunction === 'sell' ? (
+          <SellHomeLink businessFunction={businessFunction} />
         ) : businessFunction === 'buy' ? (
-          <MarketHomeLink businessFunction={businessFunction} />
+          <BuyHomeLink businessFunction={businessFunction} />
         ) : (
           businessFunction === 'swap' && (
-            <MarketHomeLink businessFunction={businessFunction} />
+            <SwapHomeLink businessFunction={businessFunction} />
           )
         )
       }
       path={hideGroupProfileSidebarItems ? undefined : businessFunction}
+      channels={showChannels ? <BusinessFunctionNavbar /> : undefined}
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product', 'service']} />
