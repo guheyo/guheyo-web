@@ -485,6 +485,7 @@ export type FindUserReviewPreviewsOrderByInput = {
 
 export type FindUserReviewPreviewsWhereInput = {
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   reviewedUserId?: InputMaybe<Scalars['ID']['input']>;
