@@ -4,7 +4,6 @@ export const COMMUNITY_TYPE_OPTIONS = [
 ];
 
 export const CITIY_NAMES = [
-  '전체',
   '서울',
   '경기',
   '부산',

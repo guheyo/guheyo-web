@@ -2,14 +2,17 @@
 
 import { ReactNode } from 'react';
 import AuctionSelectors from './auction-selectors';
-import BusinessFunctionPathUpdater from '../offers/business-function-path-updater';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionMoreLink from './auction-more-link';
 import MarketHomeLink from '../market/market-home-link';
+import BusinessFunctionNavbar from '../offers/business-function-navbar';
+import AuctionHomeLink from './auction-home-link';
+import FollowFilterClickButton from '../follow/follow-filter-click-button';
 
 interface Props {
   children: ReactNode;
+  showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
@@ -17,6 +20,7 @@ interface Props {
 
 function AuctionHomeFeedLayout({
   children,
+  showChannels,
   showCategories,
   showSelectors,
   showMoreLink,
@@ -24,8 +28,15 @@ function AuctionHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="thumbnail"
-      homeLink={<MarketHomeLink businessFunction="auction" />}
+      homeLink={
+        showChannels ? (
+          <MarketHomeLink businessFunction="auction" />
+        ) : (
+          <AuctionHomeLink />
+        )
+      }
       path="auction"
+      channels={showChannels ? <BusinessFunctionNavbar /> : undefined}
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product']} />
@@ -34,7 +45,7 @@ function AuctionHomeFeedLayout({
       selectors={
         showSelectors && (
           <>
-            <BusinessFunctionPathUpdater />
+            <FollowFilterClickButton />
             <AuctionSelectors />
           </>
         )

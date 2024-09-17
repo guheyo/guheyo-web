@@ -1,38 +1,50 @@
 'use client';
 
-import { MouseEvent } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import { useGroup } from '@/hooks/use-group';
-import CategoriesNavbar from './categories-navbar';
+import TextNavbar from '../base/text-navbar';
 
 export default function ProductCategoriesNavbar({
   types,
 }: {
   types: string[];
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const selectedValue = searchParams.get('category') || undefined;
+
   const { group } = useGroup();
   const categories =
     group?.categories.filter((category) => types.includes(category.type)) || [];
+  const options = categories.map((category) => ({
+    value: category.slug!,
+    label: category.name,
+  }));
 
-  const handleClick = (e: MouseEvent, slug?: string | null) => {
-    e.preventDefault();
-    router.push(
-      parseNewURL({
-        searchParamsString: searchParams.toString(),
-        pathname,
-        paramsToUpdate: [
-          {
-            name: 'category',
-            value: slug,
-          },
-        ],
-      }),
-    );
-  };
-
-  return <CategoriesNavbar categories={categories} handleClick={handleClick} />;
+  return (
+    <TextNavbar
+      options={[
+        {
+          value: 'all',
+          label: '전체',
+        },
+        ...options,
+      ]}
+      selectedValue={selectedValue}
+      parseNewURL={(value) =>
+        parseNewURL({
+          searchParamsString: searchParams.toString(),
+          pathname,
+          paramsToUpdate: [
+            {
+              name: 'category',
+              value,
+            },
+          ],
+        })
+      }
+      size="medium"
+    />
+  );
 }
