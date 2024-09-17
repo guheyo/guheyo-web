@@ -28,6 +28,9 @@ function ThreadFeed({
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const period = searchParams.get('period');
+  const followed = [null, 'all'].includes(searchParams.get('followed'))
+    ? undefined
+    : searchParams.get('followed') === 'true';
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -47,6 +50,7 @@ function ThreadFeed({
             gt: convertPeriodToDateString(period),
           }
         : undefined,
+      followed,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',
