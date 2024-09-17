@@ -6,6 +6,7 @@ import GbHomeLink from './gb-home-link';
 import GbMoreLink from './gb-more-link';
 import GbCategoriesNavbar from './gb-categories-navbar';
 import GbSelectors from './gb-selectors';
+import FollowFilterClickButton from '../follow/follow-filter-click-button';
 
 interface Props {
   children: ReactNode;
@@ -33,7 +34,7 @@ function GbHomeFeedLayout({
       selectors={
         showSelectors && (
           <>
-            <div />
+            <FollowFilterClickButton />
             <GbSelectors />
           </>
         )
