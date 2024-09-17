@@ -26,6 +26,7 @@ function OffersPage({
       <Suspense>
         <OfferHomeFeedLayout
           businessFunction={businessFunction}
+          showChannels
           showCategories
           showSelectors
           showMoreLink={false}
@@ -44,6 +45,7 @@ function OffersPage({
     <Suspense>
       <OfferHomeFeedLayout
         businessFunction={businessFunction}
+        showChannels
         showCategories
         showSelectors
         showMoreLink={false}

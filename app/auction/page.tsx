@@ -12,6 +12,7 @@ function Page() {
   return (
     <Suspense>
       <AuctionHomeFeedLayout
+        showChannels
         showCategories={false}
         showSelectors
         showMoreLink={false}

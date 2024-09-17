@@ -16,6 +16,7 @@ function Page() {
     <Suspense>
       <OfferHomeFeedLayout
         businessFunction="swap"
+        showChannels
         showCategories={false}
         showSelectors
         showMoreLink={false}
