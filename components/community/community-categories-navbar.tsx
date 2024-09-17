@@ -1,44 +1,51 @@
 'use client';
 
-import { MouseEvent } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
 import { useGroup } from '@/hooks/use-group';
-import { CategorySummary } from '@/lib/category/category.interfaces';
-import CategoriesNavbar from '../categories/categories-navbar';
+import TextNavbar from '../base/text-navbar';
 
 export default function CommunityCategoriesNavbar() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const selectedValue = searchParams.get('category') || undefined;
 
   const { group } = useGroup('root');
-  let categories: CategorySummary[] =
+  const categories =
     group?.categories.filter((category) => category.type === 'community') || [];
 
-  categories = [
-    ...categories,
-    {
-      name: '거래 후기',
-      slug: 'review',
-    },
-  ];
+  const options = categories.map((category) => ({
+    value: category.slug!,
+    label: category.name,
+  }));
 
-  const handleClick = (e: MouseEvent, slug?: string | null) => {
-    e.preventDefault();
-    router.push(
-      parseNewURL({
-        searchParamsString: searchParams.toString(),
-        pathname,
-        paramsToUpdate: [
-          {
-            name: 'category',
-            value: slug,
-          },
-        ],
-      }),
-    );
-  };
-
-  return <CategoriesNavbar categories={categories} handleClick={handleClick} />;
+  return (
+    <TextNavbar
+      options={[
+        {
+          value: 'all',
+          label: '전체',
+        },
+        ...options,
+        {
+          value: 'review',
+          label: '거래 후기',
+        },
+      ]}
+      selectedValue={selectedValue}
+      parseNewURL={(value) =>
+        parseNewURL({
+          searchParamsString: searchParams.toString(),
+          pathname,
+          paramsToUpdate: [
+            {
+              name: 'category',
+              value,
+            },
+          ],
+        })
+      }
+      size="medium"
+    />
+  );
 }
