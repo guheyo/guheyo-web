@@ -1,12 +1,12 @@
 'use client';
 
 import { ReactNode } from 'react';
-import AuctionHomeLink from './auction-home-link';
 import AuctionSelectors from './auction-selectors';
 import BusinessFunctionPathUpdater from '../offers/business-function-path-updater';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionMoreLink from './auction-more-link';
+import MarketHomeLink from '../market/market-home-link';
 
 interface Props {
   children: ReactNode;
@@ -24,7 +24,7 @@ function AuctionHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="thumbnail"
-      homeLink={<AuctionHomeLink />}
+      homeLink={<MarketHomeLink businessFunction="auction" />}
       path="auction"
       categories={
         showCategories ? (
