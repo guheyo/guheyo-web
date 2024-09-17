@@ -390,6 +390,7 @@ export type FindAuctionPreviewsWhereInput = {
   bidderId?: InputMaybe<Scalars['ID']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
@@ -443,6 +444,7 @@ export type FindOfferPreviewsWhereInput = {
   bumpedAt?: InputMaybe<Scalars['JSON']['input']>;
   businessFunction?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
   isArchived?: InputMaybe<Scalars['Boolean']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
