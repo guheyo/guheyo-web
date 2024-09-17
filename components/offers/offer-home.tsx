@@ -33,6 +33,7 @@ export default function OfferHome({
     <OfferHomeFeedLayout
       businessFunction={businessFunction}
       hideGroupProfileSidebarItems
+      showChannels={false}
       showCategories={false}
       showSelectors={false}
       showMoreLink
