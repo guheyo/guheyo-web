@@ -14,18 +14,20 @@ export default function GroupProfile({
   description?: string | null;
 }) {
   return (
-    <InfoCard
-      name={name}
-      icon={
-        <Image
-          src={!icon ? '/guheyo/guheyo-logo.svg' : icon}
-          width={isMobile ? 30 : 36}
-          height={isMobile ? 30 : 36}
-          alt={`${name} logo`}
-          className="rounded-lg"
-        />
-      }
-      about={description}
-    />
+    <div className="flex flex-row justify-between items-center p-4 bg-dark-400 rounded-lg text-gray-300">
+      <InfoCard
+        name={name}
+        icon={
+          <Image
+            src={!icon ? '/guheyo/guheyo-logo.svg' : icon}
+            width={isMobile ? 30 : 36}
+            height={isMobile ? 30 : 36}
+            alt={`${name} logo`}
+            className="rounded-full"
+          />
+        }
+        about={description}
+      />
+    </div>
   );
 }
