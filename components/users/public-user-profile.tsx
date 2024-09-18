@@ -13,6 +13,7 @@ import Roles from './roles';
 import SelectUserReviewTargetPostDialog from '../user-review/select-user-review-target-post-dialog';
 import SocialLogos from '../socials/social-logos';
 import UsernameLink from './user-name-link';
+import FollowCount from '../follow/follow-count';
 
 export default function PublicUserProfile({
   username,
@@ -58,6 +59,17 @@ export default function PublicUserProfile({
           <div className="col-span-9 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
             <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
             <Roles key={user.id} roles={user.roles} />
+          </div>
+          <div className="col-span-3" />
+          <div className="col-span-9 pt-2 flex flex-row gap-3">
+            <FollowCount
+              followType="following"
+              followCount={user.following?.length || 0}
+            />
+            <FollowCount
+              followType="follower"
+              followCount={user.followers?.length || 0}
+            />
           </div>
         </div>
       </div>
