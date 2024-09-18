@@ -7,7 +7,7 @@ import { parseBrandHomeLink } from '@/lib/brand/parse-brand-home-link';
 import Avatar from '../avatar/avatar';
 import FollowDialog from '../follow/follow-dialog';
 import PlatformLinks from './platform-links';
-import FollowerCount from '../follow/follwer-count';
+import FollowCount from '../follow/follow-count';
 import BrandNameLink from './brand-name-link';
 
 export default function BrandHome({ brand }: { brand: BrandResponse }) {
@@ -35,7 +35,10 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
             <PlatformLinks links={brand.links} />
           </div>
           <div className="col-span-12 pt-2">
-            <FollowerCount followerCount={brand.followBrands.length} />
+            <FollowCount
+              followType="follower"
+              followCount={brand.followBrands.length}
+            />
           </div>
         </div>
       </div>
