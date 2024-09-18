@@ -7,6 +7,7 @@ import { parseUserAbout } from '@/lib/user/parse-user-about';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import Link from 'next/link';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
+import { ProfileType } from '@/lib/user/user.interfaces';
 import Avatar from '../avatar/avatar';
 import DmDialog from '../dm/dm-dialog';
 import Roles from './roles';
@@ -19,9 +20,11 @@ import FollowDialog from '../follow/follow-dialog';
 export default function PublicUserProfile({
   username,
   displayReviewButton,
+  type,
 }: {
   username: string;
   displayReviewButton: boolean;
+  type: ProfileType;
 }) {
   const device = useDeviceDetect();
   const { data, loading } = useFindAuthorQuery({
@@ -86,16 +89,18 @@ export default function PublicUserProfile({
           </div>
         </div>
       </div>
-      <div className="col-span-12 pt-4 flex flex-col gap-3">
-        {parseUserAbout({
-          username: user.username,
-          about: user.about,
-        })}
-        <div className="flex flex-col gap-2 justify-self-start text-xs md:text-sm">
-          <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
-          <Roles key={user.id} roles={user.roles} />
+      {type === 'detail' && (
+        <div className="col-span-12 pt-4 flex flex-col gap-3">
+          {parseUserAbout({
+            username: user.username,
+            about: user.about,
+          })}
+          <div className="flex flex-col gap-2 justify-self-start text-xs md:text-sm">
+            <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
+            <Roles key={user.id} roles={user.roles} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
