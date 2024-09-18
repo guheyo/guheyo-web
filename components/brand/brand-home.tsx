@@ -15,7 +15,7 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
 
   return (
     <div className="grid grid-cols-12 gap-0 text-sm md:text-base items-center">
-      <div className="col-span-3 md:col-span-3 w-fit">
+      <div className="col-span-3 w-fit">
         <Link href={parseBrandHomeLink({ slug: brand.slug! })}>
           <Avatar
             name={brand.name}
@@ -24,31 +24,32 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
           />
         </Link>
       </div>
-      <div className="col-span-9 md:col-span-7">
-        <div className="grid grid-cols-12 gap-0">
-          <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
+      <div className="col-span-9">
+        <div className="grid grid-cols-12 gap-1">
+          <span className="col-span-12 text-gray-300 text-lg font-bold justify-self-start">
             <BrandNameLink brand={brand} />
           </span>
-          <div className="col-span-9 pb-2">{brand.description}</div>
-          <div className="col-span-3" />
-          <div className="col-span-9 pt-2 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
-            <PlatformLinks links={brand.links} />
-          </div>
-          <div className="col-span-12 pt-2">
+          <div className="col-span-12 text-base">
             <FollowCount
               followType="follower"
               followCount={brand.followBrands.length}
             />
           </div>
         </div>
+        <div className="flex flex-row pt-4">
+          <div className="w-24">
+            <FollowDialog
+              target="brand"
+              targetId={brand.id}
+              followed={brand.followed}
+            />
+          </div>
+        </div>
       </div>
-      <div className="col-span-12 md:col-span-2 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
-        <div className="grow w-32">
-          <FollowDialog
-            target="brand"
-            targetId={brand.id}
-            followed={brand.followed}
-          />
+      <div className="col-span-12 pt-4 flex flex-col gap-3">
+        {brand.description}
+        <div className="flex flex-col gap-2 justify-self-start text-xs md:text-sm">
+          <PlatformLinks links={brand.links} />
         </div>
       </div>
     </div>
