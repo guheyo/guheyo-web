@@ -5,7 +5,6 @@ import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import GroupProfile from './group-profile';
-import SearchResultCardLayout from '../search/search-result-card.layout';
 
 export default function GroupProfiles({
   generateLink,
@@ -38,13 +37,11 @@ export default function GroupProfiles({
               : `g/${group.node.slug}`
           }
         >
-          <SearchResultCardLayout>
-            <GroupProfile
-              name={group.node.name}
-              icon={group.node.icon}
-              description={group.node.description}
-            />
-          </SearchResultCardLayout>
+          <GroupProfile
+            name={group.node.name}
+            icon={group.node.icon}
+            description={group.node.description}
+          />
         </Link>
       ))}
       <div ref={ref} />
