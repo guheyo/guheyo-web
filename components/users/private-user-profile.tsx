@@ -10,6 +10,7 @@ import Roles from './roles';
 import SettingButton from '../setting/setting-button';
 import SocialLogos from '../socials/social-logos';
 import UsernameLink from './user-name-link';
+import FollowCount from '../follow/follow-count';
 
 export default function PrivateUserProfile() {
   const device = useDeviceDetect();
@@ -49,6 +50,16 @@ export default function PrivateUserProfile() {
           <div className="col-span-12 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
             <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
             <Roles key={user.id} roles={user.roles} />
+          </div>
+          <div className="col-span-12 flex flex-row gap-3">
+            <FollowCount
+              followType="following"
+              followCount={user.following?.length || 0}
+            />
+            <FollowCount
+              followType="follower"
+              followCount={user.followers?.length || 0}
+            />
           </div>
         </div>
       </div>
