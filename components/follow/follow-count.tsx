@@ -1,7 +1,9 @@
-export default function FollowerCount({
-  followerCount,
+export default function FollowCount({
+  followType,
+  followCount,
 }: {
-  followerCount: number;
+  followType: 'follower' | 'following';
+  followCount: number;
 }) {
   return (
     <div className="flex flex-row gap-1">
@@ -9,9 +11,9 @@ export default function FollowerCount({
         {Intl.NumberFormat('en-US', {
           notation: 'compact',
           maximumFractionDigits: 1,
-        }).format(followerCount)}
+        }).format(followCount)}
       </div>
-      팔로워
+      {followType === 'following' ? '팔로잉' : '팔로워'}
     </div>
   );
 }
