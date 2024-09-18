@@ -34,7 +34,7 @@ function Layout({ children }: Props) {
       <div className="flex flex-col gap-8 max-w-xl w-full">
         <div className="text-base md:text-lg text-gray-300 font-bold px-2 md:px-0">
           <div className="px-2 pb-6">
-            <UserProfile username={jwtPayload.username} />
+            <UserProfile username={jwtPayload.username} type="detail" />
           </div>
           <SettingProfileNavbar />
         </div>
