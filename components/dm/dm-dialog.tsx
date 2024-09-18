@@ -14,7 +14,7 @@ export default function DmDialog({ url }: { url: string }) {
   };
 
   return (
-    <div className="bg-blurple-500 hover:bg-blurple-600 text-sm font-bold p-2 rounded text-gray-100">
+    <div className="bg-blurple-500 hover:bg-blurple-600 text-sm font-bold p-2 rounded-lg text-gray-100">
       <DiscordLoginDialogButton
         name="DM"
         onAuthorization={handleOnAuthorization}

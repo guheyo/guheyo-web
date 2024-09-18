@@ -24,6 +24,12 @@ fragment author on AuthorResponse {
   avatarURL
   bot
   followed
+  followers {
+    ...user
+  }
+  following {
+    ...user
+  }
   socialAccounts {
     ...socialAccountWithoutAuth
   }
@@ -41,12 +47,17 @@ fragment myUser on MyUserResponse {
   phoneNumber
   avatarURL
   bot
-  followed
   socialAccounts {
     ...socialAccount
   }
   roles {
     ...role
+  }
+  followers {
+    ...user
+  }
+  following {
+    ...user
   }
 }
 

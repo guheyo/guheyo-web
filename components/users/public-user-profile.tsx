@@ -13,6 +13,8 @@ import Roles from './roles';
 import SelectUserReviewTargetPostDialog from '../user-review/select-user-review-target-post-dialog';
 import SocialLogos from '../socials/social-logos';
 import UsernameLink from './user-name-link';
+import FollowCount from '../follow/follow-count';
+import FollowDialog from '../follow/follow-dialog';
 
 export default function PublicUserProfile({
   username,
@@ -34,7 +36,7 @@ export default function PublicUserProfile({
 
   return (
     <div className="grid grid-cols-12 gap-0 text-sm md:text-base items-center">
-      <div className="col-span-3 md:col-span-3 w-fit">
+      <div className="col-span-3 w-fit">
         <Link href={parseUserHomeLink({ username })}>
           <Avatar
             name={user.username}
@@ -43,39 +45,55 @@ export default function PublicUserProfile({
           />
         </Link>
       </div>
-      <div className="col-span-9 md:col-span-7">
-        <div className="grid grid-cols-12 gap-0">
-          <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
+      <div className="col-span-9">
+        <div className="grid grid-cols-12 gap-1">
+          <span className="col-span-12 text-gray-300 text-lg font-bold justify-self-start">
             <UsernameLink user={user} />
           </span>
-          <div className="col-span-9 pb-2">
-            {parseUserAbout({
-              username: user.username,
-              about: user.about,
-            })}
+          <div className="col-span-12 flex flex-row gap-3 text-base">
+            <FollowCount
+              followType="following"
+              followCount={user.following?.length || 0}
+            />
+            <FollowCount
+              followType="follower"
+              followCount={user.followers?.length || 0}
+            />
           </div>
-          <div className="col-span-3" />
-          <div className="col-span-9 flex flex-col gap-2 justify-self-start text-xs md:text-sm">
-            <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
-            <Roles key={user.id} roles={user.roles} />
+        </div>
+        <div className="flex flex-row gap-2 pt-4">
+          {displayReviewButton && (
+            <div className="w-24">
+              <SelectUserReviewTargetPostDialog userId={user.id} />
+            </div>
+          )}
+          <div className="w-24">
+            <FollowDialog
+              target="user"
+              targetId={user.id}
+              followed={user.followed!}
+            />
+          </div>
+          <div className="w-24">
+            <DmDialog
+              url={parseDiscordDmLink(
+                getSocialID({
+                  socialAccounts: user.socialAccounts,
+                  provider: 'discord',
+                }),
+              )}
+            />
           </div>
         </div>
       </div>
-      <div className="col-span-12 md:col-span-2 flex flex-row md:flex-col gap-2 pt-4 md:pt-0 justify-self-auto md:justify-self-end">
-        {displayReviewButton && (
-          <div className="grow w-32">
-            <SelectUserReviewTargetPostDialog userId={user.id} />
-          </div>
-        )}
-        <div className="grow w-32">
-          <DmDialog
-            url={parseDiscordDmLink(
-              getSocialID({
-                socialAccounts: user.socialAccounts,
-                provider: 'discord',
-              }),
-            )}
-          />
+      <div className="col-span-12 pt-4 flex flex-col gap-3">
+        {parseUserAbout({
+          username: user.username,
+          about: user.about,
+        })}
+        <div className="flex flex-col gap-2 justify-self-start text-xs md:text-sm">
+          <SocialLogos socialAccounts={user.socialAccounts} logoSize={18} />
+          <Roles key={user.id} roles={user.roles} />
         </div>
       </div>
     </div>
