@@ -47,12 +47,12 @@ export default function FollowDialog({
   if (followed)
     return (
       <div className="flex flex-row gap-1 items-center justify-center bg-gray-500 hover:bg-gray-600 text-sm font-bold p-2 rounded-lg text-gray-100">
-        <CheckIcon fontSize="small" />
         <DiscordLoginDialogButton
           name="팔로잉"
           onAuthorization={handleOnAuthorization}
           onUnAuthorization={handleOnUnAuthorization}
         />
+        <CheckIcon fontSize="small" />
       </div>
     );
 
