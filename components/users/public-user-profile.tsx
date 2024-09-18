@@ -50,7 +50,7 @@ export default function PublicUserProfile({
           <span className="col-span-12 text-gray-300 text-lg font-bold justify-self-start">
             <UsernameLink user={user} />
           </span>
-          <div className="col-span-12 flex flex-row gap-3">
+          <div className="col-span-12 flex flex-row gap-3 text-base">
             <FollowCount
               followType="following"
               followCount={user.following?.length || 0}

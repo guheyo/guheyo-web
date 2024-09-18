@@ -41,7 +41,7 @@ export default function PrivateUserProfile() {
           <div className="col-span-3 justify-self-end">
             <SettingButton settingItem="profile/about" />
           </div>
-          <div className="col-span-12 flex flex-row gap-3">
+          <div className="col-span-12 flex flex-row gap-3 text-base">
             <FollowCount
               followType="following"
               followCount={user.following?.length || 0}
