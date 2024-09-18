@@ -13,6 +13,7 @@ fragment user on UserResponse {
   about
   avatarURL
   bot
+  followed
 }
 
 fragment author on AuthorResponse {
@@ -22,6 +23,13 @@ fragment author on AuthorResponse {
   about
   avatarURL
   bot
+  followed
+  followers {
+    ...user
+  }
+  following {
+    ...user
+  }
   socialAccounts {
     ...socialAccountWithoutAuth
   }
@@ -44,6 +52,12 @@ fragment myUser on MyUserResponse {
   }
   roles {
     ...role
+  }
+  followers {
+    ...user
+  }
+  following {
+    ...user
   }
 }
 
@@ -120,4 +134,16 @@ mutation UpdateUser(
 
 mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
   linkSocialProfile(input: $input)
+}
+
+mutation FollowUser($input: FollowUserInput!) {
+  followUser(input: $input) {
+    ...user
+  }
+}
+
+mutation UnfollowUser($input: UnfollowUserInput!) {
+  unfollowUser(input: $input) {
+    ...user
+  }
 }

@@ -26,14 +26,14 @@ export default function Page({
     useState<UserReviewTargetType>('offer');
   const router = useRouter();
 
-  const handleAuthorization = (selectedId: string) => {
-    if (!selectedId) return;
+  const handleAuthorization = (selectedIds: string[]) => {
+    if (selectedIds.length === 0) return;
 
     router.push(
       parseUserReviewTargetFormLink({
         userId,
         targetType: selectedOption,
-        targetId: selectedId,
+        targetId: selectedIds[0],
       }),
     );
   };
@@ -57,6 +57,7 @@ export default function Page({
       <Suspense>
         {selectedOption === 'offer' && (
           <SearchCheckbox
+            defaultSelectedIds={[]}
             placeholder="매너 평가할 거래글을 선택해 주세요"
             where={{ userId }}
             type="listview"
@@ -64,10 +65,12 @@ export default function Page({
             CheckboxResults={OfferCheckboxResults}
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
+            showNextButton
           />
         )}
         {selectedOption === 'auction' && (
           <SearchCheckbox
+            defaultSelectedIds={[]}
             placeholder="매너 평가할 경매글을 선택해 주세요"
             where={{ userId, bidderId: jwtPayload?.id, status: AUCTION_CLOSED }}
             type="listview"
@@ -75,6 +78,7 @@ export default function Page({
             CheckboxResults={AuctionCheckboxResults}
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
+            showNextButton
           />
         )}
       </Suspense>

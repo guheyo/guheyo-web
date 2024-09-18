@@ -31,6 +31,7 @@ export default function AuctionHome() {
 
   return (
     <AuctionHomeFeedLayout
+      showChannels={false}
       showCategories={false}
       showSelectors={false}
       showMoreLink

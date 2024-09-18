@@ -24,7 +24,7 @@ export default function LoginButton() {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="inline-flex items-center bg-blurple-500 hover:bg-blurple-600 text-xs md:text-sm font-bold p-2 rounded text-gray-300 flex flex-row gap-2"
+        className="inline-flex items-center bg-blurple-500 hover:bg-blurple-600 text-xs md:text-sm font-bold p-2 rounded-lg text-gray-300 flex flex-row gap-2"
         onClick={handleSignIn}
       >
         <Image

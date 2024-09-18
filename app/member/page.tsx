@@ -12,7 +12,7 @@ function Page() {
   };
   return (
     <Suspense>
-      <MemberHomeFeedLayout>
+      <MemberHomeFeedLayout showCategories={false} showSelectors>
         <UserFeed defaultWhere={where} defaultOrderBy={orderBy} />
       </MemberHomeFeedLayout>
     </Suspense>

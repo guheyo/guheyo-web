@@ -34,6 +34,10 @@ function AuctionFeed({
     status:
       searchParams.get('status') || (defaultWhere.status as string | undefined),
   });
+  const followed = [null, 'all'].includes(searchParams.get('followed'))
+    ? undefined
+    : searchParams.get('followed') === 'true';
+
   const period = searchParams.get('period');
   const category = findCategory(group?.categories, {
     slug: categorySlug,
@@ -56,6 +60,7 @@ function AuctionFeed({
       groupId: group?.id,
       categoryId: category?.id,
       status,
+      followed,
       userId: defaultWhere.userId,
       createdAt: period
         ? {

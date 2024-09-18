@@ -29,13 +29,20 @@ function ThreadAndReviewFeed({
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
-  const tagName = searchParams.get('tag');
+  const tagName = [null, 'all'].includes(searchParams.get('tag'))
+    ? undefined
+    : searchParams.get('tag');
 
   const category = findCategory(group?.categories, {
     slug: categorySlug,
   });
-  const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const tagType = [null, 'all'].includes(searchParams.get('tagType'))
+    ? undefined
+    : searchParams.get('tagType') || defaultWhere.tagType;
   const period = searchParams.get('period');
+  const followed = [null, 'all'].includes(searchParams.get('followed'))
+    ? undefined
+    : searchParams.get('followed') === 'true';
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -59,6 +66,7 @@ function ThreadAndReviewFeed({
             gt: convertPeriodToDateString(period),
           }
         : undefined,
+      followed,
     },
     orderBy: {
       createdAt: (defaultOrderBy?.createdAt || 'desc') as SortOrder,

@@ -1,0 +1,87 @@
+fragment followBrand on FollowBrandResponse {
+  id
+  brandId
+  user {
+    ...user
+  }
+}
+
+fragment brand on BrandResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+  groups {
+    ...groupProfile
+  }
+  links {
+    ...link
+  }
+  followBrands {
+    ...followBrand
+  }
+  followed
+}
+
+mutation CreateBrand($input: CreateBrandInput!) {
+  createBrand(input: $input) {
+    ...brand
+  }
+}
+
+mutation FollowBrand($input: FollowBrandInput!) {
+  followBrand(input: $input) {
+    ...brand
+  }
+}
+
+mutation UnfollowBrand($input: UnfollowBrandInput!) {
+  unfollowBrand(input: $input) {
+    ...brand
+  }
+}
+
+query FindBrands(
+  $where: FindBrandsWhereInput
+  $orderBy: FindBrandsOrderByInput
+  $keyword: String
+  $target: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findBrands(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...brand
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindBrand(
+  $id: ID
+  $slug: String
+) {
+  findBrand(
+    id: $id
+    slug: $slug
+  ) {
+    ...brand
+  }
+}
