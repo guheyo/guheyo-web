@@ -45,7 +45,7 @@ export default function PublicUserProfile({
         </Link>
       </div>
       <div className="col-span-9 md:col-span-7">
-        <div className="grid grid-cols-12 gap-0">
+        <div className="grid grid-cols-12 gap-2">
           <span className="col-span-9 md:col-span-9 text-gray-300 text-lg font-bold justify-self-start">
             <UsernameLink user={user} />
           </span>
@@ -61,7 +61,7 @@ export default function PublicUserProfile({
             <Roles key={user.id} roles={user.roles} />
           </div>
           <div className="col-span-3" />
-          <div className="col-span-9 pt-2 flex flex-row gap-3">
+          <div className="col-span-9 flex flex-row gap-3">
             <FollowCount
               followType="following"
               followCount={user.following?.length || 0}
