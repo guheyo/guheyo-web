@@ -64,6 +64,7 @@ function OfferPage({
         <PublicUserProfile
           username={offer.post.user.username}
           displayReviewButton={false}
+          type="summary"
         />
       </div>
     </div>
