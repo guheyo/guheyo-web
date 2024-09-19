@@ -51,7 +51,13 @@ export default function GroupSidebar({
   };
 
   if (loading) {
-    return <div />;
+    return (
+      <div
+        className={`fixed top-0 lg:top-14 left-0 h-screen w-72 lg:w-64 bg-dark-600 text-gray-400 pt-4 px-4 z-50 ${
+          isMenuOpen ? 'block' : 'hidden'
+        } lg:block`}
+      />
+    );
   }
 
   return (
