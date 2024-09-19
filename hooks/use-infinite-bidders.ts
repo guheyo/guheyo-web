@@ -13,6 +13,7 @@ export const useInfiniteBidders = ({
   keyword,
   target,
   take,
+  skip,
 }: {
   ref: RefObject<HTMLDivElement>;
   where: FindBiddersWhereInput;
@@ -21,6 +22,7 @@ export const useInfiniteBidders = ({
   target?: string;
   distinct?: boolean;
   take: number;
+  skip: boolean;
 }) => {
   const { loading, data, fetchMore } = useFindBiddersQuery({
     variables: {
@@ -32,6 +34,7 @@ export const useInfiniteBidders = ({
       skip: 0,
     },
     fetchPolicy: 'cache-first',
+    skip,
   });
 
   useInfiniteScroll(
