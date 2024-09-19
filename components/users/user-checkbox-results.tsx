@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
@@ -12,6 +12,7 @@ import {
   FindUsersWhereInput,
 } from '@/generated/graphql';
 import UserPreview from './user-preview';
+import { AuthContext } from '../auth/auth.provider';
 
 const {
   theme: { colors },
@@ -34,6 +35,8 @@ function UserCheckboxResults({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
+  const { loading: authLoading } = useContext(AuthContext);
+
   const { loading, data } = useInfiniteUsers({
     ref,
     where,
@@ -42,6 +45,7 @@ function UserCheckboxResults({
     },
     keyword,
     take: 12,
+    skip: authLoading,
   });
 
   const handleClick = (userId: string) => {
