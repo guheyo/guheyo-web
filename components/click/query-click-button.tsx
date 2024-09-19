@@ -19,6 +19,7 @@ export default function QueryClickButton({
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isClicked = searchParams.get(queryKey) === 'true' || defaultClicked;
 
   const handleClick = (clicked: boolean) => {
     router.push(
@@ -37,7 +38,7 @@ export default function QueryClickButton({
 
   return (
     <BaseClickButton
-      defaultClicked={defaultClicked}
+      defaultClicked={isClicked}
       clickedNode={clickedNode}
       unClickedNode={unClickedNode}
       handleClick={handleClick}
