@@ -13,6 +13,7 @@ export const useInfiniteUsers = ({
   keyword,
   target,
   take,
+  skip,
 }: {
   ref: RefObject<HTMLDivElement>;
   where?: FindUsersWhereInput;
@@ -21,6 +22,7 @@ export const useInfiniteUsers = ({
   target?: string;
   distinct?: boolean;
   take: number;
+  skip: boolean;
 }) => {
   const { loading, data, fetchMore } = useFindUsersQuery({
     variables: {
@@ -32,6 +34,7 @@ export const useInfiniteUsers = ({
       skip: 0,
     },
     fetchPolicy: 'cache-first',
+    skip,
   });
 
   useInfiniteScroll(

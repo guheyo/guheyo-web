@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
@@ -9,6 +9,7 @@ import {
   FindUsersWhereInput,
 } from '@/generated/graphql';
 import UserPreview from './user-preview';
+import { AuthContext } from '../auth/auth.provider';
 
 function UserFeed({
   defaultWhere,
@@ -24,6 +25,7 @@ function UserFeed({
     : searchParams.get('followed') === 'true';
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
+  const { loading: authLoading } = useContext(AuthContext);
 
   const { loading, data } = useInfiniteUsers({
     ref,
@@ -37,6 +39,7 @@ function UserFeed({
     keyword,
     target,
     take: 12,
+    skip: authLoading,
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
