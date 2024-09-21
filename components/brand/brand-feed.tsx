@@ -1,6 +1,6 @@
 'use client';
 
-import { BrandResponse } from '@/generated/graphql';
+import { BrandPreviewResponse } from '@/generated/graphql';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -40,7 +40,7 @@ export default function BrandFeed() {
     <>
       {edges.map((edge) => (
         <BrandPreview
-          brand={edge.node as BrandResponse}
+          brand={edge.node as BrandPreviewResponse}
           key={edge.cursor}
           isInGroup={!!group}
         />

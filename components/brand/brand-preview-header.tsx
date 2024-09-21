@@ -1,10 +1,10 @@
 'use client';
 
-import { BrandResponse } from '@/generated/graphql';
+import { BrandPreviewResponse } from '@/generated/graphql';
 import PostPreviewTitle from '../posts/post-preview-title';
 
 interface Props {
-  brand: BrandResponse;
+  brand: BrandPreviewResponse;
 }
 
 export default function BrandPreviewHeader({ brand }: Props) {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-import { BrandResponse } from '@/generated/graphql';
+import { BrandPreviewResponse } from '@/generated/graphql';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { parseBrandHomeLink } from '@/lib/brand/parse-brand-home-link';
 import Thumbnail from '../base/thumbnail';
@@ -11,7 +11,7 @@ import BrandPreviewHeader from './brand-preview-header';
 import FollowDialog from '../follow/follow-dialog';
 
 interface Props {
-  brand: BrandResponse;
+  brand: BrandPreviewResponse;
   isInGroup: boolean;
 }
 
@@ -62,7 +62,7 @@ export default function BrandPreview({ brand, isInGroup }: Props) {
               <FollowDialog
                 target="brand"
                 targetId={brand.id}
-                followed={brand.followed}
+                followed={brand.followed === true}
               />
             </div>
           </div>
