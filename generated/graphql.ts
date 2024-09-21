@@ -108,12 +108,12 @@ export type BidResponseEdge = {
   node: BidResponse;
 };
 
-export type BrandResponse = {
-  __typename?: 'BrandResponse';
+export type BrandDetailResponse = {
+  __typename?: 'BrandDetailResponse';
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   followBrands: Array<FollowBrandResponse>;
-  followed: Scalars['Boolean']['output'];
+  followed?: Maybe<Scalars['Boolean']['output']>;
   groups: Array<GroupProfileResponse>;
   id: Scalars['ID']['output'];
   links: Array<LinkResponse>;
@@ -122,10 +122,22 @@ export type BrandResponse = {
   slug?: Maybe<Scalars['String']['output']>;
 };
 
-export type BrandResponseEdge = {
-  __typename?: 'BrandResponseEdge';
+export type BrandPreviewResponse = {
+  __typename?: 'BrandPreviewResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  followed?: Maybe<Scalars['Boolean']['output']>;
+  groups: Array<GroupProfileResponse>;
+  id: Scalars['ID']['output'];
+  logo?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+export type BrandPreviewResponseEdge = {
+  __typename?: 'BrandPreviewResponseEdge';
   cursor: Scalars['String']['output'];
-  node: BrandResponse;
+  node: BrandPreviewResponse;
 };
 
 export type BumpOfferInput = {
@@ -601,7 +613,7 @@ export type Mutation = {
   cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
   createAuction: Scalars['String']['output'];
-  createBrand: BrandResponse;
+  createBrand: BrandDetailResponse;
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
@@ -619,14 +631,14 @@ export type Mutation = {
   deleteThread: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
   deleteUserReview: Scalars['String']['output'];
-  followBrand: BrandResponse;
+  followBrand: BrandDetailResponse;
   followUser: UserResponse;
   linkSocialProfile: Scalars['String']['output'];
   logout: SocialUserResponse;
   placeBid: Scalars['String']['output'];
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
-  unfollowBrand: BrandResponse;
+  unfollowBrand: BrandDetailResponse;
   unfollowUser: UserResponse;
   updateAuction: Scalars['String']['output'];
   updateComment: Scalars['String']['output'];
@@ -918,7 +930,7 @@ export type PaginatedBidsResponse = {
 
 export type PaginatedBrandsResponse = {
   __typename?: 'PaginatedBrandsResponse';
-  edges: Array<BrandResponseEdge>;
+  edges: Array<BrandPreviewResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -1068,7 +1080,7 @@ export type Query = {
   findBidCount: BidCountResponse;
   findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
-  findBrand: BrandResponse;
+  findBrand: BrandDetailResponse;
   findBrands: PaginatedBrandsResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
@@ -1906,28 +1918,30 @@ export type BidCanceledSubscription = { __typename?: 'Subscription', bidCanceled
 
 export type FollowBrandFragment = { __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
 
-export type BrandFragment = { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> };
+export type BrandPreviewFragment = { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> };
+
+export type BrandDetailFragment = { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> };
 
 export type CreateBrandMutationVariables = Exact<{
   input: CreateBrandInput;
 }>;
 
 
-export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
 
 export type FollowBrandMutationVariables = Exact<{
   input: FollowBrandInput;
 }>;
 
 
-export type FollowBrandMutation = { __typename?: 'Mutation', followBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type FollowBrandMutation = { __typename?: 'Mutation', followBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
 
 export type UnfollowBrandMutationVariables = Exact<{
   input: UnfollowBrandInput;
 }>;
 
 
-export type UnfollowBrandMutation = { __typename?: 'Mutation', unfollowBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type UnfollowBrandMutation = { __typename?: 'Mutation', unfollowBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
 
 export type FindBrandsQueryVariables = Exact<{
   where?: InputMaybe<FindBrandsWhereInput>;
@@ -1940,7 +1954,7 @@ export type FindBrandsQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandResponseEdge', cursor: string, node: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandPreviewResponseEdge', cursor: string, node: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindBrandQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1948,7 +1962,7 @@ export type FindBrandQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed: boolean, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -2698,6 +2712,20 @@ export const BidCountFragmentDoc = gql`
   count
 }
     `;
+export const BrandPreviewFragmentDoc = gql`
+    fragment brandPreview on BrandPreviewResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+  groups {
+    ...groupProfile
+  }
+  followed
+}
+    ${GroupProfileFragmentDoc}`;
 export const PlatformFragmentDoc = gql`
     fragment platform on PlatformResponse {
   id
@@ -2728,8 +2756,8 @@ export const FollowBrandFragmentDoc = gql`
   }
 }
     ${UserFragmentDoc}`;
-export const BrandFragmentDoc = gql`
-    fragment brand on BrandResponse {
+export const BrandDetailFragmentDoc = gql`
+    fragment brandDetail on BrandDetailResponse {
   id
   createdAt
   name
@@ -3808,10 +3836,10 @@ export type BidCanceledSubscriptionResult = Apollo.SubscriptionResult<BidCancele
 export const CreateBrandDocument = gql`
     mutation CreateBrand($input: CreateBrandInput!) {
   createBrand(input: $input) {
-    ...brand
+    ...brandDetail
   }
 }
-    ${BrandFragmentDoc}`;
+    ${BrandDetailFragmentDoc}`;
 export type CreateBrandMutationFn = Apollo.MutationFunction<CreateBrandMutation, CreateBrandMutationVariables>;
 
 /**
@@ -3841,10 +3869,10 @@ export type CreateBrandMutationOptions = Apollo.BaseMutationOptions<CreateBrandM
 export const FollowBrandDocument = gql`
     mutation FollowBrand($input: FollowBrandInput!) {
   followBrand(input: $input) {
-    ...brand
+    ...brandDetail
   }
 }
-    ${BrandFragmentDoc}`;
+    ${BrandDetailFragmentDoc}`;
 export type FollowBrandMutationFn = Apollo.MutationFunction<FollowBrandMutation, FollowBrandMutationVariables>;
 
 /**
@@ -3874,10 +3902,10 @@ export type FollowBrandMutationOptions = Apollo.BaseMutationOptions<FollowBrandM
 export const UnfollowBrandDocument = gql`
     mutation UnfollowBrand($input: UnfollowBrandInput!) {
   unfollowBrand(input: $input) {
-    ...brand
+    ...brandDetail
   }
 }
-    ${BrandFragmentDoc}`;
+    ${BrandDetailFragmentDoc}`;
 export type UnfollowBrandMutationFn = Apollo.MutationFunction<UnfollowBrandMutation, UnfollowBrandMutationVariables>;
 
 /**
@@ -3917,7 +3945,7 @@ export const FindBrandsDocument = gql`
   ) {
     edges {
       node {
-        ...brand
+        ...brandPreview
       }
       cursor
     }
@@ -3927,7 +3955,7 @@ export const FindBrandsDocument = gql`
     }
   }
 }
-    ${BrandFragmentDoc}`;
+    ${BrandPreviewFragmentDoc}`;
 
 /**
  * __useFindBrandsQuery__
@@ -3973,10 +4001,10 @@ export function refetchFindBrandsQuery(variables: FindBrandsQueryVariables) {
 export const FindBrandDocument = gql`
     query FindBrand($id: ID, $slug: String) {
   findBrand(id: $id, slug: $slug) {
-    ...brand
+    ...brandDetail
   }
 }
-    ${BrandFragmentDoc}`;
+    ${BrandDetailFragmentDoc}`;
 
 /**
  * __useFindBrandQuery__
