@@ -1,5 +1,7 @@
 'use client';
 
+import { redirect, usePathname } from 'next/navigation';
+
 function Page({
   params: { slug },
 }: {
@@ -7,7 +9,8 @@ function Page({
     slug: string;
   };
 }) {
-  return <div />;
+  const pathname = usePathname();
+  return redirect(`${pathname}/community`);
 }
 
 export default Page;

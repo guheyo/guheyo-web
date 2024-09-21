@@ -45,6 +45,7 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
+      brandSlugs: defaultWhere.brandSlugs,
       createdAt: period
         ? {
             gt: convertPeriodToDateString(period),

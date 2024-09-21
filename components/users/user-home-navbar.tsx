@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import {
   PRIVATE_USER_HOME_OPTIONS,
   PUBLIC_USER_HOME_OPTIONS,
-} from './user-home.constants';
+} from '@/lib/user/user.constants';
 import { AuthContext } from '../auth/auth.provider';
 import TextNavbar from '../base/text-navbar';
 
