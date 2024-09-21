@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import BrandHome from '@/components/brand/brand-home';
 import { useFindBrandQuery } from '@/generated/graphql';
+import BrandHomeNavbar from '@/components/brand/brand-home-navbar';
 
 interface Props {
   children: ReactNode;
@@ -29,6 +30,7 @@ function Layout({ children, params }: Props) {
       <div className="px-2 pb-6">
         <BrandHome brand={brand} />
       </div>
+      <BrandHomeNavbar slug={brand.slug!} />
       {children}
     </div>
   );
