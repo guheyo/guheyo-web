@@ -31,6 +31,7 @@ function Layout({ children, params }: Props) {
         <BrandHome brand={brand} />
       </div>
       <BrandHomeNavbar slug={brand.slug!} />
+      <div className="pb-4" />
       {children}
     </div>
   );
