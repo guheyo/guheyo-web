@@ -473,6 +473,7 @@ export type FindThreadPreviewsOrderByInput = {
 };
 
 export type FindThreadPreviewsWhereInput = {
+  brandSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   categoryType?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
