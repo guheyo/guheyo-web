@@ -1,18 +1,24 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import {
   FindThreadPreviewsOrderByInput,
   FindThreadPreviewsWhereInput,
+  useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
+import { ThreadValues } from '@/lib/thread/thread.types';
+import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
+import { createThread } from '@/lib/api/thread';
 import ThreadPreview from './thread-preview';
+import ThreadCard from './thread-card';
+import { AuthContext } from '../auth/auth.provider';
 
 function ThreadFeed({
   defaultWhere,
@@ -23,6 +29,7 @@ function ThreadFeed({
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
   type: PostPreviewType;
 }) {
+  const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
@@ -38,6 +45,27 @@ function ThreadFeed({
     slug: categorySlug,
   });
 
+  const { data: UserData } = useFindAuthorQuery({
+    variables: {
+      id: jwtPayload?.id,
+    },
+  });
+  const user = UserData?.findAuthor;
+
+  const handleWrite = async (values: ThreadValues) => {
+    if (!jwtPayload || !group || !values.content) return;
+
+    const input = parseCreateThreadInput({
+      threadValues: {
+        ...values,
+        groupId: group.id,
+        categoryId: category?.id,
+        brandId: defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined,
+      },
+    });
+    await createThread(input);
+  };
+
   const { loading, data } = useInfiniteThreadFeed({
     ref,
     where: {
@@ -45,7 +73,7 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
-      brandSlugs: defaultWhere.brandSlugs,
+      brandIds: defaultWhere.brandIds,
       createdAt: period
         ? {
             gt: convertPeriodToDateString(period),
@@ -68,6 +96,25 @@ function ThreadFeed({
 
   return (
     <>
+      <div className="py-6">
+        <ThreadCard
+          user={user || undefined}
+          isCurrentUser
+          isAuthor={!!user?.id}
+          displayMenu
+          displayImagesInput
+          defaultMode="create"
+          images={[]}
+          reactions={[]}
+          textFieldProps={{
+            multiline: true,
+            placeholder: '메시지 보내기',
+            minRows: 1,
+            size: 'small',
+          }}
+          handleWrite={handleWrite}
+        />
+      </div>
       {edges.map((edge) => (
         <ThreadPreview
           key={edge.node.id}
