@@ -291,6 +291,7 @@ export type CreateOfferInput = {
 };
 
 export type CreatePostInput = {
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   groupId: Scalars['ID']['input'];
@@ -485,7 +486,7 @@ export type FindThreadPreviewsOrderByInput = {
 };
 
 export type FindThreadPreviewsWhereInput = {
-  brandSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  brandIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   categoryType?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
