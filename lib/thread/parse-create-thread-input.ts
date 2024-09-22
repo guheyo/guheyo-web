@@ -1,5 +1,6 @@
 import { CreatePostInput, CreateThreadInput } from '@/generated/graphql';
 import { ThreadValues } from './thread.types';
+import { THREAD } from './thread.constants';
 
 const parseCreateThreadInput = ({
   threadValues,
@@ -7,7 +8,7 @@ const parseCreateThreadInput = ({
   threadValues: ThreadValues;
 }): CreateThreadInput => {
   const postInput: CreatePostInput = {
-    type: 'thread',
+    type: THREAD,
     title: '',
     groupId: threadValues.groupId,
     categoryId: threadValues.categoryId,
