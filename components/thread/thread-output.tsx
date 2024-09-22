@@ -8,7 +8,7 @@ import {
 } from '@/generated/graphql';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ThreadMode } from '@/lib/thread/thread.types';
@@ -26,7 +26,7 @@ export default function ThreadOutput({
   createdAt,
   updatedAt,
   displayMenu,
-  commentReactions,
+  reactions,
   editable,
   deletable,
   handleMenuClick,
@@ -40,7 +40,7 @@ export default function ThreadOutput({
   createdAt?: Date;
   updatedAt?: Date;
   displayMenu: boolean;
-  commentReactions: ReactionResponse[];
+  reactions: ReactionResponse[];
   editable: boolean;
   deletable: boolean;
   handleMenuClick: (mode: ThreadMode) => void;
@@ -48,7 +48,6 @@ export default function ThreadOutput({
   const device = useDeviceDetect();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHovered, setIsHovered] = useState(false);
-  const [reactions, setReactions] = useState<ReactionResponse[]>([]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -57,10 +56,6 @@ export default function ThreadOutput({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-
-  useEffect(() => {
-    setReactions(commentReactions);
-  }, [commentReactions]);
 
   return (
     <div
