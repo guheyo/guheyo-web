@@ -26,7 +26,7 @@ function Page({
   if (!brand) return <div />;
 
   const where: FindThreadPreviewsWhereInput = {
-    brandSlugs: [slug],
+    brandIds: [brand.id],
   };
   const orderBy = undefined;
 
