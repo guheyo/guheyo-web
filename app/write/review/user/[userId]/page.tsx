@@ -63,6 +63,7 @@ export default function Page({
             type="listview"
             distinct={false}
             CheckboxResults={OfferCheckboxResults}
+            checkboxSize="medium"
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
             showNextButton
@@ -76,6 +77,7 @@ export default function Page({
             type="listview"
             distinct={false}
             CheckboxResults={AuctionCheckboxResults}
+            checkboxSize="medium"
             handleAuthorization={handleAuthorization}
             handleUnAuthorization={handleUnAuthorization}
             showNextButton
