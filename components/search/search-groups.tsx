@@ -1,10 +1,7 @@
 'use client';
 
-import { useSearchQuery } from '@/lib/search/use-search-query';
-import SearchInput from './search-input';
-import GroupProfiles from '../groups/group-profiles';
-import { DEBOUNCE } from './search.constants';
-import InfoFeedLayout from '../info/info-feed-layout';
+import SearchContainer from './search-container';
+import GroupProfileFeed from '../groups/group-profile-feed';
 
 export default function SearchGroups({
   placeholder,
@@ -13,28 +10,18 @@ export default function SearchGroups({
   placeholder: string;
   generateLink?: (slug: string) => string;
 }) {
-  const { text, setText } = useSearchQuery(DEBOUNCE);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setText(event.target.value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    // Do nothing
-  };
-
   return (
-    <div className="grid w-full">
-      <SearchInput
-        text={text}
-        setText={setText}
-        placeholder={placeholder}
-        handleKeyDown={handleKeyDown}
-        handleChange={handleChange}
-      />
-      <InfoFeedLayout>
-        <GroupProfiles generateLink={generateLink} />
-      </InfoFeedLayout>
-    </div>
+    <SearchContainer
+      placeholder={placeholder}
+      Feed={GroupProfileFeed}
+      feedProps={{
+        type: 'listview',
+        defaultWhere: {},
+        defaultOrderBy: {},
+        defaultDistinct: false,
+        generateLink,
+        size: 'medium',
+      }}
+    />
   );
 }
