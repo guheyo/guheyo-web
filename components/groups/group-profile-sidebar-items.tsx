@@ -20,7 +20,7 @@ export default function GroupProfileSidebarItems({
   const ref = useRef<HTMLDivElement>(null);
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
-    take: 3,
+    take: 4,
   });
 
   if (loading) return <div />;
