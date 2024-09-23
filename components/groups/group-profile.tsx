@@ -27,7 +27,11 @@ export default function GroupProfile({
   };
 
   return (
-    <div className="flex flex-row justify-between items-center p-4 bg-dark-400 rounded-lg text-gray-300">
+    <div
+      className={`flex flex-row justify-between items-center bg-dark-400 rounded-lg text-gray-300 ${
+        size === 'small' ? 'p-2' : 'p-4'
+      }`}
+    >
       <InfoCard
         name={name}
         icon={
