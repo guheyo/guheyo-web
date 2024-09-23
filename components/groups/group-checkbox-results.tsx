@@ -32,6 +32,9 @@ function GroupCheckboxResults({
 
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
+    orderBy: {
+      position: 'asc',
+    },
     keyword,
     target,
     take: 12,
