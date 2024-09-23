@@ -5,14 +5,27 @@ import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ComponentSize } from '@/lib/component/component.types';
+import { PostPreviewType } from '@/lib/post/post.types';
+import {
+  FindGroupProfilesOrderByInput,
+  FindGroupProfilesWhereInput,
+} from '@/generated/graphql';
 import GroupProfile from './group-profile';
 
-export default function GroupProfiles({
+export default function GroupProfileFeed({
+  type,
+  defaultWhere,
+  defaultOrderBy,
+  defaultDistinct,
   generateLink,
   size,
 }: {
+  type: PostPreviewType;
+  defaultWhere: FindGroupProfilesWhereInput;
+  defaultOrderBy: FindGroupProfilesOrderByInput;
+  defaultDistinct: boolean;
   generateLink?: (slug: string) => string;
-  size: ComponentSize;
+  size?: ComponentSize;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
@@ -21,6 +34,13 @@ export default function GroupProfiles({
 
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
+    where: {
+      ...defaultWhere,
+    },
+    orderBy: {
+      ...defaultOrderBy,
+      position: defaultOrderBy.position || 'asc',
+    },
     keyword,
     target,
     take: 1,
@@ -44,7 +64,7 @@ export default function GroupProfiles({
             name={group.node.name}
             icon={group.node.icon}
             description={group.node.description}
-            size={size}
+            size={size || 'medium'}
           />
         </Link>
       ))}
