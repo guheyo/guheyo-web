@@ -19,7 +19,7 @@ export default function SearchCheckbox({
   type,
   distinct,
   CheckboxResults,
-  checkboxSize,
+  size,
   handleClick,
   handleAuthorization,
   handleUnAuthorization,
@@ -33,7 +33,7 @@ export default function SearchCheckbox({
   type?: PostPreviewType;
   distinct?: boolean;
   CheckboxResults: React.ComponentType<any>;
-  checkboxSize: ComponentSize;
+  size: ComponentSize;
   handleClick?: (selectedIds: string[]) => void;
   handleAuthorization?: (selectedIds: string[]) => void;
   handleUnAuthorization?: MouseEventHandler;
@@ -93,7 +93,7 @@ export default function SearchCheckbox({
           userIdToExclude={jwtPayload?.id}
           control={control}
           handleCheckboxClick={handleCheckboxClick}
-          checkboxSize={checkboxSize}
+          size={size}
         />
       </div>
 
