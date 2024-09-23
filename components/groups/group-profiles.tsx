@@ -4,12 +4,15 @@ import { useRef } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { ComponentSize } from '@/lib/component/component.types';
 import GroupProfile from './group-profile';
 
 export default function GroupProfiles({
   generateLink,
+  size,
 }: {
   generateLink?: (slug: string) => string;
+  size: ComponentSize;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
@@ -41,6 +44,7 @@ export default function GroupProfiles({
             name={group.node.name}
             icon={group.node.icon}
             description={group.node.description}
+            size={size}
           />
         </Link>
       ))}

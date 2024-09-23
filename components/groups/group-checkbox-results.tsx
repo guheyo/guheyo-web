@@ -8,6 +8,7 @@ import { Control, useController } from 'react-hook-form';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import { ComponentSize } from '@/lib/component/component.types';
 import GroupProfile from './group-profile';
 
 const {
@@ -17,9 +18,11 @@ const {
 function GroupCheckboxResults({
   control,
   handleCheckboxClick,
+  size,
 }: {
   control: Control<CheckboxFormValues>;
   handleCheckboxClick: (seletedId: string) => void;
+  size: ComponentSize;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
@@ -57,6 +60,7 @@ function GroupCheckboxResults({
               name={edge.node.name}
               icon={edge.node.icon}
               description={edge.node.description}
+              size={size}
             />
           </div>
         </div>
