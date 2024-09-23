@@ -6,7 +6,7 @@ export interface FeedComponentProps {
   defaultWhere: any;
   defaultOrderBy: any;
   defaultDistinct: boolean;
-  generateLink?: (slug: string) => string;
+  generateLink?: (value: string) => string;
   size?: ComponentSize;
 }
 

@@ -8,7 +8,7 @@ export default function SearchGroups({
   generateLink,
 }: {
   placeholder: string;
-  generateLink?: (slug: string) => string;
+  generateLink?: (value: string) => string;
 }) {
   return (
     <SearchContainer

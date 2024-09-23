@@ -24,7 +24,7 @@ export default function GroupProfileFeed({
   defaultWhere: FindGroupProfilesWhereInput;
   defaultOrderBy: FindGroupProfilesOrderByInput;
   defaultDistinct: boolean;
-  generateLink?: (slug: string) => string;
+  generateLink?: (value: string) => string;
   size?: ComponentSize;
 }) {
   const ref = useRef<HTMLDivElement>(null);
