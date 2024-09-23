@@ -4,7 +4,7 @@ import { AuthContext } from '@/components/auth/auth.provider';
 import NextDialog from '@/components/auth/next-dialog';
 import SearchInput from '@/components/search/search-input';
 import { DEBOUNCE } from '@/components/search/search.constants';
-import { CheckboxSize } from '@/lib/checkbox/checkbox.types';
+import { ComponentSize } from '@/lib/component/component.types';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { CheckboxFormValues } from '@/lib/search/search.types';
 import { useSearchQuery } from '@/lib/search/use-search-query';
@@ -33,7 +33,7 @@ export default function SearchCheckbox({
   type?: PostPreviewType;
   distinct?: boolean;
   CheckboxResults: React.ComponentType<any>;
-  checkboxSize: CheckboxSize;
+  checkboxSize: ComponentSize;
   handleClick?: (selectedIds: string[]) => void;
   handleAuthorization?: (selectedIds: string[]) => void;
   handleUnAuthorization?: MouseEventHandler;
