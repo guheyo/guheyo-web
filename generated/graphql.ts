@@ -452,6 +452,7 @@ export type FindCommentsWhereInput = {
 
 export type FindGroupProfilesOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindGroupProfilesWhereInput = {
