@@ -159,8 +159,7 @@ export default function ThreadCard({
   const handleClickImagePreview = async (position: number) => {
     if (defaultMode !== 'create') return;
 
-    const imageId = postImages.find((image) => image.position === position)
-      ?.id;
+    const imageId = postImages.find((image) => image.position === position)?.id;
     if (!imageId) return;
 
     await deleteUserImage(imageId);

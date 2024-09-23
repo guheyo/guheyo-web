@@ -1,20 +1,30 @@
-import { useFindGroupProfilesQuery } from '@/generated/graphql';
+import {
+  FindGroupProfilesOrderByInput,
+  FindGroupProfilesWhereInput,
+  useFindGroupProfilesQuery,
+} from '@/generated/graphql';
 import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteGroupProfiles = ({
   ref,
+  where,
+  orderBy,
   keyword,
   target,
   take,
 }: {
   ref: RefObject<HTMLDivElement>;
+  where?: FindGroupProfilesWhereInput;
+  orderBy?: FindGroupProfilesOrderByInput;
   keyword?: string;
   target?: string;
   take: number;
 }) => {
   const { loading, data, fetchMore } = useFindGroupProfilesQuery({
     variables: {
+      where,
+      orderBy,
       keyword,
       target,
       take,
@@ -27,6 +37,8 @@ export const useInfiniteGroupProfiles = ({
     () =>
       fetchMore({
         variables: {
+          where,
+          orderBy,
           keyword,
           target,
           cursor: data?.findGroupProfiles.pageInfo.endCursor,

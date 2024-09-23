@@ -450,6 +450,15 @@ export type FindCommentsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindGroupProfilesOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindGroupProfilesWhereInput = {
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type FindOfferPreviewsOrderByInput = {
   bumpedAt?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['String']['input']>;
@@ -1232,9 +1241,11 @@ export type QueryFindGroupArgs = {
 export type QueryFindGroupProfilesArgs = {
   cursor?: InputMaybe<Scalars['ID']['input']>;
   keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindGroupProfilesOrderByInput>;
   skip?: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindGroupProfilesWhereInput>;
 };
 
 
@@ -2072,6 +2083,8 @@ export type FindGroupsQueryVariables = Exact<{
 export type FindGroupsQuery = { __typename?: 'Query', findGroups: { __typename?: 'PaginatedGroupsResponse', edges: Array<{ __typename?: 'GroupResponseEdge', node: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null } } };
 
 export type FindGroupProfilesQueryVariables = Exact<{
+  where?: InputMaybe<FindGroupProfilesWhereInput>;
+  orderBy?: InputMaybe<FindGroupProfilesOrderByInput>;
   keyword?: InputMaybe<Scalars['String']['input']>;
   target?: InputMaybe<Scalars['String']['input']>;
   cursor?: InputMaybe<Scalars['ID']['input']>;
@@ -4475,8 +4488,10 @@ export function refetchFindGroupsQuery(variables: FindGroupsQueryVariables) {
       return { query: FindGroupsDocument, variables: variables }
     }
 export const FindGroupProfilesDocument = gql`
-    query FindGroupProfiles($keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+    query FindGroupProfiles($where: FindGroupProfilesWhereInput, $orderBy: FindGroupProfilesOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroupProfiles(
+    where: $where
+    orderBy: $orderBy
     keyword: $keyword
     target: $target
     cursor: $cursor
@@ -4509,6 +4524,8 @@ export const FindGroupProfilesDocument = gql`
  * @example
  * const { data, loading, error } = useFindGroupProfilesQuery({
  *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
  *      keyword: // value for 'keyword'
  *      target: // value for 'target'
  *      cursor: // value for 'cursor'

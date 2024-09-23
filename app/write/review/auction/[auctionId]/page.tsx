@@ -42,6 +42,7 @@ export default function Page({
         placeholder="어떤 멤버와 거래했나요?"
         where={where}
         CheckboxResults={BidderCheckboxResults}
+        size="medium"
         handleAuthorization={handleAuthorization}
         handleUnAuthorization={handleUnAuthorization}
         showNextButton
