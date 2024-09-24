@@ -32,12 +32,14 @@ export default function InfiniteScrollSelector({
       onChange={handleChange}
       sx={{
         color: '#f2f3ed',
+        bgcolor: '#5865F2',
         fontWeight: 'bold',
-        height: '36px',
+        height: '28px',
+        borderRadius: '30px',
         '& .MuiSelect-select .notranslate::after': placeholder
           ? {
               content: `"${placeholder}"`,
-              opacity: 0.7,
+              opacity: 0.9,
             }
           : {},
       }}
