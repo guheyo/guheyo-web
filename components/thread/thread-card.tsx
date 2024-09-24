@@ -48,6 +48,7 @@ export default function ThreadCard({
   handleWrite,
   handleEdit,
   handleDelete,
+  handleFocus,
 }: {
   user?: AuthorResponse;
   isCurrentUser: boolean;
@@ -66,6 +67,7 @@ export default function ThreadCard({
   handleWrite: (values: ThreadValues) => void;
   handleEdit?: (values: ThreadValues) => void;
   handleDelete?: (values: ThreadValues) => void;
+  handleFocus?: () => void;
 }) {
   const [mode, setMode] = useState<ThreadMode>('read');
   const device = useDeviceDetect();
@@ -214,6 +216,7 @@ export default function ThreadCard({
               textFieldProps={{
                 ...textFieldProps,
                 onKeyDown: handleKeyDown,
+                onFocus: handleFocus,
               }}
             />
           </div>
