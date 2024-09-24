@@ -46,7 +46,7 @@ export default function GroupSelector({
         label: groupProfile.node.name,
         imageUrl: groupProfile.node.icon || undefined,
       }))}
-      inputClassName="text-xs md:text-sm font-medium"
+      inputClassName="text-[10px] md:text-xs font-medium"
       ref={ref}
       handleChange={handleChange}
     />
