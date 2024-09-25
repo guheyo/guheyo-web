@@ -2,10 +2,10 @@
 
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { useRef } from 'react';
-import CommunityHomeFeedLayout from './community-home-feed.layout';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 import { Mocks } from '../mock/mock';
+import TopicHomeFeedLayout from '../topic/topic-home-feed.layout';
 
 export default function CommunityHome() {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,8 +24,7 @@ export default function CommunityHome() {
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
 
   return (
-    <CommunityHomeFeedLayout
-      communityChannelType="topic"
+    <TopicHomeFeedLayout
       hideGroupProfileSidebarItems
       showChannels={false}
       showCategories={false}
@@ -56,6 +55,6 @@ export default function CommunityHome() {
             return <div key={item.node.id} />;
         }
       })}
-    </CommunityHomeFeedLayout>
+    </TopicHomeFeedLayout>
   );
 }
