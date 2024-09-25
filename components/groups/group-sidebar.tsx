@@ -124,12 +124,12 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'community',
+              channelName: 'topic',
               groupSlug: group?.slug,
             })}
             icon={<ForumIcon fontSize="medium" />}
             text="커뮤니티"
-            isActive={activeItem === 'community'}
+            isActive={activeItem === 'topic'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
