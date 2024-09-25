@@ -4,13 +4,16 @@ import { useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import { FindGroupProfilesWhereInput } from '@/generated/graphql';
 import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
 
 export default function GroupSelector({
   handleClick,
+  defaultWhere,
   selectedId,
 }: {
   handleClick: (id: string) => void;
+  defaultWhere?: FindGroupProfilesWhereInput;
   selectedId: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,6 +23,9 @@ export default function GroupSelector({
 
   const { loading, data } = useInfiniteGroupProfiles({
     ref,
+    where: {
+      ...defaultWhere,
+    },
     orderBy: {
       position: 'asc',
     },
