@@ -3,11 +3,11 @@
 import { ReactNode } from 'react';
 import HomeFeedLayout from '../home/home-feed.layout';
 import BrandMoreLink from './brand-more-link';
-import BrandHomeLink from './brand-home-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import BrandSelectors from './brand-selectors';
 import BrandTabNavbar from './brand-tab-navbar';
 import CommunityChannelNavbar from '../community/community-channel-navbar';
+import CommunityHomeLink from '../community/community-home-link';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +29,7 @@ function BrandHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="thumbnail"
-      homeLink={<BrandHomeLink />}
+      homeLink={<CommunityHomeLink communityChannelType="brand" />}
       path="brand"
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       tabs={showTabs ? <BrandTabNavbar /> : undefined}

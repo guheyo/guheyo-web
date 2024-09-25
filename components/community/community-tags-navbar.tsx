@@ -6,13 +6,10 @@ import { CITIY_NAMES } from '@/lib/community/community.constants';
 import { Option } from '@/interfaces/selector.interfaces';
 import TextNavbar from '../base/text-navbar';
 
-export default function CommunityTagsNavbar({
-  categorySlug,
-}: {
-  categorySlug: string;
-}) {
+export default function CommunityTagsNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category') || undefined;
   const selectedValue = searchParams.get('tag') || undefined;
 
   let options: Option[];
