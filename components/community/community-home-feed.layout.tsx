@@ -50,8 +50,10 @@ function CommunityHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<CommunityHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'community'}
+      homeLink={
+        <CommunityHomeLink communityChannelType={communityChannelType} />
+      }
+      path={hideGroupProfileSidebarItems ? undefined : communityChannelType}
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
       tags={renderTagsNavbar()}
