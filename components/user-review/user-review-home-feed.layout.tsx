@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { CommunityChannelType } from '@/lib/community/community.types';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from './manner-tags-navbar';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
@@ -44,7 +43,9 @@ function UserReviewHomeFeedLayout({
           </>
         )
       }
-      moreLink={showMoreLink && <CommunityMoreLink />}
+      moreLink={
+        showMoreLink && <CommunityMoreLink communityChannelType="review" />
+      }
     >
       {children}
     </HomeFeedLayout>
