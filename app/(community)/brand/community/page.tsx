@@ -8,6 +8,7 @@ export default function Page() {
   return (
     <Suspense>
       <BrandHomeFeedLayout
+        postPreviewType="listview"
         showChannels
         showTabs
         showCategories={false}
