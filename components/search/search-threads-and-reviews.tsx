@@ -27,7 +27,7 @@ export default function SearchThreadsAndReviews() {
         categorySlug === 'review' ? (
           <MannerTagsNavbar />
         ) : (
-          <CommunityTagsNavbar categorySlug={categorySlug || ''} />
+          <CommunityTagsNavbar />
         )
       }
       Feed={ThreadAndReviewFeed}
