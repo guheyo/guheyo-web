@@ -12,26 +12,25 @@ import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
-import { ThreadValues } from '@/lib/thread/thread.types';
-import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
-import { createThread } from '@/lib/api/thread';
 import ThreadPreview from './thread-preview';
-import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
+import ThreadCardContainer from './thread-card-container';
 
 function ThreadFeed({
   defaultWhere,
   defaultOrderBy,
   type,
+  showInput,
 }: {
   defaultWhere: FindThreadPreviewsWhereInput;
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
   type: PostPreviewType;
+  showInput: boolean;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup('root');
+  const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const period = searchParams.get('period');
@@ -51,20 +50,6 @@ function ThreadFeed({
     },
   });
   const user = UserData?.findAuthor;
-
-  const handleWrite = async (values: ThreadValues) => {
-    if (!jwtPayload || !group || !values.content) return;
-
-    const input = parseCreateThreadInput({
-      threadValues: {
-        ...values,
-        groupId: group.id,
-        categoryId: category?.id,
-        brandId: defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined,
-      },
-    });
-    await createThread(input);
-  };
 
   const { loading, data } = useInfiniteThreadFeed({
     ref,
@@ -93,28 +78,19 @@ function ThreadFeed({
   if (!data?.findThreadPreviews) return <div />;
 
   const { edges } = data.findThreadPreviews;
-
   return (
     <>
-      <div className="py-6">
-        <ThreadCard
-          user={user || undefined}
-          isCurrentUser
-          isAuthor={!!user?.id}
-          displayMenu
-          displayImagesInput
-          defaultMode="create"
-          images={[]}
-          reactions={[]}
-          textFieldProps={{
-            multiline: true,
-            placeholder: '메시지 보내기',
-            minRows: 1,
-            size: 'small',
-          }}
-          handleWrite={handleWrite}
-        />
-      </div>
+      {showInput && (
+        <div className="py-6">
+          <ThreadCardContainer
+            user={user || undefined}
+            categoryTypes={undefined}
+            brandId={
+              defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
+            }
+          />
+        </div>
+      )}
       {edges.map((edge) => (
         <ThreadPreview
           key={edge.node.id}

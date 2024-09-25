@@ -29,6 +29,7 @@ export default function Page() {
           type="listview"
           defaultWhere={where}
           defaultOrderBy={orderBy}
+          showInput
         />
       </GbHomeFeedLayout>
     </Suspense>

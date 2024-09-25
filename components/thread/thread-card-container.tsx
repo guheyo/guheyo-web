@@ -1,0 +1,92 @@
+'use client';
+
+import { AuthorResponse } from '@/generated/graphql';
+import { ThreadValues } from '@/lib/thread/thread.types';
+import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
+import { useContext, useState } from 'react';
+import { createThread } from '@/lib/api/thread';
+import CategorySelector from '../categories/category-selector';
+import GroupSelector from '../groups/group-selector';
+import ThreadCard from './thread-card';
+import { AuthContext } from '../auth/auth.provider';
+
+export default function ThreadCardContainer({
+  user,
+  categoryTypes,
+  brandId,
+}: {
+  user?: AuthorResponse;
+  categoryTypes?: string[];
+  brandId?: string;
+}) {
+  const { jwtPayload } = useContext(AuthContext);
+  const [groupId, setGroupId] = useState<string | undefined>();
+  const [categoryId, setCategoryId] = useState<string | undefined>();
+  const [focused, setFocused] = useState(false);
+
+  const handleClickGroup = (id: string) => {
+    setGroupId(id);
+  };
+
+  const handleClickCategory = (id: string) => {
+    setCategoryId(id);
+  };
+
+  const handleWrite = async (values: ThreadValues) => {
+    if (!jwtPayload || !groupId || !categoryId || !values.content) return;
+
+    const input = parseCreateThreadInput({
+      threadValues: {
+        ...values,
+        groupId,
+        categoryId,
+        brandId,
+      },
+    });
+    await createThread(input);
+  };
+
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  return (
+    <div>
+      {focused && (
+        <div className="flex flex-row items-center gap-2 justify-end">
+          <GroupSelector
+            handleClick={handleClickGroup}
+            defaultWhere={{ brandIds: brandId ? [brandId] : undefined }}
+            selectedId={groupId || ''}
+          />
+          {(categoryTypes === undefined || categoryTypes.length > 0) && (
+            <CategorySelector
+              groupId={groupId}
+              categoryTypes={categoryTypes}
+              handleClick={handleClickCategory}
+              selectedId={categoryId || ''}
+            />
+          )}
+        </div>
+      )}
+      <ThreadCard
+        user={user || undefined}
+        isCurrentUser
+        isAuthor={!!user?.id}
+        displayMenu
+        displayImagesInput
+        defaultMode="create"
+        images={[]}
+        reactions={[]}
+        textFieldProps={{
+          multiline: true,
+          placeholder: '글 작성하기',
+          minRows: 1,
+          size: 'small',
+        }}
+        handleWrite={handleWrite}
+        handleFocus={handleFocus}
+      />
+    </div>
+  );
+}

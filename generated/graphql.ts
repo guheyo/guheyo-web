@@ -456,6 +456,7 @@ export type FindGroupProfilesOrderByInput = {
 };
 
 export type FindGroupProfilesWhereInput = {
+  brandIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
 };
 
