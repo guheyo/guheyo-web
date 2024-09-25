@@ -11,15 +11,12 @@ import CommunityMoreLink from './community-more-link';
 import CommunitySelectors from './community-selectors';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import CommunityChannelNavbar from './community-channel-navbar';
-import BrandSelectors from '../brand/brand-selectors';
-import BrandTabNavbar from '../brand/brand-tab-navbar';
 
 interface Props {
   children: ReactNode;
   communityChannelType: CommunityChannelType;
   hideGroupProfileSidebarItems?: boolean;
   showChannels: boolean;
-  showTabs: boolean;
   showCategories: boolean;
   showTags: boolean;
   showSelectors: boolean;
@@ -31,7 +28,6 @@ function CommunityHomeFeedLayout({
   communityChannelType,
   hideGroupProfileSidebarItems,
   showChannels,
-  showTabs,
   showCategories,
   showTags,
   showSelectors,
@@ -58,7 +54,6 @@ function CommunityHomeFeedLayout({
         <CommunityHomeLink communityChannelType={communityChannelType} />
       }
       path={hideGroupProfileSidebarItems ? undefined : communityChannelType}
-      tabs={showTabs ? <BrandTabNavbar /> : undefined}
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
       tags={renderTagsNavbar()}
@@ -66,11 +61,7 @@ function CommunityHomeFeedLayout({
         showSelectors && (
           <>
             <FollowFilterClickButton />
-            {communityChannelType === 'brand' ? (
-              <BrandSelectors />
-            ) : (
-              <CommunitySelectors />
-            )}
+            <CommunitySelectors />
           </>
         )
       }
