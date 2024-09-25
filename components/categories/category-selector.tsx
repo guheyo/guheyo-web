@@ -2,15 +2,17 @@
 
 import { useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
-import { CategoryResponse } from '@/generated/graphql';
+import { useFindGroupQuery } from '@/generated/graphql';
 import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
 
 export default function CategorySelector({
-  categories,
+  groupId,
+  categoryTypes,
   handleClick,
   selectedId,
 }: {
-  categories: CategoryResponse[];
+  groupId?: string;
+  categoryTypes?: string[];
   handleClick: (id: string) => void;
   selectedId: string;
 }) {
@@ -20,6 +22,19 @@ export default function CategorySelector({
     const id = e.target.value;
     handleClick(id);
   };
+
+  const { data } = useFindGroupQuery({
+    variables: {
+      id: groupId,
+    },
+    fetchPolicy: 'cache-first',
+  });
+  const group = data?.findGroup;
+
+  const categories =
+    group?.categories.filter((category) =>
+      categoryTypes ? categoryTypes.includes(category.type) : true,
+    ) || [];
 
   return (
     <InfiniteScrollSelector
