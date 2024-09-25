@@ -25,7 +25,9 @@ export default function CommunityHome() {
 
   return (
     <CommunityHomeFeedLayout
+      communityChannelType="topic"
       hideGroupProfileSidebarItems
+      showChannels={false}
       showCategories={false}
       showTags={false}
       showSelectors={false}
