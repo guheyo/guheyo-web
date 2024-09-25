@@ -43,7 +43,7 @@ export default function GroupProfileFeed({
     },
     keyword,
     target,
-    take: 1,
+    take: 4,
   });
   if (loading) return <div />;
   if (!data?.findGroupProfiles) return <div />;
