@@ -4,10 +4,12 @@ import BrandFeed from '@/components/brand/brand-feed';
 import BrandHomeFeedLayout from '@/components/brand/brand-home-feed.layout';
 import { Suspense } from 'react';
 
-function Page() {
+export default function Page() {
   return (
     <Suspense>
       <BrandHomeFeedLayout
+        showChannels
+        showTabs
         showCategories={false}
         showSelectors
         showMoreLink={false}
@@ -17,5 +19,3 @@ function Page() {
     </Suspense>
   );
 }
-
-export default Page;
