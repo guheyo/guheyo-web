@@ -12,7 +12,6 @@ import CommunityMoreLink from '../community/community-more-link';
 
 interface Props {
   children: ReactNode;
-  communityChannelType: CommunityChannelType;
   hideGroupProfileSidebarItems?: boolean;
   showChannels: boolean;
   showCategories: boolean;
@@ -23,7 +22,6 @@ interface Props {
 
 function UserReviewHomeFeedLayout({
   children,
-  communityChannelType,
   hideGroupProfileSidebarItems,
   showChannels,
   showCategories,
@@ -34,10 +32,8 @@ function UserReviewHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={
-        <CommunityHomeLink communityChannelType={communityChannelType} />
-      }
-      path={hideGroupProfileSidebarItems ? undefined : communityChannelType}
+      homeLink={<CommunityHomeLink communityChannelType="review" />}
+      path={hideGroupProfileSidebarItems ? undefined : 'review'}
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       tags={showTags ? <MannerTagsNavbar /> : undefined}
       selectors={

@@ -14,7 +14,6 @@ export default function Page() {
   return (
     <Suspense>
       <UserReviewHomeFeedLayout
-        communityChannelType="review"
         showChannels
         showCategories={false}
         showTags
