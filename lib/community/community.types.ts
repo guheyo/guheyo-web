@@ -1,1 +1,1 @@
-export type CommunityType = 'thread' | 'review';
+export type CommunityChannelType = 'topic' | 'brand' | 'review';
