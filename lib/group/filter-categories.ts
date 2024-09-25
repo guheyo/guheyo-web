@@ -4,6 +4,9 @@ export const filterCategories = ({
   types,
   categories,
 }: {
-  types: string[];
+  types?: string[];
   categories: CategoryResponse[];
-}) => categories?.filter((category) => types.includes(category.type));
+}) =>
+  types
+    ? categories?.filter((category) => types.includes(category.type))
+    : categories;

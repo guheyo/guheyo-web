@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useFindGroupQuery } from '@/generated/graphql';
+import { filterCategories } from '@/lib/group/filter-categories';
 import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
 
 export default function CategorySelector({
@@ -31,10 +32,10 @@ export default function CategorySelector({
   });
   const group = data?.findGroup;
 
-  const categories =
-    group?.categories.filter((category) =>
-      categoryTypes ? categoryTypes.includes(category.type) : true,
-    ) || [];
+  const categories = filterCategories({
+    types: categoryTypes,
+    categories: group?.categories || [],
+  });
 
   return (
     <InfiniteScrollSelector
