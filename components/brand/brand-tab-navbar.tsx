@@ -2,32 +2,17 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { parseNewURL } from '@/lib/query-string/parse-new-url';
-import { useGroup } from '@/hooks/use-group';
+import { BRAND_TAB_OPTIONS } from '@/lib/brand/brand.constants';
 import TextNavbar from '../base/text-navbar';
 
-export default function CommunityCategoriesNavbar() {
+export default function BrandTabNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const selectedValue = searchParams.get('category') || undefined;
-
-  const { group } = useGroup('root');
-  const categories =
-    group?.categories.filter((category) => category.type === 'community') || [];
-
-  const options = categories.map((category) => ({
-    value: category.slug!,
-    label: category.name,
-  }));
+  const selectedValue = searchParams.get('tab') || undefined;
 
   return (
     <TextNavbar
-      options={[
-        {
-          value: 'all',
-          label: '전체',
-        },
-        ...options,
-      ]}
+      options={BRAND_TAB_OPTIONS}
       selectedValue={selectedValue}
       parseNewURL={(value) =>
         parseNewURL({
@@ -35,7 +20,7 @@ export default function CommunityCategoriesNavbar() {
           pathname,
           paramsToUpdate: [
             {
-              name: 'category',
+              name: 'tab',
               value,
             },
           ],

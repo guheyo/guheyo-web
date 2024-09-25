@@ -30,7 +30,7 @@ function ThreadFeed({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup();
+  const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const period = searchParams.get('period');

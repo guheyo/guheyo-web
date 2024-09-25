@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { CommunityChannelType } from '@/lib/community/community.types';
 import CommunityHomeLink from './community-home-link';
 import CommunityCategoriesNavbar from './community-categories-navbar';
 import HomeFeedLayout from '../home/home-feed.layout';
@@ -10,10 +10,13 @@ import CommunityTagsNavbar from './community-tags-navbar';
 import CommunityMoreLink from './community-more-link';
 import CommunitySelectors from './community-selectors';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import CommunityChannelNavbar from './community-channel-navbar';
 
 interface Props {
   children: ReactNode;
+  communityChannelType: CommunityChannelType;
   hideGroupProfileSidebarItems?: boolean;
+  showChannels: boolean;
   showCategories: boolean;
   showTags: boolean;
   showSelectors: boolean;
@@ -22,30 +25,38 @@ interface Props {
 
 function CommunityHomeFeedLayout({
   children,
+  communityChannelType,
   hideGroupProfileSidebarItems,
+  showChannels,
   showCategories,
   showTags,
   showSelectors,
   showMoreLink,
 }: Props) {
-  const searchParams = useSearchParams();
-  const categorySlug = searchParams.get('category');
+  const renderTagsNavbar = () => {
+    if (!showTags) return undefined;
+
+    if (communityChannelType === 'topic') {
+      return <CommunityTagsNavbar categorySlug={communityChannelType || ''} />;
+    }
+
+    if (communityChannelType === 'review') {
+      return <MannerTagsNavbar />;
+    }
+
+    return undefined;
+  };
 
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<CommunityHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'community'}
-      categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
-      tags={
-        showTags ? (
-          categorySlug === 'review' ? (
-            <MannerTagsNavbar />
-          ) : (
-            <CommunityTagsNavbar categorySlug={categorySlug || ''} />
-          )
-        ) : undefined
+      homeLink={
+        <CommunityHomeLink communityChannelType={communityChannelType} />
       }
+      path={hideGroupProfileSidebarItems ? undefined : communityChannelType}
+      channels={showChannels ? <CommunityChannelNavbar /> : undefined}
+      categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
+      tags={renderTagsNavbar()}
       selectors={
         showSelectors && (
           <>

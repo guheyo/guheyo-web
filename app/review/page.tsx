@@ -1,7 +1,7 @@
 'use client';
 
 import CommunityHomeFeedLayout from '@/components/community/community-home-feed.layout';
-import ThreadAndReviewFeed from '@/components/community/thread-and-review-feed';
+import UserReviewFeed from '@/components/user-review/user-review-feed';
 import { SortOrder } from '@/types/sort.types';
 import { Suspense } from 'react';
 
@@ -14,16 +14,14 @@ export default function Page() {
   return (
     <Suspense>
       <CommunityHomeFeedLayout
-        showCategories
+        communityChannelType="review"
+        showChannels
+        showCategories={false}
         showTags
         showSelectors
         showMoreLink={false}
       >
-        <ThreadAndReviewFeed
-          type="listview"
-          defaultWhere={where}
-          defaultOrderBy={orderBy}
-        />
+        <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
       </CommunityHomeFeedLayout>
     </Suspense>
   );
