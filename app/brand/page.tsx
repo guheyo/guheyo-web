@@ -15,7 +15,7 @@ export default function Page() {
         showSelectors
         showMoreLink={false}
       >
-        <BrandFeed />
+        <BrandFeed type="thumbnail" />
       </BrandHomeFeedLayout>
     </Suspense>
   );
