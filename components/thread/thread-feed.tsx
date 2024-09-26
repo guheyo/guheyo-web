@@ -33,6 +33,9 @@ function ThreadFeed({
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const tagName = [null, 'all'].includes(searchParams.get('tag'))
+    ? undefined
+    : searchParams.get('tag');
   const period = searchParams.get('period');
   const followed = [null, 'all'].includes(searchParams.get('followed'))
     ? undefined
@@ -58,6 +61,7 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
+      tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
       brandIds: defaultWhere.brandIds,
       createdAt: period
         ? {
