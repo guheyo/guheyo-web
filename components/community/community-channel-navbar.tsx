@@ -1,6 +1,5 @@
 'use client';
 
-import { COMMUNITY_CHANNEL_OPTIONS } from '@/lib/community/community.constants';
 import { useGroup } from '@/hooks/use-group';
 import { usePathname } from 'next/navigation';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
@@ -15,7 +14,8 @@ export default function CommunityChannelNavbar() {
 
   return (
     <TextNavbar
-      options={COMMUNITY_CHANNEL_OPTIONS}
+      // NOTE: removed community channel options
+      options={[]}
       selectedValue={selectedValue}
       parseNewURL={(value) =>
         parseChannelLink({ channelName: value, groupSlug: group?.slug })
