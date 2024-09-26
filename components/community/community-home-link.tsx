@@ -2,15 +2,10 @@
 
 import ForumIcon from '@mui/icons-material/Forum';
 import HomeLinkLayout from '@/components/home/home-link.layout';
-import { CommunityChannelType } from '@/lib/community/community.types';
 
-function CommunityHomeLink({
-  communityChannelType,
-}: {
-  communityChannelType: CommunityChannelType;
-}) {
+function CommunityHomeLink() {
   return (
-    <HomeLinkLayout path={communityChannelType}>
+    <HomeLinkLayout path="community">
       <ForumIcon />
       <div>커뮤니티</div>
     </HomeLinkLayout>
