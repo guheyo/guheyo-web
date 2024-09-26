@@ -13,6 +13,7 @@ const findLocation = (pathname: string) => {
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
   if (/^\/g\/[\w-]*\/(gb)/.test(pathname)) return 'group-gb';
   if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
+  if (/^\/g\/[\w-]*\/brand/.test(pathname)) return 'group-brand';
   if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
   if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
   if (/^\/user\//.test(pathname)) return 'user';
@@ -20,6 +21,7 @@ const findLocation = (pathname: string) => {
   if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
   if (/^\/(gb)(\?.*)?$/.test(pathname)) return 'gb';
   if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
+  if (/^\/brand(\?.*)?$/.test(pathname)) return 'brand';
   if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
   if (/^\/report(\?.*)?$/.test(pathname)) return 'report';
   if (/^\/search$/.test(pathname)) return 'search-group';
@@ -33,12 +35,14 @@ const findHideButton = (location: string): boolean =>
     'group-auction',
     'group-gb',
     'group-community',
+    'group-brand',
     'group-member',
     'group-report',
     'market',
     'auction',
     'gb',
     'community',
+    'brand',
     'member',
     'report',
   ].includes(location);
@@ -53,6 +57,8 @@ const findPlaceholder = (location: string): string => {
     return '공동구매를 검색해보세요';
   if (location === 'community' || location === 'group-community')
     return '스레드를 검색해보세요';
+  if (location === 'brand' || location === 'group-brand')
+    return '브랜드를 검색해보세요';
   if (location === 'member' || location === 'group-member')
     return '멤버를 검색해보세요';
   if (location === 'report' || location === 'group-report')
@@ -80,6 +86,9 @@ export default function SearchButton() {
     else if (location === 'group-community')
       router.push(`/search/community?group=${group?.slug}`);
     else if (location === 'community') router.push(`/search/community`);
+    else if (location === 'group-brand')
+      router.push(`/search/brand?group=${group?.slug}`);
+    else if (location === 'brand') router.push(`/search/brand`);
     else if (location === 'group-member')
       router.push(`/search/member?group=${group?.slug}`);
     else if (location === 'member') router.push(`/search/member`);
