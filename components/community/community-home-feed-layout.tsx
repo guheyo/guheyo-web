@@ -29,7 +29,7 @@ function CommunityHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<CommunityHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'gb'}
+      path={hideGroupProfileSidebarItems ? undefined : 'community'}
       categories={showCategories ? <CommunityCategoriesNavbar /> : undefined}
       selectors={
         showSelectors && (
