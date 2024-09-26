@@ -31,7 +31,7 @@ function UserReviewHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<CommunityHomeLink communityChannelType="review" />}
+      homeLink={<CommunityHomeLink />}
       path={hideGroupProfileSidebarItems ? undefined : 'review'}
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       tags={showTags ? <MannerTagsNavbar /> : undefined}
@@ -43,9 +43,7 @@ function UserReviewHomeFeedLayout({
           </>
         )
       }
-      moreLink={
-        showMoreLink && <CommunityMoreLink communityChannelType="review" />
-      }
+      moreLink={showMoreLink && <CommunityMoreLink />}
     >
       {children}
     </HomeFeedLayout>
