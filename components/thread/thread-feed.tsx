@@ -18,15 +18,15 @@ import { AuthContext } from '../auth/auth.provider';
 import ThreadCardContainer from './thread-card-container';
 
 function ThreadFeed({
+  type,
   defaultWhere,
   defaultOrderBy,
-  type,
   showInput,
 }: {
+  type: PostPreviewType;
   defaultWhere: FindThreadPreviewsWhereInput;
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
-  type: PostPreviewType;
-  showInput: boolean;
+  showInput?: boolean;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
