@@ -12,10 +12,12 @@ import { AuthContext } from '../auth/auth.provider';
 
 export default function ThreadCardContainer({
   user,
+  groupIds,
   categoryTypes,
   brandId,
 }: {
   user?: AuthorResponse;
+  groupIds?: string[];
   categoryTypes?: string[];
   brandId?: string;
 }) {
@@ -56,8 +58,12 @@ export default function ThreadCardContainer({
         <div className="flex flex-row items-center gap-2 justify-end">
           <GroupSelector
             handleClick={handleClickGroup}
-            defaultWhere={{ brandIds: brandId ? [brandId] : undefined }}
+            defaultWhere={{
+              groupIds,
+              brandIds: brandId ? [brandId] : undefined,
+            }}
             selectedId={groupId || ''}
+            setGroupId={setGroupId}
           />
           {(categoryTypes === undefined || categoryTypes.length > 0) && (
             <CategorySelector
