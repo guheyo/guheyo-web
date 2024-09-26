@@ -8,6 +8,7 @@ export interface FeedComponentProps {
   defaultDistinct: boolean;
   generateLink?: (value: string) => string;
   size?: ComponentSize;
+  showInput?: boolean;
 }
 
 export type FeedComponent = React.ComponentType<FeedComponentProps>;

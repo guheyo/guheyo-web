@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 import { Mocks } from '../mock/mock';
-import TopicHomeFeedLayout from '../topic/topic-home-feed.layout';
+import CommunityHomeFeedLayout from './community-home-feed-layout';
 
 export default function CommunityHome() {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,9 +24,8 @@ export default function CommunityHome() {
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
 
   return (
-    <TopicHomeFeedLayout
+    <CommunityHomeFeedLayout
       hideGroupProfileSidebarItems
-      showChannels={false}
       showCategories={false}
       showTags={false}
       showSelectors={false}
@@ -55,6 +54,6 @@ export default function CommunityHome() {
             return <div key={item.node.id} />;
         }
       })}
-    </TopicHomeFeedLayout>
+    </CommunityHomeFeedLayout>
   );
 }

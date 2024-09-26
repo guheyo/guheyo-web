@@ -18,21 +18,24 @@ import { AuthContext } from '../auth/auth.provider';
 import ThreadCardContainer from './thread-card-container';
 
 function ThreadFeed({
+  type,
   defaultWhere,
   defaultOrderBy,
-  type,
   showInput,
 }: {
+  type: PostPreviewType;
   defaultWhere: FindThreadPreviewsWhereInput;
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
-  type: PostPreviewType;
-  showInput: boolean;
+  showInput?: boolean;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const tagName = [null, 'all'].includes(searchParams.get('tag'))
+    ? undefined
+    : searchParams.get('tag');
   const period = searchParams.get('period');
   const followed = [null, 'all'].includes(searchParams.get('followed'))
     ? undefined
@@ -58,6 +61,7 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
+      tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
       brandIds: defaultWhere.brandIds,
       createdAt: period
         ? {

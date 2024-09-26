@@ -28,7 +28,9 @@ function ThreadAndReviewFeed({
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
-  const categorySlug = searchParams.get('category');
+  const categorySlug = [null, 'all'].includes(searchParams.get('category'))
+    ? undefined
+    : searchParams.get('category');
   const tagName = [null, 'all'].includes(searchParams.get('tag'))
     ? undefined
     : searchParams.get('tag');

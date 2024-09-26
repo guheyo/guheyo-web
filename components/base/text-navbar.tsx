@@ -15,11 +15,13 @@ export default function TextNavbar({
   selectedValue,
   parseNewURL,
   size,
+  prefix,
 }: {
   options: Option[];
   selectedValue?: string;
   parseNewURL: (value: string) => string;
   size: 'large' | 'medium';
+  prefix?: string;
 }) {
   return (
     <div className="flex overflow-scroll no-scrollbar justify-start items-center gap-2 md:gap-6 lg:gap-6">
@@ -38,7 +40,7 @@ export default function TextNavbar({
               size === 'large' ? `text-base md:text-base` : `text-sm md:text-sm`
             }
           >
-            {option.label}
+            {`${prefix || ''}${option.label}`}
           </span>
         </Link>
       ))}

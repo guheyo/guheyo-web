@@ -1,31 +1,18 @@
 'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
-import { parseNewURL } from '@/lib/query-string/parse-new-url';
+import { usePathname } from 'next/navigation';
 import { BRAND_TAB_OPTIONS } from '@/lib/brand/brand.constants';
 import TextNavbar from '../base/text-navbar';
 
 export default function BrandTabNavbar() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const selectedValue = searchParams.get('tab') || undefined;
+  const selectedValue = pathname.split('/').at(-1);
 
   return (
     <TextNavbar
       options={BRAND_TAB_OPTIONS}
       selectedValue={selectedValue}
-      parseNewURL={(value) =>
-        parseNewURL({
-          searchParamsString: searchParams.toString(),
-          pathname,
-          paramsToUpdate: [
-            {
-              name: 'tab',
-              value,
-            },
-          ],
-        })
-      }
+      parseNewURL={(value) => value}
       size="medium"
     />
   );

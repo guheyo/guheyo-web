@@ -1,16 +1,16 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { PostPreviewType } from '@/lib/post/post.types';
 import HomeFeedLayout from '../home/home-feed.layout';
 import BrandMoreLink from './brand-more-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import BrandSelectors from './brand-selectors';
-import BrandTabNavbar from './brand-tab-navbar';
-import CommunityChannelNavbar from '../community/community-channel-navbar';
-import CommunityHomeLink from '../community/community-home-link';
+import BrandHomeLink from './brand-home-link';
 
 interface Props {
   children: ReactNode;
+  postPreviewType: PostPreviewType;
   showChannels: boolean;
   showTabs: boolean;
   showCategories: boolean;
@@ -20,6 +20,7 @@ interface Props {
 
 function BrandHomeFeedLayout({
   children,
+  postPreviewType,
   showChannels,
   showTabs,
   showCategories,
@@ -28,11 +29,9 @@ function BrandHomeFeedLayout({
 }: Props) {
   return (
     <HomeFeedLayout
-      postPreviewType="thumbnail"
-      homeLink={<CommunityHomeLink communityChannelType="brand" />}
+      postPreviewType={postPreviewType}
+      homeLink={<BrandHomeLink />}
       path="brand"
-      channels={showChannels ? <CommunityChannelNavbar /> : undefined}
-      tabs={showTabs ? <BrandTabNavbar /> : undefined}
       selectors={
         showSelectors && (
           <>
