@@ -1,11 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import {
   FindThreadPreviewsWhereInput,
   FindUserReviewPreviewsWhereInput,
+  useFindAuthorQuery,
 } from '@/generated/graphql';
 import { PostPreviewType } from '@/lib/post/post.types';
 import { useSearchParams } from 'next/navigation';
@@ -15,18 +16,23 @@ import { SortOrder } from '@/types/sort.types';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
+import ThreadCardContainer from '../thread/thread-card-container';
+import { AuthContext } from '../auth/auth.provider';
 
 function ThreadAndReviewFeed({
   defaultWhere,
   defaultOrderBy,
   type,
+  showInput,
 }: {
   defaultWhere: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   defaultOrderBy?: { createdAt: SortOrder };
   type: PostPreviewType;
+  showInput?: boolean;
 }) {
+  const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup('root');
+  const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = [null, 'all'].includes(searchParams.get('category'))
     ? undefined
@@ -47,6 +53,13 @@ function ThreadAndReviewFeed({
     : searchParams.get('followed') === 'true';
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
+
+  const { data: UserData } = useFindAuthorQuery({
+    variables: {
+      id: jwtPayload?.id,
+    },
+  });
+  const user = UserData?.findAuthor;
 
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
@@ -82,6 +95,18 @@ function ThreadAndReviewFeed({
 
   return (
     <>
+      {showInput && (
+        <div className="py-6">
+          <ThreadCardContainer
+            user={user || undefined}
+            groupIds={group ? [group.id] : undefined}
+            categoryTypes={['community']}
+            brandId={
+              defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
+            }
+          />
+        </div>
+      )}
       {items.map((item) => {
         switch (item.__typename) {
           case 'ThreadPreviewResponseEdge':
