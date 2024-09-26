@@ -27,6 +27,10 @@ export default function CommunityCategoriesNavbar() {
           label: '전체',
         },
         ...options,
+        {
+          value: 'review',
+          label: '거래 후기',
+        },
       ]}
       selectedValue={selectedValue}
       parseNewURL={(value) =>
