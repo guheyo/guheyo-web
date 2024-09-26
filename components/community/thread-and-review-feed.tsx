@@ -99,7 +99,7 @@ function ThreadAndReviewFeed({
         <div className="py-6">
           <ThreadCardContainer
             user={user || undefined}
-            categoryTypes={undefined}
+            categoryTypes={['community']}
             brandId={
               defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
             }
