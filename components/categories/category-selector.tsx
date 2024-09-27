@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
+import { findDefaultCategory } from '@/lib/group/find-default-category';
 import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
 
 export default function CategorySelector({
@@ -11,11 +12,13 @@ export default function CategorySelector({
   categoryTypes,
   handleClick,
   selectedId,
+  setCategoryId,
 }: {
   groupId?: string;
   categoryTypes?: string[];
   handleClick: (id: string) => void;
   selectedId: string;
+  setCategoryId: (id: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -36,6 +39,12 @@ export default function CategorySelector({
     types: categoryTypes,
     categories: group?.categories || [],
   });
+
+  useEffect(() => {
+    if (!selectedId) {
+      setCategoryId(findDefaultCategory(categories)?.id || '');
+    }
+  }, [selectedId, setCategoryId, categories]);
 
   return (
     <InfiniteScrollSelector
