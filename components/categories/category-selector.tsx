@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
+import { findDefaultCategory } from '@/lib/group/find-default-category';
 import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
 
 export default function CategorySelector({
@@ -41,7 +42,7 @@ export default function CategorySelector({
     <InfiniteScrollSelector
       name="category"
       placeholder="카테고리"
-      selectedValue={selectedId}
+      selectedValue={selectedId || findDefaultCategory(categories)?.id || ''}
       options={categories.map((category) => ({
         value: category.id,
         label: category.name,
