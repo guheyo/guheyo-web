@@ -41,15 +41,23 @@ export default function BrandSelector({
 
   if (loading || !brands) return <div />;
 
+  const options = [
+    {
+      value: '',
+      label: '없음',
+    },
+    ...brands.map((brand) => ({
+      value: brand.node.id,
+      label: brand.node.name,
+    })),
+  ];
+
   return (
     <InfiniteScrollSelector
       name="brand"
       placeholder="브랜드"
       selectedValue={selectedId}
-      options={brands.map((brand) => ({
-        value: brand.node.id,
-        label: brand.node.name,
-      }))}
+      options={options}
       inputClassName="text-[10px] md:text-xs font-medium"
       ref={ref}
       handleChange={handleChange}
