@@ -71,14 +71,12 @@ export default function ThreadCardContainer({
             selectedId={groupId || ''}
             setGroupId={setGroupId}
           />
-          {(categoryTypes === undefined || categoryTypes.length > 0) && (
-            <CategorySelector
-              groupId={groupId}
-              categoryTypes={categoryTypes}
-              handleClick={handleClickCategory}
-              selectedId={categoryId || ''}
-            />
-          )}
+          <CategorySelector
+            groupId={groupId}
+            categoryTypes={categoryTypes}
+            handleClick={handleClickCategory}
+            selectedId={categoryId || ''}
+          />
           {!defaultBrandId && (
             <BrandSelector
               groupId={groupId}
