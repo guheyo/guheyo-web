@@ -27,6 +27,7 @@ function Page({
 
   const where: FindThreadPreviewsWhereInput = {
     brandIds: [brand.id],
+    categoryType: 'community',
   };
   const orderBy = undefined;
 
