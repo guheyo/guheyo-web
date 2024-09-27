@@ -30,7 +30,7 @@ function ThreadFeed({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup();
+  const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
   const tagName = [null, 'all'].includes(searchParams.get('tag'))
@@ -92,7 +92,7 @@ function ThreadFeed({
             categoryTypes={
               defaultWhere.categoryType ? [defaultWhere.categoryType] : []
             }
-            brandId={
+            defaultBrandId={
               defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
             }
           />
