@@ -88,7 +88,7 @@ function ThreadFeed({
         <div className="py-6">
           <ThreadCardContainer
             user={user || undefined}
-            groupIds={group ? [group.id] : undefined}
+            defaultGroupId={group?.name === 'root' ? undefined : group?.id}
             categoryTypes={
               defaultWhere.categoryType ? [defaultWhere.categoryType] : []
             }
