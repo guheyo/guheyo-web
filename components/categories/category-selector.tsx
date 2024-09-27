@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
@@ -12,11 +12,13 @@ export default function CategorySelector({
   categoryTypes,
   handleClick,
   selectedId,
+  setCategoryId,
 }: {
   groupId?: string;
   categoryTypes?: string[];
   handleClick: (id: string) => void;
   selectedId: string;
+  setCategoryId: (id: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,11 +40,17 @@ export default function CategorySelector({
     categories: group?.categories || [],
   });
 
+  useEffect(() => {
+    if (!selectedId) {
+      setCategoryId(findDefaultCategory(categories)?.id || '');
+    }
+  }, [selectedId, setCategoryId, categories]);
+
   return (
     <InfiniteScrollSelector
       name="category"
       placeholder="카테고리"
-      selectedValue={selectedId || findDefaultCategory(categories)?.id || ''}
+      selectedValue={selectedId}
       options={categories.map((category) => ({
         value: category.id,
         label: category.name,
