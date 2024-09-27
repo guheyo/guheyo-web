@@ -13,19 +13,19 @@ import BrandSelector from '../brand/brand-selector';
 
 export default function ThreadCardContainer({
   user,
-  groupIds,
+  defaultGroupId,
   categoryTypes,
   defaultBrandId,
 }: {
   user?: AuthorResponse;
-  groupIds?: string[];
+  defaultGroupId?: string;
   categoryTypes?: string[];
   defaultBrandId?: string;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const [groupId, setGroupId] = useState<string | undefined>();
+  const [groupId, setGroupId] = useState<string | undefined>(defaultGroupId);
   const [categoryId, setCategoryId] = useState<string | undefined>();
-  const [brandId, setBrandId] = useState<string | undefined>();
+  const [brandId, setBrandId] = useState<string | undefined>(defaultBrandId);
   const [focused, setFocused] = useState(false);
 
   const handleClickGroup = (id: string) => {
@@ -48,7 +48,7 @@ export default function ThreadCardContainer({
         ...values,
         groupId,
         categoryId,
-        brandId: defaultBrandId || brandId,
+        brandId,
       },
     });
     await createThread(input);
@@ -65,7 +65,7 @@ export default function ThreadCardContainer({
           <GroupSelector
             handleClick={handleClickGroup}
             defaultWhere={{
-              groupIds,
+              groupIds: defaultGroupId ? [defaultGroupId] : undefined,
               brandIds: defaultBrandId ? [defaultBrandId] : undefined,
             }}
             selectedId={groupId || ''}
