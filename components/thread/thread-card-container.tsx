@@ -9,21 +9,23 @@ import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
+import BrandSelector from '../brand/brand-selector';
 
 export default function ThreadCardContainer({
   user,
   groupIds,
   categoryTypes,
-  brandId,
+  defaultBrandId,
 }: {
   user?: AuthorResponse;
   groupIds?: string[];
   categoryTypes?: string[];
-  brandId?: string;
+  defaultBrandId?: string;
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const [groupId, setGroupId] = useState<string | undefined>();
   const [categoryId, setCategoryId] = useState<string | undefined>();
+  const [brandId, setBrandId] = useState<string | undefined>();
   const [focused, setFocused] = useState(false);
 
   const handleClickGroup = (id: string) => {
@@ -34,6 +36,10 @@ export default function ThreadCardContainer({
     setCategoryId(id);
   };
 
+  const handleClickBrand = (id: string) => {
+    setBrandId(id);
+  };
+
   const handleWrite = async (values: ThreadValues) => {
     if (!jwtPayload || !groupId || !categoryId || !values.content) return;
 
@@ -42,7 +48,7 @@ export default function ThreadCardContainer({
         ...values,
         groupId,
         categoryId,
-        brandId,
+        brandId: defaultBrandId || brandId,
       },
     });
     await createThread(input);
@@ -60,7 +66,7 @@ export default function ThreadCardContainer({
             handleClick={handleClickGroup}
             defaultWhere={{
               groupIds,
-              brandIds: brandId ? [brandId] : undefined,
+              brandIds: defaultBrandId ? [defaultBrandId] : undefined,
             }}
             selectedId={groupId || ''}
             setGroupId={setGroupId}
@@ -71,6 +77,13 @@ export default function ThreadCardContainer({
               categoryTypes={categoryTypes}
               handleClick={handleClickCategory}
               selectedId={categoryId || ''}
+            />
+          )}
+          {!defaultBrandId && (
+            <BrandSelector
+              groupId={groupId}
+              handleClick={handleClickBrand}
+              selectedId={brandId || ''}
             />
           )}
         </div>
