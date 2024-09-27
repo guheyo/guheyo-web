@@ -32,7 +32,7 @@ function ThreadAndReviewFeed({
 }) {
   const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const { group } = useGroup();
+  const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = [null, 'all'].includes(searchParams.get('category'))
     ? undefined
@@ -99,9 +99,9 @@ function ThreadAndReviewFeed({
         <div className="py-6">
           <ThreadCardContainer
             user={user || undefined}
-            groupIds={group ? [group.id] : undefined}
+            defaultGroupId={group?.name === 'root' ? undefined : group?.id}
             categoryTypes={['community']}
-            brandId={
+            defaultBrandId={
               defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
             }
           />

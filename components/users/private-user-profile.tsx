@@ -43,12 +43,12 @@ export default function PrivateUserProfile() {
           </div>
           <div className="col-span-12 flex flex-row gap-3 text-base">
             <FollowCount
-              followType="following"
-              followCount={user.following?.length || 0}
-            />
-            <FollowCount
               followType="follower"
               followCount={user.followers?.length || 0}
+            />
+            <FollowCount
+              followType="following"
+              followCount={user.following?.length || 0}
             />
           </div>
         </div>
