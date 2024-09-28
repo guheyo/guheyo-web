@@ -3,6 +3,7 @@
 import { ThreadPreviewResponse } from '@/generated/graphql';
 import PostCreatedAt from '../posts/post-created-at';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
+import ThreadMenu from './thread-menu';
 
 interface Props {
   thread: ThreadPreviewResponse;
@@ -20,7 +21,15 @@ export default function ThreadPreviewHeader({ thread }: Props) {
         />
         <PostCreatedAt createdAt={thread.createdAt} />
       </div>
-      <div className="h-4 mt-[-10px]">{/* TODO: ThreadMenu */}</div>
+      <div className="h-4 mt-[-22px]">
+        <ThreadMenu
+          threadId={thread.id}
+          postId={thread.post.id}
+          groupId={thread.post.group.id}
+          userId={thread.post.user.id}
+          privateOnly
+        />
+      </div>
     </div>
   );
 }
