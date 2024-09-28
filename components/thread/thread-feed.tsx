@@ -87,6 +87,7 @@ function ThreadFeed({
       {showInput && (
         <div className="py-6">
           <ThreadCardContainer
+            defaultMode="create"
             user={user || undefined}
             defaultGroupId={group?.name === 'root' ? undefined : group?.id}
             categoryTypes={
