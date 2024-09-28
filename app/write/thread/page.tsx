@@ -25,6 +25,7 @@ export default function Page() {
       defaultGroupId={groupId || undefined}
       categoryTypes={['community']}
       defaultBrandId={brandId || undefined}
+      defaultImages={[]}
     />
   );
 }
