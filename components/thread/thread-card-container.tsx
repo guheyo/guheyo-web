@@ -5,6 +5,7 @@ import { ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
 import { createThread } from '@/lib/api/thread';
+import { useSearchParams } from 'next/navigation';
 import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
@@ -32,13 +33,18 @@ export default function ThreadCardContainer({
   defaultImages: UserImageResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
+  const searchParams = useSearchParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [groupId, setGroupId] = useState<string | undefined>(defaultGroupId);
+  const [groupId, setGroupId] = useState<string | undefined>(
+    defaultGroupId || searchParams.get('groupId') || undefined,
+  );
   const [categoryId, setCategoryId] = useState<string | undefined>(
     defaultCategoryId,
   );
-  const [brandId, setBrandId] = useState<string | undefined>(defaultBrandId);
+  const [brandId, setBrandId] = useState<string | undefined>(
+    defaultBrandId || searchParams.get('brandId') || undefined,
+  );
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const handleGroupSelect = (id: string) => {
