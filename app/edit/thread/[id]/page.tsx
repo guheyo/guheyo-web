@@ -24,9 +24,15 @@ export default function Page({
   return (
     <ThreadCardContainer
       user={thread.post.user}
+      threadId={thread.id}
       defaultGroupId={thread.post.group.id}
-      categoryTypes={['community']}
+      defaultCategoryId={thread.post.category?.id}
+      categoryTypes={
+        thread.post.category?.type ? [thread.post.category.type] : undefined
+      }
       defaultBrandId=""
+      defaultContent={thread.content || undefined}
+      defaultImages={thread.post.images}
     />
   );
 }
