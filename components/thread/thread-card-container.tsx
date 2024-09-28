@@ -4,7 +4,7 @@ import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
 import { ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
-import { createThread } from '@/lib/api/thread';
+import { createThread, updateThread } from '@/lib/api/thread';
 import { useSearchParams } from 'next/navigation';
 import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
@@ -59,7 +59,7 @@ export default function ThreadCardContainer({
     setBrandId(id);
   };
 
-  const handleSubmit = async (values: ThreadValues) => {
+  const handleWrite = async (values: ThreadValues) => {
     if (!jwtPayload || !groupId || !categoryId || !values.content) {
       if (!jwtPayload) setAlertMessage('로그인해 주세요');
       else if (!groupId) setAlertMessage('그룹을 선택해 주세요');
@@ -78,6 +78,18 @@ export default function ThreadCardContainer({
       },
     });
     await createThread(input);
+  };
+
+  const handleEdit = async (values: ThreadValues) => {
+    if (!values.content) return;
+
+    await updateThread({
+      id: values.id,
+      content: values.content,
+      post: {
+        categoryId: values.categoryId,
+      },
+    });
   };
 
   const handleInputFocus = () => {
@@ -134,7 +146,8 @@ export default function ThreadCardContainer({
           minRows: 1,
           size: 'small',
         }}
-        handleWrite={handleSubmit}
+        handleWrite={handleWrite}
+        handleEdit={handleEdit}
         handleFocus={handleInputFocus}
       />
       <AlertDialog
