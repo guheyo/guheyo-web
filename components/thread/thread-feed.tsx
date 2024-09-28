@@ -95,6 +95,7 @@ function ThreadFeed({
             defaultBrandId={
               defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
             }
+            defaultImages={[]}
           />
         </div>
       )}
