@@ -6,14 +6,15 @@ import { useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import { deleteThread } from '@/lib/api/thread';
 import { parseThreadLink } from '@/lib/thread/parse-thread-link';
-import { ThreadResponse } from '@/generated/graphql';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 import AlertDialog from '../base/alert-dialog';
 
 export default function PrivateThreadMenu({
-  thread,
+  threadId,
+  groupId,
 }: {
-  thread: ThreadResponse;
+  threadId: string;
+  groupId: string;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -37,14 +38,15 @@ export default function PrivateThreadMenu({
     router.push(
       parseThreadLink({
         action: 'edit',
-        thread,
+        threadId,
+        groupId,
       }),
     );
   };
 
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
-    await deleteThread(thread.id);
+    await deleteThread(threadId);
     setAlertText('삭제되었어요!');
     setOpenAlert(true);
   };

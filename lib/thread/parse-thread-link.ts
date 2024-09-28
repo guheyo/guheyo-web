@@ -1,20 +1,21 @@
-import { ThreadResponse } from '@/generated/graphql';
 import { parseNewURL } from '../query-string/parse-new-url';
 
 export const parseThreadLink = ({
   action,
-  thread,
+  threadId,
+  groupId,
 }: {
   action: 'edit' | 'report';
-  thread: ThreadResponse;
+  threadId: string;
+  groupId: string;
 }) =>
   parseNewURL({
     searchParamsString: '',
-    pathname: `/${action}/thread/${thread.id}`,
+    pathname: `/${action}/thread/${threadId}`,
     paramsToUpdate: [
       {
         name: 'groupId',
-        value: thread.post.group.id,
+        value: groupId,
       },
     ],
   });
