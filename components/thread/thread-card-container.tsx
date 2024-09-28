@@ -1,10 +1,11 @@
 'use client';
 
-import { AuthorResponse } from '@/generated/graphql';
+import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
 import { ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
 import { createThread } from '@/lib/api/thread';
+import { useSearchParams } from 'next/navigation';
 import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
@@ -14,42 +15,57 @@ import AlertDialog from '../base/alert-dialog';
 
 export default function ThreadCardContainer({
   user,
+  threadId,
   defaultGroupId,
+  defaultCategoryId,
   categoryTypes,
   defaultBrandId,
+  defaultContent,
+  defaultImages,
 }: {
   user?: AuthorResponse;
+  threadId?: string;
   defaultGroupId?: string;
+  defaultCategoryId?: string;
   categoryTypes?: string[];
   defaultBrandId?: string;
+  defaultContent?: string;
+  defaultImages: UserImageResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const [open, setOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [groupId, setGroupId] = useState<string | undefined>(defaultGroupId);
-  const [categoryId, setCategoryId] = useState<string | undefined>();
-  const [brandId, setBrandId] = useState<string | undefined>(defaultBrandId);
-  const [focused, setFocused] = useState(false);
+  const [groupId, setGroupId] = useState<string | undefined>(
+    defaultGroupId || searchParams.get('groupId') || undefined,
+  );
+  const [categoryId, setCategoryId] = useState<string | undefined>(
+    defaultCategoryId,
+  );
+  const [brandId, setBrandId] = useState<string | undefined>(
+    defaultBrandId || searchParams.get('brandId') || undefined,
+  );
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const handleClickGroup = (id: string) => {
+  const handleGroupSelect = (id: string) => {
     setGroupId(id);
   };
 
-  const handleClickCategory = (id: string) => {
+  const handleCategorySelect = (id: string) => {
     setCategoryId(id);
   };
 
-  const handleClickBrand = (id: string) => {
+  const handleBrandSelect = (id: string) => {
     setBrandId(id);
   };
 
-  const handleWrite = async (values: ThreadValues) => {
+  const handleSubmit = async (values: ThreadValues) => {
     if (!jwtPayload || !groupId || !categoryId || !values.content) {
       if (!jwtPayload) setAlertMessage('로그인해 주세요');
       else if (!groupId) setAlertMessage('그룹을 선택해 주세요');
       else if (!categoryId) setAlertMessage('카테고리를 선택해 주세요');
       else if (!values.content) setAlertMessage('내용을 작성해 주세요');
-      setOpen(true);
+      setIsDialogOpen(true);
       return;
     }
 
@@ -64,20 +80,20 @@ export default function ThreadCardContainer({
     await createThread(input);
   };
 
-  const handleFocus = () => {
-    setFocused(true);
+  const handleInputFocus = () => {
+    setIsInputFocused(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
   };
 
   return (
     <div>
-      {focused && (
-        <div className="flex flex-row items-center gap-2 justify-end">
+      {isInputFocused && (
+        <div className="flex flex-row items-center gap-2 justify-end pb-2">
           <GroupSelector
-            handleClick={handleClickGroup}
+            handleClick={handleGroupSelect}
             defaultWhere={{
               groupIds: defaultGroupId ? [defaultGroupId] : undefined,
               brandIds: defaultBrandId ? [defaultBrandId] : undefined,
@@ -88,14 +104,14 @@ export default function ThreadCardContainer({
           <CategorySelector
             groupId={groupId}
             categoryTypes={categoryTypes}
-            handleClick={handleClickCategory}
+            handleClick={handleCategorySelect}
             selectedId={categoryId || ''}
             setCategoryId={setCategoryId}
           />
           {!defaultBrandId && (
             <BrandSelector
               groupId={groupId}
-              handleClick={handleClickBrand}
+              handleClick={handleBrandSelect}
               selectedId={brandId || ''}
             />
           )}
@@ -108,7 +124,9 @@ export default function ThreadCardContainer({
         displayMenu
         displayImagesInput
         defaultMode="create"
-        images={[]}
+        threadId={threadId}
+        content={defaultContent}
+        images={defaultImages}
         reactions={[]}
         textFieldProps={{
           multiline: true,
@@ -116,10 +134,14 @@ export default function ThreadCardContainer({
           minRows: 1,
           size: 'small',
         }}
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
+        handleWrite={handleSubmit}
+        handleFocus={handleInputFocus}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <AlertDialog
+        open={isDialogOpen}
+        text={alertMessage}
+        handleClose={handleDialogClose}
+      />
     </div>
   );
 }
