@@ -75,7 +75,7 @@ export default function ThreadCardContainer({
   return (
     <div>
       {focused && (
-        <div className="flex flex-row items-center gap-2 justify-end">
+        <div className="flex flex-row items-center gap-2 justify-end pb-2">
           <GroupSelector
             handleClick={handleClickGroup}
             defaultWhere={{

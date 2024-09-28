@@ -65,6 +65,10 @@ mutation CreateThread($input: CreateThreadInput!) {
   createThread(input: $input)
 }
 
+mutation UpdateThread($input: UpdateThreadInput!) {
+  updateThread(input: $input)
+}
+
 mutation DeleteThread(
   $id: ID!
 ) {
