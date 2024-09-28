@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
-import { ThreadValues } from '@/lib/thread/thread.types';
+import { ThreadMode, ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
 import { createThread, updateThread } from '@/lib/api/thread';
@@ -14,6 +14,7 @@ import BrandSelector from '../brand/brand-selector';
 import AlertDialog from '../base/alert-dialog';
 
 export default function ThreadCardContainer({
+  defaultMode,
   user,
   threadId,
   defaultGroupId,
@@ -23,6 +24,7 @@ export default function ThreadCardContainer({
   defaultContent,
   defaultImages,
 }: {
+  defaultMode: ThreadMode;
   user?: AuthorResponse;
   threadId?: string;
   defaultGroupId?: string;
@@ -45,7 +47,9 @@ export default function ThreadCardContainer({
   const [brandId, setBrandId] = useState<string | undefined>(
     defaultBrandId || searchParams.get('brandId') || undefined,
   );
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(
+    defaultMode === 'update',
+  );
 
   const handleGroupSelect = (id: string) => {
     setGroupId(id);
@@ -135,7 +139,7 @@ export default function ThreadCardContainer({
         isAuthor={!!user?.id}
         displayMenu
         displayImagesInput
-        defaultMode="create"
+        defaultMode={defaultMode}
         threadId={threadId}
         content={defaultContent}
         images={defaultImages}
