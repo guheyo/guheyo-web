@@ -10,6 +10,7 @@ import {
   FindUserReviewPreviewsWhereInput,
 } from '@/generated/graphql';
 import UserReviewPreview from './user-review-preview';
+import { convertPeriodToDateString } from '@/lib/date/date.converter';
 
 function UserReviewFeed({
   defaultWhere,
@@ -22,6 +23,7 @@ function UserReviewFeed({
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const tagType = searchParams.get('tagType') || defaultWhere.tagType;
+  const period = searchParams.get('period');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -32,6 +34,11 @@ function UserReviewFeed({
       userId: defaultWhere.userId,
       tagType,
       reviewedUserId: defaultWhere.reviewedUserId,
+      createdAt: period
+        ? {
+            gt: convertPeriodToDateString(period),
+          }
+        : undefined,
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',
