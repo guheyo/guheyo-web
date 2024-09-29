@@ -101,7 +101,7 @@ function ThreadAndReviewFeed({
             defaultMode="create"
             user={user || undefined}
             defaultGroupId={group?.name === 'root' ? undefined : group?.id}
-            categoryTypes={['community']}
+            defaultCategoryTypes={['community']}
             defaultBrandId={
               defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
             }

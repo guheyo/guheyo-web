@@ -24,8 +24,9 @@ export default function BaseSelector({
       value={selectedValue}
       onChange={handleChange}
       inputProps={{
-        className: inputClassName,
+        className: `${inputClassName} px-3 py-0 text-xs md:text-sm`,
       }}
+      variant="standard"
       sx={{
         color: '#f2f3ed',
         fontWeight: 'bold',

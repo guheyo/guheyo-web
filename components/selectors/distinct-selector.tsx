@@ -19,7 +19,7 @@ export default function DistinctSelector() {
       queryKey="distinct"
       defaultValue="true"
       options={DISTINCT_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

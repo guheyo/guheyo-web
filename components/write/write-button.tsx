@@ -7,9 +7,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { extractGroupAndChannel } from '@/lib/group/extract-group-and-channel';
 import { parseWriteLink } from '@/lib/write/parse-write-link';
 import { WRITABLE_CHANNELS } from '@/lib/write/write.constants';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 
 export default function WriteButton() {
   const router = useRouter();
+  const device = useDeviceDetect();
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
 
@@ -32,12 +34,11 @@ export default function WriteButton() {
       <LoadingButton
         type="submit"
         loading={loading}
-        className="text-xs md:text-sm font-bold text-gray-300"
+        className="text-xs md:text-sm font-bold text-gray-300 rounded-lg"
         sx={{
           padding: '6px', // Add padding to match IconButton size
           minWidth: 0, // Set minimum width to 0
           width: 'auto', // Adjust width dynamically
-          borderRadius: '50%', // Make the button circular
           overflow: 'hidden', // Hide overflow content (if any)
           '&:hover': {
             backgroundColor: 'transparent', // Match IconButton hover effect
@@ -47,6 +48,7 @@ export default function WriteButton() {
         onClick={handleOnClick}
       >
         <AddIcon className="text-2xl" />
+        {device === 'browser' && '업로드'}
       </LoadingButton>
     </div>
   );

@@ -6,7 +6,9 @@ import { SortOrder } from '@/types/sort.types';
 import { Suspense } from 'react';
 
 export default function Page() {
-  const where = {};
+  const where = {
+    categoryType: 'community',
+  };
   const orderBy = {
     createdAt: 'desc' as SortOrder,
   };
