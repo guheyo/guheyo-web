@@ -1,10 +1,10 @@
 'use client';
 
 import { ReactNode } from 'react';
+import UserReviewHomeLink from '@/lib/user-review/user-review-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from './manner-tags-navbar';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
-import CommunityHomeLink from '../community/community-home-link';
 import CommunityChannelNavbar from '../community/community-channel-navbar';
 import CommunitySelectors from '../community/community-selectors';
 import CommunityMoreLink from '../community/community-more-link';
@@ -31,7 +31,7 @@ function UserReviewHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<CommunityHomeLink />}
+      homeLink={<UserReviewHomeLink />}
       path={hideGroupProfileSidebarItems ? undefined : 'review'}
       channels={showChannels ? <CommunityChannelNavbar /> : undefined}
       tags={showTags ? <MannerTagsNavbar /> : undefined}
