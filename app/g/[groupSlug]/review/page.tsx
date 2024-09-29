@@ -1,7 +1,7 @@
 'use client';
 
-import BrandHomeFeedLayout from '@/components/brand/brand-home-feed.layout';
-import ThreadFeed from '@/components/thread/thread-feed';
+import UserReviewFeed from '@/components/user-review/user-review-feed';
+import UserReviewHomeFeedLayout from '@/components/user-review/user-review-home-feed.layout';
 import { SortOrder } from '@/types/sort.types';
 import { Suspense } from 'react';
 
@@ -13,20 +13,15 @@ export default function Page() {
 
   return (
     <Suspense>
-      <BrandHomeFeedLayout
-        postPreviewType="listview"
+      <UserReviewHomeFeedLayout
         showChannels
         showCategories={false}
+        showTags={false}
         showSelectors
         showMoreLink={false}
       >
-        <ThreadFeed
-          type="listview"
-          defaultWhere={where}
-          defaultOrderBy={orderBy}
-          showInput
-        />
-      </BrandHomeFeedLayout>
+        <UserReviewFeed defaultWhere={where} defaultOrderBy={orderBy} />
+      </UserReviewHomeFeedLayout>
     </Suspense>
   );
 }

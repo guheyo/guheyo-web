@@ -4,9 +4,9 @@ import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShopTwoIcon from '@mui/icons-material/ShopTwo';
-import ForumIcon from '@mui/icons-material/Forum';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import FlagIcon from '@mui/icons-material/Flag';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
@@ -124,12 +124,12 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'community',
+              channelName: 'brand',
               groupSlug: group?.slug,
             })}
-            icon={<ForumIcon fontSize="medium" />}
-            text="커뮤니티"
-            isActive={activeItem === 'community'}
+            icon={<FavoriteIcon fontSize="medium" />}
+            text="브랜드"
+            isActive={activeItem === 'brand'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -148,12 +148,12 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'report',
+              channelName: 'review',
               groupSlug: group?.slug,
             })}
-            icon={<FlagIcon fontSize="medium" />}
-            text="신고"
-            isActive={activeItem === 'report'}
+            icon={<StickyNote2Icon fontSize="medium" />}
+            text="거래후기 • 신고"
+            isActive={activeItem === 'review'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}

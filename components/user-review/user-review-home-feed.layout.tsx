@@ -1,13 +1,14 @@
 'use client';
 
 import { ReactNode } from 'react';
+import UserReviewHomeLink from '@/lib/user-review/user-review-home-link';
+import { USER_REVIEW_CHANNEL_OPTIONS } from '@/lib/user-review/user-review.constants';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from './manner-tags-navbar';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
-import CommunityHomeLink from '../community/community-home-link';
-import CommunityChannelNavbar from '../community/community-channel-navbar';
-import CommunitySelectors from '../community/community-selectors';
 import CommunityMoreLink from '../community/community-more-link';
+import ChannelNavbar from '../channel/channel-navbar';
+import UserReviewSelectors from './user-review-selectors';
 
 interface Props {
   children: ReactNode;
@@ -31,15 +32,19 @@ function UserReviewHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<CommunityHomeLink />}
+      homeLink={<UserReviewHomeLink />}
       path={hideGroupProfileSidebarItems ? undefined : 'review'}
-      channels={showChannels ? <CommunityChannelNavbar /> : undefined}
+      channels={
+        showChannels ? (
+          <ChannelNavbar options={USER_REVIEW_CHANNEL_OPTIONS} />
+        ) : undefined
+      }
       tags={showTags ? <MannerTagsNavbar /> : undefined}
       selectors={
         showSelectors && (
           <>
             <FollowFilterClickButton />
-            <CommunitySelectors />
+            <UserReviewSelectors />
           </>
         )
       }

@@ -10,7 +10,6 @@ export default function Page() {
       <BrandHomeFeedLayout
         postPreviewType="thumbnail"
         showChannels
-        showTabs
         showCategories={false}
         showSelectors
         showMoreLink={false}
