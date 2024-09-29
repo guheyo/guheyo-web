@@ -2,8 +2,8 @@ export const BRAND = 'brand';
 
 export const BRAND_AUTO_SAVE_INTERVAL_MS = 60 * 1000;
 
-export const BRAND_TAB_OPTIONS = [
-  { value: 'ranking', label: '랭킹' },
+export const BRAND_CHANNEL_OPTIONS = [
+  { value: 'brand', label: '랭킹' },
   { value: 'community', label: '커뮤니티' },
 ];
 
