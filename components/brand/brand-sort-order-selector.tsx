@@ -9,7 +9,7 @@ export default function BrandSortOrderSelector() {
       queryKey="sort"
       defaultValue="follower"
       options={BRAND_SORT_ORDER_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

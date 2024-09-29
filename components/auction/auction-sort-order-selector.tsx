@@ -9,7 +9,7 @@ export default function AuctionSortOrderSelector() {
       queryKey="sort"
       defaultValue="ending"
       options={AUCTION_SORT_ORDER_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

@@ -9,7 +9,7 @@ export default function UserReviewSelector() {
       queryKey="tagType"
       defaultValue="all"
       options={MANNER_TAG_TYPE_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

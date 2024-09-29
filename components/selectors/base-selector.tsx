@@ -24,12 +24,13 @@ export default function BaseSelector({
       value={selectedValue}
       onChange={handleChange}
       inputProps={{
-        className: inputClassName,
+        className: `${inputClassName} px-3 py-0 text-xs md:text-sm`,
       }}
       sx={{
         color: '#f2f3ed',
         fontWeight: 'bold',
       }}
+      className="rounded-full"
     >
       {options.map(({ value, label }, i) => (
         <MenuItem key={value} value={value}>
