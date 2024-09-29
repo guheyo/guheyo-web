@@ -1,12 +1,12 @@
 'use client';
 
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeLinkLayout from '../home/home-link.layout';
 
 function BrandHomeLink() {
   return (
     <HomeLinkLayout path="brand">
-      <LoyaltyIcon />
+      <FavoriteIcon />
       <div>브랜드</div>
     </HomeLinkLayout>
   );
