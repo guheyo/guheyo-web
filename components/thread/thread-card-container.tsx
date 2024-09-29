@@ -39,17 +39,19 @@ export default function ThreadCardContainer({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [groupId, setGroupId] = useState<string | undefined>(
-    defaultGroupId || searchParams.get('groupId') || undefined,
+    searchParams.get('groupId') || defaultGroupId,
   );
   const [categoryId, setCategoryId] = useState<string | undefined>(
     defaultCategoryId,
   );
   const [brandId, setBrandId] = useState<string | undefined>(
-    defaultBrandId || searchParams.get('brandId') || undefined,
+    searchParams.get('brandId') || defaultBrandId,
   );
   const [isInputFocused, setIsInputFocused] = useState(
     defaultMode === 'update',
   );
+  const categoryTypes =
+    searchParams.get('categoryTypes')?.split(',') || defaultCategoryTypes;
 
   const handleGroupSelect = (id: string) => {
     setGroupId(id);
@@ -64,10 +66,9 @@ export default function ThreadCardContainer({
   };
 
   const handleWrite = async (values: ThreadValues) => {
-    if (!jwtPayload || !groupId || !categoryId || !values.content) {
+    if (!jwtPayload || !groupId || !values.content) {
       if (!jwtPayload) setAlertMessage('로그인해 주세요');
       else if (!groupId) setAlertMessage('그룹을 선택해 주세요');
-      else if (!categoryId) setAlertMessage('카테고리를 선택해 주세요');
       else if (!values.content) setAlertMessage('내용을 작성해 주세요');
       setIsDialogOpen(true);
       return;
@@ -117,13 +118,15 @@ export default function ThreadCardContainer({
             selectedId={groupId || ''}
             setGroupId={setGroupId}
           />
-          <CategorySelector
-            groupId={groupId}
-            categoryTypes={defaultCategoryTypes}
-            handleClick={handleCategorySelect}
-            selectedId={categoryId || ''}
-            setCategoryId={setCategoryId}
-          />
+          {categoryTypes?.includes('gb') && (
+            <CategorySelector
+              groupId={groupId}
+              categoryTypes={categoryTypes}
+              handleClick={handleCategorySelect}
+              selectedId={categoryId || ''}
+              setCategoryId={setCategoryId}
+            />
+          )}
           {!defaultBrandId && (
             <BrandSelector
               groupId={groupId}
