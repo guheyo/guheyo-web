@@ -19,7 +19,7 @@ export default function ThreadCardContainer({
   threadId,
   defaultGroupId,
   defaultCategoryId,
-  categoryTypes,
+  defaultCategoryTypes,
   defaultBrandId,
   defaultContent,
   defaultImages,
@@ -29,7 +29,7 @@ export default function ThreadCardContainer({
   threadId?: string;
   defaultGroupId?: string;
   defaultCategoryId?: string;
-  categoryTypes?: string[];
+  defaultCategoryTypes?: string[];
   defaultBrandId?: string;
   defaultContent?: string;
   defaultImages: UserImageResponse[];
@@ -119,7 +119,7 @@ export default function ThreadCardContainer({
           />
           <CategorySelector
             groupId={groupId}
-            categoryTypes={categoryTypes}
+            categoryTypes={defaultCategoryTypes}
             handleClick={handleCategorySelect}
             selectedId={categoryId || ''}
             setCategoryId={setCategoryId}

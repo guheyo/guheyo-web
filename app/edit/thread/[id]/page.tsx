@@ -28,7 +28,7 @@ export default function Page({
       threadId={thread.id}
       defaultGroupId={thread.post.group.id}
       defaultCategoryId={thread.post.category?.id}
-      categoryTypes={
+      defaultCategoryTypes={
         thread.post.category?.type ? [thread.post.category.type] : undefined
       }
       defaultBrandId=""

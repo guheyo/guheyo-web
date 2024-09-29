@@ -90,7 +90,7 @@ function ThreadFeed({
             defaultMode="create"
             user={user || undefined}
             defaultGroupId={group?.name === 'root' ? undefined : group?.id}
-            categoryTypes={
+            defaultCategoryTypes={
               defaultWhere.categoryType ? [defaultWhere.categoryType] : []
             }
             defaultBrandId={
