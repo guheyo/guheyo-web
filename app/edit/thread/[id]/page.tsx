@@ -23,6 +23,7 @@ export default function Page({
   const thread = data.findThread;
   return (
     <ThreadCardContainer
+      defaultMode="update"
       user={thread.post.user}
       threadId={thread.id}
       defaultGroupId={thread.post.group.id}

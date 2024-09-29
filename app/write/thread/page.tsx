@@ -17,7 +17,11 @@ export default function Page() {
 
   return (
     <Suspense>
-      <ThreadCardContainer user={user || undefined} defaultImages={[]} />
+      <ThreadCardContainer
+        defaultMode="create"
+        user={user || undefined}
+        defaultImages={[]}
+      />
     </Suspense>
   );
 }

@@ -80,7 +80,13 @@ export default function ThreadDetailMain({
           <PostDetailDate date={thread.createdAt} />
         </div>
         <div className="h-8">
-          <ThreadMenu thread={thread} />
+          <ThreadMenu
+            threadId={thread.id}
+            postId={thread.post.id}
+            groupId={thread.post.group.id}
+            userId={thread.post.user.id}
+            privateOnly
+          />
         </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
