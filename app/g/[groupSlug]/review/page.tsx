@@ -14,9 +14,9 @@ export default function Page() {
   return (
     <Suspense>
       <UserReviewHomeFeedLayout
-        showChannels={false}
-        showCategories
-        showTags
+        showChannels
+        showCategories={false}
+        showTags={false}
         showSelectors
         showMoreLink={false}
       >
