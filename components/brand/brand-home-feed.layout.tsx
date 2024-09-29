@@ -7,12 +7,12 @@ import BrandMoreLink from './brand-more-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import BrandSelectors from './brand-selectors';
 import BrandHomeLink from './brand-home-link';
+import BrandChannelNavbar from './brand-channel-navbar';
 
 interface Props {
   children: ReactNode;
   postPreviewType: PostPreviewType;
   showChannels: boolean;
-  showTabs: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
@@ -22,7 +22,6 @@ function BrandHomeFeedLayout({
   children,
   postPreviewType,
   showChannels,
-  showTabs,
   showCategories,
   showSelectors,
   showMoreLink,
@@ -32,6 +31,7 @@ function BrandHomeFeedLayout({
       postPreviewType={postPreviewType}
       homeLink={<BrandHomeLink />}
       path="brand"
+      channels={showChannels && <BrandChannelNavbar />}
       selectors={
         showSelectors && (
           <>
