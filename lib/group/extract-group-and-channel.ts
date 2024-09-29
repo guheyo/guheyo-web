@@ -1,3 +1,5 @@
+import { WRITABLE_CHANNELS } from '../write/write.constants';
+
 export const extractGroupAndChannel = (pathname: string) => {
   // Split the pathname into parts
   const parts = pathname.split('/');
@@ -10,8 +12,9 @@ export const extractGroupAndChannel = (pathname: string) => {
     return { groupSlug, channelSlug };
   }
 
-  // if writable channels
-  if (/^\/(auction|sell|buy|swap|thread)(?:\?.*)?$/.test(pathname)) {
+  if (
+    new RegExp(`^/(${WRITABLE_CHANNELS.join('|')})(?:\\?.*)?$`).test(pathname)
+  ) {
     return { groupSlug: null, channelSlug: parts[1] };
   }
 
