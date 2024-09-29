@@ -26,11 +26,11 @@ export default function BaseSelector({
       inputProps={{
         className: `${inputClassName} px-3 py-0 text-xs md:text-sm`,
       }}
+      variant="standard"
       sx={{
         color: '#f2f3ed',
         fontWeight: 'bold',
       }}
-      className="rounded-full"
     >
       {options.map(({ value, label }, i) => (
         <MenuItem key={value} value={value}>
