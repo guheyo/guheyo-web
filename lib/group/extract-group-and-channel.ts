@@ -1,4 +1,4 @@
-import { WRITABLE_CHANNELS } from '../write/write.constants';
+import { ALL_CHANNELS } from '../write/write.constants';
 
 export const extractGroupAndChannel = (pathname: string) => {
   // Split the pathname into parts
@@ -12,9 +12,7 @@ export const extractGroupAndChannel = (pathname: string) => {
     return { groupSlug, channelSlug };
   }
 
-  if (
-    new RegExp(`^/(${WRITABLE_CHANNELS.join('|')})(?:\\?.*)?$`).test(pathname)
-  ) {
+  if (new RegExp(`^/(${ALL_CHANNELS.join('|')})(?:\\?.*)?$`).test(pathname)) {
     return { groupSlug: null, channelSlug: parts[1] };
   }
 

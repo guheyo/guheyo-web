@@ -1,0 +1,22 @@
+export const findLocation = (pathname: string) => {
+  if (pathname === '/') return 'group';
+  if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'group-market';
+  if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
+  if (/^\/g\/[\w-]*\/(gb)/.test(pathname)) return 'group-gb';
+  if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
+  if (/^\/g\/[\w-]*\/brand/.test(pathname)) return 'group-brand';
+  if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
+  if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
+  if (/^\/g\/[\w-]*\/review/.test(pathname)) return 'group-review';
+  if (/^\/user\//.test(pathname)) return 'user';
+  if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
+  if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
+  if (/^\/(gb)(\?.*)?$/.test(pathname)) return 'gb';
+  if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
+  if (/^\/brand(\?.*)?$/.test(pathname)) return 'brand';
+  if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
+  if (/^\/report(\?.*)?$/.test(pathname)) return 'report';
+  if (/^\/review(\?.*)?$/.test(pathname)) return 'review';
+  if (/^\/search$/.test(pathname)) return 'search-group';
+  return 'none';
+};
