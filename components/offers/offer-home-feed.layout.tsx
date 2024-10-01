@@ -6,7 +6,6 @@ import OfferSelectors from '../selectors/offer-selectors';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferMoreLink from './offer-more-link';
-import MarketHomeLink from '../market/market-home-link';
 import BusinessFunctionNavbar from './business-function-navbar';
 import SellHomeLink from './sell-home-link';
 import BuyHomeLink from './buy-home-link';
@@ -36,9 +35,7 @@ function OfferHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType={businessFunction === 'buy' ? 'text' : 'thumbnail'}
       homeLink={
-        showChannels ? (
-          <MarketHomeLink businessFunction={businessFunction} />
-        ) : businessFunction === 'sell' ? (
+        businessFunction === 'sell' ? (
           <SellHomeLink businessFunction={businessFunction} />
         ) : businessFunction === 'buy' ? (
           <BuyHomeLink businessFunction={businessFunction} />
