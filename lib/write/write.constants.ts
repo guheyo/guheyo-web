@@ -1,5 +1,6 @@
 export const WRITABLE_CHANNELS = [
   'auction',
+  'offer',
   'sell',
   'buy',
   'swap',
@@ -13,24 +14,12 @@ export const WRITABLE_CHANNEL_OPTIONS = [
     label: '경매',
   },
   {
-    value: 'sell',
-    label: '판매',
+    value: 'offer',
+    label: '거래',
   },
   {
-    value: 'buy',
-    label: '구매',
-  },
-  {
-    value: 'swap',
-    label: '교환',
-  },
-  {
-    value: 'gb',
-    label: '공동구매',
-  },
-  {
-    value: 'community',
-    label: '커뮤니티',
+    value: 'thread',
+    label: '포스팅',
   },
 ];
 
