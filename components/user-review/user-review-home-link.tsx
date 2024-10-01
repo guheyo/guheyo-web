@@ -7,7 +7,7 @@ function UserReviewHomeLink() {
   return (
     <HomeLinkLayout path="review">
       <StickyNote2Icon />
-      <div>거래 후기 • 신고</div>
+      <div>거래 후기</div>
     </HomeLinkLayout>
   );
 }
