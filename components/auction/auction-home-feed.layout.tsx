@@ -5,9 +5,9 @@ import AuctionSelectors from './auction-selectors';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionMoreLink from './auction-more-link';
-import BusinessFunctionNavbar from '../offers/business-function-navbar';
 import AuctionHomeLink from './auction-home-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import MarketChannelNavbar from '../market/market-channel-navbar';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +29,7 @@ function AuctionHomeFeedLayout({
       postPreviewType="thumbnail"
       homeLink={<AuctionHomeLink />}
       path="auction"
-      channels={showChannels ? <BusinessFunctionNavbar /> : undefined}
+      channels={showChannels ? <MarketChannelNavbar /> : undefined}
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product']} />
