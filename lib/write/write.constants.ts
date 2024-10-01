@@ -30,7 +30,7 @@ export const WRITABLE_CHANNEL_OPTIONS = [
   },
   {
     value: 'community',
-    label: '게시글',
+    label: '커뮤니티',
   },
 ];
 
