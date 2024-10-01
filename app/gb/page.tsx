@@ -30,7 +30,7 @@ export default function Page() {
           type="listview"
           defaultWhere={where}
           defaultOrderBy={orderBy}
-          showInput
+          showInput={false}
         />
       </GbHomeFeedLayout>
     </Suspense>
