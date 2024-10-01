@@ -1,25 +1,22 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { USER_REVIEW_CHANNEL_OPTIONS } from '@/lib/user-review/user-review.constants';
 import HomeFeedLayout from '../home/home-feed.layout';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import ReportHomeLink from './report-home-link';
-import ChannelNavbar from '../channel/channel-navbar';
 import ReportSelectors from './report-selectors';
 import ReportMoreLink from './report-more-link';
+import ReportTypeNavbar from './report-type-navbar';
 
 interface Props {
   children: ReactNode;
-  showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
 }
 
-function ReportFeedLayout({
+function ReportHomeFeedLayout({
   children,
-  showChannels,
   showCategories,
   showSelectors,
   showMoreLink,
@@ -29,9 +26,7 @@ function ReportFeedLayout({
       postPreviewType="text"
       homeLink={<ReportHomeLink />}
       path="report"
-      channels={
-        showChannels && <ChannelNavbar options={USER_REVIEW_CHANNEL_OPTIONS} />
-      }
+      categories={showCategories && <ReportTypeNavbar />}
       selectors={
         showSelectors && (
           <>
@@ -47,4 +42,4 @@ function ReportFeedLayout({
   );
 }
 
-export default ReportFeedLayout;
+export default ReportHomeFeedLayout;

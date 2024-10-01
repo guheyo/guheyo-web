@@ -9,6 +9,7 @@ export const OFFER_OPTIONS = [
 export const BUSINESS_FUNCTION_OPTIONS = [
   { value: 'auction', label: '경매' },
   ...OFFER_OPTIONS,
+  { value: 'gb', label: '공동구매' },
 ];
 
 export const OFFER_STATUS_OPTIONS = [

@@ -1,12 +1,12 @@
 'use client';
 
-import ShopTwoIcon from '@mui/icons-material/ShopTwo';
+import ShopIcon from '@mui/icons-material/Shop';
 import HomeLinkLayout from '@/components/home/home-link.layout';
 
 function GbHomeLink() {
   return (
     <HomeLinkLayout path="gb">
-      <ShopTwoIcon />
+      <ShopIcon />
       <div>공동구매</div>
     </HomeLinkLayout>
   );

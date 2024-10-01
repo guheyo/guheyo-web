@@ -3,15 +3,17 @@
 import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
-import ShopTwoIcon from '@mui/icons-material/ShopTwo';
+import ShopIcon from '@mui/icons-material/Shop';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import GavelIcon from '@mui/icons-material/Gavel';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import FlagIcon from '@mui/icons-material/Flag';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { MARKET_CHANNELS } from '@/lib/market/market.constants';
+import { OFFER_CHANNELS } from '@/lib/market/market.constants';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -97,15 +99,29 @@ export default function GroupSidebar({
             onClick={handleMenuToggle}
             pathFormatter={(slug) => `/g/${slug}`}
           />
-          <div className="pt-4 md:pt-6" />
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
+            장터
+          </ListItem>
           <SidebarItem
             href={parseChannelLink({
               channelName: 'auction',
               groupSlug: group?.slug,
             })}
+            icon={<GavelIcon fontSize="medium" />}
+            text="경매"
+            isActive={activeItem === 'auction'}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseChannelLink({
+              channelName: 'sell',
+              groupSlug: group?.slug,
+            })}
             icon={<StorefrontIcon fontSize="medium" />}
-            text="장터"
-            isActive={MARKET_CHANNELS.includes(activeItem)}
+            text="거래"
+            isActive={OFFER_CHANNELS.includes(activeItem)}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -115,13 +131,16 @@ export default function GroupSidebar({
               channelName: 'gb',
               groupSlug: group?.slug,
             })}
-            icon={<ShopTwoIcon fontSize="medium" />}
+            icon={<ShopIcon fontSize="medium" />}
             text="공동구매"
             isActive={activeItem === 'gb'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
           />
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
+            커뮤니티
+          </ListItem>
           <SidebarItem
             href={parseChannelLink({
               channelName: 'brand',
@@ -130,6 +149,18 @@ export default function GroupSidebar({
             icon={<FavoriteIcon fontSize="medium" />}
             text="브랜드"
             isActive={activeItem === 'brand'}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseChannelLink({
+              channelName: 'review',
+              groupSlug: group?.slug,
+            })}
+            icon={<StickyNote2Icon fontSize="medium" />}
+            text="거래 후기"
+            isActive={activeItem === 'review'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -148,12 +179,12 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'review',
+              channelName: 'report',
               groupSlug: group?.slug,
             })}
-            icon={<StickyNote2Icon fontSize="medium" />}
-            text="거래후기 • 신고"
-            isActive={activeItem === 'review'}
+            icon={<FlagIcon fontSize="medium" />}
+            text="신고"
+            isActive={activeItem === 'report'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}

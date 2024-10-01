@@ -7,7 +7,7 @@ function ReportHomeLink() {
   return (
     <HomeLinkLayout path="report">
       <StickyNote2Icon />
-      <div>거래 후기 • 신고</div>
+      <div>신고</div>
     </HomeLinkLayout>
   );
 }
