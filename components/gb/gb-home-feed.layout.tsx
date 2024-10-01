@@ -7,10 +7,12 @@ import GbMoreLink from './gb-more-link';
 import GbCategoriesNavbar from './gb-categories-navbar';
 import GbSelectors from './gb-selectors';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import BusinessFunctionNavbar from '../offers/business-function-navbar';
 
 interface Props {
   children: ReactNode;
   hideGroupProfileSidebarItems?: boolean;
+  showChannels: boolean;
   showCategories: boolean;
   showTags: boolean;
   showSelectors: boolean;
@@ -20,6 +22,7 @@ interface Props {
 function GbHomeFeedLayout({
   children,
   hideGroupProfileSidebarItems,
+  showChannels,
   showCategories,
   showTags,
   showSelectors,
@@ -30,6 +33,7 @@ function GbHomeFeedLayout({
       postPreviewType="text"
       homeLink={<GbHomeLink />}
       path={hideGroupProfileSidebarItems ? undefined : 'gb'}
+      channels={showChannels ? <BusinessFunctionNavbar /> : undefined}
       categories={showCategories ? <GbCategoriesNavbar /> : undefined}
       selectors={
         showSelectors && (

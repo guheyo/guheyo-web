@@ -27,6 +27,7 @@ export default function Page() {
   return (
     <Suspense>
       <GbHomeFeedLayout
+        showChannels
         showCategories
         showTags
         showSelectors
