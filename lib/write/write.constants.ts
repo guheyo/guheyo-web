@@ -18,7 +18,7 @@ export const WRITABLE_CHANNEL_OPTIONS = [
     label: '거래',
   },
   {
-    value: 'thread',
+    value: 'community',
     label: '포스팅',
   },
 ];
