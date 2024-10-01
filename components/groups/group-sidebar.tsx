@@ -6,6 +6,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import ShopIcon from '@mui/icons-material/Shop';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import GavelIcon from '@mui/icons-material/Gavel';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
@@ -106,8 +107,20 @@ export default function GroupSidebar({
               channelName: 'auction',
               groupSlug: group?.slug,
             })}
+            icon={<GavelIcon fontSize="medium" />}
+            text="경매"
+            isActive={MARKET_CHANNELS.includes(activeItem)}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+          />
+          <SidebarItem
+            href={parseChannelLink({
+              channelName: 'sell',
+              groupSlug: group?.slug,
+            })}
             icon={<StorefrontIcon fontSize="medium" />}
-            text="경매 / 거래"
+            text="거래"
             isActive={MARKET_CHANNELS.includes(activeItem)}
             paddingX={2}
             paddingY={1}
