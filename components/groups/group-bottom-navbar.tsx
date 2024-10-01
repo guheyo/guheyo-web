@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import GavelIcon from '@mui/icons-material/Gavel';
 import { SearchRounded } from '@mui/icons-material';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { usePathname } from 'next/navigation';
@@ -81,12 +81,9 @@ export default function GroupBottomNavbar({
           <BottomNavbarItem
             href={parseMarketLink({ groupSlug, businessFunction: 'auction' })}
             icon={
-              <StorefrontIcon
-                fontSize="small"
-                className="hover:text-gray-300"
-              />
+              <GavelIcon fontSize="small" className="hover:text-gray-300" />
             }
-            text="장터"
+            text="경매"
           />
         </div>
         <div className="col-span-2">
