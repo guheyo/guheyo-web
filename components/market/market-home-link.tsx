@@ -12,7 +12,7 @@ function MarketHomeLink({
   return (
     <HomeLinkLayout path={businessFunction}>
       <StorefrontIcon />
-      <div>장터</div>
+      <div>경매 / 거래</div>
     </HomeLinkLayout>
   );
 }
