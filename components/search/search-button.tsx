@@ -17,6 +17,7 @@ const findHideButton = (location: string): boolean =>
     'group-gb',
     'group-community',
     'group-brand',
+    'group-review',
     'group-member',
     'group-report',
     'market',
@@ -24,6 +25,7 @@ const findHideButton = (location: string): boolean =>
     'gb',
     'community',
     'brand',
+    'review',
     'member',
     'report',
   ].includes(location);
@@ -40,6 +42,8 @@ const findPlaceholder = (location: string): string => {
     return '스레드를 검색해보세요';
   if (location === 'brand' || location === 'group-brand')
     return '브랜드를 검색해보세요';
+  if (location === 'review' || location === 'group-review')
+    return '거래 후기를 검색해보세요';
   if (location === 'member' || location === 'group-member')
     return '멤버를 검색해보세요';
   if (location === 'report' || location === 'group-report')
