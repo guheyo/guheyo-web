@@ -13,7 +13,7 @@ import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { MARKET_CHANNELS } from '@/lib/market/market.constants';
+import { OFFER_CHANNELS } from '@/lib/market/market.constants';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -109,7 +109,7 @@ export default function GroupSidebar({
             })}
             icon={<GavelIcon fontSize="medium" />}
             text="경매"
-            isActive={MARKET_CHANNELS.includes(activeItem)}
+            isActive={activeItem === 'auction'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -121,7 +121,7 @@ export default function GroupSidebar({
             })}
             icon={<StorefrontIcon fontSize="medium" />}
             text="거래"
-            isActive={MARKET_CHANNELS.includes(activeItem)}
+            isActive={OFFER_CHANNELS.includes(activeItem)}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
