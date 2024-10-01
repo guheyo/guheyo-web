@@ -6,6 +6,8 @@ export const parseWritePlaceholder = ({
   switch (channelSlug) {
     case 'auction':
       return '경매할 제품의 그룹을 선택해 주세요';
+    case 'offer':
+      return '거래할 제품의 그룹을 선택해 주세요';
     case 'sell':
       return '판매할 제품의 그룹을 선택해 주세요';
     case 'buy':
