@@ -1,12 +1,12 @@
 'use client';
 
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import FlagIcon from '@mui/icons-material/Flag';
 import HomeLinkLayout from '../home/home-link.layout';
 
 function ReportHomeLink() {
   return (
     <HomeLinkLayout path="report">
-      <StickyNote2Icon />
+      <FlagIcon />
       <div>신고</div>
     </HomeLinkLayout>
   );
