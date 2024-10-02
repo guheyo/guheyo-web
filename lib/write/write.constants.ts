@@ -32,7 +32,3 @@ export const NON_WRITABLE_CHANNELS = [
 ];
 
 export const ALL_CHANNELS = [...WRITABLE_CHANNELS, ...NON_WRITABLE_CHANNELS];
-
-export const GROUP_PREFIXED_ALL_CHANNELS = ALL_CHANNELS.map(
-  (channel) => `group-${channel}`,
-);
