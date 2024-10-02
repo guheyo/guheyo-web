@@ -38,6 +38,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.7.4",
     "dayjs": "^1.11.9",
+    "es-hangul": "^2.1.0",
     "graphql": "^16.8.2",
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",

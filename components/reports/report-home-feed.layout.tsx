@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import HomeFeedLayout from '../home/home-feed.layout';
-import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import ReportHomeLink from './report-home-link';
 import ReportSelectors from './report-selectors';
 import ReportMoreLink from './report-more-link';
@@ -30,7 +29,7 @@ function ReportHomeFeedLayout({
       selectors={
         showSelectors && (
           <>
-            <FollowFilterClickButton />
+            <div />
             <ReportSelectors />
           </>
         )

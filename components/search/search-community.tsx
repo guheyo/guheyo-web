@@ -9,14 +9,11 @@ import ThreadFeed from '../thread/thread-feed';
 import SearchContainer from './search-container';
 import CommunitySelectors from '../community/community-selectors';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import BrandChannelNavbar from '../brand/brand-channel-navbar';
 
-export default function SearchThreads({
-  categoryType,
-}: {
-  categoryType: string;
-}) {
+export default function SearchCommunity() {
   const where: FindThreadPreviewsWhereInput = {
-    categoryType,
+    categoryType: 'community',
   };
   const orderBy: FindThreadPreviewsOrderByInput = {
     createdAt: 'desc',
@@ -26,6 +23,7 @@ export default function SearchThreads({
     <SearchContainer
       placeholder="어떤 스레드를 찾고 있나요?"
       options={POST_SEARCH_OPTIONS}
+      channels={<BrandChannelNavbar />}
       selectors={
         <>
           <FollowFilterClickButton />

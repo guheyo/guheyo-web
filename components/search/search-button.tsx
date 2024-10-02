@@ -8,34 +8,21 @@ import { groupVar } from '@/lib/apollo/cache';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { findLocation } from '@/lib/search/find-location';
 import { parseSearchLink } from '@/lib/search/parse-search-link';
+import { ALL_CHANNELS } from '@/lib/write/write.constants';
 
 const findHideButton = (location: string): boolean =>
-  ![
-    'group',
-    'group-market',
-    'group-auction',
-    'group-gb',
-    'group-community',
-    'group-brand',
-    'group-review',
-    'group-member',
-    'group-report',
-    'market',
-    'auction',
-    'gb',
-    'community',
-    'brand',
-    'review',
-    'member',
-    'report',
-  ].includes(location);
+  ![...ALL_CHANNELS].includes(location);
 
 const findPlaceholder = (location: string): string => {
   if (location === 'group') return '그룹을 검색해보세요';
-  if (location === 'market' || location === 'group-market')
-    return '제품을 검색해보세요';
   if (location === 'auction' || location === 'group-auction')
-    return '제품을 검색해보세요';
+    return '경매를 검색해보세요';
+  if (location === 'sell' || location === 'group-sell')
+    return '판매를 검색해보세요';
+  if (location === 'buy' || location === 'group-buy')
+    return '구매를 검색해보세요';
+  if (location === 'swap' || location === 'group-swap')
+    return '교환을 검색해보세요';
   if (location === 'gb' || location === 'group-gb')
     return '공동구매를 검색해보세요';
   if (location === 'community' || location === 'group-community')

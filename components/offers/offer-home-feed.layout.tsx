@@ -6,11 +6,11 @@ import OfferSelectors from '../selectors/offer-selectors';
 import HomeFeedLayout from '../home/home-feed.layout';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferMoreLink from './offer-more-link';
-import BusinessFunctionNavbar from './business-function-navbar';
 import SellHomeLink from './sell-home-link';
 import BuyHomeLink from './buy-home-link';
 import SwapHomeLink from './swap-home-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import MarketChannelNavbar from '../market/market-channel-navbar';
 
 interface Props {
   children: ReactNode;
@@ -46,7 +46,7 @@ function OfferHomeFeedLayout({
         )
       }
       path={hideGroupProfileSidebarItems ? undefined : businessFunction}
-      channels={showChannels ? <BusinessFunctionNavbar /> : undefined}
+      channels={showChannels ? <MarketChannelNavbar /> : undefined}
       categories={
         showCategories ? (
           <ProductCategoriesNavbar types={['product', 'service']} />

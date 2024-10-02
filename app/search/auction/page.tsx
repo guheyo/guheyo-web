@@ -1,12 +1,12 @@
 'use client';
 
-import SearchCommunity from '@/components/search/search-community';
+import SearchAuctions from '@/components/search/search-auctions';
 import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <Suspense>
-      <SearchCommunity />
+      <SearchAuctions />
     </Suspense>
   );
 }

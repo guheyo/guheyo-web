@@ -16,6 +16,12 @@ export const extractGroupAndChannel = (pathname: string) => {
     return { groupSlug: null, channelSlug: parts[1] };
   }
 
+  if (
+    new RegExp(`^/search/(${ALL_CHANNELS.join('|')})(?:\\?.*)?$`).test(pathname)
+  ) {
+    return { groupSlug: null, channelSlug: parts[2] };
+  }
+
   return {
     groupSlug: null,
     channelSlug: null,

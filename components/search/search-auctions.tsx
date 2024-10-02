@@ -4,18 +4,19 @@ import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import AuctionSelectors from '../auction/auction-selectors';
 import AuctionFeed from '../auction/auction-feed';
-import BusinessFunctionQueryUpdater from '../offers/business-function-query-updater';
 import SearchContainer from './search-container';
+import MarketChannelNavbar from '../market/market-channel-navbar';
 
 export default function SearchAuctions() {
   return (
     <SearchContainer
-      placeholder="어떤 제품을 찾고 있나요?"
+      placeholder="어떤 경매를 찾고 있나요?"
       options={POST_SEARCH_OPTIONS}
       categories={<ProductCategoriesNavbar types={['product', 'service']} />}
+      channels={<MarketChannelNavbar />}
       selectors={
         <>
-          <BusinessFunctionQueryUpdater defaultBusinessFunction="auction" />
+          <div />
           <AuctionSelectors />
         </>
       }

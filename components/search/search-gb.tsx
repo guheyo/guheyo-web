@@ -7,16 +7,12 @@ import {
 import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import ThreadFeed from '../thread/thread-feed';
 import SearchContainer from './search-container';
-import CommunitySelectors from '../community/community-selectors';
-import FollowFilterClickButton from '../follow/follow-filter-click-button';
+import GbCategoriesNavbar from '../gb/gb-categories-navbar';
+import MarketChannelNavbar from '../market/market-channel-navbar';
 
-export default function SearchThreads({
-  categoryType,
-}: {
-  categoryType: string;
-}) {
+export default function SearchGbs() {
   const where: FindThreadPreviewsWhereInput = {
-    categoryType,
+    categoryType: 'gb',
   };
   const orderBy: FindThreadPreviewsOrderByInput = {
     createdAt: 'desc',
@@ -24,14 +20,10 @@ export default function SearchThreads({
 
   return (
     <SearchContainer
-      placeholder="어떤 스레드를 찾고 있나요?"
+      placeholder="어떤 공동구매를 찾고 있나요?"
       options={POST_SEARCH_OPTIONS}
-      selectors={
-        <>
-          <FollowFilterClickButton />
-          <CommunitySelectors />
-        </>
-      }
+      channels={<MarketChannelNavbar />}
+      categories={<GbCategoriesNavbar />}
       Feed={ThreadFeed}
       feedProps={{
         type: 'listview',
