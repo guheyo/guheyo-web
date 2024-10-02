@@ -23,6 +23,16 @@ export const WRITABLE_CHANNEL_OPTIONS = [
   },
 ];
 
-export const NON_WRITABLE_CHANNELS = ['brand', 'member', 'review', 'report'];
+export const NON_WRITABLE_CHANNELS = [
+  'group',
+  'brand',
+  'member',
+  'review',
+  'report',
+];
 
 export const ALL_CHANNELS = [...WRITABLE_CHANNELS, ...NON_WRITABLE_CHANNELS];
+
+export const GROUP_PREFIXED_ALL_CHANNELS = ALL_CHANNELS.map(
+  (channel) => `group-${channel}`,
+);
