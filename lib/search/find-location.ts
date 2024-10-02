@@ -1,7 +1,9 @@
 export const findLocation = (pathname: string) => {
   if (pathname === '/') return 'group';
-  if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'group-market';
   if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
+  if (/^\/g\/[\w-]*\/(sell)/.test(pathname)) return 'group-sell';
+  if (/^\/g\/[\w-]*\/(buy)/.test(pathname)) return 'group-buy';
+  if (/^\/g\/[\w-]*\/(swap)/.test(pathname)) return 'group-swap';
   if (/^\/g\/[\w-]*\/(gb)/.test(pathname)) return 'group-gb';
   if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
   if (/^\/g\/[\w-]*\/brand/.test(pathname)) return 'group-brand';
@@ -9,8 +11,10 @@ export const findLocation = (pathname: string) => {
   if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
   if (/^\/g\/[\w-]*\/review/.test(pathname)) return 'group-review';
   if (/^\/user\//.test(pathname)) return 'user';
-  if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
   if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
+  if (/^\/(sell)(\?.*)?$/.test(pathname)) return 'sell';
+  if (/^\/(buy)(\?.*)?$/.test(pathname)) return 'buy';
+  if (/^\/(swap)(\?.*)?$/.test(pathname)) return 'swap';
   if (/^\/(gb)(\?.*)?$/.test(pathname)) return 'gb';
   if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
   if (/^\/brand(\?.*)?$/.test(pathname)) return 'brand';
