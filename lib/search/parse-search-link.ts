@@ -23,5 +23,5 @@ export const parseSearchLink = ({
       ],
     });
 
-  return '/search';
+  return '/search/group';
 };
