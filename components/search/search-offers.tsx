@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import { parseBusinessFunctionLabel } from '@/lib/offer/parse-business-function-label';
 import { BusinessFunction } from '@/lib/offer/offer.types';
@@ -13,8 +13,10 @@ import MarketChannelNavbar from '../market/market-channel-navbar';
 
 export default function SearchOffers() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const businessFunction = (pathname.split('/').at(-1) ||
     'sell') as BusinessFunction;
+  const groupSlug = searchParams.get('group');
 
   const where = {
     businessFunction,
@@ -34,7 +36,9 @@ export default function SearchOffers() {
       )} 찾고 있나요?`}
       options={POST_SEARCH_OPTIONS}
       channels={<MarketChannelNavbar />}
-      categories={<ProductCategoriesNavbar types={['product', 'service']} />}
+      categories={
+        groupSlug && <ProductCategoriesNavbar types={['product', 'service']} />
+      }
       selectors={
         <>
           <div />

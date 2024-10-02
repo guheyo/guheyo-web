@@ -57,7 +57,7 @@ export default function GroupProfileFeed({
           href={
             generateLink
               ? generateLink(group.node.slug!)
-              : `g/${group.node.slug}`
+              : `/g/${group.node.slug}`
           }
         >
           <GroupProfile
