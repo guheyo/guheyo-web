@@ -86,7 +86,7 @@ export default function SearchContainer({
       {channels && <div className="mx-2.5 md:mx-1">{channels}</div>}
       {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
       {tags && <div className="mx-2.5 md:mx-1">{tags}</div>}
-      {(categories || tags) && <div className="mb-4" />}
+      {(channels || categories || tags) && <div className="mb-4" />}
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}
