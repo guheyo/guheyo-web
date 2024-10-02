@@ -1,12 +1,12 @@
 'use client';
 
-import SearchProducts from '@/components/search/search-products';
+import SearchOffers from '@/components/search/search-offers';
 import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <Suspense>
-      <SearchProducts />
+      <SearchOffers />
     </Suspense>
   );
 }
