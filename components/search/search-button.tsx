@@ -8,13 +8,10 @@ import { groupVar } from '@/lib/apollo/cache';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { findLocation } from '@/lib/search/find-location';
 import { parseSearchLink } from '@/lib/search/parse-search-link';
-import {
-  ALL_CHANNELS,
-  GROUP_PREFIXED_ALL_CHANNELS,
-} from '@/lib/write/write.constants';
+import { ALL_CHANNELS } from '@/lib/write/write.constants';
 
 const findHideButton = (location: string): boolean =>
-  ![...ALL_CHANNELS, ...GROUP_PREFIXED_ALL_CHANNELS].includes(location);
+  ![...ALL_CHANNELS].includes(location);
 
 const findPlaceholder = (location: string): string => {
   if (location === 'group') return '그룹을 검색해보세요';
