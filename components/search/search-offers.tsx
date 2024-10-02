@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { POST_SEARCH_OPTIONS } from '@/lib/post/post.constants';
 import { parseBusinessFunctionLabel } from '@/lib/offer/parse-business-function-label';
 import { BusinessFunction } from '@/lib/offer/offer.types';
+import { josa } from 'es-hangul';
 import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import OfferSelectors from '../selectors/offer-selectors';
 import OfferFeed from '../offers/offer-feed';
@@ -25,9 +26,12 @@ export default function SearchOffers() {
 
   return (
     <SearchContainer
-      placeholder={`어떤 ${parseBusinessFunctionLabel({
-        businessFunction,
-      })}글을 찾고 있나요?`}
+      placeholder={`어떤 ${josa(
+        parseBusinessFunctionLabel({
+          businessFunction,
+        }),
+        '을/를',
+      )} 찾고 있나요?`}
       options={POST_SEARCH_OPTIONS}
       channels={<MarketChannelNavbar />}
       categories={<ProductCategoriesNavbar types={['product', 'service']} />}
