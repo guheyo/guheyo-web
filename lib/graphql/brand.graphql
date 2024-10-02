@@ -6,6 +6,15 @@ fragment followBrand on FollowBrandResponse {
   }
 }
 
+fragment brandBase on BrandBaseResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+}
+
 fragment brandPreview on BrandPreviewResponse {
   id
   createdAt
@@ -18,7 +27,6 @@ fragment brandPreview on BrandPreviewResponse {
   }
   followed
 }
-
 
 fragment brandDetail on BrandDetailResponse {
   id

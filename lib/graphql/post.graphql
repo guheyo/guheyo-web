@@ -24,6 +24,9 @@ fragment post on PostResponse {
   tags {
     ...tag
   }
+  brands {
+    ...brandBase
+  }
   commentCount
 }
 
@@ -45,6 +48,9 @@ fragment postPreviewWithoutUser on PostPreviewWithoutUserResponse {
   }
   tags {
     ...tag
+  }
+  brands {
+    ...brandBase
   }
   commentCount
 }
@@ -71,6 +77,9 @@ fragment postPreviewWithUser on PostPreviewWithUserResponse {
   tags {
     ...tag
   }
+  brands {
+    ...brandBase
+  }
   commentCount
 }
 
@@ -95,6 +104,9 @@ fragment postPreviewWithAuthor on PostPreviewWithAuthorResponse {
   }
   tags {
     ...tag
+  }
+  brands {
+    ...brandBase
   }
   commentCount
 }
