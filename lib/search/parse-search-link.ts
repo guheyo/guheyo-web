@@ -1,7 +1,5 @@
-import {
-  ALL_CHANNELS,
-  GROUP_PREFIXED_ALL_CHANNELS,
-} from '../write/write.constants';
+import { parseNewURL } from '../query-string/parse-new-url';
+import { ALL_CHANNELS } from '../write/write.constants';
 import { findLocation } from './find-location';
 
 export const parseSearchLink = ({
@@ -13,12 +11,17 @@ export const parseSearchLink = ({
 }) => {
   const location = findLocation(pathname);
 
-  if (location === 'group') return '/search';
-
-  if (ALL_CHANNELS.includes(location)) return `/search/${location}`;
-
-  if (GROUP_PREFIXED_ALL_CHANNELS.includes(location))
-    return `/search/${location}?group=${groupSlug}`;
+  if (ALL_CHANNELS.includes(location))
+    return parseNewURL({
+      searchParamsString: '',
+      pathname: `/search/${location}`,
+      paramsToUpdate: [
+        {
+          name: 'group',
+          value: groupSlug,
+        },
+      ],
+    });
 
   return '/search';
 };
