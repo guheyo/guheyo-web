@@ -1,12 +1,12 @@
 'use client';
 
-import SearchThreads from '@/components/search/search-threads';
+import SearchGbs from '@/components/search/search-gb';
 import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <Suspense>
-      <SearchThreads categoryType="gb" />
+      <SearchGbs />
     </Suspense>
   );
 }
