@@ -671,6 +671,7 @@ export type Mutation = {
   updateThread: Scalars['String']['output'];
   updateUser: Scalars['String']['output'];
   updateUserImage: Scalars['String']['output'];
+  upsertBrandsFromCsv: Scalars['String']['output'];
 };
 
 
@@ -861,6 +862,11 @@ export type MutationUpdateUserArgs = {
 
 export type MutationUpdateUserImageArgs = {
   input: UpdateUserImageInput;
+};
+
+
+export type MutationUpsertBrandsFromCsvArgs = {
+  input: UpsertBrandsFromCsvInput;
 };
 
 export type MyUserResponse = {
@@ -1714,6 +1720,10 @@ export type UpdatedCommentResponse = {
   id: Scalars['ID']['output'];
   pinned: Scalars['Boolean']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type UpsertBrandsFromCsvInput = {
+  filePath: Scalars['String']['input'];
 };
 
 export type UserImageResponse = {

@@ -48,7 +48,11 @@ export default function SearchButton() {
 
   const handleClick = (): void => {
     router.push(
-      parseSearchLink({ pathname, groupSlug: group?.slug || undefined }),
+      parseSearchLink({
+        pathname,
+        groupSlug:
+          group?.slug === 'root' ? undefined : group?.slug || undefined,
+      }),
     );
   };
 
