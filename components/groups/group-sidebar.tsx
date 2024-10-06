@@ -148,7 +148,7 @@ export default function GroupSidebar({
             })}
             icon={<FavoriteIcon fontSize="medium" />}
             text="브랜드"
-            isActive={activeItem === 'brand'}
+            isActive={['brand', 'community'].includes(activeItem)}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
