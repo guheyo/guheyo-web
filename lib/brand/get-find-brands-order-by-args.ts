@@ -5,12 +5,15 @@ export const getFindBrandsOrderByArgs = ({
 }: {
   sortOrder?: string;
 }) => {
-  const orderBy: FindBrandsOrderByInput = {};
+  const orderBy: FindBrandsOrderByInput = {
+    createdAt: 'desc',
+  };
 
   if (sortOrder === 'follower') {
     orderBy.follower = 'desc';
-  } else if (sortOrder === 'newest') {
-    orderBy.createdAt = 'desc';
+  } else {
+    orderBy.follower = undefined;
   }
+
   return orderBy;
 };
