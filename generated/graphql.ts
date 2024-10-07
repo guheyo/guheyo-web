@@ -1127,6 +1127,7 @@ export type Query = {
   findMyUser?: Maybe<MyUserResponse>;
   findOffer?: Maybe<OfferResponse>;
   findOfferCount: Scalars['Float']['output'];
+  findOfferPreview?: Maybe<OfferPreviewResponse>;
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findPlatforms: Array<PlatformResponse>;
   findPostPreview: PostPreviewWithUserResponse;
@@ -1297,6 +1298,12 @@ export type QueryFindOfferCountArgs = {
   categoryId: Scalars['ID']['input'];
   fromHours: Scalars['Int']['input'];
   userId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOfferPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2176,6 +2183,14 @@ export type FindOfferPreviewsQueryVariables = Exact<{
 
 
 export type FindOfferPreviewsQuery = { __typename?: 'Query', findOfferPreviews: { __typename?: 'PaginatedOfferPreviewsResponse', edges: Array<{ __typename?: 'OfferPreviewResponseEdge', cursor: string, node: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindOfferPreviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindOfferPreviewQuery = { __typename?: 'Query', findOfferPreview?: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } | null };
 
 export type FindOfferQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -4839,6 +4854,50 @@ export type FindOfferPreviewsSuspenseQueryHookResult = ReturnType<typeof useFind
 export type FindOfferPreviewsQueryResult = Apollo.QueryResult<FindOfferPreviewsQuery, FindOfferPreviewsQueryVariables>;
 export function refetchFindOfferPreviewsQuery(variables: FindOfferPreviewsQueryVariables) {
       return { query: FindOfferPreviewsDocument, variables: variables }
+    }
+export const FindOfferPreviewDocument = gql`
+    query FindOfferPreview($id: ID, $slug: String) {
+  findOfferPreview(id: $id, slug: $slug) {
+    ...offerPreview
+  }
+}
+    ${OfferPreviewFragmentDoc}`;
+
+/**
+ * __useFindOfferPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindOfferPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindOfferPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindOfferPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindOfferPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>(FindOfferPreviewDocument, options);
+      }
+export function useFindOfferPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>(FindOfferPreviewDocument, options);
+        }
+export function useFindOfferPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>(FindOfferPreviewDocument, options);
+        }
+export type FindOfferPreviewQueryHookResult = ReturnType<typeof useFindOfferPreviewQuery>;
+export type FindOfferPreviewLazyQueryHookResult = ReturnType<typeof useFindOfferPreviewLazyQuery>;
+export type FindOfferPreviewSuspenseQueryHookResult = ReturnType<typeof useFindOfferPreviewSuspenseQuery>;
+export type FindOfferPreviewQueryResult = Apollo.QueryResult<FindOfferPreviewQuery, FindOfferPreviewQueryVariables>;
+export function refetchFindOfferPreviewQuery(variables?: FindOfferPreviewQueryVariables) {
+      return { query: FindOfferPreviewDocument, variables: variables }
     }
 export const FindOfferDocument = gql`
     query FindOffer($id: ID, $slug: String) {
