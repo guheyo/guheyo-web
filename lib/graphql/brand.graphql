@@ -96,6 +96,18 @@ query FindBrands(
   }
 }
 
+query FindBrandPreview(
+  $id: ID
+  $slug: String
+) {
+  findBrandPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...brandPreview
+  }
+}
+
 query FindBrand(
   $id: ID
   $slug: String

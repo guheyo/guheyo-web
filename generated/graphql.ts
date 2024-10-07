@@ -1114,6 +1114,7 @@ export type Query = {
   findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
   findBrand: BrandDetailResponse;
+  findBrandPreview: BrandPreviewResponse;
   findBrands: PaginatedBrandsResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
@@ -1220,6 +1221,12 @@ export type QueryFindBidsArgs = {
 
 
 export type QueryFindBrandArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindBrandPreviewArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2024,6 +2031,14 @@ export type FindBrandsQueryVariables = Exact<{
 
 
 export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandPreviewResponseEdge', cursor: string, node: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindBrandPreviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindBrandPreviewQuery = { __typename?: 'Query', findBrandPreview: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } };
 
 export type FindBrandQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -4161,6 +4176,50 @@ export type FindBrandsSuspenseQueryHookResult = ReturnType<typeof useFindBrandsS
 export type FindBrandsQueryResult = Apollo.QueryResult<FindBrandsQuery, FindBrandsQueryVariables>;
 export function refetchFindBrandsQuery(variables: FindBrandsQueryVariables) {
       return { query: FindBrandsDocument, variables: variables }
+    }
+export const FindBrandPreviewDocument = gql`
+    query FindBrandPreview($id: ID, $slug: String) {
+  findBrandPreview(id: $id, slug: $slug) {
+    ...brandPreview
+  }
+}
+    ${BrandPreviewFragmentDoc}`;
+
+/**
+ * __useFindBrandPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindBrandPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindBrandPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindBrandPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindBrandPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>(FindBrandPreviewDocument, options);
+      }
+export function useFindBrandPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>(FindBrandPreviewDocument, options);
+        }
+export function useFindBrandPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>(FindBrandPreviewDocument, options);
+        }
+export type FindBrandPreviewQueryHookResult = ReturnType<typeof useFindBrandPreviewQuery>;
+export type FindBrandPreviewLazyQueryHookResult = ReturnType<typeof useFindBrandPreviewLazyQuery>;
+export type FindBrandPreviewSuspenseQueryHookResult = ReturnType<typeof useFindBrandPreviewSuspenseQuery>;
+export type FindBrandPreviewQueryResult = Apollo.QueryResult<FindBrandPreviewQuery, FindBrandPreviewQueryVariables>;
+export function refetchFindBrandPreviewQuery(variables?: FindBrandPreviewQueryVariables) {
+      return { query: FindBrandPreviewDocument, variables: variables }
     }
 export const FindBrandDocument = gql`
     query FindBrand($id: ID, $slug: String) {
