@@ -3,7 +3,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { ApolloClient } from '@apollo/experimental-nextjs-app-support';
 import { createClient } from 'graphql-ws';
-import { cache } from './cache';
+import { cache } from './cache/cache';
 
 const httpLink = new HttpLink({
   uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
