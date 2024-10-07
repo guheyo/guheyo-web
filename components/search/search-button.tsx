@@ -4,7 +4,7 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { SearchRounded } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import { useReactiveVar } from '@apollo/client';
-import { groupVar } from '@/lib/apollo/cache';
+import { groupVar } from '@/lib/apollo/cache/cache';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { findLocation } from '@/lib/search/find-location';
 import { parseSearchLink } from '@/lib/search/parse-search-link';

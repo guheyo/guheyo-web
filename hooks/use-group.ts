@@ -1,7 +1,7 @@
 'use client';
 
 import { useFindGroupQuery } from '@/generated/graphql';
-import { groupVar } from '@/lib/apollo/cache';
+import { groupVar } from '@/lib/apollo/cache/cache';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
