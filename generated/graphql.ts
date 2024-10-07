@@ -1137,6 +1137,7 @@ export type Query = {
   findTags: Array<TagResponse>;
   findTerm?: Maybe<TermResponse>;
   findThread?: Maybe<ThreadResponse>;
+  findThreadPreview?: Maybe<ThreadPreviewResponse>;
   findThreadPreviews: PaginatedThreadPreviewsResponse;
   findUser?: Maybe<UserResponse>;
   findUserImageById?: Maybe<UserImageResponse>;
@@ -1346,6 +1347,12 @@ export type QueryFindTermArgs = {
 
 
 export type QueryFindThreadArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindThreadPreviewArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2350,6 +2357,14 @@ export type FindThreadPreviewsQueryVariables = Exact<{
 
 
 export type FindThreadPreviewsQuery = { __typename?: 'Query', findThreadPreviews: { __typename?: 'PaginatedThreadPreviewsResponse', edges: Array<{ __typename?: 'ThreadPreviewResponseEdge', cursor: string, node: { __typename?: 'ThreadPreviewResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindThreadPreviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindThreadPreviewQuery = { __typename?: 'Query', findThreadPreview?: { __typename?: 'ThreadPreviewResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } | null };
 
 export type FindThreadQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -5649,6 +5664,50 @@ export type FindThreadPreviewsSuspenseQueryHookResult = ReturnType<typeof useFin
 export type FindThreadPreviewsQueryResult = Apollo.QueryResult<FindThreadPreviewsQuery, FindThreadPreviewsQueryVariables>;
 export function refetchFindThreadPreviewsQuery(variables: FindThreadPreviewsQueryVariables) {
       return { query: FindThreadPreviewsDocument, variables: variables }
+    }
+export const FindThreadPreviewDocument = gql`
+    query FindThreadPreview($id: ID, $slug: String) {
+  findThreadPreview(id: $id, slug: $slug) {
+    ...threadPreview
+  }
+}
+    ${ThreadPreviewFragmentDoc}`;
+
+/**
+ * __useFindThreadPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindThreadPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindThreadPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindThreadPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindThreadPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>(FindThreadPreviewDocument, options);
+      }
+export function useFindThreadPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>(FindThreadPreviewDocument, options);
+        }
+export function useFindThreadPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>(FindThreadPreviewDocument, options);
+        }
+export type FindThreadPreviewQueryHookResult = ReturnType<typeof useFindThreadPreviewQuery>;
+export type FindThreadPreviewLazyQueryHookResult = ReturnType<typeof useFindThreadPreviewLazyQuery>;
+export type FindThreadPreviewSuspenseQueryHookResult = ReturnType<typeof useFindThreadPreviewSuspenseQuery>;
+export type FindThreadPreviewQueryResult = Apollo.QueryResult<FindThreadPreviewQuery, FindThreadPreviewQueryVariables>;
+export function refetchFindThreadPreviewQuery(variables?: FindThreadPreviewQueryVariables) {
+      return { query: FindThreadPreviewDocument, variables: variables }
     }
 export const FindThreadDocument = gql`
     query FindThread($id: ID, $slug: String) {
