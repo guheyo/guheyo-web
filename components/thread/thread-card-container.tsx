@@ -107,8 +107,8 @@ export default function ThreadCardContainer({
       },
     });
     await createThread(input);
-    const { data } = await findThread(values.id);
 
+    const { data } = await findThread(values.id);
     if (data.findThread) updateCacheWithNewThread(data.findThread);
 
     navigateToChannel();
@@ -124,6 +124,9 @@ export default function ThreadCardContainer({
         categoryId: values.categoryId,
       },
     });
+
+    const { data } = await findThread(values.id);
+    if (data.findThread) updateCacheWithNewThread(data.findThread);
 
     navigateToChannel();
   };
