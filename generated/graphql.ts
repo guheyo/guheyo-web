@@ -1107,6 +1107,7 @@ export type Query = {
   __typename?: 'Query';
   findAuction?: Maybe<AuctionResponse>;
   findAuctionInteractionItems: PaginatedAuctionInteractionItemsResponse;
+  findAuctionPreview?: Maybe<AuctionPreviewResponse>;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
   findBidCount: BidCountResponse;
@@ -1164,6 +1165,12 @@ export type QueryFindAuctionInteractionItemsArgs = {
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindAuctionInteractionItemsWhereInput>;
+};
+
+
+export type QueryFindAuctionPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1845,6 +1852,14 @@ export type FindAuctionPreviewsQueryVariables = Exact<{
 
 
 export type FindAuctionPreviewsQuery = { __typename?: 'Query', findAuctionPreviews: { __typename?: 'PaginatedAuctionPreviewsResponse', edges: Array<{ __typename?: 'AuctionPreviewResponseEdge', cursor: string, node: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindAuctionPreviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindAuctionPreviewQuery = { __typename?: 'Query', findAuctionPreview?: { __typename?: 'AuctionPreviewResponse', id: string, createdAt: any, updatedAt: any, originalEndDate: any, extendedEndDate: any, version: number, content?: string | null, currentBidPrice?: number | null, hammerPrice: number, shippingCost: number, shippingType: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } | null };
 
 export type FindAuctionQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -3347,6 +3362,50 @@ export type FindAuctionPreviewsSuspenseQueryHookResult = ReturnType<typeof useFi
 export type FindAuctionPreviewsQueryResult = Apollo.QueryResult<FindAuctionPreviewsQuery, FindAuctionPreviewsQueryVariables>;
 export function refetchFindAuctionPreviewsQuery(variables: FindAuctionPreviewsQueryVariables) {
       return { query: FindAuctionPreviewsDocument, variables: variables }
+    }
+export const FindAuctionPreviewDocument = gql`
+    query FindAuctionPreview($id: ID, $slug: String) {
+  findAuctionPreview(id: $id, slug: $slug) {
+    ...auctionPreview
+  }
+}
+    ${AuctionPreviewFragmentDoc}`;
+
+/**
+ * __useFindAuctionPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindAuctionPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuctionPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuctionPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindAuctionPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>(FindAuctionPreviewDocument, options);
+      }
+export function useFindAuctionPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>(FindAuctionPreviewDocument, options);
+        }
+export function useFindAuctionPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>(FindAuctionPreviewDocument, options);
+        }
+export type FindAuctionPreviewQueryHookResult = ReturnType<typeof useFindAuctionPreviewQuery>;
+export type FindAuctionPreviewLazyQueryHookResult = ReturnType<typeof useFindAuctionPreviewLazyQuery>;
+export type FindAuctionPreviewSuspenseQueryHookResult = ReturnType<typeof useFindAuctionPreviewSuspenseQuery>;
+export type FindAuctionPreviewQueryResult = Apollo.QueryResult<FindAuctionPreviewQuery, FindAuctionPreviewQueryVariables>;
+export function refetchFindAuctionPreviewQuery(variables?: FindAuctionPreviewQueryVariables) {
+      return { query: FindAuctionPreviewDocument, variables: variables }
     }
 export const FindAuctionDocument = gql`
     query FindAuction($id: ID, $slug: String) {

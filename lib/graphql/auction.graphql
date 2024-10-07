@@ -73,6 +73,18 @@ query FindAuctionPreviews(
   }
 }
 
+query FindAuctionPreview(
+  $id: ID
+  $slug: String
+) {
+  findAuctionPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...auctionPreview
+  }
+}
+
 query FindAuction(
   $id: ID
   $slug: String
