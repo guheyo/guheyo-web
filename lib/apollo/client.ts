@@ -1,7 +1,7 @@
 import { HttpLink, split, from } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { NextSSRApolloClient } from '@apollo/experimental-nextjs-app-support/ssr';
+import { ApolloClient } from '@apollo/experimental-nextjs-app-support';
 import { createClient } from 'graphql-ws';
 import { cache } from './cache';
 
@@ -29,7 +29,7 @@ const splitLink = split(
 );
 
 export function makeClient() {
-  return new NextSSRApolloClient({
+  return new ApolloClient({
     link: from([splitLink]),
     cache,
   });
