@@ -1,6 +1,6 @@
 import { ALL_CHANNELS } from '../write/write.constants';
 
-export const extractGroupAndChannel = (pathname: string) => {
+export const parseUrlSegments = (pathname: string) => {
   // Split the pathname into parts
   const parts = pathname.split('/');
 
@@ -24,6 +24,8 @@ export const extractGroupAndChannel = (pathname: string) => {
 
   return {
     groupSlug: null,
-    channelSlug: null,
+    channelSlug: parts[1],
+    identifier: parts[2],
+    view: parts[3],
   };
 };
