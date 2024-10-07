@@ -45,5 +45,6 @@ export async function findThread(id: string) {
     variables: {
       id,
     },
+    fetchPolicy: 'network-only',
   });
 }
