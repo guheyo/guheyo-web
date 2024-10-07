@@ -7,9 +7,10 @@ import { useContext, useState } from 'react';
 import { parseTempAuctionFormKey } from '@/lib/auction/parse-temp-auction-form-key';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import { createAuction } from '@/lib/api/auction';
+import { createAuction, findAuctionPreview } from '@/lib/api/auction';
 import { AuctionFormValues } from '@/lib/auction/auction.types';
 import { parseAuctionAlertMessage } from '@/lib/auction/parse-auction-alert-message';
+import { updateCacheWithNewAuction } from '@/lib/apollo/cache/auction';
 import { AuthContext } from '../auth/auth.provider';
 import parseCreateAuctionInput from '../../lib/auction/parse-create-auction-input';
 import AuctionForm from './auction-form';
@@ -37,10 +38,12 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
 
     try {
       await createAuction(input);
+
+      const { data } = await findAuctionPreview(input.id);
+      if (data.findAuctionPreview)
+        updateCacheWithNewAuction(data.findAuctionPreview);
+
       router.push('/auction');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (e: any) {
       const message = parseAuctionAlertMessage(e.message);
       setAlertMessage(message);
