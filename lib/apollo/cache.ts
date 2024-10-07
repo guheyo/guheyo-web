@@ -1,5 +1,5 @@
 import { gql, makeVar } from '@apollo/client';
-import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
+import { InMemoryCache } from '@apollo/experimental-nextjs-app-support';
 import { GroupResponse } from '@/generated/graphql';
 
 export const groupVar = makeVar<GroupResponse | null>(null);
@@ -12,7 +12,7 @@ export const GET_GUILD = gql`
   }
 `;
 
-export const cache = new NextSSRInMemoryCache({
+export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
