@@ -71,6 +71,19 @@ query FindOfferPreviews(
   }
 }
 
+query FindOfferPreview(
+  $id: ID
+  $slug: String
+) {
+  findOfferPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...offerPreview
+  }
+}
+
+
 query FindOffer(
   $id: ID
   $slug: String

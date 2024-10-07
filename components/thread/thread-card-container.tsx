@@ -4,7 +4,11 @@ import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
 import { ThreadMode, ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
-import { createThread, findThread, updateThread } from '@/lib/api/thread';
+import {
+  createThread,
+  findThreadPreview,
+  updateThread,
+} from '@/lib/api/thread';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
@@ -107,9 +111,10 @@ export default function ThreadCardContainer({
       },
     });
     await createThread(input);
-    const { data } = await findThread(values.id);
 
-    if (data.findThread) updateCacheWithNewThread(data.findThread);
+    const { data } = await findThreadPreview(values.id);
+    if (data.findThreadPreview)
+      updateCacheWithNewThread(data.findThreadPreview);
 
     navigateToChannel();
   };
@@ -124,6 +129,8 @@ export default function ThreadCardContainer({
         categoryId: values.categoryId,
       },
     });
+
+    await findThreadPreview(values.id);
 
     navigateToChannel();
   };

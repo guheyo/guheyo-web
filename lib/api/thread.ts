@@ -5,6 +5,8 @@ import {
   DeleteThreadDocument,
   DeleteThreadMutation,
   FindThreadDocument,
+  FindThreadPreviewDocument,
+  FindThreadPreviewQuery,
   FindThreadQuery,
   UpdateThreadDocument,
   UpdateThreadInput,
@@ -45,5 +47,16 @@ export async function findThread(id: string) {
     variables: {
       id,
     },
+    fetchPolicy: 'network-only',
+  });
+}
+
+export async function findThreadPreview(id: string) {
+  return client.query<FindThreadPreviewQuery>({
+    query: FindThreadPreviewDocument,
+    variables: {
+      id,
+    },
+    fetchPolicy: 'network-only',
   });
 }

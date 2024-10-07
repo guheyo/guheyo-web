@@ -1,7 +1,7 @@
-import { ThreadResponse } from '@/generated/graphql';
+import { ThreadPreviewResponse } from '@/generated/graphql';
 import { cache } from './cache';
 
-export function updateCacheWithNewThread(newThread: ThreadResponse) {
+export function updateCacheWithNewThread(newThread: ThreadPreviewResponse) {
   cache.modify({
     fields: {
       findThreadPreviews(existingThreadPreviews = {}) {
@@ -9,14 +9,7 @@ export function updateCacheWithNewThread(newThread: ThreadResponse) {
           ...existingThreadPreviews,
           edges: [
             {
-              node: {
-                ...newThread,
-                __typename: 'ThreadPreviewResponse',
-                post: {
-                  ...newThread.post,
-                  __typename: 'PostPreviewWithAuthorResponse',
-                },
-              },
+              node: newThread,
               cursor: newThread.id,
             },
             ...existingThreadPreviews.edges,
