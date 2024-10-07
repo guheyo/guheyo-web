@@ -5,8 +5,11 @@ import { ThreadMode, ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
 import { createThread, updateThread } from '@/lib/api/thread';
-import { useSearchParams } from 'next/navigation';
-import { useApolloClient } from '@apollo/client';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
+import { parseUrlSegments } from '@/lib/group/parse-url-segments';
+import { updateCacheWithNewThread } from '@/lib/apollo/cache/thread';
+import { EDITOR_ACTIONS } from '@/lib/write/write.constants';
 import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
@@ -36,7 +39,11 @@ export default function ThreadCardContainer({
   defaultImages: UserImageResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const apolloClient = useApolloClient();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { groupSlug, channelSlug, identifier, view } =
+    parseUrlSegments(pathname);
+
   const searchParams = useSearchParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -54,6 +61,21 @@ export default function ThreadCardContainer({
   );
   const categoryTypes =
     searchParams.get('categoryTypes')?.split(',') || defaultCategoryTypes;
+
+  const navigateToChannel = () => {
+    router.push(
+      parseChannelLink({
+        groupSlug,
+        channelSlug: EDITOR_ACTIONS.includes(channelSlug)
+          ? categoryTypes?.at(0) || ''
+          : channelSlug,
+        identifier: EDITOR_ACTIONS.includes(channelSlug)
+          ? undefined
+          : identifier,
+        view: EDITOR_ACTIONS.includes(channelSlug) ? undefined : view,
+      }),
+    );
+  };
 
   const handleGroupSelect = (id: string) => {
     setGroupId(id);
@@ -85,22 +107,9 @@ export default function ThreadCardContainer({
       },
     });
     const { data } = await createThread(input);
+    if (data?.createThread) updateCacheWithNewThread(data.createThread);
 
-    const newEdge = {
-      node: data?.createThread,
-      cursor: data?.createThread.id,
-    };
-
-    apolloClient.cache.modify({
-      fields: {
-        findThreadPreviews(existingThreadPreviews = {}) {
-          return {
-            ...existingThreadPreviews,
-            edges: [newEdge, ...existingThreadPreviews.edges],
-          };
-        },
-      },
-    });
+    navigateToChannel();
   };
 
   const handleEdit = async (values: ThreadValues) => {
@@ -113,6 +122,8 @@ export default function ThreadCardContainer({
         categoryId: values.categoryId,
       },
     });
+
+    navigateToChannel();
   };
 
   const handleInputFocus = () => {
