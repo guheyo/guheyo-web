@@ -29,8 +29,8 @@ export default function AuctionTextPreview({ auction, isInGroup }: Props) {
               <GroupNameLink
                 name={group.name}
                 href={parseChannelLink({
-                  channelName: 'auction',
                   groupSlug: group.slug!,
+                  channelSlug: 'auction',
                 })}
               />
             </div>

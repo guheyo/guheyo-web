@@ -104,8 +104,8 @@ export default function GroupSidebar({
           </ListItem>
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'auction',
               groupSlug: group?.slug,
+              channelSlug: 'auction',
             })}
             icon={<GavelIcon fontSize="medium" />}
             text="경매"
@@ -116,8 +116,8 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'sell',
               groupSlug: group?.slug,
+              channelSlug: 'sell',
             })}
             icon={<StorefrontIcon fontSize="medium" />}
             text="거래"
@@ -128,8 +128,8 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'gb',
               groupSlug: group?.slug,
+              channelSlug: 'gb',
             })}
             icon={<ShopIcon fontSize="medium" />}
             text="공동구매"
@@ -143,8 +143,8 @@ export default function GroupSidebar({
           </ListItem>
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'brand',
               groupSlug: group?.slug,
+              channelSlug: 'brand',
             })}
             icon={<FavoriteIcon fontSize="medium" />}
             text="브랜드"
@@ -155,8 +155,8 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'review',
               groupSlug: group?.slug,
+              channelSlug: 'review',
             })}
             icon={<StickyNote2Icon fontSize="medium" />}
             text="거래 후기"
@@ -167,8 +167,8 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'member',
               groupSlug: group?.slug,
+              channelSlug: 'member',
             })}
             icon={<GroupIcon fontSize="medium" />}
             text="멤버"
@@ -179,8 +179,8 @@ export default function GroupSidebar({
           />
           <SidebarItem
             href={parseChannelLink({
-              channelName: 'report',
               groupSlug: group?.slug,
+              channelSlug: 'report',
             })}
             icon={<FlagIcon fontSize="medium" />}
             text="신고"

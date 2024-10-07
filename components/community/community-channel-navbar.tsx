@@ -18,7 +18,7 @@ export default function CommunityChannelNavbar() {
       options={[]}
       selectedValue={selectedValue}
       parseNewURL={(value) =>
-        parseChannelLink({ channelName: value, groupSlug: group?.slug })
+        parseChannelLink({ groupSlug: group?.slug, channelSlug: value })
       }
       size="medium"
     />

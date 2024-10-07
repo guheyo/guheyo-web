@@ -48,8 +48,8 @@ export default function AuctionThumbnailPreview({ auction, isInGroup }: Props) {
                 <GroupNameLink
                   name={group.name}
                   href={parseChannelLink({
-                    channelName: 'auction',
                     groupSlug: group.slug!,
+                    channelSlug: 'auction',
                   })}
                 />
               </div>

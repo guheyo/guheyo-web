@@ -3,7 +3,7 @@
 import { ListBulletIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { useReactiveVar } from '@apollo/client';
-import { colsVar } from '@/lib/apollo/cache';
+import { colsVar } from '@/lib/apollo/cache/cache';
 
 export default function ColsSelectButton() {
   const cols = useReactiveVar(colsVar);

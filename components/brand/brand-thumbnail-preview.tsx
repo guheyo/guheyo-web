@@ -49,8 +49,8 @@ export default function BrandThumbnailPreview({ brand, isInGroup }: Props) {
                     <GroupNameLink
                       name={group.name}
                       href={parseChannelLink({
-                        channelName: 'brand',
                         groupSlug: group.slug!,
+                        channelSlug: 'brand',
                       })}
                     />
                   </div>

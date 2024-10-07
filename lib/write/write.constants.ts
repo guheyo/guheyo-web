@@ -32,3 +32,5 @@ export const NON_WRITABLE_CHANNELS = [
 ];
 
 export const ALL_CHANNELS = [...WRITABLE_CHANNELS, ...NON_WRITABLE_CHANNELS];
+
+export const EDITOR_ACTIONS = ['write', 'edit'];

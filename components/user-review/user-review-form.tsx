@@ -103,8 +103,8 @@ export default function UserReviewForm({
     const groupSlug = groupData?.findGroup?.slug;
     const url = groupSlug
       ? parseChannelLink({
-          channelName: 'community',
           groupSlug,
+          channelSlug: 'community',
           category: 'review',
         })
       : '/';

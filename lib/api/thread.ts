@@ -4,6 +4,8 @@ import {
   CreateThreadMutation,
   DeleteThreadDocument,
   DeleteThreadMutation,
+  FindThreadDocument,
+  FindThreadQuery,
   UpdateThreadDocument,
   UpdateThreadInput,
   UpdateThreadMutation,
@@ -31,6 +33,15 @@ export async function updateThread(input: UpdateThreadInput) {
 export async function deleteThread(id: string) {
   return client.mutate<DeleteThreadMutation>({
     mutation: DeleteThreadDocument,
+    variables: {
+      id,
+    },
+  });
+}
+
+export async function findThread(id: string) {
+  return client.query<FindThreadQuery>({
+    query: FindThreadDocument,
     variables: {
       id,
     },
