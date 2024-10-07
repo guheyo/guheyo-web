@@ -6,6 +6,7 @@ import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
 import { createThread, updateThread } from '@/lib/api/thread';
 import { useSearchParams } from 'next/navigation';
+import { useApolloClient } from '@apollo/client';
 import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
@@ -35,6 +36,7 @@ export default function ThreadCardContainer({
   defaultImages: UserImageResponse[];
 }) {
   const { jwtPayload } = useContext(AuthContext);
+  const apolloClient = useApolloClient();
   const searchParams = useSearchParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -82,7 +84,23 @@ export default function ThreadCardContainer({
         brandId,
       },
     });
-    await createThread(input);
+    const { data } = await createThread(input);
+
+    const newEdge = {
+      node: data?.createThread,
+      cursor: data?.createThread.id,
+    };
+
+    apolloClient.cache.modify({
+      fields: {
+        findThreadPreviews(existingThreadPreviews = {}) {
+          return {
+            ...existingThreadPreviews,
+            edges: [newEdge, ...existingThreadPreviews.edges],
+          };
+        },
+      },
+    });
   };
 
   const handleEdit = async (values: ThreadValues) => {
