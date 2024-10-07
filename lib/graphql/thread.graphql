@@ -49,6 +49,18 @@ query FindThreadPreviews(
   }
 }
 
+query FindThreadPreview(
+  $id: ID
+  $slug: String
+) {
+  findThreadPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...threadPreview
+  }
+}
+
 query FindThread(
   $id: ID
   $slug: String
