@@ -4,7 +4,7 @@ import { AuthorResponse, UserImageResponse } from '@/generated/graphql';
 import { ThreadMode, ThreadValues } from '@/lib/thread/thread.types';
 import parseCreateThreadInput from '@/lib/thread/parse-create-thread-input';
 import { useContext, useState } from 'react';
-import { createThread, updateThread } from '@/lib/api/thread';
+import { createThread, findThread, updateThread } from '@/lib/api/thread';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
@@ -106,8 +106,10 @@ export default function ThreadCardContainer({
         brandId,
       },
     });
-    const { data } = await createThread(input);
-    if (data?.createThread) updateCacheWithNewThread(data.createThread);
+    await createThread(input);
+    const { data } = await findThread(values.id);
+
+    if (data.findThread) updateCacheWithNewThread(data.findThread);
 
     navigateToChannel();
   };
