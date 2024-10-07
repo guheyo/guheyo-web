@@ -130,9 +130,7 @@ export default function ThreadCardContainer({
       },
     });
 
-    const { data } = await findThreadPreview(values.id);
-    if (data.findThreadPreview)
-      updateCacheWithNewThread(data.findThreadPreview);
+    await findThreadPreview(values.id);
 
     navigateToChannel();
   };
