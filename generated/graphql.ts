@@ -644,7 +644,7 @@ export type Mutation = {
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
   createSignedUrl: SignedUrlResponse;
-  createThread: ThreadPreviewResponse;
+  createThread: Scalars['String']['output'];
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
   deleteComment: Scalars['String']['output'];
@@ -2364,7 +2364,7 @@ export type CreateThreadMutationVariables = Exact<{
 }>;
 
 
-export type CreateThreadMutation = { __typename?: 'Mutation', createThread: { __typename?: 'ThreadPreviewResponse', id: string, createdAt: any, updatedAt: any, content?: string | null, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } } };
+export type CreateThreadMutation = { __typename?: 'Mutation', createThread: string };
 
 export type UpdateThreadMutationVariables = Exact<{
   input: UpdateThreadInput;
@@ -5696,11 +5696,9 @@ export function refetchFindThreadQuery(variables?: FindThreadQueryVariables) {
     }
 export const CreateThreadDocument = gql`
     mutation CreateThread($input: CreateThreadInput!) {
-  createThread(input: $input) {
-    ...threadPreview
-  }
+  createThread(input: $input)
 }
-    ${ThreadPreviewFragmentDoc}`;
+    `;
 export type CreateThreadMutationFn = Apollo.MutationFunction<CreateThreadMutation, CreateThreadMutationVariables>;
 
 /**

@@ -62,9 +62,7 @@ query FindThread(
 }
 
 mutation CreateThread($input: CreateThreadInput!) {
-  createThread(input: $input) {
-    ...threadPreview
-  }
+  createThread(input: $input)
 }
 
 mutation UpdateThread($input: UpdateThreadInput!) {
