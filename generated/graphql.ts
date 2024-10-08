@@ -630,7 +630,7 @@ export type LinkSocialProfileInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  bumpOffer: OfferPreviewResponse;
+  bumpOffer: MutationResponse;
   cancelBid: Scalars['String']['output'];
   cancelReaction: Scalars['String']['output'];
   commentReport: ReportCommentResponse;
@@ -639,7 +639,7 @@ export type Mutation = {
   createComment: Scalars['String']['output'];
   createGroup: Scalars['String']['output'];
   createManyUserImage: Scalars['String']['output'];
-  createOffer: Scalars['String']['output'];
+  createOffer: MutationResponse;
   createReaction: Scalars['String']['output'];
   createReport: Scalars['String']['output'];
   createRole: Scalars['String']['output'];
@@ -648,7 +648,7 @@ export type Mutation = {
   createUserImage: Scalars['String']['output'];
   createUserReview: Scalars['String']['output'];
   deleteComment: Scalars['String']['output'];
-  deleteOffer: Scalars['String']['output'];
+  deleteOffer: MutationResponse;
   deleteRole: Scalars['String']['output'];
   deleteThread: Scalars['String']['output'];
   deleteUserImage: Scalars['String']['output'];
@@ -665,7 +665,7 @@ export type Mutation = {
   updateAuction: Scalars['String']['output'];
   updateComment: Scalars['String']['output'];
   updateGroup: Scalars['String']['output'];
-  updateOffer: OfferPreviewResponse;
+  updateOffer: MutationResponse;
   updateReportComment: ReportCommentResponse;
   updateRole: Scalars['String']['output'];
   updateThread: Scalars['String']['output'];
@@ -867,6 +867,12 @@ export type MutationUpdateUserImageArgs = {
 
 export type MutationUpsertBrandsFromCsvArgs = {
   input: UpsertBrandsFromCsvInput;
+};
+
+export type MutationResponse = {
+  __typename?: 'MutationResponse';
+  code: Scalars['Float']['output'];
+  id: Scalars['String']['output'];
 };
 
 export type MyUserResponse = {
@@ -2130,6 +2136,8 @@ export type CommentDeletedSubscriptionVariables = Exact<{
 
 export type CommentDeletedSubscription = { __typename?: 'Subscription', commentDeleted: { __typename?: 'DeletedCommentResponse', id: string } };
 
+export type MutationResponseFragment = { __typename?: 'MutationResponse', code: number, id: string };
+
 export type EmojiFragment = { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null };
 
 export type FindEmojisQueryVariables = Exact<{
@@ -2220,28 +2228,28 @@ export type CreateOfferMutationVariables = Exact<{
 }>;
 
 
-export type CreateOfferMutation = { __typename?: 'Mutation', createOffer: string };
+export type CreateOfferMutation = { __typename?: 'Mutation', createOffer: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UpdateOfferMutationVariables = Exact<{
   input: UpdateOfferInput;
 }>;
 
 
-export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, status: string, name0?: string | null, name1?: string | null, content?: string | null, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type UpdateOfferMutation = { __typename?: 'Mutation', updateOffer: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type DeleteOfferMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteOfferMutation = { __typename?: 'Mutation', deleteOffer: string };
+export type DeleteOfferMutation = { __typename?: 'Mutation', deleteOffer: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type BumpOfferMutationVariables = Exact<{
   input: BumpOfferInput;
 }>;
 
 
-export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'OfferPreviewResponse', id: string, bumpedAt: any, price: number, shippingCost: number, shippingType: string, totalPrice: number } };
+export type BumpOfferMutation = { __typename?: 'Mutation', bumpOffer: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type PlatformFragment = { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number };
 
@@ -2980,6 +2988,12 @@ export const UpdatedCommentResponseFragmentDoc = gql`
     `;
 export const DeletedCommentResponseFragmentDoc = gql`
     fragment deletedCommentResponse on DeletedCommentResponse {
+  id
+}
+    `;
+export const MutationResponseFragmentDoc = gql`
+    fragment mutationResponse on MutationResponse {
+  code
   id
 }
     `;
@@ -5004,9 +5018,11 @@ export function refetchFindOfferQuery(variables?: FindOfferQueryVariables) {
     }
 export const CreateOfferDocument = gql`
     mutation CreateOffer($input: CreateOfferInput!) {
-  createOffer(input: $input)
+  createOffer(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateOfferMutationFn = Apollo.MutationFunction<CreateOfferMutation, CreateOfferMutationVariables>;
 
 /**
@@ -5036,20 +5052,10 @@ export type CreateOfferMutationOptions = Apollo.BaseMutationOptions<CreateOfferM
 export const UpdateOfferDocument = gql`
     mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
-    id
-    createdAt
-    updatedAt
-    status
-    name0
-    name1
-    content
-    price
-    shippingCost
-    shippingType
-    totalPrice
+    ...mutationResponse
   }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type UpdateOfferMutationFn = Apollo.MutationFunction<UpdateOfferMutation, UpdateOfferMutationVariables>;
 
 /**
@@ -5078,9 +5084,11 @@ export type UpdateOfferMutationResult = Apollo.MutationResult<UpdateOfferMutatio
 export type UpdateOfferMutationOptions = Apollo.BaseMutationOptions<UpdateOfferMutation, UpdateOfferMutationVariables>;
 export const DeleteOfferDocument = gql`
     mutation DeleteOffer($id: ID!) {
-  deleteOffer(id: $id)
+  deleteOffer(id: $id) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type DeleteOfferMutationFn = Apollo.MutationFunction<DeleteOfferMutation, DeleteOfferMutationVariables>;
 
 /**
@@ -5110,15 +5118,10 @@ export type DeleteOfferMutationOptions = Apollo.BaseMutationOptions<DeleteOfferM
 export const BumpOfferDocument = gql`
     mutation BumpOffer($input: BumpOfferInput!) {
   bumpOffer(input: $input) {
-    id
-    bumpedAt
-    price
-    shippingCost
-    shippingType
-    totalPrice
+    ...mutationResponse
   }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type BumpOfferMutationFn = Apollo.MutationFunction<BumpOfferMutation, BumpOfferMutationVariables>;
 
 /**
