@@ -78,7 +78,9 @@ query FindUserReview(
 }
 
 mutation CreateUserReview($input: CreateUserReviewInput!) {
-  createUserReview(input: $input)
+  createUserReview(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation DeleteUserReview(
@@ -86,5 +88,7 @@ mutation DeleteUserReview(
 ) {
   deleteUserReview(
     id: $id
-  )
+  ) {
+    ...mutationResponse
+  }
 }

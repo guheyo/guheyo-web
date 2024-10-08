@@ -49,19 +49,19 @@ fragment brandDetail on BrandDetailResponse {
 
 mutation CreateBrand($input: CreateBrandInput!) {
   createBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
 
 mutation FollowBrand($input: FollowBrandInput!) {
   followBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
 
 mutation UnfollowBrand($input: UnfollowBrandInput!) {
   unfollowBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
 

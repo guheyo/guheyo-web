@@ -123,7 +123,9 @@ query FindUsers(
 mutation UpdateUser(
   $input: UpdateUserInput!
 ) {
-  updateUser(input: $input)
+  updateUser(input: $input) {
+    ...mutationResponse
+  }
 }
 
 # NOTE
@@ -133,17 +135,19 @@ mutation UpdateUser(
 # deleteUser
 
 mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
-  linkSocialProfile(input: $input)
+  linkSocialProfile(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation FollowUser($input: FollowUserInput!) {
   followUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }
 
 mutation UnfollowUser($input: UnfollowUserInput!) {
   unfollowUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }

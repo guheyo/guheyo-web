@@ -47,15 +47,21 @@ fragment deletedCommentResponse on DeletedCommentResponse {
 }
 
 mutation CreateComment($input: CreateCommentInput!) {
-  createComment(input: $input)
+  createComment(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input)
+  updateComment(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation DeleteComment($input: DeleteCommentInput!) {
-  deleteComment(input: $input)
+  deleteComment(input: $input) {
+    ...mutationResponse
+  }
 }
 
 query FindComment(
