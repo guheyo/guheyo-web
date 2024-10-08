@@ -1,5 +1,7 @@
 import { client } from '@/lib/apollo/client';
 import {
+  FindAuthorDocument,
+  FindAuthorQuery,
   FindUserDocument,
   FindUserQuery,
   FollowUserDocument,
@@ -7,6 +9,7 @@ import {
   FollowUserMutation,
   LinkSocialProfileDocument,
   LinkSocialProfileInput,
+  QueryFindAuctionArgs,
   QueryFindUserArgs,
   UnfollowUserDocument,
   UnfollowUserInput,
@@ -52,9 +55,18 @@ export async function unfollowUser(input: UnfollowUserInput) {
 }
 
 export async function findUser(args: QueryFindUserArgs) {
-  console.log(args);
   return client.query<FindUserQuery>({
     query: FindUserDocument,
+    variables: {
+      ...args,
+    },
+    fetchPolicy: 'network-only',
+  });
+}
+
+export async function findAuthor(args: QueryFindAuctionArgs) {
+  return client.query<FindAuthorQuery>({
+    query: FindAuthorDocument,
     variables: {
       ...args,
     },
