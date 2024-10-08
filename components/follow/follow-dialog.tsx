@@ -3,7 +3,7 @@
 import { MouseEventHandler } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import { findBrandPreview, followBrand, unfollowBrand } from '@/lib/api/brand';
-import { findUser, followUser, unfollowUser } from '@/lib/api/user';
+import { findAuthor, findUser, followUser, unfollowUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function FollowDialog({
@@ -15,37 +15,29 @@ export default function FollowDialog({
   targetId: string;
   followed: boolean;
 }) {
+  const updateCache = async () => {
+    if (target === 'brand') {
+      await findBrandPreview(targetId);
+    } else if (target === 'user') {
+      await findUser({ id: targetId });
+      await findAuthor({ id: targetId });
+    }
+  };
+
+  const handleFollowAction = async (follow: boolean) => {
+    if (target === 'brand') {
+      if (follow) await followBrand({ brandId: targetId });
+      else await unfollowBrand({ brandId: targetId });
+    } else if (target === 'user') {
+      if (follow) await followUser({ followingId: targetId });
+      else await unfollowUser({ followingId: targetId });
+    }
+    await updateCache();
+  };
+
   const handleOnAuthorization: MouseEventHandler = async (e) => {
     e.preventDefault();
-    if (target === 'brand') {
-      if (followed) {
-        await unfollowBrand({
-          brandId: targetId,
-        });
-        await findBrandPreview(targetId);
-      } else {
-        await followBrand({
-          brandId: targetId,
-        });
-        await findBrandPreview(targetId);
-      }
-    } else if (target === 'user') {
-      if (followed) {
-        await unfollowUser({
-          followingId: targetId,
-        });
-        await findUser({
-          id: targetId,
-        });
-      } else {
-        await followUser({
-          followingId: targetId,
-        });
-        await findUser({
-          id: targetId,
-        });
-      }
-    }
+    await handleFollowAction(!followed);
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {
