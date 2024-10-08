@@ -3,7 +3,7 @@
 import { AuthContext } from '@/components/auth/auth.provider';
 import OfferBumpForm from '@/components/offers/offer-bump-form';
 import { BumpOfferInput, useFindOfferQuery } from '@/generated/graphql';
-import { bumpOffer } from '@/lib/api/offer';
+import { bumpOffer, findOfferPreview } from '@/lib/api/offer';
 import { validateCooldown } from '@/lib/date/validate-cooldown';
 import { BumpFormValues } from '@/lib/offer/offer.interfaces';
 import { BusinessFunction } from '@/lib/offer/offer.types';
@@ -50,6 +50,9 @@ function Page({
 
     try {
       await bumpOffer(input);
+
+      await findOfferPreview(values.offerId);
+
       router.push(
         parseMarketLink({
           groupSlug: offer.post.group.slug,

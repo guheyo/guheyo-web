@@ -19,3 +19,20 @@ export function updateCacheWithNewOffer(newOffer: OfferPreviewResponse) {
     },
   });
 }
+
+export function updateCacheWithDeletedOffer(offerId: string) {
+  cache.modify({
+    fields: {
+      findOfferPreviews(existingOfferPreviews = {}) {
+        const updatedEdges = existingOfferPreviews.edges.filter(
+          (edge: any) => edge.cursor !== offerId,
+        );
+
+        return {
+          ...existingOfferPreviews,
+          edges: updatedEdges,
+        };
+      },
+    },
+  });
+}
