@@ -631,47 +631,47 @@ export type LinkSocialProfileInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   bumpOffer: MutationResponse;
-  cancelBid: Scalars['String']['output'];
-  cancelReaction: Scalars['String']['output'];
-  commentReport: ReportCommentResponse;
-  createAuction: Scalars['String']['output'];
-  createBrand: BrandDetailResponse;
-  createComment: Scalars['String']['output'];
-  createGroup: Scalars['String']['output'];
-  createManyUserImage: Scalars['String']['output'];
+  cancelBid: MutationResponse;
+  cancelReaction: MutationResponse;
+  commentReport: MutationResponse;
+  createAuction: MutationResponse;
+  createBrand: MutationResponse;
+  createComment: MutationResponse;
+  createGroup: MutationResponse;
+  createManyUserImage: MutationResponse;
   createOffer: MutationResponse;
-  createReaction: Scalars['String']['output'];
-  createReport: Scalars['String']['output'];
-  createRole: Scalars['String']['output'];
+  createReaction: MutationResponse;
+  createReport: MutationResponse;
+  createRole: MutationResponse;
   createSignedUrl: SignedUrlResponse;
-  createThread: Scalars['String']['output'];
-  createUserImage: Scalars['String']['output'];
-  createUserReview: Scalars['String']['output'];
-  deleteComment: Scalars['String']['output'];
+  createThread: MutationResponse;
+  createUserImage: MutationResponse;
+  createUserReview: MutationResponse;
+  deleteComment: MutationResponse;
   deleteOffer: MutationResponse;
-  deleteRole: Scalars['String']['output'];
-  deleteThread: Scalars['String']['output'];
-  deleteUserImage: Scalars['String']['output'];
-  deleteUserReview: Scalars['String']['output'];
-  followBrand: BrandDetailResponse;
-  followUser: UserResponse;
-  linkSocialProfile: Scalars['String']['output'];
+  deleteRole: MutationResponse;
+  deleteThread: MutationResponse;
+  deleteUserImage: MutationResponse;
+  deleteUserReview: MutationResponse;
+  followBrand: MutationResponse;
+  followUser: MutationResponse;
+  linkSocialProfile: MutationResponse;
   logout: SocialUserResponse;
-  placeBid: Scalars['String']['output'];
+  placeBid: MutationResponse;
   reGenerateTokens: JwtResponse;
   refreshTokens: JwtResponse;
-  unfollowBrand: BrandDetailResponse;
-  unfollowUser: UserResponse;
-  updateAuction: Scalars['String']['output'];
-  updateComment: Scalars['String']['output'];
-  updateGroup: Scalars['String']['output'];
+  unfollowBrand: MutationResponse;
+  unfollowUser: MutationResponse;
+  updateAuction: MutationResponse;
+  updateComment: MutationResponse;
+  updateGroup: MutationResponse;
   updateOffer: MutationResponse;
-  updateReportComment: ReportCommentResponse;
-  updateRole: Scalars['String']['output'];
-  updateThread: Scalars['String']['output'];
-  updateUser: Scalars['String']['output'];
-  updateUserImage: Scalars['String']['output'];
-  upsertBrandsFromCsv: Scalars['String']['output'];
+  updateReportComment: MutationResponse;
+  updateRole: MutationResponse;
+  updateThread: MutationResponse;
+  updateUser: MutationResponse;
+  updateUserImage: MutationResponse;
+  upsertBrandsFromCsv: MutationResponse;
 };
 
 
@@ -1397,6 +1397,7 @@ export type QueryFindThreadPreviewsArgs = {
 
 
 export type QueryFindUserArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
@@ -1920,7 +1921,7 @@ export type CreateAuctionMutationVariables = Exact<{
 }>;
 
 
-export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: string };
+export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type AuctionUpdatedSubscriptionVariables = Exact<{
   auctionId: Scalars['ID']['input'];
@@ -1973,14 +1974,14 @@ export type PlaceBidMutationVariables = Exact<{
 }>;
 
 
-export type PlaceBidMutation = { __typename?: 'Mutation', placeBid: string };
+export type PlaceBidMutation = { __typename?: 'Mutation', placeBid: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type CancelBidMutationVariables = Exact<{
   input: CancelBidInput;
 }>;
 
 
-export type CancelBidMutation = { __typename?: 'Mutation', cancelBid: string };
+export type CancelBidMutation = { __typename?: 'Mutation', cancelBid: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type BidPlacedSubscriptionVariables = Exact<{
   auctionId: Scalars['ID']['input'];
@@ -2009,21 +2010,21 @@ export type CreateBrandMutationVariables = Exact<{
 }>;
 
 
-export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type CreateBrandMutation = { __typename?: 'Mutation', createBrand: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FollowBrandMutationVariables = Exact<{
   input: FollowBrandInput;
 }>;
 
 
-export type FollowBrandMutation = { __typename?: 'Mutation', followBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type FollowBrandMutation = { __typename?: 'Mutation', followBrand: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UnfollowBrandMutationVariables = Exact<{
   input: UnfollowBrandInput;
 }>;
 
 
-export type UnfollowBrandMutation = { __typename?: 'Mutation', unfollowBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type UnfollowBrandMutation = { __typename?: 'Mutation', unfollowBrand: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FindBrandsQueryVariables = Exact<{
   where?: InputMaybe<FindBrandsWhereInput>;
@@ -2071,21 +2072,21 @@ export type CreateCommentMutationVariables = Exact<{
 }>;
 
 
-export type CreateCommentMutation = { __typename?: 'Mutation', createComment: string };
+export type CreateCommentMutation = { __typename?: 'Mutation', createComment: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UpdateCommentMutationVariables = Exact<{
   input: UpdateCommentInput;
 }>;
 
 
-export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: string };
+export type UpdateCommentMutation = { __typename?: 'Mutation', updateComment: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type DeleteCommentMutationVariables = Exact<{
   input: DeleteCommentInput;
 }>;
 
 
-export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: string };
+export type DeleteCommentMutation = { __typename?: 'Mutation', deleteComment: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FindCommentQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -2280,14 +2281,14 @@ export type CreateReactionMutationVariables = Exact<{
 }>;
 
 
-export type CreateReactionMutation = { __typename?: 'Mutation', createReaction: string };
+export type CreateReactionMutation = { __typename?: 'Mutation', createReaction: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type CancelReactionMutationVariables = Exact<{
   input: CancelReactionInput;
 }>;
 
 
-export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: string };
+export type CancelReactionMutation = { __typename?: 'Mutation', cancelReaction: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FindReactionsQueryVariables = Exact<{
   postId?: InputMaybe<Scalars['ID']['input']>;
@@ -2326,7 +2327,7 @@ export type CreateReportMutationVariables = Exact<{
 }>;
 
 
-export type CreateReportMutation = { __typename?: 'Mutation', createReport: string };
+export type CreateReportMutation = { __typename?: 'Mutation', createReport: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FindReportPreviewsQueryVariables = Exact<{
   where?: InputMaybe<FindReportPreviewsWhereInput>;
@@ -2365,14 +2366,14 @@ export type CommentReportMutationVariables = Exact<{
 }>;
 
 
-export type CommentReportMutation = { __typename?: 'Mutation', commentReport: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
+export type CommentReportMutation = { __typename?: 'Mutation', commentReport: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UpdateReportCommentMutationVariables = Exact<{
   input: UpdateReportCommentInput;
 }>;
 
 
-export type UpdateReportCommentMutation = { __typename?: 'Mutation', updateReportComment: { __typename?: 'ReportCommentResponse', id: string, createdAt: any, updatedAt: any, reportId: string, content: string, userId: string } };
+export type UpdateReportCommentMutation = { __typename?: 'Mutation', updateReportComment: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
@@ -2432,21 +2433,21 @@ export type CreateThreadMutationVariables = Exact<{
 }>;
 
 
-export type CreateThreadMutation = { __typename?: 'Mutation', createThread: string };
+export type CreateThreadMutation = { __typename?: 'Mutation', createThread: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UpdateThreadMutationVariables = Exact<{
   input: UpdateThreadInput;
 }>;
 
 
-export type UpdateThreadMutation = { __typename?: 'Mutation', updateThread: string };
+export type UpdateThreadMutation = { __typename?: 'Mutation', updateThread: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type DeleteThreadMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteThreadMutation = { __typename?: 'Mutation', deleteThread: string };
+export type DeleteThreadMutation = { __typename?: 'Mutation', deleteThread: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type ImageFragment = { __typename?: 'UserImageResponse', id: string, createdAt: any, updatedAt: any, name: string, url: string, contentType?: string | null, description?: string | null, size?: number | null, height?: number | null, width?: number | null, position: number, type: string, refId: string, userId: string };
 
@@ -2462,14 +2463,14 @@ export type CreateUserImageMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserImageMutation = { __typename?: 'Mutation', createUserImage: string };
+export type CreateUserImageMutation = { __typename?: 'Mutation', createUserImage: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type DeleteUserImageMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage: string };
+export type DeleteUserImageMutation = { __typename?: 'Mutation', deleteUserImage: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UserReviewPreviewFragment = { __typename?: 'UserReviewPreviewResponse', id: string, createdAt: any, updatedAt: any, type: string, offerId?: string | null, auctionId?: string | null, content?: string | null, rating: number, status: string, post: { __typename?: 'PostPreviewWithAuthorResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> }, reviewedUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } };
 
@@ -2501,14 +2502,14 @@ export type CreateUserReviewMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserReviewMutation = { __typename?: 'Mutation', createUserReview: string };
+export type CreateUserReviewMutation = { __typename?: 'Mutation', createUserReview: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type DeleteUserReviewMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteUserReviewMutation = { __typename?: 'Mutation', deleteUserReview: string };
+export type DeleteUserReviewMutation = { __typename?: 'Mutation', deleteUserReview: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type RoleFragment = { __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null };
 
@@ -2519,6 +2520,7 @@ export type AuthorFragment = { __typename?: 'AuthorResponse', id: string, create
 export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }>, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null };
 
 export type FindUserQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
@@ -2558,28 +2560,28 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: string };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type LinkSocialProfileMutationVariables = Exact<{
   input: LinkSocialProfileInput;
 }>;
 
 
-export type LinkSocialProfileMutation = { __typename?: 'Mutation', linkSocialProfile: string };
+export type LinkSocialProfileMutation = { __typename?: 'Mutation', linkSocialProfile: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type FollowUserMutationVariables = Exact<{
   input: FollowUserInput;
 }>;
 
 
-export type FollowUserMutation = { __typename?: 'Mutation', followUser: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
+export type FollowUserMutation = { __typename?: 'Mutation', followUser: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type UnfollowUserMutationVariables = Exact<{
   input: UnfollowUserInput;
 }>;
 
 
-export type UnfollowUserMutation = { __typename?: 'Mutation', unfollowUser: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } };
+export type UnfollowUserMutation = { __typename?: 'Mutation', unfollowUser: { __typename?: 'MutationResponse', code: number, id: string } };
 
 export type VersionPreviewFragment = { __typename?: 'VersionPreviewResponse', id: string, createdAt: any, schemaName: string, tableName: string, op: string, refId: string, values: any };
 
@@ -3636,9 +3638,11 @@ export function refetchFindBiddersQuery(variables: FindBiddersQueryVariables) {
     }
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($input: CreateAuctionInput!) {
-  createAuction(input: $input)
+  createAuction(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateAuctionMutationFn = Apollo.MutationFunction<CreateAuctionMutation, CreateAuctionMutationVariables>;
 
 /**
@@ -3905,9 +3909,11 @@ export function refetchFindBidCountQuery(variables: FindBidCountQueryVariables) 
     }
 export const PlaceBidDocument = gql`
     mutation PlaceBid($input: PlaceBidInput!) {
-  placeBid(input: $input)
+  placeBid(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type PlaceBidMutationFn = Apollo.MutationFunction<PlaceBidMutation, PlaceBidMutationVariables>;
 
 /**
@@ -3936,9 +3942,11 @@ export type PlaceBidMutationResult = Apollo.MutationResult<PlaceBidMutation>;
 export type PlaceBidMutationOptions = Apollo.BaseMutationOptions<PlaceBidMutation, PlaceBidMutationVariables>;
 export const CancelBidDocument = gql`
     mutation CancelBid($input: CancelBidInput!) {
-  cancelBid(input: $input)
+  cancelBid(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CancelBidMutationFn = Apollo.MutationFunction<CancelBidMutation, CancelBidMutationVariables>;
 
 /**
@@ -4029,10 +4037,10 @@ export type BidCanceledSubscriptionResult = Apollo.SubscriptionResult<BidCancele
 export const CreateBrandDocument = gql`
     mutation CreateBrand($input: CreateBrandInput!) {
   createBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
-    ${BrandDetailFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type CreateBrandMutationFn = Apollo.MutationFunction<CreateBrandMutation, CreateBrandMutationVariables>;
 
 /**
@@ -4062,10 +4070,10 @@ export type CreateBrandMutationOptions = Apollo.BaseMutationOptions<CreateBrandM
 export const FollowBrandDocument = gql`
     mutation FollowBrand($input: FollowBrandInput!) {
   followBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
-    ${BrandDetailFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type FollowBrandMutationFn = Apollo.MutationFunction<FollowBrandMutation, FollowBrandMutationVariables>;
 
 /**
@@ -4095,10 +4103,10 @@ export type FollowBrandMutationOptions = Apollo.BaseMutationOptions<FollowBrandM
 export const UnfollowBrandDocument = gql`
     mutation UnfollowBrand($input: UnfollowBrandInput!) {
   unfollowBrand(input: $input) {
-    ...brandDetail
+    ...mutationResponse
   }
 }
-    ${BrandDetailFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type UnfollowBrandMutationFn = Apollo.MutationFunction<UnfollowBrandMutation, UnfollowBrandMutationVariables>;
 
 /**
@@ -4281,9 +4289,11 @@ export function refetchFindBrandQuery(variables?: FindBrandQueryVariables) {
     }
 export const CreateCommentDocument = gql`
     mutation CreateComment($input: CreateCommentInput!) {
-  createComment(input: $input)
+  createComment(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
 
 /**
@@ -4312,9 +4322,11 @@ export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMut
 export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const UpdateCommentDocument = gql`
     mutation UpdateComment($input: UpdateCommentInput!) {
-  updateComment(input: $input)
+  updateComment(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type UpdateCommentMutationFn = Apollo.MutationFunction<UpdateCommentMutation, UpdateCommentMutationVariables>;
 
 /**
@@ -4343,9 +4355,11 @@ export type UpdateCommentMutationResult = Apollo.MutationResult<UpdateCommentMut
 export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<UpdateCommentMutation, UpdateCommentMutationVariables>;
 export const DeleteCommentDocument = gql`
     mutation DeleteComment($input: DeleteCommentInput!) {
-  deleteComment(input: $input)
+  deleteComment(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type DeleteCommentMutationFn = Apollo.MutationFunction<DeleteCommentMutation, DeleteCommentMutationVariables>;
 
 /**
@@ -5235,9 +5249,11 @@ export function refetchFindPostPreviewQuery(variables: FindPostPreviewQueryVaria
     }
 export const CreateReactionDocument = gql`
     mutation CreateReaction($input: CreateReactionInput!) {
-  createReaction(input: $input)
+  createReaction(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateReactionMutationFn = Apollo.MutationFunction<CreateReactionMutation, CreateReactionMutationVariables>;
 
 /**
@@ -5266,9 +5282,11 @@ export type CreateReactionMutationResult = Apollo.MutationResult<CreateReactionM
 export type CreateReactionMutationOptions = Apollo.BaseMutationOptions<CreateReactionMutation, CreateReactionMutationVariables>;
 export const CancelReactionDocument = gql`
     mutation CancelReaction($input: CancelReactionInput!) {
-  cancelReaction(input: $input)
+  cancelReaction(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CancelReactionMutationFn = Apollo.MutationFunction<CancelReactionMutation, CancelReactionMutationVariables>;
 
 /**
@@ -5405,9 +5423,11 @@ export type ReactionCanceledSubscriptionHookResult = ReturnType<typeof useReacti
 export type ReactionCanceledSubscriptionResult = Apollo.SubscriptionResult<ReactionCanceledSubscription>;
 export const CreateReportDocument = gql`
     mutation CreateReport($input: CreateReportInput!) {
-  createReport(input: $input)
+  createReport(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateReportMutationFn = Apollo.MutationFunction<CreateReportMutation, CreateReportMutationVariables>;
 
 /**
@@ -5631,10 +5651,10 @@ export function refetchFindReportCommentQuery(variables: FindReportCommentQueryV
 export const CommentReportDocument = gql`
     mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input) {
-    ...reportComment
+    ...mutationResponse
   }
 }
-    ${ReportCommentFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type CommentReportMutationFn = Apollo.MutationFunction<CommentReportMutation, CommentReportMutationVariables>;
 
 /**
@@ -5664,10 +5684,10 @@ export type CommentReportMutationOptions = Apollo.BaseMutationOptions<CommentRep
 export const UpdateReportCommentDocument = gql`
     mutation UpdateReportComment($input: UpdateReportCommentInput!) {
   updateReportComment(input: $input) {
-    ...reportComment
+    ...mutationResponse
   }
 }
-    ${ReportCommentFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type UpdateReportCommentMutationFn = Apollo.MutationFunction<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
 
 /**
@@ -5935,9 +5955,11 @@ export function refetchFindThreadQuery(variables?: FindThreadQueryVariables) {
     }
 export const CreateThreadDocument = gql`
     mutation CreateThread($input: CreateThreadInput!) {
-  createThread(input: $input)
+  createThread(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateThreadMutationFn = Apollo.MutationFunction<CreateThreadMutation, CreateThreadMutationVariables>;
 
 /**
@@ -5966,9 +5988,11 @@ export type CreateThreadMutationResult = Apollo.MutationResult<CreateThreadMutat
 export type CreateThreadMutationOptions = Apollo.BaseMutationOptions<CreateThreadMutation, CreateThreadMutationVariables>;
 export const UpdateThreadDocument = gql`
     mutation UpdateThread($input: UpdateThreadInput!) {
-  updateThread(input: $input)
+  updateThread(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type UpdateThreadMutationFn = Apollo.MutationFunction<UpdateThreadMutation, UpdateThreadMutationVariables>;
 
 /**
@@ -5997,9 +6021,11 @@ export type UpdateThreadMutationResult = Apollo.MutationResult<UpdateThreadMutat
 export type UpdateThreadMutationOptions = Apollo.BaseMutationOptions<UpdateThreadMutation, UpdateThreadMutationVariables>;
 export const DeleteThreadDocument = gql`
     mutation DeleteThread($id: ID!) {
-  deleteThread(id: $id)
+  deleteThread(id: $id) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type DeleteThreadMutationFn = Apollo.MutationFunction<DeleteThreadMutation, DeleteThreadMutationVariables>;
 
 /**
@@ -6062,9 +6088,11 @@ export type CreateSignedUrlMutationResult = Apollo.MutationResult<CreateSignedUr
 export type CreateSignedUrlMutationOptions = Apollo.BaseMutationOptions<CreateSignedUrlMutation, CreateSignedUrlMutationVariables>;
 export const CreateUserImageDocument = gql`
     mutation CreateUserImage($input: CreateUserImageInput!) {
-  createUserImage(input: $input)
+  createUserImage(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateUserImageMutationFn = Apollo.MutationFunction<CreateUserImageMutation, CreateUserImageMutationVariables>;
 
 /**
@@ -6093,9 +6121,11 @@ export type CreateUserImageMutationResult = Apollo.MutationResult<CreateUserImag
 export type CreateUserImageMutationOptions = Apollo.BaseMutationOptions<CreateUserImageMutation, CreateUserImageMutationVariables>;
 export const DeleteUserImageDocument = gql`
     mutation DeleteUserImage($id: ID!) {
-  deleteUserImage(id: $id)
+  deleteUserImage(id: $id) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type DeleteUserImageMutationFn = Apollo.MutationFunction<DeleteUserImageMutation, DeleteUserImageMutationVariables>;
 
 /**
@@ -6234,9 +6264,11 @@ export function refetchFindUserReviewQuery(variables?: FindUserReviewQueryVariab
     }
 export const CreateUserReviewDocument = gql`
     mutation CreateUserReview($input: CreateUserReviewInput!) {
-  createUserReview(input: $input)
+  createUserReview(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type CreateUserReviewMutationFn = Apollo.MutationFunction<CreateUserReviewMutation, CreateUserReviewMutationVariables>;
 
 /**
@@ -6265,9 +6297,11 @@ export type CreateUserReviewMutationResult = Apollo.MutationResult<CreateUserRev
 export type CreateUserReviewMutationOptions = Apollo.BaseMutationOptions<CreateUserReviewMutation, CreateUserReviewMutationVariables>;
 export const DeleteUserReviewDocument = gql`
     mutation DeleteUserReview($id: ID!) {
-  deleteUserReview(id: $id)
+  deleteUserReview(id: $id) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type DeleteUserReviewMutationFn = Apollo.MutationFunction<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
 
 /**
@@ -6295,8 +6329,8 @@ export type DeleteUserReviewMutationHookResult = ReturnType<typeof useDeleteUser
 export type DeleteUserReviewMutationResult = Apollo.MutationResult<DeleteUserReviewMutation>;
 export type DeleteUserReviewMutationOptions = Apollo.BaseMutationOptions<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
 export const FindUserDocument = gql`
-    query FindUser($provider: String, $socialId: String, $username: String) {
-  findUser(provider: $provider, socialId: $socialId, username: $username) {
+    query FindUser($id: String, $provider: String, $socialId: String, $username: String) {
+  findUser(id: $id, provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }
@@ -6314,6 +6348,7 @@ export const FindUserDocument = gql`
  * @example
  * const { data, loading, error } = useFindUserQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      provider: // value for 'provider'
  *      socialId: // value for 'socialId'
  *      username: // value for 'username'
@@ -6493,9 +6528,11 @@ export function refetchFindUsersQuery(variables: FindUsersQueryVariables) {
     }
 export const UpdateUserDocument = gql`
     mutation UpdateUser($input: UpdateUserInput!) {
-  updateUser(input: $input)
+  updateUser(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
 
 /**
@@ -6524,9 +6561,11 @@ export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const LinkSocialProfileDocument = gql`
     mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
-  linkSocialProfile(input: $input)
+  linkSocialProfile(input: $input) {
+    ...mutationResponse
+  }
 }
-    `;
+    ${MutationResponseFragmentDoc}`;
 export type LinkSocialProfileMutationFn = Apollo.MutationFunction<LinkSocialProfileMutation, LinkSocialProfileMutationVariables>;
 
 /**
@@ -6556,10 +6595,10 @@ export type LinkSocialProfileMutationOptions = Apollo.BaseMutationOptions<LinkSo
 export const FollowUserDocument = gql`
     mutation FollowUser($input: FollowUserInput!) {
   followUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }
-    ${UserFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type FollowUserMutationFn = Apollo.MutationFunction<FollowUserMutation, FollowUserMutationVariables>;
 
 /**
@@ -6589,10 +6628,10 @@ export type FollowUserMutationOptions = Apollo.BaseMutationOptions<FollowUserMut
 export const UnfollowUserDocument = gql`
     mutation UnfollowUser($input: UnfollowUserInput!) {
   unfollowUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }
-    ${UserFragmentDoc}`;
+    ${MutationResponseFragmentDoc}`;
 export type UnfollowUserMutationFn = Apollo.MutationFunction<UnfollowUserMutation, UnfollowUserMutationVariables>;
 
 /**

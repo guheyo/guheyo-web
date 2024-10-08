@@ -59,11 +59,15 @@ query FindBidCount(
 
 
 mutation PlaceBid($input: PlaceBidInput!) {
-  placeBid(input: $input)
+  placeBid(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation CancelBid($input: CancelBidInput!) {
-  cancelBid(input: $input)
+  cancelBid(input: $input) {
+    ...mutationResponse
+  }
 }
 
 subscription BidPlaced($auctionId: ID!) {

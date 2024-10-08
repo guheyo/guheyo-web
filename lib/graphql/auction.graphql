@@ -166,7 +166,9 @@ query FindBidders(
 }
 
 mutation CreateAuction($input: CreateAuctionInput!) {
-  createAuction(input: $input)
+  createAuction(input: $input) {
+    ...mutationResponse
+  }
 }
 
 subscription AuctionUpdated($auctionId: ID!) {
