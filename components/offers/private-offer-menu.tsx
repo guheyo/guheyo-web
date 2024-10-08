@@ -9,6 +9,7 @@ import { deleteOffer, updateOffer } from '@/lib/api/offer';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferLink } from '@/lib/offer/parse-offer-link';
 import { IconButton } from '@mui/material';
+import { updateCacheWithDeletedOffer } from '@/lib/apollo/cache/offer';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 import AlertDialog from '../base/alert-dialog';
 
@@ -92,6 +93,9 @@ export default function PrivateOfferMenu({
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
     await deleteOffer(offerId);
+
+    updateCacheWithDeletedOffer(offerId);
+
     setAlertText('삭제되었어요!');
     setOpenAlert(true);
   };
