@@ -62,11 +62,12 @@ fragment myUser on MyUserResponse {
 }
 
 query FindUser(
+  $id: String
   $provider: String
   $socialId: String
   $username: String
 ) {
-  findUser(provider: $provider, socialId: $socialId, username: $username) {
+  findUser(id: $id, provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }

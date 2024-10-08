@@ -1397,6 +1397,7 @@ export type QueryFindThreadPreviewsArgs = {
 
 
 export type QueryFindUserArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
@@ -2519,6 +2520,7 @@ export type AuthorFragment = { __typename?: 'AuthorResponse', id: string, create
 export type MyUserFragment = { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }>, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null };
 
 export type FindUserQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
   socialId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
@@ -6327,8 +6329,8 @@ export type DeleteUserReviewMutationHookResult = ReturnType<typeof useDeleteUser
 export type DeleteUserReviewMutationResult = Apollo.MutationResult<DeleteUserReviewMutation>;
 export type DeleteUserReviewMutationOptions = Apollo.BaseMutationOptions<DeleteUserReviewMutation, DeleteUserReviewMutationVariables>;
 export const FindUserDocument = gql`
-    query FindUser($provider: String, $socialId: String, $username: String) {
-  findUser(provider: $provider, socialId: $socialId, username: $username) {
+    query FindUser($id: String, $provider: String, $socialId: String, $username: String) {
+  findUser(id: $id, provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }
@@ -6346,6 +6348,7 @@ export const FindUserDocument = gql`
  * @example
  * const { data, loading, error } = useFindUserQuery({
  *   variables: {
+ *      id: // value for 'id'
  *      provider: // value for 'provider'
  *      socialId: // value for 'socialId'
  *      username: // value for 'username'
