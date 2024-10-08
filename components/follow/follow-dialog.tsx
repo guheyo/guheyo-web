@@ -2,7 +2,7 @@
 
 import { MouseEventHandler } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
-import { followBrand, unfollowBrand } from '@/lib/api/brand';
+import { findBrandPreview, followBrand, unfollowBrand } from '@/lib/api/brand';
 import { findUser, followUser, unfollowUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
@@ -22,10 +22,12 @@ export default function FollowDialog({
         await unfollowBrand({
           brandId: targetId,
         });
+        await findBrandPreview(targetId);
       } else {
         await followBrand({
           brandId: targetId,
         });
+        await findBrandPreview(targetId);
       }
     } else if (target === 'user') {
       if (followed) {
