@@ -2,7 +2,12 @@
 
 import { MouseEventHandler } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
-import { findBrandPreview, followBrand, unfollowBrand } from '@/lib/api/brand';
+import {
+  findBrand,
+  findBrandPreview,
+  followBrand,
+  unfollowBrand,
+} from '@/lib/api/brand';
 import { findAuthor, findUser, followUser, unfollowUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
@@ -18,6 +23,7 @@ export default function FollowDialog({
   const updateCache = async () => {
     if (target === 'brand') {
       await findBrandPreview(targetId);
+      await findBrand(targetId);
     } else if (target === 'user') {
       await findUser({ id: targetId });
       await findAuthor({ id: targetId });
