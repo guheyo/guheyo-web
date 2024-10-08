@@ -4,7 +4,11 @@ import { useContext } from 'react';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { parseDefaultReportCommentMode } from '@/lib/report/parse-default-report-comment-mode';
 import { AuthorResponse, ReportCommentResponse } from '@/generated/graphql';
-import { commentReport, updateReportComment } from '@/lib/api/report';
+import {
+  commentReport,
+  findReportComment,
+  updateReportComment,
+} from '@/lib/api/report';
 import { AuthContext } from '../auth/auth.provider';
 import CommentCard from '../comments/comment-card';
 
@@ -32,6 +36,7 @@ export default function ReportCommentCard({
       content: values.content,
       reportId,
     });
+    await findReportComment({ reportId });
   };
 
   const handleEdit = async (values: CommentValues) => {
@@ -42,6 +47,7 @@ export default function ReportCommentCard({
       reportId,
       content: values.content,
     });
+    await findReportComment({ reportId });
   };
 
   return (
