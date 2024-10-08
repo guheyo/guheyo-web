@@ -5,6 +5,9 @@ import {
   CreateReportDocument,
   CreateReportInput,
   CreateReportMutation,
+  FindReportCommentDocument,
+  FindReportCommentQuery,
+  QueryFindReportCommentArgs,
   UpdateReportCommentDocument,
   UpdateReportCommentInput,
   UpdateReportCommentMutation,
@@ -35,5 +38,15 @@ export async function updateReportComment(input: UpdateReportCommentInput) {
     variables: {
       input,
     },
+  });
+}
+
+export async function findReportComment(args: QueryFindReportCommentArgs) {
+  return client.query<FindReportCommentQuery>({
+    query: FindReportCommentDocument,
+    variables: {
+      ...args,
+    },
+    fetchPolicy: 'network-only',
   });
 }
