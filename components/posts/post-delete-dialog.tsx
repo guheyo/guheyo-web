@@ -16,5 +16,5 @@ export default function PostDeleteDialog({
       onClose={() => {}}
       onConfirm={handleDelete}
     />
-  )
+  );
 }
