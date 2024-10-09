@@ -13,7 +13,7 @@ import { updateCacheWithDeletedOffer } from '@/lib/apollo/cache/offer';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import PostDeleteDialog from '../posts/post-delete-dialog';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function PrivateOfferMenu({
   offerId,
@@ -76,7 +76,9 @@ export default function PrivateOfferMenu({
     });
     await findOfferPreview(offerId);
 
-    setAlertText(`${isArchived ? '보관되었어요!' : '꺼냈어요!'}`);
+    setAlertText(
+      `${isArchived ? '거래글이 보관되었어요!' : '거래글을 꺼냈어요!'}`,
+    );
     setOpenAlert(true);
   };
 
@@ -183,10 +185,12 @@ export default function PrivateOfferMenu({
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
       </Menu>
-      <AlertDialog
+      <BgDialog
         open={openAlert}
-        text={alertText}
-        handleClose={handleClose}
+        title="안내"
+        content={alertText}
+        closeButtonName="확인"
+        onClose={handleClose}
       />
     </div>
   );
