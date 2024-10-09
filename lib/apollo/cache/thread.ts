@@ -19,3 +19,20 @@ export function updateCacheWithNewThread(newThread: ThreadPreviewResponse) {
     },
   });
 }
+
+export function updateCacheWithDeleteThread(threadId: string) {
+  cache.modify({
+    fields: {
+      findThreadPreviews(existingThreadPreviews = {}) {
+        const updatedEdges = existingThreadPreviews.edges.filter(
+          (edge: any) => edge.cursor !== threadId,
+        );
+
+        return {
+          ...existingThreadPreviews,
+          edges: updatedEdges,
+        };
+      },
+    },
+  });
+}
