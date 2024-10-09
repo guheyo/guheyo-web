@@ -5,7 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
 import { OFFER_OPEN, OFFER_CLOSED } from '@/lib/offer/offer.constants';
 import { parseOfferStatusLabel } from '@/lib/offer/parse-offer-status-label';
-import { deleteOffer, updateOffer } from '@/lib/api/offer';
+import { deleteOffer, findOfferPreview, updateOffer } from '@/lib/api/offer';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferLink } from '@/lib/offer/parse-offer-link';
 import { IconButton } from '@mui/material';
@@ -49,6 +49,8 @@ export default function PrivateOfferMenu({
       status: newOfferStatus,
       post: {},
     });
+    await findOfferPreview(offerId);
+
     setAlertText(
       `${parseOfferStatusLabel(newOfferStatus)} 상태로 변경되었어요!`,
     );
@@ -66,6 +68,8 @@ export default function PrivateOfferMenu({
         archivedAt: isArchived ? new Date() : null,
       },
     });
+    await findOfferPreview(offerId);
+
     setAlertText(`${isArchived ? '보관되었어요!' : '꺼냈어요!'}`);
     setOpenAlert(true);
   };
