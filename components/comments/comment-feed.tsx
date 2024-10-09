@@ -258,7 +258,8 @@ export default function CommentFeed({
       </div>
       <DeleteConfirmationDialog
         open={deleteDialogOpen}
-        dialogTitle="댓글을 삭제할까요?"
+        title="댓글 삭제"
+        content="댓글을 완전히 삭제할까요?"
         onClose={handleCloseDeleteDialog}
         onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
       />

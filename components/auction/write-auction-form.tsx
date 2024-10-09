@@ -14,7 +14,7 @@ import { updateCacheWithNewAuction } from '@/lib/apollo/cache/auction';
 import { AuthContext } from '../auth/auth.provider';
 import parseCreateAuctionInput from '../../lib/auction/parse-create-auction-input';
 import AuctionForm from './auction-form';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
   const { jwtPayload } = useContext(AuthContext);
@@ -68,7 +68,13 @@ export default function WriteAuctionForm({ group }: { group: GroupResponse }) {
         handleSubmitValid={handleSubmitValid}
         onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </>
   );
 }

@@ -34,8 +34,8 @@ import AuctionDetailAddons from './auction-detail-addons';
 import AuctionInteractionItemsSelector from './auction-interaction-items-selector';
 import AuctionInteractionItemFeed from './auction-interaction-item-feed';
 import DeleteConfirmationDialog from '../base/delete-confirmation-dialog';
-import AlertDialog from '../base/alert-dialog';
 import PinnedComments from '../comments/pinned-comments';
+import BgDialog from '../base/bg-dialog';
 
 export default function AuctionDetailContainer({
   auction: initialAuction,
@@ -400,11 +400,18 @@ export default function AuctionDetailContainer({
       </div>
       <DeleteConfirmationDialog
         open={deleteDialogOpen}
-        dialogTitle="댓글을 삭제할까요?"
+        title="댓글 삭제"
+        content="댓글을 완전히 삭제할까요?"
         onClose={handleCloseDeleteDialog}
         onConfirm={() => commentToDelete && handleDelete(commentToDelete)}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </div>
   );
 }

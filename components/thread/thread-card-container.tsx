@@ -19,7 +19,7 @@ import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
 import BrandSelector from '../brand/brand-selector';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function ThreadCardContainer({
   defaultMode,
@@ -195,10 +195,12 @@ export default function ThreadCardContainer({
         handleEdit={handleEdit}
         handleFocus={handleInputFocus}
       />
-      <AlertDialog
+      <BgDialog
         open={isDialogOpen}
-        text={alertMessage}
-        handleClose={handleDialogClose}
+        title="정보 누락"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleDialogClose}
       />
     </div>
   );

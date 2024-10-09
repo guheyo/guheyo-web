@@ -5,7 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton } from '@mui/material';
 import { deleteUserReview } from '@/lib/api/user-review';
 import PostDeleteDialog from '../posts/post-delete-dialog';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function PrivateUserReviewMenu({
   userReviewId,
@@ -61,10 +61,12 @@ export default function PrivateUserReviewMenu({
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
       </Menu>
-      <AlertDialog
+      <BgDialog
         open={openAlert}
-        text={alertText}
-        handleClose={handleClose}
+        title="삭제 완료"
+        content={alertText}
+        closeButtonName="확인"
+        onClose={handleClose}
       />
     </div>
   );

@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import OfferBumpFormLayout from '@/components/offers/offer-bump-form.layout';
-import AlertDialog from '@/components/base/alert-dialog';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import BgDialog from '@/components/base/bg-dialog';
 
 function Page({
   params: { id },
@@ -86,7 +86,13 @@ function Page({
         bumpedAt={offer.bumpedAt}
         handleSubmitValid={handleSubmitValid}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </OfferBumpFormLayout>
   );
 }
