@@ -18,10 +18,10 @@ export default function BgDialog({
   open: boolean;
   title: string;
   content: string;
-  closeButtonName: string;
-  confirmButtonName: string;
-  onClose: React.MouseEventHandler;
-  onConfirm: React.MouseEventHandler;
+  closeButtonName?: string;
+  confirmButtonName?: string;
+  onClose?: React.MouseEventHandler;
+  onConfirm?: React.MouseEventHandler;
 }) {
   return (
     <Dialog open={open} onClose={onClose}>
@@ -35,19 +35,23 @@ export default function BgDialog({
       </DialogContent>
       <DialogActions>
         <div className="flex justify-end gap-2 w-full p-0">
-          <Button
-            onClick={onClose}
-            className="hover:bg-blurple-200 rounded-full text-blurple-500 font-medium"
-          >
-            {closeButtonName}
-          </Button>
-          <Button
-            onClick={onConfirm}
-            autoFocus
-            className="hover:bg-blurple-200 rounded-full text-blurple-500 font-medium"
-          >
-            {confirmButtonName}
-          </Button>
+          {onClose && closeButtonName && (
+            <Button
+              onClick={onClose}
+              className="hover:bg-blurple-200 rounded-full text-blurple-500 font-medium"
+            >
+              {closeButtonName}
+            </Button>
+          )}
+          {onConfirm && confirmButtonName && (
+            <Button
+              onClick={onConfirm}
+              autoFocus
+              className="hover:bg-blurple-200 rounded-full text-blurple-500 font-medium"
+            >
+              {confirmButtonName}
+            </Button>
+          )}
         </div>
       </DialogActions>
     </Dialog>
