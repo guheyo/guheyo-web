@@ -7,8 +7,9 @@ import { IconButton } from '@mui/material';
 import { deleteThread } from '@/lib/api/thread';
 import { parseThreadLink } from '@/lib/thread/parse-thread-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
-import { generateChannelLinkAfterThreadDeletion } from '@/lib/thread/generate-channel-link-after-thread-deletion';
 import { updateCacheWithDeleteThread } from '@/lib/apollo/cache/thread';
+import { THREAD } from '@/lib/thread/thread.constants';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import PostDeleteDialog from '../posts/post-delete-dialog';
 
 export default function PrivateThreadMenu({
@@ -24,8 +25,7 @@ export default function PrivateThreadMenu({
   const open = Boolean(anchorEl);
   const router = useRouter();
   const pathname = usePathname();
-  const { groupSlug, channelSlug, identifier, view } =
-    parseUrlSegments(pathname);
+  const { groupSlug, channelSlug, identifier } = parseUrlSegments(pathname);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -53,15 +53,15 @@ export default function PrivateThreadMenu({
     await deleteThread(threadId);
     updateCacheWithDeleteThread(threadId);
     setAnchorEl(null);
-    router.push(
-      generateChannelLinkAfterThreadDeletion({
-        groupSlug,
-        channelSlug,
-        categoryTypes: [categoryType],
-        identifier,
-        view,
-      }),
-    );
+
+    if (channelSlug === THREAD && identifier) {
+      router.push(
+        parseChannelLink({
+          groupSlug,
+          channelSlug: categoryType,
+        }),
+      );
+    }
   };
 
   return (
