@@ -84,6 +84,7 @@ export default function ThreadDetailMain({
             threadId={thread.id}
             postId={thread.post.id}
             groupId={thread.post.group.id}
+            categoryType={thread.post.category?.type || 'community'}
             userId={thread.post.user.id}
             privateOnly
           />

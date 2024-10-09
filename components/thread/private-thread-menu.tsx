@@ -2,25 +2,30 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { IconButton } from '@mui/material';
 import { deleteThread } from '@/lib/api/thread';
 import { parseThreadLink } from '@/lib/thread/parse-thread-link';
+import { parseUrlSegments } from '@/lib/group/parse-url-segments';
+import { updateCacheWithDeleteThread } from '@/lib/apollo/cache/thread';
+import { THREAD } from '@/lib/thread/thread.constants';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import PostDeleteDialog from '../posts/post-delete-dialog';
-import AlertDialog from '../base/alert-dialog';
 
 export default function PrivateThreadMenu({
   threadId,
   groupId,
+  categoryType,
 }: {
   threadId: string;
   groupId: string;
+  categoryType: string;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [openAlert, setOpenAlert] = React.useState(false);
-  const [alertText, setAlertText] = React.useState('');
   const router = useRouter();
+  const pathname = usePathname();
+  const { groupSlug, channelSlug, identifier } = parseUrlSegments(pathname);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -30,7 +35,6 @@ export default function PrivateThreadMenu({
   const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setAnchorEl(null);
-    setOpenAlert(false);
   };
 
   const handleEditClick: React.MouseEventHandler = (event) => {
@@ -47,8 +51,17 @@ export default function PrivateThreadMenu({
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
     await deleteThread(threadId);
-    setAlertText('삭제되었어요!');
-    setOpenAlert(true);
+    updateCacheWithDeleteThread(threadId);
+    setAnchorEl(null);
+
+    if (channelSlug === THREAD && identifier) {
+      router.push(
+        parseChannelLink({
+          groupSlug,
+          channelSlug: categoryType,
+        }),
+      );
+    }
   };
 
   return (
@@ -80,11 +93,6 @@ export default function PrivateThreadMenu({
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
       </Menu>
-      <AlertDialog
-        open={openAlert}
-        text={alertText}
-        handleClose={handleClose}
-      />
     </div>
   );
 }

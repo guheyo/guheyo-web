@@ -24,6 +24,7 @@ export default function OfferCredditBar({ offer }: Props) {
           offerId={offer.id}
           postId={offer.post.id}
           offerStatus={offer.status as OfferStatus}
+          businessFunction={offer.businessFunction as BusinessFunction}
           userId={offer.post.user.id}
           privateOnly
           archivedAt={offer.post.archivedAt}

@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { OfferResponse } from '@/generated/graphql';
-import { OfferStatus } from '@/lib/offer/offer.types';
+import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
 import { ShippingType } from '@/lib/shipping/shipping.types';
 import ReportsLink from '../reports/reports-link';
 import UserProfileRedirectButton from '../users/user-profile-redirect-button';
@@ -34,6 +34,7 @@ export default function OfferDetailMain({ offer }: { offer: OfferResponse }) {
             offerId={offer.id}
             postId={offer.post.id}
             offerStatus={offer.status as OfferStatus}
+            businessFunction={offer.businessFunction as BusinessFunction}
             userId={offer.post.user.id}
             archivedAt={offer.post.archivedAt}
           />
