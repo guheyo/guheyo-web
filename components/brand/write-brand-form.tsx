@@ -9,9 +9,9 @@ import { BrandFormValues } from '@/lib/brand/brand.interfaces';
 import { createBrand, findBrandPreview } from '@/lib/api/brand';
 import { updateCacheWithNewBrand } from '@/lib/apollo/cache/brand';
 import { AuthContext } from '../auth/auth.provider';
-import AlertDialog from '../base/alert-dialog';
 import { parseTempBrandFormKey } from './parse-temp-brand-form-key';
 import BrandForm from './brand-form';
+import BgDialog from '../base/bg-dialog';
 
 export default function WriteBrandForm() {
   const { jwtPayload } = useContext(AuthContext);
@@ -65,7 +65,13 @@ export default function WriteBrandForm() {
         handleSubmitValid={handleSubmitValid}
         onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </>
   );
 }

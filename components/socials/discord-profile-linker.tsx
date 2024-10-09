@@ -6,7 +6,7 @@ import { MouseEventHandler, useState } from 'react';
 import { reGenerateTokens } from '@/lib/api/auth';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SocialLogo from './social-logo';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function DiscordProfileLinker() {
   const [open, setOpen] = useState(false);
@@ -63,10 +63,12 @@ export default function DiscordProfileLinker() {
       >
         디스코드 프로필 불러오기
       </LoadingButton>
-      <AlertDialog
+      <BgDialog
         open={open}
-        text="프로필이 업데이트되었어요!"
-        handleClose={handleClose}
+        title="수정 완료"
+        content="프로필이 업데이트되었어요!"
+        closeButtonName="확인"
+        onClose={handleClose}
       />
     </div>
   );
