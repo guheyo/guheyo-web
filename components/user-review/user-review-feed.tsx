@@ -61,7 +61,7 @@ function UserReviewFeed({
         <UserReviewPreview
           key={edge.node.id}
           userReview={edge.node}
-          isInGroup={!!group}
+          displayGroup={!group || group.name === 'root'}
         />
       ))}
       <div ref={ref} />

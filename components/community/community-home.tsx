@@ -47,7 +47,7 @@ export default function CommunityHome() {
               <UserReviewPreview
                 key={item.node.id}
                 userReview={item.node}
-                isInGroup={false}
+                displayGroup
               />
             );
           default:
