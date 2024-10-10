@@ -1,6 +1,7 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import GroupHome from '@/components/groups/group-home';
+import { Suspense } from 'react';
 
 export interface Props {
   params: {
@@ -9,7 +10,11 @@ export interface Props {
 }
 
 function Page({ params: { groupSlug } }: Props) {
-  return redirect(`/g/${groupSlug}/auction`);
+  return (
+    <Suspense>
+      <GroupHome />
+    </Suspense>
+  );
 }
 
 export default Page;
