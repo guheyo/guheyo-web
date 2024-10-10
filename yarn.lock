@@ -10082,6 +10082,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-hangul@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "es-hangul@npm:2.1.0"
+  checksum: df7653dcba2ef98c561d3dc0f1046a8d44bf5a810d67af896361b03d23e5dc5b3c26087dcc4258989163987bf863ea2d7e97987ee3adcd67735e72a8968b8361
+  languageName: node
+  linkType: hard
+
 "es-iterator-helpers@npm:^1.0.12, es-iterator-helpers@npm:^1.0.15":
   version: 1.0.15
   resolution: "es-iterator-helpers@npm:1.0.15"
@@ -11907,6 +11914,7 @@ __metadata:
     autoprefixer: 10.4.14
     axios: ^1.7.4
     dayjs: ^1.11.9
+    es-hangul: ^2.1.0
     eslint: ^8.45.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^17.1.0

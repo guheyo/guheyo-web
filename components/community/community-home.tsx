@@ -2,10 +2,10 @@
 
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { useRef } from 'react';
-import CommunityHomeFeedLayout from './community-home-feed.layout';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 import { Mocks } from '../mock/mock';
+import CommunityHomeFeedLayout from './community-home-feed-layout';
 
 export default function CommunityHome() {
   const ref = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ export default function CommunityHome() {
                 key={item.node.id}
                 type="listview"
                 thread={item.node}
-                isInGroup={false}
+                displayGroup
               />
             );
           case 'UserReviewPreviewResponseEdge':
@@ -47,7 +47,7 @@ export default function CommunityHome() {
               <UserReviewPreview
                 key={item.node.id}
                 userReview={item.node}
-                isInGroup={false}
+                displayGroup
               />
             );
           default:

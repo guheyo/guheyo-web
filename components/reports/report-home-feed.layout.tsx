@@ -1,23 +1,31 @@
 'use client';
 
-import ReportTypeNavbar from '@/components/reports/report-type-navbar';
 import { ReactNode } from 'react';
-import ReportHomeLink from './report-home-link';
 import HomeFeedLayout from '../home/home-feed.layout';
+import ReportHomeLink from './report-home-link';
 import ReportSelectors from './report-selectors';
+import ReportMoreLink from './report-more-link';
+import ReportTypeNavbar from './report-type-navbar';
 
 interface Props {
   children: ReactNode;
+  showCategories: boolean;
   showSelectors: boolean;
+  showMoreLink: boolean;
 }
 
-function ReportHomeFeedLayout({ children, showSelectors }: Props) {
+function ReportHomeFeedLayout({
+  children,
+  showCategories,
+  showSelectors,
+  showMoreLink,
+}: Props) {
   return (
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<ReportHomeLink />}
       path="report"
-      categories={<ReportTypeNavbar />}
+      categories={showCategories && <ReportTypeNavbar />}
       selectors={
         showSelectors && (
           <>
@@ -26,6 +34,7 @@ function ReportHomeFeedLayout({ children, showSelectors }: Props) {
           </>
         )
       }
+      moreLink={showMoreLink && <ReportMoreLink />}
     >
       {children}
     </HomeFeedLayout>

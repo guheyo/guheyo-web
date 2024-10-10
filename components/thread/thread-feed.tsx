@@ -1,11 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import {
   FindThreadPreviewsOrderByInput,
   FindThreadPreviewsWhereInput,
+  useFindAuthorQuery,
 } from '@/generated/graphql';
 import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import { PostPreviewType } from '@/lib/post/post.types';
@@ -13,20 +14,28 @@ import { useSearchParams } from 'next/navigation';
 import { findCategory } from '@/lib/group/find-category';
 import { convertPeriodToDateString } from '@/lib/date/date.converter';
 import ThreadPreview from './thread-preview';
+import { AuthContext } from '../auth/auth.provider';
+import ThreadCardContainer from './thread-card-container';
 
 function ThreadFeed({
+  type,
   defaultWhere,
   defaultOrderBy,
-  type,
+  showInput,
 }: {
+  type: PostPreviewType;
   defaultWhere: FindThreadPreviewsWhereInput;
   defaultOrderBy?: FindThreadPreviewsOrderByInput;
-  type: PostPreviewType;
+  showInput?: boolean;
 }) {
+  const { jwtPayload } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
+  const tagName = [null, 'all'].includes(searchParams.get('tag'))
+    ? undefined
+    : searchParams.get('tag');
   const period = searchParams.get('period');
   const followed = [null, 'all'].includes(searchParams.get('followed'))
     ? undefined
@@ -38,6 +47,13 @@ function ThreadFeed({
     slug: categorySlug,
   });
 
+  const { data: UserData } = useFindAuthorQuery({
+    variables: {
+      id: jwtPayload?.id,
+    },
+  });
+  const user = UserData?.findAuthor;
+
   const { loading, data } = useInfiniteThreadFeed({
     ref,
     where: {
@@ -45,6 +61,8 @@ function ThreadFeed({
       userId: defaultWhere.userId,
       categoryId: category?.id,
       categoryType: defaultWhere.categoryType,
+      tagNames: categorySlug === 'meetup' && tagName ? [tagName] : undefined,
+      brandIds: defaultWhere.brandIds,
       createdAt: period
         ? {
             gt: convertPeriodToDateString(period),
@@ -64,15 +82,30 @@ function ThreadFeed({
   if (!data?.findThreadPreviews) return <div />;
 
   const { edges } = data.findThreadPreviews;
-
   return (
     <>
+      {showInput && (
+        <div className="py-6">
+          <ThreadCardContainer
+            defaultMode="create"
+            user={user || undefined}
+            defaultGroupId={group?.name === 'root' ? undefined : group?.id}
+            defaultCategoryTypes={
+              defaultWhere.categoryType ? [defaultWhere.categoryType] : []
+            }
+            defaultBrandId={
+              defaultWhere.brandIds ? defaultWhere.brandIds[0] : undefined
+            }
+            defaultImages={[]}
+          />
+        </div>
+      )}
       {edges.map((edge) => (
         <ThreadPreview
           key={edge.node.id}
           type={type}
           thread={edge.node}
-          isInGroup={!!group}
+          displayGroup={!group || group.name === 'root'}
         />
       ))}
       <div ref={ref} />

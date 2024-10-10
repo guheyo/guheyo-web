@@ -71,6 +71,19 @@ query FindOfferPreviews(
   }
 }
 
+query FindOfferPreview(
+  $id: ID
+  $slug: String
+) {
+  findOfferPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...offerPreview
+  }
+}
+
+
 query FindOffer(
   $id: ID
   $slug: String
@@ -84,22 +97,14 @@ query FindOffer(
 }
 
 mutation CreateOffer($input: CreateOfferInput!) {
-  createOffer(input: $input)
+  createOffer(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
-    id
-    createdAt
-    updatedAt
-    status
-    name0
-    name1
-    content
-    price
-    shippingCost
-    shippingType
-    totalPrice
+    ...mutationResponse
   }
 }
 
@@ -108,16 +113,13 @@ mutation DeleteOffer(
 ) {
   deleteOffer(
     id: $id
-  )
+  ) {
+    ...mutationResponse
+  }
 }
 
 mutation BumpOffer($input: BumpOfferInput!) {
   bumpOffer(input: $input) {
-    id
-    bumpedAt
-    price
-    shippingCost
-    shippingType
-    totalPrice
+    ...mutationResponse
   }
 }

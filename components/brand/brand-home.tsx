@@ -1,6 +1,6 @@
 'use client';
 
-import { BrandResponse } from '@/generated/graphql';
+import { BrandDetailResponse } from '@/generated/graphql';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import Link from 'next/link';
 import { parseBrandHomeLink } from '@/lib/brand/parse-brand-home-link';
@@ -10,7 +10,7 @@ import PlatformLinks from './platform-links';
 import FollowCount from '../follow/follow-count';
 import BrandNameLink from './brand-name-link';
 
-export default function BrandHome({ brand }: { brand: BrandResponse }) {
+export default function BrandHome({ brand }: { brand: BrandDetailResponse }) {
   const device = useDeviceDetect();
 
   return (
@@ -27,7 +27,7 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
       <div className="col-span-9">
         <div className="grid grid-cols-12 gap-1">
           <span className="col-span-12 text-gray-300 text-lg font-bold justify-self-start">
-            <BrandNameLink brand={brand} />
+            <BrandNameLink name={brand.name} slug={brand.slug!} />
           </span>
           <div className="col-span-12 text-base">
             <FollowCount
@@ -41,7 +41,7 @@ export default function BrandHome({ brand }: { brand: BrandResponse }) {
             <FollowDialog
               target="brand"
               targetId={brand.id}
-              followed={brand.followed}
+              followed={brand.followed === true}
             />
           </div>
         </div>

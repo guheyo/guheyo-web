@@ -9,7 +9,7 @@ export default function AuctionInteractionItemsSelector() {
       queryKey="view"
       defaultValue="newest"
       options={AUCTION_INTERACTION_ITEM_SORT_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

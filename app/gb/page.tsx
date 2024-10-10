@@ -20,6 +20,7 @@ export default function Page() {
   return (
     <Suspense>
       <GbHomeFeedLayout
+        showChannels
         showCategories
         showTags
         showSelectors
@@ -29,6 +30,7 @@ export default function Page() {
           type="listview"
           defaultWhere={where}
           defaultOrderBy={orderBy}
+          showInput={false}
         />
       </GbHomeFeedLayout>
     </Suspense>

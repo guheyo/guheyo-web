@@ -12,12 +12,13 @@ import { findCategory } from '@/lib/group/find-category';
 import { parseOfferTermAlertMessage } from '@/lib/offer/parse-offer-term-alert-message';
 import { isPostingLimitExceededError } from '@/lib/post/is-posting-limit-exceeded-error';
 import parseCreateOfferInput from '@/lib/offer/parse-create-offer-input';
-import { createOffer } from '@/lib/api/offer';
+import { createOffer, findOfferPreview } from '@/lib/api/offer';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import { BusinessFunction } from '@/lib/offer/offer.types';
+import { updateCacheWithNewOffer } from '@/lib/apollo/cache/offer';
 import { AuthContext } from '../auth/auth.provider';
-import AlertDialog from '../base/alert-dialog';
 import OfferForm from './offer-form';
+import BgDialog from '../base/bg-dialog';
 
 export default function WriteOfferForm({ group }: { group: GroupResponse }) {
   const { jwtPayload } = useContext(AuthContext);
@@ -39,15 +40,16 @@ export default function WriteOfferForm({ group }: { group: GroupResponse }) {
 
     try {
       await createOffer(input);
+
+      const { data } = await findOfferPreview(input.id);
+      if (data.findOfferPreview) updateCacheWithNewOffer(data.findOfferPreview);
+
       router.push(
         parseMarketLink({
           groupSlug: group.slug,
           businessFunction: input.businessFunction as BusinessFunction,
         }),
       );
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (e: any) {
       if (isPostingLimitExceededError(e.message)) {
         const category = findCategory(group.categories, {
@@ -82,7 +84,13 @@ export default function WriteOfferForm({ group }: { group: GroupResponse }) {
         handleSubmitValid={handleSubmitValid}
         onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </>
   );
 }

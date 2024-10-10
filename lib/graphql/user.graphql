@@ -62,11 +62,12 @@ fragment myUser on MyUserResponse {
 }
 
 query FindUser(
+  $id: String
   $provider: String
   $socialId: String
   $username: String
 ) {
-  findUser(provider: $provider, socialId: $socialId, username: $username) {
+  findUser(id: $id, provider: $provider, socialId: $socialId, username: $username) {
     ...user
   }
 }
@@ -123,7 +124,9 @@ query FindUsers(
 mutation UpdateUser(
   $input: UpdateUserInput!
 ) {
-  updateUser(input: $input)
+  updateUser(input: $input) {
+    ...mutationResponse
+  }
 }
 
 # NOTE
@@ -133,17 +136,19 @@ mutation UpdateUser(
 # deleteUser
 
 mutation LinkSocialProfile($input: LinkSocialProfileInput!) {
-  linkSocialProfile(input: $input)
+  linkSocialProfile(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation FollowUser($input: FollowUserInput!) {
   followUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }
 
 mutation UnfollowUser($input: UnfollowUserInput!) {
   unfollowUser(input: $input) {
-    ...user
+    ...mutationResponse
   }
 }

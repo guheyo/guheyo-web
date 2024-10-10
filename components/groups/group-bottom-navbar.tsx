@@ -1,15 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import ShopTwoIcon from '@mui/icons-material/ShopTwo';
-import ForumIcon from '@mui/icons-material/Forum';
+import { SearchRounded } from '@mui/icons-material';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
-import { parseChannelLink } from '@/lib/channel/parse-channel-link';
+import { usePathname } from 'next/navigation';
+import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
+import { parseSearchLink } from '@/lib/search/parse-search-link';
+import { AuthContext } from '../auth/auth.provider';
+import Avatar from '../avatar/avatar';
 import BottomNavbarItem from '../base/bottom-navbar-item';
+import WriteButton from '../write/write-button';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bottomNavbar: {
@@ -37,6 +41,8 @@ export default function GroupBottomNavbar({
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const { jwtPayload } = useContext(AuthContext);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,21 +62,22 @@ export default function GroupBottomNavbar({
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollTop]);
+
   return (
     <nav
       className={`${classes.bottomNavbar} ${
         showComponent ? '' : classes.hideTablet
       }`}
     >
-      <div className="grid grid-rows grid-cols-12 gap-0 bg-dark-500 w-screen py-2 px-4">
-        <div className="col-span-3">
+      <div className="grid grid-rows grid-cols-10 items-center gap-0 bg-dark-500 w-screen py-2 px-4">
+        <div className="col-span-2">
           <BottomNavbarItem
             href="/"
             icon={<HomeIcon fontSize="small" className="hover:text-gray-300" />}
             text="홈"
           />
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
           <BottomNavbarItem
             href={parseMarketLink({ groupSlug, businessFunction: 'auction' })}
             icon={
@@ -82,28 +89,36 @@ export default function GroupBottomNavbar({
             text="장터"
           />
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
+          <div className="flex flex-row justify-center">
+            <WriteButton size="large" />
+          </div>
+        </div>
+        <div className="col-span-2">
           <BottomNavbarItem
-            href={parseChannelLink({
-              channelName: 'gb',
-              groupSlug,
+            href={parseSearchLink({
+              pathname,
+              groupSlug: groupSlug || undefined,
             })}
             icon={
-              <ShopTwoIcon fontSize="small" className="hover:text-gray-300" />
+              <SearchRounded fontSize="small" className="hover:text-gray-300" />
             }
-            text="공동구매"
+            text="검색"
           />
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
           <BottomNavbarItem
-            href={parseChannelLink({
-              channelName: 'community',
-              groupSlug,
+            href={parseUserHomeLink({
+              username: jwtPayload?.username || '',
             })}
             icon={
-              <ForumIcon fontSize="small" className="hover:text-gray-300" />
+              <Avatar
+                name={jwtPayload?.username || 'guest'}
+                src={jwtPayload?.avatarURL}
+                fontSize="text-xs"
+              />
             }
-            text="커뮤니티"
+            text="나"
           />
         </div>
       </div>

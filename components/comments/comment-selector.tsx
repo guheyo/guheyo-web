@@ -9,7 +9,7 @@ export default function CommentSelector() {
       queryKey="view"
       defaultValue="newest"
       options={COMMENT_SORT_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

@@ -262,6 +262,7 @@ export default function BrandForm({
         type="listview"
         distinct={false}
         CheckboxResults={GroupCheckboxResults}
+        size="medium"
         handleClick={handleCheckboxClick}
         multiple
         showNextButton={false}

@@ -54,7 +54,9 @@ fragment reportComment on ReportCommentResponse {
 }
 
 mutation CreateReport($input: CreateReportInput!) {
-  createReport(input: $input)
+  createReport(input: $input) {
+    ...mutationResponse
+  }
 }
 
 query FindReportPreviews(
@@ -114,12 +116,12 @@ query FindReportComment(
 
 mutation CommentReport($input: CommentReportInput!) {
   commentReport(input: $input) {
-    ...reportComment
+    ...mutationResponse
   }
 }
 
 mutation UpdateReportComment($input: UpdateReportCommentInput!) {
   updateReportComment(input: $input) {
-    ...reportComment
+    ...mutationResponse
   }
 }

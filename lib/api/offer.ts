@@ -7,6 +7,8 @@ import {
   CreateOfferMutation,
   DeleteOfferDocument,
   DeleteOfferMutation,
+  FindOfferPreviewDocument,
+  FindOfferPreviewQuery,
   UpdateOfferDocument,
   UpdateOfferInput,
   UpdateOfferMutation,
@@ -46,5 +48,15 @@ export async function bumpOffer(input: BumpOfferInput) {
     variables: {
       input,
     },
+  });
+}
+
+export async function findOfferPreview(id: string) {
+  return client.query<FindOfferPreviewQuery>({
+    query: FindOfferPreviewDocument,
+    variables: {
+      id,
+    },
+    fetchPolicy: 'network-only',
   });
 }

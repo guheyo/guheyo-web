@@ -2,8 +2,8 @@
 
 import { FindUsersOrderByInput } from '@/generated/graphql';
 import UserFeed from '../users/user-feed';
-import MemberRolesNavbar from '../member/member-roles-navbar';
 import SearchContainer from './search-container';
+import FollowFilterClickButton from '../follow/follow-filter-click-button';
 
 export default function SearchUsers() {
   const where = {};
@@ -14,7 +14,12 @@ export default function SearchUsers() {
   return (
     <SearchContainer
       placeholder="어떤 멤버를 찾고 있나요?"
-      categories={<MemberRolesNavbar />}
+      selectors={
+        <>
+          <FollowFilterClickButton />
+          <div />
+        </>
+      }
       Feed={UserFeed}
       feedProps={{
         type: 'listview',

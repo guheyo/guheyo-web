@@ -2,23 +2,28 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useRouter } from 'next/navigation';
-import { OFFER_OPEN, OFFER_CLOSED } from '@/lib/offer/offer.constants';
+import { usePathname, useRouter } from 'next/navigation';
+import { OFFER_OPEN, OFFER_CLOSED, OFFER } from '@/lib/offer/offer.constants';
 import { parseOfferStatusLabel } from '@/lib/offer/parse-offer-status-label';
-import { deleteOffer, updateOffer } from '@/lib/api/offer';
-import { OfferStatus } from '@/lib/offer/offer.types';
+import { deleteOffer, findOfferPreview, updateOffer } from '@/lib/api/offer';
+import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
 import { parseOfferLink } from '@/lib/offer/parse-offer-link';
 import { IconButton } from '@mui/material';
+import { updateCacheWithDeletedOffer } from '@/lib/apollo/cache/offer';
+import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import PostDeleteDialog from '../posts/post-delete-dialog';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function PrivateOfferMenu({
   offerId,
   offerStatus,
+  businessFunction,
   archivedAt,
 }: {
   offerId: string;
   offerStatus: OfferStatus;
+  businessFunction: BusinessFunction;
   archivedAt?: Date;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,6 +31,8 @@ export default function PrivateOfferMenu({
   const [openAlert, setOpenAlert] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const router = useRouter();
+  const pathname = usePathname();
+  const { channelSlug, identifier } = parseUrlSegments(pathname);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -48,6 +55,8 @@ export default function PrivateOfferMenu({
       status: newOfferStatus,
       post: {},
     });
+    await findOfferPreview(offerId);
+
     setAlertText(
       `${parseOfferStatusLabel(newOfferStatus)} 상태로 변경되었어요!`,
     );
@@ -65,7 +74,11 @@ export default function PrivateOfferMenu({
         archivedAt: isArchived ? new Date() : null,
       },
     });
-    setAlertText(`${isArchived ? '보관되었어요!' : '꺼냈어요!'}`);
+    await findOfferPreview(offerId);
+
+    setAlertText(
+      `${isArchived ? '거래글이 보관되었어요!' : '거래글을 꺼냈어요!'}`,
+    );
     setOpenAlert(true);
   };
 
@@ -92,6 +105,16 @@ export default function PrivateOfferMenu({
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
     await deleteOffer(offerId);
+    updateCacheWithDeletedOffer(offerId);
+
+    if (channelSlug === OFFER && identifier) {
+      router.push(
+        parseMarketLink({
+          businessFunction,
+        }),
+      );
+    }
+
     setAlertText('삭제되었어요!');
     setOpenAlert(true);
   };
@@ -162,10 +185,12 @@ export default function PrivateOfferMenu({
           <PostDeleteDialog handleDelete={handleDelete} />
         </MenuItem>
       </Menu>
-      <AlertDialog
+      <BgDialog
         open={openAlert}
-        text={alertText}
-        handleClose={handleClose}
+        title="안내"
+        content={alertText}
+        closeButtonName="확인"
+        onClose={handleClose}
       />
     </div>
   );

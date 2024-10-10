@@ -18,7 +18,7 @@ export default function Page() {
 
   return (
     <Suspense>
-      <ReportHomeFeedLayout showSelectors>
+      <ReportHomeFeedLayout showCategories showSelectors showMoreLink={false}>
         <ReportFeed defaultWhere={where} defaultOrderBy={orderBy} />
       </ReportHomeFeedLayout>
     </Suspense>

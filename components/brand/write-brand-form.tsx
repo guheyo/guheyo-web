@@ -6,11 +6,12 @@ import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
 import { BrandFormValues } from '@/lib/brand/brand.interfaces';
-import { createBrand } from '@/lib/api/brand';
+import { createBrand, findBrandPreview } from '@/lib/api/brand';
+import { updateCacheWithNewBrand } from '@/lib/apollo/cache/brand';
 import { AuthContext } from '../auth/auth.provider';
-import AlertDialog from '../base/alert-dialog';
 import { parseTempBrandFormKey } from './parse-temp-brand-form-key';
 import BrandForm from './brand-form';
+import BgDialog from '../base/bg-dialog';
 
 export default function WriteBrandForm() {
   const { jwtPayload } = useContext(AuthContext);
@@ -38,10 +39,11 @@ export default function WriteBrandForm() {
         groupIds: values.groupIds,
         links: values.links.filter((link) => link.url),
       });
+
+      const { data } = await findBrandPreview(values.id);
+      if (data.findBrandPreview) updateCacheWithNewBrand(data.findBrandPreview);
+
       router.push('/brand');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (e: any) {
       // do nothing
     }
@@ -63,7 +65,13 @@ export default function WriteBrandForm() {
         handleSubmitValid={handleSubmitValid}
         onClickImagePreviewCallback={handleOnClickImagePreviewCallback}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </>
   );
 }

@@ -24,10 +24,10 @@ export default function SelectUserReviewTargetUserDialog({
   };
 
   return (
-    <div className="bg-gray-500 hover:bg-dark-200 text-sm font-bold p-2 rounded text-gray-300">
+    <div className="bg-gray-500 hover:bg-dark-200 text-xs md:text-sm font-bold p-2 rounded text-gray-300">
       <DiscordLoginDialogButton
         name="후기 보내기"
-        icon={<CreateIcon fontSize="small" />}
+        icon={<CreateIcon fontSize="inherit" />}
         onAuthorization={handleOnAuthorization}
         onUnAuthorization={handleOnUnAuthorization}
       />

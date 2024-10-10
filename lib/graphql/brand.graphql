@@ -6,7 +6,29 @@ fragment followBrand on FollowBrandResponse {
   }
 }
 
-fragment brand on BrandResponse {
+fragment brandBase on BrandBaseResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+}
+
+fragment brandPreview on BrandPreviewResponse {
+  id
+  createdAt
+  name
+  slug
+  description
+  logo
+  groups {
+    ...groupProfile
+  }
+  followed
+}
+
+fragment brandDetail on BrandDetailResponse {
   id
   createdAt
   name
@@ -27,19 +49,19 @@ fragment brand on BrandResponse {
 
 mutation CreateBrand($input: CreateBrandInput!) {
   createBrand(input: $input) {
-    ...brand
+    ...mutationResponse
   }
 }
 
 mutation FollowBrand($input: FollowBrandInput!) {
   followBrand(input: $input) {
-    ...brand
+    ...mutationResponse
   }
 }
 
 mutation UnfollowBrand($input: UnfollowBrandInput!) {
   unfollowBrand(input: $input) {
-    ...brand
+    ...mutationResponse
   }
 }
 
@@ -63,7 +85,7 @@ query FindBrands(
   ) {
     edges {
       node {
-        ...brand
+        ...brandPreview
       }
       cursor
     }
@@ -71,6 +93,18 @@ query FindBrands(
       endCursor
       hasNextPage
     }
+  }
+}
+
+query FindBrandPreview(
+  $id: ID
+  $slug: String
+) {
+  findBrandPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...brandPreview
   }
 }
 
@@ -82,6 +116,6 @@ query FindBrand(
     id: $id
     slug: $slug
   ) {
-    ...brand
+    ...brandDetail
   }
 }

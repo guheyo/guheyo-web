@@ -19,7 +19,7 @@ import { updateUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import { AboutFormValues } from './setting.interfaces';
 import TextInput from '../inputs/text-input';
-import AlertDialog from '../base/alert-dialog';
+import BgDialog from '../base/bg-dialog';
 
 export default function SettingAboutForm({
   prevFormValues,
@@ -103,7 +103,13 @@ export default function SettingAboutForm({
           onUnAuthorization={handleOnAuthorization}
         />
       </div>
-      <AlertDialog open={open} text="수정되었어요!" handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="수정 완료"
+        content="수정이 완료되었어요!"
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </form>
   );
 }

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { UserReviewPreviewResponse } from '@/generated/graphql';
 import { parseUserReviewDetailLink } from '@/lib/user-review/parse-user-review-detail-link';
-import { parseUserReviewLink } from '@/lib/user-review/parse-user-review-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import UserReviewPreviewHeader from './user-review-preview-header';
 import UserReviewPreviewFooter from './user-review-preview-footer';
 import UserReviewPreviewContent from './user-review-preview-content';
@@ -11,10 +11,10 @@ import GroupNameLink from '../groups/group-name-link';
 
 interface Props {
   userReview: UserReviewPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function UserReviewPreview({ userReview, isInGroup }: Props) {
+export default function UserReviewPreview({ userReview, displayGroup }: Props) {
   const { group } = userReview.post;
   return (
     <div className="relative overflow-hidden bg-dark-400 px-4 py-4 rounded-lg">
@@ -25,11 +25,14 @@ export default function UserReviewPreview({ userReview, isInGroup }: Props) {
         className="w-full text-start"
       >
         <div className="grid grid-cols-1 gap-2">
-          {!isInGroup && (
+          {displayGroup && (
             <div className="w-fit">
               <GroupNameLink
                 name={group.name}
-                href={parseUserReviewLink({ groupSlug: group.slug! })}
+                href={parseChannelLink({
+                  groupSlug: group.slug!,
+                  channelSlug: 'review',
+                })}
               />
             </div>
           )}

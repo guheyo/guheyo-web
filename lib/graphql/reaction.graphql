@@ -12,11 +12,15 @@ fragment reaction on ReactionResponse {
 }
 
 mutation CreateReaction($input: CreateReactionInput!) {
-  createReaction(input: $input)
+  createReaction(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation CancelReaction($input: CancelReactionInput!) {
-  cancelReaction(input: $input)
+  cancelReaction(input: $input) {
+    ...mutationResponse
+  }
 }
 
 query FindReactions(

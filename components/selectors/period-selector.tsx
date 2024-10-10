@@ -27,7 +27,7 @@ export default function PeriodSelector() {
       queryKey="period"
       defaultValue="all"
       options={PERIOD_OPTIONS}
-      inputClassName="px-3 py-2 text-xs md:text-sm"
+      inputClassName=""
     />
   );
 }

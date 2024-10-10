@@ -3,7 +3,7 @@
 import { AuthContext } from '@/components/auth/auth.provider';
 import OfferBumpForm from '@/components/offers/offer-bump-form';
 import { BumpOfferInput, useFindOfferQuery } from '@/generated/graphql';
-import { bumpOffer } from '@/lib/api/offer';
+import { bumpOffer, findOfferPreview } from '@/lib/api/offer';
 import { validateCooldown } from '@/lib/date/validate-cooldown';
 import { BumpFormValues } from '@/lib/offer/offer.interfaces';
 import { BusinessFunction } from '@/lib/offer/offer.types';
@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import OfferBumpFormLayout from '@/components/offers/offer-bump-form.layout';
-import AlertDialog from '@/components/base/alert-dialog';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
+import BgDialog from '@/components/base/bg-dialog';
 
 function Page({
   params: { id },
@@ -50,6 +50,9 @@ function Page({
 
     try {
       await bumpOffer(input);
+
+      await findOfferPreview(values.offerId);
+
       router.push(
         parseMarketLink({
           groupSlug: offer.post.group.slug,
@@ -83,7 +86,13 @@ function Page({
         bumpedAt={offer.bumpedAt}
         handleSubmitValid={handleSubmitValid}
       />
-      <AlertDialog open={open} text={alertMessage} handleClose={handleClose} />
+      <BgDialog
+        open={open}
+        title="안내"
+        content={alertMessage}
+        closeButtonName="확인"
+        onClose={handleClose}
+      />
     </OfferBumpFormLayout>
   );
 }

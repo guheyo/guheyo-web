@@ -1,15 +1,19 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { PostPreviewType } from '@/lib/post/post.types';
 import HomeFeedLayout from '../home/home-feed.layout';
-import ProductCategoriesNavbar from '../categories/product-categories-navbar';
 import BrandMoreLink from './brand-more-link';
-import BrandHomeLink from './brand-home-link';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import BrandSelectors from './brand-selectors';
+import BrandHomeLink from './brand-home-link';
+import BrandChannelNavbar from './brand-channel-navbar';
 
 interface Props {
   children: ReactNode;
+  hideGroupProfileSidebarItems?: boolean;
+  postPreviewType: PostPreviewType;
+  showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
   showMoreLink: boolean;
@@ -17,20 +21,19 @@ interface Props {
 
 function BrandHomeFeedLayout({
   children,
+  hideGroupProfileSidebarItems,
+  postPreviewType,
+  showChannels,
   showCategories,
   showSelectors,
   showMoreLink,
 }: Props) {
   return (
     <HomeFeedLayout
-      postPreviewType="thumbnail"
+      postPreviewType={postPreviewType}
       homeLink={<BrandHomeLink />}
-      path="brand"
-      categories={
-        showCategories ? (
-          <ProductCategoriesNavbar types={['product']} />
-        ) : undefined
-      }
+      path={hideGroupProfileSidebarItems ? undefined : 'brand'}
+      channels={showChannels && <BrandChannelNavbar />}
       selectors={
         showSelectors && (
           <>

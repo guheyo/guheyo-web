@@ -9,13 +9,13 @@ export default function FollowFilterClickButton() {
       queryKey="followed"
       defaultClicked={false}
       clickedNode={
-        <div className="flex flex-row items-center gap-1 text-sm md:text-base text-blurple-500">
+        <div className="flex flex-row items-center gap-1 text-xs md:text-sm text-blurple-500">
           <PersonAddAlt1Icon />
           팔로잉
         </div>
       }
       unClickedNode={
-        <div className="flex flex-row items-center gap-1 text-sm md:text-base text-gray-300">
+        <div className="flex flex-row items-center gap-1 text-xs md:text-sm text-gray-300">
           <PersonAddAlt1Icon />
           팔로잉
         </div>

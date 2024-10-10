@@ -4,55 +4,33 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { SearchRounded } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import { useReactiveVar } from '@apollo/client';
-import { groupVar } from '@/lib/apollo/cache';
+import { groupVar } from '@/lib/apollo/cache/cache';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
-
-const findLocation = (pathname: string) => {
-  if (pathname === '/') return 'group';
-  if (/^\/g\/[\w-]*\/(sell|buy|swap)/.test(pathname)) return 'group-market';
-  if (/^\/g\/[\w-]*\/auction/.test(pathname)) return 'group-auction';
-  if (/^\/g\/[\w-]*\/(gb)/.test(pathname)) return 'group-gb';
-  if (/^\/g\/[\w-]*\/(community)/.test(pathname)) return 'group-community';
-  if (/^\/g\/[\w-]*\/member/.test(pathname)) return 'group-member';
-  if (/^\/g\/[\w-]*\/report/.test(pathname)) return 'group-report';
-  if (/^\/user\//.test(pathname)) return 'user';
-  if (/^\/(sell|buy|swap)(\?.*)?$/.test(pathname)) return 'market';
-  if (/^\/auction(\?.*)?$/.test(pathname)) return 'auction';
-  if (/^\/(gb)(\?.*)?$/.test(pathname)) return 'gb';
-  if (/^\/(community)(\?.*)?$/.test(pathname)) return 'community';
-  if (/^\/member(\?.*)?$/.test(pathname)) return 'member';
-  if (/^\/report(\?.*)?$/.test(pathname)) return 'report';
-  if (/^\/search$/.test(pathname)) return 'search-group';
-  return 'none';
-};
+import { findLocation } from '@/lib/search/find-location';
+import { parseSearchLink } from '@/lib/search/parse-search-link';
+import { ALL_CHANNELS } from '@/lib/write/write.constants';
 
 const findHideButton = (location: string): boolean =>
-  ![
-    'group',
-    'group-market',
-    'group-auction',
-    'group-gb',
-    'group-community',
-    'group-member',
-    'group-report',
-    'market',
-    'auction',
-    'gb',
-    'community',
-    'member',
-    'report',
-  ].includes(location);
+  ![...ALL_CHANNELS].includes(location);
 
 const findPlaceholder = (location: string): string => {
   if (location === 'group') return '그룹을 검색해보세요';
-  if (location === 'market' || location === 'group-market')
-    return '제품을 검색해보세요';
   if (location === 'auction' || location === 'group-auction')
-    return '제품을 검색해보세요';
+    return '경매를 검색해보세요';
+  if (location === 'sell' || location === 'group-sell')
+    return '판매를 검색해보세요';
+  if (location === 'buy' || location === 'group-buy')
+    return '구매를 검색해보세요';
+  if (location === 'swap' || location === 'group-swap')
+    return '교환을 검색해보세요';
   if (location === 'gb' || location === 'group-gb')
     return '공동구매를 검색해보세요';
   if (location === 'community' || location === 'group-community')
     return '스레드를 검색해보세요';
+  if (location === 'brand' || location === 'group-brand')
+    return '브랜드를 검색해보세요';
+  if (location === 'review' || location === 'group-review')
+    return '거래 후기를 검색해보세요';
   if (location === 'member' || location === 'group-member')
     return '멤버를 검색해보세요';
   if (location === 'report' || location === 'group-report')
@@ -69,23 +47,13 @@ export default function SearchButton() {
   const device = useDeviceDetect();
 
   const handleClick = (): void => {
-    if (location === 'group') router.push('/search');
-    else if (location === 'group-market' || location === 'group-auction')
-      router.push(`/search/product?group=${group?.slug}`);
-    else if (location === 'market' || location === 'auction')
-      router.push(`/search/product`);
-    else if (location === 'group-gb')
-      router.push(`/search/gb?group=${group?.slug}`);
-    else if (location === 'gb') router.push(`/search/gb`);
-    else if (location === 'group-community')
-      router.push(`/search/community?group=${group?.slug}`);
-    else if (location === 'community') router.push(`/search/community`);
-    else if (location === 'group-member')
-      router.push(`/search/member?group=${group?.slug}`);
-    else if (location === 'member') router.push(`/search/member`);
-    else if (location === 'group-report')
-      router.push(`/search/report?group=${group?.slug}`);
-    else if (location === 'report') router.push(`/search/report`);
+    router.push(
+      parseSearchLink({
+        pathname,
+        groupSlug:
+          group?.slug === 'root' ? undefined : group?.slug || undefined,
+      }),
+    );
   };
 
   if (hideButton) return <div />;

@@ -14,6 +14,7 @@ interface Props {
   homeLink: ReactNode;
   path?: string;
   channels?: ReactNode;
+  tabs?: ReactNode;
   categories?: ReactNode;
   tags?: ReactNode;
   selectors?: ReactNode;
@@ -26,6 +27,7 @@ function HomeFeedLayout({
   homeLink,
   path,
   channels,
+  tabs,
   categories,
   tags,
   selectors,
@@ -48,8 +50,9 @@ function HomeFeedLayout({
           </Suspense>
         </div>
       )}
-      {(channels || categories || tags) && <div className="pt-2" />}
+      {(channels || tabs || categories || tags) && <div className="pt-2" />}
       {channels && <div className="mx-2.5 md:mx-1">{channels}</div>}
+      {tabs && <div className="mx-2.5 md:mx-1">{tabs}</div>}
       {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
       {tags && <div className="mx-2.5 md:mx-1">{tags}</div>}
       {(categories || tags) && !selectors && <div className="mb-4" />}

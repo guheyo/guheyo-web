@@ -18,6 +18,7 @@ import PostDetailDate from '../posts/post-detail-date';
 import PostDetailTitle from '../posts/post-detail-name';
 import ReactionBar from '../reaction/reaction-bar';
 import PostTags from '../posts/post-tags';
+import ThreadMenu from './thread-menu';
 
 export default function ThreadDetailMain({
   thread,
@@ -78,7 +79,16 @@ export default function ThreadDetailMain({
           />
           <PostDetailDate date={thread.createdAt} />
         </div>
-        <div className="h-8">{/* TODO: ThreadMenu */}</div>
+        <div className="h-8">
+          <ThreadMenu
+            threadId={thread.id}
+            postId={thread.post.id}
+            groupId={thread.post.group.id}
+            categoryType={thread.post.category?.type || 'community'}
+            userId={thread.post.user.id}
+            privateOnly
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-4 md:gap-4 mt-4 md:mt-6">
         {thread.post.reportCount > 0 && (

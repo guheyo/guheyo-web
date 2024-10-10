@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { OfferStatus } from '@/lib/offer/offer.types';
+import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
 import { AuthContext } from '../auth/auth.provider';
 import PrivateOfferMenu from './private-offer-menu';
 import PublicReportMenu from '../reports/public-report-menu';
@@ -8,6 +8,7 @@ export default function OfferMenu({
   offerId,
   postId,
   offerStatus,
+  businessFunction,
   userId,
   privateOnly,
   archivedAt,
@@ -15,6 +16,7 @@ export default function OfferMenu({
   offerId: string;
   postId: string;
   offerStatus: OfferStatus;
+  businessFunction: BusinessFunction;
   userId: string;
   privateOnly?: boolean;
   archivedAt?: Date;
@@ -26,6 +28,7 @@ export default function OfferMenu({
       <PrivateOfferMenu
         offerId={offerId}
         offerStatus={offerStatus}
+        businessFunction={businessFunction}
         archivedAt={archivedAt}
       />
     );

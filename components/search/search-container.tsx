@@ -16,6 +16,7 @@ import SearchTargetSelector from './search-target-selector';
 export default function SearchContainer({
   placeholder,
   options,
+  channels,
   categories,
   tags,
   selectors,
@@ -24,6 +25,7 @@ export default function SearchContainer({
 }: {
   placeholder: string;
   options?: Option[];
+  channels?: ReactNode;
   categories?: ReactNode;
   tags?: ReactNode;
   selectors?: ReactNode;
@@ -81,9 +83,10 @@ export default function SearchContainer({
           }
         />
       </div>
+      {channels && <div className="mx-2.5 md:mx-1">{channels}</div>}
       {categories && <div className="mx-2.5 md:mx-1">{categories}</div>}
       {tags && <div className="mx-2.5 md:mx-1">{tags}</div>}
-      {(categories || tags) && <div className="mb-4" />}
+      {(channels || categories || tags) && <div className="mb-4" />}
       {selectors && (
         <div className="flex justify-between pb-2">{selectors}</div>
       )}

@@ -1,14 +1,15 @@
 'use client';
 
-import { BrandResponse } from '@/generated/graphql';
+import { BrandPreviewResponse } from '@/generated/graphql';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useGroup } from '@/hooks/use-group';
 import { getFindBrandsOrderByArgs } from '@/lib/brand/get-find-brands-order-by-args';
+import { PostPreviewType } from '@/lib/post/post.types';
 import BrandPreview from './brand-preview';
 
-export default function BrandFeed() {
+export default function BrandFeed({ type }: { type: PostPreviewType }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const followed = [null, 'all'].includes(searchParams.get('followed'))
@@ -40,9 +41,10 @@ export default function BrandFeed() {
     <>
       {edges.map((edge) => (
         <BrandPreview
-          brand={edge.node as BrandResponse}
+          type={type}
+          brand={edge.node as BrandPreviewResponse}
           key={edge.cursor}
-          isInGroup={!!group}
+          displayGroup={!group || group.name === 'root'}
         />
       ))}
       <div ref={ref} />

@@ -101,14 +101,12 @@ export default function UserReviewForm({
 
     await createUserReview(input);
     const groupSlug = groupData?.findGroup?.slug;
-    const url = groupSlug
-      ? parseChannelLink({
-          channelName: 'community',
-          groupSlug,
-          category: 'review',
-        })
-      : '/';
-    router.push(url);
+    router.push(
+      parseChannelLink({
+        groupSlug,
+        channelSlug: 'review',
+      }),
+    );
   };
 
   const handleSubmitError: SubmitErrorHandler<UserReviewFormValues> = (

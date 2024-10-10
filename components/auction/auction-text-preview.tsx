@@ -10,10 +10,10 @@ import GroupNameLink from '../groups/group-name-link';
 
 interface Props {
   auction: AuctionPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function AuctionTextPreview({ auction, isInGroup }: Props) {
+export default function AuctionTextPreview({ auction, displayGroup }: Props) {
   const { group } = auction.post;
   return (
     <div className="relative overflow-hidden bg-dark-400 px-4 md:px-5 py-4 rounded-lg">
@@ -24,13 +24,13 @@ export default function AuctionTextPreview({ auction, isInGroup }: Props) {
         className="w-full text-start"
       >
         <div className="flex flex-col gap-1">
-          {!isInGroup && (
+          {displayGroup && (
             <div className="w-fit">
               <GroupNameLink
                 name={group.name}
                 href={parseChannelLink({
-                  channelName: 'auction',
                   groupSlug: group.slug!,
+                  channelSlug: 'auction',
                 })}
               />
             </div>

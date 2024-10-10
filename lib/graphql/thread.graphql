@@ -49,6 +49,18 @@ query FindThreadPreviews(
   }
 }
 
+query FindThreadPreview(
+  $id: ID
+  $slug: String
+) {
+  findThreadPreview(
+    id: $id
+    slug: $slug
+  ) {
+    ...threadPreview
+  }
+}
+
 query FindThread(
   $id: ID
   $slug: String
@@ -62,7 +74,15 @@ query FindThread(
 }
 
 mutation CreateThread($input: CreateThreadInput!) {
-  createThread(input: $input)
+  createThread(input: $input) {
+    ...mutationResponse
+  }
+}
+
+mutation UpdateThread($input: UpdateThreadInput!) {
+  updateThread(input: $input) {
+    ...mutationResponse
+  }
 }
 
 mutation DeleteThread(
@@ -70,5 +90,7 @@ mutation DeleteThread(
 ) {
   deleteThread(
     id: $id
-  )
+  ) {
+    ...mutationResponse
+  }
 }

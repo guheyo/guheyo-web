@@ -36,6 +36,7 @@ function Page({
         type="listview"
         defaultWhere={where}
         defaultOrderBy={orderBy}
+        showInput={false}
       />
     </TextFeedLayout>
   );

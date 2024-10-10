@@ -2,8 +2,13 @@
 
 import { MouseEventHandler } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
-import { followBrand, unfollowBrand } from '@/lib/api/brand';
-import { followUser, unfollowUser } from '@/lib/api/user';
+import {
+  findBrand,
+  findBrandPreview,
+  followBrand,
+  unfollowBrand,
+} from '@/lib/api/brand';
+import { findAuthor, findUser, followUser, unfollowUser } from '@/lib/api/user';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 
 export default function FollowDialog({
@@ -15,29 +20,30 @@ export default function FollowDialog({
   targetId: string;
   followed: boolean;
 }) {
+  const updateCache = async () => {
+    if (target === 'brand') {
+      await findBrandPreview(targetId);
+      await findBrand(targetId);
+    } else if (target === 'user') {
+      await findUser({ id: targetId });
+      await findAuthor({ id: targetId });
+    }
+  };
+
+  const handleFollowAction = async (follow: boolean) => {
+    if (target === 'brand') {
+      if (follow) await followBrand({ brandId: targetId });
+      else await unfollowBrand({ brandId: targetId });
+    } else if (target === 'user') {
+      if (follow) await followUser({ followingId: targetId });
+      else await unfollowUser({ followingId: targetId });
+    }
+    await updateCache();
+  };
+
   const handleOnAuthorization: MouseEventHandler = async (e) => {
     e.preventDefault();
-    if (target === 'brand') {
-      if (followed) {
-        await unfollowBrand({
-          brandId: targetId,
-        });
-      } else {
-        await followBrand({
-          brandId: targetId,
-        });
-      }
-    } else if (target === 'user') {
-      if (followed) {
-        await unfollowUser({
-          followingId: targetId,
-        });
-      } else {
-        await followUser({
-          followingId: targetId,
-        });
-      }
-    }
+    await handleFollowAction(!followed);
   };
 
   const handleOnUnAuthorization: MouseEventHandler = (e) => {
@@ -46,18 +52,18 @@ export default function FollowDialog({
 
   if (followed)
     return (
-      <div className="flex flex-row gap-1 items-center justify-center bg-gray-500 hover:bg-gray-600 text-sm font-bold p-2 rounded-lg text-gray-100">
+      <div className="flex flex-row gap-1 items-center justify-center bg-gray-500 hover:bg-gray-600 text-xs md:text-sm font-bold p-2 rounded-lg text-gray-100">
         <DiscordLoginDialogButton
           name="팔로잉"
           onAuthorization={handleOnAuthorization}
           onUnAuthorization={handleOnUnAuthorization}
         />
-        <CheckIcon fontSize="small" />
+        <CheckIcon fontSize="inherit" />
       </div>
     );
 
   return (
-    <div className="bg-blurple-500 hover:bg-blurple-600 text-sm font-bold p-2 rounded-lg text-gray-100">
+    <div className="bg-blurple-500 hover:bg-blurple-600 text-xs md:text-sm font-bold p-2 rounded-lg text-gray-100">
       <DiscordLoginDialogButton
         name="팔로우"
         onAuthorization={handleOnAuthorization}

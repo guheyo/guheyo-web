@@ -1,0 +1,4 @@
+fragment mutationResponse on MutationResponse {
+  code
+  id
+}

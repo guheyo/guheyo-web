@@ -13,10 +13,13 @@ import PostCategory from '../posts/post-category';
 
 interface Props {
   auction: AuctionPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
+export default function AuctionListViewPreview({
+  auction,
+  displayGroup,
+}: Props) {
   const { group } = auction.post;
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 rounded-lg">
@@ -28,13 +31,13 @@ export default function AuctionListViewPreview({ auction, isInGroup }: Props) {
       >
         <div className="w-[75%] md:w-[80%] pl-4">
           <div className="flex flex-col gap-1">
-            {!isInGroup && (
+            {displayGroup && (
               <div className="w-fit">
                 <GroupNameLink
                   name={group.name}
                   href={parseChannelLink({
-                    channelName: 'auction',
                     groupSlug: group.slug!,
+                    channelSlug: 'auction',
                   })}
                 />
               </div>

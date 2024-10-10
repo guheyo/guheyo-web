@@ -1,14 +1,29 @@
 export const parseChannelLink = ({
-  channelName,
   groupSlug,
+  channelSlug,
   category,
+  identifier,
+  view,
 }: {
-  channelName: string;
   groupSlug?: string | null;
+  channelSlug: string;
   category?: string | null;
+  identifier?: string | null;
+  view?: string | null;
 }) => {
-  if (groupSlug && category)
-    return `/g/${groupSlug}/${channelName}?category=${category}`;
-  if (groupSlug) return `/g/${groupSlug}/${channelName}`;
-  return `/${channelName}`;
+  let url = groupSlug ? `/g/${groupSlug}/${channelSlug}` : `/${channelSlug}`;
+
+  if (identifier) {
+    url += `/${identifier}`;
+  }
+
+  if (view) {
+    url += `/${view}`;
+  }
+
+  if (category) {
+    url += `?category=${category}`;
+  }
+
+  return url;
 };

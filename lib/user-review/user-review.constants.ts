@@ -23,8 +23,13 @@ export const RATING_OPTIONS: RatingOption[] = [
   },
 ];
 
+export const USER_REVIEW_CHANNEL_OPTIONS = [
+  { value: 'review', label: '거래 후기' },
+  { value: 'report', label: '신고' },
+];
+
 export const MANNER_TAG_TYPE_OPTIONS = [
-  { value: 'all', label: '전체' },
+  { value: 'all', label: '모든 매너' },
   { value: 'manner', label: '매너' },
   { value: 'badManner', label: '비매너' },
 ];

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ThreadPreviewResponse } from '@/generated/graphql';
 import { parseThreadDetailLink } from '@/lib/thread/parse-thread-detail-link';
-import { parseGroupThreadLink } from '@/lib/thread/parse-group-thread-link';
+import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import GroupNameLink from '../groups/group-name-link';
 import ThreadPreviewHeader from './thread-preview-header';
 import ThreadPreviewFooter from './thread-preview-footer';
@@ -11,11 +11,10 @@ import ThreadPreviewContent from './thread-preview-content';
 
 interface Props {
   thread: ThreadPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function ThreadListViewPreview({ thread, isInGroup }: Props) {
-  const { group } = thread.post;
+export default function ThreadListViewPreview({ thread, displayGroup }: Props) {
   return (
     <div className="relative overflow-hidden bg-dark-400 px-4 rounded-lg">
       <Link
@@ -26,11 +25,14 @@ export default function ThreadListViewPreview({ thread, isInGroup }: Props) {
       >
         <div className="grid grid-cols-1 gap-2 pt-4 pb-4">
           <div className="flex flex-col gap-1">
-            {!isInGroup && (
+            {displayGroup && (
               <div className="w-fit">
                 <GroupNameLink
-                  name={group.name}
-                  href={parseGroupThreadLink({ groupSlug: group.slug! })}
+                  name={thread.post.group.name}
+                  href={parseChannelLink({
+                    groupSlug: thread.post.group.slug,
+                    channelSlug: thread.post.category?.type!,
+                  })}
                 />
               </div>
             )}

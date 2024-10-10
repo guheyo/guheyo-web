@@ -27,6 +27,7 @@ export default function GbHome() {
   return (
     <GbHomeFeedLayout
       hideGroupProfileSidebarItems
+      showChannels={false}
       showCategories={false}
       showTags={false}
       showSelectors={false}
@@ -37,7 +38,7 @@ export default function GbHome() {
           key={thread.id}
           type="listview"
           thread={thread}
-          isInGroup={false}
+          displayGroup
         />
       ))}
     </GbHomeFeedLayout>
