@@ -65,11 +65,7 @@ function RecentAuctions({
       <TextFeedLayout>
         {edges.map((edge) => (
           <div key={edge.node.id} className="flex flex-col gap-0">
-            <AuctionPreview
-              type="listview"
-              auction={edge.node}
-              isInGroup={false}
-            />
+            <AuctionPreview type="listview" auction={edge.node} displayGroup />
           </div>
         ))}
       </TextFeedLayout>
