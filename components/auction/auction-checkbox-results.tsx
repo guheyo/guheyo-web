@@ -79,7 +79,7 @@ function AuctionCheckboxResults({
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">
-            <AuctionPreview type={type} auction={edge.node} isInGroup={false} />
+            <AuctionPreview type={type} auction={edge.node} displayGroup />
           </div>
         </div>
       ))}

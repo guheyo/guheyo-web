@@ -12,10 +12,10 @@ import FollowDialog from '../follow/follow-dialog';
 
 interface Props {
   brand: BrandPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function BrandThumbnailPreview({ brand, isInGroup }: Props) {
+export default function BrandThumbnailPreview({ brand, displayGroup }: Props) {
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:p-3 rounded-lg">
       <Link
@@ -42,7 +42,7 @@ export default function BrandThumbnailPreview({ brand, isInGroup }: Props) {
         )}
         <div className="w-[68%] md:w-full px-4 md:px-2 pt-2 pb-1">
           <div className="flex flex-col gap-1">
-            {!isInGroup && (
+            {displayGroup && (
               <div className="flex flex-row gap-2">
                 {brand.groups.map((group) => (
                   <div key={group.name} className="w-fit">

@@ -7,13 +7,15 @@ import ThreadListViewPreview from './thread-listview-preview';
 interface Props {
   type: PostPreviewType;
   thread: ThreadPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function ThreadPreview({ type, thread, isInGroup }: Props) {
+export default function ThreadPreview({ type, thread, displayGroup }: Props) {
   switch (type) {
     case 'listview': {
-      return <ThreadListViewPreview thread={thread} isInGroup={isInGroup} />;
+      return (
+        <ThreadListViewPreview thread={thread} displayGroup={displayGroup} />
+      );
     }
     default: {
       return <div />;

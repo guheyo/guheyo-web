@@ -9,21 +9,28 @@ import AuctionListViewPreview from './auction-listview-preview';
 interface Props {
   type: PostPreviewType;
   auction: AuctionPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function AuctionPreview({ type, auction, isInGroup }: Props) {
+export default function AuctionPreview({ type, auction, displayGroup }: Props) {
   switch (type) {
     case 'text': {
-      return <AuctionTextPreview auction={auction} isInGroup={isInGroup} />;
+      return (
+        <AuctionTextPreview auction={auction} displayGroup={displayGroup} />
+      );
     }
     case 'thumbnail': {
       return (
-        <AuctionThumbnailPreview auction={auction} isInGroup={isInGroup} />
+        <AuctionThumbnailPreview
+          auction={auction}
+          displayGroup={displayGroup}
+        />
       );
     }
     case 'listview': {
-      return <AuctionListViewPreview auction={auction} isInGroup={isInGroup} />;
+      return (
+        <AuctionListViewPreview auction={auction} displayGroup={displayGroup} />
+      );
     }
     default: {
       return <div />;

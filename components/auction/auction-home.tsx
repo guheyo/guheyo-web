@@ -41,7 +41,7 @@ export default function AuctionHome() {
           type="thumbnail"
           key={auction.id}
           auction={auction}
-          isInGroup={false}
+          displayGroup
         />
       ))}
     </AuctionHomeFeedLayout>

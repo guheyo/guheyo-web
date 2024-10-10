@@ -44,7 +44,7 @@ export default function BrandFeed({ type }: { type: PostPreviewType }) {
           type={type}
           brand={edge.node as BrandPreviewResponse}
           key={edge.cursor}
-          isInGroup={!!group}
+          displayGroup={!group || group.name === 'root'}
         />
       ))}
       <div ref={ref} />

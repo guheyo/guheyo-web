@@ -105,7 +105,7 @@ function ThreadFeed({
           key={edge.node.id}
           type={type}
           thread={edge.node}
-          isInGroup={!!group}
+          displayGroup={!group || group.name === 'root'}
         />
       ))}
       <div ref={ref} />
