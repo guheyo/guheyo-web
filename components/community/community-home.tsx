@@ -39,7 +39,7 @@ export default function CommunityHome() {
                 key={item.node.id}
                 type="listview"
                 thread={item.node}
-                isInGroup={false}
+                displayGroup
               />
             );
           case 'UserReviewPreviewResponseEdge':

@@ -38,7 +38,7 @@ export default function GbHome() {
           key={thread.id}
           type="listview"
           thread={thread}
-          isInGroup={false}
+          displayGroup
         />
       ))}
     </GbHomeFeedLayout>
