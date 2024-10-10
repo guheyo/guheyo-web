@@ -13,7 +13,9 @@ interface Props {
 export default function ThreadPreview({ type, thread, displayGroup }: Props) {
   switch (type) {
     case 'listview': {
-      return <ThreadListViewPreview thread={thread} displayGroup={displayGroup} />;
+      return (
+        <ThreadListViewPreview thread={thread} displayGroup={displayGroup} />
+      );
     }
     default: {
       return <div />;
