@@ -16,7 +16,7 @@ export default function GroupHome() {
   return (
     <>
       <div className="min-h-screen mb-12 flex flex-col gap-0 md:gap-8">
-        <div className="px-2 md:px-0">
+        <div className="px-4 md:px-0 pt-4">
           <GroupJoinSection
             name={group.name}
             icon={group.icon}
