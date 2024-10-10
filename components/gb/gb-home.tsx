@@ -2,10 +2,10 @@
 
 import { useRef } from 'react';
 import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
+import { useGroup } from '@/hooks/use-group';
 import ThreadPreview from '../thread/thread-preview';
 import { Mocks } from '../mock/mock';
 import GbHomeFeedLayout from './gb-home-feed.layout';
-import { useGroup } from '@/hooks/use-group';
 
 export default function GbHome() {
   const ref = useRef<HTMLDivElement>(null);

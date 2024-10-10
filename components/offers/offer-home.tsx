@@ -2,9 +2,9 @@
 
 import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { BusinessFunction } from '@/lib/offer/offer.types';
+import { useGroup } from '@/hooks/use-group';
 import OfferHomeFeedLayout from './offer-home-feed.layout';
 import OfferPreview from './offer-preview';
-import { useGroup } from '@/hooks/use-group';
 
 export default function OfferHome({
   businessFunction,

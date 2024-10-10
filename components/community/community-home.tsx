@@ -2,11 +2,11 @@
 
 import { useInfiniteThreadAndReviewFeed } from '@/hooks/use-infinite-thread-and-review-feed';
 import { useRef } from 'react';
+import { useGroup } from '@/hooks/use-group';
 import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 import { Mocks } from '../mock/mock';
 import CommunityHomeFeedLayout from './community-home-feed-layout';
-import { useGroup } from '@/hooks/use-group';
 
 export default function CommunityHome() {
   const ref = useRef<HTMLDivElement>(null);

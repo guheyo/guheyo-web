@@ -2,10 +2,10 @@
 
 import { Suspense, useRef } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
+import { useGroup } from '@/hooks/use-group';
 import { Mocks } from '../mock/mock';
 import BrandHomeFeedLayout from './brand-home-feed.layout';
 import BrandPreview from './brand-preview';
-import { useGroup } from '@/hooks/use-group';
 
 export default function BrandOverview() {
   const ref = useRef<HTMLDivElement>(null);
