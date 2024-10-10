@@ -31,7 +31,7 @@ export default function ThreadListViewPreview({ thread, displayGroup }: Props) {
                   name={thread.post.group.name}
                   href={parseChannelLink({
                     groupSlug: thread.post.group.slug,
-                    channelSlug: thread.post.category?.slug!,
+                    channelSlug: thread.post.category?.type!,
                   })}
                 />
               </div>
