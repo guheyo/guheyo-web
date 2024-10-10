@@ -10,10 +10,10 @@ import InfoCard from '../info/info-card';
 
 interface Props {
   brand: BrandPreviewResponse;
-  isInGroup: boolean;
+  displayGroup: boolean;
 }
 
-export default function BrandListviewPreview({ brand, isInGroup }: Props) {
+export default function BrandListviewPreview({ brand, displayGroup }: Props) {
   const device = useDeviceDetect();
 
   return (
