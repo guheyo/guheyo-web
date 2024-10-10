@@ -6,13 +6,16 @@ import ThreadPreview from '../thread/thread-preview';
 import UserReviewPreview from '../user-review/user-review-preview';
 import { Mocks } from '../mock/mock';
 import CommunityHomeFeedLayout from './community-home-feed-layout';
+import { useGroup } from '@/hooks/use-group';
 
 export default function CommunityHome() {
   const ref = useRef<HTMLDivElement>(null);
+  const { group } = useGroup();
   const { loading, items } = useInfiniteThreadAndReviewFeed({
     ref,
     type: undefined,
     where: {
+      groupId: group?.id,
       categoryType: 'community',
     },
     orderBy: {

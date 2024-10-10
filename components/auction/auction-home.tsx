@@ -2,12 +2,17 @@
 
 import { useFindAuctionPreviewsQuery } from '@/generated/graphql';
 import { AUCTION_CLOSED, AUCTION_LIVE } from '@/lib/auction/auction.constants';
+import { useGroup } from '@/hooks/use-group';
 import AuctionPreview from './auction-preview';
 import AuctionHomeFeedLayout from './auction-home-feed.layout';
 
 export default function AuctionHome() {
+  const { group } = useGroup();
   const { loading, data } = useFindAuctionPreviewsQuery({
     variables: {
+      where: {
+        groupId: group?.id,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -31,6 +36,7 @@ export default function AuctionHome() {
 
   return (
     <AuctionHomeFeedLayout
+      hideGroupProfileSidebarItems
       showChannels={false}
       showCategories={false}
       showSelectors={false}

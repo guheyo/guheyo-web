@@ -4,15 +4,18 @@ import { useFindOfferPreviewsQuery } from '@/generated/graphql';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import OfferHomeFeedLayout from './offer-home-feed.layout';
 import OfferPreview from './offer-preview';
+import { useGroup } from '@/hooks/use-group';
 
 export default function OfferHome({
   businessFunction,
 }: {
   businessFunction: BusinessFunction;
 }) {
+  const { group } = useGroup();
   const { loading, data } = useFindOfferPreviewsQuery({
     variables: {
       where: {
+        groupId: group?.id,
         businessFunction,
       },
       orderBy: {
