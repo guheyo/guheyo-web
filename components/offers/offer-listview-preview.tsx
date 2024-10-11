@@ -10,9 +10,10 @@ import OfferPreviewMain from './offer-preview-main';
 
 interface Props {
   offer: OfferPreviewResponse;
+  displayGroup: boolean;
 }
 
-export default function OfferListViewPreview({ offer }: Props) {
+export default function OfferListViewPreview({ offer, displayGroup }: Props) {
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 rounded-lg">
       <Link
@@ -22,7 +23,7 @@ export default function OfferListViewPreview({ offer }: Props) {
         className="flex flex-col gap-1"
       >
         <div className="pl-4">
-          <OfferCredditBar offer={offer} />
+          <OfferCredditBar offer={offer} displayGroup={displayGroup} />
         </div>
         <div className="flex flex-row justify-between px-4">
           <OfferPreviewMain offer={offer} />

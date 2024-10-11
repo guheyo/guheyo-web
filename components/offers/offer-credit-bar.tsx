@@ -9,19 +9,22 @@ import GroupNameLink from '../groups/group-name-link';
 
 interface Props {
   offer: OfferPreviewResponse;
+  displayGroup: boolean;
 }
 
-export default function OfferCredditBar({ offer }: Props) {
+export default function OfferCredditBar({ offer, displayGroup }: Props) {
   return (
     <div className="flex flex-row items-center justify-between">
       <div className="flex flex-row gap-2 items-center">
-        <GroupNameLink
-          name={offer.post.group.name}
-          href={parseChannelLink({
-            groupSlug: offer.post.group.slug!,
-            channelSlug: offer.businessFunction,
-          })}
-        />
+        {displayGroup && (
+          <GroupNameLink
+            name={offer.post.group.name}
+            href={parseChannelLink({
+              groupSlug: offer.post.group.slug!,
+              channelSlug: offer.businessFunction,
+            })}
+          />
+        )}
         <PostCreatedAt createdAt={offer.bumpedAt} />
       </div>
       <div className="h-4 mt-[-22px]">

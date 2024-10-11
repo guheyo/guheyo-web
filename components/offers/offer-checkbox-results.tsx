@@ -78,7 +78,7 @@ function OfferCheckboxResults({
             onChange={() => handleClick(edge.node.id)}
           />
           <div className="w-full">
-            <OfferPreview offer={edge.node} type={type} />
+            <OfferPreview offer={edge.node} type={type} displayGroup />
           </div>
         </div>
       ))}

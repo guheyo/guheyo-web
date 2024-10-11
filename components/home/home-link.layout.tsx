@@ -1,8 +1,9 @@
 'use client';
 
-import { useGroup } from '@/hooks/use-group';
 import { parseChannelLink } from '@/lib/channel/parse-channel-link';
+import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 function HomeLinkLayout({
@@ -12,11 +13,15 @@ function HomeLinkLayout({
   children: React.ReactNode;
   path: string;
 }) {
-  const { group } = useGroup();
+  const pathname = usePathname();
+  const { groupSlug, channelSlug } = parseUrlSegments(pathname);
 
   return (
     <Link
-      href={parseChannelLink({ groupSlug: group?.slug, channelSlug: path })}
+      href={parseChannelLink({
+        groupSlug: channelSlug ? undefined : groupSlug,
+        channelSlug: path,
+      })}
     >
       <div className="flex flex-row gap-2 items-center text-gray-200 text-base md:text-lg font-semibold pt-4 pb-2">
         {children}
