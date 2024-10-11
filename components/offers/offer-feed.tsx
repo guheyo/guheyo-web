@@ -94,7 +94,7 @@ function OfferFeed({
     <>
       {edges.map((edge) => (
         <div key={edge.node.id} className="flex flex-col gap-0">
-          <OfferPreview offer={edge.node} type={type} />
+          <OfferPreview offer={edge.node} type={type} displayGroup={!group} />
           {edge.node.hasSubmittedReview === false && (
             <div className="pb-2">
               <SelectUserReviewTargetUserDialog
