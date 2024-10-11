@@ -5,7 +5,7 @@ export const parseUrlSegments = (pathname: string) => {
   const parts = pathname.split('/');
 
   // Check if the URL has the correct format
-  if (parts.length >= 4 && parts[1] === 'g') {
+  if (parts[1] === 'g') {
     const groupSlug = parts[2];
     const channelSlug = parts[3];
 
