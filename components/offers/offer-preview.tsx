@@ -9,18 +9,21 @@ import OfferListViewPreview from './offer-listview-preview';
 interface Props {
   type: PostPreviewType;
   offer: OfferPreviewResponse;
+  displayGroup: boolean;
 }
 
-export default function OfferPreview({ type, offer }: Props) {
+export default function OfferPreview({ type, offer, displayGroup }: Props) {
   switch (type) {
     case 'text': {
-      return <OfferTextPreview offer={offer} />;
+      return <OfferTextPreview offer={offer} displayGroup={displayGroup} />;
     }
     case 'thumbnail': {
-      return <OfferThumbnailPreview offer={offer} />;
+      return (
+        <OfferThumbnailPreview offer={offer} displayGroup={displayGroup} />
+      );
     }
     case 'listview': {
-      return <OfferListViewPreview offer={offer} />;
+      return <OfferListViewPreview offer={offer} displayGroup={displayGroup} />;
     }
     default: {
       return <div />;

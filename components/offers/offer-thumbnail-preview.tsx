@@ -10,9 +10,10 @@ import OfferPreviewMain from './offer-preview-main';
 
 interface Props {
   offer: OfferPreviewResponse;
+  displayGroup: boolean;
 }
 
-export default function OfferThumbnailPreview({ offer }: Props) {
+export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
   return (
     <div className="relative overflow-hidden bg-dark-400 py-3 rounded-lg">
       <Link
@@ -39,7 +40,7 @@ export default function OfferThumbnailPreview({ offer }: Props) {
         )}
         <div className="w-[68%] md:w-full pt-2 flex flex-col gap-1">
           <div className="pl-4 md:pl-5">
-            <OfferCredditBar offer={offer} />
+            <OfferCredditBar offer={offer} displayGroup={displayGroup} />
           </div>
           <div className="px-4 md:px-5">
             <OfferPreviewMain offer={offer} />
