@@ -46,6 +46,7 @@ export default function OfferHome({
           type={businessFunction === 'buy' ? 'text' : 'thumbnail'}
           key={offer.id}
           offer={offer}
+          displayGroup={!group}
         />
       ))}
     </OfferHomeFeedLayout>
