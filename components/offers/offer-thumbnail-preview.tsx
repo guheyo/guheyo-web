@@ -38,7 +38,7 @@ export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
             </div>
           </div>
         )}
-        <div className="w-[68%] md:w-full flex flex-col gap-1 pl-4 md:px-2 pt-2 pb-1">
+        <div className="w-[68%] md:w-full flex flex-col gap-1 px-4 md:px-2 pt-2 pb-1">
           <OfferCredditBar offer={offer} displayGroup={displayGroup} />
           <OfferPreviewMain offer={offer} />
         </div>
