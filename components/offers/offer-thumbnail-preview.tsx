@@ -15,7 +15,7 @@ interface Props {
 
 export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
   return (
-    <div className="relative overflow-hidden bg-dark-400 py-3 rounded-lg">
+    <div className="relative overflow-hidden bg-dark-400 py-3 pl-3 md:px-3 rounded-lg">
       <Link
         href={parseOfferDetailLink({
           slug: offer.post.slug!,
@@ -23,7 +23,7 @@ export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
         className="flex flex-row w-full md:flex-col text-start"
       >
         {offer.post.thumbnail && (
-          <div className="flex relative w-[32%] md:w-fit pl-3 md:px-3">
+          <div className="flex relative w-[32%] md:w-fit">
             <Thumbnail
               url={offer.post.thumbnail}
               name={offer.post.title}
@@ -38,13 +38,9 @@ export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
             </div>
           </div>
         )}
-        <div className="w-[68%] md:w-full pt-2 flex flex-col gap-1">
-          <div className="pl-4 md:pl-5">
-            <OfferCredditBar offer={offer} displayGroup={displayGroup} />
-          </div>
-          <div className="px-4 md:px-5">
-            <OfferPreviewMain offer={offer} />
-          </div>
+        <div className="w-[68%] md:w-full flex flex-col gap-1 px-4 md:px-2 pt-2 pb-1">
+          <OfferCredditBar offer={offer} displayGroup={displayGroup} />
+          <OfferPreviewMain offer={offer} />
         </div>
       </Link>
     </div>

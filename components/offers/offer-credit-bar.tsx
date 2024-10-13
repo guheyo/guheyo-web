@@ -27,7 +27,7 @@ export default function OfferCredditBar({ offer, displayGroup }: Props) {
         )}
         <PostCreatedAt createdAt={offer.bumpedAt} />
       </div>
-      <div className="h-4 mt-[-22px]">
+      <div className="h-4 mt-[-22px] mr-[-12px]">
         <OfferMenu
           offerId={offer.id}
           postId={offer.post.id}
