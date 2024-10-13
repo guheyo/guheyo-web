@@ -50,6 +50,7 @@ export default function PrivateOfferMenu({
     newOfferStatus: OfferStatus,
   ) => {
     event.preventDefault();
+    setAnchorEl(null);
     await updateOffer({
       id: offerId,
       status: newOfferStatus,
@@ -68,6 +69,7 @@ export default function PrivateOfferMenu({
     isArchived: boolean,
   ) => {
     event.preventDefault();
+    setAnchorEl(null);
     await updateOffer({
       id: offerId,
       post: {
@@ -84,6 +86,7 @@ export default function PrivateOfferMenu({
 
   const handleEditClick: React.MouseEventHandler = (event) => {
     event.preventDefault();
+    setAnchorEl(null);
     router.push(
       parseOfferLink({
         action: 'edit',
@@ -94,6 +97,7 @@ export default function PrivateOfferMenu({
 
   const handleBumpClick: React.MouseEventHandler = async (event) => {
     event.preventDefault();
+    setAnchorEl(null);
     router.push(
       parseOfferLink({
         action: 'bump',
@@ -104,6 +108,7 @@ export default function PrivateOfferMenu({
 
   const handleDelete: React.MouseEventHandler = async (event) => {
     event.preventDefault();
+    setAnchorEl(null);
     await deleteOffer(offerId);
     updateCacheWithDeletedOffer(offerId);
 
