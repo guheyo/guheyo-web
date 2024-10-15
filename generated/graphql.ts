@@ -522,9 +522,7 @@ export type FindSocialAccountConflictsOrderByInput = {
 
 export type FindSocialAccountConflictsWhereInput = {
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
-  followed?: InputMaybe<Scalars['Boolean']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
-  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type FindThreadPreviewsOrderByInput = {
