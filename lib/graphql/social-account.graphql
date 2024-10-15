@@ -20,3 +20,51 @@ fragment socialAccount on SocialAccountResponse {
   idToken
   sessionState
 }
+
+fragment socialAccountConflict on SocialAccountConflictResponse {
+  id
+  createdAt
+  conflictReason
+  provider
+  socialId
+  newUser {
+    ...author
+  }
+  existingUser {
+    ...author
+  }
+  status
+  userAgent
+  ipAddress
+}
+
+query FindSocialAccountConflicts(
+  $where: FindSocialAccountConflictsWhereInput
+  $orderBy: FindSocialAccountConflictsOrderByInput
+  $keyword: String
+  $target: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findSocialAccountConflicts(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...socialAccountConflict
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
