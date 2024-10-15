@@ -84,6 +84,12 @@ export type AuthorResponse = {
   username: Scalars['String']['output'];
 };
 
+export type AuthorResponseEdge = {
+  __typename?: 'AuthorResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: AuthorResponse;
+};
+
 export type BidCountResponse = {
   __typename?: 'BidCountResponse';
   auctionId: Scalars['ID']['output'];
@@ -433,6 +439,15 @@ export type FindAuctionPreviewsWhereInput = {
   groupId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindAuthorsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindAuthorsWhereInput = {
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -1004,6 +1019,12 @@ export type PaginatedAuctionPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedAuthorsResponse = {
+  __typename?: 'PaginatedAuthorsResponse';
+  edges: Array<AuthorResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedBidsResponse = {
   __typename?: 'PaginatedBidsResponse';
   edges: Array<BidResponseEdge>;
@@ -1170,6 +1191,7 @@ export type Query = {
   findAuctionPreview?: Maybe<AuctionPreviewResponse>;
   findAuctionPreviews: PaginatedAuctionPreviewsResponse;
   findAuthor?: Maybe<AuthorResponse>;
+  findAuthors: PaginatedAuthorsResponse;
   findBidCount: BidCountResponse;
   findBidders: PaginatedUsersResponse;
   findBids: PaginatedBidsResponse;
@@ -1251,6 +1273,17 @@ export type QueryFindAuctionPreviewsArgs = {
 export type QueryFindAuthorArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindAuthorsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindAuthorsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindAuthorsWhereInput>;
 };
 
 
@@ -2656,6 +2689,19 @@ export type FindMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindMyUserQuery = { __typename?: 'Query', findMyUser?: { __typename?: 'MyUserResponse', id: string, createdAt: any, username: string, about?: string | null, name?: string | null, phoneNumber?: string | null, avatarURL?: string | null, bot: boolean, socialAccounts: Array<{ __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }>, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null } | null };
+
+export type FindAuthorsQueryVariables = Exact<{
+  where?: InputMaybe<FindAuthorsWhereInput>;
+  orderBy?: InputMaybe<FindAuthorsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindAuthorsQuery = { __typename?: 'Query', findAuthors: { __typename?: 'PaginatedAuthorsResponse', edges: Array<{ __typename?: 'AuthorResponseEdge', cursor: string, node: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindUsersQueryVariables = Exact<{
   where?: InputMaybe<FindUsersWhereInput>;
@@ -6658,6 +6704,72 @@ export type FindMyUserSuspenseQueryHookResult = ReturnType<typeof useFindMyUserS
 export type FindMyUserQueryResult = Apollo.QueryResult<FindMyUserQuery, FindMyUserQueryVariables>;
 export function refetchFindMyUserQuery(variables?: FindMyUserQueryVariables) {
       return { query: FindMyUserDocument, variables: variables }
+    }
+export const FindAuthorsDocument = gql`
+    query FindAuthors($where: FindAuthorsWhereInput, $orderBy: FindAuthorsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findAuthors(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...author
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${AuthorFragmentDoc}`;
+
+/**
+ * __useFindAuthorsQuery__
+ *
+ * To run a query within a React component, call `useFindAuthorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuthorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuthorsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindAuthorsQuery(baseOptions: Apollo.QueryHookOptions<FindAuthorsQuery, FindAuthorsQueryVariables> & ({ variables: FindAuthorsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuthorsQuery, FindAuthorsQueryVariables>(FindAuthorsDocument, options);
+      }
+export function useFindAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuthorsQuery, FindAuthorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuthorsQuery, FindAuthorsQueryVariables>(FindAuthorsDocument, options);
+        }
+export function useFindAuthorsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAuthorsQuery, FindAuthorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAuthorsQuery, FindAuthorsQueryVariables>(FindAuthorsDocument, options);
+        }
+export type FindAuthorsQueryHookResult = ReturnType<typeof useFindAuthorsQuery>;
+export type FindAuthorsLazyQueryHookResult = ReturnType<typeof useFindAuthorsLazyQuery>;
+export type FindAuthorsSuspenseQueryHookResult = ReturnType<typeof useFindAuthorsSuspenseQuery>;
+export type FindAuthorsQueryResult = Apollo.QueryResult<FindAuthorsQuery, FindAuthorsQueryVariables>;
+export function refetchFindAuthorsQuery(variables: FindAuthorsQueryVariables) {
+      return { query: FindAuthorsDocument, variables: variables }
     }
 export const FindUsersDocument = gql`
     query FindUsers($where: FindUsersWhereInput, $orderBy: FindUsersOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {

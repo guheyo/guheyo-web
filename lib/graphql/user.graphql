@@ -90,6 +90,38 @@ query FindMyUser {
   }
 }
 
+query FindAuthors(
+  $where: FindAuthorsWhereInput
+  $orderBy: FindAuthorsOrderByInput
+  $keyword: String
+  $target: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findAuthors(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...author
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+
 query FindUsers(
   $where: FindUsersWhereInput
   $orderBy: FindUsersOrderByInput
