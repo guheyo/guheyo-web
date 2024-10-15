@@ -29,6 +29,7 @@ export default function SocialAccountConflictFeed({
   const provider = [null, 'all'].includes(searchParams.get('provider'))
     ? undefined
     : searchParams.get('provider');
+  const socialId = searchParams.get('socialId') || undefined;
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -43,6 +44,7 @@ export default function SocialAccountConflictFeed({
           }
         : undefined,
       provider,
+      socialId,
     },
     orderBy: defaultOrderBy,
     keyword,
