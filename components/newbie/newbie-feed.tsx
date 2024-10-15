@@ -20,6 +20,9 @@ function NewbieFeed({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const provider = [null, 'all'].includes(searchParams.get('provider'))
+    ? undefined
+    : searchParams.get('provider');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
   const { loading: authLoading } = useContext(AuthContext);
@@ -28,6 +31,11 @@ function NewbieFeed({
     ref,
     where: {
       ...defaultWhere,
+      ...(provider && {
+        socialAccount: {
+          provider,
+        },
+      }),
     },
     orderBy: {
       createdAt: defaultOrderBy?.createdAt || 'desc',
