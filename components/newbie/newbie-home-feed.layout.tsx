@@ -7,12 +7,14 @@ import NewbieSelectors from './newbie-selectors';
 
 interface Props {
   children: ReactNode;
+  hideGroupProfileSidebarItems?: boolean;
   showCategories: boolean;
   showSelectors: boolean;
 }
 
 function NewbieHomeFeedLayout({
   children,
+  hideGroupProfileSidebarItems,
   showCategories,
   showSelectors,
 }: Props) {
@@ -20,7 +22,7 @@ function NewbieHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<MemberHomeLink />}
-      path="member"
+      path={hideGroupProfileSidebarItems ? undefined : 'member'}
       categories={undefined}
       selectors={
         showSelectors && (

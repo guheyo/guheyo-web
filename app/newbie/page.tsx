@@ -12,7 +12,11 @@ function Page() {
   };
   return (
     <Suspense>
-      <NewbieHomeFeedLayout showCategories={false} showSelectors>
+      <NewbieHomeFeedLayout
+        hideGroupProfileSidebarItems
+        showCategories={false}
+        showSelectors
+      >
         <NewbieFeed defaultWhere={where} defaultOrderBy={orderBy} />
       </NewbieHomeFeedLayout>
     </Suspense>
