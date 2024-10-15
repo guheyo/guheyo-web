@@ -344,6 +344,20 @@ export type CreateSignedUrlInput = {
   type: Scalars['String']['input'];
 };
 
+export type CreateSocialAccountInput = {
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiresAt?: InputMaybe<Scalars['Int']['input']>;
+  id: Scalars['ID']['input'];
+  idToken?: InputMaybe<Scalars['String']['input']>;
+  provider: Scalars['String']['input'];
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scope?: InputMaybe<Scalars['String']['input']>;
+  sessionState?: InputMaybe<Scalars['String']['input']>;
+  socialId: Scalars['String']['input'];
+  tokenType?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['String']['input'];
+};
+
 export type CreateThreadInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
@@ -502,6 +516,17 @@ export type FindReportPreviewsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindSocialAccountConflictsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindSocialAccountConflictsWhereInput = {
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindThreadPreviewsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -644,12 +669,15 @@ export type Mutation = {
   createReport: MutationResponse;
   createRole: MutationResponse;
   createSignedUrl: SignedUrlResponse;
+  createSocialAccount: MutationResponse;
   createThread: MutationResponse;
   createUserImage: MutationResponse;
   createUserReview: MutationResponse;
   deleteComment: MutationResponse;
   deleteOffer: MutationResponse;
   deleteRole: MutationResponse;
+  deleteSocialAccount: MutationResponse;
+  deleteSocialAccountByProvider: MutationResponse;
   deleteThread: MutationResponse;
   deleteUserImage: MutationResponse;
   deleteUserReview: MutationResponse;
@@ -668,6 +696,7 @@ export type Mutation = {
   updateOffer: MutationResponse;
   updateReportComment: MutationResponse;
   updateRole: MutationResponse;
+  updateSocialAccount: MutationResponse;
   updateThread: MutationResponse;
   updateUser: MutationResponse;
   updateUserImage: MutationResponse;
@@ -745,6 +774,11 @@ export type MutationCreateSignedUrlArgs = {
 };
 
 
+export type MutationCreateSocialAccountArgs = {
+  input: CreateSocialAccountInput;
+};
+
+
 export type MutationCreateThreadArgs = {
   input: CreateThreadInput;
 };
@@ -772,6 +806,17 @@ export type MutationDeleteOfferArgs = {
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteSocialAccountArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteSocialAccountByProviderArgs = {
+  provider: Scalars['String']['input'];
+  socialId: Scalars['String']['input'];
 };
 
 
@@ -847,6 +892,11 @@ export type MutationUpdateReportCommentArgs = {
 
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
+};
+
+
+export type MutationUpdateSocialAccountArgs = {
+  input: UpdateSocialAccountInput;
 };
 
 
@@ -998,6 +1048,12 @@ export type PaginatedReportPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedSocialAccountConflictsResponse = {
+  __typename?: 'PaginatedSocialAccountConflictsResponse';
+  edges: Array<SocialAccountConflictResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedThreadPreviewsResponse = {
   __typename?: 'PaginatedThreadPreviewsResponse';
   edges: Array<ThreadPreviewResponseEdge>;
@@ -1143,6 +1199,7 @@ export type Query = {
   findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
+  findSocialAccountConflicts: PaginatedSocialAccountConflictsResponse;
   findTags: Array<TagResponse>;
   findTerm?: Maybe<TermResponse>;
   findThread?: Maybe<ThreadResponse>;
@@ -1368,6 +1425,17 @@ export type QueryFindRoleByIdArgs = {
 };
 
 
+export type QueryFindSocialAccountConflictsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindSocialAccountConflictsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindSocialAccountConflictsWhereInput>;
+};
+
+
 export type QueryFindTermArgs = {
   name: Scalars['String']['input'];
 };
@@ -1527,6 +1595,26 @@ export type SignedUrlResponse = {
   __typename?: 'SignedUrlResponse';
   signedUrl: Scalars['String']['output'];
   url: Scalars['String']['output'];
+};
+
+export type SocialAccountConflictResponse = {
+  __typename?: 'SocialAccountConflictResponse';
+  conflictReason?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  existingUser: AuthorResponse;
+  id: Scalars['ID']['output'];
+  ipAddress?: Maybe<Scalars['String']['output']>;
+  newUser: AuthorResponse;
+  provider: Scalars['String']['output'];
+  socialId: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  userAgent?: Maybe<Scalars['String']['output']>;
+};
+
+export type SocialAccountConflictResponseEdge = {
+  __typename?: 'SocialAccountConflictResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: SocialAccountConflictResponse;
 };
 
 export type SocialAccountResponse = {
@@ -1719,6 +1807,20 @@ export type UpdateRoleInput = {
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateSocialAccountInput = {
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiresAt?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  idToken?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scope?: InputMaybe<Scalars['String']['input']>;
+  sessionState?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
+  tokenType?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UpdateThreadInput = {
@@ -2378,6 +2480,21 @@ export type UpdateReportCommentMutation = { __typename?: 'Mutation', updateRepor
 export type SocialAccountWithoutAuthFragment = { __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string };
 
 export type SocialAccountFragment = { __typename?: 'SocialAccountResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string, refreshToken?: string | null, accessToken?: string | null, expiresAt?: number | null, tokenType?: string | null, scope?: string | null, idToken?: string | null, sessionState?: string | null };
+
+export type SocialAccountConflictFragment = { __typename?: 'SocialAccountConflictResponse', id: string, createdAt: any, conflictReason?: string | null, provider: string, socialId: string, status: string, userAgent?: string | null, ipAddress?: string | null, newUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, existingUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } };
+
+export type FindSocialAccountConflictsQueryVariables = Exact<{
+  where?: InputMaybe<FindSocialAccountConflictsWhereInput>;
+  orderBy?: InputMaybe<FindSocialAccountConflictsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindSocialAccountConflictsQuery = { __typename?: 'Query', findSocialAccountConflicts: { __typename?: 'PaginatedSocialAccountConflictsResponse', edges: Array<{ __typename?: 'SocialAccountConflictResponseEdge', cursor: string, node: { __typename?: 'SocialAccountConflictResponse', id: string, createdAt: any, conflictReason?: string | null, provider: string, socialId: string, status: string, userAgent?: string | null, ipAddress?: string | null, newUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> }, existingUser: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type TagFragment = { __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number };
 
@@ -3184,6 +3301,24 @@ export const ReportFragmentDoc = gql`
 ${PostPreviewWithoutUserFragmentDoc}
 ${ReportCommentFragmentDoc}
 ${VersionFragmentDoc}`;
+export const SocialAccountConflictFragmentDoc = gql`
+    fragment socialAccountConflict on SocialAccountConflictResponse {
+  id
+  createdAt
+  conflictReason
+  provider
+  socialId
+  newUser {
+    ...author
+  }
+  existingUser {
+    ...author
+  }
+  status
+  userAgent
+  ipAddress
+}
+    ${AuthorFragmentDoc}`;
 export const TermFragmentDoc = gql`
     fragment term on TermResponse {
   id
@@ -5714,6 +5849,72 @@ export function useUpdateReportCommentMutation(baseOptions?: Apollo.MutationHook
 export type UpdateReportCommentMutationHookResult = ReturnType<typeof useUpdateReportCommentMutation>;
 export type UpdateReportCommentMutationResult = Apollo.MutationResult<UpdateReportCommentMutation>;
 export type UpdateReportCommentMutationOptions = Apollo.BaseMutationOptions<UpdateReportCommentMutation, UpdateReportCommentMutationVariables>;
+export const FindSocialAccountConflictsDocument = gql`
+    query FindSocialAccountConflicts($where: FindSocialAccountConflictsWhereInput, $orderBy: FindSocialAccountConflictsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findSocialAccountConflicts(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...socialAccountConflict
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${SocialAccountConflictFragmentDoc}`;
+
+/**
+ * __useFindSocialAccountConflictsQuery__
+ *
+ * To run a query within a React component, call `useFindSocialAccountConflictsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSocialAccountConflictsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSocialAccountConflictsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindSocialAccountConflictsQuery(baseOptions: Apollo.QueryHookOptions<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables> & ({ variables: FindSocialAccountConflictsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>(FindSocialAccountConflictsDocument, options);
+      }
+export function useFindSocialAccountConflictsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>(FindSocialAccountConflictsDocument, options);
+        }
+export function useFindSocialAccountConflictsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>(FindSocialAccountConflictsDocument, options);
+        }
+export type FindSocialAccountConflictsQueryHookResult = ReturnType<typeof useFindSocialAccountConflictsQuery>;
+export type FindSocialAccountConflictsLazyQueryHookResult = ReturnType<typeof useFindSocialAccountConflictsLazyQuery>;
+export type FindSocialAccountConflictsSuspenseQueryHookResult = ReturnType<typeof useFindSocialAccountConflictsSuspenseQuery>;
+export type FindSocialAccountConflictsQueryResult = Apollo.QueryResult<FindSocialAccountConflictsQuery, FindSocialAccountConflictsQueryVariables>;
+export function refetchFindSocialAccountConflictsQuery(variables: FindSocialAccountConflictsQueryVariables) {
+      return { query: FindSocialAccountConflictsDocument, variables: variables }
+    }
 export const FindTagsDocument = gql`
     query FindTags {
   findTags {

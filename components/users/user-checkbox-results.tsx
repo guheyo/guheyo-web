@@ -75,6 +75,7 @@ function UserCheckboxResults({
               avatarURL={edge.node.avatarURL}
               about={edge.node.about}
               followed={edge.node.followed}
+              displayFollow
             />
           </div>
         </div>

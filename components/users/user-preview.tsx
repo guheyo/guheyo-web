@@ -14,12 +14,14 @@ export default function UserPreview({
   avatarURL,
   about,
   followed,
+  displayFollow,
 }: {
   userId: string;
   username: string;
   avatarURL?: string | null;
   about?: string | null;
   followed?: boolean | null;
+  displayFollow: boolean;
 }) {
   const device = useDeviceDetect();
 
@@ -40,7 +42,9 @@ export default function UserPreview({
             about,
           })}
         />
-        <FollowDialog target="user" targetId={userId} followed={!!followed} />
+        {displayFollow && (
+          <FollowDialog target="user" targetId={userId} followed={!!followed} />
+        )}
       </div>
     </Link>
   );
