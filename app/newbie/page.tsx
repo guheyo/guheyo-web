@@ -1,6 +1,6 @@
 'use client';
 
-import MemberHomeFeedLayout from '@/components/member/member-home-feed.layout';
+import NewbieHomeFeedLayout from '@/components/newbie/newbie-home-feed.layout';
 import NewbieFeed from '@/components/newbie/newbie-feed';
 import { FindUsersOrderByInput } from '@/generated/graphql';
 import { Suspense } from 'react';
@@ -12,9 +12,9 @@ function Page() {
   };
   return (
     <Suspense>
-      <MemberHomeFeedLayout showCategories={false} showSelectors>
+      <NewbieHomeFeedLayout showCategories={false} showSelectors>
         <NewbieFeed defaultWhere={where} defaultOrderBy={orderBy} />
-      </MemberHomeFeedLayout>
+      </NewbieHomeFeedLayout>
     </Suspense>
   );
 }
