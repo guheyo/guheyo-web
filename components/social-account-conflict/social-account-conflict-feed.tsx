@@ -26,6 +26,9 @@ export default function SocialAccountConflictFeed({
       searchParams.get('status') || (defaultWhere.status as string | undefined),
   });
   const period = searchParams.get('period');
+  const provider = [null, 'all'].includes(searchParams.get('provider'))
+    ? undefined
+    : searchParams.get('provider');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
@@ -39,6 +42,7 @@ export default function SocialAccountConflictFeed({
             gt: convertPeriodToDateString(period),
           }
         : undefined,
+      provider,
     },
     orderBy: defaultOrderBy,
     keyword,
