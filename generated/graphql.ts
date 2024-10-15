@@ -448,6 +448,7 @@ export type FindAuthorsOrderByInput = {
 
 export type FindAuthorsWhereInput = {
   followed?: InputMaybe<Scalars['Boolean']['input']>;
+  socialAccount?: InputMaybe<FindSocialAccountWithoutTokenInput>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -538,6 +539,11 @@ export type FindSocialAccountConflictsOrderByInput = {
 export type FindSocialAccountConflictsWhereInput = {
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindSocialAccountWithoutTokenInput = {
+  provider?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindThreadPreviewsOrderByInput = {
