@@ -538,6 +538,8 @@ export type FindSocialAccountConflictsOrderByInput = {
 
 export type FindSocialAccountConflictsWhereInput = {
   createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  socialId?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
 };
 
