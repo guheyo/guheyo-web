@@ -3,38 +3,42 @@
 import { useContext, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
-import { useInfiniteUsers } from '@/hooks/use-infinite-users';
 import {
-  FindUsersOrderByInput,
-  FindUsersWhereInput,
+  FindAuthorsOrderByInput,
+  FindAuthorsWhereInput,
 } from '@/generated/graphql';
-import UserPreview from './user-preview';
+import { useInfiniteAuthors } from '@/hooks/use-infinite-authors';
+import NewbiePreview from './newbie-preview';
 import { AuthContext } from '../auth/auth.provider';
 
-function UserFeed({
+function NewbieFeed({
   defaultWhere,
   defaultOrderBy,
 }: {
-  defaultWhere: FindUsersWhereInput;
-  defaultOrderBy?: FindUsersOrderByInput;
+  defaultWhere: FindAuthorsWhereInput;
+  defaultOrderBy?: FindAuthorsOrderByInput;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
-  const followed = [null, 'all'].includes(searchParams.get('followed'))
+  const provider = [null, 'all'].includes(searchParams.get('provider'))
     ? undefined
-    : searchParams.get('followed') === 'true';
+    : searchParams.get('provider');
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
   const { loading: authLoading } = useContext(AuthContext);
 
-  const { loading, data } = useInfiniteUsers({
+  const { loading, data } = useInfiniteAuthors({
     ref,
     where: {
       ...defaultWhere,
-      followed,
+      ...(provider && {
+        socialAccount: {
+          provider,
+        },
+      }),
     },
     orderBy: {
-      createdAt: defaultOrderBy?.createdAt || 'asc',
+      createdAt: defaultOrderBy?.createdAt || 'desc',
     },
     keyword,
     target,
@@ -43,20 +47,20 @@ function UserFeed({
   });
 
   if (loading) return <Mocks length={12} height={72} color="bg-dark-400" />;
-  if (!data?.findUsers) return <div />;
+  if (!data?.findAuthors) return <div />;
 
-  const { edges } = data.findUsers;
+  const { edges } = data.findAuthors;
   return (
     <>
       {edges.map((edge) => (
-        <UserPreview
+        <NewbiePreview
           key={edge.node.id}
           userId={edge.node.id}
           username={edge.node.username}
           avatarURL={edge.node.avatarURL}
           about={edge.node.about}
-          followed={edge.node.followed}
-          displayFollow
+          createdAt={edge.node.createdAt}
+          socialAccounts={edge.node.socialAccounts}
         />
       ))}
       <div ref={ref} />
@@ -64,4 +68,4 @@ function UserFeed({
   );
 }
 
-export default UserFeed;
+export default NewbieFeed;
