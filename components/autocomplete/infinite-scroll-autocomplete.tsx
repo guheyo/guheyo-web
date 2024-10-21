@@ -1,7 +1,7 @@
 'use client';
 
-import { Autocomplete, SelectChangeEvent, TextField } from '@mui/material';
-import React, { RefObject, useState } from 'react';
+import { Autocomplete, TextField } from '@mui/material';
+import React, { RefObject, SyntheticEvent } from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
 import { DEFAULT_INPUT_TEXT_COLOR } from '@/lib/input/input.colors';
 
@@ -20,22 +20,17 @@ export default function InfiniteScrollAutocomplete({
   options: Option[];
   inputClassName: string;
   ref: RefObject<HTMLDivElement>;
-  handleChange: (e: SelectChangeEvent) => void;
+  handleChange: (e: SyntheticEvent, value: Option | null) => void;
 }) {
-  const [inputValue, setInputValue] = useState<string>(selectedValue);
-
-  const handleInputChange = (event: any, value: string) => {
-    setInputValue(value);
-  };
-
   return (
     <Autocomplete
       id={`${name}-infinite-scroll-autocomplete`}
-      onInputChange={handleInputChange}
+      value={options.find((option) => option.value === selectedValue)}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField
           {...params}
-          label={!inputValue ? placeholder : ''}
+          label={!selectedValue ? placeholder : ''}
           sx={{
             '& .MuiInputBase-root': {
               height: 28, // Set the input height
@@ -79,7 +74,6 @@ export default function InfiniteScrollAutocomplete({
       )}
       getOptionLabel={(option) => option.label}
       className="text-gray-200"
-      onChange={() => {}}
     />
   );
 }
