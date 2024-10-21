@@ -70,6 +70,13 @@ export default function InfiniteScrollAutocomplete({
         maxWidth: 160,
       }}
       options={options}
+      renderOption={(props, option, { index }) => (
+        <li {...props} key={option.value}>
+          {option.label}
+          {/* Add a ref to the last option */}
+          {index === options.length - 1 && <div ref={ref} />}
+        </li>
+      )}
       getOptionLabel={(option) => option.label}
       className="text-gray-200"
       onChange={() => {}}
