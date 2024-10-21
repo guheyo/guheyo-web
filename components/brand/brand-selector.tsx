@@ -1,10 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
-import { SelectChangeEvent } from '@mui/material';
+import { SyntheticEvent, useRef } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useSearchParams } from 'next/navigation';
-import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
+import { Option } from '@/interfaces/selector.interfaces';
+import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
 export default function BrandSelector({
   groupId,
@@ -20,8 +20,8 @@ export default function BrandSelector({
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const handleChange = (e: SelectChangeEvent) => {
-    const id = e.target.value;
+  const handleChange = (e: SyntheticEvent, value: Option | null) => {
+    const id = value?.value || '';
     handleClick(id);
   };
 
@@ -53,12 +53,12 @@ export default function BrandSelector({
   ];
 
   return (
-    <InfiniteScrollSelector
+    <InfiniteScrollAutocomplete
       name="brand"
       placeholder="브랜드"
       selectedValue={selectedId}
       options={options}
-      inputClassName="text-[10px] md:text-xs font-medium"
+      inputClassName="text-xs font-medium text-gray-200"
       ref={ref}
       handleChange={handleChange}
     />
