@@ -61,7 +61,11 @@ export default function BrandAutocomplete({
     <InfiniteScrollAutocomplete
       name="brand"
       placeholder="브랜드"
-      selectedValue={selectedId}
+      selectedValue={
+        options.some((option) => option.value === selectedId)
+          ? selectedId
+          : undefined
+      }
       options={options}
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
