@@ -15,7 +15,7 @@ import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import { updateCacheWithNewThread } from '@/lib/apollo/cache/thread';
 import { EDITOR_ACTIONS } from '@/lib/write/write.constants';
 import CategorySelector from '../categories/category-selector';
-import GroupSelector from '../groups/group-selector';
+import GroupAutocomplete from '../groups/group-autocomplete';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
 import BrandAutocomplete from '../brand/brand-autocomplete';
@@ -147,7 +147,7 @@ export default function ThreadCardContainer({
     <div>
       {isInputFocused && (
         <div className="flex flex-row items-center gap-2 justify-end pb-2">
-          <GroupSelector
+          <GroupAutocomplete
             handleClick={handleGroupSelect}
             defaultWhere={{
               groupIds: defaultGroupId ? [defaultGroupId] : undefined,
