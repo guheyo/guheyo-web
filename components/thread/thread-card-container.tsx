@@ -14,12 +14,12 @@ import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import { updateCacheWithNewThread } from '@/lib/apollo/cache/thread';
 import { EDITOR_ACTIONS } from '@/lib/write/write.constants';
-import CategorySelector from '../categories/category-selector';
 import GroupAutocomplete from '../groups/group-autocomplete';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
 import BrandAutocomplete from '../brand/brand-autocomplete';
 import BgDialog from '../base/bg-dialog';
+import CategoryAutocomplete from '../categories/category-autocomplete';
 
 export default function ThreadCardContainer({
   defaultMode,
@@ -157,7 +157,7 @@ export default function ThreadCardContainer({
             setGroupId={setGroupId}
           />
           {categoryTypes?.includes('gb') && (
-            <CategorySelector
+            <CategoryAutocomplete
               groupId={groupId}
               categoryTypes={categoryTypes}
               handleClick={handleCategorySelect}
