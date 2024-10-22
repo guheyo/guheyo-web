@@ -28,6 +28,7 @@ export default function InfiniteScrollAutocomplete({
 }) {
   return (
     <Autocomplete
+      key={selectedValue}
       id={`${name}-infinite-scroll-autocomplete`}
       value={options.find((option) => option.value === selectedValue)}
       onChange={handleChange}
