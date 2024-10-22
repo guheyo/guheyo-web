@@ -153,7 +153,7 @@ export default function ThreadCardContainer({
               groupIds: defaultGroupId ? [defaultGroupId] : undefined,
               brandIds: defaultBrandId ? [defaultBrandId] : undefined,
             }}
-            selectedId={groupId || ''}
+            selectedId={groupId}
             setGroupId={setGroupId}
           />
           {categoryTypes?.includes('gb') && (
@@ -161,7 +161,7 @@ export default function ThreadCardContainer({
               groupId={groupId}
               categoryTypes={categoryTypes}
               handleClick={handleCategorySelect}
-              selectedId={categoryId || ''}
+              selectedId={categoryId}
               setCategoryId={setCategoryId}
             />
           )}

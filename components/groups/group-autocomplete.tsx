@@ -20,8 +20,8 @@ export default function GroupAutocomplete({
 }: {
   handleClick: (id: string) => void;
   defaultWhere?: FindGroupProfilesWhereInput;
-  selectedId: string;
-  setGroupId: (id: string) => void;
+  selectedId?: string;
+  setGroupId: (id?: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
@@ -61,7 +61,7 @@ export default function GroupAutocomplete({
       selectedValue={
         selectedId ||
         (groupProfiles.length === 1 && groupProfiles[0].node.id) ||
-        ''
+        undefined
       }
       options={groupProfiles.map((groupProfile) => ({
         value: groupProfile.node.id,

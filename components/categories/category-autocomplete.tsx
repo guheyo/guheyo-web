@@ -22,8 +22,8 @@ export default function CategoryAutocomplete({
   groupId?: string;
   categoryTypes?: string[];
   handleClick: (id: string) => void;
-  selectedId: string;
-  setCategoryId: (id: string) => void;
+  selectedId?: string;
+  setCategoryId: (id?: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ export default function CategoryAutocomplete({
 
   useEffect(() => {
     if (!selectedId) {
-      setCategoryId(findDefaultCategory(categories)?.id || '');
+      setCategoryId(findDefaultCategory(categories)?.id || undefined);
     }
   }, [selectedId, setCategoryId, categories]);
 
