@@ -4,6 +4,11 @@ import { SyntheticEvent, useRef } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useSearchParams } from 'next/navigation';
 import { Option } from '@/interfaces/selector.interfaces';
+import {
+  DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE,
+  DEFAULT_AUTOCOMPLETE_INPUT_STYLE,
+  DEFAULT_AUTOCOMPLETE_STYLE,
+} from '@/lib/input/input.styles';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
 export default function BrandSelector({
@@ -58,9 +63,9 @@ export default function BrandSelector({
       placeholder="브랜드"
       selectedValue={selectedId}
       options={options}
-      className="text-gray-200 max-w-36"
-      inputClassName="text-xs font-medium text-gray-200 h-[28px] bg-blurple-500 rounded-full"
-      inputLabelClassName="text-xs font-medium text-gray-200 top-1/2 -translate-y-1/2 ml-4"
+      className={DEFAULT_AUTOCOMPLETE_STYLE}
+      inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
+      inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
       ref={ref}
       handleChange={handleChange}
     />
