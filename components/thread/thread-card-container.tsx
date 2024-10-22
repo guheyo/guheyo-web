@@ -18,7 +18,7 @@ import CategorySelector from '../categories/category-selector';
 import GroupSelector from '../groups/group-selector';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
-import BrandSelector from '../brand/brand-selector';
+import BrandAutocomplete from '../brand/brand-autocomplete';
 import BgDialog from '../base/bg-dialog';
 
 export default function ThreadCardContainer({
@@ -166,7 +166,7 @@ export default function ThreadCardContainer({
             />
           )}
           {!defaultBrandId && (
-            <BrandSelector
+            <BrandAutocomplete
               groupId={groupId}
               handleClick={handleBrandSelect}
               selectedId={brandId}

@@ -11,7 +11,7 @@ import {
 } from '@/lib/input/input.styles';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
-export default function BrandSelector({
+export default function BrandAutocomplete({
   groupId,
   handleClick,
   selectedId,
