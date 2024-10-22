@@ -16,7 +16,7 @@ export default function InfiniteScrollAutocomplete({
 }: {
   name: string;
   placeholder: string;
-  selectedValue: string;
+  selectedValue?: string;
   options: Option[];
   inputClassName: string;
   ref: RefObject<HTMLDivElement>;
@@ -30,7 +30,7 @@ export default function InfiniteScrollAutocomplete({
       renderInput={(params) => (
         <TextField
           {...params}
-          label={!selectedValue ? placeholder : ''}
+          label={!selectedValue ? placeholder : undefined}
           sx={{
             '& .MuiInputBase-root': {
               height: 28, // Set the input height

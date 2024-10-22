@@ -13,7 +13,7 @@ export default function BrandSelector({
 }: {
   groupId?: string;
   handleClick: (id: string) => void;
-  selectedId: string;
+  selectedId?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();

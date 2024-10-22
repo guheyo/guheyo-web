@@ -169,7 +169,7 @@ export default function ThreadCardContainer({
             <BrandSelector
               groupId={groupId}
               handleClick={handleBrandSelect}
-              selectedId={brandId || ''}
+              selectedId={brandId}
             />
           )}
         </div>
