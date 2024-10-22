@@ -3,14 +3,15 @@
 import { Autocomplete, TextField } from '@mui/material';
 import React, { RefObject, SyntheticEvent } from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
-import { DEFAULT_INPUT_TEXT_COLOR } from '@/lib/input/input.colors';
 
 export default function InfiniteScrollAutocomplete({
   name,
   placeholder,
   selectedValue,
   options,
+  className,
   inputClassName,
+  inputLabelClassName,
   ref,
   handleChange,
 }: {
@@ -18,7 +19,9 @@ export default function InfiniteScrollAutocomplete({
   placeholder: string;
   selectedValue?: string;
   options: Option[];
+  className: string;
   inputClassName: string;
+  inputLabelClassName: string;
   ref: RefObject<HTMLDivElement>;
   handleChange: (e: SyntheticEvent, value: Option | null) => void;
 }) {
@@ -27,43 +30,21 @@ export default function InfiniteScrollAutocomplete({
       id={`${name}-infinite-scroll-autocomplete`}
       value={options.find((option) => option.value === selectedValue)}
       onChange={handleChange}
+      className={className}
       renderInput={(params) => (
         <TextField
           {...params}
           label={!selectedValue ? placeholder : undefined}
-          sx={{
-            '& .MuiInputBase-root': {
-              height: 28, // Set the input height
-              borderRadius: 30,
-            },
-            '& .MuiInputBase-input': {
-              marginTop: -2.4,
-            },
-            '& .MuiInputLabel-root': {
-              color: DEFAULT_INPUT_TEXT_COLOR,
-              fontSize: 12,
-              height: 28,
-              top: -10,
-            },
-            '& .MuiInputLabel-shrink': {
-              display: 'hidden',
-            },
-            bgcolor: '#5865F2',
-            borderRadius: 30,
-          }}
-          inputProps={{
-            ...params.inputProps,
-            className: inputClassName,
+          InputProps={{
+            ...params.InputProps,
+            className: inputClassName, // Class can also be applied here
           }}
           InputLabelProps={{
-            shrink: false,
+            shrink: false, // Control shrink behavior directly here
+            className: inputLabelClassName,
           }}
         />
       )}
-      sx={{
-        minWidth: 96,
-        maxWidth: 160,
-      }}
       options={options}
       renderOption={(props, option, { index }) => (
         <li {...props} key={option.value}>
@@ -73,7 +54,6 @@ export default function InfiniteScrollAutocomplete({
         </li>
       )}
       getOptionLabel={(option) => option.label}
-      className="text-gray-200"
     />
   );
 }

@@ -58,7 +58,9 @@ export default function BrandSelector({
       placeholder="브랜드"
       selectedValue={selectedId}
       options={options}
-      inputClassName="text-xs font-medium text-gray-200"
+      className="text-gray-200 max-w-36"
+      inputClassName="text-xs font-medium text-gray-200 h-[28px] bg-blurple-500 rounded-full"
+      inputLabelClassName="text-xs font-medium text-gray-200 top-1/2 -translate-y-1/2 ml-4"
       ref={ref}
       handleChange={handleChange}
     />
