@@ -20,3 +20,11 @@ export const FIXED_SUBMIT_BUTTON_STYLE =
 
 export const FIXED_SUBMIT_BUTTON_RED_STYLE =
   'p-3 text-gray-300 bg-red-800 hover:bg-red-700 text-lg font-bold rounded-lg fixed md:relative m-2 md:m-0 bottom-0 left-0 right-0';
+
+export const DEFAULT_AUTOCOMPLETE_STYLE = 'max-w-36';
+
+export const DEFAULT_AUTOCOMPLETE_INPUT_STYLE =
+  'text-xs font-medium text-gray-200 h-[28px] bg-blurple-500 rounded-full';
+
+export const DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE =
+  'text-xs font-medium text-gray-200 top-1/2 -translate-y-1/2 ml-4';

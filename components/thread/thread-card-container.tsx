@@ -14,12 +14,12 @@ import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import { parseUrlSegments } from '@/lib/group/parse-url-segments';
 import { updateCacheWithNewThread } from '@/lib/apollo/cache/thread';
 import { EDITOR_ACTIONS } from '@/lib/write/write.constants';
-import CategorySelector from '../categories/category-selector';
-import GroupSelector from '../groups/group-selector';
+import GroupAutocomplete from '../groups/group-autocomplete';
 import ThreadCard from './thread-card';
 import { AuthContext } from '../auth/auth.provider';
-import BrandSelector from '../brand/brand-selector';
+import BrandAutocomplete from '../brand/brand-autocomplete';
 import BgDialog from '../base/bg-dialog';
+import CategoryAutocomplete from '../categories/category-autocomplete';
 
 export default function ThreadCardContainer({
   defaultMode,
@@ -147,29 +147,29 @@ export default function ThreadCardContainer({
     <div>
       {isInputFocused && (
         <div className="flex flex-row items-center gap-2 justify-end pb-2">
-          <GroupSelector
+          <GroupAutocomplete
             handleClick={handleGroupSelect}
             defaultWhere={{
               groupIds: defaultGroupId ? [defaultGroupId] : undefined,
               brandIds: defaultBrandId ? [defaultBrandId] : undefined,
             }}
-            selectedId={groupId || ''}
+            selectedId={groupId}
             setGroupId={setGroupId}
           />
           {categoryTypes?.includes('gb') && (
-            <CategorySelector
+            <CategoryAutocomplete
               groupId={groupId}
               categoryTypes={categoryTypes}
               handleClick={handleCategorySelect}
-              selectedId={categoryId || ''}
+              selectedId={categoryId}
               setCategoryId={setCategoryId}
             />
           )}
           {!defaultBrandId && (
-            <BrandSelector
+            <BrandAutocomplete
               groupId={groupId}
               handleClick={handleBrandSelect}
-              selectedId={brandId || ''}
+              selectedId={brandId}
             />
           )}
         </div>

@@ -1,27 +1,33 @@
 'use client';
 
-import { useRef } from 'react';
-import { SelectChangeEvent } from '@mui/material';
+import { SyntheticEvent, useRef } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useSearchParams } from 'next/navigation';
-import InfiniteScrollSelector from '../selectors/infinite-scroll-selector';
+import { Option } from '@/interfaces/selector.interfaces';
+import {
+  DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE,
+  DEFAULT_AUTOCOMPLETE_INPUT_STYLE,
+  DEFAULT_AUTOCOMPLETE_STYLE,
+} from '@/lib/input/input.styles';
+import { getSelectedValue } from '@/lib/option/get-selected-value';
+import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
-export default function BrandSelector({
+export default function BrandAutocomplete({
   groupId,
   handleClick,
   selectedId,
 }: {
   groupId?: string;
   handleClick: (id: string) => void;
-  selectedId: string;
+  selectedId?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const handleChange = (e: SelectChangeEvent) => {
-    const id = e.target.value;
+  const handleChange = (e: SyntheticEvent, value: Option | null) => {
+    const id = value?.value || '';
     handleClick(id);
   };
 
@@ -52,13 +58,17 @@ export default function BrandSelector({
     })),
   ];
 
+  const selectedValue = getSelectedValue(options, selectedId);
+
   return (
-    <InfiniteScrollSelector
+    <InfiniteScrollAutocomplete
       name="brand"
       placeholder="브랜드"
-      selectedValue={selectedId}
+      selectedValue={selectedValue}
       options={options}
-      inputClassName="text-[10px] md:text-xs font-medium"
+      className={DEFAULT_AUTOCOMPLETE_STYLE}
+      inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
+      inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
       ref={ref}
       handleChange={handleChange}
     />
