@@ -10,6 +10,7 @@ import {
   DEFAULT_AUTOCOMPLETE_STYLE,
 } from '@/lib/input/input.styles';
 import { Option } from '@/interfaces/selector.interfaces';
+import { getSelectedValue } from '@/lib/option/get-selected-value';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
 export default function CategoryAutocomplete({
@@ -56,9 +57,7 @@ export default function CategoryAutocomplete({
     label: category.name,
   }));
 
-  const selectedValue = options.some((option) => option.value === selectedId)
-    ? selectedId
-    : undefined;
+  const selectedValue = getSelectedValue(options, selectedId);
 
   return (
     <InfiniteScrollAutocomplete

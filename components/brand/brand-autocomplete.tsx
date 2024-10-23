@@ -9,6 +9,7 @@ import {
   DEFAULT_AUTOCOMPLETE_INPUT_STYLE,
   DEFAULT_AUTOCOMPLETE_STYLE,
 } from '@/lib/input/input.styles';
+import { getSelectedValue } from '@/lib/option/get-selected-value';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
 export default function BrandAutocomplete({
@@ -61,11 +62,7 @@ export default function BrandAutocomplete({
     <InfiniteScrollAutocomplete
       name="brand"
       placeholder="브랜드"
-      selectedValue={
-        options.some((option) => option.value === selectedId)
-          ? selectedId
-          : undefined
-      }
+      selectedValue={getSelectedValue(options, selectedId)}
       options={options}
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
