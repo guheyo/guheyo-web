@@ -48,18 +48,24 @@ export default function CategoryAutocomplete({
   useEffect(() => {
     if (!selectedId) {
       setCategoryId(findDefaultCategory(categories)?.id || undefined);
-    } else if (categories.length === 0) setCategoryId(undefined);
+    }
   }, [selectedId, setCategoryId, categories]);
+
+  const options = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }));
+
+  const selectedValue = options.some((option) => option.value === selectedId)
+    ? selectedId
+    : undefined;
 
   return (
     <InfiniteScrollAutocomplete
       name="category"
       placeholder="카테고리"
-      selectedValue={selectedId}
-      options={categories.map((category) => ({
-        value: category.id,
-        label: category.name,
-      }))}
+      selectedValue={selectedValue}
+      options={options}
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
       inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
