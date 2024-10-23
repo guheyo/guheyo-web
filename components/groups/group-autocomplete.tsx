@@ -10,6 +10,7 @@ import {
   DEFAULT_AUTOCOMPLETE_INPUT_STYLE,
   DEFAULT_AUTOCOMPLETE_STYLE,
 } from '@/lib/input/input.styles';
+import { getSelectedValue } from '@/lib/option/get-selected-value';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
 export default function GroupAutocomplete({
@@ -54,20 +55,20 @@ export default function GroupAutocomplete({
     handleClick(id);
   };
 
+  const options = groupProfiles.map((groupProfile) => ({
+    value: groupProfile.node.id,
+    label: groupProfile.node.name,
+    imageUrl: groupProfile.node.icon || undefined,
+  }));
+
+  const selectedValue = getSelectedValue(options, selectedId);
+
   return (
     <InfiniteScrollAutocomplete
       name="group"
       placeholder="그룹"
-      selectedValue={
-        selectedId ||
-        (groupProfiles.length === 1 && groupProfiles[0].node.id) ||
-        undefined
-      }
-      options={groupProfiles.map((groupProfile) => ({
-        value: groupProfile.node.id,
-        label: groupProfile.node.name,
-        imageUrl: groupProfile.node.icon || undefined,
-      }))}
+      selectedValue={selectedValue}
+      options={options}
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
       inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
