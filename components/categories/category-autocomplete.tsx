@@ -48,7 +48,7 @@ export default function CategoryAutocomplete({
   useEffect(() => {
     if (!selectedId) {
       setCategoryId(findDefaultCategory(categories)?.id || undefined);
-    } else if (categories.length === 0) setCategoryId(undefined);
+    }
   }, [selectedId, setCategoryId, categories]);
 
   const options = categories.map((category) => ({
