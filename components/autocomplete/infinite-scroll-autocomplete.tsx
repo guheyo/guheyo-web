@@ -3,6 +3,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import React, { RefObject, SyntheticEvent } from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
+import { isUndefined } from 'lodash';
 
 export default function InfiniteScrollAutocomplete({
   name,
@@ -27,6 +28,7 @@ export default function InfiniteScrollAutocomplete({
 }) {
   return (
     <Autocomplete
+      key={selectedValue}
       id={`${name}-infinite-scroll-autocomplete`}
       value={options.find((option) => option.value === selectedValue)}
       onChange={handleChange}
@@ -34,7 +36,7 @@ export default function InfiniteScrollAutocomplete({
       renderInput={(params) => (
         <TextField
           {...params}
-          label={!selectedValue ? placeholder : undefined}
+          label={isUndefined(selectedValue) ? placeholder : undefined}
           InputProps={{
             ...params.InputProps,
             className: inputClassName, // Class can also be applied here

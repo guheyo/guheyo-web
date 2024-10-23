@@ -11,7 +11,7 @@ import {
 } from '@/lib/input/input.styles';
 import InfiniteScrollAutocomplete from '../autocomplete/infinite-scroll-autocomplete';
 
-export default function BrandSelector({
+export default function BrandAutocomplete({
   groupId,
   handleClick,
   selectedId,
@@ -61,7 +61,11 @@ export default function BrandSelector({
     <InfiniteScrollAutocomplete
       name="brand"
       placeholder="브랜드"
-      selectedValue={selectedId}
+      selectedValue={
+        options.some((option) => option.value === selectedId)
+          ? selectedId
+          : undefined
+      }
       options={options}
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
