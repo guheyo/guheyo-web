@@ -1,9 +1,10 @@
 'use client';
 
 import { Autocomplete, TextField } from '@mui/material';
-import React, { RefObject, SyntheticEvent } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
 import { isUndefined } from 'lodash';
+import { SetRefCallback } from '@/lib/ref/ref.types';
 
 export default function InfiniteScrollAutocomplete({
   name,
@@ -13,7 +14,7 @@ export default function InfiniteScrollAutocomplete({
   className,
   inputClassName,
   inputLabelClassName,
-  ref,
+  setRef,
   handleChange,
 }: {
   name: string;
@@ -23,7 +24,7 @@ export default function InfiniteScrollAutocomplete({
   className: string;
   inputClassName: string;
   inputLabelClassName: string;
-  ref: RefObject<HTMLDivElement>;
+  setRef: SetRefCallback;
   handleChange: (e: SyntheticEvent, value: Option | null) => void;
 }) {
   return (
@@ -49,11 +50,12 @@ export default function InfiniteScrollAutocomplete({
       )}
       options={options}
       renderOption={(props, option, { index }) => (
-        <li {...props} key={option.value}>
-          {option.label}
-          {/* Add a ref to the last option */}
-          {index === options.length - 1 && <div ref={ref} />}
-        </li>
+        <>
+          <li {...props} key={option.value}>
+            {option.label}
+          </li>
+          {index === options.length - 1 && <div ref={setRef} />}
+        </>
       )}
       getOptionLabel={(option) => option.label}
     />
