@@ -1,1 +1,3 @@
-export type SetRefCallback = (node: HTMLElement | null) => void;
+export type SetRefCallback = (
+  node: HTMLElement | null,
+) => (() => void) | undefined;
