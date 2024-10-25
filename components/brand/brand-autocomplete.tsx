@@ -1,6 +1,6 @@
 'use client';
 
-import { SyntheticEvent, useRef } from 'react';
+import { SyntheticEvent } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useSearchParams } from 'next/navigation';
 import { Option } from '@/interfaces/selector.interfaces';
@@ -21,7 +21,6 @@ export default function BrandAutocomplete({
   handleClick: (id: string) => void;
   selectedId?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
@@ -31,8 +30,7 @@ export default function BrandAutocomplete({
     handleClick(id);
   };
 
-  const { loading, data } = useInfiniteBrands({
-    ref,
+  const { setRef, loading, data } = useInfiniteBrands({
     where: {
       groupId,
     },
@@ -69,7 +67,7 @@ export default function BrandAutocomplete({
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
       inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
-      ref={ref}
+      setRef={setRef}
       handleChange={handleChange}
     />
   );
