@@ -3,18 +3,15 @@ import {
   FindBrandsWhereInput,
   useFindBrandsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteBrands = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindBrandsWhereInput;
   orderBy?: FindBrandsOrderByInput;
   keyword?: string;
@@ -33,8 +30,7 @@ export const useInfiniteBrands = ({
     fetchPolicy: 'cache-first',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -61,5 +57,5 @@ export const useInfiniteBrands = ({
     data?.findBrands.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };
