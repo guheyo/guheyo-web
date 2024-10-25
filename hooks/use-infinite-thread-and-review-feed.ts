@@ -6,14 +6,13 @@ import {
   useFindUserReviewPreviewsQuery,
   UserReviewPreviewResponseEdge,
 } from '@/generated/graphql';
-import { RefObject, useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { SortOrder } from '@/types/sort.types';
 import { max } from 'lodash';
 import { getNewEdges } from '@/lib/feed/get-new-edges';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 interface UseInfiniteThreadAndReviewFeedProps {
-  ref: RefObject<HTMLDivElement>;
   type?: 'thread' | 'review';
   where?: FindThreadPreviewsWhereInput & FindUserReviewPreviewsWhereInput;
   orderBy?: { createdAt?: SortOrder };
@@ -24,7 +23,6 @@ interface UseInfiniteThreadAndReviewFeedProps {
 }
 
 export const useInfiniteThreadAndReviewFeed = ({
-  ref,
   type,
   where,
   orderBy,
@@ -304,7 +302,7 @@ export const useInfiniteThreadAndReviewFeed = ({
     take,
   ]);
 
-  useInfiniteScroll(ref, fetchMore, hasNextPage);
+  const setRef = useInfiniteScroll(fetchMore, hasNextPage);
 
-  return { loading, items };
+  return { setRef, loading, items };
 };

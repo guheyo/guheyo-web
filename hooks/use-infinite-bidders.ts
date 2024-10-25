@@ -3,11 +3,9 @@ import {
   FindBiddersWhereInput,
   useFindBiddersQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteBidders = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteBidders = ({
   take,
   skip,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where: FindBiddersWhereInput;
   orderBy?: FindBiddersOrderByInput;
   keyword?: string;
@@ -37,8 +34,7 @@ export const useInfiniteBidders = ({
     skip,
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -67,5 +63,5 @@ export const useInfiniteBidders = ({
     data?.findBidders.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

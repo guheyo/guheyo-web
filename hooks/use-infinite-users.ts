@@ -3,11 +3,9 @@ import {
   FindUsersWhereInput,
   useFindUsersQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteUsers = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteUsers = ({
   take,
   skip,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindUsersWhereInput;
   orderBy?: FindUsersOrderByInput;
   keyword?: string;
@@ -37,8 +34,7 @@ export const useInfiniteUsers = ({
     skip,
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -67,5 +63,5 @@ export const useInfiniteUsers = ({
     data?.findUsers.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

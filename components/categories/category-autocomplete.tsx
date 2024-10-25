@@ -1,6 +1,6 @@
 'use client';
 
-import { SyntheticEvent, useEffect, useRef } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
 import { findDefaultCategory } from '@/lib/group/find-default-category';
@@ -26,8 +26,6 @@ export default function CategoryAutocomplete({
   selectedId?: string;
   setCategoryId: (id?: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
   const handleChange = (e: SyntheticEvent, value: Option | null) => {
     const id = value?.value || '';
     handleClick(id);
@@ -68,7 +66,7 @@ export default function CategoryAutocomplete({
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
       inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
-      ref={ref}
+      setRef={() => undefined}
       handleChange={handleChange}
     />
   );

@@ -3,11 +3,9 @@ import {
   FindThreadPreviewsWhereInput,
   useFindThreadPreviewsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteThreadFeed = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteThreadFeed = ({
   distinct,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindThreadPreviewsWhereInput;
   orderBy?: FindThreadPreviewsOrderByInput;
   keyword?: string;
@@ -35,8 +32,7 @@ export const useInfiniteThreadFeed = ({
     fetchPolicy: 'cache-first',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -65,5 +61,5 @@ export const useInfiniteThreadFeed = ({
     data?.findThreadPreviews.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

@@ -3,18 +3,15 @@ import {
   FindAuctionInteractionItemsWhereInput,
   useFindAuctionInteractionItemsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteAuctionInteractionItems = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindAuctionInteractionItemsWhereInput;
   orderBy?: FindAuctionInteractionItemsOrderByInput;
   keyword?: string;
@@ -34,8 +31,7 @@ export const useInfiniteAuctionInteractionItems = ({
     nextFetchPolicy: 'cache-and-network',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -65,5 +61,5 @@ export const useInfiniteAuctionInteractionItems = ({
     data?.findAuctionInteractionItems.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteUsers } from '@/hooks/use-infinite-users';
@@ -18,7 +18,6 @@ function UserFeed({
   defaultWhere: FindUsersWhereInput;
   defaultOrderBy?: FindUsersOrderByInput;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const followed = [null, 'all'].includes(searchParams.get('followed'))
     ? undefined
@@ -27,8 +26,7 @@ function UserFeed({
   const target = searchParams.get('target') || undefined;
   const { loading: authLoading } = useContext(AuthContext);
 
-  const { loading, data } = useInfiniteUsers({
-    ref,
+  const { setRef, loading, data } = useInfiniteUsers({
     where: {
       ...defaultWhere,
       followed,
@@ -59,7 +57,7 @@ function UserFeed({
           displayFollow
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

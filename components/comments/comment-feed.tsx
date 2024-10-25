@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useInfiniteComments } from '@/hooks/use-infinite-comments';
 import { CommentValues } from '@/lib/comment/comment.types';
 import { createComment, deleteComment, updateComment } from '@/lib/api/comment';
@@ -30,7 +30,6 @@ export default function CommentFeed({
   defaultOrderBy: FindCommentsOrderByInput;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState<CommentValues | null>(
     null,
@@ -179,8 +178,11 @@ export default function CommentFeed({
     shouldResubscribe: true,
   });
 
-  const { loading: commentsLoading, data: commentsData } = useInfiniteComments({
-    ref: sentinelRef,
+  const {
+    setRef,
+    loading: commentsLoading,
+    data: commentsData,
+  } = useInfiniteComments({
     where: defaultWhere,
     orderBy: defaultOrderBy,
     take: 10,
@@ -235,7 +237,7 @@ export default function CommentFeed({
             handlePin={handlePin}
           />
         ))}
-        <div ref={sentinelRef} />
+        <div ref={setRef} />
       </div>
       <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10 pr-8 md:pr-0">
         <CommentCard

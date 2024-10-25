@@ -1,7 +1,6 @@
 'use client';
 
 import { useInfiniteReports } from '@/hooks/use-infinite-reports';
-import { useRef } from 'react';
 import { ReportType } from '@/lib/report/report.types';
 import { useSearchParams } from 'next/navigation';
 import { useGroup } from '@/hooks/use-group';
@@ -22,7 +21,6 @@ export default function ReportFeed({
 }) {
   const searchParams = useSearchParams();
   const { group } = useGroup();
-  const ref = useRef<HTMLDivElement>(null);
   const type = searchParams.get('type') || defaultWhere.type;
   const status = parseReportStatus({
     status:
@@ -32,8 +30,7 @@ export default function ReportFeed({
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteReports({
-    ref,
+  const { setRef, loading, data } = useInfiniteReports({
     where: {
       ...defaultWhere,
       groupId: group?.id,
@@ -70,7 +67,7 @@ export default function ReportFeed({
             type={report.node.type as ReportType}
           />
         ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </div>
   );
 }

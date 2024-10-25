@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
@@ -34,14 +33,12 @@ function OfferCheckboxResults({
   control: Control<CheckboxFormValues>;
   handleCheckboxClick: (seletedId: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteOfferFeed({
-    ref,
+  const { setRef, loading, data } = useInfiniteOfferFeed({
     where: {
       businessFunction: where.businessFunction,
       status: where.status,
@@ -82,7 +79,7 @@ function OfferCheckboxResults({
           </div>
         </div>
       ))}
-      <div ref={ref} className="h-1" />
+      <div ref={setRef} className="h-1" />
     </>
   );
 }

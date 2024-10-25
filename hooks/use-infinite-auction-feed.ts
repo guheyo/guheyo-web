@@ -3,11 +3,9 @@ import {
   FindAuctionPreviewsWhereInput,
   useFindAuctionPreviewsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteAuctionFeed = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteAuctionFeed = ({
   distinct,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindAuctionPreviewsWhereInput;
   orderBy?: FindAuctionPreviewsOrderByInput;
   keyword?: string;
@@ -35,8 +32,7 @@ export const useInfiniteAuctionFeed = ({
     fetchPolicy: 'cache-first',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -65,5 +61,5 @@ export const useInfiniteAuctionFeed = ({
     data?.findAuctionPreviews.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

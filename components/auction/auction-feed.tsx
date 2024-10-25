@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import { useSearchParams } from 'next/navigation';
@@ -26,7 +25,6 @@ function AuctionFeed({
   defaultSortOrder?: string;
   defaultDistinct: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
@@ -54,8 +52,7 @@ function AuctionFeed({
       ? defaultDistinct
       : searchParams.get('distinct') !== 'false';
 
-  const { loading, data } = useInfiniteAuctionFeed({
-    ref,
+  const { setRef, loading, data } = useInfiniteAuctionFeed({
     where: {
       groupId: group?.id,
       categoryId: category?.id,
@@ -110,7 +107,7 @@ function AuctionFeed({
           )}
         </div>
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

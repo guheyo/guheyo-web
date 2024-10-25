@@ -7,6 +7,7 @@ import {
 } from '@/generated/graphql';
 import { BidValues } from '@/lib/bid/bid.types';
 import { CommentValues } from '@/lib/comment/comment.types';
+import { SetRefCallback } from '@/lib/ref/ref.types';
 import BidOutput from '../bid/bid-output';
 import CommentCard from '../comments/comment-card';
 import AuctionInteractionItemInput from './auction-interaction-item-input';
@@ -32,7 +33,7 @@ export default function AuctionInteractionItemFeed({
   handlePin?: (values: CommentValues) => Promise<void>;
   handleDelete?: (values: CommentValues) => void;
   user?: AuthorResponse;
-  sentinelRef: React.RefObject<HTMLDivElement>;
+  sentinelRef: SetRefCallback;
 }) {
   return (
     <div className="flex flex-col relative pb-16 lg:pb-32">

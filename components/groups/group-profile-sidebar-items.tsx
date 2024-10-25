@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEventHandler, useRef } from 'react';
+import { MouseEventHandler } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import GroupProfileSidebarItem from './group-profile-sidebar-item';
 
@@ -17,9 +17,7 @@ export default function GroupProfileSidebarItems({
   onClick?: MouseEventHandler;
   pathFormatter: (slug: string) => string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { loading, data } = useInfiniteGroupProfiles({
-    ref,
+  const { setRef, loading, data } = useInfiniteGroupProfiles({
     orderBy: {
       position: 'asc',
     },
@@ -45,7 +43,7 @@ export default function GroupProfileSidebarItems({
           pathFormatter={pathFormatter}
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

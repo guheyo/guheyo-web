@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteOfferFeed } from '@/hooks/use-infinite-offer-feed';
 import OfferPreview from '@/components/offers/offer-preview';
@@ -28,7 +27,6 @@ function OfferFeed({
   type: PostPreviewType;
   defaultDistinct: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
@@ -59,8 +57,7 @@ function OfferFeed({
       ? defaultDistinct
       : searchParams.get('distinct') !== 'false';
 
-  const { loading, data } = useInfiniteOfferFeed({
-    ref,
+  const { setRef, loading, data } = useInfiniteOfferFeed({
     where: {
       businessFunction: defaultWhere?.businessFunction,
       groupId: group?.id,
@@ -110,7 +107,7 @@ function OfferFeed({
           )}
         </div>
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

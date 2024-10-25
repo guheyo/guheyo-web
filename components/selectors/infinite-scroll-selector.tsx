@@ -1,8 +1,9 @@
 'use client';
 
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import React, { RefObject } from 'react';
+import React from 'react';
 import { Option } from '@/interfaces/selector.interfaces';
+import { SetRefCallback } from '@/lib/ref/ref.types';
 import Avatar from '../avatar/avatar';
 
 export default function InfiniteScrollSelector({
@@ -11,7 +12,7 @@ export default function InfiniteScrollSelector({
   selectedValue,
   options,
   inputClassName,
-  ref,
+  setRef,
   handleChange,
 }: {
   name: string;
@@ -19,7 +20,7 @@ export default function InfiniteScrollSelector({
   selectedValue: string;
   options: Option[];
   inputClassName: string;
-  ref: RefObject<HTMLDivElement>;
+  setRef: SetRefCallback;
   handleChange: (e: SelectChangeEvent) => void;
 }) {
   return (
@@ -54,7 +55,7 @@ export default function InfiniteScrollSelector({
           </div>
         </MenuItem>
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </Select>
   );
 }

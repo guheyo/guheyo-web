@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
@@ -18,13 +18,11 @@ export default function GroupSelector({
   selectedId: string;
   setGroupId: (id: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteGroupProfiles({
-    ref,
+  const { setRef, loading, data } = useInfiniteGroupProfiles({
     where: {
       ...defaultWhere,
     },
@@ -64,7 +62,7 @@ export default function GroupSelector({
         imageUrl: groupProfile.node.icon || undefined,
       }))}
       inputClassName="text-[10px] md:text-xs font-medium"
-      ref={ref}
+      setRef={setRef}
       handleChange={handleChange}
     />
   );

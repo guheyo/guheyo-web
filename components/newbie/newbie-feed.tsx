@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
 import {
@@ -18,7 +18,6 @@ function NewbieFeed({
   defaultWhere: FindAuthorsWhereInput;
   defaultOrderBy?: FindAuthorsOrderByInput;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const provider = [null, 'all'].includes(searchParams.get('provider'))
     ? undefined
@@ -27,8 +26,7 @@ function NewbieFeed({
   const target = searchParams.get('target') || undefined;
   const { loading: authLoading } = useContext(AuthContext);
 
-  const { loading, data } = useInfiniteAuthors({
-    ref,
+  const { setRef, loading, data } = useInfiniteAuthors({
     where: {
       ...defaultWhere,
       ...(provider && {
@@ -63,7 +61,7 @@ function NewbieFeed({
           socialAccounts={edge.node.socialAccounts}
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

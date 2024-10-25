@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
@@ -33,12 +33,10 @@ function BidderCheckboxResults({
   control: Control<CheckboxFormValues>;
   handleCheckboxClick: (seletedId: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
   const { loading: authLoading } = useContext(AuthContext);
 
-  const { loading, data } = useInfiniteBidders({
-    ref,
+  const { setRef, loading, data } = useInfiniteBidders({
     where,
     orderBy: {
       createdAt: orderBy?.createdAt || 'desc',
@@ -80,7 +78,7 @@ function BidderCheckboxResults({
           </div>
         </div>
       ))}
-      <div ref={ref} className="h-1" />
+      <div ref={setRef} className="h-1" />
     </>
   );
 }
