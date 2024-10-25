@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
@@ -20,8 +20,6 @@ export default function CategorySelector({
   selectedId: string;
   setCategoryId: (id: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
   const handleChange = (e: SelectChangeEvent) => {
     const id = e.target.value;
     handleClick(id);
@@ -56,7 +54,7 @@ export default function CategorySelector({
         label: category.name,
       }))}
       inputClassName="text-[10px] md:text-xs font-medium"
-      ref={ref}
+      setRef={() => undefined}
       handleChange={handleChange}
     />
   );

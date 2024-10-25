@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { Checkbox } from '@mui/material';
 import tailwindConfig from '@/tailwind.config';
@@ -24,14 +23,12 @@ function GroupCheckboxResults({
   handleCheckboxClick: (seletedId: string) => void;
   size: ComponentSize;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { field } = useController({ name: 'selectedIds', control });
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteGroupProfiles({
-    ref,
+  const { setRef, loading, data } = useInfiniteGroupProfiles({
     orderBy: {
       position: 'asc',
     },
@@ -68,7 +65,7 @@ function GroupCheckboxResults({
           </div>
         </div>
       ))}
-      <div ref={ref} className="h-1" />
+      <div ref={setRef} className="h-1" />
     </>
   );
 }

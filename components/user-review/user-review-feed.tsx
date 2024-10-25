@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import { useInfiniteUserReviewFeed } from '@/hooks/use-infinite-user-review-feed';
@@ -19,7 +18,6 @@ function UserReviewFeed({
   defaultWhere: FindUserReviewPreviewsWhereInput;
   defaultOrderBy?: FindUserReviewPreviewsOrderByInput;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const searchParams = useSearchParams();
   const tagType = [null, 'all'].includes(searchParams.get('tagType'))
@@ -29,8 +27,7 @@ function UserReviewFeed({
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteUserReviewFeed({
-    ref,
+  const { setRef, loading, data } = useInfiniteUserReviewFeed({
     where: {
       groupId: group?.id,
       userId: defaultWhere.userId,
@@ -64,7 +61,7 @@ function UserReviewFeed({
           displayGroup={!group || group.name === 'root'}
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

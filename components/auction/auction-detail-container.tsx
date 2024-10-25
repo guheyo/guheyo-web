@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   AuctionInteractionItemResponse,
   AuctionResponse,
@@ -43,7 +43,6 @@ export default function AuctionDetailContainer({
   auction: AuctionResponse;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [auction, setAuction] = useState<AuctionResponse>(initialAuction);
@@ -159,10 +158,10 @@ export default function AuctionDetailContainer({
   };
 
   const {
+    setRef,
     loading: auctionInteractionItemsLoading,
     data: auctionInteractionItemsData,
   } = useInfiniteAuctionInteractionItems({
-    ref: sentinelRef,
     where,
     orderBy,
     take: 10,
@@ -395,7 +394,7 @@ export default function AuctionDetailContainer({
           handlePin={handlePin}
           handleDelete={handleDeleteConfirmation}
           user={user || undefined}
-          sentinelRef={sentinelRef}
+          sentinelRef={setRef}
         />
       </div>
       <DeleteConfirmationDialog

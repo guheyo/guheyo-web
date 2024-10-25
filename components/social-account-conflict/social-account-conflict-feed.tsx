@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   FindSocialAccountConflictsOrderByInput,
@@ -20,7 +19,6 @@ export default function SocialAccountConflictFeed({
   defaultOrderBy: FindSocialAccountConflictsOrderByInput;
 }) {
   const searchParams = useSearchParams();
-  const ref = useRef<HTMLDivElement>(null);
   const status = parseReportStatus({
     status:
       searchParams.get('status') || (defaultWhere.status as string | undefined),
@@ -33,8 +31,7 @@ export default function SocialAccountConflictFeed({
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteSocialAccountConflicts({
-    ref,
+  const { setRef, loading, data } = useInfiniteSocialAccountConflicts({
     where: {
       ...defaultWhere,
       status,
@@ -70,7 +67,7 @@ export default function SocialAccountConflictFeed({
           provider={conflict.node.provider}
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </div>
   );
 }

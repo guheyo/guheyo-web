@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { Mocks } from '@/components/mock/mock';
 import { useGroup } from '@/hooks/use-group';
 import {
@@ -29,7 +29,6 @@ function ThreadFeed({
   showInput?: boolean;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup('root');
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category');
@@ -54,8 +53,7 @@ function ThreadFeed({
   });
   const user = UserData?.findAuthor;
 
-  const { loading, data } = useInfiniteThreadFeed({
-    ref,
+  const { setRef, loading, data } = useInfiniteThreadFeed({
     where: {
       groupId: group?.slug !== 'root' ? group?.id : undefined,
       userId: defaultWhere.userId,
@@ -108,7 +106,7 @@ function ThreadFeed({
           displayGroup={!group || group.name === 'root'}
         />
       ))}
-      <div ref={ref} />
+      <div ref={setRef} />
     </>
   );
 }

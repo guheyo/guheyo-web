@@ -3,7 +3,6 @@ import {
   FindGroupProfilesWhereInput,
   useFindGroupProfilesQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteGroupProfiles = ({

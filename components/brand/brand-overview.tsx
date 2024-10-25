@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useRef } from 'react';
+import { Suspense } from 'react';
 import { useInfiniteBrands } from '@/hooks/use-infinite-brands';
 import { useGroup } from '@/hooks/use-group';
 import { Mocks } from '../mock/mock';
@@ -8,10 +8,8 @@ import BrandHomeFeedLayout from './brand-home-feed.layout';
 import BrandPreview from './brand-preview';
 
 export default function BrandOverview() {
-  const ref = useRef<HTMLDivElement>(null);
   const { group } = useGroup();
   const { loading, data } = useInfiniteBrands({
-    ref,
     where: {
       groupId: group?.id,
     },

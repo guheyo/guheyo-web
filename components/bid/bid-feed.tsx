@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   BidCanceledDocument,
   BidPlacedDocument,
@@ -25,7 +25,6 @@ export default function BidFeed({
   defaultOrderBy: FindBidsOrderByInput;
 }) {
   const { jwtPayload } = useContext(AuthContext);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const [bids, setBids] = useState<BidResponse[]>([]); // State to store bids
 
   const handlePlaceBid = async (values: BidValues) => {
@@ -48,8 +47,11 @@ export default function BidFeed({
     });
   };
 
-  const { loading: bidsLoading, data: bidsData } = useInfiniteBids({
-    ref: sentinelRef,
+  const {
+    setRef,
+    loading: bidsLoading,
+    data: bidsData,
+  } = useInfiniteBids({
     where: defaultWhere,
     orderBy: defaultOrderBy,
     take: 10,
@@ -118,7 +120,7 @@ export default function BidFeed({
             handleMenuClick={handleCancelBid}
           />
         ))}
-        <div ref={sentinelRef} />
+        <div ref={setRef} />
       </div>
       <div className="fixed bottom-0 w-full max-w-2xl mx-auto bg-dark-500 py-6 md:py-10">
         <BidInput

@@ -1,6 +1,6 @@
 'use client';
 
-import { SyntheticEvent, useEffect, useRef } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import { FindGroupProfilesWhereInput } from '@/generated/graphql';
@@ -24,13 +24,11 @@ export default function GroupAutocomplete({
   selectedId?: string;
   setGroupId: (id?: string) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
 
-  const { loading, data } = useInfiniteGroupProfiles({
-    ref,
+  const { setRef, loading, data } = useInfiniteGroupProfiles({
     where: {
       ...defaultWhere,
     },
@@ -72,7 +70,7 @@ export default function GroupAutocomplete({
       className={DEFAULT_AUTOCOMPLETE_STYLE}
       inputClassName={DEFAULT_AUTOCOMPLETE_INPUT_STYLE}
       inputLabelClassName={DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE}
-      ref={ref}
+      setRef={setRef}
       handleChange={handleChange}
     />
   );

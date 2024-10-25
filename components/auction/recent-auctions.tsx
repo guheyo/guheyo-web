@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Mocks } from '@/components/mock/mock';
 import { useInfiniteAuctionFeed } from '@/hooks/use-infinite-auction-feed';
@@ -19,7 +18,6 @@ function RecentAuctions({
   defaultSortOrder?: string;
   defaultDistinct: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const orderBy = getFindAuctionsOrderByArgs({
     sortOrder: defaultSortOrder || 'ending',
   });
@@ -30,7 +28,6 @@ function RecentAuctions({
   const target = searchParams.get('target') || undefined;
 
   const { loading, data } = useInfiniteAuctionFeed({
-    ref,
     where: {
       groupId: defaultWhere.groupId,
       status: defaultWhere.status,
