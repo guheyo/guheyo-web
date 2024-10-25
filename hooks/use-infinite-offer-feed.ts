@@ -3,11 +3,9 @@ import {
   FindOfferPreviewsWhereInput,
   useFindOfferPreviewsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteOfferFeed = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteOfferFeed = ({
   distinct,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindOfferPreviewsWhereInput;
   orderBy?: FindOfferPreviewsOrderByInput;
   keyword?: string;
@@ -35,8 +32,7 @@ export const useInfiniteOfferFeed = ({
     fetchPolicy: 'cache-first',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -65,5 +61,5 @@ export const useInfiniteOfferFeed = ({
     data?.findOfferPreviews.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

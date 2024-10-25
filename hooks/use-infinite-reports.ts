@@ -3,18 +3,15 @@ import {
   FindReportPreviewsWhereInput,
   useFindReportPreviewsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteReports = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindReportPreviewsWhereInput;
   orderBy?: FindReportPreviewsOrderByInput;
   keyword?: string;
@@ -33,8 +30,7 @@ export const useInfiniteReports = ({
     fetchPolicy: 'cache-and-network',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -61,5 +57,5 @@ export const useInfiniteReports = ({
     data?.findReportPreviews.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

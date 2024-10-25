@@ -3,18 +3,15 @@ import {
   FindSocialAccountConflictsWhereInput,
   useFindSocialAccountConflictsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteSocialAccountConflicts = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindSocialAccountConflictsWhereInput;
   orderBy?: FindSocialAccountConflictsOrderByInput;
   keyword?: string;
@@ -33,8 +30,7 @@ export const useInfiniteSocialAccountConflicts = ({
     fetchPolicy: 'cache-and-network',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -62,5 +58,5 @@ export const useInfiniteSocialAccountConflicts = ({
     data?.findSocialAccountConflicts.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

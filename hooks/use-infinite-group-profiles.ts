@@ -7,14 +7,12 @@ import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteGroupProfiles = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindGroupProfilesWhereInput;
   orderBy?: FindGroupProfilesOrderByInput;
   keyword?: string;
@@ -32,8 +30,7 @@ export const useInfiniteGroupProfiles = ({
     },
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -62,5 +59,5 @@ export const useInfiniteGroupProfiles = ({
     data?.findGroupProfiles.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

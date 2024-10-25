@@ -3,18 +3,15 @@ import {
   FindBidsWhereInput,
   useFindBidsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteBids = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindBidsWhereInput;
   orderBy?: FindBidsOrderByInput;
   keyword?: string;
@@ -34,8 +31,7 @@ export const useInfiniteBids = ({
     nextFetchPolicy: 'cache-and-network',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -64,5 +60,5 @@ export const useInfiniteBids = ({
     data?.findBids.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

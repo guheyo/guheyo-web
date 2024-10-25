@@ -3,11 +3,9 @@ import {
   FindUserReviewPreviewsWhereInput,
   useFindUserReviewPreviewsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteUserReviewFeed = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +13,6 @@ export const useInfiniteUserReviewFeed = ({
   distinct,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindUserReviewPreviewsWhereInput;
   orderBy?: FindUserReviewPreviewsOrderByInput;
   keyword?: string;
@@ -35,8 +32,7 @@ export const useInfiniteUserReviewFeed = ({
     fetchPolicy: 'cache-first',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -65,5 +61,5 @@ export const useInfiniteUserReviewFeed = ({
     data?.findUserReviewPreviews.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

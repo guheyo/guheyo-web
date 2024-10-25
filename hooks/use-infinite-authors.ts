@@ -7,7 +7,6 @@ import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteAuthors = ({
-  ref,
   where,
   orderBy,
   keyword,
@@ -15,7 +14,6 @@ export const useInfiniteAuthors = ({
   take,
   skip,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindAuthorsWhereInput;
   orderBy?: FindAuthorsOrderByInput;
   keyword?: string;
@@ -37,8 +35,7 @@ export const useInfiniteAuthors = ({
     skip,
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -67,5 +64,5 @@ export const useInfiniteAuthors = ({
     data?.findAuthors.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };

@@ -3,18 +3,15 @@ import {
   FindCommentsWhereInput,
   useFindCommentsQuery,
 } from '@/generated/graphql';
-import { RefObject } from 'react';
 import { useInfiniteScroll } from './use-infinite-scroll';
 
 export const useInfiniteComments = ({
-  ref,
   where,
   orderBy,
   keyword,
   target,
   take,
 }: {
-  ref: RefObject<HTMLDivElement>;
   where?: FindCommentsWhereInput;
   orderBy?: FindCommentsOrderByInput;
   keyword?: string;
@@ -34,8 +31,7 @@ export const useInfiniteComments = ({
     nextFetchPolicy: 'cache-and-network',
   });
 
-  useInfiniteScroll(
-    ref,
+  const setRef = useInfiniteScroll(
     () =>
       fetchMore({
         variables: {
@@ -64,5 +60,5 @@ export const useInfiniteComments = ({
     data?.findComments.pageInfo.hasNextPage,
   );
 
-  return { loading, data };
+  return { setRef, loading, data };
 };
