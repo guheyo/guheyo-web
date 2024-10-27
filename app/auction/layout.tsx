@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 
 export async function generateMetadata() {
   return {
-    title: `멤버 | 구해요`,
-    Description: `멤버`,
+    title: `경매 | 구해요`,
+    Description: `장터에서 멤버들과 거래해요`,
   };
 }
 
