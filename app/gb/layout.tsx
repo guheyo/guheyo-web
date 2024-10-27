@@ -1,10 +1,13 @@
 import { ReactNode } from 'react';
 
-interface Props {
-  children: ReactNode;
+export async function generateMetadata() {
+  return {
+    title: `공동구매 | 구해요`,
+    Description: `장터에서 멤버들과 거래해요`,
+  };
 }
 
-function Layout({ children }: Props) {
+function Layout({ children }: { children: ReactNode }) {
   return children;
 }
 
