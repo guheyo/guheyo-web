@@ -8,6 +8,7 @@ import {
   FindUsersOrderByInput,
   FindUsersWhereInput,
 } from '@/generated/graphql';
+import { getFindUsersOrderByArgs } from '@/lib/user/get-find-users-order-by-args';
 import UserPreview from './user-preview';
 import { AuthContext } from '../auth/auth.provider';
 
@@ -22,6 +23,9 @@ function UserFeed({
   const followed = [null, 'all'].includes(searchParams.get('followed'))
     ? undefined
     : searchParams.get('followed') === 'true';
+  const orderBy = getFindUsersOrderByArgs({
+    sortOrder: searchParams.get('sort') || 'username',
+  });
   const keyword = searchParams.get('q') || undefined;
   const target = searchParams.get('target') || undefined;
   const { loading: authLoading } = useContext(AuthContext);
@@ -31,9 +35,7 @@ function UserFeed({
       ...defaultWhere,
       followed,
     },
-    orderBy: {
-      createdAt: defaultOrderBy?.createdAt || 'asc',
-    },
+    orderBy,
     keyword,
     target,
     take: 12,
