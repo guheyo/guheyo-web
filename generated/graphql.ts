@@ -586,6 +586,7 @@ export type FindUsersOrderByInput = {
 
 export type FindUsersWhereInput = {
   followed?: InputMaybe<Scalars['Boolean']['input']>;
+  isBot?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
