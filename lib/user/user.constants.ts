@@ -13,3 +13,5 @@ export const PRIVATE_USER_HOME_OPTIONS = [
   { value: 'thread', label: '스레드' },
   { value: 'report', label: '신고 기록' },
 ];
+
+export const USER_SORT_ORDER_OPTIONS = [{ value: 'username', label: '이름순' }];
