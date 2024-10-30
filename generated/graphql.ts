@@ -581,6 +581,7 @@ export type FindUserReviewPreviewsWhereInput = {
 
 export type FindUsersOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindUsersWhereInput = {
