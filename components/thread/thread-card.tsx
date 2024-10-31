@@ -39,6 +39,8 @@ export default function ThreadCard({
   displayImagesInput,
   defaultMode,
   threadId,
+  categoryId,
+  brandId,
   content,
   images,
   createdAt,
@@ -58,6 +60,8 @@ export default function ThreadCard({
   displayImagesInput: boolean;
   defaultMode: ThreadMode;
   threadId?: string;
+  categoryId?: string;
+  brandId?: string;
   content?: string;
   images: UserImageResponse[];
   createdAt?: Date;
@@ -97,12 +101,14 @@ export default function ThreadCard({
     if (threadId) {
       setValue('id', threadId);
       setValue('content', content || '');
+      setValue('categoryId', categoryId);
+      setValue('brandId', brandId);
       setValue('images', images);
     } else {
       setValue('id', uuid4());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadId, content]);
+  }, [threadId]);
 
   const handleMenuClick = (newMode: ThreadMode) => {
     if (handleDelete && newMode === 'delete') {
