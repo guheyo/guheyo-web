@@ -14,6 +14,7 @@ const parseCreateOfferInput = ({
       : offerFormValues.name0,
     groupId: offerFormValues.groupId,
     categoryId: offerFormValues.categoryId,
+    brandId: offerFormValues.brandId,
   };
   const offerInput: CreateOfferInput = {
     post: postInput,
