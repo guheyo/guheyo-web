@@ -126,7 +126,8 @@ export default function ThreadCardContainer({
       id: values.id,
       content: values.content,
       post: {
-        categoryId: values.categoryId,
+        categoryId,
+        brandId,
       },
     });
 
@@ -182,6 +183,8 @@ export default function ThreadCardContainer({
         displayImagesInput
         defaultMode={defaultMode}
         threadId={threadId}
+        categoryId={defaultCategoryId}
+        brandId={defaultBrandId}
         content={defaultContent}
         images={defaultImages}
         reactions={[]}
