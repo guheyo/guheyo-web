@@ -35,7 +35,7 @@ export default function BrandAutocomplete({
       groupId,
     },
     orderBy: {
-      follower: 'desc',
+      name: 'asc',
     },
     keyword,
     target,
