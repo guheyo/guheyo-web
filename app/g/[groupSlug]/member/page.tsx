@@ -6,7 +6,9 @@ import { FindUsersOrderByInput } from '@/generated/graphql';
 import { Suspense } from 'react';
 
 function Page() {
-  const where = {};
+  const where = {
+    isBot: false,
+  };
   const orderBy: FindUsersOrderByInput = {
     createdAt: 'asc',
   };

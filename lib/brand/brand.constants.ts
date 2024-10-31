@@ -9,6 +9,7 @@ export const BRAND_CHANNEL_OPTIONS = [
 
 export const BRAND_SORT_ORDER_OPTIONS = [
   { value: 'follower', label: '랭킹순' },
+  { value: 'name', label: '이름순' },
   { value: 'newest', label: '최신순' },
 ];
 

@@ -11,6 +11,8 @@ export const getFindBrandsOrderByArgs = ({
 
   if (sortOrder === 'follower') {
     orderBy.follower = 'desc';
+  } else if (sortOrder === 'name') {
+    orderBy.name = 'asc';
   } else {
     orderBy.follower = undefined;
   }
