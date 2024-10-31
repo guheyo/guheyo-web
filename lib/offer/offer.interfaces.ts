@@ -13,6 +13,7 @@ export type OfferFormValues = {
   name1?: string;
   businessFunction: BusinessFunction;
   categoryId: string;
+  brandId?: string;
   price: number;
   shippingCost: number;
   shippingType: ShippingType;
