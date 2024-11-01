@@ -9,6 +9,8 @@ export const parsePrevOfferFormValues: (
   id: prevOffer.id,
   groupId: prevOffer.post.group.id,
   categoryId: prevOffer.post.category!.id,
+  brandId:
+    prevOffer.post.brands.length > 0 ? prevOffer.post.brands[0].id : undefined,
   images: prevOffer.post.images,
   title: prevOffer.post.title,
   content: prevOffer.content || '',
