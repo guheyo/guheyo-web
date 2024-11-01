@@ -7,6 +7,7 @@ import { parseChannelLink } from '@/lib/channel/parse-channel-link';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
 import GroupNameLink from '../groups/group-name-link';
+import AuctionPreviewCenter from './auction-preview-center';
 
 interface Props {
   auction: AuctionPreviewResponse;
@@ -36,6 +37,7 @@ export default function AuctionTextPreview({ auction, displayGroup }: Props) {
             </div>
           )}
           <AuctionPreviewHeader auction={auction} />
+          <AuctionPreviewCenter auction={auction} />
           <AuctionPreviewFooter auction={auction} />
         </div>
       </Link>

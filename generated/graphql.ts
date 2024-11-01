@@ -473,6 +473,7 @@ export type FindBidsWhereInput = {
 export type FindBrandsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   follower?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindBrandsWhereInput = {
@@ -581,10 +582,12 @@ export type FindUserReviewPreviewsWhereInput = {
 
 export type FindUsersOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FindUsersWhereInput = {
   followed?: InputMaybe<Scalars['Boolean']['input']>;
+  isBot?: InputMaybe<Scalars['Boolean']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -1829,6 +1832,7 @@ export type UpdateOfferInput = {
 
 export type UpdatePostInput = {
   archivedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;

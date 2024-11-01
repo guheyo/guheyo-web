@@ -26,7 +26,9 @@ export default function OfferListViewPreview({ offer, displayGroup }: Props) {
           <OfferCredditBar offer={offer} displayGroup={displayGroup} />
         </div>
         <div className="flex flex-row justify-between px-4">
-          <OfferPreviewMain offer={offer} />
+          <div className="flex flex-col gap-1">
+            <OfferPreviewMain offer={offer} />
+          </div>
           {offer.post.thumbnail && (
             <div className="flex relative">
               <Thumbnail

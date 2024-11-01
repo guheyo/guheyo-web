@@ -18,7 +18,7 @@ export default function BrandAutocomplete({
   selectedId,
 }: {
   groupId?: string;
-  handleClick: (id: string) => void;
+  handleClick: (id?: string) => void;
   selectedId?: string;
 }) {
   const searchParams = useSearchParams();
@@ -26,7 +26,7 @@ export default function BrandAutocomplete({
   const target = searchParams.get('target') || undefined;
 
   const handleChange = (e: SyntheticEvent, value: Option | null) => {
-    const id = value?.value || '';
+    const id = value?.value === '' ? undefined : value?.value;
     handleClick(id);
   };
 
@@ -35,7 +35,7 @@ export default function BrandAutocomplete({
       groupId,
     },
     orderBy: {
-      follower: 'desc',
+      name: 'asc',
     },
     keyword,
     target,

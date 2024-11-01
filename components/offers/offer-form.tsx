@@ -72,6 +72,7 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
+import BrandAutocomplete from '../brand/brand-autocomplete';
 
 export default function OfferForm({
   localStorageKey,
@@ -106,6 +107,7 @@ export default function OfferForm({
         name1: undefined,
         businessFunction: 'sell',
         categoryId: '',
+        brandId: undefined,
         price: undefined,
         shippingCost: 0,
         shippingType: SHIPPING_FREE,
@@ -121,6 +123,7 @@ export default function OfferForm({
   const images = watch('images');
   const businessFunction = watch('businessFunction');
   const categoryId = watch('categoryId');
+  const brandId = watch('brandId');
   const shippingType = watch('shippingType');
 
   // Init OfferFormValues
@@ -205,6 +208,10 @@ export default function OfferForm({
     await onClickImagePreviewCallback(imageId);
 
     remove(position);
+  };
+
+  const handleBrandSelect = (id?: string) => {
+    setValue('brandId', id);
   };
 
   const handleSubmitError: SubmitErrorHandler<OfferFormValues> = (
@@ -378,6 +385,14 @@ export default function OfferForm({
           },
         }}
       />
+      <div className="flex flex-col gap-2">
+        <div className={DEFAULT_LABEL_STYLE}>브랜드</div>
+        <BrandAutocomplete
+          groupId={group.id}
+          handleClick={handleBrandSelect}
+          selectedId={brandId}
+        />
+      </div>
       <ButtonInputs
         name="shippingType"
         control={control}

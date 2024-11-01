@@ -23,7 +23,7 @@ export default function OfferTextPreview({ offer, displayGroup }: Props) {
         <div className="px-4">
           <OfferCredditBar offer={offer} displayGroup={displayGroup} />
         </div>
-        <div className="px-4">
+        <div className="px-4 flex flex-col gap-1">
           <OfferPreviewMain offer={offer} />
         </div>
       </Link>

@@ -9,6 +9,7 @@ import Thumbnail from '../base/thumbnail';
 import AuctionPreviewHeader from './auction-preview-header';
 import AuctionPreviewFooter from './auction-preview-footer';
 import GroupNameLink from '../groups/group-name-link';
+import AuctionPreviewCenter from './auction-preview-center';
 
 interface Props {
   auction: AuctionPreviewResponse;
@@ -58,6 +59,7 @@ export default function AuctionThumbnailPreview({
               </div>
             )}
             <AuctionPreviewHeader auction={auction} />
+            <AuctionPreviewCenter auction={auction} />
             <AuctionPreviewFooter auction={auction} />
           </div>
         </div>
