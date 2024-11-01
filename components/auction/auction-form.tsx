@@ -58,6 +58,7 @@ import {
 import ImagesInput from '../inputs/images-input';
 import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
+import BrandAutocomplete from '../brand/brand-autocomplete';
 
 export default function AuctionForm({
   localStorageKey,
@@ -91,6 +92,7 @@ export default function AuctionForm({
         title: undefined,
         content: undefined,
         categoryId: '',
+        brandId: undefined,
         shippingCost: 0,
         shippingType: SHIPPING_FREE,
       },
@@ -105,6 +107,7 @@ export default function AuctionForm({
   const duration = watch('duration');
   const images = watch('images');
   const categoryId = watch('categoryId');
+  const brandId = watch('brandId');
 
   // Init AuctionFormValues
   useEffect(() => {
@@ -182,6 +185,10 @@ export default function AuctionForm({
     await onClickImagePreviewCallback(imageId);
 
     remove(position);
+  };
+
+  const handleBrandSelect = (id?: string) => {
+    setValue('brandId', id);
   };
 
   const handleSubmitError: SubmitErrorHandler<AuctionFormValues> = (
@@ -298,6 +305,15 @@ export default function AuctionForm({
           },
         }}
       />
+
+      <div className="flex flex-col gap-2">
+        <div className={DEFAULT_LABEL_STYLE}>브랜드</div>
+        <BrandAutocomplete
+          groupId={group.id}
+          handleClick={handleBrandSelect}
+          selectedId={brandId}
+        />
+      </div>
 
       <TextInput
         name="content"
