@@ -3,7 +3,6 @@
 import { OfferPreviewResponse } from '@/generated/graphql';
 import { OfferStatus } from '@/lib/offer/offer.types';
 import OfferPreviewPrice from './offer-preview-price';
-import PostCategory from '../posts/post-category';
 import OfferPreviewTitle from './offer-preview-title';
 
 interface Props {
@@ -21,7 +20,6 @@ export default function OfferPreviewMain({ offer }: Props) {
         offerStatus={offer.status as OfferStatus}
         totalPrice={offer.totalPrice}
       />
-      <PostCategory category={offer.post.category!} />
     </div>
   );
 }
