@@ -1832,6 +1832,7 @@ export type UpdateOfferInput = {
 
 export type UpdatePostInput = {
   archivedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  brandId?: InputMaybe<Scalars['ID']['input']>;
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   pending?: InputMaybe<Scalars['String']['input']>;
   tagIds?: InputMaybe<Array<Scalars['ID']['input']>>;

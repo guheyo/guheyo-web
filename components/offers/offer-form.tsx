@@ -210,7 +210,7 @@ export default function OfferForm({
     remove(position);
   };
 
-  const handleBrandSelect = (id: string) => {
+  const handleBrandSelect = (id?: string) => {
     setValue('brandId', id);
   };
 
@@ -341,7 +341,7 @@ export default function OfferForm({
                   fontWeight: 600,
                   minWidth: getInputTextMinWidth(device),
                 },
-              }
+              },
             }}
           />
         </>

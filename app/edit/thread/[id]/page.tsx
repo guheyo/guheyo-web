@@ -31,7 +31,9 @@ export default function Page({
       defaultCategoryTypes={
         thread.post.category?.type ? [thread.post.category.type] : undefined
       }
-      defaultBrandId=""
+      defaultBrandId={
+        thread.post.brands.length > 0 ? thread.post.brands[0].id : undefined
+      }
       defaultContent={thread.content || undefined}
       defaultImages={thread.post.images}
     />
