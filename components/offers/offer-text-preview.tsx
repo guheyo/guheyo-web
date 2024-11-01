@@ -5,6 +5,7 @@ import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import { OfferPreviewResponse } from '@/generated/graphql';
 import OfferCredditBar from './offer-credit-bar';
 import OfferPreviewMain from './offer-preview-main';
+import OfferPreviewFooter from './offer-preview-footer';
 
 interface Props {
   offer: OfferPreviewResponse;
@@ -25,6 +26,7 @@ export default function OfferTextPreview({ offer, displayGroup }: Props) {
         </div>
         <div className="px-4">
           <OfferPreviewMain offer={offer} />
+          <OfferPreviewFooter offer={offer} />
         </div>
       </Link>
     </div>
