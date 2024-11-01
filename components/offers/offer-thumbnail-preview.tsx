@@ -7,7 +7,6 @@ import { parseOfferDetailLink } from '@/lib/offer/parse-offer-detail-link';
 import Thumbnail from '../base/thumbnail';
 import OfferCredditBar from './offer-credit-bar';
 import OfferPreviewMain from './offer-preview-main';
-import OfferPreviewFooter from './offer-preview-footer';
 
 interface Props {
   offer: OfferPreviewResponse;
@@ -42,7 +41,6 @@ export default function OfferThumbnailPreview({ offer, displayGroup }: Props) {
         <div className="w-[68%] md:w-full flex flex-col gap-1 px-4 md:px-2 pt-2 pb-1">
           <OfferCredditBar offer={offer} displayGroup={displayGroup} />
           <OfferPreviewMain offer={offer} />
-          <OfferPreviewFooter offer={offer} />
         </div>
       </Link>
     </div>

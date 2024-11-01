@@ -10,7 +10,7 @@ interface Props {
   offer: OfferPreviewResponse;
 }
 
-export default function OfferPreviewFooter({ offer }: Props) {
+export default function OfferPreviewInfo({ offer }: Props) {
   return (
     <div className="flex flex-row justify-between items-center">
       <div className="flex flex-row gap-1 md:gap-2 items-center">
