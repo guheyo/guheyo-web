@@ -210,7 +210,7 @@ export default function OfferForm({
     remove(position);
   };
 
-  const handleBrandSelect = (id: string) => {
+  const handleBrandSelect = (id?: string) => {
     setValue('brandId', id);
   };
 
