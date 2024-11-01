@@ -89,7 +89,7 @@ export default function ThreadCardContainer({
     setCategoryId(id);
   };
 
-  const handleBrandSelect = (id: string) => {
+  const handleBrandSelect = (id?: string) => {
     setBrandId(id);
   };
 
