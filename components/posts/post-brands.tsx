@@ -13,7 +13,7 @@ export default function PostBrands({
         <Link
           key={brand.id}
           href={parseBrandHomeLink({ slug: brand.slug! })}
-          className="rounded-lg px-1 py-0.5 text-[10px] md:text-xs bg-blurple-500 text-gray-200"
+          className="rounded-lg px-1 py-0.5 text-[10px] md:text-xs bg-blurple-500 text-gray-200 w-fit"
         >
           {brand.name}
         </Link>

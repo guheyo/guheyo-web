@@ -11,6 +11,7 @@ export type AuctionFormValues = {
   title: string;
   content: string;
   categoryId: string;
+  brandId?: string;
   status?: string;
   shippingCost: number;
   shippingType: string;
