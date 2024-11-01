@@ -341,7 +341,7 @@ export default function OfferForm({
                   fontWeight: 600,
                   minWidth: getInputTextMinWidth(device),
                 },
-              }
+              },
             }}
           />
         </>
