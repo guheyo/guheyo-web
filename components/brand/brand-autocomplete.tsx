@@ -39,7 +39,7 @@ export default function BrandAutocomplete({
     },
     keyword,
     target,
-    take: 12,
+    take: 100,
   });
   const brands = data?.findBrands.edges;
 

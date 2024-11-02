@@ -15,15 +15,15 @@ export default function Term({ name }: { name: string }) {
   if (loading) return <div />;
   if (!data?.findTerm) return <div />;
 
-  const term = data.findTerm;
+  const { title, content } = data.findTerm;
 
   return (
-    <div title={term.title}>
+    <div title={title}>
       <Markdown
-        className="prose prose-invert prose-sm md:prose-base max-w-none"
         remarkPlugins={[remarkGfm]}
+        className="prose prose-invert prose-xs md:prose-sm max-w-none"
       >
-        {term.content}
+        {content}
       </Markdown>
     </div>
   );
