@@ -37,7 +37,7 @@ export default function GroupAutocomplete({
     },
     keyword,
     target,
-    take: 12,
+    take: 100,
   });
 
   const groupProfiles = data?.findGroupProfiles.edges;
