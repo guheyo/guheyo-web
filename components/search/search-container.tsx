@@ -10,7 +10,7 @@ import { Option } from '@/interfaces/selector.interfaces';
 import SearchInput from './search-input';
 import { DEBOUNCE } from './search.constants';
 import TextFeedLayout from '../posts/text-feed.layout';
-import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import GroupProfileNavbar from '../groups/group-profile-navbar';
 import SearchTargetSelector from './search-target-selector';
 
 export default function SearchContainer({
@@ -64,8 +64,8 @@ export default function SearchContainer({
         )}
       </div>
       <div className="pt-2" />
-      <div className="flex flex-row gap-2 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
-        <GroupProfileSidebarItems
+      <div className="flex flex-row gap-4 md:gap-6 py-2 mb-6 mx-3 md:mx-1">
+        <GroupProfileNavbar
           currentGroupId={group?.id}
           paddingX={0}
           paddingY={0}
