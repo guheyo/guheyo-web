@@ -35,7 +35,7 @@ export default function OfferHome({
   return (
     <OfferHomeFeedLayout
       businessFunction={businessFunction}
-      hideGroupProfileNavbarItems
+      hideGroupProfileNavbar
       showChannels={false}
       showCategories={false}
       showSelectors={false}

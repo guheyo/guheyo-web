@@ -28,7 +28,7 @@ export default function BrandOverview() {
     <Suspense>
       <BrandHomeFeedLayout
         postPreviewType="thumbnail"
-        hideGroupProfileNavbarItems
+        hideGroupProfileNavbar
         showChannels={false}
         showCategories={false}
         showSelectors={false}

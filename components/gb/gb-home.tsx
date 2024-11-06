@@ -26,7 +26,7 @@ export default function GbHome() {
 
   return (
     <GbHomeFeedLayout
-      hideGroupProfileNavbarItems
+      hideGroupProfileNavbar
       showChannels={false}
       showCategories={false}
       showTags={false}

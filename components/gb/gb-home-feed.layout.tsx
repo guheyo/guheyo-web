@@ -11,7 +11,7 @@ import MarketChannelNavbar from '../market/market-channel-navbar';
 
 interface Props {
   children: ReactNode;
-  hideGroupProfileNavbarItems?: boolean;
+  hideGroupProfileNavbar?: boolean;
   showChannels: boolean;
   showCategories: boolean;
   showTags: boolean;
@@ -21,7 +21,7 @@ interface Props {
 
 function GbHomeFeedLayout({
   children,
-  hideGroupProfileNavbarItems,
+  hideGroupProfileNavbar,
   showChannels,
   showCategories,
   showTags,
@@ -32,7 +32,7 @@ function GbHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<GbHomeLink />}
-      path={hideGroupProfileNavbarItems ? undefined : 'gb'}
+      path={hideGroupProfileNavbar ? undefined : 'gb'}
       channels={showChannels ? <MarketChannelNavbar /> : undefined}
       categories={showCategories ? <GbCategoriesNavbar /> : undefined}
       selectors={

@@ -13,7 +13,7 @@ function Page() {
   return (
     <Suspense>
       <NewbieHomeFeedLayout
-        hideGroupProfileNavbarItems
+        hideGroupProfileNavbar
         showCategories={false}
         showSelectors
       >
