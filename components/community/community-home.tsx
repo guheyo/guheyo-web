@@ -25,7 +25,7 @@ export default function CommunityHome() {
 
   return (
     <CommunityHomeFeedLayout
-      hideGroupProfileSidebarItems
+      hideGroupProfileNavbar
       showCategories={false}
       showTags={false}
       showSelectors={false}

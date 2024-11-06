@@ -36,7 +36,7 @@ export default function AuctionHome() {
 
   return (
     <AuctionHomeFeedLayout
-      hideGroupProfileSidebarItems
+      hideGroupProfileNavbar
       showChannels={false}
       showCategories={false}
       showSelectors={false}

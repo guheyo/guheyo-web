@@ -3,7 +3,7 @@
 import { ReactNode, Suspense } from 'react';
 import { useGroup } from '@/hooks/use-group';
 import { PostPreviewType } from '@/lib/post/post.types';
-import GroupProfileSidebarItems from '../groups/group-profile-sidebar-items';
+import GroupProfileNavbar from '../groups/group-profile-navbar';
 import GroupBottomNavbar from '../groups/group-bottom-navbar';
 import ThumbnailFeedLayout from '../posts/thumbnail-feed.layout';
 import TextFeedLayout from '../posts/text-feed.layout';
@@ -39,9 +39,9 @@ function HomeFeedLayout({
     <div className="mx-2 md:mx-0">
       <div className="pt-0 px-3 md:px-1 w-fit">{homeLink}</div>
       {path && (
-        <div className="flex flex-row gap-2 md:gap-6 py-2 mb-2 md:mb-4 mx-3 md:mx-1">
+        <div className="flex flex-row gap-4 md:gap-6 py-2 mb-2 md:mb-4 mx-3 md:mx-1">
           <Suspense>
-            <GroupProfileSidebarItems
+            <GroupProfileNavbar
               currentGroupId={group?.id}
               paddingX={0}
               paddingY={0}

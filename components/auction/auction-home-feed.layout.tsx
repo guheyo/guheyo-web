@@ -11,7 +11,7 @@ import MarketChannelNavbar from '../market/market-channel-navbar';
 
 interface Props {
   children: ReactNode;
-  hideGroupProfileSidebarItems?: boolean;
+  hideGroupProfileNavbar?: boolean;
   showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
@@ -20,7 +20,7 @@ interface Props {
 
 function AuctionHomeFeedLayout({
   children,
-  hideGroupProfileSidebarItems,
+  hideGroupProfileNavbar,
   showChannels,
   showCategories,
   showSelectors,
@@ -30,7 +30,7 @@ function AuctionHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="thumbnail"
       homeLink={<AuctionHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'auction'}
+      path={hideGroupProfileNavbar ? undefined : 'auction'}
       channels={showChannels ? <MarketChannelNavbar /> : undefined}
       categories={
         showCategories ? (

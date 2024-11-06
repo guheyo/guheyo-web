@@ -15,7 +15,7 @@ import MarketChannelNavbar from '../market/market-channel-navbar';
 interface Props {
   children: ReactNode;
   businessFunction: BusinessFunction;
-  hideGroupProfileSidebarItems?: boolean;
+  hideGroupProfileNavbar?: boolean;
   showChannels: boolean;
   showCategories: boolean;
   showSelectors: boolean;
@@ -25,7 +25,7 @@ interface Props {
 function OfferHomeFeedLayout({
   children,
   businessFunction,
-  hideGroupProfileSidebarItems,
+  hideGroupProfileNavbar,
   showChannels,
   showCategories,
   showSelectors,
@@ -45,7 +45,7 @@ function OfferHomeFeedLayout({
           )
         )
       }
-      path={hideGroupProfileSidebarItems ? undefined : businessFunction}
+      path={hideGroupProfileNavbar ? undefined : businessFunction}
       channels={showChannels ? <MarketChannelNavbar /> : undefined}
       categories={
         showCategories ? (
