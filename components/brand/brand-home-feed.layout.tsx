@@ -11,7 +11,7 @@ import BrandChannelNavbar from './brand-channel-navbar';
 
 interface Props {
   children: ReactNode;
-  hideGroupProfileSidebarItems?: boolean;
+  hideGroupProfileNavbarItems?: boolean;
   postPreviewType: PostPreviewType;
   showChannels: boolean;
   showCategories: boolean;
@@ -21,7 +21,7 @@ interface Props {
 
 function BrandHomeFeedLayout({
   children,
-  hideGroupProfileSidebarItems,
+  hideGroupProfileNavbarItems,
   postPreviewType,
   showChannels,
   showCategories,
@@ -32,7 +32,7 @@ function BrandHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType={postPreviewType}
       homeLink={<BrandHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'brand'}
+      path={hideGroupProfileNavbarItems ? undefined : 'brand'}
       channels={showChannels && <BrandChannelNavbar />}
       selectors={
         showSelectors && (

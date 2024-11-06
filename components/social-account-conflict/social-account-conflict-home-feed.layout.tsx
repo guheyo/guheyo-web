@@ -8,7 +8,7 @@ import SocialAccountConflictHomeLink from './social-account-conflict-home-link';
 
 interface Props {
   children: ReactNode;
-  hideGroupProfileSidebarItems?: boolean;
+  hideGroupProfileNavbarItems?: boolean;
   postPreviewType: PostPreviewType;
   showChannels: boolean;
   showCategories: boolean;
@@ -18,7 +18,7 @@ interface Props {
 
 function SocialAccountConflictHomeFeedLayout({
   children,
-  hideGroupProfileSidebarItems,
+  hideGroupProfileNavbarItems,
   postPreviewType,
   showChannels,
   showCategories,
@@ -29,7 +29,7 @@ function SocialAccountConflictHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType={postPreviewType}
       homeLink={<SocialAccountConflictHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'brand'}
+      path={hideGroupProfileNavbarItems ? undefined : 'brand'}
       channels={undefined}
       selectors={
         showSelectors && (

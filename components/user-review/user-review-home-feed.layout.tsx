@@ -10,7 +10,7 @@ import UserReviewHomeLink from './user-review-home-link';
 
 interface Props {
   children: ReactNode;
-  hideGroupProfileSidebarItems?: boolean;
+  hideGroupProfileNavbarItems?: boolean;
   showCategories: boolean;
   showTags: boolean;
   showSelectors: boolean;
@@ -19,7 +19,7 @@ interface Props {
 
 function UserReviewHomeFeedLayout({
   children,
-  hideGroupProfileSidebarItems,
+  hideGroupProfileNavbarItems,
   showCategories,
   showTags,
   showSelectors,
@@ -29,7 +29,7 @@ function UserReviewHomeFeedLayout({
     <HomeFeedLayout
       postPreviewType="text"
       homeLink={<UserReviewHomeLink />}
-      path={hideGroupProfileSidebarItems ? undefined : 'review'}
+      path={hideGroupProfileNavbarItems ? undefined : 'review'}
       tags={showTags ? <MannerTagsNavbar /> : undefined}
       selectors={
         showSelectors && (

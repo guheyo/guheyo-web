@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <Suspense>
       <SocialAccountConflictHomeFeedLayout
-        hideGroupProfileSidebarItems
+        hideGroupProfileNavbarItems
         postPreviewType="listview"
         showChannels
         showCategories={false}
