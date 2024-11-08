@@ -98,3 +98,9 @@ query FindProduct(
     ...productDetail
   }
 }
+
+mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    ...mutationResponse
+  }
+}
