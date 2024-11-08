@@ -319,6 +319,13 @@ export type CreatePostInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type CreateProductInput = {
+  brandId?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+};
+
 export type CreateReactionInput = {
   commentId?: InputMaybe<Scalars['ID']['input']>;
   emojiId: Scalars['ID']['input'];
@@ -519,6 +526,15 @@ export type FindOfferPreviewsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindProductsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindProductsWhereInput = {
+  brandId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindReportPreviewsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -689,6 +705,7 @@ export type Mutation = {
   createGroup: MutationResponse;
   createManyUserImage: MutationResponse;
   createOffer: MutationResponse;
+  createProduct: MutationResponse;
   createReaction: MutationResponse;
   createReport: MutationResponse;
   createRole: MutationResponse;
@@ -775,6 +792,11 @@ export type MutationCreateManyUserImageArgs = {
 
 export type MutationCreateOfferArgs = {
   input: CreateOfferInput;
+};
+
+
+export type MutationCreateProductArgs = {
+  input: CreateProductInput;
 };
 
 
@@ -1072,6 +1094,12 @@ export type PaginatedOfferPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedProductsResponse = {
+  __typename?: 'PaginatedProductsResponse';
+  edges: Array<ProductPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedReportPreviewsResponse = {
   __typename?: 'PaginatedReportPreviewsResponse';
   edges: Array<ReportPreviewResponseEdge>;
@@ -1195,6 +1223,28 @@ export type PostResponse = {
   user: AuthorResponse;
 };
 
+export type ProductDetailResponse = {
+  __typename?: 'ProductDetailResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ProductPreviewResponse = {
+  __typename?: 'ProductPreviewResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ProductPreviewResponseEdge = {
+  __typename?: 'ProductPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ProductPreviewResponse;
+};
+
 export type Query = {
   __typename?: 'Query';
   findAuction?: Maybe<AuctionResponse>;
@@ -1225,6 +1275,9 @@ export type Query = {
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findPlatforms: Array<PlatformResponse>;
   findPostPreview: PostPreviewWithUserResponse;
+  findProduct: ProductDetailResponse;
+  findProductPreview: ProductPreviewResponse;
+  findProducts: PaginatedProductsResponse;
   findReactions: Array<ReactionResponse>;
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
@@ -1432,6 +1485,27 @@ export type QueryFindOfferPreviewsArgs = {
 
 export type QueryFindPostPreviewArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindProductArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindProductPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindProductsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindProductsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindProductsWhereInput>;
 };
 
 
