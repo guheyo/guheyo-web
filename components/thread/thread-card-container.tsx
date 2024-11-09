@@ -163,7 +163,6 @@ export default function ThreadCardContainer({
               categoryTypes={categoryTypes}
               handleClick={handleCategorySelect}
               selectedId={categoryId}
-              setCategoryId={setCategoryId}
             />
           )}
           {!defaultBrandId && (

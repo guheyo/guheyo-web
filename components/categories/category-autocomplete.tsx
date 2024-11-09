@@ -1,9 +1,8 @@
 'use client';
 
-import { SyntheticEvent, useEffect } from 'react';
+import { SyntheticEvent } from 'react';
 import { useFindGroupQuery } from '@/generated/graphql';
 import { filterCategories } from '@/lib/group/filter-categories';
-import { findDefaultCategory } from '@/lib/group/find-default-category';
 import {
   DEFAULT_AUTOCOMPLETE_INPUT_LABEL_STYLE,
   DEFAULT_AUTOCOMPLETE_INPUT_STYLE,
@@ -18,13 +17,11 @@ export default function CategoryAutocomplete({
   categoryTypes,
   handleClick,
   selectedId,
-  setCategoryId,
 }: {
   groupId?: string;
   categoryTypes?: string[];
   handleClick: (id: string) => void;
   selectedId?: string;
-  setCategoryId: (id?: string) => void;
 }) {
   const handleChange = (e: SyntheticEvent, value: Option | null) => {
     const id = value?.value || '';
@@ -43,12 +40,6 @@ export default function CategoryAutocomplete({
     types: categoryTypes,
     categories: group?.categories || [],
   });
-
-  useEffect(() => {
-    if (!selectedId) {
-      setCategoryId(findDefaultCategory(categories)?.id || undefined);
-    }
-  }, [selectedId, setCategoryId, categories]);
 
   const options = categories.map((category) => ({
     value: category.id,
