@@ -319,6 +319,15 @@ export type CreatePostInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type CreateProductInput = {
+  brandId?: InputMaybe<Scalars['ID']['input']>;
+  categoryId: Scalars['ID']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  groupId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+};
+
 export type CreateReactionInput = {
   commentId?: InputMaybe<Scalars['ID']['input']>;
   emojiId: Scalars['ID']['input'];
@@ -519,6 +528,17 @@ export type FindOfferPreviewsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindProductsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindProductsWhereInput = {
+  brandId?: InputMaybe<Scalars['ID']['input']>;
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindReportPreviewsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -689,6 +709,7 @@ export type Mutation = {
   createGroup: MutationResponse;
   createManyUserImage: MutationResponse;
   createOffer: MutationResponse;
+  createProduct: MutationResponse;
   createReaction: MutationResponse;
   createReport: MutationResponse;
   createRole: MutationResponse;
@@ -775,6 +796,11 @@ export type MutationCreateManyUserImageArgs = {
 
 export type MutationCreateOfferArgs = {
   input: CreateOfferInput;
+};
+
+
+export type MutationCreateProductArgs = {
+  input: CreateProductInput;
 };
 
 
@@ -1072,6 +1098,12 @@ export type PaginatedOfferPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedProductsResponse = {
+  __typename?: 'PaginatedProductsResponse';
+  edges: Array<ProductPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedReportPreviewsResponse = {
   __typename?: 'PaginatedReportPreviewsResponse';
   edges: Array<ReportPreviewResponseEdge>;
@@ -1195,6 +1227,34 @@ export type PostResponse = {
   user: AuthorResponse;
 };
 
+export type ProductDetailResponse = {
+  __typename?: 'ProductDetailResponse';
+  brand: BrandBaseResponse;
+  category: CategoryResponse;
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  group: GroupProfileResponse;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ProductPreviewResponse = {
+  __typename?: 'ProductPreviewResponse';
+  brand: BrandBaseResponse;
+  category: CategoryResponse;
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  group: GroupProfileResponse;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ProductPreviewResponseEdge = {
+  __typename?: 'ProductPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ProductPreviewResponse;
+};
+
 export type Query = {
   __typename?: 'Query';
   findAuction?: Maybe<AuctionResponse>;
@@ -1225,6 +1285,9 @@ export type Query = {
   findOfferPreviews: PaginatedOfferPreviewsResponse;
   findPlatforms: Array<PlatformResponse>;
   findPostPreview: PostPreviewWithUserResponse;
+  findProduct: ProductDetailResponse;
+  findProductPreview: ProductPreviewResponse;
+  findProducts: PaginatedProductsResponse;
   findReactions: Array<ReactionResponse>;
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
@@ -1432,6 +1495,27 @@ export type QueryFindOfferPreviewsArgs = {
 
 export type QueryFindPostPreviewArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryFindProductArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindProductPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindProductsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindProductsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindProductsWhereInput>;
 };
 
 
@@ -2419,6 +2503,44 @@ export type FindPostPreviewQueryVariables = Exact<{
 
 export type FindPostPreviewQuery = { __typename?: 'Query', findPostPreview: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } };
 
+export type ProductPreviewFragment = { __typename?: 'ProductPreviewResponse', id: string, createdAt: any, name: string, description?: string | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, brand: { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } };
+
+export type ProductDetailFragment = { __typename?: 'ProductDetailResponse', id: string, createdAt: any, name: string, description?: string | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, brand: { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } };
+
+export type FindProductsQueryVariables = Exact<{
+  where?: InputMaybe<FindProductsWhereInput>;
+  orderBy?: InputMaybe<FindProductsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindProductsQuery = { __typename?: 'Query', findProducts: { __typename?: 'PaginatedProductsResponse', edges: Array<{ __typename?: 'ProductPreviewResponseEdge', cursor: string, node: { __typename?: 'ProductPreviewResponse', id: string, createdAt: any, name: string, description?: string | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, brand: { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindProductPreviewQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindProductPreviewQuery = { __typename?: 'Query', findProductPreview: { __typename?: 'ProductPreviewResponse', id: string, createdAt: any, name: string, description?: string | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, brand: { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } } };
+
+export type FindProductQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type FindProductQuery = { __typename?: 'Query', findProduct: { __typename?: 'ProductDetailResponse', id: string, createdAt: any, name: string, description?: string | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }, category: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }, brand: { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null } } };
+
+export type CreateProductMutationVariables = Exact<{
+  input: CreateProductInput;
+}>;
+
+
+export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'MutationResponse', code: number, id: string } };
+
 export type ReactionFragment = { __typename?: 'ReactionResponse', id: string, createdAt: any, updatedAt: any, canceledAt?: any | null, userId: string, postId: string, commentId?: string | null, emoji: { __typename?: 'EmojiResponse', id: string, name: string, url?: string | null, position: number, groupId?: string | null } };
 
 export type CreateReactionMutationVariables = Exact<{
@@ -3252,6 +3374,44 @@ export const OfferFragmentDoc = gql`
   status
 }
     ${PostFragmentDoc}`;
+export const ProductPreviewFragmentDoc = gql`
+    fragment productPreview on ProductPreviewResponse {
+  id
+  createdAt
+  name
+  description
+  group {
+    ...groupProfile
+  }
+  category {
+    ...category
+  }
+  brand {
+    ...brandBase
+  }
+}
+    ${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}
+${BrandBaseFragmentDoc}`;
+export const ProductDetailFragmentDoc = gql`
+    fragment productDetail on ProductDetailResponse {
+  id
+  createdAt
+  name
+  description
+  group {
+    ...groupProfile
+  }
+  category {
+    ...category
+  }
+  brand {
+    ...brandBase
+  }
+}
+    ${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}
+${BrandBaseFragmentDoc}`;
 export const LastReportFragmentDoc = gql`
     fragment lastReport on LastReportResponse {
   id
@@ -5438,6 +5598,191 @@ export type FindPostPreviewQueryResult = Apollo.QueryResult<FindPostPreviewQuery
 export function refetchFindPostPreviewQuery(variables: FindPostPreviewQueryVariables) {
       return { query: FindPostPreviewDocument, variables: variables }
     }
+export const FindProductsDocument = gql`
+    query FindProducts($where: FindProductsWhereInput, $orderBy: FindProductsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
+  findProducts(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...productPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${ProductPreviewFragmentDoc}`;
+
+/**
+ * __useFindProductsQuery__
+ *
+ * To run a query within a React component, call `useFindProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindProductsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindProductsQuery(baseOptions: Apollo.QueryHookOptions<FindProductsQuery, FindProductsQueryVariables> & ({ variables: FindProductsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindProductsQuery, FindProductsQueryVariables>(FindProductsDocument, options);
+      }
+export function useFindProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindProductsQuery, FindProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindProductsQuery, FindProductsQueryVariables>(FindProductsDocument, options);
+        }
+export function useFindProductsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindProductsQuery, FindProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindProductsQuery, FindProductsQueryVariables>(FindProductsDocument, options);
+        }
+export type FindProductsQueryHookResult = ReturnType<typeof useFindProductsQuery>;
+export type FindProductsLazyQueryHookResult = ReturnType<typeof useFindProductsLazyQuery>;
+export type FindProductsSuspenseQueryHookResult = ReturnType<typeof useFindProductsSuspenseQuery>;
+export type FindProductsQueryResult = Apollo.QueryResult<FindProductsQuery, FindProductsQueryVariables>;
+export function refetchFindProductsQuery(variables: FindProductsQueryVariables) {
+      return { query: FindProductsDocument, variables: variables }
+    }
+export const FindProductPreviewDocument = gql`
+    query FindProductPreview($id: ID) {
+  findProductPreview(id: $id) {
+    ...productPreview
+  }
+}
+    ${ProductPreviewFragmentDoc}`;
+
+/**
+ * __useFindProductPreviewQuery__
+ *
+ * To run a query within a React component, call `useFindProductPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindProductPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindProductPreviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindProductPreviewQuery(baseOptions?: Apollo.QueryHookOptions<FindProductPreviewQuery, FindProductPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindProductPreviewQuery, FindProductPreviewQueryVariables>(FindProductPreviewDocument, options);
+      }
+export function useFindProductPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindProductPreviewQuery, FindProductPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindProductPreviewQuery, FindProductPreviewQueryVariables>(FindProductPreviewDocument, options);
+        }
+export function useFindProductPreviewSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindProductPreviewQuery, FindProductPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindProductPreviewQuery, FindProductPreviewQueryVariables>(FindProductPreviewDocument, options);
+        }
+export type FindProductPreviewQueryHookResult = ReturnType<typeof useFindProductPreviewQuery>;
+export type FindProductPreviewLazyQueryHookResult = ReturnType<typeof useFindProductPreviewLazyQuery>;
+export type FindProductPreviewSuspenseQueryHookResult = ReturnType<typeof useFindProductPreviewSuspenseQuery>;
+export type FindProductPreviewQueryResult = Apollo.QueryResult<FindProductPreviewQuery, FindProductPreviewQueryVariables>;
+export function refetchFindProductPreviewQuery(variables?: FindProductPreviewQueryVariables) {
+      return { query: FindProductPreviewDocument, variables: variables }
+    }
+export const FindProductDocument = gql`
+    query FindProduct($id: ID) {
+  findProduct(id: $id) {
+    ...productDetail
+  }
+}
+    ${ProductDetailFragmentDoc}`;
+
+/**
+ * __useFindProductQuery__
+ *
+ * To run a query within a React component, call `useFindProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindProductQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFindProductQuery(baseOptions?: Apollo.QueryHookOptions<FindProductQuery, FindProductQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindProductQuery, FindProductQueryVariables>(FindProductDocument, options);
+      }
+export function useFindProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindProductQuery, FindProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindProductQuery, FindProductQueryVariables>(FindProductDocument, options);
+        }
+export function useFindProductSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindProductQuery, FindProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindProductQuery, FindProductQueryVariables>(FindProductDocument, options);
+        }
+export type FindProductQueryHookResult = ReturnType<typeof useFindProductQuery>;
+export type FindProductLazyQueryHookResult = ReturnType<typeof useFindProductLazyQuery>;
+export type FindProductSuspenseQueryHookResult = ReturnType<typeof useFindProductSuspenseQuery>;
+export type FindProductQueryResult = Apollo.QueryResult<FindProductQuery, FindProductQueryVariables>;
+export function refetchFindProductQuery(variables?: FindProductQueryVariables) {
+      return { query: FindProductDocument, variables: variables }
+    }
+export const CreateProductDocument = gql`
+    mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    ...mutationResponse
+  }
+}
+    ${MutationResponseFragmentDoc}`;
+export type CreateProductMutationFn = Apollo.MutationFunction<CreateProductMutation, CreateProductMutationVariables>;
+
+/**
+ * __useCreateProductMutation__
+ *
+ * To run a mutation, you first call `useCreateProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProductMutation, { data, loading, error }] = useCreateProductMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateProductMutation(baseOptions?: Apollo.MutationHookOptions<CreateProductMutation, CreateProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, options);
+      }
+export type CreateProductMutationHookResult = ReturnType<typeof useCreateProductMutation>;
+export type CreateProductMutationResult = Apollo.MutationResult<CreateProductMutation>;
+export type CreateProductMutationOptions = Apollo.BaseMutationOptions<CreateProductMutation, CreateProductMutationVariables>;
 export const CreateReactionDocument = gql`
     mutation CreateReaction($input: CreateReactionInput!) {
   createReaction(input: $input) {
