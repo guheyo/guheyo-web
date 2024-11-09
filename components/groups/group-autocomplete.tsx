@@ -1,6 +1,6 @@
 'use client';
 
-import { SyntheticEvent, useEffect } from 'react';
+import { SyntheticEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
 import { FindGroupProfilesWhereInput } from '@/generated/graphql';
@@ -17,12 +17,10 @@ export default function GroupAutocomplete({
   handleClick,
   defaultWhere,
   selectedId,
-  setGroupId,
 }: {
   handleClick: (id: string) => void;
   defaultWhere?: FindGroupProfilesWhereInput;
   selectedId?: string;
-  setGroupId: (id?: string) => void;
 }) {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('q') || undefined;
@@ -42,10 +40,6 @@ export default function GroupAutocomplete({
 
   const groupProfiles = data?.findGroupProfiles.edges;
 
-  useEffect(() => {
-    if (groupProfiles?.length === 1) setGroupId(groupProfiles[0].node.id);
-  }, [groupProfiles, groupProfiles?.length, setGroupId]);
-
   if (loading || !groupProfiles) return <div />;
 
   const handleChange = (e: SyntheticEvent, value: Option | null) => {
@@ -59,7 +53,10 @@ export default function GroupAutocomplete({
     imageUrl: groupProfile.node.icon || undefined,
   }));
 
-  const selectedValue = getSelectedValue(options, selectedId);
+  const selectedValue = getSelectedValue(
+    options,
+    selectedId || groupProfiles[0].node.id,
+  );
 
   return (
     <InfiniteScrollAutocomplete

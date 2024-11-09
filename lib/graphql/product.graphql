@@ -1,0 +1,106 @@
+fragment productPreview on ProductPreviewResponse {
+  id
+  createdAt
+  name
+  description
+  group {
+    ...groupProfile
+  }
+  category {
+    ...category
+  }
+  brand {
+    ...brandBase
+  }
+}
+
+fragment productDetail on ProductDetailResponse {
+  id
+  createdAt
+  name
+  description
+  group {
+    ...groupProfile
+  }
+  category {
+    ...category
+  }
+  brand {
+    ...brandBase
+  }
+}
+
+mutation CreateBrand($input: CreateBrandInput!) {
+  createBrand(input: $input) {
+    ...mutationResponse
+  }
+}
+
+mutation FollowBrand($input: FollowBrandInput!) {
+  followBrand(input: $input) {
+    ...mutationResponse
+  }
+}
+
+mutation UnfollowBrand($input: UnfollowBrandInput!) {
+  unfollowBrand(input: $input) {
+    ...mutationResponse
+  }
+}
+
+query FindProducts(
+  $where: FindProductsWhereInput
+  $orderBy: FindProductsOrderByInput
+  $keyword: String
+  $target: String
+  $cursor: ID
+  $skip: Int!
+  $take: Int!
+) {
+  findProducts(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...productPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindProductPreview(
+  $id: ID
+) {
+  findProductPreview(
+    id: $id
+  ) {
+    ...productPreview
+  }
+}
+
+query FindProduct(
+  $id: ID
+) {
+  findProduct(
+    id: $id
+  ) {
+    ...productDetail
+  }
+}
+
+mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    ...mutationResponse
+  }
+}

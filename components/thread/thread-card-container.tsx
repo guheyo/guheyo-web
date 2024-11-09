@@ -155,7 +155,6 @@ export default function ThreadCardContainer({
               brandIds: defaultBrandId ? [defaultBrandId] : undefined,
             }}
             selectedId={groupId}
-            setGroupId={setGroupId}
           />
           {categoryTypes?.includes('gb') && (
             <CategoryAutocomplete
@@ -163,7 +162,6 @@ export default function ThreadCardContainer({
               categoryTypes={categoryTypes}
               handleClick={handleCategorySelect}
               selectedId={categoryId}
-              setCategoryId={setCategoryId}
             />
           )}
           {!defaultBrandId && (
