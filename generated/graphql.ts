@@ -349,6 +349,15 @@ export type CreateReportInput = {
   type: Scalars['String']['input'];
 };
 
+export type CreateReviewInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  post: CreatePostInput;
+  productId: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
+  status: Scalars['String']['input'];
+};
+
 export type CreateRoleInput = {
   groupId: Scalars['ID']['input'];
   hexColor?: Scalars['String']['input'];
@@ -557,6 +566,22 @@ export type FindReportPreviewsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindReviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  rating?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type FindReviewsWhereInput = {
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  isArchived?: InputMaybe<Scalars['Boolean']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  productId?: InputMaybe<Scalars['ID']['input']>;
+  rating?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type FindSocialAccountConflictsOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
 };
@@ -716,6 +741,7 @@ export type Mutation = {
   createProduct: MutationResponse;
   createReaction: MutationResponse;
   createReport: MutationResponse;
+  createReview: MutationResponse;
   createRole: MutationResponse;
   createSignedUrl: SignedUrlResponse;
   createSocialAccount: MutationResponse;
@@ -815,6 +841,11 @@ export type MutationCreateReactionArgs = {
 
 export type MutationCreateReportArgs = {
   input: CreateReportInput;
+};
+
+
+export type MutationCreateReviewArgs = {
+  input: CreateReviewInput;
 };
 
 
@@ -1114,6 +1145,12 @@ export type PaginatedReportPreviewsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedReviewsResponse = {
+  __typename?: 'PaginatedReviewsResponse';
+  edges: Array<ReviewPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedSocialAccountConflictsResponse = {
   __typename?: 'PaginatedSocialAccountConflictsResponse';
   edges: Array<SocialAccountConflictResponseEdge>;
@@ -1231,6 +1268,14 @@ export type PostResponse = {
   user: AuthorResponse;
 };
 
+export type ProductBaseResponse = {
+  __typename?: 'ProductBaseResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type ProductDetailResponse = {
   __typename?: 'ProductDetailResponse';
   brand: BrandBaseResponse;
@@ -1296,6 +1341,9 @@ export type Query = {
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
+  findReview?: Maybe<ReviewDetailResponse>;
+  findReviewPreview?: Maybe<ReviewPreviewResponse>;
+  findReviewPreviews: PaginatedReviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSocialAccountConflicts: PaginatedSocialAccountConflictsResponse;
   findTags: Array<TagResponse>;
@@ -1550,6 +1598,27 @@ export type QueryFindReportPreviewsArgs = {
 };
 
 
+export type QueryFindReviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindReviewPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindReviewPreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindReviewsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindReviewsWhereInput>;
+};
+
+
 export type QueryFindRoleByIdArgs = {
   id: Scalars['ID']['input'];
 };
@@ -1710,6 +1779,34 @@ export type ReportResponse = {
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   version: VersionResponse;
+};
+
+export type ReviewDetailResponse = {
+  __typename?: 'ReviewDetailResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostResponse;
+  product: ProductBaseResponse;
+  rating: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+};
+
+export type ReviewPreviewResponse = {
+  __typename?: 'ReviewPreviewResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostPreviewWithUserResponse;
+  product: ProductBaseResponse;
+  rating: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+};
+
+export type ReviewPreviewResponseEdge = {
+  __typename?: 'ReviewPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ReviewPreviewResponse;
 };
 
 export type RoleResponse = {
