@@ -5,6 +5,7 @@ fragment group on GroupResponse {
   description
   icon
   position
+  status
   roles {
     id
     name
@@ -23,6 +24,7 @@ fragment groupProfile on GroupProfileResponse {
   slug
   description
   icon
+  status
 }
 
 fragment groupPreview on GroupPreviewResponse {
@@ -32,6 +34,7 @@ fragment groupPreview on GroupPreviewResponse {
   description
   icon
   position
+  status
   sells {
     ...offerPreview
   }
