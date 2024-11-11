@@ -37,6 +37,7 @@ import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import SearchCheckbox from '../search/search-checkbox';
 import GroupCheckboxResults from '../groups/group-checkbox-results';
+import CategoryCheckboxResults from '../categories/category-checkbox-results';
 
 export default function BrandForm({
   localStorageKey,
@@ -63,12 +64,14 @@ export default function BrandForm({
         logo: '',
         image: undefined,
         groupIds: [],
+        categoryIds: [],
         links: [],
       },
     });
 
   const brandId = watch('id');
   const image = watch('image');
+  const groupIds = watch('groupIds');
 
   const { data } = useFindPlatformsQuery({
     fetchPolicy: 'cache-first',
@@ -154,8 +157,12 @@ export default function BrandForm({
     setValue('image', undefined);
   };
 
-  const handleCheckboxClick = (selectedIds: string[]) => {
+  const handleGroupCheckboxClick = (selectedIds: string[]) => {
     setValue('groupIds', selectedIds);
+  };
+
+  const handleCategoryCheckboxClick = (selectedIds: string[]) => {
+    setValue('categoryIds', selectedIds);
   };
 
   const handleSubmitError: SubmitErrorHandler<BrandFormValues> = (
@@ -258,15 +265,29 @@ export default function BrandForm({
       <SearchCheckbox
         defaultSelectedIds={[]}
         placeholder="브랜드의 그룹을 선택해 주세요"
-        where={{ userId }}
+        where={{}}
         type="listview"
         distinct={false}
         CheckboxResults={GroupCheckboxResults}
         size="medium"
-        handleClick={handleCheckboxClick}
+        handleClick={handleGroupCheckboxClick}
         multiple
         showNextButton={false}
       />
+
+      <SearchCheckbox
+        defaultSelectedIds={[]}
+        placeholder="브랜드의 카테고리를 선택해 주세요"
+        where={{ groupIds, categoryTypes: ['product'] }}
+        type="listview"
+        distinct={false}
+        CheckboxResults={CategoryCheckboxResults}
+        size="medium"
+        handleClick={handleCategoryCheckboxClick}
+        multiple
+        showNextButton={false}
+      />
+
       {platforms.map((platform, i) => (
         <div key={platform.name}>
           <TextInput
