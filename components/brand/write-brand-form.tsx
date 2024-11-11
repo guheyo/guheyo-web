@@ -37,6 +37,7 @@ export default function WriteBrandForm() {
         description: values.description,
         logo: values.image.url,
         groupIds: values.groupIds,
+        categoryIds: values.categoryIds,
         links: values.links.filter((link) => link.url),
       });
 
