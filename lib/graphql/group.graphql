@@ -84,6 +84,37 @@ query FindGroupProfiles(
   }
 }
 
+query FindCategories(
+  $where: FindCategoriesWhereInput
+  $orderBy: FindCategoriesOrderByInput
+  $keyword: String,
+  $target: String,
+  $cursor: ID,
+  $skip: Int! = 1,
+  $take: Int!
+) {
+  findCategories(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...category
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
 query FindGroup($id: ID, $slug: String) {
   findGroup(id: $id, slug: $slug) {
     ...group

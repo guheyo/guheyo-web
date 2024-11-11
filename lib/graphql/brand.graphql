@@ -25,6 +25,9 @@ fragment brandPreview on BrandPreviewResponse {
   groups {
     ...groupProfile
   }
+  categories {
+    ...category
+  }
   followed
 }
 
@@ -37,6 +40,9 @@ fragment brandDetail on BrandDetailResponse {
   logo
   groups {
     ...groupProfile
+  }
+  categories {
+    ...category
   }
   links {
     ...link

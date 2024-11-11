@@ -126,6 +126,7 @@ export type BrandBaseResponse = {
 
 export type BrandDetailResponse = {
   __typename?: 'BrandDetailResponse';
+  categories: Array<CategoryResponse>;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   followBrands: Array<FollowBrandResponse>;
@@ -140,6 +141,7 @@ export type BrandDetailResponse = {
 
 export type BrandPreviewResponse = {
   __typename?: 'BrandPreviewResponse';
+  categories: Array<CategoryResponse>;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   followed?: Maybe<Scalars['Boolean']['output']>;
@@ -194,6 +196,12 @@ export type CategoryResponse = {
   position?: Maybe<Scalars['Int']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
+};
+
+export type CategoryResponseEdge = {
+  __typename?: 'CategoryResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: CategoryResponse;
 };
 
 export type CommentCountResponse = {
@@ -253,6 +261,7 @@ export type CreateAuctionInput = {
 };
 
 export type CreateBrandInput = {
+  categoryIds: Array<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   groupIds: Array<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
@@ -344,6 +353,15 @@ export type CreateReportInput = {
   reportedPostId?: InputMaybe<Scalars['ID']['input']>;
   reportedUserId: Scalars['ID']['input'];
   type: Scalars['String']['input'];
+};
+
+export type CreateReviewInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  post: CreatePostInput;
+  productId: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
+  status: Scalars['String']['input'];
 };
 
 export type CreateRoleInput = {
@@ -486,8 +504,20 @@ export type FindBrandsOrderByInput = {
 };
 
 export type FindBrandsWhereInput = {
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
   followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindCategoriesOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindCategoriesWhereInput = {
+  categoryTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  groupIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 export type FindCommentsOrderByInput = {
@@ -550,6 +580,22 @@ export type FindReportPreviewsWhereInput = {
   reportedUserId?: InputMaybe<Scalars['ID']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindReviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  rating?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type FindReviewsWhereInput = {
+  categoryId?: InputMaybe<Scalars['ID']['input']>;
+  followed?: InputMaybe<Scalars['Boolean']['input']>;
+  groupId?: InputMaybe<Scalars['ID']['input']>;
+  isArchived?: InputMaybe<Scalars['Boolean']['input']>;
+  pending?: InputMaybe<Scalars['String']['input']>;
+  productId?: InputMaybe<Scalars['ID']['input']>;
+  rating?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -712,6 +758,7 @@ export type Mutation = {
   createProduct: MutationResponse;
   createReaction: MutationResponse;
   createReport: MutationResponse;
+  createReview: MutationResponse;
   createRole: MutationResponse;
   createSignedUrl: SignedUrlResponse;
   createSocialAccount: MutationResponse;
@@ -811,6 +858,11 @@ export type MutationCreateReactionArgs = {
 
 export type MutationCreateReportArgs = {
   input: CreateReportInput;
+};
+
+
+export type MutationCreateReviewArgs = {
+  input: CreateReviewInput;
 };
 
 
@@ -1074,6 +1126,12 @@ export type PaginatedBrandsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedCategoriesResponse = {
+  __typename?: 'PaginatedCategoriesResponse';
+  edges: Array<CategoryResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedCommentsResponse = {
   __typename?: 'PaginatedCommentsResponse';
   edges: Array<CommentWithAuthorResponseEdge>;
@@ -1107,6 +1165,12 @@ export type PaginatedProductsResponse = {
 export type PaginatedReportPreviewsResponse = {
   __typename?: 'PaginatedReportPreviewsResponse';
   edges: Array<ReportPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
+export type PaginatedReviewsResponse = {
+  __typename?: 'PaginatedReviewsResponse';
+  edges: Array<ReviewPreviewResponseEdge>;
   pageInfo: PageInfo;
 };
 
@@ -1227,6 +1291,14 @@ export type PostResponse = {
   user: AuthorResponse;
 };
 
+export type ProductBaseResponse = {
+  __typename?: 'ProductBaseResponse';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type ProductDetailResponse = {
   __typename?: 'ProductDetailResponse';
   brand: BrandBaseResponse;
@@ -1269,6 +1341,7 @@ export type Query = {
   findBrand: BrandDetailResponse;
   findBrandPreview: BrandPreviewResponse;
   findBrands: PaginatedBrandsResponse;
+  findCategories: PaginatedCategoriesResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
   findComments: PaginatedCommentsResponse;
@@ -1292,6 +1365,9 @@ export type Query = {
   findReport: ReportResponse;
   findReportComment: ReportCommentResponse;
   findReportPreviews: PaginatedReportPreviewsResponse;
+  findReview?: Maybe<ReviewDetailResponse>;
+  findReviewPreview?: Maybe<ReviewPreviewResponse>;
+  findReviewPreviews: PaginatedReviewsResponse;
   findRoleById?: Maybe<RoleResponse>;
   findSocialAccountConflicts: PaginatedSocialAccountConflictsResponse;
   findTags: Array<TagResponse>;
@@ -1408,6 +1484,17 @@ export type QueryFindBrandsArgs = {
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindBrandsWhereInput>;
+};
+
+
+export type QueryFindCategoriesArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindCategoriesOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindCategoriesWhereInput>;
 };
 
 
@@ -1543,6 +1630,27 @@ export type QueryFindReportPreviewsArgs = {
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindReportPreviewsWhereInput>;
+};
+
+
+export type QueryFindReviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindReviewPreviewArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindReviewPreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindReviewsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindReviewsWhereInput>;
 };
 
 
@@ -1706,6 +1814,34 @@ export type ReportResponse = {
   type: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   version: VersionResponse;
+};
+
+export type ReviewDetailResponse = {
+  __typename?: 'ReviewDetailResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostResponse;
+  product: ProductBaseResponse;
+  rating: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+};
+
+export type ReviewPreviewResponse = {
+  __typename?: 'ReviewPreviewResponse';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  post: PostPreviewWithUserResponse;
+  product: ProductBaseResponse;
+  rating: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+};
+
+export type ReviewPreviewResponseEdge = {
+  __typename?: 'ReviewPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: ReviewPreviewResponse;
 };
 
 export type RoleResponse = {
@@ -2230,9 +2366,9 @@ export type FollowBrandFragment = { __typename?: 'FollowBrandResponse', id: stri
 
 export type BrandBaseFragment = { __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null };
 
-export type BrandPreviewFragment = { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> };
+export type BrandPreviewFragment = { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> };
 
-export type BrandDetailFragment = { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> };
+export type BrandDetailFragment = { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> };
 
 export type CreateBrandMutationVariables = Exact<{
   input: CreateBrandInput;
@@ -2266,7 +2402,7 @@ export type FindBrandsQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandPreviewResponseEdge', cursor: string, node: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+export type FindBrandsQuery = { __typename?: 'Query', findBrands: { __typename?: 'PaginatedBrandsResponse', edges: Array<{ __typename?: 'BrandPreviewResponseEdge', cursor: string, node: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindBrandPreviewQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -2274,7 +2410,7 @@ export type FindBrandPreviewQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandPreviewQuery = { __typename?: 'Query', findBrandPreview: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }> } };
+export type FindBrandPreviewQuery = { __typename?: 'Query', findBrandPreview: { __typename?: 'BrandPreviewResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } };
 
 export type FindBrandQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -2282,7 +2418,7 @@ export type FindBrandQueryVariables = Exact<{
 }>;
 
 
-export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
+export type FindBrandQuery = { __typename?: 'Query', findBrand: { __typename?: 'BrandDetailResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null, followed?: boolean | null, groups: Array<{ __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }>, links: Array<{ __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } }>, followBrands: Array<{ __typename?: 'FollowBrandResponse', id: string, brandId: string, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null } }> } };
 
 export type CategoryFragment = { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null };
 
@@ -2404,6 +2540,19 @@ export type FindGroupProfilesQueryVariables = Exact<{
 
 
 export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindCategoriesQueryVariables = Exact<{
+  where?: InputMaybe<FindCategoriesWhereInput>;
+  orderBy?: InputMaybe<FindCategoriesOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindCategoriesQuery = { __typename?: 'Query', findCategories: { __typename?: 'PaginatedCategoriesResponse', edges: Array<{ __typename?: 'CategoryResponseEdge', cursor: string, node: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindGroupQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -3155,9 +3304,13 @@ export const BrandPreviewFragmentDoc = gql`
   groups {
     ...groupProfile
   }
+  categories {
+    ...category
+  }
   followed
 }
-    ${GroupProfileFragmentDoc}`;
+    ${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}`;
 export const PlatformFragmentDoc = gql`
     fragment platform on PlatformResponse {
   id
@@ -3199,6 +3352,9 @@ export const BrandDetailFragmentDoc = gql`
   groups {
     ...groupProfile
   }
+  categories {
+    ...category
+  }
   links {
     ...link
   }
@@ -3208,6 +3364,7 @@ export const BrandDetailFragmentDoc = gql`
   followed
 }
     ${GroupProfileFragmentDoc}
+${CategoryFragmentDoc}
 ${LinkFragmentDoc}
 ${FollowBrandFragmentDoc}`;
 export const EmojiFragmentDoc = gql`
@@ -5140,6 +5297,72 @@ export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFind
 export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
 export function refetchFindGroupProfilesQuery(variables: FindGroupProfilesQueryVariables) {
       return { query: FindGroupProfilesDocument, variables: variables }
+    }
+export const FindCategoriesDocument = gql`
+    query FindCategories($where: FindCategoriesWhereInput, $orderBy: FindCategoriesOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findCategories(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...category
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${CategoryFragmentDoc}`;
+
+/**
+ * __useFindCategoriesQuery__
+ *
+ * To run a query within a React component, call `useFindCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCategoriesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindCategoriesQuery(baseOptions: Apollo.QueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables> & ({ variables: FindCategoriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+      }
+export function useFindCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+        }
+export function useFindCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+        }
+export type FindCategoriesQueryHookResult = ReturnType<typeof useFindCategoriesQuery>;
+export type FindCategoriesLazyQueryHookResult = ReturnType<typeof useFindCategoriesLazyQuery>;
+export type FindCategoriesSuspenseQueryHookResult = ReturnType<typeof useFindCategoriesSuspenseQuery>;
+export type FindCategoriesQueryResult = Apollo.QueryResult<FindCategoriesQuery, FindCategoriesQueryVariables>;
+export function refetchFindCategoriesQuery(variables: FindCategoriesQueryVariables) {
+      return { query: FindCategoriesDocument, variables: variables }
     }
 export const FindGroupDocument = gql`
     query FindGroup($id: ID, $slug: String) {
