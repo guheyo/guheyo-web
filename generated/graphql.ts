@@ -255,6 +255,7 @@ export type CreateAuctionInput = {
 };
 
 export type CreateBrandInput = {
+  categoryIds: Array<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   groupIds: Array<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
