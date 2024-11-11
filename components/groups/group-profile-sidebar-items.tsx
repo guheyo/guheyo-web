@@ -2,22 +2,28 @@
 
 import { MouseEventHandler } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import { GroupStatus } from '@/generated/graphql';
 import GroupProfileSidebarItem from './group-profile-sidebar-item';
 
 export default function GroupProfileSidebarItems({
   currentGroupId,
+  status,
   paddingX,
   paddingY,
   onClick = () => {},
   pathFormatter,
 }: {
   currentGroupId?: string;
+  status: GroupStatus;
   paddingX: number;
   paddingY: number;
   onClick?: MouseEventHandler;
   pathFormatter: (slug: string) => string;
 }) {
   const { setRef, loading, data } = useInfiniteGroupProfiles({
+    where: {
+      status,
+    },
     orderBy: {
       position: 'asc',
     },
