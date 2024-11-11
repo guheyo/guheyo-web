@@ -198,6 +198,12 @@ export type CategoryResponse = {
   type: Scalars['String']['output'];
 };
 
+export type CategoryResponseEdge = {
+  __typename?: 'CategoryResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: CategoryResponse;
+};
+
 export type CommentCountResponse = {
   __typename?: 'CommentCountResponse';
   count: Scalars['Int']['output'];
@@ -501,6 +507,17 @@ export type FindBrandsWhereInput = {
   categoryId?: InputMaybe<Scalars['ID']['input']>;
   followed?: InputMaybe<Scalars['Boolean']['input']>;
   groupId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type FindCategoriesOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindCategoriesWhereInput = {
+  categoryTypes?: InputMaybe<Array<Scalars['ID']['input']>>;
+  createdAt?: InputMaybe<Scalars['JSON']['input']>;
+  groupIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 export type FindCommentsOrderByInput = {
@@ -1109,6 +1126,12 @@ export type PaginatedBrandsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedCategoriesResponse = {
+  __typename?: 'PaginatedCategoriesResponse';
+  edges: Array<CategoryResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedCommentsResponse = {
   __typename?: 'PaginatedCommentsResponse';
   edges: Array<CommentWithAuthorResponseEdge>;
@@ -1318,6 +1341,7 @@ export type Query = {
   findBrand: BrandDetailResponse;
   findBrandPreview: BrandPreviewResponse;
   findBrands: PaginatedBrandsResponse;
+  findCategories: PaginatedCategoriesResponse;
   findComment?: Maybe<CommentResponse>;
   findCommentCount: CommentCountResponse;
   findComments: PaginatedCommentsResponse;
@@ -1460,6 +1484,17 @@ export type QueryFindBrandsArgs = {
   take: Scalars['Int']['input'];
   target?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<FindBrandsWhereInput>;
+};
+
+
+export type QueryFindCategoriesArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindCategoriesOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindCategoriesWhereInput>;
 };
 
 
@@ -2505,6 +2540,19 @@ export type FindGroupProfilesQueryVariables = Exact<{
 
 
 export type FindGroupProfilesQuery = { __typename?: 'Query', findGroupProfiles: { __typename?: 'PaginatedGroupProfilesResponse', edges: Array<{ __typename?: 'GroupProfileResponseEdge', cursor: string, node: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
+
+export type FindCategoriesQueryVariables = Exact<{
+  where?: InputMaybe<FindCategoriesWhereInput>;
+  orderBy?: InputMaybe<FindCategoriesOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type FindCategoriesQuery = { __typename?: 'Query', findCategories: { __typename?: 'PaginatedCategoriesResponse', edges: Array<{ __typename?: 'CategoryResponseEdge', cursor: string, node: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type FindGroupQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -5249,6 +5297,72 @@ export type FindGroupProfilesSuspenseQueryHookResult = ReturnType<typeof useFind
 export type FindGroupProfilesQueryResult = Apollo.QueryResult<FindGroupProfilesQuery, FindGroupProfilesQueryVariables>;
 export function refetchFindGroupProfilesQuery(variables: FindGroupProfilesQueryVariables) {
       return { query: FindGroupProfilesDocument, variables: variables }
+    }
+export const FindCategoriesDocument = gql`
+    query FindCategories($where: FindCategoriesWhereInput, $orderBy: FindCategoriesOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findCategories(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...category
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${CategoryFragmentDoc}`;
+
+/**
+ * __useFindCategoriesQuery__
+ *
+ * To run a query within a React component, call `useFindCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCategoriesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *   },
+ * });
+ */
+export function useFindCategoriesQuery(baseOptions: Apollo.QueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables> & ({ variables: FindCategoriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+      }
+export function useFindCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+        }
+export function useFindCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCategoriesQuery, FindCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCategoriesQuery, FindCategoriesQueryVariables>(FindCategoriesDocument, options);
+        }
+export type FindCategoriesQueryHookResult = ReturnType<typeof useFindCategoriesQuery>;
+export type FindCategoriesLazyQueryHookResult = ReturnType<typeof useFindCategoriesLazyQuery>;
+export type FindCategoriesSuspenseQueryHookResult = ReturnType<typeof useFindCategoriesSuspenseQuery>;
+export type FindCategoriesQueryResult = Apollo.QueryResult<FindCategoriesQuery, FindCategoriesQueryVariables>;
+export function refetchFindCategoriesQuery(variables: FindCategoriesQueryVariables) {
+      return { query: FindCategoriesDocument, variables: variables }
     }
 export const FindGroupDocument = gql`
     query FindGroup($id: ID, $slug: String) {
