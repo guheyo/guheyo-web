@@ -271,6 +271,15 @@ export type CreateBrandInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type CreateCategoryInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  name: Scalars['String']['input'];
+  position: Scalars['Int']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+  type: Scalars['String']['input'];
+};
+
 export type CreateCommentInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -281,6 +290,7 @@ export type CreateCommentInput = {
 };
 
 export type CreateGroupInput = {
+  categories: Array<CreateCategoryInput>;
   description?: InputMaybe<Scalars['String']['input']>;
   icon?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
