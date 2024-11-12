@@ -9,7 +9,7 @@ import { BrandFormValues } from '@/lib/brand/brand.interfaces';
 import { createBrand, findBrandPreview } from '@/lib/api/brand';
 import { updateCacheWithNewBrand } from '@/lib/apollo/cache/brand';
 import { AuthContext } from '../auth/auth.provider';
-import { parseTempBrandFormKey } from './parse-temp-brand-form-key';
+import { parseTempBrandFormKey } from '../../lib/brand/parse-temp-brand-form-key';
 import BrandForm from './brand-form';
 import BgDialog from '../base/bg-dialog';
 
