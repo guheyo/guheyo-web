@@ -43,6 +43,12 @@ fragment groupPreview on GroupPreviewResponse {
   }
 }
 
+mutation CreateGroup($input: CreateGroupInput!) {
+  createGroup(input: $input) {
+    ...mutationResponse
+  }
+}
+
 query FindGroups($cursor: ID, $skip: Int! = 1, $take: Int!) {
   findGroups(cursor: $cursor, skip: $skip, take: $take) {
     edges {
