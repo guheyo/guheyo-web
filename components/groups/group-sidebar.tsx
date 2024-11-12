@@ -14,6 +14,7 @@ import { useGroup } from '@/hooks/use-group';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { OFFER_CHANNELS } from '@/lib/market/market.constants';
+import { GroupStatus } from '@/generated/graphql';
 import SidebarItem from '../base/sidebar-item';
 import GroupProfileSidebarItems from './group-profile-sidebar-items';
 import BackDrop from '../base/back-drop';
@@ -94,6 +95,18 @@ export default function GroupSidebar({
           </ListItem>
           <GroupProfileSidebarItems
             currentGroupId={group?.id}
+            status={GroupStatus.Major}
+            paddingX={2}
+            paddingY={1}
+            onClick={handleMenuToggle}
+            pathFormatter={(slug) => `/g/${slug}`}
+          />
+          <ListItem className="text-sm lg:text-sm text-zinc-300 pt-4 md:pt-6 pl-4">
+            마이너 그룹
+          </ListItem>
+          <GroupProfileSidebarItems
+            currentGroupId={group?.id}
+            status={GroupStatus.Minor}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
