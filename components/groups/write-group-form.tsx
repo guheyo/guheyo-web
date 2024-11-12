@@ -34,6 +34,8 @@ export default function WriteGroupForm() {
         slug: values.name,
         description: values.description,
         icon: values.image.url,
+        // TODO: add categories
+        categories: [],
       });
 
       router.push('/');
