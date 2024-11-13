@@ -145,6 +145,12 @@ export default function GroupForm({
     setValue('image', undefined);
   };
 
+  const handleAddTag = (tag: string) => {
+    if (!categoryNames.some((category) => category.name === tag)) {
+      append({ name: tag });
+    }
+  };
+
   const handleClickTagPreview = async (position: number) => {
     remove(position);
   };
@@ -162,12 +168,6 @@ export default function GroupForm({
 
   const handleUnAuthorization: MouseEventHandler = (e) => {
     e.preventDefault();
-  };
-
-  const handleAddTag = (tag: string) => {
-    if (!categoryNames.some((category) => category.name === tag)) {
-      append({ name: tag });
-    }
   };
 
   return (
