@@ -1,5 +1,8 @@
 export const DEFAULT_LABEL_STYLE = 'text-base text-gray-300 font-bold';
 
+export const DEFAULT_DESCRIPTION_STYLE =
+  'text-sm text-blurple-500 font-semibold';
+
 export const MOBILE_FILE_INPUT_LABEL_STYLE =
   'flex flex-col gap-2 text-base text-gray-300 font-bold';
 
