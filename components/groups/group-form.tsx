@@ -1,6 +1,11 @@
 'use client';
 
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  SubmitErrorHandler,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, useEffect } from 'react';
 import {
@@ -36,6 +41,7 @@ import ImagesInput from '../inputs/images-input';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
 import TagsInput from '../inputs/tags-input';
 import ImagePreviews from '../images/image.previews';
+import TagsPreviews from '../inputs/tag-previews';
 
 export default function GroupForm({
   localStorageKey,
@@ -64,6 +70,11 @@ export default function GroupForm({
         image: undefined,
       },
     });
+
+  const { remove, append } = useFieldArray({
+    control,
+    name: 'categoryNames',
+  });
 
   const groupId = watch('id');
   const image = watch('image');
@@ -134,6 +145,10 @@ export default function GroupForm({
     setValue('image', undefined);
   };
 
+  const handleClickTagPreview = async (position: number) => {
+    remove(position);
+  };
+
   const handleSubmitError: SubmitErrorHandler<GroupFormValues> = (
     errors,
     event,
@@ -150,8 +165,8 @@ export default function GroupForm({
   };
 
   const handleAddTag = (tag: string) => {
-    if (!categoryNames || !categoryNames.includes(tag)) {
-      setValue('categoryNames', [...(categoryNames || []), tag]);
+    if (!categoryNames.some((category) => category.name === tag)) {
+      append({ name: tag });
     }
   };
 
@@ -242,6 +257,12 @@ export default function GroupForm({
           minRows: 1,
         }}
         onTagAdd={handleAddTag}
+      />
+      <TagsPreviews
+        tags={categoryNames.map((c) => c.name)}
+        previewsProp={{
+          onClick: handleClickTagPreview,
+        }}
       />
       <TextInput
         name="description"
