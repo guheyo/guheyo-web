@@ -8,6 +8,7 @@ import secureLocalStorage from 'react-secure-storage';
 import { createGroup } from '@/lib/api/group';
 import { GroupFormValues } from '@/lib/group/group.interfaces';
 import { parseTempGroupFormKey } from '@/lib/group/parse-temp-group-form-key';
+import { PRODUCT } from '@/lib/product/product.constants';
 import { AuthContext } from '../auth/auth.provider';
 import BgDialog from '../base/bg-dialog';
 import GroupForm from './group-form';
@@ -26,6 +27,12 @@ export default function WriteGroupForm() {
     if (!values.image) return;
 
     secureLocalStorage.removeItem(localStorageKey);
+    const categories = values.categoryNames.map(({ name }, i) => ({
+      name,
+      slug: name,
+      type: PRODUCT,
+      position: i,
+    }));
 
     try {
       await createGroup({
@@ -34,8 +41,7 @@ export default function WriteGroupForm() {
         slug: values.name,
         description: values.description,
         icon: values.image.url,
-        // TODO: add categories
-        categories: [],
+        categories,
       });
 
       router.push('/');
