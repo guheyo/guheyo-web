@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 
 export const useGroup = (defaultSlug?: string) => {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const match = /\/g\/([\w-]*)/.exec(pathname);
+  const pathname = decodeURI(usePathname());
+  const match = /\/g\/([-\w가-힣]*)/.exec(pathname);
   const slug =
     searchParams.get('group') || (match ? match[1] : undefined) || defaultSlug;
 

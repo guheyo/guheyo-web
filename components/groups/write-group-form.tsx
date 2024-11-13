@@ -5,46 +5,40 @@ import { deleteUserImage } from '@/lib/api/user-image';
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import secureLocalStorage from 'react-secure-storage';
-import { BrandFormValues } from '@/lib/brand/brand.interfaces';
-import { createBrand, findBrandPreview } from '@/lib/api/brand';
-import { updateCacheWithNewBrand } from '@/lib/apollo/cache/brand';
+import { createGroup } from '@/lib/api/group';
+import { GroupFormValues } from '@/lib/group/group.interfaces';
+import { parseTempGroupFormKey } from '@/lib/group/parse-temp-group-form-key';
 import { AuthContext } from '../auth/auth.provider';
-import { parseTempBrandFormKey } from '../../lib/brand/parse-temp-brand-form-key';
-import BrandForm from './brand-form';
 import BgDialog from '../base/bg-dialog';
+import GroupForm from './group-form';
 
-export default function WriteBrandForm() {
+export default function WriteGroupForm() {
   const { jwtPayload } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [alertMessage] = useState('');
   const router = useRouter();
-  const localStorageKey = parseTempBrandFormKey({
+  const localStorageKey = parseTempGroupFormKey({
     userId: jwtPayload?.id || 'ghost',
   });
 
-  const handleSubmitValid: SubmitHandler<BrandFormValues> = async (values) => {
+  const handleSubmitValid: SubmitHandler<GroupFormValues> = async (values) => {
     if (!jwtPayload) return;
     if (!values.image) return;
-    if (values.groupIds.length === 0) return;
 
     secureLocalStorage.removeItem(localStorageKey);
 
     try {
-      await createBrand({
+      await createGroup({
         id: values.id,
         name: values.name,
-        slug: values.slug,
+        slug: values.name,
         description: values.description,
-        logo: values.image.url,
-        groupIds: values.groupIds,
-        categoryIds: values.categoryIds,
-        links: values.links.filter((link) => link.url),
+        icon: values.image.url,
+        // TODO: add categories
+        categories: [],
       });
 
-      const { data } = await findBrandPreview(values.id);
-      if (data.findBrandPreview) updateCacheWithNewBrand(data.findBrandPreview);
-
-      router.push('/brand');
+      router.push('/');
     } catch (e: any) {
       // do nothing
     }
@@ -60,7 +54,7 @@ export default function WriteBrandForm() {
 
   return (
     <>
-      <BrandForm
+      <GroupForm
         localStorageKey={localStorageKey}
         userId={jwtPayload?.id}
         handleSubmitValid={handleSubmitValid}
