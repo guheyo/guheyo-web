@@ -30,10 +30,12 @@ import {
   DEFAULT_LABEL_STYLE,
   STICKY_SUBMIT_BUTTON_STYLE,
   MOBILE_FILE_INPUT_LABEL_STYLE,
+  DEFAULT_DESCRIPTION_STYLE,
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
-import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
+import TagsInput from '../inputs/tags-input';
+import ImagePreviews from '../images/image.previews';
 
 export default function GroupForm({
   localStorageKey,
@@ -56,6 +58,8 @@ export default function GroupForm({
         id: undefined,
         name: undefined,
         slug: undefined,
+        categoryNames: [],
+        categoryName: undefined,
         description: undefined,
         image: undefined,
       },
@@ -63,6 +67,7 @@ export default function GroupForm({
 
   const groupId = watch('id');
   const image = watch('image');
+  const categoryNames = watch('categoryNames');
 
   // Init GroupFormValues
   useEffect(() => {
@@ -144,6 +149,12 @@ export default function GroupForm({
     e.preventDefault();
   };
 
+  const handleAddTag = (tag: string) => {
+    if (!categoryNames || !categoryNames.includes(tag)) {
+      setValue('categoryNames', [...(categoryNames || []), tag]);
+    }
+  };
+
   return (
     <form
       className="flex flex-col gap-8 w-full"
@@ -201,6 +212,37 @@ export default function GroupForm({
           onClick: handleClickImagePreview,
         }}
       />
+      <TagsInput
+        name="categoryName"
+        control={control}
+        textInputProps={{
+          label: {
+            name: '카테고리',
+            style: DEFAULT_LABEL_STYLE,
+          },
+          description: {
+            name: '쉼표 또는 엔터를 입력하여 카테고리를 등록할 수 있어요',
+            style: DEFAULT_DESCRIPTION_STYLE,
+          },
+        }}
+        textFieldProps={{
+          variant: 'outlined',
+          placeholder: '커스텀, 키캡, 아티산',
+          InputProps: {
+            sx: {
+              color: DEFAULT_INPUT_TEXT_COLOR,
+              borderRadius: 2,
+              fontSize: getInputTextFontSize(device),
+              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+              fontWeight: 600,
+              minWidth: getInputTextMinWidth(device),
+            },
+          },
+          multiline: true,
+          minRows: 1,
+        }}
+        onTagAdd={handleAddTag}
+      />
       <TextInput
         name="description"
         control={control}
@@ -212,7 +254,7 @@ export default function GroupForm({
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '',
+          placeholder: '그룹을 간략하게 설명해 주세요',
           InputProps: {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,
