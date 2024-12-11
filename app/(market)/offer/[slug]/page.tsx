@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import RecentAuctions from '@/components/auction/recent-auctions';
 import OfferDetail from '@/components/offers/offer-detail';
 import PostDetailAddons from '@/components/posts/post-detail-addons';
@@ -11,13 +12,8 @@ import {
   useFindOfferQuery,
 } from '@/generated/graphql';
 
-function OfferPage({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+function OfferPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const { data, loading } = useFindOfferQuery({
     variables: {
       slug: decodeURI(slug),

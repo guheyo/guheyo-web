@@ -1,12 +1,6 @@
 'use client';
 
-function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ slug: string }> }) {
   return <div />;
 }
 

@@ -5,7 +5,7 @@ import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout
 import { Suspense } from 'react';
 
 export interface AuctionsPageProps {
-  params: Promise<{ groupSlug: string }>
+  params: Promise<{ groupSlug: string }>;
 }
 
 function Page({ params }: AuctionsPageProps) {
