@@ -10,7 +10,7 @@ export interface OffersPageProps {
 }
 
 function OffersPage({ params }: OffersPageProps) {
-  const { groupSlug, businessFunction } = use(params);
+  const { businessFunction } = use(params);
 
   const where = {
     businessFunction,

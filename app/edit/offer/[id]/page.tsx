@@ -3,14 +3,10 @@
 import EditOfferForm from '@/components/offers/edit-offer-form';
 import { useFindOfferQuery } from '@/generated/graphql';
 import { parsePrevOfferFormValues } from '@/lib/offer/parse-prev-form-values';
+import { use } from 'react';
 
-export default function Page({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const { data, loading } = useFindOfferQuery({
     variables: {
       id,

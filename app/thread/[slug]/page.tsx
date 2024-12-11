@@ -2,14 +2,10 @@
 
 import { useFindThreadQuery } from '@/generated/graphql';
 import ThreadDetailContainer from '@/components/thread/thread-detail-container';
+import { use } from 'react';
 
-function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const { loading, data } = useFindThreadQuery({
     variables: {
       slug: decodeURI(slug),

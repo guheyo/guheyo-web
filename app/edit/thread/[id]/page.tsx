@@ -2,14 +2,10 @@
 
 import ThreadCardContainer from '@/components/thread/thread-card-container';
 import { useFindThreadQuery } from '@/generated/graphql';
+import { use } from 'react';
 
-export default function Page({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const { data, loading } = useFindThreadQuery({
     variables: {
       id,
