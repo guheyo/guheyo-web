@@ -1,19 +1,20 @@
 'use client';
 
 import { AuthContext } from '@/components/auth/auth.provider';
-import { ReactNode, useContext } from 'react';
+import { ReactNode, use, useContext } from 'react';
 import ReportSubmitterNavbar from '@/components/reports/report-submitter-navbar';
 
 interface Props {
   children: ReactNode;
-  params: {
+  params: Promise<{
     username: string;
-  };
+  }>;
 }
 
 export default function Layout({ children, params }: Props) {
+  const { username } = use(params);
   const { jwtPayload } = useContext(AuthContext);
-  const isPublic = jwtPayload?.username !== params.username;
+  const isPublic = jwtPayload?.username !== username;
 
   return (
     <div>
