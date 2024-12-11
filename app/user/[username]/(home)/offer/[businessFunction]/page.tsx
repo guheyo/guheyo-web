@@ -11,16 +11,14 @@ import {
 import { OFFER_OPEN } from '@/lib/offer/offer.constants';
 import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferStatus } from '@/lib/offer/parse-offer-status';
-import { useContext } from 'react';
+import { use, useContext } from 'react';
 
 function Page({
-  params: { username, businessFunction },
+  params,
 }: {
-  params: {
-    username: string;
-    businessFunction: BusinessFunction;
-  };
+  params: Promise<{ username: string; businessFunction: BusinessFunction }>;
 }) {
+  const { username, businessFunction } = use(params);
   const { jwtPayload } = useContext(AuthContext);
   const { loading, data } = useFindUserQuery({
     variables: {
