@@ -1,21 +1,20 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, use } from 'react';
 import BrandHome from '@/components/brand/brand-home';
 import { useFindBrandQuery } from '@/generated/graphql';
 import BrandHomeNavbar from '@/components/brand/brand-home-navbar';
 
 interface Props {
   children: ReactNode;
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 function Layout({ children, params }: Props) {
+  const { slug } = use(params);
   const { data, loading } = useFindBrandQuery({
     variables: {
-      slug: decodeURI(params.slug!),
+      slug: decodeURI(slug),
     },
     fetchPolicy: 'cache-first',
   });
