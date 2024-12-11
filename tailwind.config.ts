@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 /* eslint-disable import/no-extraneous-dependencies */
-const colors = require('tailwindcss/colors');
-const typography = require('@tailwindcss/typography');
+import colors from 'tailwindcss/colors';
+import typography from '@tailwindcss/typography';
 
 const tailwindConfig = {
   content: [
