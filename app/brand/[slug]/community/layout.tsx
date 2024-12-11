@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   return {
