@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   return {
     title: `${slug} | 구해요`,
