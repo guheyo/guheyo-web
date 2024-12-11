@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { BusinessFunction, OfferStatus } from '@/lib/offer/offer.types';
 import { AuthContext } from '../auth/auth.provider';
