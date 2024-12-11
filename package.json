@@ -46,7 +46,7 @@
     "keen-slider": "^6.8.5",
     "lexical": "^0.12.6",
     "lodash": "^4.17.21",
-    "nanoid": "^5.0.4",
+    "nanoid": "^5.0.9",
     "next": "^15.0.0-rc.0",
     "postcss": "8.4.31",
     "react": "rc",
