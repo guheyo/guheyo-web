@@ -5,12 +5,10 @@ import AuctionHomeFeedLayout from '@/components/auction/auction-home-feed.layout
 import { Suspense } from 'react';
 
 export interface AuctionsPageProps {
-  params: {
-    groupSlug: string;
-  };
+  params: Promise<{ groupSlug: string }>
 }
 
-function Page({ params: { groupSlug } }: AuctionsPageProps) {
+function Page({ params }: AuctionsPageProps) {
   const where = {};
   const sortOrder = undefined;
   const distinct = false;
