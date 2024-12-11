@@ -20,11 +20,9 @@ export default function GroupNameLink({
     <button
       type="button"
       onClick={handleClick}
-      className="flex flex-row gap-2 items-center break-all"
+      className="flex flex-row gap-2 items-center break-all text-gray-400 text-[10px] md:text-xs font-semibold"
     >
-      <div className="text-gray-400 text-[10px] md:text-xs font-semibold">
-        {name}
-      </div>
+      {name}
     </button>
   );
 }
