@@ -1,56 +1,33 @@
-fragment followBrand on FollowBrandResponse {
-  id
-  brandId
-  user {
-    ...user
-  }
-}
-
-fragment brandBase on BrandBaseResponse {
+fragment productPreview on ProductPreviewResponse {
   id
   createdAt
   name
-  slug
   description
-  logo
-}
-
-fragment brandPreview on BrandPreviewResponse {
-  id
-  createdAt
-  name
-  slug
-  description
-  logo
-  groups {
+  group {
     ...groupProfile
   }
-  categories {
+  category {
     ...category
   }
-  followed
+  brand {
+    ...brandBase
+  }
 }
 
-fragment brandDetail on BrandDetailResponse {
+fragment productDetail on ProductDetailResponse {
   id
   createdAt
   name
-  slug
   description
-  logo
-  groups {
+  group {
     ...groupProfile
   }
-  categories {
+  category {
     ...category
   }
-  links {
-    ...link
+  brand {
+    ...brandBase
   }
-  followBrands {
-    ...followBrand
-  }
-  followed
 }
 
 mutation CreateBrand($input: CreateBrandInput!) {
@@ -71,16 +48,16 @@ mutation UnfollowBrand($input: UnfollowBrandInput!) {
   }
 }
 
-query FindBrands(
-  $where: FindBrandsWhereInput
-  $orderBy: FindBrandsOrderByInput
+query FindProducts(
+  $where: FindProductsWhereInput
+  $orderBy: FindProductsOrderByInput
   $keyword: String
   $target: String
   $cursor: ID
   $skip: Int!
   $take: Int!
 ) {
-  findBrands(
+  findProducts(
     where: $where
     orderBy: $orderBy
     keyword: $keyword
@@ -91,7 +68,7 @@ query FindBrands(
   ) {
     edges {
       node {
-        ...brandPreview
+        ...productPreview
       }
       cursor
     }
@@ -102,26 +79,28 @@ query FindBrands(
   }
 }
 
-query FindBrandPreview(
+query FindProductPreview(
   $id: ID
-  $slug: String
 ) {
-  findBrandPreview(
+  findProductPreview(
     id: $id
-    slug: $slug
   ) {
-    ...brandPreview
+    ...productPreview
   }
 }
 
-query FindBrand(
+query FindProduct(
   $id: ID
-  $slug: String
 ) {
-  findBrand(
+  findProduct(
     id: $id
-    slug: $slug
   ) {
-    ...brandDetail
+    ...productDetail
+  }
+}
+
+mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    ...mutationResponse
   }
 }

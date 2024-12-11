@@ -1,5 +1,5 @@
 export async function generateMetadata({ params }: { params: any }) {
-  const { groupSlug } = params;
+  const groupSlug = decodeURI(params.groupSlug);
 
   return {
     title: `${groupSlug} | 구해요`,

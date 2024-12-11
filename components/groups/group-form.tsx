@@ -1,6 +1,11 @@
 'use client';
 
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  SubmitErrorHandler,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import { useDeviceDetect } from '@/hooks/use-device-detect';
 import { MouseEventHandler, useEffect } from 'react';
 import {
@@ -15,31 +20,30 @@ import { IMAGE_UPLOAD_REQUIRED_MESSAGE } from '@/lib/image/image.constants';
 import { v4 as uuid4 } from 'uuid';
 import secureLocalStorage from 'react-secure-storage';
 import uploadAndSaveImages from '@/lib/image/upload-and-save-images';
-import { BrandFormValues } from '@/lib/brand/brand.interfaces';
-import {
-  BRAND,
-  BRAND_AUTO_SAVE_INTERVAL_MS,
-} from '@/lib/brand/brand.constants';
+import { GroupFormValues } from '@/lib/group/group.interfaces';
 import parseUploadedImage from '@/lib/image/parse-uploaded-user-image';
 import {
   POST_EDIT_SUBMIT_BUTTON_NAME,
   POST_WRITE_SUBMIT_BUTTON_NAME,
 } from '@/lib/post/post.constants';
-import { useFindPlatformsQuery } from '@/generated/graphql';
+import {
+  GROUP,
+  GROUP_AUTO_SAVE_INTERVAL_MS,
+} from '@/lib/group/group.constants';
 import TextInput from '../inputs/text-input';
 import {
   DEFAULT_LABEL_STYLE,
   STICKY_SUBMIT_BUTTON_STYLE,
   MOBILE_FILE_INPUT_LABEL_STYLE,
+  DEFAULT_DESCRIPTION_STYLE,
 } from '../../lib/input/input.styles';
 import ImagesInput from '../inputs/images-input';
-import ImagePreviews from '../images/image.previews';
 import DiscordLoginDialogButton from '../auth/discord-login-dialog-button';
-import SearchCheckbox from '../search/search-checkbox';
-import GroupCheckboxResults from '../groups/group-checkbox-results';
-import CategoryCheckboxResults from '../categories/category-checkbox-results';
+import TagsInput from '../inputs/tags-input';
+import ImagePreviews from '../images/image.previews';
+import TagsPreviews from '../inputs/tag-previews';
 
-export default function BrandForm({
+export default function GroupForm({
   localStorageKey,
   userId,
   prevFormValues,
@@ -48,43 +52,41 @@ export default function BrandForm({
 }: {
   localStorageKey: string;
   userId?: string;
-  prevFormValues?: BrandFormValues;
-  handleSubmitValid: SubmitHandler<BrandFormValues>;
+  prevFormValues?: GroupFormValues;
+  handleSubmitValid: SubmitHandler<GroupFormValues>;
   onClickImagePreviewCallback: (imageId: string) => void;
 }) {
   const device = useDeviceDetect();
 
   const { handleSubmit, control, watch, setValue, reset } =
-    useForm<BrandFormValues>({
+    useForm<GroupFormValues>({
       defaultValues: {
-        id: '',
-        name: '',
-        slug: '',
-        description: '',
-        logo: '',
+        id: undefined,
+        name: undefined,
+        slug: undefined,
+        categoryNames: [],
+        categoryName: undefined,
+        description: undefined,
         image: undefined,
-        groupIds: [],
-        categoryIds: [],
-        links: [],
       },
     });
 
-  const brandId = watch('id');
-  const image = watch('image');
-  const groupIds = watch('groupIds');
-
-  const { data } = useFindPlatformsQuery({
-    fetchPolicy: 'cache-first',
+  const { remove, append } = useFieldArray({
+    control,
+    name: 'categoryNames',
   });
-  const platforms = data?.findPlatforms;
 
-  // Init BrandFormValues
+  const groupId = watch('id');
+  const image = watch('image');
+  const categoryNames = watch('categoryNames');
+
+  // Init GroupFormValues
   useEffect(() => {
-    if (brandId || !userId) return;
+    if (groupId || !userId) return;
 
     const tempValues = secureLocalStorage.getItem(
       localStorageKey,
-    ) as BrandFormValues | null;
+    ) as GroupFormValues | null;
     if (tempValues) {
       reset(tempValues);
     } else if (prevFormValues) {
@@ -94,14 +96,14 @@ export default function BrandForm({
       setValue('id', newId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brandId, userId, prevFormValues]);
+  }, [groupId, userId, prevFormValues]);
 
   const updateValues = () => {
-    if (!brandId || !userId) return;
+    if (!groupId || !userId) return;
 
     const tempValues = secureLocalStorage.getItem(
       localStorageKey,
-    ) as BrandFormValues | null;
+    ) as GroupFormValues | null;
     const currentValues = watch();
     const notChanged =
       JSON.stringify(tempValues) === JSON.stringify(currentValues);
@@ -111,24 +113,10 @@ export default function BrandForm({
   };
 
   useEffect(() => {
-    const intervalId = setInterval(updateValues, BRAND_AUTO_SAVE_INTERVAL_MS);
+    const intervalId = setInterval(updateValues, GROUP_AUTO_SAVE_INTERVAL_MS);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brandId, userId, localStorageKey]);
-
-  useEffect(() => {
-    platforms?.map((platform, i) =>
-      setValue(`links.${i}`, {
-        id: uuid4(),
-        url: '',
-        brandId,
-        platformId: platform.id,
-        position: i,
-      }),
-    );
-  }, [brandId, platforms, setValue]);
-
-  if (!platforms) return <div />;
+  }, [groupId, userId, localStorageKey]);
 
   const handleChangeFileInput = async (files: FileList | null) => {
     if (!files) return;
@@ -143,8 +131,8 @@ export default function BrandForm({
 
     const userImages = await uploadAndSaveImages({
       uploadedImages: [uploadedImage],
-      type: BRAND,
-      refId: brandId,
+      type: GROUP,
+      refId: groupId,
     });
 
     setValue('image', userImages[0]);
@@ -157,15 +145,17 @@ export default function BrandForm({
     setValue('image', undefined);
   };
 
-  const handleGroupCheckboxClick = (selectedIds: string[]) => {
-    setValue('groupIds', selectedIds);
+  const handleAddTag = (tag: string) => {
+    if (!categoryNames.some((category) => category.name === tag)) {
+      append({ name: tag });
+    }
   };
 
-  const handleCategoryCheckboxClick = (selectedIds: string[]) => {
-    setValue('categoryIds', selectedIds);
+  const handleClickTagPreview = async (position: number) => {
+    remove(position);
   };
 
-  const handleSubmitError: SubmitErrorHandler<BrandFormValues> = (
+  const handleSubmitError: SubmitErrorHandler<GroupFormValues> = (
     errors,
     event,
   ) => {
@@ -188,41 +178,16 @@ export default function BrandForm({
       <TextInput
         name="name"
         control={control}
-        rules={{ required: '브랜드 이름을 입력해 주세요' }}
+        rules={{ required: '그룹 이름을 입력해 주세요' }}
         textInputProps={{
           label: {
-            name: '브랜드 이름',
+            name: '그룹 이름',
             style: DEFAULT_LABEL_STYLE,
           },
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '애플',
-          InputProps: {
-            sx: {
-              color: DEFAULT_INPUT_TEXT_COLOR,
-              borderRadius: 2,
-              fontSize: getInputTextFontSize(device),
-              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
-              fontWeight: 600,
-              minWidth: getInputTextMinWidth(device),
-            },
-          },
-        }}
-      />
-      <TextInput
-        name="slug"
-        control={control}
-        rules={{ required: '브랜드 식별자를 입력해 주세요' }}
-        textInputProps={{
-          label: {
-            name: '브랜드 식별자',
-            style: DEFAULT_LABEL_STYLE,
-          },
-        }}
-        textFieldProps={{
-          variant: 'outlined',
-          placeholder: 'apple',
+          placeholder: '키보드',
           InputProps: {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,
@@ -243,7 +208,7 @@ export default function BrandForm({
         }}
         imagesInputProps={{
           label: {
-            name: '로고',
+            name: '아이콘',
             style: MOBILE_FILE_INPUT_LABEL_STYLE,
           },
           icon: {
@@ -262,62 +227,43 @@ export default function BrandForm({
           onClick: handleClickImagePreview,
         }}
       />
-      <SearchCheckbox
-        defaultSelectedIds={[]}
-        placeholder="브랜드의 그룹을 선택해 주세요"
-        where={{}}
-        type="listview"
-        distinct={false}
-        CheckboxResults={GroupCheckboxResults}
-        size="medium"
-        handleClick={handleGroupCheckboxClick}
-        multiple
-        showNextButton={false}
+      <TagsInput
+        name="categoryName"
+        control={control}
+        textInputProps={{
+          label: {
+            name: '카테고리',
+            style: DEFAULT_LABEL_STYLE,
+          },
+          description: {
+            name: '쉼표 또는 엔터를 입력하여 카테고리를 등록할 수 있어요',
+            style: DEFAULT_DESCRIPTION_STYLE,
+          },
+        }}
+        textFieldProps={{
+          variant: 'outlined',
+          placeholder: '커스텀, 키캡, 아티산',
+          InputProps: {
+            sx: {
+              color: DEFAULT_INPUT_TEXT_COLOR,
+              borderRadius: 2,
+              fontSize: getInputTextFontSize(device),
+              backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
+              fontWeight: 600,
+              minWidth: getInputTextMinWidth(device),
+            },
+          },
+          multiline: true,
+          minRows: 1,
+        }}
+        onTagAdd={handleAddTag}
       />
-
-      <SearchCheckbox
-        defaultSelectedIds={[]}
-        placeholder="브랜드의 카테고리를 선택해 주세요"
-        where={{ groupIds, categoryTypes: ['product'] }}
-        type="listview"
-        distinct={false}
-        CheckboxResults={CategoryCheckboxResults}
-        size="medium"
-        handleClick={handleCategoryCheckboxClick}
-        multiple
-        showNextButton={false}
+      <TagsPreviews
+        tags={categoryNames.map((c) => c.name)}
+        previewsProp={{
+          onClick: handleClickTagPreview,
+        }}
       />
-
-      {platforms.map((platform, i) => (
-        <div key={platform.name}>
-          <TextInput
-            key={platform.name}
-            name={`links.${i}.url`}
-            control={control}
-            textInputProps={{
-              label: {
-                name: `${platform.name} 링크`,
-                style: DEFAULT_LABEL_STYLE,
-                image: platform.logo || undefined,
-              },
-            }}
-            textFieldProps={{
-              variant: 'outlined',
-              placeholder: `${platform.name} URL`,
-              InputProps: {
-                sx: {
-                  color: DEFAULT_INPUT_TEXT_COLOR,
-                  borderRadius: 2,
-                  fontSize: getInputTextFontSize(device),
-                  backgroundColor: DEFAULT_INPUT_TEXT_BACKGROUND_COLOR,
-                  fontWeight: 600,
-                  minWidth: getInputTextMinWidth(device),
-                },
-              },
-            }}
-          />
-        </div>
-      ))}
       <TextInput
         name="description"
         control={control}
@@ -329,7 +275,7 @@ export default function BrandForm({
         }}
         textFieldProps={{
           variant: 'outlined',
-          placeholder: '',
+          placeholder: '그룹을 간략하게 설명해 주세요',
           InputProps: {
             sx: {
               color: DEFAULT_INPUT_TEXT_COLOR,

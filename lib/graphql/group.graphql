@@ -5,6 +5,7 @@ fragment group on GroupResponse {
   description
   icon
   position
+  status
   roles {
     id
     name
@@ -23,6 +24,7 @@ fragment groupProfile on GroupProfileResponse {
   slug
   description
   icon
+  status
 }
 
 fragment groupPreview on GroupPreviewResponse {
@@ -32,11 +34,18 @@ fragment groupPreview on GroupPreviewResponse {
   description
   icon
   position
+  status
   sells {
     ...offerPreview
   }
   buys {
     ...offerPreview
+  }
+}
+
+mutation CreateGroup($input: CreateGroupInput!) {
+  createGroup(input: $input) {
+    ...mutationResponse
   }
 }
 
@@ -74,6 +83,37 @@ query FindGroupProfiles(
     edges {
       node {
         ...groupProfile
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+query FindCategories(
+  $where: FindCategoriesWhereInput
+  $orderBy: FindCategoriesOrderByInput
+  $keyword: String,
+  $target: String,
+  $cursor: ID,
+  $skip: Int! = 1,
+  $take: Int!
+) {
+  findCategories(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...category
       }
       cursor
     }
