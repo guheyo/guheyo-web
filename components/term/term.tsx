@@ -21,7 +21,7 @@ export default function Term({ name }: { name: string }) {
     <div title={title}>
       <Markdown
         remarkPlugins={[remarkGfm]}
-        className="prose prose-invert prose-xs md:prose-sm max-w-none"
+        className="prose prose-invert prose-sm md:prose-base max-w-none"
       >
         {content}
       </Markdown>
