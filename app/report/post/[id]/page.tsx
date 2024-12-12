@@ -2,14 +2,10 @@
 
 import PostReportForm from '@/components/posts/post-report-form';
 import { useFindPostPreviewQuery } from '@/generated/graphql';
+import { use } from 'react';
 
-export default function Page({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const { data, loading } = useFindPostPreviewQuery({
     variables: {
       id,

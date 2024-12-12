@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import TextFeedLayout from '@/components/posts/text-feed.layout';
 import ThreadFeed from '@/components/thread/thread-feed';
 import {
@@ -7,13 +8,8 @@ import {
   useFindBrandQuery,
 } from '@/generated/graphql';
 
-function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const { loading, data } = useFindBrandQuery({
     variables: {
       slug,

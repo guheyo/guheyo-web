@@ -2,14 +2,10 @@
 
 import UserReviewDetailContainer from '@/components/user-review/user-review-detail-container';
 import { useFindUserReviewQuery } from '@/generated/graphql';
+import { use } from 'react';
 
-function Page({
-  params: { userReviewSlug },
-}: {
-  params: {
-    userReviewSlug: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ userReviewSlug: string }> }) {
+  const { userReviewSlug } = use(params);
   const { data, loading } = useFindUserReviewQuery({
     variables: {
       slug: decodeURI(userReviewSlug),

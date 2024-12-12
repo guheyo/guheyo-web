@@ -4,15 +4,14 @@ import SearchCheckbox from '@/components/search/search-checkbox';
 import UserCheckboxResults from '@/components/users/user-checkbox-results';
 import { parseUserReviewTargetFormLink } from '@/lib/user-review/parse-user-review-target-form-link';
 import { useRouter } from 'next/navigation';
-import { MouseEventHandler, Suspense } from 'react';
+import { MouseEventHandler, Suspense, use } from 'react';
 
 export default function Page({
-  params: { offerId },
+  params,
 }: {
-  params: {
-    offerId: string;
-  };
+  params: Promise<{ offerId: string }>;
 }) {
+  const { offerId } = use(params);
   const router = useRouter();
 
   const handleAuthorization = (selectedIds: string[]) => {

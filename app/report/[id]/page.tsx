@@ -6,14 +6,10 @@ import ReportCard from '@/components/reports/report-card';
 import { useFindReportQuery } from '@/generated/graphql';
 import { OFFER } from '@/lib/offer/offer.constants';
 import { POST } from '@/lib/post/post.constants';
+import { use } from 'react';
 
-export default function Page({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const { data, loading } = useFindReportQuery({
     variables: {
       id,
