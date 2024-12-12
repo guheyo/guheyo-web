@@ -31,7 +31,7 @@ export default function PostReportForm({
   const { handleSubmit, control, setValue, watch } = useForm<ReportFormValues>({
     defaultValues: {
       id: uuid4(),
-      position: undefined,
+      position: 0,
       reason: '',
       description: '',
     },
