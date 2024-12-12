@@ -6,14 +6,16 @@ import {
   FindUserReviewPreviewsWhereInput,
   useFindUserQuery,
 } from '@/generated/graphql';
+import { use } from 'react';
 
 function Page({
-  params: { username },
+  params,
 }: {
-  params: {
+  params: Promise<{
     username: string;
-  };
+  }>;
 }) {
+  const { username } = use(params);
   const { loading, data } = useFindUserQuery({
     variables: {
       username,

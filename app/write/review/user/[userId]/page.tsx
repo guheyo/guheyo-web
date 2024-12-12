@@ -12,15 +12,16 @@ import {
   UserReviewTargetType,
 } from '@/lib/user-review/user-review.constants';
 import { useRouter } from 'next/navigation';
-import { MouseEventHandler, Suspense, useContext, useState } from 'react';
+import { MouseEventHandler, Suspense, use, useContext, useState } from 'react';
 
 export default function Page({
-  params: { userId },
+  params,
 }: {
-  params: {
+  params: Promise<{
     userId: string;
-  };
+  }>;
 }) {
+  const { userId } = use(params);
   const { jwtPayload } = useContext(AuthContext);
   const [selectedOption, setSelectedOption] =
     useState<UserReviewTargetType>('offer');
