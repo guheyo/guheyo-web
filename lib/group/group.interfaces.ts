@@ -7,5 +7,5 @@ export type GroupFormValues = {
   categoryNames: { name: string }[];
   categoryName?: string;
   description?: string;
-  image?: UserImage;
+  image: UserImage | null;
 };
