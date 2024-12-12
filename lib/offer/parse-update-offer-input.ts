@@ -12,7 +12,8 @@ const parseUpdateOfferInput = ({
       ? `${offerFormValues.name0} - ${offerFormValues.name1}`
       : offerFormValues.name0,
     categoryId: offerFormValues.categoryId,
-    brandId: offerFormValues.brandId,
+    brandId:
+      offerFormValues.brandId === '' ? undefined : offerFormValues.brandId,
   };
   const offerInput = {
     post: postInput,
