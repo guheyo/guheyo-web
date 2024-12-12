@@ -20,7 +20,6 @@ export default function BaseSelector({
   return (
     <Select
       id={`${name}-selector`}
-      placeholder={options[0].label}
       value={selectedValue}
       onChange={handleChange}
       inputProps={{
