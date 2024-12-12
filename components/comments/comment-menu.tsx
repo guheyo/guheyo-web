@@ -60,7 +60,7 @@ export default function CommentMenu({
         }}
       >
         {isCurrentUser && (
-          <>
+          <div>
             {editable && (
               <MenuItem onClick={() => handleMenuClick('update')}>
                 수정
@@ -76,7 +76,7 @@ export default function CommentMenu({
                 삭제
               </MenuItem>
             )}
-          </>
+          </div>
         )}
       </Menu>
     </div>

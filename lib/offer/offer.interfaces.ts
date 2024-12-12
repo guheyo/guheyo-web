@@ -14,7 +14,7 @@ export type OfferFormValues = {
   businessFunction: BusinessFunction;
   categoryId: string;
   brandId?: string;
-  price: number;
+  price: number | string;
   shippingCost: number;
   shippingType: ShippingType;
   status?: string;

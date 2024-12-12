@@ -108,7 +108,7 @@ export default function OfferForm({
         businessFunction: 'sell',
         categoryId: '',
         brandId: '',
-        price: 0,
+        price: '',
         shippingCost: 0,
         shippingType: SHIPPING_FREE,
       },
@@ -175,10 +175,10 @@ export default function OfferForm({
   if (!group) return <div />;
 
   const handleChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(
-      e.target.name as FieldPath<OfferFormValues>,
-      parseInt(e.target.value, 10),
-    );
+    const { value } = e.target;
+    const parsedValue = value === '' ? '' : parseInt(value, 10);
+
+    setValue(e.target.name as FieldPath<OfferFormValues>, parsedValue);
   };
 
   const handleChangeFileInput = async (files: FileList | null) => {

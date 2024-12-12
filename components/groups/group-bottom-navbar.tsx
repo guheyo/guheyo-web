@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useContext } from 'react';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import { SearchRounded } from '@mui/icons-material';
@@ -15,30 +13,11 @@ import Avatar from '../avatar/avatar';
 import BottomNavbarItem from '../base/bottom-navbar-item';
 import WriteButton from '../write/write-button';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  bottomNavbar: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    zIndex: 40,
-    transition: 'transform 0.3s ease-out',
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
-    },
-  },
-  hideTablet: {
-    [theme.breakpoints.down('lg')]: {
-      display: 'none',
-    },
-  },
-}));
-
 export default function GroupBottomNavbar({
   groupSlug,
 }: {
   groupSlug?: string | null;
 }) {
-  const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const { jwtPayload } = useContext(AuthContext);
@@ -65,8 +44,8 @@ export default function GroupBottomNavbar({
 
   return (
     <nav
-      className={`${classes.bottomNavbar} ${
-        showComponent ? '' : classes.hideTablet
+      className={`fixed bottom-0 left-0 z-40 transition-transform duration-300 ease-out bg-gray-400 ${
+        showComponent ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       <div className="grid grid-rows grid-cols-10 items-center gap-0 bg-dark-500 w-screen py-2 px-4">
