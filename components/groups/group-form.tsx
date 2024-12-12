@@ -61,13 +61,13 @@ export default function GroupForm({
   const { handleSubmit, control, watch, setValue, reset } =
     useForm<GroupFormValues>({
       defaultValues: {
-        id: undefined,
-        name: undefined,
-        slug: undefined,
+        id: '',
+        name: '',
+        slug: '',
         categoryNames: [],
-        categoryName: undefined,
-        description: undefined,
-        image: undefined,
+        categoryName: '',
+        description: '',
+        image: null,
       },
     });
 
@@ -142,7 +142,7 @@ export default function GroupForm({
     if (!image) return;
 
     await onClickImagePreviewCallback(image.id);
-    setValue('image', undefined);
+    setValue('image', null);
   };
 
   const handleAddTag = (tag: string) => {
