@@ -18,7 +18,7 @@ export default function Popper({
   delay = 350,
   children,
 }: PopperProps) {
-  const popperRef = useRef(null);
+  const popperRef = useRef<HTMLDivElement>(null);
   useClickOutside(popperRef, handler);
 
   return (
