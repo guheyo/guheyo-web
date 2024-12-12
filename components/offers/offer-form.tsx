@@ -101,14 +101,14 @@ export default function OfferForm({
         id: '',
         groupId: group.id,
         images: [],
-        title: undefined,
-        content: undefined,
-        name0: undefined,
-        name1: undefined,
+        title: '',
+        content: '',
+        name0: '',
+        name1: '',
         businessFunction: 'sell',
         categoryId: '',
-        brandId: undefined,
-        price: undefined,
+        brandId: '',
+        price: '',
         shippingCost: 0,
         shippingType: SHIPPING_FREE,
       },
@@ -175,10 +175,10 @@ export default function OfferForm({
   if (!group) return <div />;
 
   const handleChangeNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(
-      e.target.name as FieldPath<OfferFormValues>,
-      parseInt(e.target.value, 10),
-    );
+    const { value } = e.target;
+    const parsedValue = value === '' ? '' : parseInt(value, 10);
+
+    setValue(e.target.name as FieldPath<OfferFormValues>, parsedValue);
   };
 
   const handleChangeFileInput = async (files: FileList | null) => {

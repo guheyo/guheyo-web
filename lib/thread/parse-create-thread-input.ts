@@ -12,7 +12,7 @@ const parseCreateThreadInput = ({
     title: '',
     groupId: threadValues.groupId,
     categoryId: threadValues.categoryId,
-    brandId: threadValues.brandId,
+    brandId: threadValues.brandId === '' ? undefined : threadValues.brandId,
   };
   const threadInput: CreateThreadInput = {
     post: postInput,

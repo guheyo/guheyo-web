@@ -10,19 +10,14 @@ import { BusinessFunction } from '@/lib/offer/offer.types';
 import { parseOfferTermAlertMessage } from '@/lib/offer/parse-offer-term-alert-message';
 import { isPostingLimitExceededError } from '@/lib/post/is-posting-limit-exceeded-error';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { use, useContext, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import OfferBumpFormLayout from '@/components/offers/offer-bump-form.layout';
 import { parseMarketLink } from '@/lib/offer/parse-market-link';
 import BgDialog from '@/components/base/bg-dialog';
 
-function Page({
-  params: { id },
-}: {
-  params: {
-    id: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');

@@ -2,15 +2,14 @@
 
 import UserReviewForm from '@/components/user-review/user-review-form';
 import { useFindOfferQuery, useFindTagsQuery } from '@/generated/graphql';
+import { use } from 'react';
 
 export default function Page({
-  params: { userId, offerId },
+  params,
 }: {
-  params: {
-    userId: string;
-    offerId: string;
-  };
+  params: Promise<{ userId: string; offerId: string }>;
 }) {
+  const { userId, offerId } = use(params);
   const { data: offerData, loading: offerLoading } = useFindOfferQuery({
     variables: {
       id: offerId,

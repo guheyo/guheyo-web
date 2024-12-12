@@ -64,9 +64,9 @@ export default function ProductForm({
         id: '',
         name: '',
         description: '',
-        groupId: undefined,
-        categoryId: undefined,
-        brandId: undefined,
+        groupId: '',
+        categoryId: '',
+        brandId: '',
         images: [],
       },
     });

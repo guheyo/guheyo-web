@@ -2,15 +2,14 @@
 
 import UserReviewForm from '@/components/user-review/user-review-form';
 import { useFindAuctionQuery, useFindTagsQuery } from '@/generated/graphql';
+import { use } from 'react';
 
 export default function Page({
-  params: { userId, auctionId },
+  params,
 }: {
-  params: {
-    userId: string;
-    auctionId: string;
-  };
+  params: Promise<{ userId: string; auctionId: string }>;
 }) {
+  const { userId, auctionId } = use(params);
   const { data: auctionData, loading: auctionLoading } = useFindAuctionQuery({
     variables: {
       id: auctionId,

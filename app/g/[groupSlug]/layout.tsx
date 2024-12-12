@@ -1,5 +1,10 @@
-export async function generateMetadata({ params }: { params: any }) {
-  const groupSlug = decodeURI(params.groupSlug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ groupSlug: string }>;
+}) {
+  const { groupSlug: slug } = await params;
+  const groupSlug = decodeURI(slug);
 
   return {
     title: `${groupSlug} | 구해요`,
@@ -7,14 +12,6 @@ export async function generateMetadata({ params }: { params: any }) {
   };
 }
 
-export default function Layout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: {
-    groupSlug: string;
-  };
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return children;
 }

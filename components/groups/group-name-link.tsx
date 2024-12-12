@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { MouseEventHandler } from 'react';
 
 export default function GroupNameLink({
   name,
@@ -9,11 +10,19 @@ export default function GroupNameLink({
   name: string;
   href: string;
 }) {
+  const router = useRouter();
+  const handleClick: MouseEventHandler = (e) => {
+    e.preventDefault();
+    router.push(href);
+  };
+
   return (
-    <Link href={href} className="flex flex-row gap-2 items-center break-all">
-      <div className="text-gray-400 text-[10px] md:text-xs font-semibold">
-        {name}
-      </div>
-    </Link>
+    <button
+      type="button"
+      onClick={handleClick}
+      className="flex flex-row gap-2 items-center break-all text-gray-400 text-[10px] md:text-xs font-semibold"
+    >
+      {name}
+    </button>
   );
 }

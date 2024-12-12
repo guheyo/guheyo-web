@@ -62,7 +62,7 @@ export default function BrandForm({
         slug: '',
         description: '',
         logo: '',
-        image: undefined,
+        image: null,
         groupIds: [],
         categoryIds: [],
         links: [],
@@ -154,7 +154,7 @@ export default function BrandForm({
     if (!image) return;
 
     await onClickImagePreviewCallback(image.id);
-    setValue('image', undefined);
+    setValue('image', null);
   };
 
   const handleGroupCheckboxClick = (selectedIds: string[]) => {

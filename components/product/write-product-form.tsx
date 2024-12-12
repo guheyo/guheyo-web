@@ -37,7 +37,7 @@ export default function WriteProductForm() {
         description: values.description,
         groupId: values.groupId,
         categoryId: values.categoryId,
-        brandId: values.brandId,
+        brandId: values.brandId === '' ? undefined : values.brandId,
       });
 
       const { data } = await findProductPreview(values.id);

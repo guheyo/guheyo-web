@@ -3,18 +3,15 @@
 import OfferFeed from '@/components/offers/offer-feed';
 import OfferHomeFeedLayout from '@/components/offers/offer-home-feed.layout';
 import { BusinessFunction } from '@/lib/offer/offer.types';
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 
 export interface OffersPageProps {
-  params: {
-    groupSlug: string;
-    businessFunction: BusinessFunction;
-  };
+  params: Promise<{ groupSlug: string; businessFunction: BusinessFunction }>;
 }
 
-function OffersPage({
-  params: { groupSlug, businessFunction },
-}: OffersPageProps) {
+function OffersPage({ params }: OffersPageProps) {
+  const { businessFunction } = use(params);
+
   const where = {
     businessFunction,
     status: undefined,

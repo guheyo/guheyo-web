@@ -1,16 +1,11 @@
 'use client';
 
-import { redirect, usePathname } from 'next/navigation';
+import { use } from 'react';
+import { redirect } from 'next/navigation';
 
-function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
-  const pathname = usePathname();
-  return redirect(`${pathname}/community`);
+function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  return redirect(`${slug}/community`);
 }
 
 export default Page;

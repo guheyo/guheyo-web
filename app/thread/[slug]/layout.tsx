@@ -1,8 +1,13 @@
 import { parseSlugFromURL } from '@/lib/url/parse-slug-from-url';
 import React from 'react';
 
-export async function generateMetadata({ params }: { params: any }) {
-  const slug = parseSlugFromURL(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug: threadSlug } = await params;
+  const slug = parseSlugFromURL(threadSlug);
 
   return {
     title: `${slug} | 구해요`,

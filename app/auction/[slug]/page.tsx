@@ -2,15 +2,10 @@
 
 import AuctionDetailContainer from '@/components/auction/auction-detail-container';
 import { useFindAuctionQuery } from '@/generated/graphql';
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 
-function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const { data, loading } = useFindAuctionQuery({
     variables: {
       slug: decodeURI(slug),

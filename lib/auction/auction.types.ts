@@ -4,7 +4,7 @@ export type AuctionStatus = 'live' | 'closed';
 
 export type AuctionFormValues = {
   id: string;
-  createdAt: Date;
+  createdAt: Date | null;
   duration: number;
   groupId: string;
   images: UserImage[];

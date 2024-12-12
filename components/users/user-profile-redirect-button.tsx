@@ -2,8 +2,9 @@
 
 import { AuthorResponse } from '@/generated/graphql';
 import { parseUserHomeLink } from '@/lib/user/parse-user-page.link';
-import Link from 'next/link';
 import { FontSize } from '@/lib/font/font.types';
+import { useRouter } from 'next/navigation';
+import { MouseEventHandler } from 'react';
 import Avatar from '../avatar/avatar';
 import Username from './user-name';
 
@@ -18,8 +19,14 @@ export default function UserProfileRedirectButton({
   displayUsername: boolean;
   fontSize: FontSize;
 }) {
+  const router = useRouter();
+  const handleClick: MouseEventHandler = (e) => {
+    e.preventDefault();
+    router.push(parseUserHomeLink({ username: user.username }));
+  };
+
   return (
-    <Link href={parseUserHomeLink({ username: user.username })}>
+    <button type="button" onClick={handleClick}>
       <div
         className={`flex gap-2 md:gap-3 items-center font-medium ${fontSize}`}
       >
@@ -32,6 +39,6 @@ export default function UserProfileRedirectButton({
         )}
         {displayUsername && <Username user={user} />}
       </div>
-    </Link>
+    </button>
   );
 }

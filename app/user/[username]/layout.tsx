@@ -1,7 +1,11 @@
 import React from 'react';
 
-export async function generateMetadata({ params }: { params: any }) {
-  const { username } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
 
   return {
     title: `${username} | 구해요`,
