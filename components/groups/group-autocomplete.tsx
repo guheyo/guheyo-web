@@ -53,10 +53,7 @@ export default function GroupAutocomplete({
     imageUrl: groupProfile.node.icon || undefined,
   }));
 
-  const selectedValue = getSelectedValue(
-    options,
-    selectedId || groupProfiles[0].node.id,
-  );
+  const selectedValue = getSelectedValue(options, selectedId);
 
   return (
     <InfiniteScrollAutocomplete
