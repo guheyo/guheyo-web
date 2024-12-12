@@ -14,7 +14,8 @@ const parseCreateAuctionInput = ({
     title: auctionFormValues.title,
     groupId: auctionFormValues.groupId,
     categoryId: auctionFormValues.categoryId,
-    brandId: auctionFormValues.brandId,
+    brandId:
+      auctionFormValues.brandId === '' ? undefined : auctionFormValues.brandId,
   };
   const createdAt = new Date();
   const originalEndDate = dayjs(createdAt)
