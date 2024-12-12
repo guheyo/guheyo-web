@@ -40,13 +40,15 @@ export default function CommentInput({
       fullWidth
       variant="standard"
       multiline
-      InputProps={{
-        sx: {
-          color: DEFAULT_INPUT_TEXT_COLOR,
-          alignItems: 'flex-start',
-          fontSize: 14,
+      slotProps={{
+        input: {
+          sx: {
+            color: DEFAULT_INPUT_TEXT_COLOR,
+            alignItems: 'flex-start',
+            fontSize: 14,
+          },
+          onKeyDown: handleKeyDown,
         },
-        onKeyDown: handleKeyDown,
       }}
     />
   );

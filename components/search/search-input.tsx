@@ -38,40 +38,42 @@ export default function SearchInput({
       onChange={handleChangeAndClearIcon}
       onKeyDown={handleKeyDown}
       value={text}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchRounded
-              sx={{
-                color: '#f2f3ed',
-              }}
-            />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment
-            position="end"
-            style={{ display: showClearIcon }}
-            onClick={handleClick}
-          >
-            <ClearRounded
-              sx={{
-                color: '#7f838e',
-              }}
-            />
-          </InputAdornment>
-        ),
-        sx: {
-          color: '#f2f3ed',
-          borderRadius: 6,
-          fontSize: device === 'mobile' ? '14px' : '14px',
-          backgroundColor: '#404146',
-          fontWeight: 500,
-          height: 44,
-        },
-        autoFocus: true,
-      }}
       fullWidth
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchRounded
+                sx={{
+                  color: '#f2f3ed',
+                }}
+              />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment
+              position="end"
+              style={{ display: showClearIcon }}
+              onClick={handleClick}
+            >
+              <ClearRounded
+                sx={{
+                  color: '#7f838e',
+                }}
+              />
+            </InputAdornment>
+          ),
+          sx: {
+            color: '#f2f3ed',
+            borderRadius: 6,
+            fontSize: device === 'mobile' ? '14px' : '14px',
+            backgroundColor: '#404146',
+            fontWeight: 500,
+            height: 44,
+          },
+          autoFocus: true,
+        },
+      }}
     />
   );
 }

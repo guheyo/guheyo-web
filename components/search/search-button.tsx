@@ -74,23 +74,25 @@ export default function SearchButton() {
       variant="outlined"
       placeholder={findPlaceholder(location)}
       onClick={handleClick}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchRounded
-              sx={{
-                color: '#f2f3ed',
-              }}
-            />
-          </InputAdornment>
-        ),
-        sx: {
-          color: '#f2f3ed',
-          borderRadius: 6,
-          fontSize: '14px',
-          backgroundColor: '#404146',
-          fontWeight: 500,
-          maxHeight: 42,
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchRounded
+                sx={{
+                  color: '#f2f3ed',
+                }}
+              />
+            </InputAdornment>
+          ),
+          sx: {
+            color: '#f2f3ed',
+            borderRadius: 6,
+            fontSize: '14px',
+            backgroundColor: '#404146',
+            fontWeight: 500,
+            maxHeight: 42,
+          },
         },
       }}
     />

@@ -27,35 +27,38 @@ export default function InfiniteScrollAutocomplete({
   setRef: SetRefCallback;
   handleChange: (e: SyntheticEvent, value: Option | null) => void;
 }) {
+  const selectedOption =
+    options.find((option) => option.value === selectedValue) || null;
+
   return (
     <Autocomplete
-      key={selectedValue}
       id={`${name}-infinite-scroll-autocomplete`}
-      value={options.find((option) => option.value === selectedValue)}
+      value={selectedOption}
       onChange={handleChange}
       className={className}
       renderInput={(params) => (
         <TextField
           {...params}
-          label={isUndefined(selectedValue) ? placeholder : undefined}
-          InputProps={{
-            ...params.InputProps,
-            className: inputClassName, // Class can also be applied here
-          }}
-          InputLabelProps={{
-            shrink: false, // Control shrink behavior directly here
-            className: inputLabelClassName,
+          label={isUndefined(selectedValue) ? placeholder : ''}
+          slotProps={{
+            input: {
+              ...params.InputProps,
+              className: inputClassName, // Class can also be applied here
+            },
+
+            inputLabel: {
+              shrink: false, // Control shrink behavior directly here
+              className: inputLabelClassName,
+            },
           }}
         />
       )}
       options={options}
       renderOption={(props, option, { index }) => (
-        <>
-          <li {...props} key={option.value}>
-            {option.label}
-          </li>
+        <li {...props} key={`${option.value}-${index}`}>
+          {option.label}
           {index === options.length - 1 && <div ref={setRef} />}
-        </>
+        </li>
       )}
       getOptionLabel={(option) => option.label}
     />
