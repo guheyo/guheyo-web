@@ -54,12 +54,6 @@ export default function InfiniteScrollAutocomplete({
         />
       )}
       options={options}
-      renderOption={(props, option, { index }) => (
-        <li {...props} key={`${option.value}-${index}`}>
-          {option.label}
-          {index === options.length - 1 && <div ref={setRef} />}
-        </li>
-      )}
       getOptionLabel={(option) => option.label}
     />
   );
