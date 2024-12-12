@@ -57,8 +57,8 @@ export default function UserReviewForm({
     defaultValues: {
       id: uuid4(),
       title,
-      content: undefined,
-      rating: undefined,
+      content: '',
+      rating: 2,
       mannerTagOptions: createTagOptionsFromTags({
         tags,
         tagType: 'manner',
