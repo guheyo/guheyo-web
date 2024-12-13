@@ -33,13 +33,19 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         <link rel="icon" href="/guheyo/guheyo-logo.svg" sizes="any" />
         <meta property="og:image" content="/guheyo/guheyo-logo.svg" />
         <meta property="og:alt" content="구해요" />
         <meta property="og:type" content="image/png" />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8686953345655666"
+          crossOrigin="anonymous"
+        />
+        <meta name="google-adsense-account" content="ca-pub-8686953345655666" />
       </head>
       <body
         className={`${notoSansKr.className} text-dark-200 bg-dark-500 line-break`}
