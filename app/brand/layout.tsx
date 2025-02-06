@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import AdSense from '../adsense/ad-sense';
 
 export async function generateMetadata() {
   return {
@@ -8,7 +9,12 @@ export async function generateMetadata() {
 }
 
 function Layout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <AdSense />
+      {children}
+    </>
+  );
 }
 
 export default Layout;

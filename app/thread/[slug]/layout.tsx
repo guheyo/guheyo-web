@@ -1,3 +1,4 @@
+import AdSense from '@/app/adsense/ad-sense';
 import { parseSlugFromURL } from '@/lib/url/parse-slug-from-url';
 import React from 'react';
 
@@ -16,5 +17,10 @@ export async function generateMetadata({
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <AdSense />
+      {children}
+    </>
+  );
 }
