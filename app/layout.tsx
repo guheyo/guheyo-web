@@ -40,11 +40,6 @@ export default function RootLayout({
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8686953345655666"
-          crossOrigin="anonymous"
-        />
         <meta name="google-adsense-account" content="ca-pub-8686953345655666" />
       </head>
       <body
