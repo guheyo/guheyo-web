@@ -1,3 +1,5 @@
+import AdSense from '@/app/adsense/ad-sense';
+
 export async function generateMetadata({
   params,
 }: {
@@ -13,5 +15,10 @@ export async function generateMetadata({
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <AdSense />
+      {children}
+    </>
+  );
 }
