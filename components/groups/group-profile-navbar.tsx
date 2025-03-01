@@ -2,6 +2,7 @@
 
 import { MouseEventHandler } from 'react';
 import { useInfiniteGroupProfiles } from '@/hooks/use-infinite-group-profiles';
+import { GroupStatus } from '@/generated/graphql';
 import GroupProfileNavbarIconItem from './group-profile-navbar-icon-item';
 
 export default function GroupProfileNavbar({
@@ -18,6 +19,9 @@ export default function GroupProfileNavbar({
   pathFormatter: (slug: string) => string;
 }) {
   const { setRef, loading, data } = useInfiniteGroupProfiles({
+    where: {
+      status: GroupStatus.Major,
+    },
     orderBy: {
       position: 'asc',
     },
