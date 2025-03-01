@@ -130,8 +130,33 @@ query FindGroup($id: ID, $slug: String) {
   }
 }
 
-query FindGroupPreviews {
-  findGroupPreviews {
-    ...groupPreview
+query FindGroupPreviews (
+  $where: FindGroupPreviewsWhereInput
+  $orderBy: FindGroupPreviewsOrderByInput
+  $keyword: String,
+  $target: String,
+  $cursor: ID,
+  $skip: Int! = 1,
+  $take: Int!
+) {
+  findGroupPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...groupPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }

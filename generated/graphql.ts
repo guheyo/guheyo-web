@@ -540,6 +540,15 @@ export type FindCommentsWhereInput = {
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type FindGroupPreviewsOrderByInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FindGroupPreviewsWhereInput = {
+  status?: InputMaybe<GroupStatus>;
+};
+
 export type FindGroupProfilesOrderByInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['String']['input']>;
@@ -694,6 +703,12 @@ export type GroupPreviewResponse = {
   sells: Array<OfferPreviewResponse>;
   slug?: Maybe<Scalars['String']['output']>;
   status: GroupStatus;
+};
+
+export type GroupPreviewResponseEdge = {
+  __typename?: 'GroupPreviewResponseEdge';
+  cursor: Scalars['String']['output'];
+  node: GroupPreviewResponse;
 };
 
 export type GroupProfileResponse = {
@@ -1158,6 +1173,12 @@ export type PaginatedCommentsResponse = {
   pageInfo: PageInfo;
 };
 
+export type PaginatedGroupPreviewsResponse = {
+  __typename?: 'PaginatedGroupPreviewsResponse';
+  edges: Array<GroupPreviewResponseEdge>;
+  pageInfo: PageInfo;
+};
+
 export type PaginatedGroupProfilesResponse = {
   __typename?: 'PaginatedGroupProfilesResponse';
   edges: Array<GroupProfileResponseEdge>;
@@ -1367,7 +1388,7 @@ export type Query = {
   findComments: PaginatedCommentsResponse;
   findEmojis: Array<EmojiResponse>;
   findGroup?: Maybe<GroupResponse>;
-  findGroupPreviews: Array<GroupPreviewResponse>;
+  findGroupPreviews: PaginatedGroupPreviewsResponse;
   findGroupProfiles: PaginatedGroupProfilesResponse;
   findGroups: PaginatedGroupsResponse;
   findLastReport: LastReportResponse;
@@ -1548,6 +1569,17 @@ export type QueryFindEmojisArgs = {
 export type QueryFindGroupArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFindGroupPreviewsArgs = {
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<FindGroupPreviewsOrderByInput>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+  target?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<FindGroupPreviewsWhereInput>;
 };
 
 
@@ -2589,10 +2621,18 @@ export type FindGroupQueryVariables = Exact<{
 
 export type FindGroupQuery = { __typename?: 'Query', findGroup?: { __typename?: 'GroupResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position?: number | null, status: GroupStatus, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }>, categories: Array<{ __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null }> } | null };
 
-export type FindGroupPreviewsQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindGroupPreviewsQueryVariables = Exact<{
+  where?: InputMaybe<FindGroupPreviewsWhereInput>;
+  orderBy?: InputMaybe<FindGroupPreviewsOrderByInput>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  target?: InputMaybe<Scalars['String']['input']>;
+  cursor?: InputMaybe<Scalars['ID']['input']>;
+  skip?: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
 
 
-export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: Array<{ __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, status: GroupStatus, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, status: GroupStatus }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, status: GroupStatus }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } }> }> };
+export type FindGroupPreviewsQuery = { __typename?: 'Query', findGroupPreviews: { __typename?: 'PaginatedGroupPreviewsResponse', edges: Array<{ __typename?: 'GroupPreviewResponseEdge', cursor: string, node: { __typename?: 'GroupPreviewResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, position: number, status: GroupStatus, sells: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, status: GroupStatus }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } }>, buys: Array<{ __typename?: 'OfferPreviewResponse', id: string, createdAt: any, updatedAt: any, bumpedAt: any, name0?: string | null, name1?: string | null, content?: string | null, price: number, priceCurrency: string, shippingCost: number, shippingType: string, totalPrice: number, businessFunction: string, status: string, hasSubmittedReview?: boolean | null, post: { __typename?: 'PostPreviewWithUserResponse', id: string, createdAt: any, updatedAt: any, archivedAt?: any | null, pending?: string | null, type: string, title: string, slug?: string | null, thumbnail?: string | null, commentCount?: number | null, category?: { __typename?: 'CategoryResponse', id: string, type: string, name: string, slug?: string | null, position?: number | null } | null, group: { __typename?: 'GroupProfileResponse', id: string, name: string, slug?: string | null, description?: string | null, icon?: string | null, status: GroupStatus }, user: { __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }, tags: Array<{ __typename?: 'TagResponse', id: string, type: string, name: string, description?: string | null, position: number }>, brands: Array<{ __typename?: 'BrandBaseResponse', id: string, createdAt: any, name: string, slug?: string | null, description?: string | null, logo?: string | null }> } }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type LinkFragment = { __typename?: 'LinkResponse', id: string, createdAt: any, url: string, brandId: string, position: number, platform: { __typename?: 'PlatformResponse', id: string, name: string, description?: string | null, logo?: string | null, position: number } };
 
@@ -5472,9 +5512,26 @@ export function refetchFindGroupQuery(variables?: FindGroupQueryVariables) {
       return { query: FindGroupDocument, variables: variables }
     }
 export const FindGroupPreviewsDocument = gql`
-    query FindGroupPreviews {
-  findGroupPreviews {
-    ...groupPreview
+    query FindGroupPreviews($where: FindGroupPreviewsWhereInput, $orderBy: FindGroupPreviewsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int! = 1, $take: Int!) {
+  findGroupPreviews(
+    where: $where
+    orderBy: $orderBy
+    keyword: $keyword
+    target: $target
+    cursor: $cursor
+    skip: $skip
+    take: $take
+  ) {
+    edges {
+      node {
+        ...groupPreview
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
   }
 }
     ${GroupPreviewFragmentDoc}`;
@@ -5491,10 +5548,17 @@ export const FindGroupPreviewsDocument = gql`
  * @example
  * const { data, loading, error } = useFindGroupPreviewsQuery({
  *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      keyword: // value for 'keyword'
+ *      target: // value for 'target'
+ *      cursor: // value for 'cursor'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
  *   },
  * });
  */
-export function useFindGroupPreviewsQuery(baseOptions?: Apollo.QueryHookOptions<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>) {
+export function useFindGroupPreviewsQuery(baseOptions: Apollo.QueryHookOptions<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables> & ({ variables: FindGroupPreviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>(FindGroupPreviewsDocument, options);
       }
@@ -5510,7 +5574,7 @@ export type FindGroupPreviewsQueryHookResult = ReturnType<typeof useFindGroupPre
 export type FindGroupPreviewsLazyQueryHookResult = ReturnType<typeof useFindGroupPreviewsLazyQuery>;
 export type FindGroupPreviewsSuspenseQueryHookResult = ReturnType<typeof useFindGroupPreviewsSuspenseQuery>;
 export type FindGroupPreviewsQueryResult = Apollo.QueryResult<FindGroupPreviewsQuery, FindGroupPreviewsQueryVariables>;
-export function refetchFindGroupPreviewsQuery(variables?: FindGroupPreviewsQueryVariables) {
+export function refetchFindGroupPreviewsQuery(variables: FindGroupPreviewsQueryVariables) {
       return { query: FindGroupPreviewsDocument, variables: variables }
     }
 export const FindOfferPreviewsDocument = gql`
