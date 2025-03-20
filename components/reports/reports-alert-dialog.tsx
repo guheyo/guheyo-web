@@ -33,7 +33,7 @@ export default function ReportsAlertDialog({ user }: { user: MyUserResponse }) {
       <BgDialog
         open={open}
         title="[신고 알림]"
-        content={`${user.username}님에게 신고가 접수되었어요\n\n적합한 소명 댓글을 달지 않을 경우\n이용 제한과 페널티가 부여되니\n사유에 대해 성실하게 소명해 주세요`}
+        content={`${user.username}님에게 신고가 접수되었어요\n\n적합한 소명 댓글을 달지 않을 경우\n이용 제한과 페널티가 부여되니\n사유에 대해 성실하게 소명해 주세요\n\n위반 행위에 대한 규칙을 숙지하고\n오류가 있다면 복구해 주세요\n\n최종 수정일 순서대로 검토됩니다\n\n*소명 댓글 수정 방법\n댓글 클릭 > 우측 메뉴 클릭`}
         closeButtonName="확인"
         onClose={handleClose}
       />
