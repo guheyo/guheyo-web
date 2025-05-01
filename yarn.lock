@@ -12504,13 +12504,13 @@ __metadata:
   linkType: hard
 
 "image-size@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "image-size@npm:1.1.0"
+  version: 1.2.1
+  resolution: "image-size@npm:1.2.1"
   dependencies:
     queue: 6.0.2
   bin:
     image-size: bin/image-size.js
-  checksum: 988290629f8e07b12d3a4647aa0e1f43b12c79a32c1d49f570dbd94177cae4391dfec9bffa32d082ab54c0b27b02d989ba622c3e047999d8878860f3e72cad35
+  checksum: 8601ddd4edc1db16f097f5cf585c23214e29c3b8f4d8a8f8d59b8e3bae2338c8a5073236bfff421d8541091a98a38b802ed049203c745286a69d1aac4e5bc4c7
   languageName: node
   linkType: hard
 
