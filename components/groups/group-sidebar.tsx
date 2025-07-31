@@ -146,11 +146,11 @@ export default function GroupSidebar({
           <SidebarItem
             href={parseChannelLink({
               groupSlug: group?.slug,
-              channelSlug: 'brand',
+              channelSlug: 'review',
             })}
-            icon={<FavoriteIcon fontSize="medium" />}
-            text="브랜드"
-            isActive={['brand', 'community'].includes(activeItem)}
+            icon={<StickyNote2Icon fontSize="medium" />}
+            text="거래 후기"
+            isActive={activeItem === 'review'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
@@ -158,11 +158,11 @@ export default function GroupSidebar({
           <SidebarItem
             href={parseChannelLink({
               groupSlug: group?.slug,
-              channelSlug: 'review',
+              channelSlug: 'brand',
             })}
-            icon={<StickyNote2Icon fontSize="medium" />}
-            text="거래 후기"
-            isActive={activeItem === 'review'}
+            icon={<FavoriteIcon fontSize="medium" />}
+            text="브랜드"
+            isActive={['brand', 'community'].includes(activeItem)}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
