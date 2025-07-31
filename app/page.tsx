@@ -21,8 +21,8 @@ function Page() {
         <OfferHome businessFunction="buy" />
         <OfferHome businessFunction="swap" />
         <GbHome />
-        <BrandOverview />
         <CommunityHome />
+        <BrandOverview />
         <div className="px-2 md:px-0 pt-4">
           <GroupFeed />
         </div>
