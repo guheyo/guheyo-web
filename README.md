@@ -1,8 +1,13 @@
 # guheyo-web
 
-> [guheyo.com](https://guheyo.com)은 디스코드 장터 [동물의 왕국](https://discord.com/servers/dongmulyi-wanggug-806383744151584779)에서 시작된 웹서비스에요
+> [guheyo.com](https://guheyo.com) is a web platform for secondhand trading of enthusiast-grade hobby gear.
+It started from the Discord community [동물의 왕국](https://discord.com/servers/dongmulyi-wanggug-806383744151584779), and grew into a niche-focused marketplace that supports keyboard, mouse, audio gear, and more.
 
-자세한 내용은 [wiki pages](https://github.com/guheyo/guheyo-server/wiki) 를 참고해 주세요
+Each hobby category is organized under /g/, such as:
+
+- /g/keyboard
+- /g/mouse
+- /g/audio
 
 ## Installation
 
