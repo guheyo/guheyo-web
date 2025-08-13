@@ -18,3 +18,10 @@ mutation Logout {
     socialId
   }
 }
+
+mutation Withdraw {
+  withdraw {
+    id
+    deletedAt
+  }
+}

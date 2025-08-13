@@ -436,6 +436,12 @@ export type DeleteCommentInput = {
   id: Scalars['ID']['input'];
 };
 
+export type DeleteUserResponse = {
+  __typename?: 'DeleteUserResponse';
+  deletedAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+};
+
 export type DeletedCommentResponse = {
   __typename?: 'DeletedCommentResponse';
   id: Scalars['ID']['output'];
@@ -828,6 +834,7 @@ export type Mutation = {
   updateUser: MutationResponse;
   updateUserImage: MutationResponse;
   upsertBrandsFromCsv: MutationResponse;
+  withdraw: DeleteUserResponse;
 };
 
 
@@ -2361,6 +2368,11 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'SocialUserResponse', provider: string, socialId: string } };
+
+export type WithdrawMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type WithdrawMutation = { __typename?: 'Mutation', withdraw: { __typename?: 'DeleteUserResponse', id: string, deletedAt: any } };
 
 export type BidFragment = { __typename?: 'BidResponse', id: string, createdAt: any, canceledAt?: any | null, price: number, priceCurrency: string, auctionId: string, status: string, user: { __typename?: 'AuthorResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null, followers?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, following?: Array<{ __typename?: 'UserResponse', id: string, createdAt: any, username: string, about?: string | null, avatarURL?: string | null, bot: boolean, followed?: boolean | null }> | null, socialAccounts: Array<{ __typename?: 'SocialAccountWithoutAuthResponse', id: string, createdAt: any, provider: string, socialId: string, userId: string }>, roles: Array<{ __typename?: 'RoleResponse', id: string, name: string, position?: number | null, hexColor: string, groupId?: string | null }> } };
 
@@ -4376,6 +4388,39 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const WithdrawDocument = gql`
+    mutation Withdraw {
+  withdraw {
+    id
+    deletedAt
+  }
+}
+    `;
+export type WithdrawMutationFn = Apollo.MutationFunction<WithdrawMutation, WithdrawMutationVariables>;
+
+/**
+ * __useWithdrawMutation__
+ *
+ * To run a mutation, you first call `useWithdrawMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useWithdrawMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [withdrawMutation, { data, loading, error }] = useWithdrawMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWithdrawMutation(baseOptions?: Apollo.MutationHookOptions<WithdrawMutation, WithdrawMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<WithdrawMutation, WithdrawMutationVariables>(WithdrawDocument, options);
+      }
+export type WithdrawMutationHookResult = ReturnType<typeof useWithdrawMutation>;
+export type WithdrawMutationResult = Apollo.MutationResult<WithdrawMutation>;
+export type WithdrawMutationOptions = Apollo.BaseMutationOptions<WithdrawMutation, WithdrawMutationVariables>;
 export const FindBidsDocument = gql`
     query FindBids($where: FindBidsWhereInput, $orderBy: FindBidsOrderByInput, $keyword: String, $target: String, $cursor: ID, $skip: Int!, $take: Int!) {
   findBids(
