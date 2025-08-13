@@ -4,8 +4,8 @@ import { List, ListItem } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShopIcon from '@mui/icons-material/Shop';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -158,11 +158,11 @@ export default function GroupSidebar({
           <SidebarItem
             href={parseChannelLink({
               groupSlug: group?.slug,
-              channelSlug: 'brand',
+              channelSlug: 'info',
             })}
-            icon={<FavoriteIcon fontSize="medium" />}
-            text="브랜드"
-            isActive={['brand', 'community'].includes(activeItem)}
+            icon={<InfoIcon fontSize="medium" />}
+            text="정보"
+            isActive={activeItem === 'info'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}

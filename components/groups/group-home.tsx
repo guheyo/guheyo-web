@@ -1,13 +1,13 @@
 'use client';
 
 import AuctionHome from '@/components/auction/auction-home';
-import BrandOverview from '@/components/brand/brand-overview';
-import CommunityHome from '@/components/community/community-home';
 import HomeFooter from '@/components/footers/home-footer';
 import GbHome from '@/components/gb/gb-home';
 import OfferHome from '@/components/offers/offer-home';
 import { useGroup } from '@/hooks/use-group';
 import GroupJoinSection from './group-join-section';
+import UserReviewHome from '../user-review/user-review-home';
+import InfoHome from '../info/info-home';
 
 export default function GroupHome() {
   const { group } = useGroup();
@@ -28,8 +28,8 @@ export default function GroupHome() {
         <OfferHome businessFunction="buy" />
         <OfferHome businessFunction="swap" />
         <GbHome />
-        <BrandOverview />
-        <CommunityHome />
+        <UserReviewHome />
+        <InfoHome />
       </div>
       <HomeFooter />
     </>
