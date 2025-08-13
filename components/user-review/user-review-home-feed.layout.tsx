@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import HomeFeedLayout from '../home/home-feed.layout';
 import MannerTagsNavbar from './manner-tags-navbar';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
-import CommunityMoreLink from '../community/community-more-link';
 import UserReviewSelectors from './user-review-selectors';
 import UserReviewHomeLink from './user-review-home-link';
+import UserReviewMoreLink from './user-review-more-link';
 
 interface Props {
   children: ReactNode;
@@ -39,7 +39,7 @@ function UserReviewHomeFeedLayout({
           </>
         )
       }
-      moreLink={showMoreLink && <CommunityMoreLink />}
+      moreLink={showMoreLink && <UserReviewMoreLink />}
     >
       {children}
     </HomeFeedLayout>
