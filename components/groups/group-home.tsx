@@ -1,7 +1,6 @@
 'use client';
 
 import AuctionHome from '@/components/auction/auction-home';
-import BrandOverview from '@/components/brand/brand-overview';
 import CommunityHome from '@/components/community/community-home';
 import HomeFooter from '@/components/footers/home-footer';
 import GbHome from '@/components/gb/gb-home';
@@ -30,7 +29,6 @@ export default function GroupHome() {
         <OfferHome businessFunction="swap" />
         <GbHome />
         <UserReviewHome />
-        <BrandOverview />
         <CommunityHome />
       </div>
       <HomeFooter />

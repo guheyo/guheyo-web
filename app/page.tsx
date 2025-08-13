@@ -1,5 +1,4 @@
 import AuctionHome from '@/components/auction/auction-home';
-import BrandOverview from '@/components/brand/brand-overview';
 import CommunityHome from '@/components/community/community-home';
 import HomeFooter from '@/components/footers/home-footer';
 import GbHome from '@/components/gb/gb-home';
@@ -24,7 +23,6 @@ function Page() {
         <GbHome />
         <UserReviewHome />
         <CommunityHome />
-        <BrandOverview />
         <div className="px-2 md:px-0 pt-4">
           <GroupFeed />
         </div>
