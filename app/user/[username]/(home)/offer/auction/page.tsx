@@ -6,9 +6,11 @@ import {
   FindAuctionPreviewsWhereInput,
   useFindUserQuery,
 } from '@/generated/graphql';
-import { use } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useEffect } from 'react';
 
 function Page({ params }: { params: Promise<{ username: string }> }) {
+  const router = useRouter();
   const { username } = use(params);
   const { loading, data } = useFindUserQuery({
     variables: {
@@ -17,6 +19,13 @@ function Page({ params }: { params: Promise<{ username: string }> }) {
     fetchPolicy: 'cache-first',
   });
   const user = data?.findUser;
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/');
+    }
+  }, [loading, user, router]);
+
 
   if (loading) return <div />;
   if (!user) return <div />;
