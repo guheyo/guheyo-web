@@ -3,9 +3,9 @@
 import { Box, Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useLogoutMutation, useWithdrawMutation } from '@/generated/graphql';
+import { useRouter } from 'next/navigation';
 import Avatar from '../avatar/avatar';
 import BgDialog from '../base/bg-dialog';
-import { useRouter } from 'next/navigation';
 
 export default function Withdraw({ username }: { username: string }) {
   const router = useRouter();
@@ -71,8 +71,8 @@ export default function Withdraw({ username }: { username: string }) {
 
       <Box mt={2}>
         <div>
-          회원 탈퇴를 진행할 계정 {' '}
-          <b className="text-gray-300">{username}</b> 을 정확히 입력하세요.
+          회원 탈퇴를 진행할 계정 <b className="text-gray-300">{username}</b> 을
+          정확히 입력하세요.
         </div>
 
         <TextField

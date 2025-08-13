@@ -26,7 +26,6 @@ function Page({ params }: { params: Promise<{ username: string }> }) {
     }
   }, [loading, user, router]);
 
-
   if (loading) return <div />;
   if (!user) return <div />;
 
