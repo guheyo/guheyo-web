@@ -29,13 +29,7 @@ function InfoHomeFeedLayout({
       homeLink={<InfoHomeLink />}
       path={hideGroupProfileNavbar ? undefined : 'info'}
       categories={undefined}
-      selectors={
-        showSelectors && (
-          <>
-            <FollowFilterClickButton />
-          </>
-        )
-      }
+      selectors={showSelectors && <FollowFilterClickButton />}
       moreLink={showMoreLink && <InfoMoreLink />}
     >
       {children}

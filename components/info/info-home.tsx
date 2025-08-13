@@ -1,10 +1,10 @@
 'use client';
 
 import { useGroup } from '@/hooks/use-group';
+import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 import ThreadPreview from '../thread/thread-preview';
 import { Mocks } from '../mock/mock';
 import InfoHomeFeedLayout from './info-home-feed-layout';
-import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
 
 export default function InfoHome() {
   const { group } = useGroup();
@@ -31,16 +31,14 @@ export default function InfoHome() {
       showSelectors={false}
       showMoreLink
     >
-      {edges.map((thread) => {
-        return (
-          <ThreadPreview
-            key={thread.node.id}
-            type="listview"
-            thread={thread.node}
-            displayGroup
-          />
-        )
-      })}
+      {edges.map((thread) => (
+        <ThreadPreview
+          key={thread.node.id}
+          type="listview"
+          thread={thread.node}
+          displayGroup
+        />
+      ))}
     </InfoHomeFeedLayout>
   );
 }

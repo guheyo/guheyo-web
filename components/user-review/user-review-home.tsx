@@ -1,9 +1,9 @@
 'use client';
 
 import { useGroup } from '@/hooks/use-group';
+import { useInfiniteUserReviewFeed } from '@/hooks/use-infinite-user-review-feed';
 import UserReviewPreview from './user-review-preview';
 import { Mocks } from '../mock/mock';
-import { useInfiniteUserReviewFeed } from '@/hooks/use-infinite-user-review-feed';
 import UserReviewHomeFeedLayout from './user-review-home-feed.layout';
 
 export default function UserReviewHome() {
@@ -23,13 +23,13 @@ export default function UserReviewHome() {
   const { edges } = data.findUserReviewPreviews;
 
   return (
-      <UserReviewHomeFeedLayout
-        hideGroupProfileNavbar
-        showCategories={false}
-        showTags={false}
-        showSelectors={false}
-        showMoreLink
-      >
+    <UserReviewHomeFeedLayout
+      hideGroupProfileNavbar
+      showCategories={false}
+      showTags={false}
+      showSelectors={false}
+      showMoreLink
+    >
       {edges.map((edge) => (
         <UserReviewPreview
           key={edge.node.id}
