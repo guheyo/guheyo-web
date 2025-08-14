@@ -5,6 +5,7 @@ import HomeFeedLayout from '../home/home-feed.layout';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
 import InfoHomeLink from './info-home-link';
 import InfoMoreLink from './info-more-link';
+import InfoSelectors from './info-selectors';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +30,14 @@ function InfoHomeFeedLayout({
       homeLink={<InfoHomeLink />}
       path={hideGroupProfileNavbar ? undefined : 'info'}
       categories={undefined}
-      selectors={showSelectors && <FollowFilterClickButton />}
+      selectors={
+        showSelectors && (
+          <>
+            <FollowFilterClickButton />
+            <InfoSelectors />
+          </>
+        )
+      }
       moreLink={showMoreLink && <InfoMoreLink />}
     >
       {children}
