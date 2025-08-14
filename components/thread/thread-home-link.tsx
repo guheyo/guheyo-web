@@ -7,7 +7,7 @@ function ThreadHomeLink() {
   return (
     <HomeLinkLayout path="thread">
       <ForumIcon />
-      <div>스레드</div>
+      <div>게시판</div>
     </HomeLinkLayout>
   );
 }

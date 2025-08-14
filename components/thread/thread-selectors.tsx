@@ -2,7 +2,7 @@
 
 import PeriodSelector from '../selectors/period-selector';
 
-export default function InfoSelectors() {
+export default function ThreadSelectors() {
   return (
     <div className="flex gap-1 md:gap-2 justify-end">
       <PeriodSelector />

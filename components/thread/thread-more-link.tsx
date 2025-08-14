@@ -4,14 +4,14 @@ import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutline
 import { isMobile } from 'react-device-detect';
 import MoreLinkLayout from '../more/more-link.layout';
 
-export default function InfoMoreLink() {
+export default function ThreadMoreLink() {
   return (
-    <MoreLinkLayout path="info">
+    <MoreLinkLayout path="thread">
       <span className="flex flex-row items-center gap-1">
         <PlayCircleOutlineOutlinedIcon
           fontSize={isMobile ? 'small' : 'medium'}
         />
-        정보
+        게시판
       </span>
     </MoreLinkLayout>
   );

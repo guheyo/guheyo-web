@@ -3,9 +3,9 @@
 import { ReactNode } from 'react';
 import HomeFeedLayout from '../home/home-feed.layout';
 import FollowFilterClickButton from '../follow/follow-filter-click-button';
-import InfoHomeLink from './info-home-link';
-import InfoMoreLink from './info-more-link';
-import InfoSelectors from './info-selectors';
+import ThreadHomeLink from './thread-home-link';
+import ThreadSelectors from './thread-selectors';
+import ThreadMoreLink from './thread-more-link';
 
 interface Props {
   children: ReactNode;
@@ -16,7 +16,7 @@ interface Props {
   showMoreLink: boolean;
 }
 
-function InfoHomeFeedLayout({
+function ThreadHomeFeedLayout({
   children,
   hideGroupProfileNavbar,
   showCategories,
@@ -27,22 +27,22 @@ function InfoHomeFeedLayout({
   return (
     <HomeFeedLayout
       postPreviewType="text"
-      homeLink={<InfoHomeLink />}
-      path={hideGroupProfileNavbar ? undefined : 'info'}
+      homeLink={<ThreadHomeLink />}
+      path={hideGroupProfileNavbar ? undefined : 'thread'}
       categories={undefined}
       selectors={
         showSelectors && (
           <>
             <FollowFilterClickButton />
-            <InfoSelectors />
+            <ThreadSelectors />
           </>
         )
       }
-      moreLink={showMoreLink && <InfoMoreLink />}
+      moreLink={showMoreLink && <ThreadMoreLink />}
     >
       {children}
     </HomeFeedLayout>
   );
 }
 
-export default InfoHomeFeedLayout;
+export default ThreadHomeFeedLayout;
