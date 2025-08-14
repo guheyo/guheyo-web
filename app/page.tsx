@@ -2,8 +2,8 @@ import AuctionHome from '@/components/auction/auction-home';
 import HomeFooter from '@/components/footers/home-footer';
 import GbHome from '@/components/gb/gb-home';
 import GroupFeed from '@/components/groups/group-feed';
-import InfoHome from '@/components/info/info-home';
 import OfferHome from '@/components/offers/offer-home';
+import ThreadHome from '@/components/thread/thread-home';
 import UserReviewHome from '@/components/user-review/user-review-home';
 import { Suspense } from 'react';
 
@@ -22,7 +22,7 @@ function Page() {
         <OfferHome businessFunction="swap" />
         <GbHome />
         <UserReviewHome />
-        <InfoHome />
+        <ThreadHome />
         <div className="px-2 md:px-0 pt-4">
           <GroupFeed />
         </div>

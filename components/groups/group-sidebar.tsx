@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShopIcon from '@mui/icons-material/Shop';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
-import InfoIcon from '@mui/icons-material/Info';
+import ForumIcon from '@mui/icons-material/Forum';
 import GavelIcon from '@mui/icons-material/Gavel';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -158,11 +158,11 @@ export default function GroupSidebar({
           <SidebarItem
             href={parseChannelLink({
               groupSlug: group?.slug,
-              channelSlug: 'info',
+              channelSlug: 'thread',
             })}
-            icon={<InfoIcon fontSize="medium" />}
-            text="정보"
-            isActive={activeItem === 'info'}
+            icon={<ForumIcon fontSize="medium" />}
+            text="게시판"
+            isActive={activeItem === 'thread'}
             paddingX={2}
             paddingY={1}
             onClick={handleMenuToggle}
