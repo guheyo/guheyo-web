@@ -1,7 +1,7 @@
 export async function generateMetadata() {
   return {
-    title: `스레드 검색 | 구해요`,
-    Description: `스레드를 찾아보세요`,
+    title: `게시물 검색 | 구해요`,
+    Description: `게시물을 찾아보세요`,
   };
 }
 
