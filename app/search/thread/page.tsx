@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 export default function Page() {
   return (
     <Suspense>
-      <SearchThreads categoryType='community' />
+      <SearchThreads categoryType="community" />
     </Suspense>
   );
 }
