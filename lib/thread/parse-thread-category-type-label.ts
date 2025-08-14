@@ -7,6 +7,6 @@ export const parseThreadCategoryTypeLabel = ({
     case 'gb':
       return '공동구매';
     default:
-      return '스레드';
+      return '게시판';
   }
 };

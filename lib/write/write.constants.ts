@@ -5,7 +5,7 @@ export const WRITABLE_CHANNELS = [
   'buy',
   'swap',
   'gb',
-  'community',
+  'thread',
 ];
 
 export const WRITABLE_CHANNEL_OPTIONS = [
@@ -18,7 +18,7 @@ export const WRITABLE_CHANNEL_OPTIONS = [
     label: '거래',
   },
   {
-    value: 'community',
+    value: 'thread',
     label: '포스팅',
   },
 ];

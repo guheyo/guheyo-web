@@ -1,7 +1,7 @@
 'use client';
 
-import InfoHomeFeedLayout from '@/components/info/info-home-feed-layout';
 import ThreadFeed from '@/components/thread/thread-feed';
+import ThreadHomeFeedLayout from '@/components/thread/thread-home-feed-layout';
 import { SortOrder } from '@/types/sort.types';
 import { Suspense } from 'react';
 
@@ -15,7 +15,7 @@ export default function Page() {
 
   return (
     <Suspense>
-      <InfoHomeFeedLayout
+      <ThreadHomeFeedLayout
         showCategories={false}
         showTags={false}
         showSelectors
@@ -27,7 +27,7 @@ export default function Page() {
           defaultOrderBy={orderBy}
           showInput
         />
-      </InfoHomeFeedLayout>
+      </ThreadHomeFeedLayout>
     </Suspense>
   );
 }

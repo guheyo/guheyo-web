@@ -24,7 +24,7 @@ export default function SearchThreads({
 
   return (
     <SearchContainer
-      placeholder="어떤 스레드를 찾고 있나요?"
+      placeholder="어떤 게시물를 찾고 있나요?"
       options={POST_SEARCH_OPTIONS}
       selectors={
         <>

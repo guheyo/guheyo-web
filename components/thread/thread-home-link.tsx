@@ -1,13 +1,13 @@
 'use client';
 
-import ForumIcon from '@mui/icons-material/Forum';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import HomeLinkLayout from '@/components/home/home-link.layout';
 
 function ThreadHomeLink() {
   return (
     <HomeLinkLayout path="thread">
-      <ForumIcon />
-      <div>스레드</div>
+      <ChatBubbleIcon />
+      <div>게시판</div>
     </HomeLinkLayout>
   );
 }

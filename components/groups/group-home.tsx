@@ -7,7 +7,7 @@ import OfferHome from '@/components/offers/offer-home';
 import { useGroup } from '@/hooks/use-group';
 import GroupJoinSection from './group-join-section';
 import UserReviewHome from '../user-review/user-review-home';
-import InfoHome from '../info/info-home';
+import ThreadHome from '../thread/thread-home';
 
 export default function GroupHome() {
   const { group } = useGroup();
@@ -29,7 +29,7 @@ export default function GroupHome() {
         <OfferHome businessFunction="swap" />
         <GbHome />
         <UserReviewHome />
-        <InfoHome />
+        <ThreadHome />
       </div>
       <HomeFooter />
     </>

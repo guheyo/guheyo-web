@@ -1,12 +1,12 @@
 'use client';
 
-import SearchCommunity from '@/components/search/search-community';
+import SearchThreads from '@/components/search/search-threads';
 import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <Suspense>
-      <SearchCommunity />
+      <SearchThreads categoryType="community" />
     </Suspense>
   );
 }

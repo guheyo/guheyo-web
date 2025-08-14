@@ -2,11 +2,11 @@
 
 import { useGroup } from '@/hooks/use-group';
 import { useInfiniteThreadFeed } from '@/hooks/use-infinite-thread-feed';
-import ThreadPreview from '../thread/thread-preview';
+import ThreadPreview from './thread-preview';
 import { Mocks } from '../mock/mock';
-import InfoHomeFeedLayout from './info-home-feed-layout';
+import ThreadHomeFeedLayout from './thread-home-feed-layout';
 
-export default function InfoHome() {
+export default function ThreadHome() {
   const { group } = useGroup();
   const { loading, data } = useInfiniteThreadFeed({
     where: {
@@ -24,7 +24,7 @@ export default function InfoHome() {
 
   const { edges } = data.findThreadPreviews;
   return (
-    <InfoHomeFeedLayout
+    <ThreadHomeFeedLayout
       hideGroupProfileNavbar
       showCategories={false}
       showTags={false}
@@ -39,6 +39,6 @@ export default function InfoHome() {
           displayGroup
         />
       ))}
-    </InfoHomeFeedLayout>
+    </ThreadHomeFeedLayout>
   );
 }
