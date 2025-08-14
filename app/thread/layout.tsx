@@ -3,8 +3,8 @@ import AdSense from '../adsense/ad-sense';
 
 export async function generateMetadata() {
   return {
-    title: `정보 | 구해요`,
-    Description: `정보`,
+    title: `게시판 | 구해요`,
+    Description: `게시판`,
   };
 }
 
