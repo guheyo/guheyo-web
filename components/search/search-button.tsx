@@ -25,8 +25,8 @@ const findPlaceholder = (location: string): string => {
     return '교환을 검색해보세요';
   if (location === 'gb' || location === 'group-gb')
     return '공동구매를 검색해보세요';
-  if (location === 'community' || location === 'group-community')
-    return '스레드를 검색해보세요';
+  if (location === 'thread' || location === 'group-thread')
+    return '게시물을 검색해보세요';
   if (location === 'brand' || location === 'group-brand')
     return '브랜드를 검색해보세요';
   if (location === 'review' || location === 'group-review')
