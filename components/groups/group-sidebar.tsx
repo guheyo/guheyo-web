@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import ShopIcon from '@mui/icons-material/Shop';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
-import ForumIcon from '@mui/icons-material/Forum';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import GavelIcon from '@mui/icons-material/Gavel';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -160,7 +160,7 @@ export default function GroupSidebar({
               groupSlug: group?.slug,
               channelSlug: 'thread',
             })}
-            icon={<ForumIcon fontSize="medium" />}
+            icon={<ChatBubbleIcon fontSize="medium" />}
             text="게시판"
             isActive={activeItem === 'thread'}
             paddingX={2}
