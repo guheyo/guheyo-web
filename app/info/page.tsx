@@ -17,8 +17,8 @@ export default function Page() {
     <Suspense>
       <InfoHomeFeedLayout
         showCategories={false}
-        showSelectors
         showTags={false}
+        showSelectors
         showMoreLink={false}
       >
         <ThreadFeed
